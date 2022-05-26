@@ -35,6 +35,11 @@ export default function Prize({
     </div>
   );
 
+  function placeArrow(TooltipNode) {
+    const arrow = TooltipNode.querySelector('.rc-tooltip-arrow');
+    arrow.style.left = '33%';
+  }
+
   const component = (
     <div
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
@@ -43,7 +48,7 @@ export default function Prize({
     >
       {((onlyShowTooltipForPrize && !withoutTooltip)
         ? (
-          <Tooltip content={tip}>
+          <Tooltip content={tip} placeArrow={placeArrow}>
             {prizeUI}
           </Tooltip>
         )

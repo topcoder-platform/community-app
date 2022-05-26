@@ -1,3 +1,10 @@
+@import "~styles/mixins";
+
 .nav-header-wrapper {
   z-index: 2;
+}
+
+@include xs-to-sm {
+  margin: auto;
+  flex-direction: column;
 }

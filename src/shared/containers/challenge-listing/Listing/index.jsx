@@ -40,6 +40,15 @@ const { mapToBackend } = challengeUtils.filter;
 let mounted = false;
 
 export class ListingContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      previousBucketOfActiveTab: null,
+      previousBucketOfPastChallengesTab: null,
+    };
+  }
+
   componentDidMount() {
     const {
       activeBucket,
@@ -63,7 +72,7 @@ export class ListingContainer extends React.Component {
     }
 
     if (!communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
+      && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
       getCommunitiesList(auth);
     }
 
@@ -75,7 +84,9 @@ export class ListingContainer extends React.Component {
 
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
-    } else mounted = true;
+    } else {
+      mounted = true;
+    }
 
     // if (BUCKETS.PAST !== activeBucket) {
     // dropChallenges();
@@ -86,7 +97,11 @@ export class ListingContainer extends React.Component {
       const groups = selectedCommunity.groupIds && selectedCommunity.groupIds.length
         ? [selectedCommunity.groupIds[0]] : [];
       // update the challenge listing filter for selected community
-      setFilter({ ..._.clone(filter), groups, events: [] });
+      setFilter({
+        ..._.clone(filter),
+        groups,
+        events: [],
+      });
     }
     // }
   }
@@ -144,8 +159,16 @@ export class ListingContainer extends React.Component {
     const f = this.getBackendFilter();
 
     const fA = {
-      back: { ..._.clone(f.back), startDateEnd: null, endDateStart: null },
-      front: { ..._.clone(f.front), startDateEnd: null, endDateStart: null },
+      back: {
+        ..._.clone(f.back),
+        startDateEnd: null,
+        endDateStart: null,
+      },
+      front: {
+        ..._.clone(f.front),
+        startDateEnd: null,
+        endDateStart: null,
+      },
     };
 
     if (prevProps.filterState.recommended !== filterState.recommended && filterState.recommended) {
@@ -241,8 +264,9 @@ export class ListingContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    if (mounted) mounted = false;
-    else {
+    if (mounted) {
+      mounted = false;
+    } else {
       logger.error('A mounted instance of ChallengeListingPageContainer is not tracked as mounted!');
     }
     if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
@@ -470,6 +494,11 @@ export class ListingContainer extends React.Component {
       filterState,
     } = this.props;
 
+    const {
+      previousBucketOfActiveTab,
+      previousBucketOfPastChallengesTab,
+    } = this.state;
+
     const { tokenV3 } = auth;
     const handle = _.get(auth, 'user.handle');
 
@@ -642,6 +671,14 @@ export class ListingContainer extends React.Component {
           isLoggedIn={isLoggedIn}
           meta={meta}
           setSearchText={setSearchText}
+          previousBucketOfActiveTab={previousBucketOfActiveTab}
+          previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
+          setPreviousBucketOfActiveTab={(bucket) => {
+            this.setState({ previousBucketOfActiveTab: bucket });
+          }}
+          setPreviousBucketOfPastChallengesTab={(bucket) => {
+            this.setState({ previousBucketOfPastChallengesTab: bucket });
+          }}
         />
       </div>
     );

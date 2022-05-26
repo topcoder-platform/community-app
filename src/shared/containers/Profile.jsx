@@ -7,22 +7,31 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
+import shortId from 'shortid';
 import MetaTags from 'components/MetaTags';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
 import { loadPublicStatsOnly } from 'utils/memberStats';
 
+// how many challenges to query per batch
+const CHALLENGE_PER_PAGE = 36;
+
 class ProfileContainer extends React.Component {
   componentDidMount() {
     const {
       handleParam,
       loadProfile,
+      loadMarathon,
       meta,
       auth,
+      info,
     } = this.props;
     loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
 
+    if (info) {
+      loadMarathon(handleParam, auth.tokenV3, info.userId);
+    }
     // Redirect to the communities own profile page if
     //  - the member whose profile is being viewed is part of one of the configured communities
     //  - the user is not a topcoder user (has an email with @topcoder.com)
@@ -53,6 +62,7 @@ class ProfileContainer extends React.Component {
       handleParam,
       profileForHandle,
       loadProfile,
+      loadMarathon,
       loadMemberGroups,
       meta,
       auth,
@@ -69,6 +79,9 @@ class ProfileContainer extends React.Component {
       loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
     }
 
+    if (info && info.userId && info !== prevInfo) {
+      loadMarathon(handleParam, auth.tokenV3, info.userId);
+    }
     if (auth.tokenV3 && auth.user && auth.user.handle !== handleParam
       && info != null && info.userId != null
       && (prevInfo == null || info.userId !== prevInfo.userId)) {
@@ -158,6 +171,7 @@ ProfileContainer.propTypes = {
   handleParam: PT.string.isRequired,
   info: PT.shape(),
   loadingError: PT.bool.isRequired,
+  loadMarathon: PT.bool.isRequired,
   loadProfile: PT.func.isRequired,
   loadMemberGroups: PT.func.isRequired,
   profileForHandle: PT.string,
@@ -170,6 +184,8 @@ ProfileContainer.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
+  challenges: state.members[ownProps.match.params.handle]
+    ? state.members[ownProps.match.params.handle].subtrackChallenges : null,
   achievements: state.profile.achievements,
   copilot: state.profile.copilot,
   country: state.profile.country,
@@ -192,6 +208,7 @@ const mapStateToProps = (state, ownProps) => ({
 function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   const lookupActions = actions.lookup;
+  const memberActions = actions.members;
   return {
     loadMemberGroups: (userId, tokenV3) => {
       dispatch(actions.groups.getMemberGroups(userId, tokenV3));
@@ -213,6 +230,19 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getSkillsDone(handle));
       dispatch(a.getStatsDone(handle, showPublicStats ? undefined : groupIds, tokenV3));
       dispatch(lookupActions.getCountriesDone());
+    },
+    loadMarathon: (handle, tokenV3, memberId) => {
+      const uuid = shortId();
+      dispatch(memberActions.getUserMarathonInit(handle, uuid));
+      dispatch(memberActions.getUserMarathonDone(
+        uuid,
+        handle,
+        memberId,
+        tokenV3,
+        1,
+        CHALLENGE_PER_PAGE,
+        true,
+      ));
     },
   };
 }

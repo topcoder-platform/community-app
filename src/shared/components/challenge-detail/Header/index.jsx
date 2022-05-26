@@ -12,7 +12,7 @@ import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React from 'react';
-import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
@@ -58,6 +58,7 @@ export default function ChallengeHeader(props) {
     submissionEnded,
     mySubmissions,
     openForRegistrationChallenges,
+    onSort,
   } = props;
 
   const {
@@ -120,10 +121,10 @@ export default function ChallengeHeader(props) {
   }
 
   /* userDetails.hasUserSubmittedForReview does not reset to false
-   * if the user has deleted all of their submissions, so we have to
-   * iterate through all their submissions and ensure that all of them
-   * are Deleted
-  */
+     * if the user has deleted all of their submissions, so we have to
+     * iterate through all their submissions and ensure that all of them
+     * are Deleted
+    */
   const hasSubmissions = !_.isEmpty(mySubmissions);
 
   const openPhases = sortedAllPhases.filter(p => p.isOpen);
@@ -159,7 +160,7 @@ export default function ChallengeHeader(props) {
         return false;
       }
       if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint')
-        || phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
+          || phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
         return true;
       }
       return false;
@@ -180,7 +181,7 @@ export default function ChallengeHeader(props) {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
       const endPhaseDate = Math.max(...phases2.map(d => phaseEndDate(d)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')
-        || phaseEndDate(p).getTime() < endPhaseDate));
+          || phaseEndDate(p).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
         name: 'Winners',
@@ -219,7 +220,7 @@ export default function ChallengeHeader(props) {
             <span styleName="deadline-highlighted">
               {nextDeadline || '-'}
             </span>
-          }
+            }
         </div>
       );
       break;
@@ -251,11 +252,16 @@ export default function ChallengeHeader(props) {
     _.some(allPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
   }
 
+  const disabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
+  const registerButtonDisabled = registering || registrationEnded || isLegacyMM;
+  const unregisterButtonDisabled = unregistering
+    || registrationEnded || hasSubmissions || isLegacyMM;
+
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
         <div styleName="title-wrapper" aria-hidden={isMenuOpened}>
-          <Link to={challengesUrl} aria-label="Back to challenge list">
+          <Link to={challengesUrl} aria-label="Back to challenge list" styleName="back-arrow">
             <LeftArrow styleName="left-arrow" />
           </Link>
           <div>
@@ -275,38 +281,38 @@ export default function ChallengeHeader(props) {
                 openForRegistrationChallenges={openForRegistrationChallenges}
               />
               {(hasRecommendedChallenges || hasThriveArticles) && (
-                <div styleName="recommend-container">
-                  {hasRecommendedChallenges && (
-                    <div
-                      styleName="recommend-tag link"
-                      role="button"
-                      tabIndex={0}
-                      onClick={
-                        () => {
-                          document.getElementById('recommendedActiveChallenges').scrollIntoView();
-                        }}
-                    >
-                      Recommended Challenges
-                    </div>
-                  )}
-
-                  {hasRecommendedChallenges && hasThriveArticles && (
-                    <div styleName="recommend-tag separator" />
-                  )}
-
-                  {hasThriveArticles && (
-                    <div
-                      styleName="recommend-tag link"
-                      role="button"
-                      tabIndex={0}
-                      onClick={
-                        () => {
-                          document.getElementById('recommendedThriveArticles').scrollIntoView();
-                        }}
-                    >Recommended THRIVE Articles
-                    </div>
-                  )}
+              <div styleName="recommend-container">
+                {hasRecommendedChallenges && (
+                <div
+                  styleName="recommend-tag link"
+                  role="button"
+                  tabIndex={0}
+                  onClick={
+                          () => {
+                            document.getElementById('recommendedActiveChallenges').scrollIntoView();
+                          }}
+                >
+                  Recommended Challenges
                 </div>
+                )}
+
+                {hasRecommendedChallenges && hasThriveArticles && (
+                <div styleName="recommend-tag separator" />
+                )}
+
+                {hasThriveArticles && (
+                <div
+                  styleName="recommend-tag link"
+                  role="button"
+                  tabIndex={0}
+                  onClick={
+                          () => {
+                            document.getElementById('recommendedThriveArticles').scrollIntoView();
+                          }}
+                >Recommended THRIVE Articles
+                </div>
+                )}
+              </div>
               )}
             </div>
           </div>
@@ -318,114 +324,118 @@ export default function ChallengeHeader(props) {
             </h2>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
-              bonusType ? (
-                <div id={`bonus-${trackLower}`} styleName="bonus-div">
-                  {
-                    bonusType === 'Bonus'
-                      ? (
-                        <p styleName="bonus-text">
-                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            BONUS:
-                            {' '}
-                            {numberOfCheckpointsPrizes}
-                          </span>
-                          &zwnj;
-                          CHECKPOINTS AWARDED WORTH
-                          &zwnj;
-                          <span
-                            styleName={`bonus-highlight ${trackLower}-accent-color`}
-                          >
-                            $
-                            {topCheckPointPrize}
-                          </span>
-                          &zwnj;
-                          EACH
-                        </p>
-                      )
-                      : (
-                        <p styleName="bonus-text">
-                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            RELIABILITY BONUS: $
-                            {reliabilityBonus.toFixed()}
-                          </span>
-                        </p>
-                      )
-                  }
-                </div>
-              ) : null
-            }
+                bonusType ? (
+                  <div id={`bonus-${trackLower}`} styleName="bonus-div">
+                    {
+                      bonusType === 'Bonus'
+                        ? (
+                          <p styleName="bonus-text">
+                            <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                              BONUS:
+                              {' '}
+                              {numberOfCheckpointsPrizes}
+                            </span>
+                            &zwnj;
+                            CHECKPOINTS AWARDED WORTH
+                            &zwnj;
+                            <span
+                              styleName={`bonus-highlight ${trackLower}-accent-color`}
+                            >
+                              $
+                              {topCheckPointPrize}
+                            </span>
+                            &zwnj;
+                            EACH
+                          </p>
+                        )
+                        : (
+                          <p styleName="bonus-text">
+                            <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                              RELIABILITY BONUS: $
+                              {reliabilityBonus.toFixed()}
+                            </span>
+                          </p>
+                        )
+                    }
+                  </div>
+                ) : null
+              }
             {
-              drPoints ? (
-                <div styleName="bonus-div">
-                  <p styleName="bonus-text">
-                    <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                      POINTS:
-                      {drPoints}
-                    </span>
-                  </p>
-                </div>
-              ) : null
-            }
+                drPoints ? (
+                  <div styleName="bonus-div">
+                    <p styleName="bonus-text">
+                      <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                        POINTS:
+                        {drPoints}
+                      </span>
+                    </p>
+                  </div>
+                ) : null
+              }
           </div>
           <div styleName="challenge-ops-wrapper">
             <div styleName="challenge-ops-container">
               {hasRegistered ? (
-                <DangerButton
-                  disabled={unregistering || registrationEnded
-                  || hasSubmissions || isLegacyMM}
+                <PrimaryButton
+                  disabled={unregisterButtonDisabled}
                   forceA
                   onClick={unregisterFromChallenge}
-                  theme={{ button: style.challengeAction }}
+                  theme={{
+                    button: unregisterButtonDisabled
+                      ? style.submitButtonDisabled
+                      : style.unregisterButton,
+                  }}
                 >
                   Unregister
-                </DangerButton>
+                </PrimaryButton>
               ) : (
                 <PrimaryButton
-                  disabled={registering || registrationEnded || isLegacyMM}
+                  disabled={registerButtonDisabled}
+                  theme={{
+                    button: registerButtonDisabled ? style.submitButtonDisabled : style.registerBtn,
+                  }}
                   forceA
                   onClick={registerForChallenge}
-                  theme={{ button: style.challengeAction }}
                 >
                   Register
                 </PrimaryButton>
               )}
               <PrimaryButton
-                disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
-                theme={{ button: style.challengeAction }}
+                disabled={disabled}
+                theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
                 Submit
               </PrimaryButton>
               {
-                track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
-                && hasSubmissions && (
-                  <PrimaryButton
-                    theme={{ button: style.challengeAction }}
-                    to={`${challengesUrl}/${challengeId}/my-submissions`}
-                  >
-                    View Submissions
-                  </PrimaryButton>
-                )
-              }
+                  track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+                  && hasSubmissions && (
+                    <PrimaryButton
+                      theme={{ button: style.submitButton }}
+                      to={`${challengesUrl}/${challengeId}/my-submissions`}
+                    >
+                      View Submissions
+                    </PrimaryButton>
+                  )
+                }
             </div>
           </div>
         </div>
         <div styleName="deadlines-view">
-          <div styleName="deadlines-overview">
+          <div styleName={`deadlines-overview ${showDeadlineDetail ? 'opened' : ''}`}>
             <div styleName="deadlines-overview-text">
               {nextDeadlineMsg}
               {
-                (status || '').toLowerCase() === 'active'
-                && (
-                <div styleName="current-phase">
-                  <span styleName="deadline-highlighted">
-                    {timeLeft}
-                  </span>
-                  {' '}
-                  until current deadline ends
-                </div>
-                )
-              }
+                  (status || '').toLowerCase() === 'active'
+                  && (
+                  <div styleName="current-phase">
+                    Current Deadline Ends:{' '}
+                    <span styleName="deadline-highlighted">
+                      {timeLeft}
+                    </span>
+                  </div>
+                  )
+                }
             </div>
             <a
               onClick={onToggleDeadlines}
@@ -437,23 +447,21 @@ export default function ChallengeHeader(props) {
               {showDeadlineDetail
                 ? (
                   <span styleName="collapse-text">
-                    Hide Deadlines
                     <ArrowDown />
                   </span>
                 )
                 : (
                   <span styleName="collapse-text">
-                    Show Deadlines
                     <ArrowUp />
                   </span>
                 )
-              }
+                }
             </a>
           </div>
           {
-            showDeadlineDetail
-            && <DeadlinesPanel deadlines={relevantPhases} />
-          }
+              showDeadlineDetail
+              && <DeadlinesPanel deadlines={relevantPhases} />
+            }
         </div>
         <TabSelector
           isLoggedIn={isLoggedIn}
@@ -470,6 +478,7 @@ export default function ChallengeHeader(props) {
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
+          onSort={onSort}
         />
       </div>
     </div>
@@ -534,4 +543,5 @@ ChallengeHeader.propTypes = {
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
+  onSort: PT.func.isRequired,
 };

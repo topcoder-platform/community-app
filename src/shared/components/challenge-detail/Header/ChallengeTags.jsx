@@ -77,15 +77,19 @@ export default function ChallengeTags(props) {
       {
         challengeType
         && (
-          <TrackTag
-            onClick={() => (
-              setImmediate(() => setChallengeListingFilter({ types: [challengeType.abbreviation] }))
-            )
-            }
-            to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
-          >
-            {challengeType.name}
-          </TrackTag>
+          <div styleName={`type-tag ${track === COMPETITION_TRACKS.QA ? 'qa' : ''}`}>
+            <TrackTag
+              onClick={() => (
+                setImmediate(() => setChallengeListingFilter(
+                  { types: [challengeType.abbreviation] },
+                ))
+              )
+              }
+              to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
+            >
+              {challengeType.name}
+            </TrackTag>
+          </div>
         )
       }
       {
@@ -124,15 +128,17 @@ export default function ChallengeTags(props) {
         tags.map(tag => (
           tag
               && (
-              <Tag
-                key={tag}
-                onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
-                }
-                to={`${challengesUrl}?search=${
-                  encodeURIComponent(tag)}`}
-              >
-                {tag}
-              </Tag>
+              <span>
+                <Tag
+                  key={tag}
+                  onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
+                  }
+                  to={`${challengesUrl}?search=${
+                    encodeURIComponent(tag)}`}
+                >
+                  {tag}
+                </Tag>
+              </span>
               )
         ))
       }

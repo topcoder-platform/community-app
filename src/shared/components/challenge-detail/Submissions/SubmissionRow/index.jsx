@@ -7,22 +7,23 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { getRatingLevel } from 'utils/tc';
+import { Modal } from 'topcoder-react-ui-kit';
+import IconClose from 'assets/images/icon-close-green.svg';
 import moment from 'moment';
 
-import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import Failed from '../../icons/failed.svg';
 import InReview from '../../icons/in-review.svg';
 import Queued from '../../icons/queued.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
 
-import './style.scss';
+import style from './style.scss';
 
 export default function SubmissionRow({
   isMM, openHistory, member, submissions, score, toggleHistory,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating,
 }) {
   const {
-    submissionTime, provisionalScore, status,
+    submissionTime, provisionalScore, status, submissionId,
   } = submissions[0];
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
@@ -54,30 +55,38 @@ export default function SubmissionRow({
       if (s && s < 0) return 0;
       return s;
     }
-    return '-';
+    return 'N/A';
   };
 
   return (
-    <div styleName="container">
+    <div styleName="wrapper">
       <div styleName="row">
         {
           isMM ? (
-            <div styleName="col-1 col">
-              <div styleName="col col-left">
+            <React.Fragment>
+              <div styleName="col-1 col">
+                <div styleName="mobile-header">FINAL RANK</div>
                 {
-                  isReviewPhaseComplete ? finalRank || '-' : '-'
-                }
+                    isReviewPhaseComplete ? finalRank || 'N/A' : 'N/A'
+                  }
               </div>
-              <div styleName="col">
-                { provisionalRank || '-' }
+              <div styleName="mobile-header">PROVISIONAL RANK</div>
+              <div styleName="col-2 col">
+                <div>
+                  { provisionalRank || 'N/A' }
+                </div>
               </div>
-            </div>
+            </React.Fragment>
           ) : null
         }
-        <div styleName="col-2 col">
+        <div styleName="col-3 col">
+          <div styleName="mobile-header">RATING</div>
           <span styleName={`col level-${getRatingLevel(rating)}`}>
             {rating || '-'}
           </span>
+        </div>
+        <div styleName="col-4 col">
+          <div styleName="mobile-header">USERNAME</div>
           <a
             href={`${window.origin}/members/${member}`}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
@@ -87,77 +96,98 @@ export default function SubmissionRow({
             {member || '-'}
           </a>
         </div>
-        <div styleName="col-3 col">
-          <div styleName="col col-left">
+        <div styleName="col-5 col">
+          <div styleName="mobile-header">FINAL SCORE</div>
+          <div>
             {getFinalReviewResult()}
           </div>
-          <div styleName="col">
-            {getInitialReviewResult()}
+        </div>
+        <div styleName="col-6 col">
+          <div styleName="mobile-header">PROVISIONAL SCORE</div>
+          <div>
+            {getInitialReviewResult() ? getInitialReviewResult() : 'N/A'}
           </div>
-          <div styleName="col time">
+        </div>
+        <div styleName="col-7 col">
+          <div styleName="mobile-header">SUBMISSION DATE</div>
+          <div styleName="time">
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
-        <div styleName="col-4 col">
+        <div styleName="col-8 col">
+          <div styleName="mobile-header">ACTIONS</div>
           <a
             onClick={toggleHistory}
             onKeyPress={toggleHistory}
           >
-            <span>
-              <span styleName="text">
-                History (
-                {submissions.length}
-                )
-              </span>
-              { openHistory ? (<ArrowNext styleName="icon down" />) : (<ArrowNext styleName="icon" />)}
+            <span styleName="text">
+              History (
+              {submissions.length}
+              )
             </span>
           </a>
         </div>
       </div>
-      {openHistory
-      && (
-        <div styleName="history">
-          <div>
-            <div styleName="row no-border history-head">
-              { isMM ? <div styleName="col-1 col" /> : null }
-              <div styleName="col-2 col">
-                Submission
+      { openHistory && (
+        <Modal onCancel={toggleHistory} theme={style}>
+          <div styleName="history">
+            <div styleName="header">
+              <h2 styleName="title">Submission History</h2>
+              <div styleName="icon" role="presentation" onClick={toggleHistory}>
+                <IconClose />
               </div>
-              <div styleName="col-3 col">
-                <div styleName="col" />
-                <div styleName="col">
-                  Final
+            </div>
+            <hr />
+            <div styleName="submission-text">
+              Submission: <span>{submissionId}</span>
+            </div>
+            <div>
+              <div styleName="row no-border history-head">
+                { isMM ? <div styleName="col-1 col" /> : null }
+                <div styleName="col-2 col">
+                  Submission
                 </div>
-                <div styleName="col">
-                  Provisional
+                <div styleName="col-3 col">
+                  <div styleName="col" />
+                  <div styleName="col">
+                    Final Score
+                  </div>
                 </div>
+                <div styleName="col-4 col">
+                  <div styleName="col">
+                    Provisional Score
+                  </div>
+                </div>
+                <div styleName="col-5 col">
+                  Time
+                </div>
+                {
+                  isMM && (
+                    <div styleName="col">&nbsp;</div>
+                  )
+                }
               </div>
-              <div styleName={`col-4 col ${isMM ? 'mm' : ''}`}>
-                Time
-              </div>
-              {
-                isMM && (
-                  <div styleName="col-5 col">&nbsp;</div>
-                )
-              }
+            </div>
+            {
+              submissions.map((submissionHistory, index) => (
+                <SubmissionHistoryRow
+                  isReviewPhaseComplete={isReviewPhaseComplete}
+                  isMM={isMM}
+                  submission={submissions.length - index}
+                  {...submissionHistory}
+                  key={submissionHistory.submissionId}
+                  onShowPopup={onShowPopup}
+                  member={member}
+                />
+              ))
+            }
+            <div styleName="close-btn" onClick={toggleHistory} role="presentation">
+              <span>CLOSE</span>
             </div>
           </div>
-          {
-            submissions.map((submissionHistory, index) => (
-              <SubmissionHistoryRow
-                isReviewPhaseComplete={isReviewPhaseComplete}
-                isMM={isMM}
-                submission={submissions.length - index}
-                {...submissionHistory}
-                key={submissionHistory.submissionId}
-                onShowPopup={onShowPopup}
-                member={member}
-              />
-            ))
-          }
-        </div>
+        </Modal>
       )
-      }
+          }
     </div>
   );
 }

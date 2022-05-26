@@ -18,7 +18,7 @@ const ChallengeCardPlaceholder = ({ id }) => (
 
       <div styleName="challenge-details">
         <div styleName="challenge-title placeholder-template" />
-        <div styleName="details-footer placeholder-template" />
+        <div styleName="details-footer placeholder-template footer-template" />
       </div>
     </div>
     <div styleName="right-panel">

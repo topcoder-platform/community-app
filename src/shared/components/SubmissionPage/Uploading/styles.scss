@@ -14,13 +14,6 @@
   padding: 30px;
 }
 
-.link,
-.link:visited {
-  font-size: 20px;
-  line-height: 30px;
-  color: #1a85ff;
-}
-
 .uploading {
   display: flex;
   flex-direction: column;
@@ -28,62 +21,136 @@
   width: 100%;
 
   .error-msg {
+    @include roboto-bold;
+
+    font-weight: 500;
     width: 500px;
-    margin-bottom: 45px;
-    padding: 5px 13px;
-    background: #fff4f4;
-    border: 1px solid #ffd4d1;
-    color: #f22f24;
-    font-size: 13px;
-    border-radius: 2px;
-    font-style: italic;
+    margin-bottom: 24px;
+    color: #ef476f;
+    line-height: 24px;
+    font-size: 16px;
     text-align: center;
+
+    @include xs-to-sm {
+      width: 100%;
+    }
   }
 
   .progress-container {
-    width: 650px;
+    width: 90%;
     height: 10px;
-    background-color: $tc-gray-10;
-    border-radius: 12px;
+    background-color: #e9e9e9;
+    border-radius: 8px;
 
     .progress-bar {
       width: 0%;
-      height: 10px;
-      background-color: $tc-dark-blue;
-      border-radius: 12px;
+      height: 16px;
+      background-color: #9d41c9;
+      border-radius: 8px;
     }
   }
 
   h3 {
-    font-size: 20px;
-    line-height: 30px;
-    color: #3d3d3d;
+    @include barlow-bold;
+
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 600;
+    color: $tc-black;
   }
 
   svg {
-    margin-top: 50px;
+    margin-top: 84px;
+
+    @include xs-to-md {
+      margin-top: 40px;
+    }
+  }
+
+  div.animate {
+    svg {
+      animation-name: spin;
+      animation-duration: 2000ms;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+  }
+
+  h4.link {
+    @include roboto-regular;
+
+    font-weight: 400;
+    text-align: center;
+    font-size: 24px;
+    line-height: 32px;
+    color: $tc-black;
+    margin-top: 24px;
   }
 
   p {
-    font-size: 15px;
-    color: #a3a3ad;
-    width: 80%;
+    @include roboto-bold;
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: $tc-black;
     text-align: center;
-    line-height: 18px;
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 80px;
+
+    @include xs-to-md {
+      margin-top: 40px;
+    }
   }
 
   .submitting {
-    margin-top: 20px;
-    font-size: 13px;
+    @include roboto-regular;
+
+    font-weight: 400;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 22px;
     color: $tc-black;
   }
 
   .button-container {
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     display: flex;
     justify-content: center;
+  }
+}
+
+.button {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: #137d60 !important;
+  color: #fff !important;
+}
+
+.buttonOutlined {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: #fff !important;
+  color: #137d60 !important;
+  border: 2px solid #137d60;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }

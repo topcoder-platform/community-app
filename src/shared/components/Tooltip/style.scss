@@ -8,7 +8,7 @@
   }
 
   .rc-tooltip-inner {
-    border-radius: 3px;
+    border-radius: 8px;
     background: $tc-gray-80;
     padding: 0;
   }
@@ -17,6 +17,7 @@
   .rc-tooltip-placement-topLeft .rc-tooltip-arrow,
   .rc-tooltip-placement-topRight .rc-tooltip-arrow {
     border-top-color: $tc-gray-80;
+    background: url(assets/images/tooltip-arrow.svg);
   }
 
   .rc-tooltip-placement-right .rc-tooltip-arrow,

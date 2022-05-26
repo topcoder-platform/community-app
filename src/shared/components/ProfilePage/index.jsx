@@ -124,6 +124,7 @@ class ProfilePage extends React.Component {
       copilot,
       externalAccounts,
       externalLinks,
+      challenges,
       skills: propSkills,
       stats,
       lookupData,
@@ -167,6 +168,8 @@ class ProfilePage extends React.Component {
     }
 
     const activeTracks = this.getActiveTracks();
+    // no rating MM
+    const hasMM = challenges && challenges.length;
 
     return (
       <div styleName="outer-container">
@@ -192,6 +195,7 @@ class ProfilePage extends React.Component {
               >
                 <div styleName="sticky-container">
                   <Header
+                    hasMM={hasMM}
                     copilot={copilot}
                     country={country}
                     info={info}
@@ -272,7 +276,11 @@ class ProfilePage extends React.Component {
               {
                 !_.isEmpty(stats) && (
                   <div id="profile-activity">
-                    <StatsCategory handle={info.handle} stats={stats} />
+                    <StatsCategory
+                      handle={info.handle}
+                      stats={stats}
+                      hasMM={hasMM}
+                    />
                   </div>
                 )
               }
@@ -310,6 +318,7 @@ ProfilePage.defaultProps = {
   externalAccounts: null,
   externalLinks: null,
   achievements: [],
+  challenges: null,
   skills: null,
   stats: null,
 };
@@ -318,6 +327,7 @@ ProfilePage.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   copilot: PT.bool.isRequired,
   externalAccounts: PT.shape(),
+  challenges: PT.arrayOf(PT.shape()),
   externalLinks: PT.arrayOf(PT.shape()),
   info: PT.shape().isRequired,
   skills: PT.shape(),

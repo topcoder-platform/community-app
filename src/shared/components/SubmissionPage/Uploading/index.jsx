@@ -8,13 +8,12 @@
  */
 import React from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
-import RobotHappy from 'assets/images/robot-happy.svg';
-import RobotSad from 'assets/images/robot-embarassed.svg';
+import UploadSuccess from 'assets/images/upload-success.svg';
+import UploadLoading from 'assets/images/upload-loading.svg';
+import UploadFail from 'assets/images/upload-fail.svg';
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
-import './styles.scss';
-
 import { COMPETITION_TRACKS } from 'utils/tc';
+import style from './styles.scss';
 
 const Uploading = ({
   challengeId,
@@ -32,171 +31,178 @@ const Uploading = ({
   <div styleName="container">
     <div styleName="uploading">
       {
-        isSubmitting
-          && (
-          <h3>
-            UPLOADING SUBMISSION FOR
-          </h3>
-          )
-      }
+         isSubmitting
+           && (
+           <h3>
+             UPLOADING SUBMISSION FOR
+           </h3>
+           )
+       }
       {
-        submitDone
-        && (
-        <h3>
-          SUBMISSION COMPLETED FOR
-        </h3>
-        )
-      }
+         submitDone
+         && (
+         <h3>
+           UPLOADING COMPLETED FOR
+         </h3>
+         )
+       }
       {
-        error
-          && (
-          <h3>
-            ERROR SUBMITTING FOR
-          </h3>
-          )
-      }
+         error
+           && (
+           <h3>
+             ERROR SUBMITTING FOR
+           </h3>
+           )
+       }
       {
-        isSubmitting
-          && (
-          <h3>
-            &ldquo;
-            {challengeName }
-            &rdquo;
-          </h3>
-          )
-      }
+         isSubmitting
+           && (
+           <h3>
+             &ldquo;
+             {challengeName }
+             &rdquo;
+           </h3>
+           )
+       }
       {
-        (submitDone || error)
-          && (
-          <Link
-            styleName="link"
-            to={`${challengesUrl}/${challengeId}`}
-          >
-            {challengeName}
-          </Link>
-          )
-      }
+         (submitDone || error)
+           && (
+           <h4
+             styleName="link"
+           >
+             {challengeName}
+           </h4>
+           )
+       }
       {
-        (isSubmitting || submitDone)
-          && <RobotHappy />
-      }
+         (isSubmitting && !submitDone) && <div styleName="animate"><UploadLoading /></div>
+       }
       {
-        error
-          && <RobotSad />
-      }
+         (!isSubmitting && submitDone) && <UploadSuccess />
+       }
       {
-        isSubmitting
-          && (
-          <p>
-            Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
-            working, you&#39;ll lose all files!
-          </p>
-          )
-      }
+         error
+           && <UploadFail />
+       }
       {
-        isSubmitting && !submitDone
-        && (
-        <div styleName="progress-container">
-          <div styleName="progress-bar" style={{ width: `${(100 * uploadProgress).toFixed()}%` }} />
-        </div>
-        )
-      }
+         isSubmitting
+           && (
+           <p>
+             Hey, your work is AWESOME! Please don&#39;t close this window while uploading,
+             Your progress will be lost.
+           </p>
+           )
+       }
       {
-        isSubmitting && !submitDone
-          && (
-          <p styleName="submitting">
-            Uploaded:
-            {(100 * uploadProgress).toFixed()}
-            %
-          </p>
-          )
-      }
+         isSubmitting && !submitDone
+         && (
+         <div styleName="progress-container">
+           <div styleName="progress-bar" style={{ width: `${(100 * uploadProgress).toFixed()}%` }} />
+         </div>
+         )
+       }
       {
-        error
-          && (
-          <p>
-            Oh, that’s embarrassing! The file couldn’t be
-            uploaded, I’m so sorry.
-          </p>
-          )
-      }
+         isSubmitting && !submitDone
+           && (
+           <p styleName="submitting">
+             Uploading:
+             {(100 * uploadProgress).toFixed()}
+             %
+           </p>
+           )
+       }
       {
-        error
-          && (
-          <div styleName="error-msg">
-            {error}
-          </div>
-          )
-      }
+         error
+           && (
+           <p>
+             Oh, that’s embarrassing! The file couldn’t be
+             uploaded.
+           </p>
+           )
+       }
       {
-        error
-          && (
-          <div styleName="button-container">
-            <Button
-              onClick={() => reset()}
-            >
-              Cancel
-            </Button>
-            <PrimaryButton
-              onClick={() => retry()}
-            >
-              Try Again
-            </PrimaryButton>
-          </div>
-          )
-      }
+         error
+           && (
+           <div styleName="error-msg">
+             {error}
+           </div>
+           )
+       }
       {
-        submitDone && !error
-          && (
-          <p>
-            Thanks for participating! We’ve received your submission and will
-            send you an email shortly to confirm and explain what happens next.
-          </p>
-          )
-      }
+         error
+           && (
+           <div styleName="button-container">
+             <Button
+               onClick={() => reset()}
+               theme={{ button: style.buttonOutlined }}
+             >
+               Cancel
+             </Button>
+             <PrimaryButton
+               onClick={() => retry()}
+               theme={{ button: style.button }}
+             >
+               Try Again
+             </PrimaryButton>
+           </div>
+           )
+       }
       {
-        submitDone && !error
-          && (
-          <div styleName="button-container">
-            { track === COMPETITION_TRACKS.DES ? (
-              <span>
-                <Button
-                  onClick={() => reset()}
-                >
-                  Add Another Submission
-                </Button>
-                <PrimaryButton
-                  to={`${challengesUrl}/${challengeId}/my-submissions`}
-                  onClick={() => back()}
-                >
-                  View My Submissions
-                </PrimaryButton>
-              </span>
-            ) : (
-              <span>
-                <Button
-                  onClick={() => reset()}
-                >
-                  Submit Again
-                </Button>
-                <PrimaryButton
-                  to={`${challengesUrl}/${challengeId}`}
-                  onClick={() => back()}
-                >
-                  Back to Challenge
-                </PrimaryButton>
-              </span>
-            )}
-          </div>
-          )
-      }
+         submitDone && !error
+           && (
+           <p>
+             Thanks for participating! We’ve received your submission and will
+             send you an email shortly to confirm and explain what happens next.
+           </p>
+           )
+       }
+      {
+         submitDone && !error
+           && (
+           <div styleName="button-container">
+             { track === COMPETITION_TRACKS.DES ? (
+               <span>
+                 <Button
+                   onClick={() => reset()}
+                   theme={{ button: style.buttonOutlined }}
+                 >
+                   Add Another Submission
+                 </Button>
+                 <PrimaryButton
+                   to={`${challengesUrl}/${challengeId}/my-submissions`}
+                   onClick={() => back()}
+                   theme={{ button: style.button }}
+                 >
+                   My Submissions
+                 </PrimaryButton>
+               </span>
+             ) : (
+               <React.Fragment>
+                 <Button
+                   onClick={() => reset()}
+                   theme={{ button: style.buttonOutlined }}
+                 >
+                   ADD SUBMISSION
+                 </Button>
+                 <PrimaryButton
+                   to={`${challengesUrl}/${challengeId}/my-submissions`}
+                   onClick={() => back()}
+                   theme={{ button: style.button }}
+                 >
+                   MY SUBMISSIONS
+                 </PrimaryButton>
+               </React.Fragment>
+             )}
+           </div>
+           )
+       }
     </div>
   </div>
 );
 
 /**
- * Prop Validation
- */
+  * Prop Validation
+  */
 Uploading.propTypes = {
   challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,

@@ -64,7 +64,7 @@ class MySubmissionsView extends React.Component {
     const { selectedSubmission, submissionsSortDetail } = this.state;
 
     if (!_.isEmpty(loadingMMSubmissionsForChallengeId)) {
-      return <LoadingIndicator />;
+      return <div styleName="loading"><LoadingIndicator /></div>;
     }
 
     return (
