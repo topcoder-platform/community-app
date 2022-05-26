@@ -41,6 +41,8 @@ Tip.propTypes = {
 };
 
 function placeArrow(TooltipNode) {
+  const rootLeftPos = parseInt(TooltipNode.style.left, 10);
+  TooltipNode.style.left = `${rootLeftPos - 5}px`; // eslint-disable-line no-param-reassign
   const arrow = TooltipNode.querySelector('.rc-tooltip-arrow');
   arrow.style.left = '15px';
 }

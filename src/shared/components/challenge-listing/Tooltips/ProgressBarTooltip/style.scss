@@ -8,19 +8,6 @@ $tip-space-95: $base-unit * 19;
 $tip-radius-15: $corner-radius * 7 + 1;
 $tip-radius-4: $corner-radius * 2;
 
-:global {
-  .rc-tooltip-arrow {
-    background-color: url(assets/images/tooltip-arrow.svg);
-    width: 30px;
-    height: 9px;
-    position: absolute;
-    left: 41% !important;
-    z-index: 10000;
-    bottom: 0 !important;
-    border: 0;
-  }
-}
-
 div.progress-bar-tooltip {
   @include roboto-regular;
 
