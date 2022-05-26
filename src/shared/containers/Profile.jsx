@@ -185,7 +185,7 @@ ProfileContainer.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   challenges: state.members[ownProps.match.params.handle]
-    ? state.members[ownProps.match.params.handle].subtrackChallenges : null,
+    ? state.members[ownProps.match.params.handle].userMarathons : null,
   achievements: state.profile.achievements,
   copilot: state.profile.copilot,
   country: state.profile.country,
