@@ -137,13 +137,14 @@ async function onExpressJsSetup(server) {
     res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.header('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
 
-    if (req.url.startsWith('/__community__/veterans') || req.hostname === 'veterans.topcoder.com') {
+    if (req.url.startsWith('/__community__/veterans') || req.hostname === 'veterans.topcoder.com' || req.url.startsWith('/__community__/tco') || tcoPattern.test(req.hostname)) {
       res.header(
         'Content-Security-Policy',
         "default-src 'self';"
         + " script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'"
           + ` ${config.CDN.PUBLIC}`
           + ' http://www.google-analytics.com'
+          + ' https://www.google-analytics.com'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
           + ' https://assets.ubembed.com'
           + ' https://assets.zendesk.com'
@@ -189,6 +190,7 @@ async function onExpressJsSetup(server) {
           + ` ${config.URL.AUTH}`
           + ' https://www.youtube.com;'
         + " img-src 'self'"
+          + ' data:'
           + ` ${config.CDN.PUBLIC}`
           + ' https://cdn.segment.com'
           + ' https://d1of0acg2orgco.cloudfront.net'
@@ -198,74 +200,17 @@ async function onExpressJsSetup(server) {
           + ' https://heapanalytics.com'
           + ' https://q.quora.com'
           + ' https://topcoder-prod-media.s3.amazonaws.com'
+          + ' https://topcoder-dev-media.s3.amazonaws.com'
           + ' https://www.facebook.com'
           + ' https://www.google-analytics.com'
           + ' https://www.google.com'
           + ' https://www.googletagmanager.com'
-          + ' https://i.ytimg.com;'
+          + ' https://i.ytimg.com'
+          + ' https://images.contentful.com'
+          + ' https://d0.awsstatic.com/logos/;'
         + " manifest-src 'self';"
         + " media-src 'self';"
         + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'
-        + " worker-src 'self';",
-      );
-    } else if (req.url.startsWith('/__community__/tco') || tcoPattern.test(req.hostname)) {
-      res.header(
-        'Content-Security-Policy',
-        "default-src 'self';"
-        + " script-src 'self' 'unsafe-inline' 'unsafe-eval'"
-          + ` ${config.CDN.PUBLIC}`
-          + ' https://cdn.segment.com'
-          + ' https://www.google-analytics.com'
-          + ' https://assets.zendesk.com'
-          + ' https://static.zdassets.com'
-          + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
-          + ' https://fast.trychameleon.com'
-          + ' https://browser.sentry-cdn.com'
-          + ' https://cdn.heapanalytics.com'
-          + ' https://www.googletagmanager.com'
-          + ' https://assets.ubembed.com'
-          + ' https://connect.facebook.net;'
-        + " style-src 'self' 'unsafe-inline'"
-          + ` ${config.CDN.PUBLIC};`
-        + " object-src 'none';"
-        + " base-uri 'self';"
-        + " connect-src 'self'"
-          + ` ${config.API.V2}/`
-          + ` ${config.API.V3}/`
-          + ` ${config.API.V4}/`
-          + ` ${config.API.V5}/`
-          + ` ${config.CDN.PUBLIC}`
-          + ` ${config.URL.COMMUNITY_APP}`
-          + ' https://www.google-analytics.com'
-          + ' https://api.segment.io'
-          + ' https://ekr.zdassets.com'
-          + ' https://stats.g.doubleclick.net'
-          + ' https://topcoder.zendesk.com'
-          + ' https://fast.trychameleon.com;'
-        + " font-src 'self'"
-          + ' data:'
-          + ` ${config.CDN.PUBLIC};`
-        + " frame-src 'self'"
-          + ` ${config.URL.AUTH}`
-          + ' https://www.youtube.com;'
-        + " img-src 'self'"
-          + ` ${config.CDN.PUBLIC}`
-          + ' https://images.ctfassets.net'
-          + ' https://q.quora.com'
-          + ' https://heapanalytics.com'
-          + ' https://www.google-analytics.com'
-          + ' https://www.facebook.com'
-          + ' https://www.google.com'
-          + ' https://topcoder-prod-media.s3.amazonaws.com'
-          + ' https://topcoder-dev-media.s3.amazonaws.com'
-          + ' https://www.facebook.com'
-          + ' https://d0.awsstatic.com/logos/'
-          + ' https://i.ytimg.com'
-          + ' https://images.contentful.com'
-          + ' https://www.googletagmanager.com'
-          + ' data:;'
-        + " manifest-src 'self';"
-        + " media-src 'self';"
         + " worker-src 'self';",
       );
     }
