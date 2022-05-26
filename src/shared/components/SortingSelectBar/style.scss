@@ -46,54 +46,7 @@ $down-arrow-size: $base-unit;
     @include xs-to-md {
       margin-right: 16px;
     }
-  }
-
-  .view-options {
-    position: absolute;
-    right: $view-options-toggle-right-margin;
-    top: $base-unit * 10;
-    z-index: 1;
-    background: $tc-white;
-    border-radius: $base-unit;
-    padding: $base-unit;
-    box-shadow: 1px 5px 15px $tc-gray-20;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .view-option {
-    @extend %sorting-select-button;
-
-    font-weight: 300;
-    font-size: 12px;
-    padding: $base-unit * 2;
-    outline: none;
-    border: 0;
-    color: $tc-black;
-    text-align: left;
-  }
-
-  .view-options-toggle {
-    @extend %sorting-select-button;
-
-    display: flex;
-    align-items: center;
-    color: $tc-gray-90;
-    border: 1px solid $tc-gray-neutral-dark;
-    font-size: 12px;
-    outline: none;
-  }
-
-  .down-arrow {
-    width: 0;
-    height: 0;
-    border-left: $down-arrow-size solid transparent;
-    border-right: $down-arrow-size solid transparent;
-    border-top: $down-arrow-size solid $tc-gray-50;
-    margin-left: 3 * $base-unit;
-  }
-
-  :global {
+    :global {
     // 'Sort by' dropdown
     .Select {
       @include roboto-regular;
@@ -229,5 +182,51 @@ $down-arrow-size: $base-unit;
       display: block;
       padding: 8px 20px;
     }
+  }
+  }
+
+  .view-options {
+    position: absolute;
+    right: $view-options-toggle-right-margin;
+    top: $base-unit * 10;
+    z-index: 1;
+    background: $tc-white;
+    border-radius: $base-unit;
+    padding: $base-unit;
+    box-shadow: 1px 5px 15px $tc-gray-20;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .view-option {
+    @extend %sorting-select-button;
+
+    font-weight: 300;
+    font-size: 12px;
+    padding: $base-unit * 2;
+    outline: none;
+    border: 0;
+    color: $tc-black;
+    text-align: left;
+  }
+
+  .view-options-toggle {
+    @extend %sorting-select-button;
+
+    display: flex;
+    align-items: center;
+    color: $tc-gray-90;
+    border: 1px solid $tc-gray-neutral-dark;
+    font-size: 12px;
+    outline: none;
+  }
+
+  .down-arrow {
+    width: 0;
+    height: 0;
+    border-left: $down-arrow-size solid transparent;
+    border-right: $down-arrow-size solid transparent;
+    border-top: $down-arrow-size solid $tc-gray-50;
+    margin-left: 3 * $base-unit;
   }
 }
