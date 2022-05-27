@@ -22,10 +22,6 @@ $challenge-radius-4: $corner-radius * 2;
   flex: 1;
   margin: 0 32px;
 
-  @include xs-to-md {
-    margin: 0;
-  }
-
   .tc-title {
     @include barlow-condensed;
 

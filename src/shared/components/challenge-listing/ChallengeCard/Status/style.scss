@@ -149,7 +149,6 @@ $status-radius-4: $corner-radius * 2;
     @include roboto-regular;
 
     font-weight: 400;
-    display: block;
     position: absolute;
     height: 90%;
     margin-top: 5px;
@@ -157,11 +156,13 @@ $status-radius-4: $corner-radius * 2;
     top: 0;
     right: 0;
     width: 120px;
-    padding-left: 16px;
     text-align: left;
     font-size: 14px;
     color: $tco-black;
     line-height: 24px;
+    white-space: nowrap;
+    justify-content: center;
+    display: flex;
 
     @include xs-to-sm {
       position: absolute;
@@ -178,18 +179,26 @@ $status-radius-4: $corner-radius * 2;
     span {
       font-size: 14px;
       line-height: $status-space-15;
-      font-weight: 500;
-      display: block;
+      font-weight: 400;
       position: absolute;
       top: 50%;
       transform: translate(0, -50%);
-      margin-top: -$status-space-10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
+      text-align: left;
+
+      strong {
+        font-weight: 600;
+      }
 
       @include xs-to-sm {
         display: inline-block;
         position: relative;
-        margin-top: 0;
+        margin-top: 10px;
         color: $tco-black;
+        padding-right: 0;
       }
     }
 

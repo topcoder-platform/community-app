@@ -153,10 +153,7 @@ export default function ChallengeStatus(props) {
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
         <span>
-          {timeNote}
-        </span>
-        <span styleName="to-register">
-          to Register
+          <strong>{timeNote}</strong> to Register
         </span>
       </a>
     );
