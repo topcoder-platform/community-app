@@ -152,10 +152,10 @@ export default function ChallengeStatus(props) {
         styleName="register-button"
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
-        <span>
+        <span styleName={`${timeDiff.late ? 'late' : ''}`}>
           {timeNote}
         </span>
-        <span styleName="to-register">
+        <span styleName={`to-register ${timeDiff.late ? 'third-line' : ''}`}>
           to Register
         </span>
       </a>

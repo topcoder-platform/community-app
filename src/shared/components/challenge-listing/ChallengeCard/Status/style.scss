@@ -185,11 +185,21 @@ $status-radius-4: $corner-radius * 2;
       transform: translate(0, -50%);
       margin-top: -$status-space-10;
 
+      &.late {
+        line-height: $status-space-20;
+        max-width: 67px;
+      }
+
       @include xs-to-sm {
         display: inline-block;
         position: relative;
         margin-top: 0;
         color: $tco-black;
+
+        &.late {
+          line-height: $status-space-15;
+          max-width: 100%;
+        }
       }
     }
 
@@ -197,9 +207,17 @@ $status-radius-4: $corner-radius * 2;
       font-weight: 400;
       margin-top: $status-space-10;
 
+      &.third-line {
+        margin-top: $status-space-20;
+      }
+
       @include xs-to-sm {
         margin-top: 0;
         padding-left: 5px;
+
+        &.third-line {
+          margin-top: 0;
+        }
       }
     }
 

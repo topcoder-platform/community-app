@@ -27,7 +27,7 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 import VerifiedTag from 'components/challenge-listing/VerifiedTag';
 import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
 import { calculateScore } from '../../../utils/challenge-listing/helper';
-import './style.scss';
+import style from './style.scss';
 
 export default function ChallengeTags(props) {
   const {
@@ -97,6 +97,7 @@ export default function ChallengeTags(props) {
           <EventTag
             to={`https://${event}.topcoder.com`}
             key={event}
+            theme={track === COMPETITION_TRACKS.QA ? { button: style.qaTrackEventTag } : undefined}
           >
             {event}
           </EventTag>
