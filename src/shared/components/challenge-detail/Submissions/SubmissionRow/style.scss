@@ -4,6 +4,10 @@
   padding-bottom: 10px;
   border-radius: 8px;
   margin: 25px 32px 32px;
+
+  @include xs-to-sm {
+    margin: 0 0;
+  }
 }
 
 .history-head {
@@ -265,11 +269,13 @@ hr {
   border-radius: 8px;
 
   @include xs-to-sm {
-    margin: 9px 16px 16px 9px;
-    max-width: 100% !important;
-    top: 43%;
-    padding: 0 !important;
-    overflow-y: scroll;
+    width: 100%;
+    margin: 0;
+    max-width: 100vw;
+    height: 100%;
+    max-height: 100vh;
+    padding: 24px 16px;
+    z-index: 999999;
   }
 }
 
