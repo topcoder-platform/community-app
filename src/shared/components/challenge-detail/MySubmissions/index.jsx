@@ -7,12 +7,19 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { goToLogin } from 'utils/tc';
 import LoadingIndicator from 'components/LoadingIndicator';
+import tc from 'components/buttons/themed/tc.scss';
+
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 
 import SubmissionsList from './SubmissionsList';
 import SubmissionsDetail from './SubmissionsDetail';
 
-import './styles.scss';
+import style from './styles.scss';
+
+const buttonThemes = {
+  tc,
+};
 
 class MySubmissionsView extends React.Component {
   constructor(props) {
@@ -64,13 +71,14 @@ class MySubmissionsView extends React.Component {
     const { selectedSubmission, submissionsSortDetail } = this.state;
 
     if (!_.isEmpty(loadingMMSubmissionsForChallengeId)) {
-      return <div styleName="loading"><LoadingIndicator /></div>;
+      return <div className={style.loading}><LoadingIndicator /></div>;
     }
 
     return (
-      <div styleName="wrapper">
-        <div styleName="content">
-          {selectedSubmission ? (
+      <div className={style.wrapper}>
+        <div className={style.content}>
+          { selectedSubmission && (
+          <Modal onCancel={() => this.setState({ selectedSubmission: null })} theme={style}>
             <SubmissionsDetail
               onCancel={() => this.setState({ selectedSubmission: null })}
               submission={selectedSubmission}
@@ -78,22 +86,33 @@ class MySubmissionsView extends React.Component {
               submissionsSort={submissionsSortDetail}
               onSortChange={sort => this.setState({ submissionsSortDetail: sort })}
             />
-          ) : (
-            <SubmissionsList
-              selectSubmission={submission => this.setState({ selectedSubmission: submission })}
-              challengesUrl={challengesUrl}
-              challenge={challenge}
-              hasRegistered={hasRegistered}
-              unregistering={unregistering}
-              submissionEnded={submissionEnded}
-              isMM={isMM}
-              isLegacyMM={isLegacyMM}
-              mySubmissions={mySubmissions}
-              auth={auth}
-              submissionsSort={submissionsSort}
-              onSortChange={onSortChange}
-            />
+
+            <div className={style.buttons}>
+              <PrimaryButton
+                onClick={() => this.setState({ selectedSubmission: null })}
+                theme={{
+                  button: buttonThemes.tc['primary-green-md'],
+                }}
+              >
+                Close
+              </PrimaryButton>
+            </div>
+          </Modal>
           )}
+          <SubmissionsList
+            selectSubmission={submission => this.setState({ selectedSubmission: submission })}
+            challengesUrl={challengesUrl}
+            challenge={challenge}
+            hasRegistered={hasRegistered}
+            unregistering={unregistering}
+            submissionEnded={submissionEnded}
+            isMM={isMM}
+            isLegacyMM={isLegacyMM}
+            mySubmissions={mySubmissions}
+            auth={auth}
+            submissionsSort={submissionsSort}
+            onSortChange={onSortChange}
+          />
         </div>
       </div>
     );
