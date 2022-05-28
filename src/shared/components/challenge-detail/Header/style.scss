@@ -586,3 +586,19 @@
   margin-right: -2px;
   padding: 0;
 }
+
+.qaTrackEventTag {
+  color: #0ab88a;
+  background: #c1f5e7;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: lighten(#0ab88a, 2%);
+    background: darken(#c1f5e7, 5%);
+  }
+
+  &:visited {
+    color: lighten(#0ab88a, 2%);
+  }
+}
