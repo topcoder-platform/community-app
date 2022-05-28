@@ -14,10 +14,12 @@ import sortList from 'utils/challenge-detail/sort';
 import IconClose from 'assets/images/icon-close-green.svg';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
 import SortIcon from 'assets/images/icon-sort.svg';
+import Tooltip from 'components/Tooltip';
 import IconFail from '../../icons/failed.svg';
 import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
-// import SearchIcon from '../../../SubmissionManagement/Icons/IconSearch.svg';
+import ZoomIcon from '../../../SubmissionManagement/Icons/IconZoom.svg';
 
+// import SearchIcon from '../../../SubmissionManagement/Icons/IconSearch.svg';
 import style from './styles.scss';
 
 const { getService } = services.submissions;
@@ -379,18 +381,14 @@ class SubmissionsListView extends React.Component {
                       'submission-table-column column-1',
                     )}
                   >
-                    <button
-                      onClick={() => {
-                        selectSubmission(mySubmission);
-                      }}
-                      type="button"
+                    <div
                       styleName={cn(
                         'submission-table-column column-1-1',
                       )}
                     >
                       <div styleName="mobile-header">Submission Id</div>
                       <span>{mySubmission.id}</span>
-                    </button>
+                    </div>
                     <div
                       styleName={cn(
                         'submission-table-column column-1-2 status-row',
@@ -417,7 +415,11 @@ class SubmissionsListView extends React.Component {
                       )}
                     >
                       <div styleName="mobile-header">Provisional Score</div>
-                      {(provisionalScore < 0) ? (<IconFail />) : (<span>{provisionalScore}</span>)}
+                      {(provisionalScore < 0) ? (
+                        <Tooltip content="Failed Submission" className="toolTipPadding">
+                          <IconFail />
+                        </Tooltip>
+                      ) : (<span>{provisionalScore}</span>)}
                     </div>
                     <div
                       styleName={cn(
@@ -446,6 +448,10 @@ class SubmissionsListView extends React.Component {
                         type="button"
                       >
                         <DownloadIcon />
+                      </button>
+
+                      <button onClick={() => selectSubmission(mySubmission)} type="button">
+                        <ZoomIcon styleName="icon-zoom" />
                       </button>
 
                       {/* <button onClick={() => this.toggleModal(mySubmission)} type="button">
