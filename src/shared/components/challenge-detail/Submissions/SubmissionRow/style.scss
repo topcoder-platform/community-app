@@ -5,6 +5,15 @@
   border-radius: 8px;
   margin: 25px 32px 32px;
 
+  .table-body {
+    max-height: 49vh;
+    overflow-y: auto;
+
+    @media screen and (max-width: $screen-sm) {
+      max-height: 65vh;
+    }
+  }
+
   @include xs-to-sm {
     margin: 0 0;
   }

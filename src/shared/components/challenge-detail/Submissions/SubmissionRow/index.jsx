@@ -11,7 +11,7 @@ import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/icon-close-green.svg';
 import moment from 'moment';
 
-import Failed from '../../icons/failed.svg';
+import FailedSubmissionTooltip from '../FailedSubmissionTooltip';
 import InReview from '../../icons/in-review.svg';
 import Queued from '../../icons/queued.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
@@ -34,7 +34,7 @@ export default function SubmissionRow({
 
   const getInitialReviewResult = () => {
     const s = isMM ? _.get(score, 'provisional', initialScore) : initialScore;
-    if (s && s < 0) return <Failed />;
+    if (s && s < 0) return <FailedSubmissionTooltip />;
     switch (status) {
       case 'completed':
         return s;
@@ -43,7 +43,7 @@ export default function SubmissionRow({
       case 'queued':
         return <Queued />;
       case 'failed':
-        return <Failed />;
+        return <FailedSubmissionTooltip />;
       default:
         return s;
     }
@@ -168,19 +168,21 @@ export default function SubmissionRow({
                 }
               </div>
             </div>
-            {
-              submissions.map((submissionHistory, index) => (
-                <SubmissionHistoryRow
-                  isReviewPhaseComplete={isReviewPhaseComplete}
-                  isMM={isMM}
-                  submission={submissions.length - index}
-                  {...submissionHistory}
-                  key={submissionHistory.submissionId}
-                  onShowPopup={onShowPopup}
-                  member={member}
-                />
-              ))
-            }
+            <div styleName="table-body">
+              {
+                submissions.map((submissionHistory, index) => (
+                  <SubmissionHistoryRow
+                    isReviewPhaseComplete={isReviewPhaseComplete}
+                    isMM={isMM}
+                    submission={submissions.length - index}
+                    {...submissionHistory}
+                    key={submissionHistory.submissionId}
+                    onShowPopup={onShowPopup}
+                    member={member}
+                  />
+                ))
+              }
+            </div>
             <div styleName="close-btn" onClick={toggleHistory} role="presentation">
               <span>CLOSE</span>
             </div>
