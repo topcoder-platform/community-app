@@ -187,7 +187,6 @@ $status-radius-4: $corner-radius * 2;
 
       &.late {
         line-height: $status-space-20;
-        max-width: 67px;
       }
 
       @include xs-to-sm {
@@ -199,6 +198,12 @@ $status-radius-4: $corner-radius * 2;
         &.late {
           line-height: $status-space-15;
           max-width: 100%;
+
+          @include xs-to-sm {
+            br {
+              display: none;
+            }
+          }
         }
       }
     }

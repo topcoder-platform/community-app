@@ -350,7 +350,6 @@ workflows:
             branches:
               only:
                 - develop
-                - reskin
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
