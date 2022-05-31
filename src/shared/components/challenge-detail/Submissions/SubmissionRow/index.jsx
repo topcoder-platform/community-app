@@ -139,7 +139,7 @@ export default function SubmissionRow({
             </div>
             <hr />
             <div styleName="submission-text">
-              Submission: <span>{submissionId}</span>
+              Latest Submission: <span>{submissionId}</span>
             </div>
             <div>
               <div styleName="row no-border history-head">

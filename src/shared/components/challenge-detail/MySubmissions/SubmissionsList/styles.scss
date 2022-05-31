@@ -89,6 +89,25 @@
   }
 }
 
+.challengeActionDisabled {
+  min-width: 0;
+  width: 181px;
+  margin-top: 25px !important;
+  align-self: center;
+  background: #f4f4f4 !important;
+  border-radius: 50px !important;
+  padding: 12px 24px;
+  text-transform: uppercase;
+
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #767676 !important;
+  border: 0;
+}
+
 .submission-table {
   @include roboto-medium;
 
@@ -273,6 +292,7 @@ button.column-1-1,
   padding-left: 40px;
 
   &.time-row {
+    width: 19%;
     margin-left: 65px;
 
     @include xs-to-sm {

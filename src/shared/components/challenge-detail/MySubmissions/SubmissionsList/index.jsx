@@ -160,6 +160,8 @@ class SubmissionsListView extends React.Component {
       onSortChange,
     } = this.props;
 
+    const isButtonDisabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
+
     const { field, sort } = this.getSubmissionsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
 
@@ -427,7 +429,7 @@ class SubmissionsListView extends React.Component {
                       )}
                     >
                       <div styleName="mobile-header">Time</div>
-                      <span>{moment(mySubmission.submissionTime).format('MMM DD, YYYY')} {moment(mySubmission.submissionTime).format('HH:mm')}</span>
+                      <span>{moment(mySubmission.submissionTime).format('MMM DD, YYYY HH:mm:ss')}</span>
                     </div>
                     <div styleName="submission-table-column column-2-4">
                       <button
@@ -465,8 +467,10 @@ class SubmissionsListView extends React.Component {
           }
         </div>
         <PrimaryButton
-          theme={{ button: style.challengeAction }}
-          disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
+          theme={{
+            button: isButtonDisabled ? style.challengeActionDisabled : style.challengeAction,
+          }}
+          disabled={isButtonDisabled}
           to={`${challengesUrl}/${challengeId}/submit`}
         >
           Add Submission
