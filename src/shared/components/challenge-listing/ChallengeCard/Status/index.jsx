@@ -159,7 +159,7 @@ export default function ChallengeStatus(props) {
         { timeDiff.late
           ? (
             <span styleName="late">
-              {timeNote}<br />{lateNote}
+              {timeNote} <br />{lateNote}
             </span>
           ) : (
             <span>
