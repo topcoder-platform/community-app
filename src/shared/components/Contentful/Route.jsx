@@ -13,7 +13,8 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
 import PasswordScreen from 'components/Contentful/PasswordScreen';
-import { isomorphy } from 'topcoder-react-utils';
+import { isomorphy, config } from 'topcoder-react-utils';
+import cookies from 'browser-cookies';
 import { removeTrailingSlash } from 'utils/url';
 
 // Concatenates a base and segment and handles optional trailing slashes
@@ -173,6 +174,14 @@ export default function ContentfulRoute(props) {
         // eslint-disable-next-line no-restricted-globals
         const currentPathname = typeof location === 'undefined' ? '' : removeTrailingSlash(location.pathname);
         const redirectToUrl = _.trim(fields.redirectToUrl);
+        const requireLogin = fields.protected;
+        const loggedIn = isomorphy.isClientSide() && cookies.get('tcjwt') !== null;
+        if (requireLogin && !loggedIn) {
+          // route is protected by TC Login
+          // send to login/register with proper retUrl set
+          const authUrl = config.URL.AUTH;
+          return <RedirectWithStatus status={401} from={url} to={`${authUrl}?retUrl=${encodeURIComponent(config.URL.BASE + url)}`} />;
+        }
         return redirectToUrl && currentPathname === url ? (
           <RedirectWithStatus status={301} from={url} to={redirectToUrl} />
         ) : (

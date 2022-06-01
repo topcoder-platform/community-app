@@ -59,6 +59,7 @@ const isHidden = (subtrack) => {
 class StatsCategory extends React.Component {
   getActiveTracks() {
     let { stats } = this.props;
+    const { hasMM } = this.props;
     if (_.isArray(stats)) {
       // eslint-disable-next-line prefer-destructuring
       stats = stats[0];
@@ -87,7 +88,7 @@ class StatsCategory extends React.Component {
       }
 
       subTracks.forEach((subtrack) => {
-        if (isActiveSubtrack(subtrack) && !isHidden(subtrack)) {
+        if ((isActiveSubtrack(subtrack) && !isHidden(subtrack)) || (subtrack.name === 'MARATHON MATCH' && hasMM)) {
           active.push({ ...subtrack, active: true });
         }
       });
@@ -106,6 +107,7 @@ class StatsCategory extends React.Component {
   render() {
     const {
       handle,
+      hasMM,
       className,
       inModal,
     } = this.props;
@@ -148,10 +150,10 @@ class StatsCategory extends React.Component {
                           style={{ color: getRatingColor(subtrack.rank.rating) }}
                           styleName="number"
                         >
-                          {subtrack.rank.rating}
+                          {subtrack.name === 'MARATHON MATCH' && !subtrack.challenges && hasMM ? '' : subtrack.rank.rating}
                         </div>
                         <div styleName="tag">
-                          Rating
+                          {subtrack.name === 'MARATHON MATCH' && !subtrack.challenges && hasMM ? 'No Rating' : 'Rating'}
                         </div>
                       </div>
                       )
@@ -198,6 +200,7 @@ class StatsCategory extends React.Component {
 StatsCategory.defaultProps = {
   className: '',
   inModal: false,
+  hasMM: false,
 };
 
 StatsCategory.propTypes = {
@@ -207,6 +210,7 @@ StatsCategory.propTypes = {
     PT.shape(),
   ]).isRequired,
   inModal: PT.bool,
+  hasMM: PT.bool,
   className: PT.string,
 };
 

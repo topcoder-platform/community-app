@@ -371,7 +371,7 @@ workflows:
           filters:
             branches:
               only:
-                - thrive-discord-button
+                - footer-update
                 - reskin
       # This is stage env for production QA releases
       - "build-prod-staging":
