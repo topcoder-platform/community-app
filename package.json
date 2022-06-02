@@ -14,7 +14,7 @@
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "update-tests": "npm run jest -- -u",
-    "start": "cross-env BABEL_ENV=production NODE_ENV=production node ./bin/www",
+    "start": "cross-env BABEL_ENV=production NODE_ENV=production node --max-old-space-size=8192 ./bin/www",
     "test": "npm run lint && npm run --runInBand jest",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
