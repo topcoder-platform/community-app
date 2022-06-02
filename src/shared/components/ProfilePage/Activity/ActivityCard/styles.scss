@@ -1,0 +1,121 @@
+@import "~styles/mixins";
+
+.activity-card {
+  padding: 32px;
+  background-color: $tc-white;
+  border-radius: 8px;
+  margin: 0 32px 8px 32px;
+
+  @include xs-to-sm {
+    margin: 0 16px 8px 16px;
+  }
+
+  &.hidden {
+    padding-bottom: 1px;
+  }
+
+  .track-name {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+    span {
+      @include barlow-bold;
+
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 26px;
+      text-transform: uppercase;
+    }
+
+    .arrow {
+      margin-top: 5px;
+      margin-right: 3px;
+
+      &.down {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.sub-track-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 64px;
+
+  &.full-width {
+    grid-template-columns: 1fr;
+  }
+
+  @include xs-to-sm {
+    grid-template-columns: unset;
+  }
+}
+
+.sub-track-item {
+  border-bottom: 1px solid $profile-border-gray;
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+
+  &:nth-child(-n + 2) {
+    border-top: 1px solid $profile-border-gray;
+  }
+
+  span.title {
+    @include roboto-regular;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $tco-black;
+    text-transform: capitalize;
+  }
+}
+
+.link-button {
+  border: 1.5px solid $listing-checkbox-green;
+  border-radius: 24px;
+  width: 35px;
+  height: 27px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: -2px;
+
+  svg {
+    margin-top: 8px;
+  }
+}
+
+.right {
+  display: flex;
+}
+
+.ranking {
+  display: flex;
+  margin-right: 16px;
+
+  .number {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: $profile-skill-badge;
+  }
+
+  .tag {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: $profile-skill-badge;
+    margin-left: 5px;
+  }
+}

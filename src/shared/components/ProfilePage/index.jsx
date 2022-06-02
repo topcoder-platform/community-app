@@ -6,22 +6,16 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
-import Sticky from 'react-stickynode';
 import { isomorphy } from 'topcoder-react-utils';
 
-import Robot from 'assets/images/robot-happy.svg';
-
-import BadgesModal from './BadgesModal';
-import ExternalLink, { dataMap } from './ExternalLink';
+import { dataMap } from './ExternalLink';
 import Header from './Header';
-import Skill from './Skill';
+import MemberTracks from './MemberTracks';
 
-import style from './styles.scss';
-import StatsCategory from './StatsCategory';
-
-// Number of skills to show before a 'VIEW MORE' button is created
-const MAX_SKILLS = 10;
+import './styles.scss';
+import Skills from './Skills';
+import MemberInfo from './MemberInfo';
+import Activity from './Activity';
 
 /**
  * Inspects a subtrack and determines if the member is active
@@ -36,7 +30,8 @@ const isActiveSubtrack = (subtrack) => {
   }
   if (subtrack.rank && subtrack.rank.rating > 0) {
     return true;
-  } if (_.isNumber(subtrack.submissions)) {
+  }
+  if (_.isNumber(subtrack.submissions)) {
     return subtrack.submissions > 0;
   }
   return subtrack.submissions && subtrack.submissions.submissions > 0;
@@ -46,9 +41,7 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      badgesModalOpen: false,
       isMobile: false,
-      skillsExpanded: false,
     };
 
     this.handleResize = this.handleResize.bind(this);
@@ -79,10 +72,12 @@ class ProfilePage extends React.Component {
     if (copilot && stats && stats.COPILOT && stats.COPILOT.fulfillment) {
       activeTracks.push({
         name: 'COPILOT',
-        subTracks: [{
-          fulfillment: stats.COPILOT.fulfillment,
-          name: 'COPILOT',
-        }],
+        subTracks: [
+          {
+            fulfillment: stats.COPILOT.fulfillment,
+            name: 'COPILOT',
+          },
+        ],
       });
     }
 
@@ -94,7 +89,10 @@ class ProfilePage extends React.Component {
         subTracks.push({ ...stats[track].SRM, name: 'SRM' });
       }
       if (stats && stats[track] && stats[track].MARATHON_MATCH) {
-        subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
+        subTracks.push({
+          ...stats[track].MARATHON_MATCH,
+          name: 'MARATHON MATCH',
+        });
       }
 
       subTracks.forEach((subtrack) => {
@@ -103,10 +101,11 @@ class ProfilePage extends React.Component {
         }
       });
       if (active.length > 0) {
-        const sorted = _.orderBy(active, [
-          s => s.wins,
-          s => (s.rank ? s.rank.rating : 0),
-        ], ['desc', 'desc']);
+        const sorted = _.orderBy(
+          active,
+          [s => s.wins, s => (s.rank ? s.rank.rating : 0)],
+          ['desc', 'desc'],
+        );
         activeTracks.push({ name: track, subTracks: sorted });
       }
     });
@@ -120,7 +119,6 @@ class ProfilePage extends React.Component {
 
   render() {
     const {
-      achievements,
       copilot,
       externalAccounts,
       externalLinks,
@@ -130,11 +128,7 @@ class ProfilePage extends React.Component {
       lookupData,
     } = this.props;
 
-    const {
-      badgesModalOpen,
-      isMobile,
-      skillsExpanded,
-    } = this.state;
+    const { isMobile } = this.state;
 
     let { info } = this.props;
 
@@ -146,169 +140,67 @@ class ProfilePage extends React.Component {
     let country = '';
     if (_.has(lookupData, 'countries') && lookupData.countries.length > 0) {
       const countryCode = _.isEmpty(_.get(info, 'homeCountryCode'))
-        ? _.get(info, 'competitionCountryCode') : _.get(info, 'homeCountryCode');
+        ? _.get(info, 'competitionCountryCode')
+        : _.get(info, 'homeCountryCode');
 
-      const result = _.find(lookupData.countries,
-        c => countryCode && c.countryCode === countryCode.toUpperCase());
+      const result = _.find(
+        lookupData.countries,
+        c => countryCode && c.countryCode === countryCode.toUpperCase(),
+      );
       country = _.isEmpty(result) ? '' : result.country;
     }
 
     // Convert skills from object to an array for easier iteration
-    let skills = propSkills ? _.map(propSkills, (skill, tagId) => ({ tagId, ...skill })) : [];
-    const showMoreButton = skills.length > MAX_SKILLS;
-    if (!skillsExpanded) {
-      skills = skills.slice(0, MAX_SKILLS);
-    }
+    const skills = propSkills
+      ? _.map(propSkills, (skill, tagId) => ({ tagId, ...skill }))
+      : [];
 
-    let externals = externalAccounts ? _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data })) : [];
+    let externals = externalAccounts
+      ? _.map(
+        _.pick(externalAccounts, _.map(dataMap, 'provider')),
+        (data, type) => ({ type, data }),
+      )
+      : [];
     if (externalLinks) {
-      externalLinks.map(data => externals.push(({ type: 'weblink', data })));
+      externalLinks.map(data => externals.push({ type: 'weblink', data }));
       externals = _.filter(externals, 'data');
       externals = _.sortBy(externals, 'type');
     }
 
-    const activeTracks = this.getActiveTracks();
     // no rating MM
     const hasMM = challenges && challenges.length;
 
     return (
       <div styleName="outer-container">
-        {
-          badgesModalOpen
-          && (
-          <BadgesModal
-            achievements={achievements}
-            handle={info.handle}
-            isMobile={isMobile}
-            photoURL={info.photoURL}
-            onClose={() => this.setState({ badgesModalOpen: false })}
-          />
-          )
-        }
-        <div styleName="profile-container" role="main">
-          <div styleName="about-container">
-            <div styleName="profile-header-container">
-              <Sticky
-                bottomBoundary={isomorphy.isClientSide() ? document.body.scrollHeight - 250 : 0}
-                enabled={!isMobile}
-                top={10}
-              >
-                <div styleName="sticky-container">
-                  <Header
-                    hasMM={hasMM}
-                    copilot={copilot}
-                    country={country}
-                    info={info}
-                    onShowBadges={() => this.setState({ badgesModalOpen: true })}
-                    showBadgesButton={achievements && achievements.length > 0}
-                    wins={_.get((stats && stats[0]) || {}, 'wins', 0)}
-                  />
-                </div>
-              </Sticky>
+        <div>
+          <Header info={info} />
+
+          <div styleName="content">
+            <div styleName="left-content">
+              <MemberTracks copilot={copilot} info={info} hasMM={hasMM} />
+
+              {!_.isEmpty(skills) && (
+                <Skills skills={skills} isMobile={isMobile} />
+              )}
+
+              {info.description && (
+                <p styleName="description">{info.description}</p>
+              )}
             </div>
-            <div styleName="profile-about-container">
-              {
-                _.isEmpty(skills) && _.isEmpty(activeTracks) && _.isEmpty(externals)
-                && (
-                <div styleName="empty-profile">
-                  <h2>
-                    BEEP. BEEP. HELLO!
-                  </h2>
-                  <Robot />
-                  <p>
-                    Seems like this member doesn’t have much information to share yet.
-                  </p>
-                </div>
-                )
-              }
-              {
-                !_.isEmpty(skills)
-                && (
-                <div id="profile-skills">
-                  <div styleName="skills">
-                    <h3 styleName="activity">
-                      Skills
-                    </h3>
-                    <div styleName="list">
-                      {
-                        skills.map(({
-                          tagId, tagName, hidden, sources,
-                        }) => (
-                          !hidden
-                          && (
-                          <div key={tagId} styleName="skill">
-                            <Skill
-                              tagId={tagId}
-                              tagName={tagName}
-                              isVerified={_.includes(sources, 'CHALLENGE')}
-                            />
-                          </div>
-                          )
-                        ))
-                      }
-                    </div>
-                    {
-                      showMoreButton && !skillsExpanded
-                      && (
-                      <PrimaryButton
-                        onClick={() => this.setState({ skillsExpanded: true })}
-                        theme={style}
-                      >
-                        VIEW ALL
-                      </PrimaryButton>
-                      )
-                    }
-                    {
-                      skillsExpanded
-                      && (
-                      <PrimaryButton
-                        onClick={() => this.setState({ skillsExpanded: false })}
-                        theme={style}
-                      >
-                        VIEW LESS
-                      </PrimaryButton>
-                      )
-                    }
-                  </div>
-                </div>
-                )
-              }
-              {
-                !_.isEmpty(stats) && (
-                  <div id="profile-activity">
-                    <StatsCategory
-                      handle={info.handle}
-                      stats={stats}
-                      hasMM={hasMM}
-                    />
-                  </div>
-                )
-              }
-              {
-                !_.isEmpty(externals)
-                && (
-                <div styleName="external-links-container">
-                  <h3>
-                    On The Web
-                  </h3>
-                  <div styleName="external-links">
-                    {
-                      externals.map(external => (
-                        <ExternalLink
-                          data={external.data}
-                          key={external.type !== 'weblink'
-                            ? external.type : `${external.type}-${external.data.key}`}
-                          type={external.type}
-                        />
-                      ))
-                    }
-                  </div>
-                </div>
-                )
-              }
+            <div styleName="right-content">
+              <MemberInfo
+                country={country}
+                info={info}
+                wins={_.get((stats && stats[0]) || {}, 'wins', 0)}
+              />
             </div>
           </div>
         </div>
+        <Activity
+          memberStats={stats}
+          hasMM={hasMM}
+          handle={info.handle}
+        />
       </div>
     );
   }
@@ -317,14 +209,12 @@ class ProfilePage extends React.Component {
 ProfilePage.defaultProps = {
   externalAccounts: null,
   externalLinks: null,
-  achievements: [],
   challenges: null,
   skills: null,
   stats: null,
 };
 
 ProfilePage.propTypes = {
-  achievements: PT.arrayOf(PT.shape()),
   copilot: PT.bool.isRequired,
   externalAccounts: PT.shape(),
   challenges: PT.arrayOf(PT.shape()),
