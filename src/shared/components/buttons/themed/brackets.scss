@@ -11,6 +11,30 @@
   letter-spacing: 0.8px;
 }
 
+@mixin primary-master {
+  @include primary;
+
+  background-color: #e6cff1 !important;
+  background-image: none !important;
+  color: #8231a9 !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  &:hover {
+    background-color: #e6cff1 !important;
+  }
+
+  &:active {
+    background-color: #e6cff1 !important;
+  }
+
+  &:disabled {
+    color: #8231a9;
+    border: none !important;
+    background: none !important;
+  }
+}
+
 @mixin primary-green {
   @include primary;
 
@@ -24,7 +48,7 @@
     background-color: #219174 !important;
   }
 
-  &:active{
+  &:active {
     background-color: #0d664e !important;
   }
 
@@ -116,6 +140,44 @@
 }
 
 .primary {
+  &-master {
+    &-sm {
+      @include primary-master;
+      @include sm;
+
+      &:hover {
+        @include primary-master;
+      }
+    }
+
+    &-md {
+      @include primary-master;
+      @include md;
+
+      &:hover {
+        @include primary-master;
+      }
+    }
+
+    &-lg {
+      @include primary-master;
+      @include lg;
+
+      &:hover {
+        @include primary-master;
+      }
+    }
+
+    &-xl {
+      @include primary-master;
+      @include xl;
+
+      &:hover {
+        @include primary-master;
+      }
+    }
+  }
+
   &-green {
     &-sm {
       @include primary-green;
