@@ -1,4 +1,4 @@
-@import '~styles/mixins';
+@import "~styles/mixins";
 
 .wrapper {
   @include roboto-regular;
@@ -16,4 +16,63 @@
 
 .loading {
   margin-top: 30px;
+}
+
+.close-btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+  margin-bottom: 32px;
+  background-color: #137d60;
+  padding: 8px 24px;
+  border-radius: 24px;
+  float: right;
+
+  span {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    color: #fff;
+  }
+
+  @include xs-to-sm {
+    border-top: 1px solid #e9e9e9;
+    position: sticky;
+    margin-bottom: 16px;
+  }
+}
+
+.buttons {
+  margin-top: 24px;
+  float: right;
+
+  @include xs-to-sm {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px 16px;
+    background-color: white;
+  }
+}
+
+.container {
+  padding: 25px;
+  width: 750px;
+  border-radius: 8px;
+
+  @include xs-to-sm {
+    width: 100%;
+    margin: 0;
+    max-width: 100vw;
+    height: 100%;
+    max-height: 100vh;
+    padding: 24px 16px;
+    z-index: 999999;
+  }
 }

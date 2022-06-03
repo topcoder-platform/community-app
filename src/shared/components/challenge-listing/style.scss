@@ -20,11 +20,7 @@ $challenge-radius-4: $corner-radius * 2;
 .ChallengeFiltersExample {
   background: $tc-white;
   flex: 1;
-  margin: 0 32px;
-
-  @include xs-to-md {
-    margin: 0;
-  }
+  margin: 0;
 
   .tc-title {
     @include barlow-condensed;

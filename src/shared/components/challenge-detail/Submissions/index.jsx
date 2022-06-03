@@ -828,13 +828,15 @@ class SubmissionsComponent extends React.Component {
           isMM && <div styleName="bottom-line" />
         }
         {isMM && (
-        <Button
-          disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
-          theme={{ button: style.challengeAction }}
-          to={`${challengesUrl}/${challengeId}/submit`}
-        >
-          Add Submission
-        </Button>
+          <div styleName="btn-add-submission">
+            <Button
+              disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
+              theme={{ button: style.challengeAction }}
+              to={`${challengesUrl}/${challengeId}/submit`}
+            >
+              Add Submission
+            </Button>
+          </div>
         )}
         {
             isMM && isShowInformation && (

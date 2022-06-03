@@ -7,8 +7,8 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import FailedSubmissionTooltip from '../../FailedSubmissionTooltip';
 // import Completed from '../../../icons/completed.svg';
-import Failed from '../../../icons/failed.svg';
 import InReview from '../../../icons/in-review.svg';
 import Queued from '../../../icons/queued.svg';
 
@@ -24,7 +24,7 @@ export default function SubmissionHistoryRow({
   status,
 }) {
   const getInitialReviewResult = () => {
-    if (provisionalScore && provisionalScore < 0) return <Failed />;
+    if (provisionalScore && provisionalScore < 0) return <FailedSubmissionTooltip />;
     switch (status) {
       case 'completed':
         return provisionalScore;
@@ -33,7 +33,7 @@ export default function SubmissionHistoryRow({
       case 'queued':
         return <Queued />;
       case 'failed':
-        return <Failed />;
+        return <FailedSubmissionTooltip />;
       default:
         return provisionalScore === '-' ? 'N/A' : provisionalScore;
     }

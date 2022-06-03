@@ -142,8 +142,12 @@ export default function ChallengeStatus(props) {
      * here is that the standard "getTimeLeft" method, for positive times,
      * generates a string like "H MM to go"; here we want to render just
      * H MM part, so we cut the last 6 symbols. Not a good code. */
+    let lateNote;
     if (!timeDiff.late) {
       timeNote = timeNote.substring(0, timeNote.length - 6);
+    } else {
+      lateNote = timeNote.substring(timeNote.length - 8);
+      timeNote = timeNote.substring(0, timeNote.length - 9);
     }
     return (
       <a
@@ -152,10 +156,18 @@ export default function ChallengeStatus(props) {
         styleName="register-button"
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
-        <span>
-          {timeNote}
-        </span>
-        <span styleName="to-register">
+        { timeDiff.late
+          ? (
+            <span styleName="late">
+              {timeNote} <br />{lateNote}
+            </span>
+          ) : (
+            <span>
+              {timeNote}
+            </span>
+          )
+        }
+        <span styleName={`to-register ${timeDiff.late ? 'third-line' : ''}`}>
           to Register
         </span>
       </a>

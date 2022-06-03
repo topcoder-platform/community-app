@@ -3,6 +3,8 @@
 .outer-container {
   background: $tc-gray-neutral-dark;
   width: 100%;
+  max-width: $screem-md;
+  margin: 0 auto;
 
   @include xs-to-sm {
     padding: 0;
