@@ -222,7 +222,7 @@
 
 .container.dev {
   line-height: 50px;
-  text-align: center;
+  text-align: left;
 
   @include xs-to-sm {
     line-height: 20px;
@@ -273,6 +273,10 @@
       flex: 13;
       color: $tc-gray-50;
     }
+  }
+
+  .btn-add-submission {
+    text-align: center;
   }
 
   .handle {
@@ -346,7 +350,6 @@
 
     .col-1 {
       padding-left: 30px;
-      text-align: left;
       width: 10%;
       justify-content: flex-start;
       display: flex;
@@ -364,10 +367,11 @@
     }
 
     .col-3 {
-      width: 18.6%;
+      width: 20.5%;
+      margin-right: auto;
 
       a {
-        padding-left: 20px;
+        padding-left: 0;
 
         @include xs-to-sm {
           padding-left: 0;
@@ -380,10 +384,11 @@
     }
 
     .col-4 {
-      width: 20.6%;
+      width: 20.5%;
+      margin-right: auto;
 
       p {
-        padding-left: 20px;
+        padding-left: 0;
 
         @include xs-to-sm {
           padding-left: 0;
@@ -396,7 +401,7 @@
     }
 
     .col-5 {
-      width: 19.6%;
+      width: 22%;
 
       p {
         padding-right: 60px;
@@ -412,7 +417,7 @@
     }
 
     .col-6 {
-      width: 21.6%;
+      width: 22%;
 
       p {
         padding-right: 55px;
@@ -473,7 +478,6 @@
   @include barlow-bold;
 
   display: flex;
-  justify-content: center;
   align-items: center;
   cursor: pointer;
   border: none;
