@@ -222,7 +222,7 @@
 
 .container.dev {
   line-height: 50px;
-  text-align: center;
+  text-align: left;
 
   @include xs-to-sm {
     line-height: 20px;
@@ -273,6 +273,10 @@
       flex: 13;
       color: $tc-gray-50;
     }
+  }
+
+  .btn-add-submission {
+    text-align: center;
   }
 
   .handle {
