@@ -42,7 +42,7 @@ const ActivityCard = ({
           subTracks.map((subtrack, index) => (
             <div styleName="sub-track-item" key={index}>
               <span styleName="title">
-                {_.upperFirst(subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ').toLowerCase())}
+                {subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}
               </span>
 
               <div styleName="right">
@@ -96,7 +96,7 @@ const ActivityCard = ({
                     }
                 <Link
                   styleName="link-button"
-                  to={`/members/${handle}/details/?track=${trackName === 'QA' ? 'DEVELOP' : trackName}&subTrack=${subtrack.name.replace(' ', '_')}`}
+                  to={`/members/${handle}/details/?track=${trackName}&subTrack=${subtrack.name.replace(' ', '_')}`}
                 >
                   <LinkButton />
                 </Link>
