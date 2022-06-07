@@ -42,7 +42,7 @@ const ActivityCard = ({
           subTracks.map((subtrack, index) => (
             <div styleName="sub-track-item" key={index}>
               <span styleName="title">
-                {subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}
+                {_.upperFirst(subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ').toLowerCase())}
               </span>
 
               <div styleName="right">
