@@ -122,10 +122,55 @@ export const RATING_COLORS = [{
   color: '#EF3A3A' /* Red */,
   limit: Infinity,
 }];
+
 export function getRatingColor(rating) {
   let i = 0; const r = Number(rating);
   while (RATING_COLORS[i].limit <= r) i += 1;
   return RATING_COLORS[i].color || 'black';
+}
+
+export const HIGHLIGHTED_RATING_COLORS = [{
+  color: '#464646' /* Grey */,
+  limit: 900,
+}, {
+  color: '#00ab00' /* Green */,
+  limit: 1200,
+}, {
+  color: '#3748ff' /* Blue */,
+  limit: 1500,
+}, {
+  color: '#ffe879' /* Yellow */,
+  limit: 2200,
+}, {
+  color: '#ff2a2a' /* Red */,
+  limit: Infinity,
+}];
+export function getHighlightedColor(rating) {
+  let i = 0; const r = Number(rating);
+  while (HIGHLIGHTED_RATING_COLORS[i].limit <= r) i += 1;
+  return HIGHLIGHTED_RATING_COLORS[i].color || 'black';
+}
+
+export const UNSELECTED_RATING_COLORS = [{
+  color: '#f3f3f3' /* Grey */,
+  limit: 900,
+}, {
+  color: '#e6f6e6' /* Green */,
+  limit: 1200,
+}, {
+  color: '#c5c8ef' /* Blue */,
+  limit: 1500,
+}, {
+  color: '#fff5c4' /* Yellow */,
+  limit: 2200,
+}, {
+  color: '#f47d7d' /* Red */,
+  limit: Infinity,
+}];
+export function getUnSelectedColors(rating) {
+  let i = 0; const r = Number(rating);
+  while (UNSELECTED_RATING_COLORS[i].limit <= r) i += 1;
+  return UNSELECTED_RATING_COLORS[i].color || 'black';
 }
 
 /**
