@@ -61,7 +61,7 @@ function create(init) {
     const environment = _.get(payload, 'environment') || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
     const res = _.get(newState, `${spaceName}.${environment}`);
     if (error || !res) {
-      logger.log('CMS-related error');
+      logger.log('CMS-related error', error, res);
       return state;
     }
     const st = state[spaceName][environment];
