@@ -125,7 +125,8 @@
     }
   }
 
-  h5, h6 {
+  h5,
+  h6 {
     @include barlow-condensed-semi-bold;
 
     font-size: 26px;
