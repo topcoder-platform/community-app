@@ -391,6 +391,7 @@ workflows:
             branches:
               only:
                 - master
+                - master-v1.17.1
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
