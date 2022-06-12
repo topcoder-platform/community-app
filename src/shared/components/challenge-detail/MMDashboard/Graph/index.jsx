@@ -7,8 +7,8 @@ import moment from 'moment';
 import { getHighlightedColor, getRatingColor, getUnSelectedColors } from 'utils/tc';
 import DefaultUserImage from 'assets/images/ico-user-default.png';
 
-import './styles.scss';
 import _ from 'lodash';
+import styles from './styles.scss';
 
 export default function Graph({ statisticsData, baseline, awardLine }) {
   const [point, setPoint] = useState(null);
@@ -26,7 +26,44 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
     });
   });
 
+  const pointDatas = _.map(flatData, (data) => {
+    let color;
+    let isSelected = false;
+    if (point) {
+      isSelected = point.customData.handle === data.handle;
+      if (isSelected) {
+        color = getHighlightedColor(data.rating || 0);
+      } else {
+        color = getUnSelectedColors(data.rating || 0);
+      }
+    } else {
+      color = data.ratingColor || getRatingColor(data.rating || 0);
+    }
+    return {
+      x: moment(data.created).valueOf(),
+      y: _.max([0, data.score ? (parseFloat(data.score)) : 0]),
+      name: data.handle,
+      color,
+      customData: data,
+      marker: {
+        enabled: true,
+        width: 'circle',
+        radius: isSelected ? 6 : 4,
+      },
+      className: !isSelected && point ? styles.selectedPoint : '',
+    };
+  });
+
   const options = {
+    plotOptions: {
+      line: {
+        events: {
+          click() {
+            this.group.toFront();
+          },
+        },
+      },
+    },
     chart: {
       type: 'scatter',
       backgroundColor: '#fff',
@@ -41,25 +78,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
     },
     series: [
       {
-        data: _.map(flatData, (data) => {
-          let color;
-          if (point) {
-            if (point.customData.handle === data.handle) {
-              color = getHighlightedColor(data.rating || 0);
-            } else {
-              color = getUnSelectedColors(data.rating || 0);
-            }
-          } else {
-            color = data.ratingColor || getRatingColor(data.rating || 0);
-          }
-          return {
-            x: moment(data.created).valueOf(),
-            y: _.max([0, data.score ? (parseFloat(data.score)) : 0]),
-            name: data.handle,
-            color,
-            customData: data,
-          };
-        }),
+        data: pointDatas,
         pointStart: moment(_.min(dates)).valueOf(),
         pointInterval: 24 * 3600 * 1000,
         backgroundColor: 'rgb(51,51,51)',
