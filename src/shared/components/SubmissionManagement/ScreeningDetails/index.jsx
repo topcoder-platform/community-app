@@ -87,31 +87,29 @@ export default function ScreeningDetails(props) {
           {setStatusInfo().title}
         </p>
         {/*
-          NOTE: TonyJ asked to remove the OR links from the page to keep
-          users within the new Topcoder site as much as we can. Not wiping
-          out the code just in case we decide to bring it back later.
-        <a href={onlineReviewUrl} styleName="online-review-link">
-          Online Review
-        </a>
-        */}
+           NOTE: TonyJ asked to remove the OR links from the page to keep
+           users within the new Topcoder site as much as we can. Not wiping
+           out the code just in case we decide to bring it back later.
+         <a href={onlineReviewUrl} styleName="online-review-link">
+           Online Review
+         </a>
+         */}
       </div>
       <p>
         {setStatusInfo().message}
+        <a href={helpPageUrl} styleName="help-link">
+          {' '}Need help?
+        </a>
       </p>
       <div styleName="screening-warning">
         {warnings}
         {((hasStatusFailed) || (hasStatusPassed && hasWarnings))
-          && (
-          <p styleName="more-info">
-            Need more info on how to pass screening?
-            Go to help to read Rules & Policies.
-          </p>
-          )}
-        <div styleName="help-btn">
-          <a href={helpPageUrl} styleName="help-link" className="tc-btn-default">
-            Help
-          </a>
-        </div>
+           && (
+           <p styleName="more-info">
+             Need more info on how to pass screening?
+             Go to help to read Rules & Policies.
+           </p>
+           )}
       </div>
     </div>
   );

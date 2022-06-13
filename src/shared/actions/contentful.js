@@ -3,7 +3,7 @@ import { getService } from 'services/contentful';
 import { config, redux } from 'topcoder-react-utils';
 import { removeTrailingSlash } from 'utils/url';
 import { menuItemBuilder, target as urlTarget } from 'utils/contentful';
-import { services } from 'topcoder-react-lib';
+import { services, logger } from 'topcoder-react-lib';
 
 const ERRMSG_UNKNOWN_TARGET = 'Unknown action target';
 
@@ -91,15 +91,19 @@ async function getContentDone(operationId, contentId, target, preview, spaceName
     environment,
   });
   let content;
-  switch (target) {
-    case TARGETS.ASSETS:
-      content = await service.getAsset(contentId);
-      break;
-    case TARGETS.ENTRIES:
-      content = await service.getEntry(contentId);
-      break;
-    default:
-      throw new Error(ERRMSG_UNKNOWN_TARGET);
+  try {
+    switch (target) {
+      case TARGETS.ASSETS:
+        content = await service.getAsset(contentId);
+        break;
+      case TARGETS.ENTRIES:
+        content = await service.getEntry(contentId);
+        break;
+      default:
+        throw new Error(ERRMSG_UNKNOWN_TARGET);
+    }
+  } catch (e) {
+    logger.error('getContentDone error', e);
   }
 
   return {
@@ -141,15 +145,19 @@ async function queryContentDone(operationId, queryId, target,
     environment,
   });
   let data;
-  switch (target) {
-    case TARGETS.ASSETS:
-      data = await service.queryAssets(query);
-      break;
-    case TARGETS.ENTRIES:
-      data = await service.queryEntries(query);
-      break;
-    default:
-      throw new Error(ERRMSG_UNKNOWN_TARGET);
+  try {
+    switch (target) {
+      case TARGETS.ASSETS:
+        data = await service.queryAssets(query);
+        break;
+      case TARGETS.ENTRIES:
+        data = await service.queryEntries(query);
+        break;
+      default:
+        throw new Error(ERRMSG_UNKNOWN_TARGET);
+    }
+  } catch (e) {
+    logger.error('queryContentDone error', e);
   }
 
   return {

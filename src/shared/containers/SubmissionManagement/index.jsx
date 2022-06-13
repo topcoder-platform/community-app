@@ -7,17 +7,16 @@
 
 import _ from 'lodash';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
-import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SubmissionManagement from 'components/SubmissionManagement/SubmissionManagement';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { actions, services } from 'topcoder-react-lib';
 
-import './styles.scss';
+import style from './styles.scss';
 import smpActions from '../../actions/page/submission_management';
 
 const { getService } = services.submissions;
@@ -140,14 +139,18 @@ class SubmissionManagementPageContainer extends React.Component {
                 className={deleting ? 'hidden' : ''}
                 styleName="action-btns"
               >
-                <Button
-                  className="tc-btn-sm tc-btn-default"
+                <PrimaryButton
+                  theme={{
+                    button: style['add-sub-btn'],
+                  }}
                   onClick={() => onCancelSubmissionDelete()}
                 >
                   Cancel
-                </Button>
-                <Button
-                  className="tc-btn-sm tc-btn-warning"
+                </PrimaryButton>
+                <PrimaryButton
+                  theme={{
+                    button: style['add-sub-btn-warning'],
+                  }}
                   onClick={
                     () => onSubmissionDeleteConfirmed(
                       authTokens.tokenV3,
@@ -156,7 +159,7 @@ class SubmissionManagementPageContainer extends React.Component {
                   }
                 >
                   Delete Submission
-                </Button>
+                </PrimaryButton>
               </div>
             </div>
           </Modal>

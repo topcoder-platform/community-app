@@ -11,8 +11,9 @@ import cn from 'classnames';
 import { getRatingLevel } from 'utils/tc';
 
 import sortList from 'utils/challenge-detail/sort';
+import DateSortIcon from 'assets/images/icon-date-sort.svg';
+import SortIcon from 'assets/images/icon-sort.svg';
 import CheckMark from '../icons/check-mark.svg';
-import ArrowDown from '../../../../assets/images/arrow-down.svg';
 import './style.scss';
 
 function formatDate(date) {
@@ -23,7 +24,7 @@ function formatDate(date) {
 function getDate(arr, handle) {
   const results = arr.filter(a => _.toString(a.createdBy || a.memberHandle) === _.toString(handle))
     .sort((a, b) => new Date(b.submissionTime || b.submissionDate).getTime()
-      - new Date(a.submissionTime || a.submissionDate).getTime());
+       - new Date(a.submissionTime || a.submissionDate).getTime());
   return results[0] ? (results[0].submissionTime || results[0].submissionDate) : '';
 }
 
@@ -34,7 +35,7 @@ function passedCheckpoint(checkpoints, handle, results) {
 
 function getPlace(results, handle, places) {
   const found = _.find(results, w => _.toString(w.memberHandle) === _.toString(handle)
-    && w.placement <= places && w.submissionStatus !== 'Failed Review');
+     && w.placement <= places && w.submissionStatus !== 'Failed Review');
 
   if (found) {
     return found.placement;
@@ -48,6 +49,11 @@ export default class Registrants extends React.Component {
 
     this.state = {
       sortedRegistrants: [],
+      ratingClicked: false,
+      usernameClicked: false,
+      registrationDateClicked: false,
+      round1SubmissionClicked: false,
+      submissionDateClicked: false,
     };
 
     this.getCheckPoint = this.getCheckPoint.bind(this);
@@ -66,15 +72,15 @@ export default class Registrants extends React.Component {
     const { registrants, registrantsSort } = this.props;
     if (
       !_.isEqual(prevProps.registrants, registrants)
-      || !_.isEqual(prevProps.registrantsSort, registrantsSort)
+       || !_.isEqual(prevProps.registrantsSort, registrantsSort)
     ) {
       this.updateSortedRegistrants();
     }
   }
 
   /**
-   * Get checkpoint date of registrant
-   */
+    * Get checkpoint date of registrant
+    */
   getCheckPointDate() {
     const {
       challenge,
@@ -85,9 +91,9 @@ export default class Registrants extends React.Component {
   }
 
   /**
-   * Get checkpoint of registrant
-   * @param {Object} registrant registrant info
-   */
+    * Get checkpoint of registrant
+    * @param {Object} registrant registrant info
+    */
   getCheckPoint(registrant) {
     const {
       challenge,
@@ -96,13 +102,13 @@ export default class Registrants extends React.Component {
     const checkpointDate = this.getCheckPointDate();
 
     const twoRounds = challenge.round1Introduction
-      && challenge.round2Introduction;
+       && challenge.round2Introduction;
 
     let checkpoint;
     if (twoRounds) {
       checkpoint = getDate(checkpoints, registrant.memberHandle);
       if (!checkpoint
-      && moment(registrant.submissionDate).isBefore(checkpointDate)) {
+       && moment(registrant.submissionDate).isBefore(checkpointDate)) {
         checkpoint = registrant.submissionDate;
       }
     }
@@ -111,9 +117,9 @@ export default class Registrants extends React.Component {
   }
 
   /**
-   * Get final of registrant
-   * @param {Object} registrant get checkpoint of registrant
-   */
+    * Get final of registrant
+    * @param {Object} registrant get checkpoint of registrant
+    */
   getFinal(registrant) {
     let final;
     if (moment(registrant.submissionDate).isAfter(this.getCheckPointDate())) {
@@ -123,9 +129,9 @@ export default class Registrants extends React.Component {
   }
 
   /**
-   * Check if it have flag for first try
-   * @param {Object} registrant registrant info
-   */
+    * Check if it have flag for first try
+    * @param {Object} registrant registrant info
+    */
   getFlagFirstTry(registrant) {
     const { notFoundCountryFlagUrl } = this.props;
     if (!registrant.countryInfo || notFoundCountryFlagUrl[registrant.countryInfo.countryCode]) {
@@ -136,8 +142,8 @@ export default class Registrants extends React.Component {
   }
 
   /**
-   * Get registrans sort parameter
-   */
+    * Get registrans sort parameter
+    */
   getRegistrantsSortParam() {
     const {
       registrantsSort,
@@ -157,8 +163,8 @@ export default class Registrants extends React.Component {
   }
 
   /**
-   * Update sorted registrant array
-   */
+    * Update sorted registrant array
+    */
   updateSortedRegistrants() {
     const { registrants } = this.props;
     const sortedRegistrants = _.cloneDeep(registrants);
@@ -167,9 +173,9 @@ export default class Registrants extends React.Component {
   }
 
   /**
-   * Sort array of registrant
-   * @param {Array} registrants array of registrant
-   */
+    * Sort array of registrant
+    * @param {Array} registrants array of registrant
+    */
   sortRegistrants(registrants) {
     const { field, sort } = this.getRegistrantsSortParam();
     return sortList(registrants, field, sort, (a, b) => {
@@ -244,7 +250,23 @@ export default class Registrants extends React.Component {
       track,
     } = challenge;
 
-    const { sortedRegistrants } = this.state;
+    const {
+      sortedRegistrants,
+      ratingClicked,
+      usernameClicked,
+      registrationDateClicked,
+      submissionDateClicked,
+      round1SubmissionClicked,
+    } = this.state;
+
+    const sortOptionClicked = {
+      ratingClicked: false,
+      usernameClicked: false,
+      registrationDateClicked: false,
+      submissionDateClicked: false,
+      round1SubmissionClicked: false,
+    };
+
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
@@ -255,44 +277,46 @@ export default class Registrants extends React.Component {
     const checkpoints = challenge.checkpoints || [];
 
     const twoRounds = challenge.round1Introduction
-      && challenge.round2Introduction;
+       && challenge.round2Introduction;
     const places = prizes.length;
     return (
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
           {
-            !isDesign && (
-              <button
-                type="button"
-                onClick={() => {
-                  onSortChange({
-                    field: 'Rating',
-                    sort: (field === 'Rating') ? revertSort : 'desc',
-                  });
-                }}
-                styleName="col-2 table-header"
-              >
-                <span role="columnheader">Rating</span>
-                <div
-                  styleName={cn(
-                    'col-arrow',
-                    {
-                      'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
-                      'col-arrow-is-sorting': field === 'Rating',
-                    },
-                  )}
-                  type="button"
-                ><ArrowDown />
-                </div>
-              </button>
-            )
-          }
+             !isDesign && (
+               <button
+                 type="button"
+                 onClick={() => {
+                   onSortChange({
+                     field: 'Rating',
+                     sort: (field === 'Rating') ? revertSort : 'desc',
+                   });
+                   this.setState({ ...sortOptionClicked, ratingClicked: true });
+                 }}
+                 styleName="col-2 table-header"
+               >
+                 <span role="columnheader">Rating</span>
+                 <div
+                   styleName={cn(
+                     'col-arrow',
+                     {
+                       'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
+                       'col-arrow-is-sorting': field === 'Rating',
+                     },
+                   )}
+                   type="button"
+                 >{ ratingClicked ? <DateSortIcon /> : <SortIcon /> }
+                 </div>
+               </button>
+             )
+           }
           <button
             onClick={() => {
               onSortChange({
                 field: 'Username',
                 sort: (field === 'Username') ? revertSort : 'desc',
               });
+              this.setState({ ...sortOptionClicked, usernameClicked: true });
             }}
             type="button"
             styleName="col-3 table-header"
@@ -306,7 +330,7 @@ export default class Registrants extends React.Component {
                   'col-arrow-is-sorting': field === 'Username',
                 },
               )}
-            ><ArrowDown />
+            >{ usernameClicked ? <DateSortIcon /> : <SortIcon /> }
             </div>
           </button>
           <button
@@ -316,6 +340,7 @@ export default class Registrants extends React.Component {
                 field: 'Registration Date',
                 sort: (field === 'Registration Date') ? revertSort : 'desc',
               });
+              this.setState({ ...sortOptionClicked, registrationDateClicked: true });
             }}
             type="button"
           >
@@ -328,7 +353,7 @@ export default class Registrants extends React.Component {
                   'col-arrow-is-sorting': field === 'Registration Date',
                 },
               )}
-            ><ArrowDown />
+            >{ registrationDateClicked ? <DateSortIcon /> : <SortIcon /> }
             </div>
           </button>
           {twoRounds && (
@@ -339,6 +364,7 @@ export default class Registrants extends React.Component {
                 field: 'Round 1 Submitted Date',
                 sort: (field === 'Round 1 Submitted Date') ? revertSort : 'desc',
               });
+              this.setState({ ...sortOptionClicked, round1SubmissionClicked: true });
             }}
             type="button"
           >
@@ -351,7 +377,7 @@ export default class Registrants extends React.Component {
                   'col-arrow-is-sorting': field === 'Round 1 Submitted Date',
                 },
               )}
-            ><ArrowDown />
+            >{ round1SubmissionClicked ? <DateSortIcon /> : <SortIcon /> }
             </div>
           </button>
           )}
@@ -361,6 +387,7 @@ export default class Registrants extends React.Component {
                 field: 'Submitted Date',
                 sort: (field === 'Submitted Date') ? revertSort : 'desc',
               });
+              this.setState({ ...sortOptionClicked, submissionDateClicked: true });
             }}
             type="button"
             styleName="col-6 table-header"
@@ -374,95 +401,98 @@ export default class Registrants extends React.Component {
                   'col-arrow-is-sorting': field === 'Submitted Date',
                 },
               )}
-            ><ArrowDown />
+            >{ submissionDateClicked ? <DateSortIcon /> : <SortIcon /> }
             </div>
           </button>
         </div>
         <div styleName="body" role="rowgroup">
           {
-            sortedRegistrants.map((r) => {
-              const placement = getPlace(results, r.memberHandle, places);
-              let checkpoint = this.getCheckPoint(r);
-              if (checkpoint) {
-                checkpoint = formatDate(checkpoint);
-              }
-              const final = this.getFinal(r);
+             sortedRegistrants.map((r) => {
+               const placement = getPlace(results, r.memberHandle, places);
+               let checkpoint = this.getCheckPoint(r);
+               if (checkpoint) {
+                 checkpoint = formatDate(checkpoint);
+               }
+               const final = this.getFinal(r);
 
-              return (
-                <div styleName="row" key={r.memberHandle} role="row">
-                  {
-                    !isDesign && (
-                      <div styleName="col-2">
-                        <div styleName="sm-only title">
-                          Rating
-                        </div>
-                        <div>
-                          <span
-                            styleName={`level-${getRatingLevel(_.get(r, 'rating', 0))}`}
-                            role="cell"
-                          >
-                            { (!_.isNil(r.rating) && r.rating !== 0) ? r.rating : '-'}
-                          </span>
-                        </div>
-                      </div>
-                    )
-                  }
-                  <div styleName="col-3">
-                    <span role="cell">
-                      <a
-                        href={`${window.origin}/members/${r.memberHandle}`}
-                        styleName={isDesign ? '' : `level-${getRatingLevel(_.get(r, 'rating', 0))}`}
-                        target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
-                      >
-                        {r.memberHandle}
-                      </a>
-                    </span>
-                  </div>
-                  <div styleName="col-4">
-                    <div styleName="sm-only title">
-                      Registration Date
-                    </div>
-                    <span role="cell">{formatDate(r.created)}</span>
-                  </div>
-                  {
-                    twoRounds
-                    && (
-                    <div styleName="col-5">
-                      <div styleName="sm-only title">
-                        Round 1 Submitted Date
-                      </div>
-                      <div>
-                        <span role="cell">
-                          {checkpoint}
-                        </span>
-                        {
-                          passedCheckpoint(checkpoints, r.memberHandle, checkpointResults)
-                          && <CheckMark styleName="passed" />
-                        }
-                      </div>
-                    </div>
-                    )
-                  }
-                  <div styleName="col-6">
-                    <div styleName="sm-only title">
-                      {twoRounds ? 'Round 2 ' : ''}
-                      Submitted Date
-                    </div>
-                    <div>
-                      <span role="cell">
-                        {formatDate(final)}
-                      </span>
-                      {placement > 0 && (
-                      <span role="cell" styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>
-                        {placement}
-                      </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })
-          }
+               return (
+                 <div styleName="row" key={r.memberHandle} role="row">
+                   {
+                     !isDesign && (
+                       <div styleName="col-2">
+                         <div styleName="sm-only title">
+                           Rating
+                         </div>
+                         <div>
+                           <span
+                             styleName={`level-${getRatingLevel(_.get(r, 'rating', 0))}`}
+                             role="cell"
+                           >
+                             { (!_.isNil(r.rating) && r.rating !== 0) ? r.rating : '-'}
+                           </span>
+                         </div>
+                       </div>
+                     )
+                   }
+                   <div styleName="col-3">
+                     <div styleName="sm-only title">
+                       USERNAME
+                     </div>
+                     <span role="cell">
+                       <a
+                         href={`${window.origin}/members/${r.memberHandle}`}
+                         styleName={isDesign ? '' : `level-${getRatingLevel(_.get(r, 'rating', 0))}`}
+                         target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                       >
+                         {r.memberHandle}
+                       </a>
+                     </span>
+                   </div>
+                   <div styleName="col-4">
+                     <div styleName="sm-only title">
+                       Registration Date
+                     </div>
+                     <span role="cell">{formatDate(r.created)}</span>
+                   </div>
+                   {
+                     twoRounds
+                     && (
+                     <div styleName="col-5">
+                       <div styleName="sm-only title">
+                         Round 1 Submitted Date
+                       </div>
+                       <div>
+                         <span role="cell">
+                           {checkpoint}
+                         </span>
+                         {
+                           passedCheckpoint(checkpoints, r.memberHandle, checkpointResults)
+                           && <CheckMark styleName="passed" />
+                         }
+                       </div>
+                     </div>
+                     )
+                   }
+                   <div styleName="col-6">
+                     <div styleName="sm-only title">
+                       {twoRounds ? 'Round 2 ' : ''}
+                       Submitted Date
+                     </div>
+                     <div>
+                       <span role="cell">
+                         {formatDate(final)}
+                       </span>
+                       {placement > 0 && (
+                       <span role="cell" styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>
+                         {placement}
+                       </span>
+                       )}
+                     </div>
+                   </div>
+                 </div>
+               );
+             })
+           }
         </div>
       </div>
     );

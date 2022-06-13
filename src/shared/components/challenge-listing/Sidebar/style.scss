@@ -6,6 +6,10 @@
   font-size: 13px;
   line-height: 30px;
   width: 100%;
+  background-color: $listing-filter-bg;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: 0;
 
   .StatusBar {
     display: flex;
@@ -33,7 +37,6 @@
   }
 
   .FilterBox {
-    background: $tc-white;
     padding: 2 * $base-unit;
     padding-bottom: 2 * $base-unit;
     border-radius: $corner-radius * 2;
@@ -42,8 +45,20 @@
       color: $tc-gray-10;
       background: $tc-gray-10;
       border: 0;
-      height: 1px;
-      margin: 2 * $base-unit;
+      height: 2px;
+      margin: 12px 12px 0;
+    }
+
+    @include xs-to-md {
+      padding: 0;
     }
   }
+}
+
+hr.hr {
+  color: $tc-gray-10;
+  background: $tc-gray-10;
+  border: 0;
+  height: 2px;
+  margin: 0 24px;
 }

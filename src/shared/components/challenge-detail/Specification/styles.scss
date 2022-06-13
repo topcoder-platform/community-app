@@ -244,7 +244,7 @@ $tc-link-visited: #0c4e98;
     h1 {
       @include roboto-bold;
 
-      font-size: 28px;
+      font-size: 32px;
       color: #151516;
       letter-spacing: -0.78px;
       line-height: 40px;
@@ -254,16 +254,16 @@ $tc-link-visited: #0c4e98;
     h2 {
       @include roboto-bold;
 
-      font-size: 20px;
+      font-size: 24px;
       color: $tc-black;
-      line-height: 30px;
+      line-height: 28px;
       margin: (6 * $base-unit) 0 (2 * $base-unit);
     }
 
     h3 {
       @include roboto-bold;
 
-      font-size: 15px;
+      font-size: 18px;
       color: $tc-black;
       line-height: 25px;
       margin: (5 * $base-unit) 0 0;
@@ -422,8 +422,7 @@ $tc-link-visited: #0c4e98;
   @include roboto-regular;
 
   width: 100%;
-  padding: 0 20px;
-  max-width: 720px;
+  padding: 0 34px;
   align-self: center;
   font-size: 15px;
   color: $tc-gray-90;

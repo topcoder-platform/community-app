@@ -5,8 +5,10 @@ $prize-space-10: $base-unit * 2;
   @include roboto-regular;
 
   max-width: 480px;
-  padding: 15px;
+  padding: 10px 10px 0 10px;
   overflow: hidden;
+  background-color: #2a2a2a;
+  border-radius: 8px;
 
   .bonuses {
     border-top: 1px solid $tc-gray-70;
@@ -15,15 +17,17 @@ $prize-space-10: $base-unit * 2;
   }
 
   h1 {
+    @include roboto-regular;
+
     border: none;
     color: $tc-white;
-    font-size: 15px;
-    line-height: 15px;
+    font-size: 14px;
+    line-height: 16px;
     margin: 0 0 $prize-space-10;
     padding: 0;
     text-align: left;
     text-transform: none;
-    font-weight: 700;
+    font-weight: 500;
   }
 }
 

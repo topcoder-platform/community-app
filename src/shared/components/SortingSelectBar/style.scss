@@ -1,4 +1,5 @@
 @import '~styles/mixins';
+
 $view-options-toggle-right-margin: $base-unit * 2;
 $down-arrow-size: $base-unit;
 
@@ -14,32 +15,176 @@ $down-arrow-size: $base-unit;
 .sortingBar {
   display: flex;
   justify-content: space-between;
-  padding: 2 * $base-unit;
+  padding: 10px 0 16px 0;
   position: relative;
+  background-color: $tc-white;
 
   .title {
+    @include barlow-semi-bold;
+
     display: flex;
     align-items: center;
-    color: $tc-gray-80;
-    font-size: 13px;
-    line-height: 13px;
+    color: $tco-black;
+    font-size: 18px;
+    line-height: 22px;
     margin: 0;
     padding: 4.5px 0 4.5px 10px;
     border: none;
-    text-transform: none;
+    text-transform: uppercase;
+    margin-left: 14px;
+
+    @include xs-to-md {
+      margin-left: 16px;
+      font-size: 16px;
+      padding: 0;
+    }
   }
 
   .view-options-toggle-container {
     display: flex;
     align-items: center right;
-  }
 
-  .view-options-toggle-container-label {
-    @include tc-label-sm;
+    @include xs-to-md {
+      margin-right: 16px;
+    }
 
-    display: flex;
-    align-items: center;
-    margin-right: $base-unit * 2;
+    :global {
+      // 'Sort by' dropdown
+      .Select {
+        @include roboto-regular;
+      }
+
+      .is-focused {
+        font-weight: 700;
+      }
+
+      .Select-control {
+        line-height: 12px;
+        padding: 4px 35px 4px 10px;
+        width: 208px;
+        height: 40px;
+        background-color: $tc-white;
+        font-weight: 400;
+        font-size: 12px;
+        text-transform: none;
+        border: 1px solid #aaa;
+        color: $tc-gray-90;
+        position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+
+      .Select-input {
+        width: 100% !important;
+        height: 0;
+        padding: 0;
+        opacity: 0;
+        position: absolute;
+      }
+
+      .Select--single > .Select-control .Select-value {
+        position: static;
+        padding: 0;
+        overflow: visible;
+      }
+
+      .Select.is-focused:not(.is-open) > .Select-control {
+        border-color: #137d60 !important;
+      }
+
+      .Select-value-label {
+        @include roboto-regular;
+
+        font-size: 400;
+        font-size: 14px;
+        line-height: 22px;
+        color: $tco-black;
+        vertical-align: middle;
+      }
+
+      .Select-arrow-zone {
+        content: ' ';
+        display: block;
+        height: 0;
+        position: absolute;
+        right: 17px;
+        top: 50%;
+        width: 0;
+
+        svg {
+          width: 10px;
+          height: 10px;
+        }
+      }
+
+      .Select-menu-outer {
+        width: 100%;
+        color: $tc-gray-90;
+        font-weight: 400;
+        font-size: 12px;
+        background-color: $tc-white;
+        box-sizing: border-box;
+        margin-top: 2px;
+        padding: 4px 0;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        z-index: 1000;
+        -webkit-overflow-scrolling: touch;
+        border: none !important;
+      }
+
+      .Select-menu {
+        max-height: none;
+        overflow-y: visible;
+        height: 22px;
+        font-size: 14px;
+      }
+
+      .Select-option {
+        box-sizing: border-box;
+        color: rgba(51, 51, 51, 0.8);
+        cursor: pointer;
+        display: block;
+        padding: 6px 16px;
+        border-left: 1px solid #aaa;
+        border-right: 1px solid #aaa;
+      }
+
+      .Select-option:last-child {
+        border-bottom-right-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+        border-bottom: 1px solid #aaa;
+      }
+
+      .Select-option:first-child {
+        border-top: 1px solid #aaa;
+        border-top-left-radius: $base-unit;
+        border-top-right-radius: $base-unit;
+      }
+
+      .Select-option:hover {
+        color: $tc-black;
+      }
+
+      .Select-option.is-selected {
+        color: $tc-black;
+        font-weight: 500;
+        background: $tc-white;
+      }
+
+      .Select-option.is-focused {
+        background: $tc-white;
+      }
+
+      .Select-noresults {
+        box-sizing: border-box;
+        color: $tc-gray-90;
+        cursor: default;
+        display: block;
+        padding: 8px 20px;
+      }
+    }
   }
 
   .view-options {
@@ -85,120 +230,5 @@ $down-arrow-size: $base-unit;
     border-right: $down-arrow-size solid transparent;
     border-top: $down-arrow-size solid $tc-gray-50;
     margin-left: 3 * $base-unit;
-  }
-
-  :global {
-    // 'Sort by' dropdown
-    .Select {
-      @include roboto-regular;
-    }
-
-    .is-focused {
-      outline: 3px auto #006dea;
-    }
-
-    .Select-control {
-      line-height: 12px;
-      border-radius: 20px;
-      padding: 4px 35px 4px 10px;
-      background-color: $tc-white;
-      font-weight: 400;
-      font-size: 12px;
-      text-transform: none;
-      border: 1px solid $tc-gray-neutral-dark;
-      color: $tc-gray-90;
-      position: relative;
-      overflow: hidden;
-      box-sizing: border-box;
-      transition: all 200ms ease;
-    }
-
-    .Select-input {
-      width: 100% !important;
-      height: 0;
-      padding: 0;
-      opacity: 0;
-      position: absolute;
-    }
-
-    .Select--single > .Select-control .Select-value {
-      position: static;
-      line-height: 12px;
-      padding: 0;
-      overflow: visible;
-    }
-
-    .Select-arrow-zone {
-      content: ' ';
-      display: block;
-      height: 0;
-      position: absolute;
-      right: 15px;
-      top: 4px;
-      width: 0;
-    }
-
-    .is-open > .Select-control {
-      border-radius: 12px;
-    }
-
-    .Select-menu-outer {
-      color: $tc-gray-90;
-      font-weight: 400;
-      font-size: 12px;
-      background-color: $tc-white;
-      border: 1px solid $tc-gray-neutral-dark;
-      border-radius: $base-unit;
-      box-shadow: 1px 5px 15px $tc-gray-20;
-      box-sizing: border-box;
-      margin-top: 5px;
-      padding: 8px 0;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      width: 140px;
-      z-index: 1000;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .Select-menu {
-      max-height: none;
-      overflow-y: visible;
-    }
-
-    .Select-option {
-      box-sizing: border-box;
-      color: rgba(51, 51, 51, 0.8);
-      cursor: pointer;
-      display: block;
-      padding: 8px 20px;
-    }
-
-    .Select-option:last-child {
-      border-bottom-right-radius: 2px;
-      border-bottom-left-radius: 2px;
-    }
-
-    .Select-option:hover {
-      color: $tc-black;
-    }
-
-    .Select-option.is-selected {
-      color: $tc-black;
-      font-weight: 500;
-      background: transparent;
-    }
-
-    .Select-option.is-focused {
-      background: transparent;
-    }
-
-    .Select-noresults {
-      box-sizing: border-box;
-      color: $tc-gray-90;
-      cursor: default;
-      display: block;
-      padding: 8px 20px;
-    }
   }
 }

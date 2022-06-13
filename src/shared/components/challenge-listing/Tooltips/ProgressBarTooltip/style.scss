@@ -14,10 +14,8 @@ div.progress-bar-tooltip {
   color: $tc-white;
   max-width: none;
   padding: 0 $base-unit * 3;
-
-  .rc-tooltip-inner {
-    padding: 0 $base-unit * 3;
-  }
+  background-color: #2a2a2a !important;
+  border-radius: 8px;
 
   .tip {
     word-wrap: none;
@@ -28,7 +26,7 @@ div.progress-bar-tooltip {
       line-height: $tip-space-15;
       min-width: $tip-offset;
       padding: $tip-space-15 0;
-      background: $tc-gray-80;
+      background: #2a2a2a;
       width: $tip-space-95;
 
       &:last-child {
@@ -49,13 +47,17 @@ div.progress-bar-tooltip {
     }
 
     .inner-bar {
-      background: $tc-light-blue;
+      background: #b671d7;
       position: relative;
       border-radius: $corner-radius * 4;
       border: 2px solid $tc-gray-80;
       top: -(($tip-space-15) - 1);
       height: $tip-space-10 - 2;
       z-index: 1;
+
+      &.red {
+        background: #ef476f;
+      }
     }
 
     .point {
@@ -72,7 +74,11 @@ div.progress-bar-tooltip {
 
     &.started {
       .point {
-        background: $tc-light-blue;
+        background: #b671d7;
+
+        &.red {
+          background: #ef476f;
+        }
       }
     }
   }

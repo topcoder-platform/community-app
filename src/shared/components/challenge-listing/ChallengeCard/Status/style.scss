@@ -16,11 +16,13 @@ $status-radius-4: $corner-radius * 2;
 
   @include xs-to-md {
     margin-top: $status-space-20 + 3;
+    margin-right: 16px;
     width: 100%;
   }
 
   @include xs-to-sm {
     margin-top: $status-space-15;
+    margin-right: 16px;
   }
 
   &.completed {
@@ -43,10 +45,12 @@ $status-radius-4: $corner-radius * 2;
   }
 
   .avatar-container {
-    margin-right: $status-space-15 + 2;
+    margin-right: 0;
+    margin-left: 10px;
 
     @include xl {
-      margin-right: 14px;
+      margin-right: 0;
+      margin-left: 10px;
     }
 
     > span {
@@ -59,7 +63,7 @@ $status-radius-4: $corner-radius * 2;
     min-width: 100%;
 
     &.with-register-button {
-      padding-right: 108px;
+      padding-right: 95px;
 
       @include xs-to-sm {
         padding-right: 0;
@@ -68,11 +72,14 @@ $status-radius-4: $corner-radius * 2;
     }
 
     .current-phase {
+      @include roboto-medium;
+
       float: left;
-      font-size: 13px;
-      font-weight: 400;
-      color: $tc-black;
-      line-height: $status-space-20;
+      font-size: 11px;
+      font-weight: 500;
+      color: $tco-black;
+      line-height: 10px;
+      margin-top: 6px;
     }
 
     .time-left {
@@ -139,33 +146,37 @@ $status-radius-4: $corner-radius * 2;
   }
   // register btn
   a.register-button {
+    @include roboto-regular;
+
+    font-weight: 400;
     display: block;
     position: absolute;
-    height: 100%;
-    background: $tc-gray-neutral-light;
+    height: 90%;
+    margin-top: 5px;
+    background: #f4f4f4;
     top: 0;
     right: 0;
-    width: 108px;
-    padding-left: $status-space-20;
+    width: 120px;
+    padding-left: 16px;
     text-align: left;
-    font-size: 13px;
-    color: $tc-black;
-    line-height: $status-space-20;
+    font-size: 14px;
+    color: $tco-black;
+    line-height: 24px;
 
     @include xs-to-sm {
       position: absolute;
-      height: 50px;
+      height: 42px;
       width: auto;
       left: 0;
       right: 0;
       top: auto;
       bottom: 0;
       text-align: center;
-      background: $tc-dark-blue-10;
+      background: #f4f4f4;
     }
 
     span {
-      font-size: 12px;
+      font-size: 14px;
       line-height: $status-space-15;
       font-weight: 500;
       display: block;
@@ -174,11 +185,26 @@ $status-radius-4: $corner-radius * 2;
       transform: translate(0, -50%);
       margin-top: -$status-space-10;
 
+      &.late {
+        line-height: $status-space-20;
+      }
+
       @include xs-to-sm {
         display: inline-block;
         position: relative;
         margin-top: 0;
-        color: $tc-dark-blue;
+        color: $tco-black;
+
+        &.late {
+          line-height: $status-space-15;
+          max-width: 100%;
+
+          @include xs-to-sm {
+            br {
+              display: none;
+            }
+          }
+        }
       }
     }
 
@@ -186,15 +212,23 @@ $status-radius-4: $corner-radius * 2;
       font-weight: 400;
       margin-top: $status-space-10;
 
+      &.third-line {
+        margin-top: $status-space-20;
+      }
+
       @include xs-to-sm {
         margin-top: 0;
         padding-left: 5px;
+
+        &.third-line {
+          margin-top: 0;
+        }
       }
     }
 
     &:hover {
-      background: $tc-dark-blue-10;
-      color: $tc-dark-blue;
+      background: #137d60;
+      color: $tc-white;
     }
   }
 }

@@ -9,12 +9,13 @@ $challenge-radius-1: $corner-radius / 2;
 $challenge-radius-4: $corner-radius * 2;
 
 .container {
-  background: $tc-gray-neutral-light;
   border-bottom: 1px solid $tc-gray-30;
-  padding: 0 $base-unit * 3;
+  padding-bottom: 16px;
+  margin: 2px 12px 2px 14px;
 
-  @media (max-width: #{$screen-lg - 1px}) {
-    padding: 0 $base-unit * 2;
+  @include xs-to-md {
+    padding: 0;
+    margin: 0 16px;
   }
 }
 
@@ -25,7 +26,7 @@ $challenge-radius-4: $corner-radius * 2;
   height: 60px;
 
   .input-container {
-    font-size: 12px;
+    font-size: 14px;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -45,8 +46,8 @@ $challenge-radius-4: $corner-radius * 2;
     @include placeholder {
       @include roboto-light;
 
-      font-size: 15px;
-      color: $tc-gray-50;
+      font-size: 14px;
+      color: $listing-placeholder-gray;
       text-transform: none;
       opacity: 1;
     }
@@ -59,7 +60,7 @@ $challenge-radius-4: $corner-radius * 2;
   .SearchButton {
     background: $tc-white;
     cursor: pointer;
-    padding: $challenge-space-10 + 1 $challenge-space-20 $challenge-space-10 - 2;
+    padding: 11.4px 5.4px 14.4px 11.4px;
     border-radius: $challenge-radius-4 0 0 $challenge-radius-4;
     height: 40px;
     order: 1;
@@ -67,8 +68,9 @@ $challenge-radius-4: $corner-radius * 2;
     border-right: 0;
 
     .zoomIcon {
-      height: 16px;
-      width: 16px;
+      height: 11.2px;
+      width: 11.2px;
+      margin-bottom: 6px;
     }
 
     &:hover {

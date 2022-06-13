@@ -6,7 +6,7 @@
 }
 
 .link:hover {
-  color: $tc-dark-blue-110;
+  color: $tc-black;
 }
 
 .number {
@@ -18,9 +18,12 @@
 }
 
 .tooltip {
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
   color: $tc-white;
   letter-spacing: 0;
-  padding: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #2a2a2a;
 }

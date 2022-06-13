@@ -1,16 +1,18 @@
 /* eslint-disable react/no-this-in-sfc */
-import React from 'react';
+import React, { useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import PT from 'prop-types';
 import moment from 'moment';
-import { getRatingColor } from 'utils/tc';
+import { getHighlightedColor, getRatingColor, getUnSelectedColors } from 'utils/tc';
 import DefaultUserImage from 'assets/images/ico-user-default.png';
 
-import './styles.scss';
 import _ from 'lodash';
+import styles from './styles.scss';
 
 export default function Graph({ statisticsData, baseline, awardLine }) {
+  const [point, setPoint] = useState(null);
+
   const flatData = [];
   const dates = [];
   _.each(statisticsData, (entry) => {
@@ -24,26 +26,71 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
     });
   });
 
+  const pointDatas = _.map(flatData, (data) => {
+    let color;
+    let isSelected = false;
+    if (point) {
+      isSelected = point.customData.handle === data.handle;
+      if (isSelected) {
+        color = getHighlightedColor(data.rating || 0);
+      } else {
+        color = getUnSelectedColors(data.rating || 0);
+      }
+    } else {
+      color = data.ratingColor || getRatingColor(data.rating || 0);
+    }
+    return {
+      x: moment(data.created).valueOf(),
+      y: _.max([0, data.score ? (parseFloat(data.score)) : 0]),
+      name: data.handle,
+      color,
+      customData: data,
+      marker: {
+        enabled: true,
+        width: 'circle',
+        radius: isSelected ? 6 : 4,
+      },
+      className: !isSelected && point ? styles.selectedPoint : '',
+    };
+  });
+
   const options = {
+    plotOptions: {
+      line: {
+        events: {
+          click() {
+            this.group.toFront();
+          },
+        },
+      },
+    },
     chart: {
       type: 'scatter',
+      backgroundColor: '#fff',
+      events: {
+        click: () => {
+          setPoint(null);
+        },
+      },
     },
     title: {
       text: '',
     },
     series: [
       {
-        data: _.map(flatData, data => ({
-          x: moment(data.created).valueOf(),
-          y: _.max([0, data.score ? (parseFloat(data.score)) : 0]),
-          name: data.handle,
-          color: data.ratingColor
-            || getRatingColor(data.rating
-            || 0),
-          customData: data,
-        })),
+        data: pointDatas,
         pointStart: moment(_.min(dates)).valueOf(),
         pointInterval: 24 * 3600 * 1000,
+        backgroundColor: 'rgb(51,51,51)',
+        point: {
+          events: {
+            click: (e) => {
+              if (e && e.point) {
+                setPoint(e.point);
+              }
+            },
+          },
+        },
       },
     ],
     legend: {
@@ -72,6 +119,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
       title: {
         enabled: false,
       },
+      backgroundColor: '#fff',
       plotLines: [
         ...(awardLine > 0 ? [
           {
@@ -94,7 +142,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
           },
         ] : []),
         {
-          color: 'rgba(51, 51, 51, 1)',
+          color: '#fff',
           value: 0,
           width: 3,
         },
@@ -103,23 +151,27 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
     },
     tooltip: {
       formatter() {
-        const str = `
-          <div style="border-radius:4px;">
-            <img height="30" width="30" src="${this.point.customData.photoUrl || DefaultUserImage}" style="position: absolute; border-radius: 50%;" />
-            <p style="margin-left: 50px">${this.point.customData.handle}</p>
-            <br />
-            <p style="margin-left: 50px;">${this.point.customData.submissionCount} submissions</p>
-            <p style="margin-left: 50px;">Score: ${this.y}</p>
-            <p style="margin-left: 50px;">Submitted: ${moment(this.point.customData.created).format('MM/DD/YYYY')} </p>
-          </div>
-        `;
-        return str;
+        const currentPointer = this.point || point;
+        if (currentPointer) {
+          const str = `
+            <div style="border-radius:4px; padding-top: 15px; padding-left: 10px;">
+              <img height="30" width="30" src="${currentPointer.customData.photoUrl || DefaultUserImage}" style="position: absolute; border-radius: 50%;" />
+              <p style="margin-left: 50px">${currentPointer.customData.handle}</p>
+              <br />
+              <p style="margin-left: 50px;">${currentPointer.customData.submissionCount} submissions</p>
+              <p style="margin-left: 50px;">Score: ${this.y}</p>
+              <p style="margin-left: 50px;">Submitted: ${moment(currentPointer.customData.created).format('MM/DD/YYYY')} </p>
+            </div>
+          `;
+          return str;
+        }
+        return false;
       },
       useHTML: true,
       style: {
         color: '#fff',
       },
-      backgroundColor: 'rgb(51,51,51)',
+      backgroundColor: point ? '#2e2e2e' : 'rgb(51,51,51)',
       shared: true,
     },
   };

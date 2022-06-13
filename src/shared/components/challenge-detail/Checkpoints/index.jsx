@@ -2,7 +2,10 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import style from './styles.scss';
+import ArrowDown from 'assets/images/icon-arrow-down-black.svg';
+import ArrowUp from 'assets/images/icon-arrow-up-black.svg';
+
+import './styles.scss';
 
 function Checkpoints(props) {
   const {
@@ -16,7 +19,7 @@ function Checkpoints(props) {
 
   return (
     <div styleName="challenge-detail-checkpoints">
-      <div styleName="challenge-checkpoint-list">
+      {/* <div styleName="challenge-checkpoint-list">
         {
           checkpointResults && checkpointResults.map((item, index) => (
             <button
@@ -36,11 +39,12 @@ function Checkpoints(props) {
             </button>
           ))
         }
-      </div>
+      </div> */}
       <div styleName="challenge-checkpoint-detail">
         <h2>
           Checkpoint Winners & General Feedback
         </h2>
+        <h5>Check forums for general feedback</h5>
         <p
           dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
             __html: generalFeedback || '',
@@ -67,7 +71,7 @@ function Checkpoints(props) {
                 </span>
                 <span styleName="challenge-checkpoint-expander">
                   {
-                    item.expanded ? '-' : '+'
+                    item.expanded ? <ArrowUp /> : <ArrowDown />
                   }
                 </span>
               </button>

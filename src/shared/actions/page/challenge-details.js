@@ -12,10 +12,10 @@ export const TABS = {
   REGISTRANTS: 'registrants',
   CHECKPOINTS: 'checkpoints',
   SUBMISSIONS: 'submissions',
-  MY_SUBMISSIONS: 'my_submissions',
+  MY_SUBMISSIONS: 'my submissions',
   WINNERS: 'winners',
   CHALLENGE_FORUM: 'challenge_forum',
-  MM_DASHBOARD: 'mm_dashboard',
+  MM_DASHBOARD: 'dashboard',
 };
 
 /* Holds valid values for the specs tab state. */

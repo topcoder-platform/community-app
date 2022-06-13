@@ -82,14 +82,13 @@ export default function BucketSelector({
 
   return (!past
     ? (
-      <div>
+      <div styleName="bucketSelector">
         {getBucket(BUCKETS.ALL)}
         {isAuth ? getBucket(BUCKETS.MY) : null}
         {/* {extraBucket ? getBucket(extraBucket) : null} */}
         {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
         {/* DISABLED: Until api receive fix community-app#5073 */}
         {/* {getBucket(BUCKETS.ONGOING)} */}
-        <hr />
         {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
         {/* {getBucket(BUCKETS.PAST)} */}
         {/* NOTE: We do not show upcoming challenges for now, for various reasons,
@@ -118,7 +117,6 @@ export default function BucketSelector({
               </div>
             ) : ''
         } */}
-        <hr />
         {/* DISABLED: Until feeds.topcoder.com domain fixed community-app#4606 */}
         {/*
         <div styleName="get-rss">

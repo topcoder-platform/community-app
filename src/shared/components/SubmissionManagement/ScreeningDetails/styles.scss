@@ -12,12 +12,11 @@ $red-color: $tc-red;
 }
 
 .screening-details {
-  background: $tc-gray-neutral-light;
-  font-weight: 400;
-  font-size: 15px;
-  color: $gray-color;
+  font-weight: 500;
+  font-size: 14px;
+  color: $tc-black;
   letter-spacing: 0;
-  line-height: $status-space-25;
+  line-height: 22px;
 
   .screening-details-head {
     display: flex;
@@ -83,6 +82,7 @@ $red-color: $tc-red;
   }
 
   .help-link {
-    padding: 1px 6px;
+    color: $tc-dark-blue-110;
+    cursor: pointer;
   }
 }

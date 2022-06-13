@@ -57,6 +57,7 @@ function Phase({
 }) {
   const limitProgress = parseFloat(_.replace(progress, '%', ''));
   const limitWidth = limitProgress <= 100 ? limitProgress : 100;
+
   return (
     <div styleName="phase">
       <div>
@@ -191,8 +192,6 @@ function placeArrow(TooltipNode) {
   if (rootTopOffset < tooltipTopOffset) {
     toolTip.style.top = `${parseInt(toolTip.style.top, 10) - 20}px`;
     arrow.style.top = '-5px';
-  } else {
-    arrow.style.top = '100%';
   }
 }
 

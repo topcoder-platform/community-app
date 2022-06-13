@@ -13,7 +13,9 @@ import { config } from 'topcoder-react-utils';
 import { submission as submissionUtils } from 'topcoder-react-lib';
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import cn from 'classnames';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { Button } from 'topcoder-react-ui-kit';
+import DateSortIcon from 'assets/images/icon-date-sort.svg';
+import SortIcon from 'assets/images/icon-sort.svg';
 
 import sortList from 'utils/challenge-detail/sort';
 import challengeDetailsActions from 'actions/page/challenge-details';
@@ -22,7 +24,6 @@ import { goToLogin, getRatingLevel } from 'utils/tc';
 import Lock from '../icons/lock.svg';
 import SubmissionRow from './SubmissionRow';
 import SubmissionInformationModal from './SubmissionInformationModal';
-import ArrowDown from '../../../../assets/images/arrow-down.svg';
 import style from './style.scss';
 
 const { getProvisionalScore, getFinalScore } = submissionUtils;
@@ -34,6 +35,14 @@ class SubmissionsComponent extends React.Component {
       isShowInformation: false,
       memberOfModal: '',
       sortedSubmissions: [],
+      ratingClicked: false,
+      usernameClicked: false,
+      dateClicked: false,
+      initialScoreClicked: false,
+      finalScoreClicked: false,
+      finalRankClicked: false,
+      provisionalRankClicked: false,
+      provisionalScoreClicked: false,
     };
     this.onHandleInformationPopup = this.onHandleInformationPopup.bind(this);
     this.getSubmissionsSortParam = this.getSubmissionsSortParam.bind(this);
@@ -66,8 +75,8 @@ class SubmissionsComponent extends React.Component {
     const { submissions, mmSubmissions, submissionsSort } = this.props;
     if (
       (!isMM && !_.isEqual(prevProps.submissions, submissions))
-      || (isMM && !_.isEqual(prevProps.mmSubmissions, mmSubmissions))
-      || !_.isEqual(prevProps.submissionsSort, submissionsSort)
+        || (isMM && !_.isEqual(prevProps.mmSubmissions, mmSubmissions))
+        || !_.isEqual(prevProps.submissionsSort, submissionsSort)
     ) {
       this.updateSortedSubmissions();
     }
@@ -86,9 +95,9 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
-   * Check if it have flag for first try
-   * @param {Object} registrant registrant info
-   */
+     * Check if it have flag for first try
+     * @param {Object} registrant registrant info
+     */
   getFlagFirstTry(registrant) {
     const { notFoundCountryFlagUrl } = this.props;
     if (!registrant.countryInfo || notFoundCountryFlagUrl[registrant.countryInfo.countryCode]) {
@@ -99,8 +108,8 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
-   * Get submission sort parameter
-   */
+     * Get submission sort parameter
+     */
   getSubmissionsSortParam(isMM, isReviewPhaseComplete) {
     const {
       submissionsSort,
@@ -128,8 +137,8 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
-   * Update sorted submission array
-   */
+     * Update sorted submission array
+     */
   updateSortedSubmissions() {
     const { challenge } = this.props;
     const isMM = checkIsMM(challenge);
@@ -140,16 +149,16 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
-   * Sort array of submission
-   * @param {Array} submissions array of submission
-   */
+     * Sort array of submission
+     * @param {Array} submissions array of submission
+     */
   sortSubmissions(submissions) {
     const { challenge } = this.props;
     const isMM = checkIsMM(challenge);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
-    if (field === 'Initial / Final Score') {
+    if (field === 'Initial Score' || 'Final Score') {
       isHaveFinalScore = _.some(submissions, s => !_.isNil(
         s.reviewSummation && s.reviewSummation[0].aggregateScore,
       ));
@@ -190,7 +199,7 @@ class SubmissionsComponent extends React.Component {
           valueB = new Date(b.created);
           break;
         }
-        case 'Initial / Final Score': {
+        case 'Initial Score': {
           if (isHaveFinalScore) {
             valueA = getFinalScore(a);
             valueB = getFinalScore(b);
@@ -239,8 +248,8 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
-   * Check if review phase complete
-   */
+     * Check if review phase complete
+     */
   checkIsReviewPhaseComplete() {
     const {
       challenge,
@@ -290,7 +299,30 @@ class SubmissionsComponent extends React.Component {
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
 
-    const { isShowInformation, memberOfModal, sortedSubmissions } = this.state;
+    const {
+      isShowInformation,
+      memberOfModal,
+      sortedSubmissions,
+      ratingClicked,
+      usernameClicked,
+      dateClicked,
+      initialScoreClicked,
+      finalScoreClicked,
+      finalRankClicked,
+      provisionalRankClicked,
+      provisionalScoreClicked,
+    } = this.state;
+
+    const sortOptionClicked = {
+      ratingClicked: false,
+      usernameClicked: false,
+      dateClicked: false,
+      initialScoreClicked: false,
+      finalScoreClicked: false,
+      finalRankClicked: false,
+      provisionalRankClicked: false,
+      provisionalScoreClicked: false,
+    };
 
     const modalSubmissionBasicInfo = () => _.find(mmSubmissions,
       item => item.member === memberOfModal);
@@ -361,235 +393,82 @@ class SubmissionsComponent extends React.Component {
           </div>
           <div styleName="content">
             {
-              sortedSubmissions.map(renderSubmission)
-            }
+                sortedSubmissions.map(renderSubmission)
+              }
           </div>
           {
-            checkpoints.length > 0
-            && (
-              <div styleName="title">
-                ROUND 1 (CHECKPOINT) SUBMISSIONS
-              </div>
-            )
-          }
+              checkpoints.length > 0
+              && (
+                <div styleName="title">
+                  ROUND 1 (CHECKPOINT) SUBMISSIONS
+                </div>
+              )
+            }
           {
-            checkpoints.length > 0
-            && (
-              <div styleName="content">
-                {
-                  checkpoints.map(renderSubmission)
-                }
-              </div>
-            )
-          }
+              checkpoints.length > 0
+              && (
+                <div styleName="content">
+                  {
+                    checkpoints.map(renderSubmission)
+                  }
+                </div>
+              )
+            }
         </div>
       )
         : (
           <div styleName="container no-view">
             <Lock styleName="lock" />
-            <div styleName="title">
+            <div styleName="lock-title">
               Private Challenge
             </div>
-            <div styleName="subtitle">
+            <div styleName="lock-subtitle">
               Submissions are not viewable for this challenge
             </div>
-            <div styleName="desc">
+            <span styleName="lock-desc">
               There are many reason why the submissions may not be viewable, such
               as the allowance of stock art, or a client&apos;s desire to keep the work private.
-            </div>
+            </span>
           </div>
         );
     }
 
     if (!_.isEmpty(loadingMMSubmissionsForChallengeId)) {
-      return <LoadingIndicator />;
+      return <div styleName="loading"><LoadingIndicator /></div>;
     }
 
     return (
-      <div styleName={`container dev ${isMM ? '' : 'non-mm'}`}>
+      <div styleName={`container dev ${isMM ? 'mm' : 'non-mm'}`}>
         {
-          isMM ? (
-            <div styleName="head">
-              <div styleName="col-1 col">
-                Rank
-              </div>
-              <div styleName="col-2 col">
-                User
-              </div>
-              <div styleName="col-3 col">
-                Score
-              </div>
-              <div styleName="col-4 col" />
-            </div>
-          ) : (
-            <div styleName="head">
-              {
-                !isF2F && !isBugHunt && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onSortChange({
-                        field: 'Rating',
-                        sort: (field === 'Rating') ? revertSort : 'desc',
-                      });
-                    }}
-                    styleName="col-2 header-sort"
-                  >
-                    <span>Rating</span>
-                    <div
-                      styleName={cn(
-                        'col-arrow',
-                        {
-                          'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
-                          'col-arrow-is-sorting': field === 'Rating',
-                        },
-                      )}
-                    ><ArrowDown />
-                    </div>
-                  </button>
-                )
-              }
-              <button
-                type="button"
-                onClick={() => {
-                  onSortChange({
-                    field: 'Username',
-                    sort: (field === 'Username') ? revertSort : 'desc',
-                  });
-                }}
-                styleName="col-3 header-sort"
-              >
-                <span>Username</span>
-                <div
-                  styleName={cn(
-                    'col-arrow',
-                    {
-                      'col-arrow-sort-asc': (field === 'Username') && (sort === 'asc'),
-                      'col-arrow-is-sorting': field === 'Username',
-                    },
-                  )}
-                ><ArrowDown />
-                </div>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onSortChange({
-                    field: 'Submission Date',
-                    sort: (field === 'Submission Date') ? revertSort : 'desc',
-                  });
-                }}
-                styleName="col-4 header-sort"
-              >
-                <span>Submission Date</span>
-                <div
-                  styleName={cn(
-                    'col-arrow',
-                    {
-                      'col-arrow-sort-asc': (field === 'Submission Date') && (sort === 'asc'),
-                      'col-arrow-is-sorting': field === 'Submission Date',
-                    },
-                  )}
-                ><ArrowDown />
-                </div>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onSortChange({
-                    field: 'Initial / Final Score',
-                    sort: (field === 'Initial / Final Score') ? revertSort : 'desc',
-                  });
-                }}
-                styleName="col-5 header-sort"
-              >
-                <span>Initial / Final Score</span>
-                <div
-                  styleName={cn(
-                    'col-arrow',
-                    {
-                      'col-arrow-sort-asc': (field === 'Initial / Final Score') && (sort === 'asc'),
-                      'col-arrow-is-sorting': field === 'Initial / Final Score',
-                    },
-                  )}
-                ><ArrowDown />
-                </div>
-              </button>
-            </div>
-          )
-        }
-        {
-          isMM && (
-            <div styleName="sub-head">
-              <div styleName="col-1 col">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSortChange({
-                      field: 'Final Rank',
-                      sort: (field === 'Final Rank') ? revertSort : 'desc',
-                    });
-                  }}
-                  styleName="col header-sort"
-                >
-                  <span>Final</span>
-                  <div
-                    styleName={cn(
-                      'col-arrow',
-                      {
-                        'col-arrow-sort-asc': (field === 'Final Rank') && (sort === 'asc'),
-                        'col-arrow-is-sorting': field === 'Final Rank',
-                      },
-                    )}
-                  ><ArrowDown />
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSortChange({
-                      field: 'Provisional Rank',
-                      sort: (field === 'Provisional Rank') ? revertSort : 'desc',
-                    });
-                  }}
-                  styleName="col header-sort"
-                >
-                  <span>Provisional</span>
-                  <div
-                    styleName={cn(
-                      'col-arrow',
-                      {
-                        'col-arrow-sort-asc': (field === 'Provisional Rank') && (sort === 'asc'),
-                        'col-arrow-is-sorting': field === 'Provisional Rank',
-                      },
-                    )}
-                  ><ArrowDown />
-                  </div>
-                </button>
-              </div>
-              <div styleName="col-2 col">
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSortChange({
-                      field: 'Rating',
-                      sort: (field === 'Rating') ? revertSort : 'desc',
-                    });
-                  }}
-                  styleName="col header-sort"
-                >
-                  <span>Rating</span>
-                  <div
-                    styleName={cn(
-                      'col-arrow',
-                      {
-                        'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
-                        'col-arrow-is-sorting': field === 'Rating',
-                      },
-                    )}
-                  ><ArrowDown />
-                  </div>
-                </button>
+            !isMM && (
+              <div styleName="head">
+                {
+                  !isF2F && !isBugHunt && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onSortChange({
+                          field: 'Rating',
+                          sort: (field === 'Rating') ? revertSort : 'desc',
+                        });
+                        this.setState({ ...sortOptionClicked, ratingClicked: true });
+                      }}
+                      styleName="col-2 header-sort"
+                    >
+                      <span>Rating</span>
+                      <div
+                        styleName={cn(
+                          'col-arrow',
+                          {
+                            'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
+                            'col-arrow-is-sorting': field === 'Rating',
+                          },
+                        )}
+                      >{ ratingClicked ? <DateSortIcon /> : <SortIcon /> }
+                      </div>
+                    </button>
+                  )
+                }
                 <button
                   type="button"
                   onClick={() => {
@@ -597,8 +476,9 @@ class SubmissionsComponent extends React.Component {
                       field: 'Username',
                       sort: (field === 'Username') ? revertSort : 'desc',
                     });
+                    this.setState({ ...sortOptionClicked, usernameClicked: true });
                   }}
-                  styleName="col header-sort"
+                  styleName="col-3 header-sort"
                 >
                   <span>Username</span>
                   <div
@@ -609,11 +489,55 @@ class SubmissionsComponent extends React.Component {
                         'col-arrow-is-sorting': field === 'Username',
                       },
                     )}
-                  ><ArrowDown />
+                  >{ usernameClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
-              </div>
-              <div styleName="col-3 col">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSortChange({
+                      field: 'Submission Date',
+                      sort: (field === 'Submission Date') ? revertSort : 'desc',
+                    });
+                    this.setState({ ...sortOptionClicked, dateClicked: true });
+                  }}
+                  styleName="col-4 header-sort"
+                >
+                  <span>Submission Date</span>
+                  <div
+                    styleName={cn(
+                      'col-arrow',
+                      {
+                        'col-arrow-sort-asc': (field === 'Submission Date') && (sort === 'asc'),
+                        'col-arrow-is-sorting': field === 'Submission Date',
+                      },
+                    )}
+                  >{ dateClicked ? <DateSortIcon /> : <SortIcon /> }
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSortChange({
+                      field: 'Initial Score',
+                      sort: (field === 'Initial Score') ? revertSort : 'desc',
+                    });
+                    this.setState({ ...sortOptionClicked, initialScoreClicked: true });
+                  }}
+                  styleName="col-5 header-sort"
+                >
+                  <span>Initial Score</span>
+                  <div
+                    styleName={cn(
+                      'col-arrow',
+                      {
+                        'col-arrow-sort-asc': (field === 'Initial Score') && (sort === 'asc'),
+                        'col-arrow-is-sorting': field === 'Initial Score',
+                      },
+                    )}
+                  >{ initialScoreClicked ? <DateSortIcon /> : <SortIcon /> }
+                  </div>
+                </button>
                 <button
                   type="button"
                   onClick={() => {
@@ -621,10 +545,11 @@ class SubmissionsComponent extends React.Component {
                       field: 'Final Score',
                       sort: (field === 'Final Score') ? revertSort : 'desc',
                     });
+                    this.setState({ ...sortOptionClicked, finalScoreClicked: true });
                   }}
-                  styleName="col header-sort"
+                  styleName="col-6 header-sort"
                 >
-                  <span>Final</span>
+                  <span>Final Score</span>
                   <div
                     styleName={cn(
                       'col-arrow',
@@ -633,144 +558,300 @@ class SubmissionsComponent extends React.Component {
                         'col-arrow-is-sorting': field === 'Final Score',
                       },
                     )}
-                  ><ArrowDown />
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSortChange({
-                      field: 'Provisional Score',
-                      sort: (field === 'Provisional Score') ? revertSort : 'desc',
-                    });
-                  }}
-                  styleName="col header-sort"
-                >
-                  <span>Provisional</span>
-                  <div
-                    styleName={cn(
-                      'col-arrow',
-                      {
-                        'col-arrow-sort-asc': (field === 'Provisional Score') && (sort === 'asc'),
-                        'col-arrow-is-sorting': field === 'Provisional Score',
-                      },
-                    )}
-                  ><ArrowDown />
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSortChange({
-                      field: 'Time',
-                      sort: (field === 'Time') ? revertSort : 'desc',
-                    });
-                  }}
-                  styleName="col header-sort"
-                >
-                  <span>Time</span>
-                  <div
-                    styleName={cn(
-                      'col-arrow',
-                      {
-                        'col-arrow-sort-asc': (field === 'Time') && (sort === 'asc'),
-                        'col-arrow-is-sorting': field === 'Time',
-                      },
-                    )}
-                  ><ArrowDown />
+                  >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
               </div>
-              <div styleName="col-4 col" />
-            </div>
-          )
-        }
+            )
+          }
         {
-          isMM && (
-            sortedSubmissions.map((submission, index) => (
-              <SubmissionRow
-                submissions={sortedSubmissions}
-                isReviewPhaseComplete={isReviewPhaseComplete}
-                isMM={isMM}
-                key={submission.member}
-                {...submission}
-                toggleHistory={() => { toggleSubmissionHistory(index); }}
-                openHistory={(submissionHistoryOpen[index.toString()] || false)}
-                isLoadingSubmissionInformation={isLoadingSubmissionInformation}
-                submissionInformation={submissionInformation}
-                onShowPopup={this.onHandleInformationPopup}
-                getFlagFirstTry={this.getFlagFirstTry}
-                onGetFlagImageFail={onGetFlagImageFail}
-              />
-            ))
-          )
-        }
-        {
-          !isMM && (
-            sortedSubmissions.map(s => (
-              <div key={_.get(s.registrant, 'memberHandle', '') + s.created} styleName="row">
-                {
-                  !isF2F && !isBugHunt && (
-                    <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}>
-                      { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
-                    </div>
-                  )
-                }
-                <div styleName="col-3">
-                  <a
-                    href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
-                    target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
-                    rel="noopener noreferrer"
-                    styleName={`handle level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
+            isMM && (
+              <div styleName="sub-head">
+                <div styleName="col-1 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Final Rank',
+                        sort: (field === 'Final Rank') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, finalRankClicked: true });
+                    }}
+                    styleName="col header-sort"
                   >
-                    {_.get(s.registrant, 'memberHandle', '')}
-                  </a>
+                    <span>FINAL RANK</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Final Rank') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Final Rank',
+                        },
+                      )}
+                    >{finalRankClicked ? <DateSortIcon /> : <SortIcon />}
+                    </div>
+                  </button>
                 </div>
-                <div styleName="col-4">
-                  {moment(s.created).format('MMM DD, YYYY HH:mm')}
+                <div styleName="col-2 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Provisional Rank',
+                        sort: (field === 'Provisional Rank') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, provisionalRankClicked: true });
+                    }}
+                    styleName="col header-sort"
+                  >
+                    <span>PROVISIONAL RANK</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Provisional Rank') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Provisional Rank',
+                        },
+                      )}
+                    >{provisionalRankClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
                 </div>
-                <div styleName="col-5">
-                  {
-                    (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score)
-                      ? s.review[0].score.toFixed(2)
-                      : 'N/A'
-                  }
-                  &zwnj;
-                  &zwnj;/
-                  &zwnj;
-                  {
-                    (s.reviewSummation && s.reviewSummation[0].aggregateScore)
-                      ? s.reviewSummation[0].aggregateScore.toFixed(2)
-                      : 'N/A'
-                  }
+                <div styleName="col-3 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Rating',
+                        sort: (field === 'Rating') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, ratingClicked: true });
+                    }}
+                    styleName="header-sort"
+                  >
+                    <span>RATING</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Rating',
+                        },
+                      )}
+                    >{ ratingClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
+                </div>
+                <div styleName="col-4 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Username',
+                        sort: (field === 'Username') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, usernameClicked: true });
+                    }}
+                    styleName="col header-sort"
+                  >
+                    <span>USERNAME</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Username') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Username',
+                        },
+                      )}
+                    >{ usernameClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
+                </div>
+                <div styleName="col-5 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Final Score',
+                        sort: (field === 'Final Score') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, finalScoreClicked: true });
+                    }}
+                    styleName="col header-sort"
+                  >
+                    <span>FINAL SCORE</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Final Score') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Final Score',
+                        },
+                      )}
+                    >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
+                </div>
+                <div styleName="col-6 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Provisional Score',
+                        sort: (field === 'Provisional Score') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, provisionalScoreClicked: true });
+                    }}
+                    styleName="col header-sort"
+                  >
+                    <span>PROVISIONAL SCORE</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Provisional Score') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Provisional Score',
+                        },
+                      )}
+                    >{ provisionalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
+                </div>
+                <div styleName="col-7 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Time',
+                        sort: (field === 'Time') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, dateClicked: true });
+                    }}
+                    styleName="col header-sort"
+                  >
+                    <span>TIME</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Time') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Time',
+                        },
+                      )}
+                    >{ dateClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
+                </div>
+                <div styleName="col-8 col">
+                  <span>ACTIONS</span>
                 </div>
               </div>
-            ))
-          )
+            )
+          }
+        {
+            isMM && (
+              sortedSubmissions.map((submission, index) => (
+                <SubmissionRow
+                  submissions={sortedSubmissions}
+                  isReviewPhaseComplete={isReviewPhaseComplete}
+                  isMM={isMM}
+                  key={submission.member}
+                  {...submission}
+                  toggleHistory={() => { toggleSubmissionHistory(index); }}
+                  openHistory={(submissionHistoryOpen[index.toString()] || false)}
+                  isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                  submissionInformation={submissionInformation}
+                  onShowPopup={this.onHandleInformationPopup}
+                  getFlagFirstTry={this.getFlagFirstTry}
+                  onGetFlagImageFail={onGetFlagImageFail}
+                  submissionDetail={submission}
+                />
+              ))
+            )
+          }
+        {
+            !isMM && (
+              sortedSubmissions.map(s => (
+                <div key={_.get(s.registrant, 'memberHandle', '') + s.created} styleName="row">
+                  {
+                    !isF2F && !isBugHunt && (
+                      <React.Fragment>
+                        <div styleName="mobile-header">RATING</div>
+                        <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}>
+                          { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
+                        </div>
+                      </React.Fragment>
+                    )
+                  }
+                  <div styleName="col-3">
+                    <div styleName="mobile-header">USERNAME</div>
+                    <a
+                      href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
+                      target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                      rel="noopener noreferrer"
+                      styleName={`handle level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
+                    >
+                      {_.get(s.registrant, 'memberHandle', '')}
+                    </a>
+                  </div>
+                  <div styleName="col-4">
+                    <div styleName="mobile-header">SUBMISSION DATE</div>
+                    <p>
+                      {moment(s.created).format('MMM DD, YYYY HH:mm')}
+                    </p>
+                  </div>
+                  <div styleName="col-5">
+                    <div styleName="mobile-header">INITIAL SCORE</div>
+                    <p>
+                      {
+                        (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score)
+                          ? s.review[0].score.toFixed(2)
+                          : 'N/A'
+                      }
+                    </p>
+                  </div>
+                  <div styleName="col-6">
+                    <div styleName="mobile-header">FINAL SCORE</div>
+                    <p>
+                      {
+                        (s.reviewSummation && s.reviewSummation[0].aggregateScore)
+                          ? s.reviewSummation[0].aggregateScore.toFixed(2)
+                          : 'N/A'
+                      }
+                    </p>
+                  </div>
+                </div>
+              ))
+            )
+          }
+        {
+          isMM && <div styleName="bottom-line" />
         }
         {isMM && (
-          <PrimaryButton
-            disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
-            theme={{ button: style.challengeAction }}
-            to={`${challengesUrl}/${challengeId}/submit`}
-          >
-            Add Submission
-          </PrimaryButton>
+          <div styleName="btn-add-submission">
+            <Button
+              disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
+              theme={{ button: style.challengeAction }}
+              to={`${challengesUrl}/${challengeId}/submit`}
+            >
+              Add Submission
+            </Button>
+          </div>
         )}
         {
-          isMM && isShowInformation && (
-            <SubmissionInformationModal
-              isLoadingSubmissionInformation={isLoadingSubmissionInformation}
-              submissionInformation={submissionInformation}
-              onClose={this.onHandleInformationPopup}
-              toggleTestcase={toggleSubmissionTestcase}
-              openTestcase={submissionTestcaseOpen}
-              clearTestcaseOpen={clearSubmissionTestcaseOpen}
-              submission={modalSubmissionBasicInfo()}
-              isReviewPhaseComplete={isReviewPhaseComplete}
-            />
-          )
-        }
+            isMM && isShowInformation && (
+              <SubmissionInformationModal
+                isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                submissionInformation={submissionInformation}
+                onClose={this.onHandleInformationPopup}
+                toggleTestcase={toggleSubmissionTestcase}
+                openTestcase={submissionTestcaseOpen}
+                clearTestcaseOpen={clearSubmissionTestcaseOpen}
+                submission={modalSubmissionBasicInfo()}
+                isReviewPhaseComplete={isReviewPhaseComplete}
+              />
+            )
+          }
       </div>
     );
   }
@@ -843,7 +924,7 @@ function mapStateToProps(state) {
     submissionHistoryOpen: state.page.challengeDetails.submissionHistoryOpen,
     submissionTestcaseOpen: state.page.challengeDetails.submissionTestcaseOpen,
     isLoadingSubmissionInformation:
-      Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
+        Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
     submissionInformation: state.challenge.submissionInformation,
   };
 }

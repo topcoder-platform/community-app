@@ -3,9 +3,14 @@
 .container {
   @include roboto-regular;
 
-  max-width: 1060px;
-  margin-left: auto;
-  margin-right: auto;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  margin: 0 41px;
+
+  @include xs-to-sm {
+    padding: 0;
+    margin: 0 16px;
+  }
 
   div {
     white-space: nowrap;
@@ -120,13 +125,17 @@
   }
 
   .head {
+    @include barlow-bold;
+
+    font-weight: 600;
     font-weight: 500;
-    font-size: 15px;
-    line-height: 15px;
+    font-size: 11px;
+    line-height: 14px;
     padding-bottom: 14px;
-    padding-top: 14px;
-    color: $tc-gray-50;
-    background: #e8e8e8;
+    padding-bottom: 17px;
+    color: #767676;
+    background: #fff;
+    text-transform: uppercase;
     display: flex;
     border-radius: 5px 5px 0 0;
 
@@ -148,10 +157,9 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 15px;
-    padding-bottom: 7px;
-    padding-top: 7px;
+    padding-bottom: 17px;
+    padding-top: 14px;
     color: $tc-gray-50;
-    background: #faf9fa;
     display: flex;
     border-bottom: 1px solid $tc-gray-10;
 
@@ -165,81 +173,139 @@
   }
 
   .lock {
-    fill: $tc-light-blue;
-    height: 136px;
-    margin-bottom: 30px;
-    width: 110px;
+    height: 53px;
+    width: 48px;
+    margin-bottom: 24px;
+    margin-top: 24px;
+  }
+
+  .lock-title {
+    @include barlow-bold;
+
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: $tco-black;
+    text-transform: uppercase;
+  }
+
+  .lock-subtitle {
+    @include roboto-medium;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: $tco-black;
+    margin-top: 14px;
+    text-transform: capitalize;
+  }
+
+  .lock-desc {
+    @include roboto-regular;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: $tco-black;
+    margin-top: 60px;
+    width: 540px;
+
+    @include xs-to-sm {
+      width: auto;
+    }
   }
 }
 
 .container.dev {
-  margin: 30px 80px;
-  padding-bottom: 30px;
   line-height: 50px;
-  text-align: center;
+  text-align: left;
 
   @include xs-to-sm {
-    margin: 30px 0;
     line-height: 20px;
   }
 
   .col {
-    text-align: center;
+    text-align: left;
 
     &.col-1 {
-      flex: 22;
+      flex: 20;
       display: flex;
-
-      .col {
-        flex: 1;
-      }
     }
 
     &.col-2 {
-      flex: 35;
+      flex: 20;
       display: flex;
       color: $tc-gray-50;
       padding-left: 10px;
-
-      a {
-        color: black;
-      }
-
-      .col {
-        flex: 1;
-      }
     }
 
     &.col-3 {
-      flex: 45;
+      flex: 20;
       display: flex;
       color: $tc-gray-50;
-
-      .col {
-        flex: 1;
-      }
     }
 
     &.col-4 {
       flex: 20;
       color: $tc-gray-50;
     }
+
+    &.col-5 {
+      flex: 19;
+      color: $tc-gray-50;
+    }
+
+    &.col-6 {
+      flex: 20;
+      color: $tc-gray-50;
+    }
+
+    &.col-7 {
+      flex: 20;
+      color: $tc-gray-50;
+    }
+
+    &.col-8 {
+      flex: 13;
+      color: $tc-gray-50;
+    }
+  }
+
+  .btn-add-submission {
+    text-align: center;
   }
 
   .handle {
     color: $tc-dark-blue;
   }
 
+  &.mm {
+    @include xs-to-sm {
+      margin: 0 16px;
+    }
+  }
+
   &.non-mm {
     .head {
+      @include barlow-bold;
+
+      font-weight: 600;
       font-weight: 500;
-      font-size: 13px;
-      line-height: 15px;
-      padding-bottom: 14px;
-      color: $tc-gray-50;
-      display: flex;
-      border-bottom: 1px solid $tc-gray-10;
-      background: transparent;
+      font-size: 11px;
+      line-height: 14px;
+      padding-bottom: 17px;
+      padding-top: 14px;
+      color: #767676;
+      background: #fff;
+      border-bottom: 1px solid #e9e9e9;
+
+      * {
+        text-transform: uppercase;
+      }
 
       @include xs-to-sm {
         display: none;
@@ -247,15 +313,43 @@
     }
 
     .row {
-      color: $tc-gray-70;
+      @include roboto-medium;
+
+      color: $tc-black;
+      font-weight: 500;
       display: flex;
-      border-bottom: 1px solid $tc-gray-10;
-      font-size: 15px;
+      border-bottom: 1px solid #e9e9e9;
+      font-size: 14px;
+      line-height: 22px;
+      padding-top: 16px;
+      padding-bottom: 15px;
+
+      @include xs-to-sm {
+        flex-direction: column;
+        margin: 0 16px;
+        border-top: 1px solid #e9e9e9;
+      }
+    }
+
+    .mobile-header {
+      display: none;
+
+      @include xs-to-sm {
+        display: block;
+        margin-top: 16px;
+        font-size: 11px;
+        line-height: 14px;
+
+        @include barlow-bold;
+
+        font-weight: 600;
+        color: #767676;
+        text-align: left;
+      }
     }
 
     .col-1 {
       padding-left: 30px;
-      text-align: left;
       width: 10%;
       justify-content: flex-start;
       display: flex;
@@ -267,21 +361,75 @@
     }
 
     .col-2 {
-      width: 10%;
+      width: 15%;
       justify-content: flex-start;
       display: flex;
     }
 
     .col-3 {
-      width: 26.6%;
+      width: 20.5%;
+      margin-right: auto;
+
+      a {
+        padding-left: 0;
+
+        @include xs-to-sm {
+          padding-left: 0;
+        }
+      }
+
+      @include xs-to-sm {
+        text-align: left;
+      }
     }
 
     .col-4 {
-      width: 26.6%;
+      width: 20.5%;
+      margin-right: auto;
+
+      p {
+        padding-left: 0;
+
+        @include xs-to-sm {
+          padding-left: 0;
+        }
+      }
+
+      @include xs-to-sm {
+        text-align: left;
+      }
     }
 
     .col-5 {
-      width: 26.6%;
+      width: 22%;
+
+      p {
+        padding-right: 60px;
+
+        @include xs-to-sm {
+          padding-right: 0;
+        }
+      }
+
+      @include xs-to-sm {
+        text-align: left;
+      }
+    }
+
+    .col-6 {
+      width: 22%;
+
+      p {
+        padding-right: 55px;
+
+        @include xs-to-sm {
+          padding-right: 0;
+        }
+      }
+
+      @include xs-to-sm {
+        text-align: left;
+      }
     }
 
     .handle {
@@ -327,8 +475,9 @@
 }
 
 .header-sort {
+  @include barlow-bold;
+
   display: flex;
-  justify-content: center;
   align-items: center;
   cursor: pointer;
   border: none;
@@ -337,15 +486,13 @@
   color: inherit;
   padding: 0;
   background: transparent;
+  font-size: 11px;
+  line-height: 14px;
 
+  &:focus,
   &:hover {
-    color: $tc-dark-blue;
-
-    :global {
-      g {
-        fill: $tc-dark-blue;
-      }
-    }
+    color: $tc-black;
+    font-weight: 700;
   }
 }
 
@@ -354,6 +501,23 @@
   width: 181px;
   margin-top: 25px !important;
   align-self: center;
+  background-color: #137d60 !important;
+  border-radius: 50px !important;
+  padding: 12px 24px;
+  text-transform: uppercase;
+
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff !important;
+  border: 0;
+
+  &:hover {
+    background-color: lighten(#137d60, 5%) !important;
+    background-image: none !important;
+  }
 }
 
 .level-1 {
@@ -374,4 +538,19 @@
 
 .level-5 {
   color: $member-red !important;
+}
+
+.loading {
+  margin-top: 30px;
+}
+
+.bottom-line {
+  display: none;
+
+  @include xs-to-sm {
+    display: block;
+    width: 100%;
+    border-top: 1px solid #e9e9e9 !important;
+    margin: 16px 16px 0 16px;
+  }
 }

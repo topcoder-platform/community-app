@@ -27,7 +27,7 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 import VerifiedTag from 'components/challenge-listing/VerifiedTag';
 import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
 import { calculateScore } from '../../../utils/challenge-listing/helper';
-import './style.scss';
+import style from './style.scss';
 
 export default function ChallengeTags(props) {
   const {
@@ -77,15 +77,19 @@ export default function ChallengeTags(props) {
       {
         challengeType
         && (
-          <TrackTag
-            onClick={() => (
-              setImmediate(() => setChallengeListingFilter({ types: [challengeType.abbreviation] }))
-            )
-            }
-            to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
-          >
-            {challengeType.name}
-          </TrackTag>
+          <div styleName={`type-tag ${track === COMPETITION_TRACKS.QA ? 'qa' : ''}`}>
+            <TrackTag
+              onClick={() => (
+                setImmediate(() => setChallengeListingFilter(
+                  { types: [challengeType.abbreviation] },
+                ))
+              )
+              }
+              to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
+            >
+              {challengeType.name}
+            </TrackTag>
+          </div>
         )
       }
       {
@@ -93,6 +97,7 @@ export default function ChallengeTags(props) {
           <EventTag
             to={`https://${event}.topcoder.com`}
             key={event}
+            theme={track === COMPETITION_TRACKS.QA ? { button: style.qaTrackEventTag } : undefined}
           >
             {event}
           </EventTag>
@@ -124,15 +129,17 @@ export default function ChallengeTags(props) {
         tags.map(tag => (
           tag
               && (
-              <Tag
-                key={tag}
-                onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
-                }
-                to={`${challengesUrl}?search=${
-                  encodeURIComponent(tag)}`}
-              >
-                {tag}
-              </Tag>
+              <span>
+                <Tag
+                  key={tag}
+                  onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
+                  }
+                  to={`${challengesUrl}?search=${
+                    encodeURIComponent(tag)}`}
+                >
+                  {tag}
+                </Tag>
+              </span>
               )
         ))
       }

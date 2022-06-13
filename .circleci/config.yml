@@ -24,7 +24,7 @@ install_dependency: &install_dependency
             apk upgrade
             apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
-            
+
 install_deploysuite: &install_deploysuite
           name: Installation of install_deploysuite.
           command: |
@@ -35,10 +35,10 @@ install_deploysuite: &install_deploysuite
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
-save_cache_settings: &save_cache_settings    
-  key: docker-node-modules-v3-{{ checksum "package-lock.json" }}  
+save_cache_settings: &save_cache_settings
+  key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
   paths:
-    - node_modules      
+    - node_modules
 
 build_docker_image: &build_docker_image
           name: Build of Docker image
@@ -59,11 +59,11 @@ jobs:
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
       # Build of Docker image.
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar      
+            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar
       - run: *build_docker_image
       # Caching node modules.
       - save_cache: *save_cache_settings
@@ -86,11 +86,11 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar            
+            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -114,11 +114,11 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar            
+            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -142,7 +142,7 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
@@ -158,7 +158,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
-  
+
   # Build & Deploy against prod api backend
   "build-prod-staging":
     <<: *defaults
@@ -170,7 +170,7 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
@@ -191,7 +191,7 @@ jobs:
             --header "Circle-Token: ${CIRCLE_TOKEN}" \
             --header 'content-type: application/json' \
             --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
-    
+
   # Build & Deploy against production backend
   "build-prod":
     <<: *defaults
@@ -203,7 +203,7 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
@@ -211,7 +211,7 @@ jobs:
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
-      - save_cache: *save_cache_settings   
+      - save_cache: *save_cache_settings
       # Deployment.
       - deploy:
           name: Running MasterScript
@@ -224,11 +224,11 @@ jobs:
             --header "Circle-Token: ${CIRCLE_TOKEN}" \
             --header 'content-type: application/json' \
             --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
-   
+
   # Automated Smoke Testing against Staging
   Smoke-Testing-On-Staging:
     <<: *defaults
-    steps: 
+    steps:
       # Initialization.
       - checkout
       - setup_remote_docker
@@ -236,7 +236,7 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
@@ -250,11 +250,11 @@ jobs:
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
       - store_artifacts:
           path: ./automated-smoke-test/test-results
-  
+
    # Automated Smoke Testing against Production
   Smoke-Testing-On-Production:
     <<: *defaults
-    steps: 
+    steps:
       # Initialization.
       - checkout
       - setup_remote_docker
@@ -262,7 +262,7 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
@@ -290,7 +290,7 @@ jobs:
       - run:
           name: Config Git
           command: git config --global url."https://git@".insteadOf git://
-      - run: 
+      - run:
           name: App npm install
           command: npm install
           no_output_timeout: 20m
@@ -299,7 +299,7 @@ jobs:
           paths:
             - node_modules
       - run: npm test
-     
+
   Performance-Testing:
     docker:
       # specify the version you desire here
@@ -337,7 +337,7 @@ jobs:
 
       - store_artifacts:
           path: target/jmeter/reports
-      
+
 workflows:
   version: 2
   Build:
@@ -349,44 +349,44 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - reskin
       # This is alternate dev env for parallel testing
       - "build-test":
-          context : org-global      
-          filters:
-            branches:
-              only:                
-                - circleci-fix
-      # This is alternate dev env for parallel testing
-      - "build-qa":
-          context : org-global      
+          context : org-global
           filters:
             branches:
               only:
-                - free
+                - debug-CMS-error
+      # This is alternate dev env for parallel testing
+      - "build-qa":
+          context : org-global
+          filters:
+            branches:
+              only:
+                - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - social-share-thumb
+                - reskin
       # This is stage env for production QA releases
       - "build-prod-staging":
-          context : org-global         
+          context : org-global
           filters: &filters-staging
             branches:
               only:
                 - develop
                 - stat_marathon_match_link
-      # Production builds are exectuted 
+      # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
-      # That might trigger wrong branch to be 
+      # That might trigger wrong branch to be
       # deployed on the production
       # master branch.
       - "build-prod":
-          context : org-global      
+          context : org-global
           filters: &filters-prod
             branches:
               only:

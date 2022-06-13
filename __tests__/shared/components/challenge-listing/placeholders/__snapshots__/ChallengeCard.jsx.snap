@@ -17,7 +17,7 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2 src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
       />
       <div
-        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR- src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR- src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1 src-shared-components-challenge-listing-ChallengeCard-___style__footer-template___2ki5f"
       />
     </div>
   </div>

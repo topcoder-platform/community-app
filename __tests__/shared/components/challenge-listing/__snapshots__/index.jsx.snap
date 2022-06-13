@@ -5,10 +5,22 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
   id="challengeFilterContainer"
 >
-  <Connect(Container)
-    setFilterState={[MockFunction]}
+  <h1
+    className="src-shared-components-challenge-listing-___style__tc-title____Rpik"
+  >
+    CHALLENGES
+  </h1>
+  <hr
+    className="src-shared-components-challenge-listing-___style__tc-seperator___2AnJv"
   />
-  <Banner />
+  <ChallengeTab
+    activeBucket="abc"
+    previousBucketOfActiveTab={null}
+    previousBucketOfPastChallengesTab={null}
+    selectBucket={[MockFunction]}
+    setPreviousBucketOfActiveTab={[Function]}
+    setPreviousBucketOfPastChallengesTab={[Function]}
+  />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >
@@ -17,6 +29,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     >
       <Connect(SidebarContainer)
         expanding={false}
+        setFilterState={[MockFunction]}
       />
       <Connect(Container)
         communityName={null}
@@ -62,10 +75,22 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
   id="challengeFilterContainer"
 >
-  <Connect(Container)
-    setFilterState={[MockFunction]}
+  <h1
+    className="src-shared-components-challenge-listing-___style__tc-title____Rpik"
+  >
+    CHALLENGES
+  </h1>
+  <hr
+    className="src-shared-components-challenge-listing-___style__tc-seperator___2AnJv"
   />
-  <Banner />
+  <ChallengeTab
+    activeBucket="abc"
+    previousBucketOfActiveTab={null}
+    previousBucketOfPastChallengesTab={null}
+    selectBucket={[MockFunction]}
+    setPreviousBucketOfActiveTab={[Function]}
+    setPreviousBucketOfPastChallengesTab={[Function]}
+  />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >
@@ -74,6 +99,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
     >
       <Connect(SidebarContainer)
         expanding={false}
+        setFilterState={[MockFunction]}
       />
       <Connect(Container)
         communityName={null}
