@@ -24,7 +24,10 @@ function MetaTags({
   feed,
   feedTitle,
 }) {
-  const img = `${domain}${image}`;
+  let img = `${domain}${image}`;
+  if (image.indexOf('http://') === 0 || image.indexOf('https://') === 0) {
+    img = `${image}`;
+  }
   const socTitle = socialTitle || title;
   const socDesc = socialDescription || description;
   return (
