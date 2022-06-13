@@ -60,8 +60,8 @@ function create(init) {
     const spaceName = _.get(payload, 'spaceName') || config.CONTENTFUL.DEFAULT_SPACE_NAME;
     const environment = _.get(payload, 'environment') || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
     const res = _.get(newState, `${spaceName}.${environment}`);
-    if (error || !res) {
-      logger.log('CMS-related error', error, res, `${spaceName}.${environment}`, newState, payload, config.CONTENTFUL.DEFAULT_SPACE_NAME, config.CONTENTFUL.DEFAULT_ENVIRONMENT);
+    if ((error && payload && payload.sys && payload.sys.id !== 'NotFound') || !res) {
+      logger.log('CMS-related error', JSON.stringify(action), config.CONTENTFUL.DEFAULT_SPACE_NAME, config.CONTENTFUL.DEFAULT_ENVIRONMENT, JSON.stringify(res), JSON.stringify(newState));
       return state;
     }
     const st = state[spaceName][environment];
