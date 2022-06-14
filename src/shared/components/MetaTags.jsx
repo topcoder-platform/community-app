@@ -25,7 +25,7 @@ function MetaTags({
   feedTitle,
 }) {
   let img = `${domain}${image}`;
-  if (image.indexOf('http://') === 0 || image.indexOf('https://') === 0) {
+  if (image && (image.indexOf('http://') === 0 || image.indexOf('https://') === 0)) {
     img = `${image}`;
   }
   const socTitle = socialTitle || title;
