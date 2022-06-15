@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - develop
+                - master-jun-15-2022 
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
