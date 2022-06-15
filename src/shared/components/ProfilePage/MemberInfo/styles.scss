@@ -1,0 +1,50 @@
+@import "~styles/mixins";
+
+.member-info {
+  .country {
+    span {
+      @include barlow-bold;
+
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 22px;
+      color: $tco-black;
+      text-transform: uppercase;
+    }
+  }
+
+  .tenure {
+    @include roboto-regular;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $tco-black;
+    margin-top: 8px;
+  }
+
+  .activity {
+    margin-top: 24px;
+
+    h3 {
+      @include barlow-bold;
+
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 22px;
+      color: $tco-black;
+      text-transform: uppercase;
+    }
+  }
+
+  .wins {
+    @include barlow-condensed;
+
+    font-weight: 500;
+    color: $profile-member-wins;
+    font-size: 48px;
+    line-height: 50px;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+}

@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - develop
+                - reskin-profile
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
@@ -370,7 +371,8 @@ workflows:
           filters:
             branches:
               only:
-                - reskin
+                - footer-update
+                - reskin-profile
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
