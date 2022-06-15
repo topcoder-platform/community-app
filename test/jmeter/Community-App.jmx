@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Community App" enabled="true">
       <stringProp name="TestPlan.comments">Check the Performance of the Community App</stringProp>
@@ -3103,7 +3103,7 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
         </PreciseThroughputTimer>
         <hashTree/>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Challenge Listing Re-Skin Performance Testing 30 VU (1hr) [Develop]" enabled="true">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Challenge Listing Re-Skin Performance Testing 30 VU (1hr) [Develop][2]" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="474627902">
             <stringProp name="53">5</stringProp>
@@ -12634,13 +12634,13 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
           <doubleProp>
             <name>allowedThroughputSurplus</name>
             <value>1.0</value>
-            <savedValue>1.0</savedValue>
+            <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="exactLimit">10000</intProp>
           <doubleProp>
             <name>throughput</name>
             <value>60.0</value>
-            <savedValue>60.0</savedValue>
+            <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="throughputPeriod">60</intProp>
           <longProp name="duration">60</longProp>
