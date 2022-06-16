@@ -1,0 +1,30 @@
+@import "~styles/mixins";
+
+.skills {
+  margin-top: 24px;
+
+  .title {
+    @include barlow-bold;
+
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: $tco-black;
+    text-transform: uppercase;
+  }
+}
+
+.info {
+  @include roboto-regular;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: $tco-black;
+  margin-top: 8px;
+  display: flex;
+
+  span {
+    margin-left: 4px;
+  }
+}

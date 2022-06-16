@@ -1,0 +1,50 @@
+@import "~styles/mixins";
+
+.list {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.skill {
+  background-color: $profile-skill-badge;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+
+  .verified-icon {
+    margin-right: 5px;
+    display: flex;
+  }
+
+  span {
+    @include roboto-medium;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: $tc-white;
+    white-space: nowrap;
+  }
+}
+
+.add-button {
+  border-radius: 4px;
+  border: 2px solid $profile-skill-badge;
+  cursor: pointer;
+  width: fit-content;
+  padding: 1px 6px;
+
+  span {
+    @include roboto-medium;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: $profile-skill-badge;
+  }
+}
