@@ -5009,13 +5009,13 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
           <doubleProp>
             <name>allowedThroughputSurplus</name>
             <value>1.0</value>
-            <savedValue>1.0</savedValue>
+            <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="exactLimit">10000</intProp>
           <doubleProp>
             <name>throughput</name>
             <value>60.0</value>
-            <savedValue>60.0</savedValue>
+            <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="throughputPeriod">60</intProp>
           <longProp name="duration">60</longProp>
@@ -5945,17 +5945,17 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
           </HeaderManager>
           <hashTree/>
         </hashTree>
-        <PreciseThroughputTimer guiclass="TestBeanGUI" testclass="PreciseThroughputTimer" testname="Precise Throughput Timer" enabled="false">
+        <PreciseThroughputTimer guiclass="TestBeanGUI" testclass="PreciseThroughputTimer" testname="Precise Throughput Timer" enabled="true">
           <doubleProp>
             <name>allowedThroughputSurplus</name>
             <value>1.0</value>
-            <savedValue>1.0</savedValue>
+            <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="exactLimit">10000</intProp>
           <doubleProp>
             <name>throughput</name>
-            <value>60.0</value>
-            <savedValue>60.0</savedValue>
+            <value>1200.0</value>
+            <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="throughputPeriod">60</intProp>
           <longProp name="duration">60</longProp>
