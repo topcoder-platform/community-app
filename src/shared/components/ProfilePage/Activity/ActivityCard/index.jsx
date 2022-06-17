@@ -83,7 +83,15 @@ const ActivityCard = ({
           subTracks.map((subtrack, index) => (
             <div styleName="sub-track-item" key={index}>
               <span styleName="title">
-                {_.upperFirst(subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ').toLowerCase())}
+                {(_.upperFirst(subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ').toLowerCase()))
+                  .replace('First2finish', 'First2Finish')
+                  .replace('Design first2finish', 'Design First2Finish')
+                  .replace('Srm', 'SRM')
+                  .replace('Ria build competition', 'RIA Build Competition')
+                  .replace('Ria component competition', 'RIA Component Competition')
+                  .replace('Design first2finish', 'Design First2Finish')
+                  .replace('Ui prototype competition', 'UI Prototype Competition')
+                }
               </span>
 
               <div styleName="right">
