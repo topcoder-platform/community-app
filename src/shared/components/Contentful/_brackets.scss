@@ -94,7 +94,7 @@
     @include barlow-condensed-semi-bold;
 
     font-size: 44px;
-    line-height: 43px;
+    line-height: 44px;
     text-transform: uppercase;
     margin-top: 44px;
     margin-bottom: 20px;
@@ -109,7 +109,7 @@
   }
 
   h4 {
-    @include barlow-condensed-medium;
+    @include barlow-condensed-semi-bold;
 
     font-size: 32px;
     line-height: 34px;
@@ -186,12 +186,11 @@
     margin-bottom: 20px;
 
     th {
-      @include roboto-regular;
+      @include barlow-bold;
 
       color: #2a2a2a;
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 18px;
+      font-size: 11px;
+      line-height: 14px;
       text-align: left;
       text-transform: uppercase;
       padding: 18px 10px 14px 0;
