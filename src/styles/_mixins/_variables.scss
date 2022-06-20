@@ -2,14 +2,16 @@
 $tco-black: #2a2a2a;
 
 /* @media */
+$screem-md: 1376px;
 $screen-sm: 768px;
+$screen-max: 1376px;
 
 /* member rating colors */
 $member-gray: #555;
 $member-green: #258205;
 $member-blue: #4c50d9;
 $member-yellow: #f2c900;
-$member-red:  #ea1900;
+$member-red: #ea1900;
 
 /* recommendation tag color */
 $recommendation-bg: #cef0af;
@@ -38,3 +40,8 @@ $listing-checkbox-green: #137d60;
 $listing-checkbox-blue: #2c95d7;
 $listing-white: #fff;
 $listing-avatar-white: #f0f0f0;
+
+/* profile page colors */
+$profile-skill-badge: #227681;
+$profile-member-wins: #1e94a3;
+$profile-border-gray: #e9e9e9;

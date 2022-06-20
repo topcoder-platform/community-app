@@ -1,0 +1,11 @@
+@import "~styles/mixins";
+
+.member-tracks {
+  display: flex;
+  margin-top: 19px;
+  gap: 16px;
+
+  @include xs-to-sm {
+    gap: 8px;
+  }
+}

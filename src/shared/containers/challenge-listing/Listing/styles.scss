@@ -9,6 +9,8 @@ $sm-space-40: $base-unit * 8;
   flex: 1;
   flex-direction: column;
   width: 100%;
+  max-width: $screem-md;
+  margin: 0 auto;
 }
 
 .submission-management-container {
