@@ -36,6 +36,7 @@ import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
 import tco20Styles from './themes/tco20.scss'; // eslint-disable-line
 import tco22Styles from './themes/tco22.scss'; // eslint-disable-line
+import tco23Styles from './themes/tco23.scss'; // eslint-disable-line
 
 /**
  * Object used to add a CSS modifier (PodiumSpot--first) that will
@@ -72,6 +73,12 @@ const CUSTOM_STYLES = {
     3: avatarStyles['tco22-3'],
     4: avatarStyles['tco22-4'],
   },
+  TCO23: {
+    1: avatarStyles['tco23-1'],
+    2: avatarStyles['tco23-2'],
+    3: avatarStyles['tco23-3'],
+    4: avatarStyles['tco23-4'],
+  },
 };
 
 /**
@@ -88,6 +95,7 @@ const THEME = {
   Default: 'defaultStyles',
   TCO20: 'tco20Styles',
   TCO22: 'tco22Styles',
+  TCO23: 'tco23Styles',
 };
 
 /**
