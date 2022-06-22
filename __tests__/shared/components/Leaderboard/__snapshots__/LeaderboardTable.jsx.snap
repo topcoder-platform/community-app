@@ -36,7 +36,9 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-rank___3kfOx"
       >
-        1
+        <span>
+          1
+        </span>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-avatar___3VhCz"
@@ -88,7 +90,9 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-rank___3kfOx"
       >
-        1
+        <span>
+          1
+        </span>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-avatar___3VhCz"
@@ -140,7 +144,9 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-rank___3kfOx"
       >
-        1
+        <span>
+          1
+        </span>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-avatar___3VhCz"
@@ -192,7 +198,9 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-rank___3kfOx"
       >
-        1
+        <span>
+          1
+        </span>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-avatar___3VhCz"

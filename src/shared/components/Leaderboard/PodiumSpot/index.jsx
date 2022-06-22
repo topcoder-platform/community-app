@@ -98,6 +98,13 @@ const THEME = {
   TCO23: 'tco23Styles',
 };
 
+const DISPLAY_RANKING_NUM = {
+  1: '1ST',
+  2: '2ND',
+  3: '3RD',
+  4: '4TH',
+};
+
 /**
  * Format points number
  * @param {Number} points points number
@@ -119,8 +126,7 @@ export default function PodiumSpot(props) {
   const stylesName = THEME[themeName];
   let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
   if (photoUrl) {
-    photoUrl = `${config.CDN.PUBLIC}/avatar/${
-      encodeURIComponent(photoUrl)}?size=160`;
+    photoUrl = `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(photoUrl)}?size=160`;
   }
   let rootStyle = `${stylesName}.PodiumSpot`;
   if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` ${stylesName}.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
@@ -128,7 +134,92 @@ export default function PodiumSpot(props) {
     ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
     : competitor.fulfillment;
   const rating = competitor['member_profile_basic.max_rating'];
-  return (
+  return themeName === 'TCO23' ? (
+    <div styleName={rootStyle}>
+      {
+        competitor.rank <= 4 && <h3 styleName={`${stylesName}.place`}>{`${DISPLAY_RANKING_NUM[competitor.rank]} PLACE`}</h3>
+      }
+      {
+        onUsernameClick ? (
+          <div
+            styleName={`${stylesName}.handle-link`}
+            onClick={() => onUsernameClick(competitor)}
+            style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
+          >
+            {competitor['member_profile_basic.handle'] || competitor.handle}
+          </div>
+        ) : (
+          <a
+            styleName={`${stylesName}.profile-link`}
+            href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+            target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+            style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
+          >
+            {competitor['member_profile_basic.handle'] || competitor.handle}
+          </a>
+        )
+      }
+      <div styleName={`${stylesName}.wave-wrap--${PODIUM_ITEM_MODIFIER[competitor.rank > 4 ? 4 : competitor.rank]}`}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="392"
+          height="25"
+          fill="none"
+          viewBox="0 0 392 25"
+        >
+          <path
+            fill="#fff"
+            d="M296.123 1.385c47.038 0 82.638 9.395 95.877 14.093V.242H0v15.236C12.055 19.287 33.71 25 75.3 25c51.986 0 166.637-23.615 220.823-23.615z"
+          />
+        </svg>
+        <span styleName={`${stylesName}.leaderboard-avatar`}>
+          {
+            photoUrl ? (
+              <Avatar
+                theme={{
+                  avatar: CUSTOM_STYLES[themeName][competitor.rank],
+                }}
+                url={photoUrl}
+              />
+            ) : <DefaultAvatar />
+          }
+          <div styleName={`${stylesName}.ranking`}>{DISPLAY_RANKING[competitor.rank]}</div>
+        </span>
+        <div styleName={`${stylesName}.winnings-info`}>
+          {
+            isCopilot ? (
+              <div styleName={`${stylesName}.stats`}>
+                <span styleName={`${stylesName}.value`}>{fulfillment}</span>
+                <span styleName={`${stylesName}.value-title`}>fulfillment</span>
+              </div>
+            ) : null
+          }
+          <div styleName={`${stylesName}.stats`}>
+            <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
+            {
+              isAlgo ? (
+                <span styleName={`${stylesName}.value-title`}># of matches</span>
+              ) : (
+                <span styleName={`${stylesName}.value-title`}>challenges</span>
+              )
+            }
+          </div>
+          <div styleName={`${stylesName}.stats`}>
+            <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
+            <span styleName={`${stylesName}.value-title`}>points</span>
+          </div>
+          {
+            isAlgo ? (
+              <div styleName={`${stylesName}.stats`}>
+                <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</span>
+                <span styleName={`${stylesName}.value-title`}>total score</span>
+              </div>
+            ) : null
+          }
+        </div>
+      </div>
+    </div>
+  ) : (
     <div styleName={rootStyle}>
       <span styleName={`${stylesName}.leaderboard-avatar`}>
         {

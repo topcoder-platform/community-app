@@ -1,0 +1,54 @@
+/* stylelint-disable no-descending-specificity */
+@import '~styles/mixins';
+
+.Podium {
+  @include roboto-regular;
+
+  line-height: 1.42;
+  margin: 100px auto 40px auto;
+  text-align: center;
+
+  @include sm {
+    margin: 32px auto 24px auto;
+  }
+
+  &::before,
+  &::after {
+    content: " ";
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+.PodiumWrap {
+  display: flex;
+  justify-content: center !important;
+
+  @include xs-to-sm {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .podium-column:nth-child(2) {
+    @include md-to-xl {
+      margin-top: -30px;
+    }
+  }
+}
+
+.Podium .podium-column {
+  display: inline-block;
+  margin-right: 52px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include xs-to-sm {
+    margin-bottom: 15px;
+    margin-right: 0;
+  }
+}

@@ -67,8 +67,7 @@ export default function LeaderboardTable(props) {
     comps.map((competitor) => {
       let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
       if (photoUrl) {
-        photoUrl = `${config.CDN.PUBLIC}/avatar/${
-          encodeURIComponent(photoUrl)}?size=40`;
+        photoUrl = `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(photoUrl)}?size=40`;
       }
       const fulfillment = competitor['tco_leaderboard.fulfillment']
         ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
@@ -76,7 +75,7 @@ export default function LeaderboardTable(props) {
       const rating = competitor['member_profile_basic.max_rating'];
       return (
         <tr key={competitor.rank}>
-          <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
+          <td styleName={`${stylesName}.col-rank`}><span>{competitor.rank}</span></td>
           <td styleName={`${stylesName}.col-avatar`}>
             <span styleName={`${stylesName}.leaderboard-avatar`}>
               {
@@ -99,6 +98,22 @@ export default function LeaderboardTable(props) {
                   onClick={() => onUsernameClick(competitor)}
                   style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
+                  {
+                    themeName === 'TCO23' && (
+                      <span styleName={`${stylesName}.leaderboard-avatar`}>
+                        {
+                          photoUrl ? (
+                            <Avatar
+                              theme={{
+                                avatar: themeName === 'TCO22' ? avatarStyles['default-tco22'] : avatarStyles.default,
+                              }}
+                              url={photoUrl}
+                            />
+                          ) : <DefaultAvatar />
+                        }
+                      </span>
+                    )
+                  }
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
@@ -107,12 +122,28 @@ export default function LeaderboardTable(props) {
                   target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                   style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
+                  {
+                    themeName === 'TCO23' && (
+                      <span styleName={`${stylesName}.leaderboard-avatar`}>
+                        {
+                          photoUrl ? (
+                            <Avatar
+                              theme={{
+                                avatar: themeName === 'TCO22' ? avatarStyles['default-tco22'] : avatarStyles.default,
+                              }}
+                              url={photoUrl}
+                            />
+                          ) : <DefaultAvatar />
+                        }
+                      </span>
+                    )
+                  }
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )
             }
             <div styleName={`${stylesName}.winnings-info`}>
-              {competitor.fulfillment && (<span>{competitor.fulfillment} fulfillment</span>)}
+              {fulfillment && (<span>{fulfillment} fulfillment</span>)}
               <span>{competitor['tco_leaderboard.tco_points'] || competitor.points} points</span>
               <span>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount} challenges</span>
             </div>
