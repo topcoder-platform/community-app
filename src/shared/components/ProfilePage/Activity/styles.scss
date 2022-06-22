@@ -6,11 +6,18 @@
   margin: 68px 0 16px 0;
   padding-bottom: 32px;
 
+  @include xs-to-sm {
+    border-radius: 0;
+    margin-top: 24px;
+    margin-bottom: 0;
+    padding-bottom: 16px;
+  }
+
   .header {
     padding: 32px 0 40px 32px;
 
     @include xs-to-sm {
-      padding: 16px 0 16px 16px;
+      padding: 32px 0 16px 16px;
     }
 
     span {

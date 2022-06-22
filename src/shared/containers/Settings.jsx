@@ -127,7 +127,6 @@ function mapStateToProps(state) {
     profile: state.auth.profile,
     lookupData: state.lookup,
     profileState: state.profile,
-    activeChallengesCount: _.get(state.challenge, 'activeChallengesCount'),
     loadingError: state.profile.loadingError,
     settingsUI: state.page.ui.settings,
     settings: state.settings,

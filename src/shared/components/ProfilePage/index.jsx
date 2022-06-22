@@ -3,16 +3,20 @@
  * of a TopCoder member.
  */
 /* eslint-env browser */
+/* eslint-disable no-shadow */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
+import { Modal } from 'topcoder-react-ui-kit';
+import IconClose from 'assets/images/icon-close-green.svg';
 
+import ProfileStats from 'containers/ProfileStats';
 import { dataMap } from './ExternalLink';
 import Header from './Header';
 import MemberTracks from './MemberTracks';
 
-import './styles.scss';
+import styles from './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
@@ -41,10 +45,16 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // NOTE: When showDetails is true, track and subTrack must have been setted.
+      track: '',
+      subTrack: '',
+      tab: '',
       isMobile: false,
+      showDetails: false,
     };
 
     this.handleResize = this.handleResize.bind(this);
+    this.closeDetails = this.closeDetails.bind(this);
   }
 
   componentDidMount() {
@@ -117,6 +127,10 @@ class ProfilePage extends React.Component {
     this.setState({ isMobile: window.innerWidth < 768 });
   }
 
+  closeDetails() {
+    this.setState({ showDetails: false });
+  }
+
   render() {
     const {
       copilot,
@@ -126,9 +140,17 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
+      handleParam,
+      meta,
     } = this.props;
 
-    const { isMobile } = this.state;
+    const {
+      track,
+      subTrack,
+      tab,
+      isMobile,
+      showDetails,
+    } = this.state;
 
     let { info } = this.props;
 
@@ -168,7 +190,7 @@ class ProfilePage extends React.Component {
     }
 
     // no rating MM
-    const hasMM = challenges && challenges.length;
+    const hasMM = !!(challenges && challenges.length);
 
     return (
       <div styleName="outer-container">
@@ -199,8 +221,44 @@ class ProfilePage extends React.Component {
         <Activity
           memberStats={stats}
           hasMM={hasMM}
-          handle={info.handle}
+          onClick={({ track, subTrack }) => this.setState({
+            track, subTrack, showDetails: true, tab: '',
+          })}
         />
+        { showDetails && (
+          <Modal
+            theme={{
+              container: track === 'COPILOT' ? styles['modal-container-copilot']
+                : styles['modal-container'],
+              overlay: styles['modal-overlay'],
+            }}
+            onCancel={this.closeDetails}
+          >
+            <React.Fragment>
+              <div styleName="header">
+                <h2 styleName="title">
+                  {
+                    subTrack === 'SRM' ? 'Single round match'
+                      : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
+                  }
+                </h2>
+                <div styleName="icon" role="presentation" onClick={this.closeDetails}>
+                  <IconClose />
+                </div>
+              </div>
+              <ProfileStats
+                handleParam={handleParam}
+                meta={meta}
+                track={track}
+                subTrack={subTrack}
+                tab={tab}
+                setTab={(tab) => {
+                  this.setState({ tab });
+                }}
+              />
+            </React.Fragment>
+          </Modal>
+        )}
       </div>
     );
   }
@@ -223,6 +281,8 @@ ProfilePage.propTypes = {
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
+  handleParam: PT.string.isRequired,
+  meta: PT.shape().isRequired,
 };
 
 export default ProfilePage;

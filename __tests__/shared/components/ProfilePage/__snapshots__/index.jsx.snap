@@ -41,7 +41,7 @@ exports[`renders a full Profile correctly 1`] = `
       >
         <MemberTracks
           copilot={true}
-          hasMM={null}
+          hasMM={false}
           info={
             Object {
               "competitionCountryCode": "USA",
@@ -344,8 +344,7 @@ exports[`renders a full Profile correctly 1`] = `
     </div>
   </div>
   <Activity
-    handle="testHandle"
-    hasMM={null}
+    hasMM={false}
     memberStats={
       Object {
         "COPILOT": Object {
@@ -708,6 +707,7 @@ exports[`renders a full Profile correctly 1`] = `
         "wins": 3,
       }
     }
+    onClick={[Function]}
   />
 </div>
 `;
@@ -749,7 +749,7 @@ exports[`renders an empty Profile correctly 1`] = `
       >
         <MemberTracks
           copilot={false}
-          hasMM={null}
+          hasMM={false}
           info={
             Object {
               "competitionCountryCode": "USA",
@@ -812,8 +812,7 @@ exports[`renders an empty Profile correctly 1`] = `
     </div>
   </div>
   <Activity
-    handle="testHandle"
-    hasMM={null}
+    hasMM={false}
     memberStats={
       Object {
         "COPILOT": null,
@@ -891,6 +890,7 @@ exports[`renders an empty Profile correctly 1`] = `
         "wins": 0,
       }
     }
+    onClick={[Function]}
   />
 </div>
 `;

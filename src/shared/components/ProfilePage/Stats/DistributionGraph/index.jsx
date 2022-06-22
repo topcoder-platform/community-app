@@ -5,7 +5,8 @@ import { toPairs } from 'lodash';
 import PT from 'prop-types';
 import { getRatingColor } from 'utils/tc';
 import ChartTooltip from '../ChartTooltip';
-import styles from './index.scss';
+// import styles from './index.scss';
+import './index.scss';
 
 const getRanges = distribution => (
   toPairs(distribution)
@@ -71,47 +72,45 @@ export default class DistributionGraph extends React.Component {
   }
 
   static getMobileWidthGrapthMeasurements() {
-    if (window.innerWidth < 400) {
-      return 250;
-    }
-    return 320;
+    return window.innerWidth - 32;
   }
 
   draw() {
     const $scope = this;
-    const { distribution: wrapper, rating } = this.props;
+    const { distribution: wrapper, rating, subTrack } = this.props;
     if (!wrapper) {
       return;
     }
     const { distribution } = wrapper;
 
     const desktopMeasurements = {
-      w: 855,
-      h: 400,
+      w: subTrack === 'SRM' ? 534 : 390,
+      h: 344,
       padding: {
-        top: 20,
-        right: 5,
-        bottom: 100,
-        left: 40,
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
       },
     };
 
     const mobileMeasurements = {
       w: 0,
-      h: 200,
+      h: 240,
       padding: {
-        top: 50,
-        left: 40,
-        bottom: 80,
-        right: 50,
+        top: 0,
+        left: 0,
+        bottom: 24,
+        right: 0,
       },
     };
 
     d3.select($scope.graphRef.current).select('svg').remove();
-    let { w } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
-    const { h, padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    let { w, h } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    const { padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
     if (!$scope.desktop) {
       w = DistributionGraph.getMobileWidthGrapthMeasurements();
+      h = w * 240 / 288.0;
       this.mobileWidth = w;
     }
     const totalW = w + padding.left + padding.right;
@@ -129,6 +128,7 @@ export default class DistributionGraph extends React.Component {
       .domain([ranges[0].start,
         d3.max(ranges, range => range.end)])
       .range([padding.left, totalW - padding.right]);
+    /*
     const xAxis = d3.svg.axis()
       .scale(xScale)
       .orient('bottom')
@@ -137,6 +137,7 @@ export default class DistributionGraph extends React.Component {
       .scale(yScale)
       .orient('left')
       .ticks(ticks);
+    */
     const svg = d3.select($scope.graphRef.current)
       .append('svg')
       .attr('width', totalW)
@@ -147,17 +148,21 @@ export default class DistributionGraph extends React.Component {
       .attr('y', padding.top)
       .attr('width', w)
       .attr('height', h)
-      .attr('fill', '#f6f6f6');
+      .attr('fill', '#ffffff');
 
+    /*
     svg.append('g')
       .attr('class', styles.grid)
       .attr('transform', `translate(${padding.left},0)`)
       .call(yAxis(5).tickSize(-totalW, 0, 0).tickFormat(''));
+      */
 
+    /*
     svg.append('g')
       .attr('class', styles.axis)
       .attr('transform', `translate(${padding.left},0)`)
       .call(yAxis(5));
+      */
 
     svg.append('line')
       .attr('x1', xScale2(rating))
@@ -231,6 +236,7 @@ export default class DistributionGraph extends React.Component {
       .attr('y2', h + padding.top + 0.5)
       .attr('stroke', d => getRatingColor(d.start));
 
+    /*
     svg.append('g')
       .attr('class', styles.axis)
       .attr('transform', `translate(0,${(h + padding.top)})`)
@@ -242,6 +248,7 @@ export default class DistributionGraph extends React.Component {
       .attr('transform', 'rotate(90)')
       .style('text-anchor', 'start')
       .text((d, i) => `${ranges[i].start} - ${ranges[i].end}`);
+      */
   }
 
   render() {
@@ -260,4 +267,5 @@ DistributionGraph.defaultProps = {
 DistributionGraph.propTypes = {
   distribution: PT.shape(),
   rating: PT.number.isRequired,
+  subTrack: PT.string.isRequired,
 };
