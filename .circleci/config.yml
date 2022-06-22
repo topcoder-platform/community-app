@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - tco23
+                - tco23-BS-comps
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
