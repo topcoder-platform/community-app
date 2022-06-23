@@ -73,7 +73,7 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-             challenges
+            undefined challenges
           </span>
         </div>
       </td>
@@ -127,7 +127,7 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-             challenges
+            undefined challenges
           </span>
         </div>
       </td>
@@ -181,7 +181,7 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-             challenges
+            undefined challenges
           </span>
         </div>
       </td>
@@ -235,7 +235,7 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-             challenges
+            undefined challenges
           </span>
         </div>
       </td>

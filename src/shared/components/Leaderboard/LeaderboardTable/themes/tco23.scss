@@ -158,6 +158,10 @@ $table-cell-padding: 2px;
       border-radius: 50%;
       max-width: 100%;
     }
+
+    img {
+      border: none;
+    }
   }
 
   .col-handle {
@@ -232,7 +236,6 @@ $table-cell-padding: 2px;
   }
 
   .col-challenges {
-    color: #0d61bf;
     font-weight: 500;
   }
 }

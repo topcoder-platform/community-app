@@ -63,6 +63,9 @@ export default function LeaderboardTable(props) {
     themeName,
   } = props;
   const stylesName = THEME[themeName];
+  /* eslint-disable no-confusing-arrow */
+  /* eslint-disable no-nested-ternary */
+  const addSufix = val => isAlgo ? (val !== 1 ? `${val} matches` : `${val} match`) : (val !== 1 ? `${val} challenges` : `${val} challenge`);
   const renderTableRows = comps => (
     comps.map((competitor) => {
       let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
@@ -92,7 +95,7 @@ export default function LeaderboardTable(props) {
           </td>
           <td styleName={`${stylesName}.col-handle`}>
             {
-              onUsernameClick ? (
+              onUsernameClick && themeName !== 'TCO23' ? (
                 <div
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
@@ -145,7 +148,7 @@ export default function LeaderboardTable(props) {
             <div styleName={`${stylesName}.winnings-info`}>
               {fulfillment && (<span>{fulfillment} fulfillment</span>)}
               <span>{competitor['tco_leaderboard.tco_points'] || competitor.points} points</span>
-              <span>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount} challenges</span>
+              <span>{addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}</span>
             </div>
           </td>
           {
@@ -153,7 +156,24 @@ export default function LeaderboardTable(props) {
               <td styleName={`${stylesName}.col-fulfillment`}>{fulfillment}</td>
             ) : null
           }
-          <td styleName={`${stylesName}.col-challenges`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</td>
+          <td styleName={`${stylesName}.col-challenges`}>
+            {
+              themeName === 'TCO23' ? (
+                /* eslint-disable operator-linebreak */
+                onUsernameClick ?
+                  (
+                    <div
+                      style={{ cursor: 'pointer', display: 'inline-block', color: '#0d61bf' }}
+                      onClick={() => onUsernameClick(competitor)}
+                    >
+                      { `${addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}` }
+                    </div>
+                  ) : `${addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}`
+              ) : (
+                competitor['tco_leaderboard.challenge_count'] || competitor.challengecount
+              )
+            }
+          </td>
           <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</td>
           {
             isTopGear ? (

@@ -142,11 +142,19 @@ $podium-border-color: #ededf2;
       border-radius: 50%;
       height: 152px;
       width: 152px;
+      background-color: #fff;
 
       img {
         width: 100%;
         height: 100%;
         border-radius: 50%;
+        margin: 0;
+      }
+
+      svg {
+        margin: 0;
+        border-radius: 50%;
+        background-color: #fff;
       }
     }
 

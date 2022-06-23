@@ -5,7 +5,7 @@
   @include roboto-regular;
 
   line-height: 1.42;
-  margin: 100px auto 40px auto;
+  margin: 88px auto 40px auto;
   text-align: center;
 
   @include sm {
@@ -34,7 +34,13 @@
 
   .podium-column:nth-child(2) {
     @include md-to-xl {
-      margin-top: -30px;
+      margin-top: -16px;
+    }
+  }
+
+  .podium-column:nth-child(3) {
+    @include md-to-xl {
+      margin-top: 16px;
     }
   }
 }
