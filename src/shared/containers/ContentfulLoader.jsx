@@ -12,6 +12,7 @@ import shortId from 'shortid';
 import qs from 'qs';
 import SSR from 'utils/SSR';
 import { config, isomorphy } from 'topcoder-react-utils';
+import { logger } from 'topcoder-react-lib';
 import { connect } from 'react-redux';
 
 // Setting those to infinity to disable maxage and auto refresh
@@ -23,7 +24,7 @@ const DEFAULT_MAXAGE = Number.POSITIVE_INFINITY;
 const DEFAULT_REFRESH_MAXAGE = Number.POSITIVE_INFINITY;
 
 /* Timeout for server-side rendering routine [ms]. */
-const SSR_TIMEOUT = 3000; /* 3 seconds */
+const SSR_TIMEOUT = 30000; /* 30 seconds */
 
 /**
  * Returns an array of all `a` elements not present in `b`.
@@ -384,6 +385,7 @@ class ContentfulLoader extends React.Component {
     /* Some of the required data still pending to load: render a placeholder,
      * or nothing. */
     if (!data) {
+      logger.info('ContentfulLoader: data not found');
       return _.isFunction(Placeholder) ? <Placeholder /> : Placeholder;
     }
 
@@ -494,7 +496,10 @@ async function updateStore(store, props) {
         resolve();
       }, SSR_TIMEOUT);
       store.subscribe(() => {
-        if (!id) return;
+        if (!id) {
+          logger.info('checkStore: id is null');
+          return;
+        }
         if (checkStore(store, props)) {
           clearTimeout(id);
           resolve();
