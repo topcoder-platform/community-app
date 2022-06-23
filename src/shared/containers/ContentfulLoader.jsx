@@ -153,10 +153,17 @@ class ContentfulLoader extends React.Component {
       refreshMaxage,
     } = this.props;
     const timeLimit = Date.now() - refreshMaxage;
+
+    logger.info('Loading assets...');
     const a = this.loadContentOnMount(assetIds, 'assets', timeLimit);
+    logger.info('Loaded assets IDs...');
     const b = this.loadContentOnMount(entryIds, 'entries', timeLimit);
+    logger.info('Loaded entryIDs...');
     const c = this.loadQueriesOnMount(assetQueries, 'assets', timeLimit);
+    logger.info('Loaded assetQueries...');
     const d = this.loadQueriesOnMount(entryQueries, 'entries', timeLimit);
+    logger.info('Loaded entryQueries...');
+
     if (isomorphy.isClientSide()) {
       this.handleResize = _.throttle(this.handleResize.bind(this), 250);
       window.addEventListener('resize', this.handleResize);

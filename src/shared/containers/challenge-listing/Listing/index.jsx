@@ -505,6 +505,7 @@ export class ListingContainer extends React.Component {
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
 
     const loadMorePast = () => {
+      logger.info('loadMorePast');
       const f = this.getBackendFilter();
       getPastChallenges(
         1 + lastRequestedPageOfPastChallenges,
@@ -515,6 +516,7 @@ export class ListingContainer extends React.Component {
     };
 
     const loadMoreMy = () => {
+      logger.info('loadMoreMy');
       const f = this.getBackendFilter();
       getMyChallenges(
         1 + lastRequestedPageOfMyChallenges,
@@ -525,6 +527,7 @@ export class ListingContainer extends React.Component {
     };
 
     const loadMoreMyPast = () => {
+      logger.info('loadMoreMyPast');
       const f = this.getBackendFilter();
       getMyPastChallenges(
         1 + lastRequestedPageOfMyPastChallenges,
@@ -535,6 +538,7 @@ export class ListingContainer extends React.Component {
     };
 
     const loadMoreOpenForRegistration = () => {
+      logger.info('loadMoreOpenForRegistration');
       const f = this.getBackendFilter();
       getOpenForRegistrationChallenges(
         1 + lastRequestedPageOfOpenForRegistrationChallenges,
@@ -547,6 +551,7 @@ export class ListingContainer extends React.Component {
     };
 
     const loadMoreOnGoing = () => {
+      logger.info('loadMoreOnGoing');
       const f = this.getBackendFilter();
       getActiveChallenges(
         1 + lastRequestedPageOfActiveChallenges,
@@ -557,6 +562,7 @@ export class ListingContainer extends React.Component {
     };
 
     const loadMoreAll = () => {
+      logger.info('loadMoreAll');
       const f = this.getBackendFilter();
       getAllChallenges(
         1 + lastRequestedPageOfAllChallenges,
