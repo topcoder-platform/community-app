@@ -26,6 +26,8 @@ export default function AccessDenied(props) {
     viewportId,
   } = props;
 
+  console.log('Access Denied', props);
+
   if (viewportId) {
     return (
       <Viewport

@@ -82,6 +82,7 @@ class Loader extends React.Component {
     if (!meta || hasNotLoadedTerms) return <LoadingPagePlaceholder />;
 
     const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : [];
+    console.log('Visitor Groups', visitorGroupIds)
 
     const member = Boolean(visitorGroups && meta.groupIds
       && _.intersection(meta.groupIds, visitorGroupIds).length);

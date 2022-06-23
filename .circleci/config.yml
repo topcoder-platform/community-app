@@ -378,8 +378,7 @@ workflows:
           filters: &filters-staging
             branches:
               only:
-                - develop
-                - fix-security-headers
+                - test/topgear-issues
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
