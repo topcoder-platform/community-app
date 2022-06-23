@@ -1,0 +1,20 @@
+{
+  "challengeFilter": {
+    "events": ["tco23"]
+  },
+  "communityId": "tco23",
+  "communityName": "TCO23",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco/TCO23.svg",
+    "url": "https://tco23.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "6SsceF3R5YuKxsf8XnCM5I"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco23"],
+  "description": "2023 Topcoder Open. The Ultimate Programming & Design Tournament",
+  "image": "tco23.jpg"
+}

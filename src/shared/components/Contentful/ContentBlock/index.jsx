@@ -19,6 +19,7 @@ import generalTheme from './themes/general.scss';
 import blobCard from './themes/blobCard.scss';
 import TCO20Theme from './themes/TCO20.scss';
 import largeCard from './themes/largeCard.scss';
+import bracketsTheme from './themes/brackets.scss';
 
 const THEMES = {
   Default: defaultTheme,
@@ -31,6 +32,7 @@ const THEMES = {
   'Blob Card': blobCard,
   TCO20: TCO20Theme,
   'Large Card': largeCard,
+  Brackets: bracketsTheme,
 };
 
 /* Loads content block background asset. */
