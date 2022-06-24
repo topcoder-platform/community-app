@@ -128,7 +128,7 @@ class ProfilePage extends React.Component {
   }
 
   closeDetails() {
-    this.setState({ showDetails: false });
+    this.setState({ showDetails: false, track: '', subTrack: '' });
   }
 
   render() {
