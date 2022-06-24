@@ -129,7 +129,7 @@ const interestingData = {
     { key: 'rank.rating', label: 'rating', postFunc: ratingFunc },
     { key: 'rank.rank', label: 'rank', postFunc: null },
     { key: 'rank.percentile', label: 'percentile', postFunc: percentileFunc },
-    { key: 'challenges', label: 'competition', postFunc: null },
+    { key: 'challenges', label: 'competitions', postFunc: null },
     { key: 'rank.volatility', label: 'volatility', postFunc: null },
   ],
   'DATA_SCIENCE.MARATHON_MATCH': [
