@@ -64,11 +64,10 @@
 .modal-container-copilot,
 .modal-container {
   width: 1232px;
-  height: 700px;
-  max-height: 700px;
+  min-height: 700px;
   max-width: 1232px;
   border-radius: 8px;
-  padding: 32px 32px 48px 32px;
+  padding: 32px 32px 0 32px;
   gap: 24px;
 
   &.modal-container-copilot {
