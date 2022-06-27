@@ -213,6 +213,15 @@ $table-cell-padding: 2px;
     span {
       display: block;
     }
+
+    .mobile-link {
+      color: #0d61bf;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 
   .col-fulfillment {

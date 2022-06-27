@@ -148,7 +148,13 @@ export default function LeaderboardTable(props) {
             <div styleName={`${stylesName}.winnings-info`}>
               {fulfillment && (<span>{fulfillment} fulfillment</span>)}
               <span>{competitor['tco_leaderboard.tco_points'] || competitor.points} points</span>
-              <span>{addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}</span>
+              {
+                themeName === 'TCO23' ? (
+                  <div onClick={() => onUsernameClick(competitor)} styleName={`${stylesName}.mobile-link`}>
+                    {addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}
+                  </div>
+                ) : <span>{addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}</span>
+              }
             </div>
           </td>
           {

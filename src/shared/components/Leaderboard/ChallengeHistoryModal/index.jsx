@@ -42,6 +42,23 @@ class ChallengeHistoryModal extends Component {
     const placeLabel = competitor['member_profile_basic.handle'] ? 'tco_leaderboard.placement' : 'place';
     const pointsLabel = competitor['member_profile_basic.handle'] ? 'tco_leaderboard.tco_points' : 'points';
     const styles = THEMES[themeName] || THEMES.Default;
+    /* eslint-disable no-confusing-arrow */
+    const sortInner = () => themeName === 'TCO23' ? (
+      <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fillRule="evenodd" clipRule="evenodd" d="M3.26721 0.267169C3.48786 0.046523 3.84559 0.046523 4.06624 0.267169L6.73291 2.93384C6.95355 3.15448 6.95355 3.51222 6.73291 3.73287C6.51226 3.95351 6.15452 3.95351 5.93388 3.73287L4.23173 2.03072V8.66668C4.23173 8.97873 3.97877 9.23168 3.66673 9.23168C3.35468 9.23168 3.10173 8.97873 3.10173 8.66668V2.03072L1.39957 3.73287C1.17893 3.95351 0.821189 3.95351 0.600543 3.73287C0.379897 3.51222 0.379897 3.15448 0.600543 2.93384L3.26721 0.267169ZM9.76839 3.33335C9.76839 3.02131 10.0214 2.76835 10.3334 2.76835C10.6454 2.76835 10.8984 3.02131 10.8984 3.33335V9.96932L12.6005 8.26717C12.8212 8.04652 13.1789 8.04652 13.3996 8.26717C13.6202 8.48781 13.6202 8.84555 13.3996 9.0662L10.7329 11.7329C10.5123 11.9535 10.1545 11.9535 9.93388 11.7329L7.26721 9.0662C7.04656 8.84555 7.04656 8.48781 7.26721 8.26717C7.48786 8.04652 7.84559 8.04652 8.06624 8.26717L9.76839 9.96932V3.33335Z" fill="#767676" />
+      </svg>
+    ) : (
+      <div>
+        <div className={cn(styles['sort-up'], {
+          active: sortParam.field === pointsLabel && sortParam.order === styles.asc,
+        })}
+        />
+        <div className={cn(styles['sort-down'], {
+          active: sortParam.field === pointsLabel && sortParam.order === styles.desc,
+        })}
+        />
+      </div>
+    );
 
     return (
       <Modal onCancel={onCancel} theme={THEMES[themeName] || THEMES.Default}>
@@ -78,14 +95,7 @@ class ChallengeHistoryModal extends Component {
                         }}
                         type="button"
                       >
-                        <div className={cn(styles['sort-up'], {
-                          active: sortParam.field === placeLabel && sortParam.order === styles.asc,
-                        })}
-                        />
-                        <div className={cn(styles['sort-down'], {
-                          active: sortParam.field === placeLabel && sortParam.order === styles.desc,
-                        })}
-                        />
+                        { sortInner() }
                       </button>
                     </div>
                   </th>
@@ -107,14 +117,7 @@ class ChallengeHistoryModal extends Component {
                     }}
                     type="button"
                   >
-                    <div className={cn(styles['sort-up'], {
-                      active: sortParam.field === pointsLabel && sortParam.order === styles.asc,
-                    })}
-                    />
-                    <div className={cn(styles['sort-down'], {
-                      active: sortParam.field === pointsLabel && sortParam.order === styles.desc,
-                    })}
-                    />
+                    { sortInner() }
                   </button>
                 </div>
               </th>
