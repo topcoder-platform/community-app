@@ -27,7 +27,6 @@ import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import _ from 'lodash';
 import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 import { getRatingColor } from 'utils/tc';
 
@@ -121,8 +120,9 @@ export default function LeaderboardTable(props) {
                 </div>
               ) : (
                 <a
-                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
-                  target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                  href={`${config.URL.BASE}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                  target="_blank"
+                  rel="noreferrer"
                   style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
                   {

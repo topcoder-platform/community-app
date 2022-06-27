@@ -8,12 +8,12 @@ import _ from 'lodash';
 import PodiumSpot from '../PodiumSpot';
 
 import defaultTheme from './themes/styles.scss';
-import tco23Theme from './tco23.scss';
+import tco23Theme from './themes/tco23.scss';
 
 const THEMES = {
   Default: defaultTheme,
   TCO23: tco23Theme,
-}
+};
 
 class ChallengeHistoryModal extends Component {
   constructor(props) {
@@ -41,13 +41,14 @@ class ChallengeHistoryModal extends Component {
     const challengesOrdered = _.orderBy(challenges, [sortParam.field], [sortParam.order]);
     const placeLabel = competitor['member_profile_basic.handle'] ? 'tco_leaderboard.placement' : 'place';
     const pointsLabel = competitor['member_profile_basic.handle'] ? 'tco_leaderboard.tco_points' : 'points';
+    const styles = THEMES[themeName] || THEMES.Default;
 
     return (
       <Modal onCancel={onCancel} theme={THEMES[themeName] || THEMES.Default}>
         <h3>
           Completed Challenges History
         </h3>
-        <div styleName="podium-spot-wrapper">
+        <div className={styles['podium-spot-wrapper']}>
           <PodiumSpot
             competitor={competitor}
             isCopilot={isCopilot}
@@ -55,17 +56,17 @@ class ChallengeHistoryModal extends Component {
             themeName={themeName}
           />
         </div>
-        <table styleName="history-table">
+        <table className={styles['history-table']}>
           <thead>
             <tr>
               <th>Challenge Name</th>
               {
                 !isCopilot ? (
                   <th>
-                    <div styleName="header-table-content">
+                    <div className={styles['header-table-content']}>
                       <span>Placement</span>
                       <button
-                        styleName="sort-container"
+                        className={styles['sort-container']}
                         onClick={() => {
                           if (!sortParam.field || sortParam.field !== placeLabel) {
                             sortParam.field = placeLabel;
@@ -77,12 +78,12 @@ class ChallengeHistoryModal extends Component {
                         }}
                         type="button"
                       >
-                        <div styleName={cn('sort-up', {
-                          active: sortParam.field === placeLabel && sortParam.order === 'asc',
+                        <div className={cn(styles['sort-up'], {
+                          active: sortParam.field === placeLabel && sortParam.order === styles.asc,
                         })}
                         />
-                        <div styleName={cn('sort-down', {
-                          active: sortParam.field === placeLabel && sortParam.order === 'desc',
+                        <div className={cn(styles['sort-down'], {
+                          active: sortParam.field === placeLabel && sortParam.order === styles.desc,
                         })}
                         />
                       </button>
@@ -91,10 +92,10 @@ class ChallengeHistoryModal extends Component {
                 ) : null
               }
               <th>
-                <div styleName="header-table-content">
+                <div className={styles['header-table-content']}>
                   <span>Points</span>
                   <button
-                    styleName="sort-container"
+                    className={styles['sort-container']}
                     onClick={() => {
                       if (!sortParam.field || sortParam.field !== pointsLabel) {
                         sortParam.field = pointsLabel;
@@ -106,12 +107,12 @@ class ChallengeHistoryModal extends Component {
                     }}
                     type="button"
                   >
-                    <div styleName={cn('sort-up', {
-                      active: sortParam.field === pointsLabel && sortParam.order === 'asc',
+                    <div className={cn(styles['sort-up'], {
+                      active: sortParam.field === pointsLabel && sortParam.order === styles.asc,
                     })}
                     />
-                    <div styleName={cn('sort-down', {
-                      active: sortParam.field === pointsLabel && sortParam.order === 'desc',
+                    <div className={cn(styles['sort-down'], {
+                      active: sortParam.field === pointsLabel && sortParam.order === styles.desc,
                     })}
                     />
                   </button>
@@ -122,19 +123,19 @@ class ChallengeHistoryModal extends Component {
           <tbody>
             {
               challengesOrdered.map(challenge => (
-                <tr styleName="row" key={`${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}`}>
-                  <td styleName="name">
-                    <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id || challenge['challenge.challenge_GUID']}/`} styleName="link" target="_blank" rel="noopener noreferrer">
+                <tr className={styles.row} key={`${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}`}>
+                  <td className={styles.name}>
+                    <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id || challenge['challenge.challenge_GUID']}/`} className={styles.link} target="_blank" rel="noopener noreferrer">
                       {challenge.challenge_name || challenge['challenge.challenge_name'] || challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}
                     </a>
                   </td>
                   {
                     !isCopilot ? (
-                      <td styleName="placement">{challenge['tco_leaderboard.placement'] || challenge.place}</td>
+                      <td className={styles.placement}>{challenge['tco_leaderboard.placement'] || challenge.place}<span>placement</span></td>
                     ) : null
                   }
-                  <td styleName="points">
-                    {challenge['tco_leaderboard.tco_points'] || challenge.points}
+                  <td className={styles.points}>
+                    {challenge['tco_leaderboard.tco_points'] || challenge.points}<span>points</span>
                   </td>
                 </tr>
               ))
@@ -149,8 +150,8 @@ class ChallengeHistoryModal extends Component {
             <center><strong>No data available.</strong></center>
           )
         }
-        <div styleName="buttons">
-          <button onClick={onCancel} type="button" styleName="close-btn">
+        <div className={styles.buttons}>
+          <button onClick={onCancel} type="button" className={styles['close-btn']}>
             Return to page
           </button>
         </div>
