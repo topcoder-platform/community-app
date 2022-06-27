@@ -5,7 +5,7 @@ exports[`renders a full Profile correctly 1`] = `
   className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
 >
   <div>
-    <ProfileHeader
+    <Connect(ProfileHeader)
       info={
         Object {
           "competitionCountryCode": "USA",
@@ -717,7 +717,7 @@ exports[`renders an empty Profile correctly 1`] = `
   className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
 >
   <div>
-    <ProfileHeader
+    <Connect(ProfileHeader)
       info={
         Object {
           "competitionCountryCode": "USA",
