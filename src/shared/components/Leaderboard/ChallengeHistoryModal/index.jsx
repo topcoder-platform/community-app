@@ -5,8 +5,15 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { config } from 'topcoder-react-utils';
 import cn from 'classnames';
 import _ from 'lodash';
-import theme from './styles.scss';
 import PodiumSpot from '../PodiumSpot';
+
+import defaultTheme from './themes/styles.scss';
+import tco23Theme from './tco23.scss';
+
+const THEMES = {
+  Default: defaultTheme,
+  TCO23: tco23Theme,
+}
 
 class ChallengeHistoryModal extends Component {
   constructor(props) {
@@ -36,7 +43,7 @@ class ChallengeHistoryModal extends Component {
     const pointsLabel = competitor['member_profile_basic.handle'] ? 'tco_leaderboard.tco_points' : 'points';
 
     return (
-      <Modal onCancel={onCancel} theme={theme}>
+      <Modal onCancel={onCancel} theme={THEMES[themeName] || THEMES.Default}>
         <h3>
           Completed Challenges History
         </h3>
