@@ -118,6 +118,7 @@ const Activity = ({ memberStats, hasMM, handle }) => {
 
       {activeTracks.map(activeTrack => (
         <ActivityCard
+          stats={memberStats}
           trackName={activeTrack.name}
           subTracks={activeTrack.subTracks}
           hasMM={hasMM}

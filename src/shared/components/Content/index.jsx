@@ -413,7 +413,7 @@ export default function Content() {
           </Link>
         </li>
         <li>
-          <Link to="/__community__/wipro">
+          <Link to="/__community__/wipro/challenges">
             TopGear (Wipro) community
           </Link>
         </li>

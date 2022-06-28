@@ -21,3 +21,8 @@
     padding-right: 16px;
   }
 }
+
+.selectedPoint {
+  z-index: 1000 !important;
+  opacity: 0.9;
+}

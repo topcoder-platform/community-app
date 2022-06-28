@@ -50,6 +50,8 @@ ts = moment(ts.timestamp).valueOf();
 const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
 const swScope = '/challenges'; // we are currently only interested in improving challenges pages
 
+const tcoPattern = new RegExp(/^tco\d{2}\.topcoder(?:-dev)?\.com$/i);
+
 const EXTRA_SCRIPTS = [
   `<script type="application/javascript">
   if('serviceWorker' in navigator){
@@ -135,13 +137,14 @@ async function onExpressJsSetup(server) {
     res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.header('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
 
-    if (req.url.startsWith('/__community__/veterans') || req.hostname === 'veterans.topcoder.com') {
+    if (req.url.startsWith('/__community__/veterans') || req.hostname === 'veterans.topcoder.com' || req.url.startsWith('/__community__/tco') || tcoPattern.test(req.hostname)) {
       res.header(
         'Content-Security-Policy',
         "default-src 'self';"
         + " script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'"
           + ` ${config.CDN.PUBLIC}`
           + ' http://www.google-analytics.com'
+          + ' https://www.google-analytics.com'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
           + ' https://assets.ubembed.com'
           + ' https://assets.zendesk.com'
@@ -182,11 +185,13 @@ async function onExpressJsSetup(server) {
           + ` ${config.CDN.PUBLIC}`
           + ' https://d1of0acg2orgco.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
+          + ' https://d1mwkvp2xbqfs9.cloudfront.net'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com;'
         + " frame-src 'self'"
           + ` ${config.URL.AUTH}`
           + ' https://www.youtube.com;'
         + " img-src 'self'"
+          + ' data:'
           + ` ${config.CDN.PUBLIC}`
           + ' https://cdn.segment.com'
           + ' https://d1of0acg2orgco.cloudfront.net'
@@ -196,11 +201,14 @@ async function onExpressJsSetup(server) {
           + ' https://heapanalytics.com'
           + ' https://q.quora.com'
           + ' https://topcoder-prod-media.s3.amazonaws.com'
+          + ' https://topcoder-dev-media.s3.amazonaws.com'
           + ' https://www.facebook.com'
           + ' https://www.google-analytics.com'
           + ' https://www.google.com'
           + ' https://www.googletagmanager.com'
-          + ' https://i.ytimg.com;'
+          + ' https://i.ytimg.com'
+          + ' https://images.contentful.com'
+          + ' https://d0.awsstatic.com/logos/;'
         + " manifest-src 'self';"
         + " media-src 'self';"
         + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'

@@ -47,7 +47,7 @@ function ChildRoutesLoader(props) {
               <React.Fragment>
                 <MetaTags
                   description={fields.description}
-                  image={fields.thumbnail}
+                  image={fields.socialThumbnail}
                   siteName={fields.socialSiteName}
                   socialDescription={fields.socialDescription}
                   socialTitle={fields.socialTitle}
