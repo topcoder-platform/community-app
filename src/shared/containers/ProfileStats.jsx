@@ -56,20 +56,20 @@ class ProfileStatsContainer extends React.Component {
 
     if (nextHandleParam !== handleParam) {
       loadStats(nextHandleParam, _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])), auth.tokenV3);
-      if (
-        nextTrack !== track
-        || nextSubTrack !== subTrack
-      ) {
-        if (shouldShowGraph({ track: nextTrack, subTrack: nextSubTrack })
-          && !nextTab) {
-          loadStatsHistoryAndDistribution(
-            nextHandleParam,
-            _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])),
-            nextTrack,
-            nextSubTrack,
-            auth.tokenV3,
-          );
-        }
+    }
+    if (
+      nextTrack !== track
+      || nextSubTrack !== subTrack
+    ) {
+      if (shouldShowGraph({ track: nextTrack, subTrack: nextSubTrack })
+        && !nextTab) {
+        loadStatsHistoryAndDistribution(
+          nextHandleParam,
+          _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])),
+          nextTrack,
+          nextSubTrack,
+          auth.tokenV3,
+        );
       }
     }
   }
