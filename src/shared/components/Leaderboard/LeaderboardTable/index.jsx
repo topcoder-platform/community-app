@@ -201,7 +201,7 @@ export default function LeaderboardTable(props) {
     })
   );
 
-  return (
+  return competitors.length ? (
     <table styleName={`${stylesName}.LeaderboardTable`}>
       <thead>
         <tr styleName={`${stylesName}.table-header`}>
@@ -241,6 +241,8 @@ export default function LeaderboardTable(props) {
         {renderTableRows(competitors)}
       </tbody>
     </table>
+  ) : (
+    <h2 style={{ textAlign: 'center' }}>No Data Available</h2>
   );
 }
 
