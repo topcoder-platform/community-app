@@ -26,13 +26,13 @@ export default function TrackIcon({
         </a>
       ) : (
         <div
-          styleName={`${trackStyle} main-icon`}
+          styleName={`${type.abbreviation} main-icon`}
         >
           {type.abbreviation}
         </div>
       )}
       <a href={`${TCO_URL}`}>
-        <div styleName={tcoEligible ? `${trackStyle} tco-icon` : 'hidden'}>
+        <div styleName={`${type.abbreviation} tco-icon ${tcoEligible ? '' : 'hidden'}`}>
           TCO
         </div>
       </a>
