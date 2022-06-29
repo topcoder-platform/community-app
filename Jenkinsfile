@@ -67,6 +67,7 @@ pipeline {
                     #!/bin/bash
                     apt update -y
                     apt install awscli jq curl -y
+                    curl https://get.docker.com/ > dockerinstall && chmod 777 dockerinstall && ./dockerinstall
                     git clone --branch dev-jenkins https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
                     cp ./../buildscript/master_deploy.sh .
                     cp ./../buildscript/buildenv.sh .
