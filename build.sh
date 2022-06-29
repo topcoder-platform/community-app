@@ -4,7 +4,7 @@ set -eo pipefail
 # Builds Docker image of Community App application.
 # This script expects a single argument: NODE_CONFIG_ENV, which must be either
 # "development" or "production".
-# Builds Docker image of the app.
+#  Builds Docker image of the app.
 TAG="communityapp:latest"
 
 docker build -t $TAG \
