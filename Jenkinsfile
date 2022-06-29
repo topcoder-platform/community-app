@@ -106,6 +106,7 @@ pipeline {
             steps {
                 //Doing Deployment
                 echo "Deploying application"
+                input(message: 'Hello World!', ok: 'Submit')
                 sh """
                 #!/bin/bash
                 ./master_deploy.sh -d ECS -e ${DEPLOY_ENV} -t latest -s ${LOGICAL_ENV}_${APPNAME}_taskvar -i communityapp                
