@@ -36,9 +36,9 @@ pipeline {
         CI_AUTH0_CLIENTSECRET = credentials('CI_AUTH0_CLIENTSECRET')
         CI_AUTH0_AUDIENCE = credentials('CI_AUTH0_AUDIENCE')
       }
-    tools {
-        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
-      }     
+  //  tools {
+  //      'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
+  //    }     
     options { skipDefaultCheckout() }
 
     stages
