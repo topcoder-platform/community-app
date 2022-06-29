@@ -17,7 +17,7 @@ if (env.BRANCH_NAME == 'dev-jenkins' || env.BRANCH_NAME == 'dev-env') {
     DEPLOY_ENV = 'DEV'
     LOGICAL_ENV = 'dev'
     IS_BUILD = true
-    IS_DEPLOY = false
+    IS_DEPLOY = true
 }
 if (env.BRANCH_NAME == 'master-jenkins') {
     DEPLOY_ENV = 'PROD'
