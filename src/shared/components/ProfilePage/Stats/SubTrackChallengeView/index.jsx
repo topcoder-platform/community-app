@@ -87,7 +87,6 @@ class SubTrackChallengeView extends React.Component {
 
       track,
       subTrack,
-      loadingSubTrackChallengesUUID,
       challenges,
       challengesHasMore,
       loadingSRMUUID,
@@ -101,23 +100,21 @@ class SubTrackChallengeView extends React.Component {
     const isEqLen = (prevArr, arr) => (prevArr && prevArr.length) === (arr && arr.length);
 
     if (track === 'DEVELOP' || track === 'DESIGN') {
-      if (!loadingSubTrackChallengesUUID) {
-        if (!isEqLen(prevProps.challenges, challenges)) {
-          // NOTE: Loaded successful, nothing todo
-          if (challengesHasMore) {
-            loadSubtrackChallenges(
-              handle,
-              auth.tokenV3,
-              track,
-              subTrack,
-              pageNum + 1,
-              CHALLENGE_PER_PAGE,
-              false,
-              userId,
-            );
-            // eslint-disable-next-line react/no-did-update-set-state
-            this.setState({ pageNum: pageNum + 1 });
-          }
+      if (!isEqLen(prevProps.challenges, challenges)) {
+        // NOTE: Loaded successful, nothing todo
+        if (challengesHasMore) {
+          loadSubtrackChallenges(
+            handle,
+            auth.tokenV3,
+            track,
+            subTrack,
+            pageNum + 1,
+            CHALLENGE_PER_PAGE,
+            false,
+            userId,
+          );
+          // eslint-disable-next-line react/no-did-update-set-state
+          this.setState({ pageNum: pageNum + 1 });
         }
       }
     }
