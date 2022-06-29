@@ -89,7 +89,7 @@ pipeline {
         }
         stage('build application')
         {
-            //Building software
+            //Building Application
             when { expression { IS_BUILD } }
             steps {
                 // Doing Build
@@ -105,7 +105,7 @@ pipeline {
             when { expression { IS_DEPLOY } }
             steps {
                 //Doing Deployment
-                echo "Deploying software"
+                echo "Deploying application"
                 sh """
                 #!/bin/bash
                 ./master_deploy.sh -d ECS -e ${DEPLOY_ENV} -t latest -s ${LOGICAL_ENV}_${APPNAME}_taskvar -i communityapp                
