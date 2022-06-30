@@ -370,6 +370,7 @@ workflows:
           filters:
             branches:
               only:
+                - footer-update
                 - reskin-profile
       # This is stage env for production QA releases
       - "build-prod-staging":
