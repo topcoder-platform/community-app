@@ -16,6 +16,7 @@ import './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
+import Awards from './Awards';
 
 /**
  * Inspects a subtrack and determines if the member is active
@@ -126,6 +127,7 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
+      rewards,
     } = this.props;
 
     const { isMobile } = this.state;
@@ -196,6 +198,11 @@ class ProfilePage extends React.Component {
             </div>
           </div>
         </div>
+        {
+          (rewards || []).length ? (
+            <Awards rewards={rewards} />
+          ) : null
+        }
         <Activity
           memberStats={stats}
           hasMM={hasMM}
@@ -212,6 +219,7 @@ ProfilePage.defaultProps = {
   challenges: null,
   skills: null,
   stats: null,
+  rewards: [],
 };
 
 ProfilePage.propTypes = {
@@ -223,6 +231,7 @@ ProfilePage.propTypes = {
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
+  rewards: PT.arrayOf(PT.shape()),
 };
 
 export default ProfilePage;

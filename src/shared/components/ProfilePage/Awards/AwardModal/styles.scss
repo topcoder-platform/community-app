@@ -1,0 +1,52 @@
+@import "~styles/mixins";
+
+.awardModal {
+  display: flex;
+  margin-top: 48px;
+
+  @include xs-to-md {
+    flex-direction: column;
+    margin-top: 24px;
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+
+    @include xs-to-md {
+      width: 100%;
+    }
+  }
+
+  .rightContent {
+    margin-left: 16px;
+
+    .title {
+      @include roboto-bold;
+
+      color: $tco-black;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 26px;
+
+      @include xs-to-md {
+        text-align: center;
+      }
+    }
+
+    .description {
+      @include roboto-regular;
+
+      font-weight: 400;
+      color: $tco-black;
+      font-size: 16px;
+      line-height: 24px;
+      margin-top: 10px;
+    }
+
+    @include xs-to-md {
+      margin-top: 24px;
+      text-align: center;
+    }
+  }
+}

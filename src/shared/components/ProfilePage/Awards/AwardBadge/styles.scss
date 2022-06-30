@@ -1,0 +1,32 @@
+@import "~styles/mixins";
+
+.awardBadge {
+  background-color: $tc-white;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+
+  .image {
+    width: 48px;
+    height: 48px;
+  }
+
+  .title {
+    @include roboto-bold;
+    $color: $tco-black;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 8px;
+    max-width: 130px;
+
+    @include xs-to-sm {
+      max-width: unset;
+    }
+  }
+}
