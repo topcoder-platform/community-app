@@ -41,6 +41,7 @@ import tco10 from 'components/buttons/outline/tco/tco10.scss';
 import tco09 from 'components/buttons/outline/tco/tco09.scss';
 import tco07 from 'components/buttons/outline/tco/tco07.scss';
 import tc from 'components/buttons/themed/tc.scss';
+import bs from 'components/buttons/themed/brackets.scss';
 
 import Highlighter from './highlighter';
 
@@ -73,6 +74,7 @@ const tcoButtonThemes = {
  */
 const buttonThemes = {
   tc,
+  bs,
 };
 
 /**

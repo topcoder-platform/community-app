@@ -27,6 +27,7 @@ import underlineDarkTheme from './themes/underline-dark.scss';
 import verticalTheme from './themes/vertical.scss';
 import pillsTheme from './themes/pills.scss';
 import underlineBoxTheme from './themes/underline-box.scss';
+import bracketsTheme from './themes/brackets.scss';
 
 export const TAB_THEMES = {
   Default: defaultTheme,
@@ -38,6 +39,7 @@ export const TAB_THEMES = {
   Vertical: verticalTheme,
   Pills: pillsTheme,
   'Underline box': underlineBoxTheme,
+  Brackets: bracketsTheme,
 };
 
 export default class TabsItemsLoader extends Component {

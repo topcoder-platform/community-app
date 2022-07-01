@@ -185,6 +185,7 @@ async function onExpressJsSetup(server) {
           + ` ${config.CDN.PUBLIC}`
           + ' https://d1of0acg2orgco.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
+          + ' https://d1mwkvp2xbqfs9.cloudfront.net'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com;'
         + " frame-src 'self'"
           + ` ${config.URL.AUTH}`
