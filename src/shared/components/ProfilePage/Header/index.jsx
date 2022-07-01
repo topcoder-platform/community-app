@@ -51,7 +51,7 @@ const ProfileHeader = ({ getLookerDone, lookerInfo, info }) => {
   };
 
   const tooltipContent = (
-    <div styleName="tooltip-content">verified member</div>
+    <div styleName="tooltip-content">This member is compliant with Topcoder policies<br /> and is a trusted member of the Topcoder community.</div>
   );
 
 
