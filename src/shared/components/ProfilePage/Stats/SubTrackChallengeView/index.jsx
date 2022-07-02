@@ -33,40 +33,41 @@ class SubTrackChallengeView extends React.Component {
       auth,
       track,
       subTrack,
-      loadingSubTrackChallengesUUID,
       loadSubtrackChallenges,
       loadingSRMUUID,
       loadSRM,
       loadingMarathonUUID,
       loadMarathon,
       userId,
+      isAlreadyLoadChallenge,
     } = this.props;
 
     const {
       pageNum,
     } = this.state;
 
-    if (track === 'DEVELOP' || track === 'DESIGN') {
-      if (!loadingSubTrackChallengesUUID) {
-        loadSubtrackChallenges(
-          handle,
-          auth.tokenV3,
-          track, subTrack,
-          pageNum,
-          CHALLENGE_PER_PAGE,
-          true,
-          userId,
-        );
-      }
-    } else if (track === 'DATA_SCIENCE') {
+    if (!isAlreadyLoadChallenge.current && (track === 'DEVELOP' || track === 'DESIGN')) {
+      loadSubtrackChallenges(
+        handle,
+        auth.tokenV3,
+        track, subTrack,
+        pageNum,
+        CHALLENGE_PER_PAGE,
+        true,
+        userId,
+      );
+      isAlreadyLoadChallenge.current = true;
+    } else if (!isAlreadyLoadChallenge.current && track === 'DATA_SCIENCE') {
       if (subTrack === 'SRM') {
         if (!loadingSRMUUID) {
           // pageNum - 1 to match with v4 offset
           loadSRM(handle, auth.tokenV3, pageNum - 1, CHALLENGE_PER_PAGE, true);
+          isAlreadyLoadChallenge.current = true;
         }
       } else if (subTrack === 'MARATHON_MATCH') {
         if (!loadingMarathonUUID) {
           loadMarathon(handle, userId, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, true);
+          isAlreadyLoadChallenge.current = true;
         }
       }
     }
@@ -278,7 +279,7 @@ function mapDispatchToProps(dispatch) {
       refresh,
     ) => {
       const uuid = shortId();
-      dispatch(action.getSubtrackChallengesInit(handle, uuid));
+      dispatch(action.getSubtrackChallengesInit(handle, uuid, pageNum));
       dispatch(action.getSubtrackChallengesDone(
         uuid,
         handle,
@@ -323,6 +324,10 @@ SubTrackChallengeView.defaultProps = {
   loadingMarathonUUID: null,
   userMarathons: null,
   userMarathonHasMore: null,
+
+  isAlreadyLoadChallenge: {
+    current: false,
+  },
 };
 
 SubTrackChallengeView.propTypes = {
@@ -347,6 +352,9 @@ SubTrackChallengeView.propTypes = {
   loadSubtrackChallenges: PT.func.isRequired,
   loadSRM: PT.func.isRequired,
   loadMarathon: PT.func.isRequired,
+  isAlreadyLoadChallenge: PT.shape({
+    current: PT.bool,
+  }),
 };
 
 const Container = connect(
