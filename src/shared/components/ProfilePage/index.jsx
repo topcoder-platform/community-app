@@ -10,6 +10,9 @@ import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/icon-close-green.svg';
+import shortId from 'shortid';
+import { actions } from 'topcoder-react-lib';
+import { connect } from 'react-redux';
 
 import ProfileStats from 'containers/ProfileStats';
 import { dataMap } from './ExternalLink';
@@ -56,6 +59,7 @@ class ProfilePage extends React.Component {
 
     this.handleResize = this.handleResize.bind(this);
     this.closeDetails = this.closeDetails.bind(this);
+    this.isAlreadyLoadChallenge = React.createRef();
   }
 
   componentDidMount() {
@@ -129,6 +133,8 @@ class ProfilePage extends React.Component {
   }
 
   closeDetails() {
+    const { clearSubtrackChallenges, handleParam } = this.props;
+    clearSubtrackChallenges(handleParam);
     this.setState({ showDetails: false, track: '', subTrack: '' });
   }
 
@@ -228,9 +234,12 @@ class ProfilePage extends React.Component {
         <Activity
           memberStats={stats}
           hasMM={hasMM}
-          onClick={({ track, subTrack }) => this.setState({
-            track, subTrack, showDetails: true, tab: '',
-          })}
+          onClick={({ track, subTrack }) => {
+            this.isAlreadyLoadChallenge.current = false;
+            this.setState({
+              track, subTrack, showDetails: true, tab: '',
+            });
+          }}
         />
         { showDetails && (
           <Modal
@@ -262,6 +271,7 @@ class ProfilePage extends React.Component {
                 setTab={(tab) => {
                   this.setState({ tab });
                 }}
+                isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
               />
             </React.Fragment>
           </Modal>
@@ -292,6 +302,25 @@ ProfilePage.propTypes = {
   handleParam: PT.string.isRequired,
   meta: PT.shape().isRequired,
   rewards: PT.arrayOf(PT.shape()),
+  clearSubtrackChallenges: PT.func.isRequired,
 };
 
-export default ProfilePage;
+function mapDispatchToProps(dispatch) {
+  const action = actions.members;
+
+  return {
+    clearSubtrackChallenges: (
+      handle,
+    ) => {
+      const uuid = shortId();
+      dispatch(action.getSubtrackChallengesInit(handle, uuid, 1));
+    },
+  };
+}
+
+const Container = connect(
+  () => ({}),
+  mapDispatchToProps,
+)(ProfilePage);
+
+export default Container;
