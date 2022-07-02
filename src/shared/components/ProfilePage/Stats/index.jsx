@@ -29,6 +29,7 @@ class ProfileStats extends React.Component {
       info,
       handleParam,
       tab,
+      isAlreadyLoadChallenge,
     } = this.props;
     let { stats, statsHistory } = this.props;
     if (_.isArray(stats)) {
@@ -190,6 +191,7 @@ class ProfileStats extends React.Component {
               track={track}
               subTrack={subTrack}
               userId={info.userId}
+              isAlreadyLoadChallenge={isAlreadyLoadChallenge}
             />
           )}
 
@@ -205,6 +207,9 @@ class ProfileStats extends React.Component {
 ProfileStats.defaultProps = {
   statsDistribution: null,
   statsHistory: null,
+  isAlreadyLoadChallenge: {
+    current: false,
+  },
 };
 
 ProfileStats.propTypes = {
@@ -217,6 +222,9 @@ ProfileStats.propTypes = {
   info: PT.shape().isRequired,
   statsDistribution: PT.shape(),
   statsHistory: PT.arrayOf(PT.shape()),
+  isAlreadyLoadChallenge: PT.shape({
+    current: PT.bool,
+  }),
 };
 
 export default ProfileStats;

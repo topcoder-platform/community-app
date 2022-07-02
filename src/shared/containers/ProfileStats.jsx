@@ -116,6 +116,9 @@ ProfileStatsContainer.defaultProps = {
   info: null,
   meta: null,
   auth: {},
+  isAlreadyLoadChallenge: {
+    current: false,
+  },
 };
 
 ProfileStatsContainer.propTypes = {
@@ -134,6 +137,9 @@ ProfileStatsContainer.propTypes = {
   isLoading: PT.bool.isRequired,
   meta: PT.shape(),
   auth: PT.shape(),
+  isAlreadyLoadChallenge: PT.shape({
+    current: PT.bool,
+  }),
 };
 
 const mapStateToProps = (state, ownProps) => {
