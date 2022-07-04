@@ -14,12 +14,17 @@
     height: 100px;
 
     @include xs-to-md {
-      width: 100%;
+      display: block;
+      margin: 0 auto;
     }
   }
 
   .rightContent {
     margin-left: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
 
     .title {
       @include roboto-bold;

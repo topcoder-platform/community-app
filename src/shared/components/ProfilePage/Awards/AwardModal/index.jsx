@@ -26,9 +26,8 @@ const AwatarModal = ({
           <span>{title}</span>
         </div>
 
-        <div styleName="description">
-          {description}
-        </div>
+        <div styleName="description" dangerouslySetInnerHTML={{ __html: description }} />
+
       </div>
     </div>
   );

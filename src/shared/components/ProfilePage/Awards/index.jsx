@@ -22,7 +22,7 @@ const Awards = ({ rewards }) => {
         <div styleName="badgesContainer">
           {
             rewards.map((reward) => {
-              const title = _.get(reward, 'awarded.name');
+              const title = _.get(reward, 'awarded.reward.attrs.behaviours[0].behaviour.name');
               const description = _.get(reward, 'awarded.reward.message');
               const imageUrl = _.get(reward, 'awarded.reward.imageUrl');
               const mimeType = _.get(reward, 'awarded.reward.mimeType');

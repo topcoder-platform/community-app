@@ -16,7 +16,9 @@ const AwardBadge = ({
       )
     }
     <div styleName="title">
-      <span>{title}</span>
+      <span>
+        <div dangerouslySetInnerHTML={{ __html: title }} />
+      </span>
     </div>
   </div>
 );
