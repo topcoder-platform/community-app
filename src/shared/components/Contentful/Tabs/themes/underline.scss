@@ -8,7 +8,7 @@ $text-color-pannel: #4a4a4a;
 .container {
   @include roboto-regular;
 
-  max-width: $screen-md;
+  max-width: $screen-lg;
   margin: auto;
 }
 
@@ -98,6 +98,6 @@ $text-color-pannel: #4a4a4a;
   display: block;
 
   @include xs-to-sm {
-    padding: 0 15px;
+    // padding: 0 15px;
   }
 }

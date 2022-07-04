@@ -27,11 +27,19 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { useMediaQuery } from 'react-responsive';
 import PodiumSpot from '../PodiumSpot';
 
-import './styles.scss';
+import defaultStyles from './themes/default.scss'; // eslint-disable-line
+import tco23Styles from './themes/tco23.scss'; // eslint-disable-line
+
+const THEME = {
+  Default: 'defaultStyles',
+  TCO23: 'tco23Styles',
+};
 
 export default function Podium(props) {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   const {
     competitors,
     isCopilot,
@@ -41,9 +49,14 @@ export default function Podium(props) {
     themeName,
   } = props;
 
+  const stylesName = THEME[themeName] || THEME.Default;
+  const renderComps = competitors;
+  if (!isMobile && renderComps.length === 3) {
+    [renderComps[0], renderComps[1]] = [renderComps[1], renderComps[0]];
+  }
   const renderPodium = (comps) => {
     const podiumSpots = comps.map(comp => (
-      <div key={comp.rank} styleName="podium-column">
+      <div key={comp.rank} styleName={`${stylesName}.podium-column`}>
         <PodiumSpot
           competitor={comp}
           isCopilot={isCopilot}
@@ -56,15 +69,15 @@ export default function Podium(props) {
     ));
 
     return (
-      <div styleName="PodiumWrap" style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
+      <div styleName={`${stylesName}.PodiumWrap`} style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
         {podiumSpots}
       </div>
     );
   };
 
   return (
-    <div styleName="Podium">
-      {renderPodium(competitors)}
+    <div styleName={`${stylesName}.Podium`}>
+      {renderPodium(renderComps)}
     </div>
   );
 }

@@ -27,7 +27,6 @@ import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import _ from 'lodash';
 import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 import { getRatingColor } from 'utils/tc';
 
@@ -36,11 +35,13 @@ import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
 import tco20Styles from './themes/tco20.scss'; // eslint-disable-line
 import tco22Styles from './themes/tco22.scss'; // eslint-disable-line
+import tco23Styles from './themes/tco23.scss'; // eslint-disable-line
 
 const THEME = {
   Default: 'defaultStyles',
   TCO20: 'tco20Styles',
   TCO22: 'tco22Styles',
+  TCO23: 'tco23Styles',
 };
 
 /**
@@ -61,12 +62,14 @@ export default function LeaderboardTable(props) {
     themeName,
   } = props;
   const stylesName = THEME[themeName];
+  /* eslint-disable no-confusing-arrow */
+  /* eslint-disable no-nested-ternary */
+  const addSufix = val => isAlgo ? (val !== 1 ? `${val} matches` : `${val} match`) : (val !== 1 ? `${val} challenges` : `${val} challenge`);
   const renderTableRows = comps => (
     comps.map((competitor) => {
       let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
       if (photoUrl) {
-        photoUrl = `${config.CDN.PUBLIC}/avatar/${
-          encodeURIComponent(photoUrl)}?size=40`;
+        photoUrl = `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(photoUrl)}?size=40`;
       }
       const fulfillment = competitor['tco_leaderboard.fulfillment']
         ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
@@ -74,7 +77,7 @@ export default function LeaderboardTable(props) {
       const rating = competitor['member_profile_basic.max_rating'];
       return (
         <tr key={competitor.rank}>
-          <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
+          <td styleName={`${stylesName}.col-rank`}><span>{competitor.rank}</span></td>
           <td styleName={`${stylesName}.col-avatar`}>
             <span styleName={`${stylesName}.leaderboard-avatar`}>
               {
@@ -91,28 +94,67 @@ export default function LeaderboardTable(props) {
           </td>
           <td styleName={`${stylesName}.col-handle`}>
             {
-              onUsernameClick ? (
+              onUsernameClick && themeName !== 'TCO23' ? (
                 <div
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
                   style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
+                  {
+                    themeName === 'TCO23' && (
+                      <span styleName={`${stylesName}.leaderboard-avatar`}>
+                        {
+                          photoUrl ? (
+                            <Avatar
+                              theme={{
+                                avatar: themeName === 'TCO22' ? avatarStyles['default-tco22'] : avatarStyles.default,
+                              }}
+                              url={photoUrl}
+                            />
+                          ) : <DefaultAvatar />
+                        }
+                      </span>
+                    )
+                  }
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
                 <a
-                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
-                  target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                  href={`${config.URL.BASE}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                  target="_blank"
+                  rel="noreferrer"
                   style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
+                  {
+                    themeName === 'TCO23' && (
+                      <span styleName={`${stylesName}.leaderboard-avatar`}>
+                        {
+                          photoUrl ? (
+                            <Avatar
+                              theme={{
+                                avatar: themeName === 'TCO22' ? avatarStyles['default-tco22'] : avatarStyles.default,
+                              }}
+                              url={photoUrl}
+                            />
+                          ) : <DefaultAvatar />
+                        }
+                      </span>
+                    )
+                  }
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )
             }
             <div styleName={`${stylesName}.winnings-info`}>
-              {competitor.fulfillment && (<span>{competitor.fulfillment} fulfillment</span>)}
+              {fulfillment && (<span>{fulfillment} fulfillment</span>)}
               <span>{competitor['tco_leaderboard.tco_points'] || competitor.points} points</span>
-              <span>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount} challenges</span>
+              {
+                themeName === 'TCO23' ? (
+                  <div onClick={() => onUsernameClick(competitor)} styleName={`${stylesName}.mobile-link`}>
+                    {addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}
+                  </div>
+                ) : <span>{addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}</span>
+              }
             </div>
           </td>
           {
@@ -120,7 +162,24 @@ export default function LeaderboardTable(props) {
               <td styleName={`${stylesName}.col-fulfillment`}>{fulfillment}</td>
             ) : null
           }
-          <td styleName={`${stylesName}.col-challenges`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</td>
+          <td styleName={`${stylesName}.col-challenges`}>
+            {
+              themeName === 'TCO23' ? (
+                /* eslint-disable operator-linebreak */
+                onUsernameClick ?
+                  (
+                    <div
+                      style={{ cursor: 'pointer', display: 'inline-block', color: '#0d61bf' }}
+                      onClick={() => onUsernameClick(competitor)}
+                    >
+                      { `${addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}` }
+                    </div>
+                  ) : `${addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}`
+              ) : (
+                competitor['tco_leaderboard.challenge_count'] || competitor.challengecount
+              )
+            }
+          </td>
           <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</td>
           {
             isTopGear ? (
@@ -142,7 +201,7 @@ export default function LeaderboardTable(props) {
     })
   );
 
-  return (
+  return competitors.length ? (
     <table styleName={`${stylesName}.LeaderboardTable`}>
       <thead>
         <tr styleName={`${stylesName}.table-header`}>
@@ -182,6 +241,8 @@ export default function LeaderboardTable(props) {
         {renderTableRows(competitors)}
       </tbody>
     </table>
+  ) : (
+    <h2 style={{ textAlign: 'center' }}>No Data Available</h2>
   );
 }
 
