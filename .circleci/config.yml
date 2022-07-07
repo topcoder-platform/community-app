@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - reskin
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -371,7 +371,7 @@ workflows:
             branches:
               only:
                 - footer-update
-                - reskin-profile
+                - reskin
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
