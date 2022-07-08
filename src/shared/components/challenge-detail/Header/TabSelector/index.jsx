@@ -39,6 +39,7 @@ export default function ChallengeViewSelector(props) {
     hasRegistered,
     mySubmissions,
     onSort,
+    viewAsTable,
   } = props;
 
   const { type, tags } = challenge;
@@ -376,7 +377,7 @@ export default function ChallengeViewSelector(props) {
         }
             </div>
             {
-              isSubmissionTabSelected && (
+              isSubmissionTabSelected && !viewAsTable && (
                 <div
                   styleName="mobile-sort-icon"
                   role="button"
@@ -468,4 +469,5 @@ ChallengeViewSelector.propTypes = {
   hasRegistered: PT.bool.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
   onSort: PT.func.isRequired,
+  viewAsTable: PT.bool.isRequired,
 };
