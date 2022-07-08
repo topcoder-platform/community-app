@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { config } from 'topcoder-react-utils';
 import PT from 'prop-types';
 import _ from 'lodash';
 
@@ -78,6 +79,7 @@ const ChallengeTable = ({ challenges, handle, hideChallengeResult }) => {
             submissionEndDate,
             userDetails,
             track,
+            subTrack,
             winners,
             rounds,
             phases,
@@ -91,13 +93,22 @@ const ChallengeTable = ({ challenges, handle, hideChallengeResult }) => {
             // eslint-disable-next-line react/no-array-index-key
             <tr key={index} styleName={`${index % 2 === 1 ? 'odd' : 'even'}`}>
               <td styleName="challenge-info">
+                {/* eslint-disable-next-line no-nested-ternary */}
                 { !isPrivate
-                  ? (
-                    <Link to={`/challenges/${id}`} styleName="challenge-name">
+                  ? (subTrack === 'SRM' ? (
+                    <a href={`${config.URL.COMMUNITY}/stat?c=round_overview&rd=${id}`} styleName="challenge-name">
                       <span>
                         { getSafeName(name) }
                       </span>
-                    </Link>
+                    </a>
+                  )
+                    : (
+                      <Link to={`/challenges/${id}`} styleName="challenge-name">
+                        <span>
+                          { getSafeName(name) }
+                        </span>
+                      </Link>
+                    )
                   )
                   : (
                     <span styleName="challenge-name">
