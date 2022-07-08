@@ -17,7 +17,7 @@ $submission-space-50: $base-unit * 10;
   }
 
   td {
-    vertical-align: middle;
+    // vertical-align: middle;
     padding: 16px;
     background: $tc-white;
     border-top: 1px solid $tc-gray-10;
@@ -115,8 +115,9 @@ $submission-space-50: $base-unit * 10;
     }
   }
 
-  .legacy-id {
-    color: $tc-gray-50;
+  .v5-id {
+    font-weight: 400;
+    line-height: 22px;
   }
 
   .status-col {
