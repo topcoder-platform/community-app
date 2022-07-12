@@ -349,6 +349,7 @@ workflows:
           filters:
             branches:
               only:
+                - develop
                 - reskin-profile
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -377,7 +378,6 @@ workflows:
           filters: &filters-staging
             branches:
               only:
-                - develop
                 - fix-security-headers
                 - tco23-BS-comps
       # Production builds are exectuted
