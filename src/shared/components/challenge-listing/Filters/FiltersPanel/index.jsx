@@ -721,6 +721,7 @@ export default function FiltersPanel({
                 QA: true,
               },
               search: '',
+              tco: false,
               tags: [],
               types: ['CH', 'F2F', 'TSK'],
               groups: [],
