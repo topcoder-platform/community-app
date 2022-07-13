@@ -445,22 +445,26 @@ class SubmissionsComponent extends React.Component {
 
     return (
       <div styleName={`container dev ${isMM ? 'mm' : 'non-mm'}`}>
-        <div styleName="view-as">
-          <span styleName="title">View as</span>
-          {
-            viewAsTable ? (
-              <React.Fragment>
-                <ViewAsTableActive styleName="table-icon" onClick={() => setViewAsTable(true)} />
-                <ViewAsListInactive styleName="list-icon" onClick={() => setViewAsTable(false)} />
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <ViewAsTableInactive styleName="table-icon" onClick={() => setViewAsTable(true)} />
-                <ViewAsListActive styleName="list-icon" onClick={() => setViewAsTable(false)} />
-              </React.Fragment>
-            )
-          }
-        </div>
+        {
+          isMM ? (
+            <div styleName="view-as">
+              <span styleName="title">View as</span>
+              {
+                viewAsTable ? (
+                  <React.Fragment>
+                    <ViewAsListInactive styleName="list-icon" onClick={() => setViewAsTable(false)} />
+                    <ViewAsTableActive styleName="table-icon" onClick={() => setViewAsTable(true)} />
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <ViewAsListActive styleName="list-icon" onClick={() => setViewAsTable(false)} />
+                    <ViewAsTableInactive styleName="table-icon" onClick={() => setViewAsTable(true)} />
+                  </React.Fragment>
+                )
+              }
+            </div>
+          ) : null
+        }
         <div styleName={`${viewAsTable ? 'view-as-table' : ''}`}>
           {
             !isMM && (
