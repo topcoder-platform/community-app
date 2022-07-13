@@ -217,8 +217,13 @@ export function isFilterEmpty(filter, tab, bucket) {
   let f;
   let empty;
 
+  if (!filter.tco) {
+    // eslint-disable-next-line no-param-reassign
+    delete filter.tco;
+  }
+
   if (tab === 'past') {
-    f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart');
+    f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart', 'tco');
     if (f.types) f.types = [...f.types].sort();
     empty = {
       tracks: {
@@ -245,7 +250,7 @@ export function isFilterEmpty(filter, tab, bucket) {
       reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
     };
   } else {
-    f = _.pick(filter, 'tracks', 'search', 'types');
+    f = _.pick(filter, 'tracks', 'search', 'types', 'tco');
     if (f.types) f.types = [...f.types].sort();
     empty = {
       tracks: {

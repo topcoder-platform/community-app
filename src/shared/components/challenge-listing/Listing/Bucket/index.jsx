@@ -137,7 +137,7 @@ export default function Bucket({
             title={BUCKET_DATA[bucket].name}
           />
           <h1 styleName="no-results">
-            {(filterState.recommended && activeBucket === 'openForRegistration') ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+            {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
           </h1>
         </div>
       </div>
