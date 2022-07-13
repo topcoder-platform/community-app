@@ -285,6 +285,12 @@ export default function FiltersPanel({
     setTcoToggle(on);
   };
 
+  useEffect(() => {
+    if (activeBucket === BUCKETS.MY && tcoToggle) {
+      onSwitchTcoChallenge(false);
+    }
+  }, [activeBucket, tcoToggle]);
+
   const onSwitchRecommendedChallenge = (on) => {
     setFilterState({ ..._.clone(filterState), recommended: on });
     selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
