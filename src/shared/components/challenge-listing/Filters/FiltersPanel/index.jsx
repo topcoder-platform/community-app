@@ -257,7 +257,7 @@ export default function FiltersPanel({
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
   const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER);
-  const isTcoChallengesVisible = (activeBucket === 'openForRegistration' || activeBucket === 'all' || activeBucket === 'allPast' || activeBucket === 'myPast');
+  const isTcoChallengesVisible = activeBucket !== BUCKETS.REVIEW_OPPORTUNITIES;
   const [recommendedToggle, setRecommendedToggle] = useState(false);
   const [tcoToggle, setTcoToggle] = useState(false);
 
@@ -284,12 +284,6 @@ export default function FiltersPanel({
     setFilterState({ ..._.clone(filterState), tco: on ? on.toString() : on });
     setTcoToggle(on);
   };
-
-  useEffect(() => {
-    if (activeBucket === BUCKETS.MY && tcoToggle) {
-      onSwitchTcoChallenge(false);
-    }
-  }, [activeBucket, tcoToggle]);
 
   const onSwitchRecommendedChallenge = (on) => {
     setFilterState({ ..._.clone(filterState), recommended: on });
