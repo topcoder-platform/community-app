@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -103,11 +102,11 @@ const ChallengeTable = ({ challenges, handle, hideChallengeResult }) => {
                     </a>
                   )
                     : (
-                      <Link to={`/challenges/${id}`} styleName="challenge-name">
+                      <a href={`/challenges/${id}`} styleName="challenge-name">
                         <span>
                           { getSafeName(name) }
                         </span>
-                      </Link>
+                      </a>
                     )
                   )
                   : (
