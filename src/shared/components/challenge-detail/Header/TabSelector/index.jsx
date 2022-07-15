@@ -86,8 +86,8 @@ export default function ChallengeViewSelector(props) {
     { field: 'Final Score', sort: 'asc', name: 'Final Score: Low to High' },
     { field: 'Provisional Score', sort: 'desc', name: 'Provisional Score: High to Low' },
     { field: 'Provisional Score', sort: 'asc', name: 'Provisional Score: Low to High' },
-    { field: 'Submission Date', sort: 'desc', name: 'Submission Date: New to Old' },
-    { field: 'Submission Date', sort: 'asc', name: 'Submission Date: Old to New' },
+    { field: 'Time', sort: 'desc', name: 'Submission Date: New to Old' },
+    { field: 'Time', sort: 'asc', name: 'Submission Date: Old to New' },
   ];
 
   const MySubmissionsSortOptions = [
