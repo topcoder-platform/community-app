@@ -2,10 +2,10 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
+  className="src-shared-components-Leaderboard-Podium-themes-___default__Podium___1qIZm"
 >
   <div
-    className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2Czwe"
+    className="src-shared-components-Leaderboard-Podium-themes-___default__PodiumWrap___2hDWP"
     style={
       Object {
         "justify-content": "space-between",
@@ -13,7 +13,7 @@ exports[`Matches shallow shapshot 1`] = `
     }
   >
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+      className="src-shared-components-Leaderboard-Podium-themes-___default__podium-column___2Zi0Z"
     >
       <PodiumSpot
         competitor={
@@ -33,7 +33,7 @@ exports[`Matches shallow shapshot 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+      className="src-shared-components-Leaderboard-Podium-themes-___default__podium-column___2Zi0Z"
     >
       <PodiumSpot
         competitor={
@@ -53,7 +53,7 @@ exports[`Matches shallow shapshot 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+      className="src-shared-components-Leaderboard-Podium-themes-___default__podium-column___2Zi0Z"
     >
       <PodiumSpot
         competitor={
@@ -73,7 +73,7 @@ exports[`Matches shallow shapshot 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+      className="src-shared-components-Leaderboard-Podium-themes-___default__podium-column___2Zi0Z"
     >
       <PodiumSpot
         competitor={
@@ -98,10 +98,10 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
+  className="src-shared-components-Leaderboard-Podium-themes-___default__Podium___1qIZm"
 >
   <div
-    className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2Czwe"
+    className="src-shared-components-Leaderboard-Podium-themes-___default__PodiumWrap___2hDWP"
     style={Object {}}
   />
 </div>

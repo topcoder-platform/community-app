@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - tco23
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
@@ -370,7 +370,6 @@ workflows:
           filters:
             branches:
               only:
-                - footer-update
                 - reskin-profile
       # This is stage env for production QA releases
       - "build-prod-staging":
@@ -378,8 +377,8 @@ workflows:
           filters: &filters-staging
             branches:
               only:
-                - develop
                 - fix-security-headers
+                - tco23-BS-comps
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration

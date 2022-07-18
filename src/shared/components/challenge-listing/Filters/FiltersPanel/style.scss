@@ -118,7 +118,8 @@ hr.hr {
   .filter-row {
     display: flex;
 
-    .recommended-select-label {
+    .recommended-select-label,
+    .tco-select-label {
       width: 45%;
       margin-bottom: 16px;
       display: flex;
@@ -606,7 +607,8 @@ hr.hr {
     }
   }
 
-  .recommended-challenges-filter {
+  .recommended-challenges-filter,
+  .tco-challenges-filter {
     display: flex;
     margin: 0;
     position: relative;
@@ -619,7 +621,8 @@ hr.hr {
       flex-direction: row;
     }
 
-    .recommended-challenge-tooltip {
+    .recommended-challenge-tooltip,
+    .tco-challenge-tooltip {
       position: absolute;
       left: 210px;
       display: flex;
@@ -639,6 +642,10 @@ hr.hr {
   color: $tc-white;
   border-radius: 8px;
   padding: 10px;
+
+  a {
+    font-weight: bold;
+  }
 }
 
 .tctooltiptext::after {

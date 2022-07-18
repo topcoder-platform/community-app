@@ -154,6 +154,10 @@
     color: #0d61bf;
     text-decoration: none;
 
+    @include sm {
+      text-decoration: underline;
+    }
+
     &:hover {
       text-decoration: none;
       color: #0d61bf;
