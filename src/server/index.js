@@ -141,7 +141,7 @@ async function onExpressJsSetup(server) {
       res.header(
         'Content-Security-Policy',
         "default-src 'self';"
-        + " script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'"
+        + " script-src 'report-sample' 'self'"
           + ` ${config.CDN.PUBLIC}`
           + ' http://www.google-analytics.com'
           + ' https://www.google-analytics.com'
