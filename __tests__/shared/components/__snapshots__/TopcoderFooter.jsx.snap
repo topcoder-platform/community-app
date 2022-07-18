@@ -349,10 +349,10 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://www.topcoder-dev.com/community/changelog?ref=navb"
-              target="_self"
+              href="https://www.topcoder-dev.com/releases/?ref=navb"
+              target="_blank"
             >
-              Changelog
+              Releases & Updates
             </a>
           </li>
           <li

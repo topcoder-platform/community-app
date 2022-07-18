@@ -2,4 +2,27 @@
 
 .graph-container {
   margin: 20px;
+  padding-right: 10px;
+  padding-bottom: 48px;
+
+  :global {
+    svg {
+      margin-top: 15px;
+      margin-left: 9px;
+
+      @include xs-to-md {
+        margin-left: 0;
+      }
+    }
+  }
+
+  @include xs-to-md {
+    margin: 0 16px;
+    padding-right: 16px;
+  }
+}
+
+.selectedPoint {
+  z-index: 1000 !important;
+  opacity: 0.9;
 }

@@ -15,21 +15,17 @@ exports[`Snapshot match 1`] = `
   </div>
   <p>
     Your submission has been received, and will be evaluated during Review phase.
+    <a
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+      href=""
+    >
+       
+      Need help?
+    </a>
   </p>
   <div
     className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
-  >
-    <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
-    >
-      <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
-        href=""
-      >
-        Help
-      </a>
-    </div>
-  </div>
+  />
 </div>
 `;
 
@@ -48,6 +44,13 @@ exports[`Snapshot match 2`] = `
   </div>
   <p>
     You have failed screening
+    <a
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+      href=""
+    >
+       
+      Need help?
+    </a>
   </p>
   <div
     className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
@@ -57,16 +60,6 @@ exports[`Snapshot match 2`] = `
     >
       Need more info on how to pass screening? Go to help to read Rules & Policies.
     </p>
-    <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
-    >
-      <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
-        href=""
-      >
-        Help
-      </a>
-    </div>
   </div>
 </div>
 `;
@@ -86,6 +79,13 @@ exports[`Snapshot match 3`] = `
   </div>
   <p>
     You have failed screening and the screener has given you the following warning.
+    <a
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+      href=""
+    >
+       
+      Need help?
+    </a>
   </p>
   <div
     className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
@@ -111,16 +111,6 @@ exports[`Snapshot match 3`] = `
     >
       Need more info on how to pass screening? Go to help to read Rules & Policies.
     </p>
-    <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
-    >
-      <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
-        href=""
-      >
-        Help
-      </a>
-    </div>
   </div>
 </div>
 `;
@@ -140,21 +130,17 @@ exports[`Snapshot match 4`] = `
   </div>
   <p>
     You have passed screening.
+    <a
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+      href=""
+    >
+       
+      Need help?
+    </a>
   </p>
   <div
     className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
-  >
-    <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
-    >
-      <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
-        href=""
-      >
-        Help
-      </a>
-    </div>
-  </div>
+  />
 </div>
 `;
 
@@ -173,6 +159,13 @@ exports[`Snapshot match 5`] = `
   </div>
   <p>
     You have passed screening, but the screener has given you 1 warnings that you must fix in round 2.
+    <a
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+      href=""
+    >
+       
+      Need help?
+    </a>
   </p>
   <div
     className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
@@ -198,16 +191,6 @@ exports[`Snapshot match 5`] = `
     >
       Need more info on how to pass screening? Go to help to read Rules & Policies.
     </p>
-    <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
-    >
-      <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
-        href=""
-      >
-        Help
-      </a>
-    </div>
   </div>
 </div>
 `;
@@ -227,6 +210,13 @@ exports[`Snapshot match 6`] = `
   </div>
   <p>
     Your submission has been received, and will be screened after the end of the phase
+    <a
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+      href=""
+    >
+       
+      Need help?
+    </a>
   </p>
   <div
     className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
@@ -246,16 +236,6 @@ exports[`Snapshot match 6`] = `
       <p>
         Details #0
       </p>
-    </div>
-    <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
-    >
-      <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
-        href=""
-      >
-        Help
-      </a>
     </div>
   </div>
 </div>

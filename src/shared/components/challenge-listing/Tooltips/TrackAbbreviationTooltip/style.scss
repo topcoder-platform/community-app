@@ -8,32 +8,26 @@ $track-radius-4: $corner-radius * 2;
   min-width: $base-unit * 45;
   max-width: $base-unit * 60;
   line-height: $track-space-20 - 2;
-  padding: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #2a2a2a;
 
   .header {
-    font-weight: 700;
-    padding-left: $base-unit * 2;
-
-    &.design {
-      border-left: $track-radius-4 solid $tc-light-blue;
-    }
-
-    &.development {
-      border-left: $track-radius-4 solid $tc-green;
-    }
-
-    &.data-science {
-      border-left: $track-radius-4 solid $tc-orange;
-    }
-
-    &.quality-assurance {
-      border-left: $track-radius-4 solid $tc-purple-120;
-    }
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 5px;
   }
 
   .body {
-    font-weight: 300;
-    margin-top: $base-unit + 1;
-    color: $tc-gray-20;
+    font-weight: 400;
+    color: $tc-white;
+    font-size: 14px;
+    line-height: 22px;
+    text-transform: lowercase;
+  }
+
+  .body::first-letter {
+    text-transform: capitalize;
   }
 }

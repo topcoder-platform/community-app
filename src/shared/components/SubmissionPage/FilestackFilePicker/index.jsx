@@ -18,7 +18,7 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { errors } from 'topcoder-react-lib';
 
-import './styles.scss';
+import style from './styles.scss';
 
 const { fireErrorMessage } = errors;
 
@@ -146,7 +146,6 @@ class FilestackFilePicker extends React.Component {
       fileName,
       fileExtensions,
       title,
-      mandatory,
       error,
       dragged,
       setDragged,
@@ -167,13 +166,6 @@ class FilestackFilePicker extends React.Component {
           <p>
             {title}
           </p>
-          {
-            mandatory && (
-            <p styleName="mandatory">
-              *mandatory
-            </p>
-            )
-          }
         </div>
         <div
           styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
@@ -181,7 +173,7 @@ class FilestackFilePicker extends React.Component {
           {
             !fileName && !isChallengeBelongToTopgearGroup && (
             <p>
-              Drag and drop your
+              Drag and drop your{' '}
               {fileExtensions.join(' or ')}
               {' '}
               file here.
@@ -219,8 +211,8 @@ class FilestackFilePicker extends React.Component {
               </div>
             )
           }
-          <PrimaryButton onClick={this.onClickPick}>
-            {isChallengeBelongToTopgearGroup ? 'Set URL' : 'Pick a File'}
+          <PrimaryButton onClick={this.onClickPick} theme={{ button: style.button }}>
+            {isChallengeBelongToTopgearGroup ? 'Set URL' : 'SELECT A FILE'}
           </PrimaryButton>
           {!isChallengeBelongToTopgearGroup && (
             <div
@@ -338,7 +330,6 @@ FilestackFilePicker.propTypes = {
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,
-  mandatory: PT.bool.isRequired,
   setError: PT.func.isRequired,
   setFileName: PT.func.isRequired,
   setUploadProgress: PT.func.isRequired,

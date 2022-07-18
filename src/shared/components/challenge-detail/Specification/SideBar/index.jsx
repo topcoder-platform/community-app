@@ -8,6 +8,7 @@ import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 
+import TooltipIcon from 'assets/images/tooltip-info.svg';
 import EligibleEvents from './EligibleEvents';
 
 import ShareSocial from './ShareSocial';
@@ -150,109 +151,124 @@ export default function SideBar({
         <EligibleEvents eventDetails={eventDetail} />
         {
           !isDesign && !isMM && (
-          <div>
-            <h2>
-              REVIEW STYLE:
-            </h2>
-            <h3>
-              Final Review:
-            </h3>
-            <span styleName="link-like-paragraph tooltip-container">
-              {reviewTypeTitle}
-              <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="review-tip">
-                  ?
-                </div>
-              </Tooltip>
-            </span>
-            <h3>
-              Approval:
-            </h3>
-            <span styleName="link-like-paragraph tooltip-container">
-              User Sign-Off
-              <Tooltip id="approval-tip" content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="approval-tip">
-                  ?
-                </div>
-              </Tooltip>
-            </span>
-          </div>
+            <div>
+              <h2>
+                REVIEW STYLE:
+              </h2>
+              <h3>
+                Final Review:
+              </h3>
+              <span styleName="link-like-paragraph tooltip-container">
+                {reviewTypeTitle}
+                <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
+                  <div styleName="tctooltip">
+                    <TooltipIcon />
+                  </div>
+                </Tooltip>
+              </span>
+              <h3>
+                Approval:
+              </h3>
+              <span styleName="link-like-paragraph tooltip-container">
+                User Sign-Off
+                <Tooltip
+                  id="approval-tip"
+                  content={approvalTip}
+                  className={styles['tooltip-overlay']}
+                  trigger={['hover', 'focus']}
+                >
+                  <div styleName="tctooltip">
+                    <TooltipIcon />
+                  </div>
+                </Tooltip>
+              </span>
+            </div>
           )
         }
         {
           !isMM && (
-          <div>
-            <h2>
-              CHALLENGE LINKS:
-            </h2>
-            {
-              isDevelop && environment && environment.length > 0
-              && (
-              <p styleName="link-like-paragraph">
-                <a href={`${environment}`}>
-                  Environment
-                </a>
-              </p>
-              )
-            }
-            {
-              isDevelop && codeRepo && codeRepo.length > 0
-              && (
-              <p styleName="link-like-paragraph">
-                <a href={`${codeRepo}`}>
-                  Code Repository
-                </a>
-              </p>
-              )
-            }
-            {
-              screeningScorecardId > 0
-              && (
-              <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}${screeningScorecardId}`}>
-                  Screening Scorecard
-                </a>
-              </p>
-              )
-            }
-            {
-              reviewScorecardId > 0 && !isDesign
-              && (
-              <span styleName="link-like-paragraph tooltip-container">
-                <a href={`${scorecardURL}${reviewScorecardId}`}>
-                  Review Scorecard
-                </a>
-                <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="reviewscorecard-tip">
-                    ?
-                  </div>
-                </Tooltip>
-              </span>
-              )
-            }
-            {
-              !isDesign && (
-              <span styleName="link-like-paragraph tooltip-container">
-                <a
-                  href={config.URL.INFO.USABLECODEDEV}
-                  title="Useable Code Rules"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Useable Code Rules
-                </a>
-                <Tooltip id="usablecode-tip" content={usableCodeArticle} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="usablecode-tip">
-                    ?
-                  </div>
-                </Tooltip>
-              </span>
-              )
-            }
-          </div>
+            <div>
+              <h2>
+                CHALLENGE LINKS:
+              </h2>
+              {
+                isDevelop && environment && environment.length > 0
+                && (
+                  <p styleName="link-like-paragraph">
+                    <a href={`${environment}`}>
+                      Environment
+                    </a>
+                  </p>
+                )
+              }
+              {
+                isDevelop && codeRepo && codeRepo.length > 0
+                && (
+                  <p styleName="link-like-paragraph">
+                    <a href={`${codeRepo}`}>
+                      Code Repository
+                    </a>
+                  </p>
+                )
+              }
+              {
+                screeningScorecardId > 0
+                && (
+                  <p styleName="link-like-paragraph">
+                    <a href={`${scorecardURL}${screeningScorecardId}`}>
+                      Screening Scorecard
+                    </a>
+                  </p>
+                )
+              }
+              {
+                reviewScorecardId > 0 && !isDesign
+                && (
+                  <span styleName="link-like-paragraph tooltip-container">
+                    <a href={`${scorecardURL}${reviewScorecardId}`}>
+                      Review Scorecard
+                    </a>
+                    <Tooltip
+                      id="reviewscorecard-tip"
+                      content={reviewScorecardTip}
+                      className={styles['tooltip-overlay']}
+                      trigger={['hover', 'focus']}
+                    >
+                      <div styleName="tctooltip">
+                        <TooltipIcon />
+                      </div>
+                    </Tooltip>
+                  </span>
+                )
+              }
+              {
+                !isDesign && (
+                  <span styleName="link-like-paragraph tooltip-container">
+                    <a
+                      href={config.URL.INFO.USABLECODEDEV}
+                      title="Useable Code Rules"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Useable Code Rules
+                    </a>
+                    <Tooltip
+                      id="usablecode-tip"
+                      content={usableCodeArticle}
+                      className={styles['tooltip-overlay']}
+                      trigger={['hover', 'focus']}
+                    >
+                      <div styleName="tctooltip">
+                        <TooltipIcon />
+                      </div>
+                    </Tooltip>
+                  </span>
+                )
+              }
+            </div>
           )
         }
-        { isMM && (
+        {isMM && (
           <div>
             <h2>
               CHALLENGE LINKS:
@@ -272,155 +288,159 @@ export default function SideBar({
         {
           isDesign
           && (
-          <div>
-            <h2>
-              SUBMISSION FORMAT:
-            </h2>
-            <h3>
-              Your Design Files:
-            </h3>
-            <ol>
-              <li>
-                Look for instructions in this challenge regarding what files to provide.
-              </li>
-              <li>
-                Place your submission files into a &quot;Submission.zip&quot; file.
-              </li>
-              <li>
-                Place all of your source files into a &quot;Source.zip&quot; file.
-              </li>
-              <li>
-                Declare your fonts, stock photos, and icons in a &quot;Declaration.txt&quot; file.
-              </li>
-              <li>
-                Create a JPG preview file.
-              </li>
-              <li>
-                Place the 4 files you just created into a single zip file.
-                This will be what you upload.
-              </li>
-            </ol>
-            <p styleName="link-like-paragraph">
-              Trouble formatting your submission or want to learn more?
-              &zwnj;
-              <a href={faqURL}>
-                Read the FAQ.
-              </a>
-            </p>
-            <h3>
-              Fonts, Stock Photos, and Icons:
-            </h3>
-            <p styleName="link-like-paragraph">
-              All fonts, stock photos, and icons within your design must be declared
-              when you submit. DO NOT include any 3rd party files in your
-              submission or source files. Read about the
-              {' '}
-              <a href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges">
-                policy.
-              </a>
-            </p>
-            <h3>
-              Screening:
-            </h3>
-            <p styleName="link-like-paragraph">
-              All submissions are screened for eligibility before the challenge
-              holder picks winners. Don
-              &quot;
-              t let your hard work go to waste. Learn more about how to
-              &nbsp;
-              <a href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges">
-                pass screening.
-              </a>
-            </p>
-            {(forumLink || !_.isEmpty(discuss)) && (
+            <div>
+              <h2>
+                SUBMISSION FORMAT:
+              </h2>
+              <h3>
+                Your Design Files:
+              </h3>
+              <ol>
+                <li>
+                  Look for instructions in this challenge regarding what files to provide.
+                </li>
+                <li>
+                  Place your submission files into a &quot;Submission.zip&quot; file.
+                </li>
+                <li>
+                  Place all of your source files into a &quot;Source.zip&quot; file.
+                </li>
+                <li>
+                  Declare your fonts, stock photos, and icons in a &quot;Declaration.txt&quot; file.
+                </li>
+                <li>
+                  Create a JPG preview file.
+                </li>
+                <li>
+                  Place the 4 files you just created into a single zip file.
+                  This will be what you upload.
+                </li>
+              </ol>
               <p styleName="link-like-paragraph">
-                Questions?
+                Trouble formatting your submission or want to learn more?
                 &zwnj;
-                {_.isEmpty(discuss) && (
-                  <a
-                    href={forumLink}
-                    target="_blank"
-                    rel="oopener noreferrer"
-                  >
-                    Ask in the Challenge Discussion Forums.
-                  </a>
-                )}
+                <a href={faqURL}>
+                  Read the FAQ.
+                </a>
               </p>
-            )}
-            {!_.isEmpty(discuss) && (
-              <ul>
-                { discuss.map(d => (
-                  <li>
+              <h3>
+                Fonts, Stock Photos, and Icons:
+              </h3>
+              <p styleName="link-like-paragraph">
+                All fonts, stock photos, and icons within your design must be declared
+                when you submit. DO NOT include any 3rd party files in your
+                submission or source files. Read about the
+                {' '}
+                <a
+                  href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges"
+                >
+                  policy.
+                </a>
+              </p>
+              <h3>
+                Screening:
+              </h3>
+              <p styleName="link-like-paragraph">
+                All submissions are screened for eligibility before the challenge
+                holder picks winners. Don&#39;t let your hard work go to waste.
+                Learn more about how to
+                &nbsp;
+                <a
+                  href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges"
+                >
+                  pass screening.
+                </a>
+              </p>
+              <h2>
+                CHALLENGE LINKS:
+              </h2>
+              {(forumLink || !_.isEmpty(discuss)) && (
+                <p styleName="link-like-paragraph">
+                  Questions?
+                  &zwnj;
+                  {_.isEmpty(discuss) && (
                     <a
-                      href={d.url}
+                      href={forumLink}
                       target="_blank"
                       rel="oopener noreferrer"
                     >
-                      CHALLENGE DISCUSSION
+                      Ask in the Challenge Discussion Forums.
                     </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <h2>
-              SOURCE FILES:
-            </h2>
-            {
-              fileTypes
-              && (
-                <ul styleName="source-files-list">
-                  {
-                    fileTypes.value && fileTypes.value.length > 0
-                      ? JSON.parse(fileTypes.value).map(fileT => (
-                        <li key={fileT}>
-                          {fileT}
-                        </li>
-                      ))
-                      : undefined
-                  }
-                </ul>
-              )
-            }
-            <p styleName="link-like-paragraph">
-              You must include all source files with your submission.
-            </p>
-            <h2>
-              SUBMISSION LIMIT:
-            </h2>
-            <p styleName="link-like-paragraph">
-              {
-                submissionLimit
-                  ? submissionLimitDisplay : (
-                    <strong>
-                      {submissionLimitDisplay}
-                    </strong>
-                  )
+                  )}
+                </p>
+              )}
+              {!_.isEmpty(discuss) && discuss.map(d => (
+                <p styleName="link-like-paragraph">
+                  <a
+                    href={d.url}
+                    target="_blank"
+                    rel="oopener noreferrer"
+                  >
+                    CHALLENGE DISCUSSION
+                  </a>
+                </p>
+              ))
               }
-            </p>
-          </div>
+              <h2>
+                SOURCE FILES:
+              </h2>
+              {
+                fileTypes
+                && (
+                  <ul styleName="source-files-list">
+                    {
+                      fileTypes.value && fileTypes.value.length > 0
+                        ? JSON.parse(fileTypes.value)
+                          .map(fileT => (
+                            <li key={fileT}>
+                              {fileT}
+                            </li>
+                          ))
+                        : undefined
+                    }
+                  </ul>
+                )
+              }
+              <p styleName="link-like-paragraph">
+                You must include all source files with your submission.
+              </p>
+              <h2>
+                SUBMISSION LIMIT:
+              </h2>
+              <p styleName="link-like-paragraph">
+                {
+                  submissionLimit
+                    ? submissionLimitDisplay : (
+                      <strong>
+                        {submissionLimitDisplay}
+                      </strong>
+                    )
+                }
+              </p>
+            </div>
           )
         }
         {
           terms.length > 0
           && (
-          <div>
-            <h2>
-              CHALLENGE TERMS:
-            </h2>
-            <div styleName="link-like-paragraph">
-              {
-                terms.map(t => (
-                  <div styleName="term" key={t.id}>
-                    <Link
-                      to={`${challengesUrl}/terms/detail/${t.id}`}
-                    >
-                      {t.title}
-                    </Link>
-                  </div>
-                ))
-              }
+            <div>
+              <h2>
+                CHALLENGE TERMS:
+              </h2>
+              <div styleName="link-like-paragraph">
+                {
+                  terms.map(t => (
+                    <div styleName="term" key={t.id}>
+                      <Link
+                        to={`${challengesUrl}/terms/detail/${t.id}`}
+                      >
+                        {t.title}
+                      </Link>
+                    </div>
+                  ))
+                }
+              </div>
             </div>
-          </div>
           )
         }
         <div>
@@ -434,11 +454,16 @@ export default function SideBar({
               target="_blank"
               rel="noreferrer"
             >
-              Topcoder Extension <br /> for VSCode
+              Topcoder Extension for VSCode
             </a>
-            <Tooltip id="vscode-tip" content={vscodeTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-              <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="vscode-tip">
-                ?
+            <Tooltip
+              id="vscode-tip"
+              content={vscodeTip}
+              className={styles['tooltip-overlay']}
+              trigger={['hover', 'focus']}
+            >
+              <div styleName="tctooltip">
+                <TooltipIcon />
               </div>
             </Tooltip>
           </span>
@@ -449,11 +474,11 @@ export default function SideBar({
               target="_blank"
               rel="noreferrer"
             >
-              Topcoder Templates <br /> repository
+              Topcoder Templates repository
             </a>
           </span>
         </div>
-        { shareable && (
+        {shareable && (
           <div>
             <h2>
               SHARE:
@@ -461,7 +486,7 @@ export default function SideBar({
             <ShareSocial />
           </div>
         )}
-        { legacyId && (
+        {legacyId && (
           <div styleName="legacy-challenge-id">
             <h3>ID: {legacyId}</h3>
           </div>

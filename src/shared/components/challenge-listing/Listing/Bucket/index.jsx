@@ -79,10 +79,10 @@ export default function Bucket({
   let filteredChallenges = sortedChallenges;
   filteredChallenges = sortedChallenges.filter((ch) => {
     if (ch.type === 'Task'
-        && ch.task
-        && ch.task.isTask
-        && ch.task.isAssigned
-        && Number(ch.task.memberId) !== Number(userId)) {
+      && ch.task
+      && ch.task.isTask
+      && ch.task.isAssigned
+      && Number(ch.task.memberId) !== Number(userId)) {
       return null;
     }
     return ch;
@@ -131,8 +131,15 @@ export default function Bucket({
 
   if (!loading && filteredChallenges.length === 0) {
     return (
-      <div styleName="no-results">
-        { (filterState.recommended && activeBucket === 'openForRegistration') ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
+      <div>
+        <div styleName="bucket">
+          <SortingSelectBar
+            title={BUCKET_DATA[bucket].name}
+          />
+          <h1 styleName="no-results">
+            {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+          </h1>
+        </div>
       </div>
     );
   }
@@ -164,7 +171,7 @@ export default function Bucket({
 
   const placeholders = [];
   if (loading) {
-  // if ((loading || keepPlaceholders) && (!expandable || expanded)) {
+    // if ((loading || keepPlaceholders) && (!expandable || expanded)) {
     for (let i = 0; i < 10; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
@@ -178,24 +185,21 @@ export default function Bucket({
   //   // instead of waiting for scrolling to hit the react-waypoint to do the loadMore
   //   loadMore();
   // }
+
   const isRecommended = isRecommendedChallengeType(bucket, filterState);
+  const sectionTile = 'OPEN FOR REGISTRATION';
   const isHighestPaying = isRecommended && _.sumBy(filteredChallenges, 'jaccard_index') === 0;
-  const sectionTile = isHighestPaying ? 'HIGHEST PAYING OPEN CHALLENGES' : 'Recommended Open Challenges';
   return (
     // challenges.length !== 0
     // && (
     <div>
-      {
-        isHighestPaying && (!loading || filteredChallenges.length > 0)
-          && <NoRecommenderChallengeCard />
-      }
       <div styleName="bucket">
         {
           isRecommended
             ? filteredChallenges.length > 0 && (
-              <SortingSelectBar
-                title={sectionTile}
-              />
+            <SortingSelectBar
+              title={sectionTile}
+            />
             )
             : (
               <SortingSelectBar
@@ -214,6 +218,10 @@ export default function Bucket({
               />
             )
         }
+        {
+          isHighestPaying && (!loading || filteredChallenges.length > 0)
+          && <NoRecommenderChallengeCard />
+        }
         {cards}
         {
           !expanding && !expandable && loadMore && !loading && activeBucket === bucket ? (
@@ -222,24 +230,26 @@ export default function Bucket({
         }
         {placeholders}
         {
-      // (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
-        (expanding || expandable) && !loading && loadMore && (expandable ? expanded : !expanded) ? (
-          <a
-            // href={`${challengesUrl}?${bucketQuery}`}
-            href={`${challengesUrl}`}
-            onClick={(event) => {
-              expand();
-              // document.body.scrollTop = 0;
-              // document.documentElement.scrollTop = 0;
-              event.preventDefault();
-            }}
-            role="button"
-            styleName="view-more"
-            tabIndex={0}
-          >
-            View more challenges
-          </a>
-        ) : null
+          // eslint-disable-next-line max-len
+          // (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
+          // eslint-disable-next-line max-len
+          (expanding || expandable) && !loading && loadMore && (expandable ? expanded : !expanded) ? (
+            <a
+              // href={`${challengesUrl}?${bucketQuery}`}
+              href={`${challengesUrl}`}
+              onClick={(event) => {
+                expand();
+                // document.body.scrollTop = 0;
+                // document.documentElement.scrollTop = 0;
+                event.preventDefault();
+              }}
+              role="button"
+              styleName="view-more"
+              tabIndex={0}
+            >
+              View more challenges
+            </a>
+          ) : null
         }
       </div>
     </div>

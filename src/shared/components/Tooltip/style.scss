@@ -8,15 +8,39 @@
   }
 
   .rc-tooltip-inner {
-    border-radius: 3px;
+    border-radius: 8px;
     background: $tc-gray-80;
     padding: 0;
+  }
+
+  .toolTipPadding {
+    .rc-tooltip-inner {
+      padding: 8px 10px;
+    }
+  }
+
+  .rc-tooltip-arrow {
+    background: url(assets/images/tooltip-arrow.svg);
+    width: 30px;
+    height: 9px;
+    z-index: 10000;
   }
 
   .rc-tooltip-placement-top .rc-tooltip-arrow,
   .rc-tooltip-placement-topLeft .rc-tooltip-arrow,
   .rc-tooltip-placement-topRight .rc-tooltip-arrow {
     border-top-color: $tc-gray-80;
+    padding: 0;
+    bottom: 1px;
+    border-width: 0;
+  }
+
+  .rc-tooltip-placement-top .rc-tooltip-arrow {
+    margin-left: -19px;
+  }
+
+  .rc-tooltip-placement-topLeft .rc-tooltip-arrow {
+    margin-left: -13px;
   }
 
   .rc-tooltip-placement-right .rc-tooltip-arrow,

@@ -3,7 +3,10 @@
 .Leaderboard {
   padding: 0;
   margin: 40px auto;
-  max-width: 940px;
+
+  @include sm {
+    padding: 0 16px;
+  }
 }
 
 .Leaderboard .section-title {

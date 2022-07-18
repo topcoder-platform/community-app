@@ -8,7 +8,7 @@
   flex-direction: column;
   background-color: white;
   width: 100%;
-  padding: 5px 60px;
+  padding: 5px 0;
 
   @include sm-to-md {
     padding: 0;
@@ -32,11 +32,14 @@
 
   .row {
     display: flex;
-    padding: 30px 0;
-    margin-bottom: 70px;
+    padding-top: 30px;
+    margin-bottom: 32px;
+    justify-content: space-between;
+    flex-direction: row;
 
     @include sm-to-md {
       margin: 0 20px;
+      flex-direction: column;
     }
 
     @include sm {
@@ -51,8 +54,7 @@
 
   .left {
     padding-right: 33px;
-    border-right: 6px solid #f6f6f6;
-    max-width: 310px;
+    width: 50%;
 
     @include md-to-lg {
       padding-right: 20px;
@@ -61,48 +63,49 @@
     @include sm {
       border-right: none;
       max-width: 100%;
+      width: 100%;
+      padding-right: 0;
     }
 
-    p,
+    p.note {
+      @include roboto-regular;
+
+      background-color: #fff0ce;
+      border-radius: 4px;
+      padding: 16px;
+      font-size: 16px;
+      line-height: 24px;
+      color: #2a2a2a;
+    }
+
+    .additional-note {
+      @include roboto-regular;
+
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      color: #2a2a2a;
+    }
+
     a {
-      font-size: 13px;
-      color: $tc-gray-60;
-      font-style: italic;
-      max-width: 270px;
-      width: 270px;
-      line-height: 20px;
-      margin-bottom: 12px;
-
-      @media (min-width: 800px) and (max-width: 1000px) {
-        max-width: 220px;
-        width: 220px;
-      }
-
-      @media (min-width: 768px) and (max-width: 800px) {
-        max-width: 200px;
-        width: 200px;
-      }
-
-      @include sm {
-        max-width: 100%;
-        width: 100%;
-      }
-
-      @include sm-to-md {
-        margin-bottom: 25px;
-      }
+      font-size: 16px;
+      color: $tc-dark-blue;
+      cursor: pointer;
     }
 
     h2 {
-      font-size: 15px;
-      line-height: 25px;
-      margin-bottom: 4px;
+      @include barlow-bold;
+
+      font-size: 22px;
+      line-height: 26px;
+      margin-bottom: 24px;
+      color: #2a2a2a;
     }
   }
 
   .right {
-    width: 100%;
     margin-left: 60px;
+    width: 50%;
 
     @media (min-width: 768px) and (max-width: 1280px) {
       margin-left: 30px;
@@ -110,6 +113,7 @@
 
     @include sm {
       margin-left: 0;
+      width: 100%;
     }
 
     & > p {
@@ -127,6 +131,7 @@
 
   .file-picker-container {
     display: flex;
+    height: 100%;
     margin-bottom: 40px;
 
     @include xs-to-md {
@@ -139,24 +144,20 @@
   }
 
   .agree {
-    background-color: #fcfcfc;
+    background-color: #f4f4f4;
     border-top: 1px solid #f0f0f0;
     border-bottom: 1px solid #f0f0f0;
     margin-bottom: 30px;
-    padding: 30px 60px;
+    margin-top: 24px;
+    padding: 16px 16px 22px 16px;
     flex-direction: column;
     align-items: center;
 
-    @include xs-to-lg {
-      margin: 0;
-    }
-
-    @include xs-to-md {
-      padding: 30px;
-    }
-
     p {
-      font-size: 13px;
+      @include roboto-bold;
+
+      font-weight: 500;
+      font-size: 16px;
       color: #37373c;
       line-height: 24px;
       margin-bottom: 50px;
@@ -178,13 +179,12 @@
 
     .tc-checkbox {
       height: 15px;
-      width: 210px;
+      width: 100%;
       margin: 0;
       padding: 0;
       vertical-align: bottom;
       position: relative;
       display: inline-block;
-      margin-bottom: 30px;
 
       input[type=checkbox] {
         visibility: visible;
@@ -218,25 +218,27 @@
           background: transparent;
           top: 3px;
           left: 2px;
-          border: 3px solid $tc-dark-blue;
+          border: 3px solid #137d60;
           border-top: none;
           border-right: none;
           transform: rotate(-45deg);
           transition: all 0.15s ease-in-out;
         }
 
-        &:hover::after {
-          opacity: 0.3;
+        @media (min-width: 768px) {
+          &:hover::after {
+            opacity: 0.3;
+          }
         }
       }
 
       input[type=checkbox]:checked ~ label {
-        background: $tc-dark-blue;
-        border-color: $tc-dark-blue;
+        background: #137d60;
+        border-color: #137d60;
       }
 
       input[type=checkbox]:focus ~ label {
-        outline: 2px auto $tc-dark-blue;
+        outline: 2px auto #137d60;
       }
 
       input[type=checkbox]:checked + label::after {
@@ -245,4 +247,41 @@
       }
     }
   }
+}
+
+.hr {
+  opacity: 0.5;
+
+  @include xs-to-md {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+.submitArea {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: #137d60 !important;
+  color: #fff !important;
+}
+
+.buttonDisabled {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  color: #767676 !important;
+  background: #f4f4f4 !important;
 }

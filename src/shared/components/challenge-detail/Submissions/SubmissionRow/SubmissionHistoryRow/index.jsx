@@ -7,8 +7,8 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import FailedSubmissionTooltip from '../../FailedSubmissionTooltip';
 // import Completed from '../../../icons/completed.svg';
-import Failed from '../../../icons/failed.svg';
 import InReview from '../../../icons/in-review.svg';
 import Queued from '../../../icons/queued.svg';
 
@@ -21,13 +21,10 @@ export default function SubmissionHistoryRow({
   provisionalScore,
   submissionTime,
   isReviewPhaseComplete,
-  onShowPopup,
-  submissionId,
   status,
-  member,
 }) {
   const getInitialReviewResult = () => {
-    if (provisionalScore && provisionalScore < 0) return <Failed />;
+    if (provisionalScore && provisionalScore < 0) return <FailedSubmissionTooltip />;
     switch (status) {
       case 'completed':
         return provisionalScore;
@@ -36,52 +33,43 @@ export default function SubmissionHistoryRow({
       case 'queued':
         return <Queued />;
       case 'failed':
-        return <Failed />;
+        return <FailedSubmissionTooltip />;
       default:
-        return provisionalScore;
+        return provisionalScore === '-' ? 'N/A' : provisionalScore;
     }
   };
   const getFinalScore = () => {
     if (isMM && finalScore && finalScore > -1 && isReviewPhaseComplete) {
       return finalScore;
     }
-    return '-';
+    return 'N/A';
   };
 
   return (
     <div styleName="container">
       <div styleName="row no-border">
-        { isMM ? <div styleName="col-1 col child" /> : null }
-        <div styleName="col-2 col child">
-          {submission}
+        <div styleName="col-1 col">
+          <div styleName="mobile-header">SUBMISSION</div>
+          <span>{submission}</span>
         </div>
-        <div styleName="col-3 col">
-          <div styleName="col child">
+        <div styleName="col-2 col">
+          <div styleName="mobile-header">FINAL SCORE</div>
+          <div>
             {getFinalScore()}
           </div>
-          <div styleName="col child">
+        </div>
+        <div styleName="col-3 col">
+          <div styleName="mobile-header">PROVISIONAL SCORE</div>
+          <div>
             {getInitialReviewResult()}
           </div>
         </div>
-        <div styleName={`col-4 col history-time ${isMM ? 'mm' : ''}`}>
-          <div styleName="col child">
+        <div styleName={`col-4 col ${isMM ? 'mm' : ''}`}>
+          <div styleName="mobile-header">TIME</div>
+          <div>
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
-        {
-          isMM && (
-            <div styleName="col-5 col">
-              <div
-                role="button"
-                tabIndex={0}
-                styleName="col child"
-                onClick={() => onShowPopup(true, submissionId, member)}
-              >
-                View Details
-              </div>
-            </div>
-          )
-        }
       </div>
     </div>
   );
@@ -94,7 +82,6 @@ SubmissionHistoryRow.defaultProps = {
 };
 
 SubmissionHistoryRow.propTypes = {
-  member: PT.string.isRequired,
   isMM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.oneOfType([
@@ -108,6 +95,4 @@ SubmissionHistoryRow.propTypes = {
   ]),
   submissionTime: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
-  submissionId: PT.string.isRequired,
-  onShowPopup: PT.func.isRequired,
 };

@@ -1,15 +1,34 @@
 @import "~styles/mixins";
 
+.open {
+  color: $tc-white;
+}
+
+.past {
+  color: #aaa;
+}
+
 .open,
 .past {
   @include roboto-regular;
 
   margin-bottom: 10px;
   padding: 0 20px;
-  border-right: 1px solid $tc-gray-10;
+  border-left: 1px solid $tc-gray-40;
 
-  &:last-child {
-    border-right: none;
+  @include xs-to-md {
+    border-left: none;
+    border-bottom: 1px solid $tc-gray-40;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &:first-child {
+    border-left: none;
   }
 }
 
@@ -17,15 +36,47 @@
   font-size: 20px;
   letter-spacing: -0.5px;
   line-height: 25px;
+  font-weight: 500;
+  margin-top: 7px;
+
+  span {
+    margin-left: 8px;
+  }
 }
 
-.open .date { color: $tc-white; }
-.past .date { color: $tc-green; }
+.time {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  line-height: 25px;
+  font-weight: 500;
+  margin-top: 4px;
+
+  span {
+    margin-left: 8px;
+  }
+}
+
+.open .date {
+  color: $tc-white;
+
+  svg {
+    path: {
+      fill: $tc-white;
+    }
+  }
+}
+.past .date { color: #aaa; }
 
 .title {
-  font-size: 13px;
-  color: $tc-gray-40;
+  font-size: 12px;
+  font-weight: 700;
   letter-spacing: 0;
+  color: #fff;
   line-height: 15px;
   margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.past .title {
+  color: $tc-gray-40;
 }

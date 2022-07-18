@@ -3,9 +3,11 @@
 .outer-container {
   background: $tc-gray-neutral-dark;
   width: 100%;
+  max-width: $screem-md;
+  margin: 0 auto;
 
   @include xs-to-sm {
-    padding: 8px 10px 20px;
+    padding: 0;
   }
 
   @include md {
@@ -13,14 +15,13 @@
   }
 
   @include lg-to-xl {
-    padding: 30px 64px;
+    padding: 0;
   }
 }
 
 .challenge-detail-container {
   background: $tc-white;
   border-radius: 3 * $corner-radius;
-  max-width: 1240px;
   width: 100%;
   margin: auto;
 }

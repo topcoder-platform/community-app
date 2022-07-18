@@ -227,10 +227,10 @@
         .bonus-div {
           @include roboto-regular;
 
-          text-align: center;
+          text-align: left;
           color: $tc-black;
           line-height: 25px;
-          margin: 25px 15px 0;
+          margin: 25px 25px 0;
           padding-bottom: 20px;
 
           .bonus-text {

@@ -1,10 +1,10 @@
 // TODO: All uses of this component MUST be replaced by Avatar component!
 
-import { Avatar } from 'topcoder-react-ui-kit';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { config, Link } from 'topcoder-react-utils';
 import _ from 'lodash';
+import { formatOrdinals } from 'utils/challenge-listing/helper';
 import './style.scss';
 
 /* TODO: Should be functional component! */
@@ -40,10 +40,19 @@ class LeaderboardAvatar extends Component {
         openNewTab={!_.includes(window.origin, 'www')}
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? '' : 'light-gray'}`}
       >
-        { plusOne ? member.handle : <Avatar url={photoURL} />}
-        <span styleName={member.position ? `placement placement-${member.position}` : 'hidden'}>
-          {member.position}
-        </span>
+        { plusOne
+          ? (
+            <div>
+              <div>
+                <span styleName="plus">{member.handle}</span>
+              </div>
+            </div>
+          ) : (
+            <span styleName={member.position ? `placement placement-${member.position}` : 'hidden'}>
+              {formatOrdinals(member.position)}
+            </span>
+          )
+        }
       </Link>
     );
   }

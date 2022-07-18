@@ -14,11 +14,12 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { COMPETITION_TRACKS, CHALLENGE_STATUS, safeForDownload } from 'utils/tc';
+// CHALLENGE_STATUS
+import { COMPETITION_TRACKS, safeForDownload } from 'utils/tc';
 
 import PT from 'prop-types';
 
-import DeleteIcon from '../Icons/IconTrashSimple.svg';
+// import DeleteIcon from '../Icons/IconTrashSimple.svg';
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
@@ -31,10 +32,10 @@ export default function Submission(props) {
     showScreeningDetails,
     track,
     onDownload,
-    onDelete,
+    // onDelete,
     onShowDetails,
-    status,
-    allowDelete,
+    // status,
+    // allowDelete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
@@ -43,29 +44,33 @@ export default function Submission(props) {
   return (
     <tr styleName="submission-row">
       <td styleName="id-col">
-        {submissionObject.id}
-        <div styleName="legacy-id">{submissionObject.legacySubmissionId}</div>
+        <span styleName="mobile-header">ID</span>
+        {submissionObject.legacySubmissionId}
+        <div styleName="v5-id">{submissionObject.id}</div>
       </td>
-      <td>
+      <td styleName="type-col">
+        <span styleName="mobile-header">TYPE</span>
         {submissionObject.type}
       </td>
       <td styleName="date-col">
+        <span styleName="mobile-header">Submission Date</span>
         {formatDate(submissionObject.created)}
       </td>
       {
-        track === COMPETITION_TRACKS.DES && (
-          <td styleName="status-col">
-            {safeForDownloadCheck !== true ? safeForDownloadCheck : submissionObject.screening
-              && (
-              <ScreeningStatus
-                screeningObject={submissionObject.screening}
-                onShowDetails={onShowDetails}
-                submissionId={submissionObject.id}
-              />
-              )}
-          </td>
-        )
-      }
+         track === COMPETITION_TRACKS.DES && (
+           <td styleName="status-col">
+             <span styleName="mobile-header">Screening Status</span>
+             {safeForDownloadCheck !== true ? safeForDownloadCheck : submissionObject.screening
+               && (
+                 <ScreeningStatus
+                   screeningObject={submissionObject.screening}
+                   onShowDetails={onShowDetails}
+                   submissionId={submissionObject.id}
+                 />
+               )}
+           </td>
+         )
+       }
       <td styleName="action-col">
         <div>
           <button
@@ -75,28 +80,28 @@ export default function Submission(props) {
             { safeForDownloadCheck === true && <DownloadIcon /> }
           </button>
           { /*
-            TODO: At the moment we just fetch downloads from the legacy
-              Topcoder Studio API, and we don't need any JS code to this.
-              It may change soon, as we move to the new TC API for
-              downloads. Then we'll use this commented out code or
-              remove it for good.
-          <button
-            onClick={() => onDownload(submissionObject.id)}
-          ><DownloadIcon /></button>
-          */ }
-          {status !== CHALLENGE_STATUS.COMPLETED
-            && track !== COMPETITION_TRACKS.DES
-            && (
-            <button
-              styleName="delete-icon"
-              onClick={() => onDelete(submissionObject.id)}
-              disabled={!allowDelete}
-              type="button"
-            >
-              <DeleteIcon />
-            </button>
-            )
-          }
+             TODO: At the moment we just fetch downloads from the legacy
+               Topcoder Studio API, and we don't need any JS code to this.
+               It may change soon, as we move to the new TC API for
+               downloads. Then we'll use this commented out code or
+               remove it for good.
+           <button
+             onClick={() => onDownload(submissionObject.id)}
+           ><DownloadIcon /></button>
+           */ }
+          {/* {status !== CHALLENGE_STATUS.COMPLETED */}
+          {/*    && track !== COMPETITION_TRACKS.DES */}
+          {/*    && ( */}
+          {/*    <button */}
+          {/*      styleName="delete-icon" */}
+          {/*      onClick={() => onDelete(submissionObject.id)} */}
+          {/*      disabled={!allowDelete} */}
+          {/*      type="button" */}
+          {/*    > */}
+          {/*      <DeleteIcon /> */}
+          {/*    </button> */}
+          {/*    ) */}
+          {/*  } */}
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.id)}
@@ -133,8 +138,8 @@ Submission.propTypes = {
   showScreeningDetails: PT.bool,
   track: PT.string.isRequired,
   onDownload: PT.func.isRequired,
-  onDelete: PT.func.isRequired,
+  // onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
-  status: PT.string.isRequired,
-  allowDelete: PT.bool.isRequired,
+  // status: PT.string.isRequired,
+  // allowDelete: PT.bool.isRequired,
 };

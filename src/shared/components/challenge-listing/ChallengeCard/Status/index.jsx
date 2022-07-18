@@ -89,21 +89,24 @@ export default function ChallengeStatus(props) {
       winners = winners.slice(0, MAX_VISIBLE_WINNERS);
       winners.push(lastItem);
     }
+
     const leaderboard = winners && winners.map((winner) => {
       if (winner.isLastItem) {
         return (
           /* TODO: No, should not reuse avatar for displaying "+1" in
            * a circle. Should be a separate component for that. */
-          <LeaderboardAvatar
-            key={winner.handle}
-            member={winner}
-            onClick={() => (
-              setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.WINNERS))
-            )}
-            openNewTab={openChallengesInNewTabs}
-            url={detailLink}
-            plusOne
-          />
+          <div styleName="avatar-container" key={winner.handle}>
+            <LeaderboardAvatar
+              key={winner.handle}
+              member={winner}
+              onClick={() => (
+                setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.WINNERS))
+              )}
+              openNewTab={openChallengesInNewTabs}
+              url={`${detailLink}?tab=winners`}
+              plusOne
+            />
+          </div>
         );
       }
       const userProfile = getProfile(winner);
@@ -139,8 +142,12 @@ export default function ChallengeStatus(props) {
      * here is that the standard "getTimeLeft" method, for positive times,
      * generates a string like "H MM to go"; here we want to render just
      * H MM part, so we cut the last 6 symbols. Not a good code. */
+    let lateNote;
     if (!timeDiff.late) {
       timeNote = timeNote.substring(0, timeNote.length - 6);
+    } else {
+      lateNote = timeNote.substring(timeNote.length - 8);
+      timeNote = timeNote.substring(0, timeNote.length - 9);
     }
     return (
       <a
@@ -149,11 +156,19 @@ export default function ChallengeStatus(props) {
         styleName="register-button"
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
-        <span>
-          {timeNote}
-        </span>
-        <span styleName="to-register">
-          to register
+        { timeDiff.late
+          ? (
+            <span styleName="late">
+              {timeNote} <br />{lateNote}
+            </span>
+          ) : (
+            <span>
+              {timeNote}
+            </span>
+          )
+        }
+        <span styleName={`to-register ${timeDiff.late ? 'third-line' : ''}`}>
+          to Register
         </span>
       </a>
     );
@@ -227,7 +242,9 @@ export default function ChallengeStatus(props) {
     if (statusPhase) phaseMessage = statusPhase.name;
     else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
-    const showRegisterInfo = challenge.registrationOpen === 'Yes' && !challenge.users[userId];
+    const users = challenge.users || {};
+
+    const showRegisterInfo = (challenge.currentPhaseNames || []).includes('Registration') && !users[userId];
 
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
@@ -273,10 +290,8 @@ export default function ChallengeStatus(props) {
                   color="green"
                   value={getPhaseProgress(statusPhase)}
                   isLate={moment().isAfter(phaseEndDate(statusPhase))}
+                  timeLeft={getTimeLeft(statusPhase, 'to go').text}
                 />
-                <div styleName="time-left">
-                  {getTimeLeft(statusPhase, 'to go').text}
-                </div>
               </div>
             ) : <ChallengeProgressBar color="gray" value="100" />
           }

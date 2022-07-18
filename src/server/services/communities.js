@@ -116,6 +116,17 @@ export async function getMetadata(communityId) {
   if (metadata.groupIds) {
     metadata.groupIds = await extendByChildGroups(metadata.groupIds);
   }
+
+  // FIXME: This is a tempory patch to resolve "Backstage Error" that's showing up on Topgear
+  // app due to missing "Wipro All" authorized group
+  // Roll this back as soon as the root cause is fixed
+  // which is likely either in topcoder-react-lib that handles merging groups (https://github.com/topcoder-platform/topcoder-react-lib/blob/c637525211550bea283390e52490fce7f6dd44a8/src/services/groups.js#L107)
+  // or Groups Api
+  if (communityId === 'wipro') {
+    logger.info('Getting metadata for Topgear. Existing Authorized Groups', JSON.stringify(metadata.authorizedGroupIds));
+    metadata.authorizedGroupIds = _.uniq(metadata.authorizedGroupIds.concat('b7f7c0f8-8ee8-409e-9e5c-33404983b635'));
+    logger.info('After adding "Wipro All" group', JSON.stringify(metadata.authorizedGroupIds));
+  }
   getMetadata.cache[communityId] = { data: metadata, timestamp: now };
   return _.cloneDeep(metadata);
 }

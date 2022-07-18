@@ -491,7 +491,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/__community__/wipro"
+        to="/__community__/wipro/challenges"
       >
         TopGear (Wipro) community
       </Link>

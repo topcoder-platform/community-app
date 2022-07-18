@@ -8,6 +8,15 @@ $challenge-space-40: $base-unit * 8;
 $challenge-space-45: $base-unit * 9;
 $challenge-space-50: $base-unit * 10;
 $challenge-space-90: $base-unit * 18;
+$status-space-10: $base-unit * 2;
+$status-space-15: $base-unit * 3;
+$status-space-20: $base-unit * 4;
+$status-space-25: $base-unit * 5;
+$status-space-30: $base-unit * 6;
+$status-space-40: $base-unit * 8;
+$status-space-50: $base-unit * 10;
+$status-radius-1: $corner-radius / 2;
+$status-radius-4: $corner-radius * 2;
 
 .reviewOpportunityCard {
   @include roboto-medium;
@@ -16,10 +25,11 @@ $challenge-space-90: $base-unit * 18;
   justify-content: flex-start;
   position: relative;
   background: $tc-white;
-  padding: $challenge-space-20;
+  padding: $challenge-space-20 0;
   border-top: 1px solid $tc-gray-10;
   color: $tc-black;
   font-size: 15px;
+  margin-left: 24px;
 
   &:last-child {
     border-bottom: 1px solid $tc-gray-10;
@@ -27,7 +37,9 @@ $challenge-space-90: $base-unit * 18;
 
   @include xs-to-md {
     flex-wrap: wrap;
-    padding: $base-unit * 3;
+    padding: $base-unit * 3 0;
+    margin-left: 0;
+    flex-direction: column;
   }
 
   @include xs-to-sm {
@@ -46,29 +58,26 @@ $challenge-space-90: $base-unit * 18;
   .left-panel {
     display: flex;
     justify-content: flex-start;
-    width: 50%;
+    width: 45.5%;
 
     @include xs-to-md {
       width: 100%;
+      padding: 0 16px;
     }
   }
 
   .right-panel {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     width: 50%;
 
     @include xs-to-md {
       width: 100%;
+      display: flex;
     }
 
     @include xs-to-sm {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
     }
   }
 
@@ -96,9 +105,10 @@ $challenge-space-90: $base-unit * 18;
     }
   }
 
-  // Start date and technologies
   .details-footer {
-    margin-top: $challenge-space-10;
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
 
     .date {
       font-size: 12px;
@@ -106,6 +116,7 @@ $challenge-space-90: $base-unit * 18;
       margin-right: $challenge-space-10;
       line-height: ($challenge-space-10) + 2;
       font-weight: normal;
+      margin-top: 2px;
     }
 
     .technology {
@@ -132,13 +143,16 @@ $challenge-space-90: $base-unit * 18;
 
   // Review payment
   .payment {
+    @include roboto-medium;
+
     display: inline-block;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     color: $tc-black;
     line-height: $challenge-space-20;
     margin-right: $challenge-space-20;
     min-width: $challenge-space-50 + 2;
+    letter-spacing: 0.5px;
 
     @include xs-to-md {
       position: absolute;
@@ -151,7 +165,9 @@ $challenge-space-90: $base-unit * 18;
     @include xs-to-sm {
       position: relative;
       display: block;
-      margin-top: $challenge-space-20;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-left: $challenge-space-15;
       top: 0;
     }
 
@@ -161,47 +177,57 @@ $challenge-space-90: $base-unit * 18;
 
     // $ Symbol
     span {
-      color: $tc-gray-50;
+      color: $tc-black;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
     }
 
     .payment-type {
       text-align: center;
-      background-color: $tc-gray-neutral-light;
-      font-size: 10px;
-      color: $tc-gray-70;
+      // background-color: $tc-gray-neutral-light;
+      font-size: 11px;
+      color: $tco-black;
       width: 50px;
+      line-height: 10px;
+      font-weight: 500;
     }
   }
 
   a.register-button {
+    @include roboto-regular;
+
+    font-weight: 400;
     display: block;
     position: absolute;
-    height: 100%;
-    background: $tc-gray-neutral-light;
+    height: 90%;
+    margin-top: 5px;
+    background: #f4f4f4;
     top: 0;
     right: 0;
     width: 120px;
-    padding-left: $challenge-space-20;
+    padding-left: 16px;
     text-align: left;
-    font-size: 13px;
-    color: $tc-black;
-    line-height: $challenge-space-20;
+    font-size: 14px;
+    color: $tco-black;
+    line-height: 24px;
 
     @include xs-to-sm {
-      height: 50px;
-      width: 100%;
+      margin-top: 0;
+      position: absolute;
+      height: 42px;
+      width: auto;
       left: 0;
       right: 0;
       top: auto;
       bottom: 0;
-      padding-left: 0;
       text-align: center;
-      background: $tc-dark-blue-10;
+      background: #f4f4f4;
     }
 
     span {
-      font-size: 12px;
-      line-height: $challenge-space-15;
+      font-size: 14px;
+      line-height: $status-space-15;
       font-weight: 500;
       display: block;
       position: absolute;
@@ -210,16 +236,21 @@ $challenge-space-90: $base-unit * 18;
       margin-top: -$challenge-space-10;
 
       @include xs-to-sm {
+        top: calc(50% - 5px);
         display: inline-block;
         position: relative;
         margin-top: 0;
-        color: $tc-dark-blue;
+        color: $tco-black;
+
+        br {
+          display: none;
+        }
       }
     }
 
     .to-register {
       font-weight: 400;
-      margin-top: $challenge-space-10;
+      margin-top: $status-space-15;
 
       @include xs-to-sm {
         margin-top: 0;
@@ -228,8 +259,8 @@ $challenge-space-90: $base-unit * 18;
     }
 
     &:hover {
-      background: $tc-dark-blue-10;
-      color: $tc-dark-blue-110;
+      background: #137d60;
+      color: $tc-white;
     }
   }
 
@@ -244,13 +275,16 @@ $challenge-space-90: $base-unit * 18;
   }
 
   .review-type {
-    line-height: $challenge-space-20;
+    @include roboto-regular;
+
+    line-height: 10px;
     white-space: nowrap;
     width: 140px;
     text-align: center;
-    background-color: #fafafb;
-    font-size: 12px;
-    color: #5d5d66;
+    // background-color: #fafafb;
+    font-size: 11px;
+    color: $tc-black;
+    font-weight: 500;
 
     @include md {
       margin-left: 50px;
@@ -260,8 +294,12 @@ $challenge-space-90: $base-unit * 18;
     @include xs-to-sm {
       display: block;
       vertical-align: top;
-      margin-bottom: $challenge-space-20;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
       width: 66%;
+      padding-top: 2px;
+      padding-left: 0;
+      text-align: center;
     }
   }
 
@@ -273,8 +311,9 @@ $challenge-space-90: $base-unit * 18;
     margin-right: $challenge-space-90;
 
     @include xs-to-sm {
-      padding-bottom: $challenge-space-30 * 2;
-      margin-right: 0;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-right: 10px;
     }
 
     // Tooltip component adds this div before its children

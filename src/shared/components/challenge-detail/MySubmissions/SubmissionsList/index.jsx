@@ -6,17 +6,20 @@ import React from 'react';
 import cn from 'classnames';
 import _ from 'lodash';
 import moment from 'moment';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton, Modal } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import { services } from 'topcoder-react-lib';
 import sortList from 'utils/challenge-detail/sort';
 
-import IconComplete from '../../icons/completed.svg';
-import IconQueued from '../../icons/queued.svg';
+import IconClose from 'assets/images/icon-close-green.svg';
+import DateSortIcon from 'assets/images/icon-date-sort.svg';
+import SortIcon from 'assets/images/icon-sort.svg';
+import Tooltip from 'components/Tooltip';
 import IconFail from '../../icons/failed.svg';
 import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
-import ArrowDown from '../../../../../assets/images/arrow-down.svg';
+import ZoomIcon from '../../../SubmissionManagement/Icons/IconZoom.svg';
 
+// import SearchIcon from '../../../SubmissionManagement/Icons/IconSearch.svg';
 import style from './styles.scss';
 
 const { getService } = services.submissions;
@@ -27,10 +30,18 @@ class SubmissionsListView extends React.Component {
     super(props);
     this.state = {
       sortedSubmissions: [],
+      submissionIdClicked: false,
+      statusClicked: false,
+      finalClicked: false,
+      provisionClicked: false,
+      timeClicked: false,
+      openModal: false,
+      selectedSubmission: {},
     };
     this.sortSubmissions = this.sortSubmissions.bind(this);
     this.getSubmissionsSortParam = this.getSubmissionsSortParam.bind(this);
     this.updateSortedSubmissions = this.updateSortedSubmissions.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   componentDidMount() {
@@ -131,6 +142,11 @@ class SubmissionsListView extends React.Component {
     });
   }
 
+  toggleModal(selectedSubmission) {
+    const { openModal } = this.state;
+    this.setState({ openModal: !openModal, selectedSubmission });
+  }
+
   render() {
     const {
       selectSubmission,
@@ -144,6 +160,8 @@ class SubmissionsListView extends React.Component {
       onSortChange,
     } = this.props;
 
+    const isButtonDisabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
+
     const { field, sort } = this.getSubmissionsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
 
@@ -152,23 +170,26 @@ class SubmissionsListView extends React.Component {
     } = challenge;
     const {
       sortedSubmissions,
+      submissionIdClicked,
+      statusClicked,
+      finalClicked,
+      provisionClicked,
+      timeClicked,
+      selectedSubmission,
+      openModal,
     } = this.state;
+
+    const sortOptionClicked = {
+      submissionIdClicked: false,
+      statusClicked: false,
+      finalClicked: false,
+      provisionClicked: false,
+      timeClicked: false,
+    };
+
     return (
       <div styleName="wrapper">
-        <article>
-          <h2 styleName="h2">
-            My Submissions
-          </h2>
-        </article>
         <div styleName="submission-table">
-          <div styleName="submission-table-header submission-table-row">
-            <div styleName="submission-table-column column-1">
-              <span>Submission</span>
-            </div>
-            <div styleName="submission-table-column column-2 score-title">
-              <span>Score</span>
-            </div>
-          </div>
           <div styleName="submission-table-header submission-table-row">
             <div styleName="submission-table-column column-1">
               <div
@@ -187,6 +208,7 @@ class SubmissionsListView extends React.Component {
                       field: 'Submission ID',
                       sort: (field === 'Submission ID') ? revertSort : 'desc',
                     });
+                    this.setState({ ...sortOptionClicked, submissionIdClicked: true });
                   }}
                 >
                   <span>Submission ID</span>
@@ -198,7 +220,7 @@ class SubmissionsListView extends React.Component {
                         'col-arrow-is-sorting': field === 'Submission ID',
                       },
                     )}
-                  ><ArrowDown />
+                  >{ submissionIdClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
               </div>
@@ -218,6 +240,7 @@ class SubmissionsListView extends React.Component {
                       field: 'Status',
                       sort: (field === 'Status') ? revertSort : 'desc',
                     });
+                    this.setState({ ...sortOptionClicked, statusClicked: true });
                   }}
                 >
                   <span>Status</span>
@@ -229,7 +252,7 @@ class SubmissionsListView extends React.Component {
                         'col-arrow-is-sorting': field === 'Status',
                       },
                     )}
-                  ><ArrowDown />
+                  >{ statusClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
               </div>
@@ -251,9 +274,10 @@ class SubmissionsListView extends React.Component {
                       field: 'Final',
                       sort: (field === 'Final') ? revertSort : 'desc',
                     });
+                    this.setState({ ...sortOptionClicked, finalClicked: true });
                   }}
                 >
-                  <span>Final</span>
+                  <span>Final Score</span>
                   <div
                     styleName={cn(
                       'col-arrow',
@@ -262,7 +286,7 @@ class SubmissionsListView extends React.Component {
                         'col-arrow-is-sorting': field === 'Final',
                       },
                     )}
-                  ><ArrowDown />
+                  >{ finalClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
               </div>
@@ -282,9 +306,10 @@ class SubmissionsListView extends React.Component {
                       field: 'Provision',
                       sort: (field === 'Provision') ? revertSort : 'desc',
                     });
+                    this.setState({ ...sortOptionClicked, provisionClicked: true });
                   }}
                 >
-                  <span>Provision</span>
+                  <span>Provision Score</span>
                   <div
                     styleName={cn(
                       'col-arrow',
@@ -293,7 +318,7 @@ class SubmissionsListView extends React.Component {
                         'col-arrow-is-sorting': field === 'Provision',
                       },
                     )}
-                  ><ArrowDown />
+                  >{ provisionClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
               </div>
@@ -313,6 +338,7 @@ class SubmissionsListView extends React.Component {
                       field: 'Time',
                       sort: (field === 'Time') ? revertSort : 'desc',
                     });
+                    this.setState({ ...sortOptionClicked, timeClicked: true });
                   }}
                 >
                   <span>Time</span>
@@ -324,11 +350,13 @@ class SubmissionsListView extends React.Component {
                         'col-arrow-is-sorting': field === 'Time',
                       },
                     )}
-                  ><ArrowDown />
+                  >{ timeClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
               </div>
-              <div styleName="submission-table-column column-2-4" />
+              <div styleName="submission-table-column column-2-4">
+                <span styleName="actions-col">ACTIONS</span>
+              </div>
             </div>
           </div>
           {
@@ -339,14 +367,14 @@ class SubmissionsListView extends React.Component {
                   finalScore = finalScore.toFixed(2);
                 }
               } else {
-                finalScore = '-';
+                finalScore = 'N/A';
               }
               if (_.isNumber(provisionalScore)) {
                 if (provisionalScore > 0) {
                   provisionalScore = provisionalScore.toFixed(2);
                 }
               } else {
-                provisionalScore = '-';
+                provisionalScore = 'N/A';
               }
               return (
                 <div key={mySubmission.submissionId} styleName="submission-table-row">
@@ -355,63 +383,53 @@ class SubmissionsListView extends React.Component {
                       'submission-table-column column-1',
                     )}
                   >
-                    <button
-                      onClick={() => {
-                        selectSubmission(mySubmission);
-                      }}
-                      type="button"
-                      styleName={cn(
-                        'submission-table-column column-1-1',
-                        {
-                          'is-highlight': field === 'Submission ID',
-                        },
-                      )}
-                    >
-                      <span>{mySubmission.id}</span>
-                    </button>
                     <div
                       styleName={cn(
-                        'submission-table-column column-1-2',
-                        {
-                          'is-highlight': field === 'Status',
-                        },
+                        'submission-table-column column-1-1',
                       )}
                     >
+                      <div styleName="mobile-header">Submission Id</div>
+                      <span>{mySubmission.id}</span>
+                    </div>
+                    <div
+                      styleName={cn(
+                        'submission-table-column column-1-2 status-row',
+                      )}
+                    >
+                      <div styleName="mobile-header">Status</div>
                       {mySubmission.provisionalScoringIsCompleted ? (
-                        <IconComplete />
-                      ) : (<IconQueued />)}
+                        <span styleName="accepted">Accepted</span>
+                      ) : <span styleName="queue">In Queue</span>}
                     </div>
                   </div>
                   <div styleName="submission-table-column column-2">
                     <div
                       styleName={cn(
-                        'submission-table-column column-2-1',
-                        {
-                          'is-highlight': field === 'Final',
-                        },
+                        'submission-table-column column-2-1 final-score-row',
                       )}
                     >
+                      <div styleName="mobile-header">Final Score</div>
                       {(finalScore < 0) ? (<IconFail />) : (<span>{finalScore}</span>)}
                     </div>
                     <div
                       styleName={cn(
-                        'submission-table-column column-2-2',
-                        {
-                          'is-highlight': field === 'Provision',
-                        },
+                        'submission-table-column column-2-2 provisional-score-row',
                       )}
                     >
-                      {(provisionalScore < 0) ? (<IconFail />) : (<span>{provisionalScore}</span>)}
+                      <div styleName="mobile-header">Provisional Score</div>
+                      {(provisionalScore < 0) ? (
+                        <Tooltip content="Failed Submission" className="toolTipPadding">
+                          <IconFail />
+                        </Tooltip>
+                      ) : (<span>{provisionalScore}</span>)}
                     </div>
                     <div
                       styleName={cn(
-                        'submission-table-column column-2-3',
-                        {
-                          'is-highlight': field === 'Time',
-                        },
+                        'submission-table-column column-2-3 time-row',
                       )}
                     >
-                      <span>{moment(mySubmission.submissionTime).format('DD MMM YYYY')} {moment(mySubmission.submissionTime).format('HH:mm:ss')}</span>
+                      <div styleName="mobile-header">Time</div>
+                      <span>{moment(mySubmission.submissionTime).format('MMM DD, YYYY HH:mm:ss')}</span>
                     </div>
                     <div styleName="submission-table-column column-2-4">
                       <button
@@ -431,8 +449,16 @@ class SubmissionsListView extends React.Component {
                         }}
                         type="button"
                       >
-                        <DownloadIcon styleName="icon-download" />
+                        <DownloadIcon />
                       </button>
+
+                      <button onClick={() => selectSubmission(mySubmission)} type="button">
+                        <ZoomIcon styleName="icon-zoom" />
+                      </button>
+
+                      {/* <button onClick={() => this.toggleModal(mySubmission)} type="button">
+                        <SearchIcon styleName="icon-search" />
+                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -441,12 +467,49 @@ class SubmissionsListView extends React.Component {
           }
         </div>
         <PrimaryButton
-          theme={{ button: style.challengeAction }}
-          disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
+          theme={{
+            button: isButtonDisabled ? style.challengeActionDisabled : style.challengeAction,
+          }}
+          disabled={isButtonDisabled}
           to={`${challengesUrl}/${challengeId}/submit`}
         >
           Add Submission
         </PrimaryButton>
+        {
+          openModal && (
+            <Modal onCancel={this.toggleModal} theme={style}>
+              <div styleName="mySubModal">
+                <div styleName="header">
+                  <h2 styleName="title">Submission Details</h2>
+                  <div styleName="icon" role="presentation" onClick={() => this.toggleHistory({})}>
+                    <IconClose />
+                  </div>
+                </div>
+                <hr />
+                <div styleName="submission-text">
+                  Submission: <span>{selectedSubmission.submissionId}</span>
+                </div>
+                <div styleName="detail-row">
+                  <div styleName="col-1 col">
+                    Review Type
+                  </div>
+                  <div styleName="col-2 col">
+                    Reviewer
+                  </div>
+                  <div styleName="col-3 col">
+                    Score
+                  </div>
+                  <div styleName="col-4 col">
+                    Status
+                  </div>
+                </div>
+                <div styleName="close-btn" onClick={() => this.toggleHistory({})} role="presentation">
+                  <span>CLOSE</span>
+                </div>
+              </div>
+            </Modal>
+          )
+        }
       </div>
     );
   }

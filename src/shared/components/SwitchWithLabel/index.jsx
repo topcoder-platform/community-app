@@ -35,7 +35,7 @@ function SwitchWithLabel({
           switch: theme.switch,
         }}
       />
-      {labelAfter}
+      <span>{labelAfter}</span>
     </div>
   );
 }

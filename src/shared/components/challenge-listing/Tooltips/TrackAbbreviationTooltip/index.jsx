@@ -12,16 +12,16 @@ import Tooltip from 'components/Tooltip';
 import './style.scss';
 
 /**
- * Renders the tooltip's content.
- */
+  * Renders the tooltip's content.
+  */
 function Tip({
-  track,
+  // track,
   type,
 }) {
-  const trackStyle = track.replace(' ', '-').toLowerCase();
+  // const trackStyle = track.replace(' ', '-').toLowerCase();
   return (
     <div styleName="track-abbreviation-tooltip">
-      <div styleName={`header ${trackStyle}`}>
+      <div styleName="header">
         {type.name}
       </div>
       <div styleName="body">
@@ -32,22 +32,24 @@ function Tip({
 }
 
 Tip.defaultProps = {
-  track: 'Development',
+  // track: 'Development',
 };
 
 Tip.propTypes = {
-  track: PT.string,
+  // track: PT.string,
   type: PT.shape().isRequired,
 };
 
 function placeArrow(TooltipNode) {
+  const rootLeftPos = parseInt(TooltipNode.style.left, 10);
+  TooltipNode.style.left = `${rootLeftPos - 5}px`; // eslint-disable-line no-param-reassign
   const arrow = TooltipNode.querySelector('.rc-tooltip-arrow');
   arrow.style.left = '15px';
 }
 
 /**
- * Renders the tooltip.
- */
+  * Renders the tooltip.
+  */
 function TrackAbbreviationTooltip({
   children,
   track,

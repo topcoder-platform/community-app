@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
-import Select from 'react-select';
+import Select from 'components/Select';
+import ArrowIcon from 'assets/images/ico-arrow-down.svg';
 import './style.scss';
 
 export default function SortingSelectBar({
@@ -15,9 +16,6 @@ export default function SortingSelectBar({
       {
         options ? (
           <div styleName="view-options-toggle-container">
-            <p styleName="view-options-toggle-container-label">
-              Sort by:
-            </p>
             <Select
               searchable={false}
               clearable={false}
@@ -25,6 +23,7 @@ export default function SortingSelectBar({
               onChange={item => onSelect(item.value)}
               value={value}
               placeholder="Select an option"
+              arrowRenderer={ArrowIcon}
             />
           </div>
         ) : null

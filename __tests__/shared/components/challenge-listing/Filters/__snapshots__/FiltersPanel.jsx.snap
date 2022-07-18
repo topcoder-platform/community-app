@@ -1,21 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<div
+<Button
   className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-btn___1f3VV"
+  disabled={false}
+  isInverted={false}
+  isPrimary={false}
   onClick={[Function]}
   onKeyDown={[Function]}
   role="button"
   tabIndex={0}
 >
-  <FiltersIcon
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersIcon___taLss"
-    height="16"
-    viewBox="0 0 16 16"
-    width="16"
-  />
-   More Filters
-</div>
+  More Filters
+</Button>
 `;
 
 exports[`Matches shallow shapshot 2`] = `
@@ -51,12 +48,38 @@ exports[`Matches shallow shapshot 2`] = `
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__search-bar___15MSx"
+      >
+        <Connect(Container)
+          setFilterState={[MockFunction]}
+        />
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__bucket-selector-mobile___JbE2n"
+      >
+        <BucketSelector
+          activeBucket="openForRegistration"
+          disabled={false}
+          expanding={false}
+          isAuth={false}
+          past={false}
+        />
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
       >
         <span
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
         >
-          Track
+          Challenge Category
         </span>
         <div
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__switches___10Wrx"
@@ -70,8 +93,8 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
-              labelAfter=""
-              labelBefore="Design"
+              labelAfter="Design"
+              labelBefore=""
               mapThemrProps={[Function]}
               onSwitch={[Function]}
               themePriority="adhoc-context-default"
@@ -86,8 +109,8 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
-              labelAfter=""
-              labelBefore="Development"
+              labelAfter="Development"
+              labelBefore=""
               mapThemrProps={[Function]}
               onSwitch={[Function]}
               themePriority="adhoc-context-default"
@@ -102,8 +125,8 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
-              labelAfter=""
-              labelBefore="Data Science"
+              labelAfter="Data Science"
+              labelBefore=""
               mapThemrProps={[Function]}
               onSwitch={[Function]}
               themePriority="adhoc-context-default"
@@ -118,8 +141,8 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
-              labelAfter=""
-              labelBefore="QA"
+              labelAfter="QA"
+              labelBefore=""
               mapThemrProps={[Function]}
               onSwitch={[Function]}
               themePriority="adhoc-context-default"
@@ -137,7 +160,7 @@ exports[`Matches shallow shapshot 2`] = `
         <span
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
         >
-          Type
+          Challenge Type
         </span>
         <div
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"
@@ -154,12 +177,13 @@ exports[`Matches shallow shapshot 2`] = `
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
           htmlFor="community-select"
         >
-          Sub community
+          Sub communities
           <input
             type="hidden"
           />
         </label>
         <Select
+          arrowRenderer={[Function]}
           autoBlur={true}
           clearable={false}
           id="community-select"
@@ -183,33 +207,100 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
     </div>
+    <hr
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
+    />
+    <React.Fragment>
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-challenges-filter___3XG63"
+      >
+        <span
+          aria-checked={false}
+          aria-label="Tco eligible challenge toggle button pressed Off"
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-select-label___3ATak"
+          role="switch"
+        >
+          <ThemedSwitchWithLabel
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
+            enabled={false}
+            labelAfter="TCO Eligible Challenges"
+            labelBefore=""
+            mapThemrProps={[Function]}
+            onSwitch={[Function]}
+            themePriority="adhoc-context-default"
+          />
+        </span>
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-challenge-tooltip___17i7n"
+        >
+          <Tooltip
+            align={Object {}}
+            className=""
+            content={
+              <div
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tctooltiptext___2Lyji"
+              >
+                <p>
+                  Earn TCO points by participating in these 
+                  <br />
+                  challenges. 
+                  <a
+                    href="https://www.topcoder-dev.com/community/member-programs/topcoder-open"
+                    rel="noreferrer noopener"
+                    target="_blank"
+                  >
+                    Learn more about TCO
+                  </a>
+                </p>
+              </div>
+            }
+            defaultVisible={false}
+            id="tco-tip"
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={false}
+            trigger={
+              Array [
+                "hover",
+                "focus",
+              ]
+            }
+          >
+            <CircleIcon
+              fill="none"
+              height="14"
+              viewBox="0 0 14 14"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            />
+          </Tooltip>
+        </div>
+      </div>
+    </React.Fragment>
   </div>
+  <hr
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
+  />
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
+    <Button
       composeContextTheme="softly"
       disabled={false}
-      enforceA={false}
-      mapThemrProps={[Function]}
+      isInverted={false}
+      isPrimary={false}
       onClick={[Function]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
       theme={
         Object {
           "button": undefined,
         }
       }
       themePriority="adhoc-default-context"
-      to={null}
-      type="button"
     >
-      Clear filters
-    </ThemedButton>
+      RESET FILTERS
+    </Button>
   </div>
 </div>
 `;

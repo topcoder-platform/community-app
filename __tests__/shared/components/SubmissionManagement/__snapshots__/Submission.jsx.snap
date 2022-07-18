@@ -7,14 +7,32 @@ exports[`Snapshot match 1`] = `
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      ID
+    </span>
     <div
-      className="src-shared-components-SubmissionManagement-Submission-___styles__legacy-id___3T2Ay"
+      className="src-shared-components-SubmissionManagement-Submission-___styles__v5-id___1W9Db"
     />
   </td>
-  <td />
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__type-col___25OJ8"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      TYPE
+    </span>
+  </td>
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
   >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      Submission Date
+    </span>
     Invalid date
   </td>
   <td
@@ -26,26 +44,14 @@ exports[`Snapshot match 1`] = `
         type="button"
       />
       <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
-      >
-        <DeleteIcon
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-      </button>
-      <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
         onClick={[Function]}
         type="button"
       >
         <ExpandIcon
-          height="16"
-          viewBox="0 0 16 16"
+          fill="none"
+          height="9"
+          viewBox="0 0 16 9"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
@@ -62,15 +68,34 @@ exports[`Snapshot match 2`] = `
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   >
-    12345
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      ID
+    </span>
     <div
-      className="src-shared-components-SubmissionManagement-Submission-___styles__legacy-id___3T2Ay"
-    />
+      className="src-shared-components-SubmissionManagement-Submission-___styles__v5-id___1W9Db"
+    >
+      12345
+    </div>
   </td>
-  <td />
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__type-col___25OJ8"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      TYPE
+    </span>
+  </td>
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
   >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      Submission Date
+    </span>
     Invalid date
   </td>
   <td
@@ -82,26 +107,14 @@ exports[`Snapshot match 2`] = `
         type="button"
       />
       <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
-      >
-        <DeleteIcon
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-      </button>
-      <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
         onClick={[Function]}
         type="button"
       >
         <ExpandIcon
-          height="16"
-          viewBox="0 0 16 16"
+          fill="none"
+          height="9"
+          viewBox="0 0 16 9"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
