@@ -14,7 +14,7 @@ import ErrorMessage from 'components/Settings/ErrorMessage';
 import InputSelect from 'components/InputSelect';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { toastr } from 'react-redux-toastr';
-import ConfirmationModal from '../../CofirmationModal';
+import ConfirmationModal from '../../ConfirmationModal';
 import DeviceList from './List';
 
 import './styles.scss';

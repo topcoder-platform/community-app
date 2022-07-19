@@ -1,0 +1,23 @@
+@import "~styles/mixins";
+
+.form-input-text {
+  background-color: #fff !important;
+  box-sizing: border-box !important;
+  color: #767676 !important;
+  font-size: 14px !important;
+  height: 24px !important;
+  outline: none !important;
+  border: 0 !important;
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+
+  &::placeholder {
+    color: #aaa !important;
+    text-transform: none !important;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}

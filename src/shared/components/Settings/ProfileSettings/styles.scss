@@ -1,0 +1,211 @@
+@import "~styles/mixins";
+@import "../style.scss";
+
+.datePicker {
+  input {
+    border: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 25px !important;
+  }
+}
+
+.save-changes-btn {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: #137d60 !important;
+  color: #fff !important;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.profile-settings-container {
+  background-color: $listing-filter-bg;
+  padding: 32px;
+  border-radius: 8px;
+  margin: 40px 0 32px;
+
+  .header {
+    h3 {
+      @include barlow-bold;
+
+      font-size: 20px;
+      line-height: 22px;
+      color: $tco-black;
+      text-transform: uppercase;
+
+      @include xs-to-md {
+        @include barlow-condensed-semi-bold;
+
+        font-size: 27px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  @include xs-to-md {
+    padding: 10px 16px;
+  }
+}
+
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+.basic-info-container {
+  display: flex;
+  flex-direction: column;
+
+  @include upto-sm {
+    padding: 0;
+    margin-top: 24px;
+  }
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+  }
+}
+
+.form-container-default {
+  @include form-container-default;
+
+  input {
+    @include roboto-regular;
+
+    height: 40px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-bottom: 0;
+
+    @include placeholder {
+      text-transform: capitalize;
+    }
+  }
+
+  textarea {
+    @include placeholder {
+      text-transform: capitalize;
+    }
+  }
+
+  .text-required {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: $tc-red-110;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+
+  .text-optional {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: #888894;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+
+  .row {
+    .col-1 {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      max-width: 0;
+      min-width: 0;
+      margin-right: 0;
+      width: auto;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+    }
+  }
+}
+
+/*
+ * React Select component styling
+ */
+.basic-info-container .form-container .row .field :global .Select,
+.basic-info-container .form-container .row .field :global .Select-value span,
+.basic-info-container .form-container .row .field :global .Select-menu-outer,
+.basic-info-container.form-container .row .field :global .Select-placeholder,
+.basic-info-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
+  font-size: 15px;
+
+  @include upto-sm {
+    margin-top: 5px;
+  }
+}
+
+.basic-info-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+
+    @include placeholder {
+      text-transform: capitalize;
+    }
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include upto-sm {
+      line-height: 38px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
+.basic-info-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
+}
+
+.date-picker {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.date-picker-sm {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.col-2,
+.col-percent50,
+.col-percent35 {
+  width: auto;
+}
+
+.second-addr {
+  margin-top: 10px;
+}

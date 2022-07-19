@@ -12,7 +12,7 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import ErrorMessage from 'components/Settings/ErrorMessage';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import ConfirmationModal from '../../CofirmationModal';
+import ConfirmationModal from '../../ConfirmationModal';
 import SubscriptionList from './List';
 
 import styles from './styles.scss';

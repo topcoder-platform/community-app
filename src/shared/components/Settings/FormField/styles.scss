@@ -1,0 +1,28 @@
+@import "~styles/mixins";
+
+.form-field-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .form-field {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background: white;
+    padding-top: 24px;
+    margin-bottom: 10px;
+
+    .label {
+      @include roboto-regular;
+
+      font-weight: 500 !important;
+      font-size: 11px !important;
+      line-height: 10px;
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      color: $listing-checkbox-green;
+    }
+  }
+}

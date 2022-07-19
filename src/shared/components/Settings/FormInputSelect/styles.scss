@@ -1,0 +1,25 @@
+.form-input-select {
+  :global {
+    @import '~react-select/dist/react-select';
+
+    width: 100%;
+
+    input.Select-input,
+    input.Select-input:focus {
+      background-color: transparent !important;
+      margin-left: 0 !important;
+      padding-right: 6px !important;
+    }
+
+    .Select-control {
+      height: 25px !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      border: 0 !important;
+    }
+
+    .Select-multi-value-wrapper {
+      width: 100% !important;
+    }
+  }
+}

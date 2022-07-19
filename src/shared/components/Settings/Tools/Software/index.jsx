@@ -13,7 +13,7 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import ErrorMessage from 'components/Settings/ErrorMessage';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import ConfirmationModal from '../../CofirmationModal';
+import ConfirmationModal from '../../ConfirmationModal';
 import dropdowns from './dropdowns.json';
 import SoftwareList from './List';
 
