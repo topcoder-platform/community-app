@@ -12,6 +12,9 @@ exports[`Snapshot match 1`] = `
     >
       ID
     </span>
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__v5-id___1W9Db"
+    />
   </td>
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__type-col___25OJ8"
@@ -70,7 +73,11 @@ exports[`Snapshot match 2`] = `
     >
       ID
     </span>
-    12345
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__v5-id___1W9Db"
+    >
+      12345
+    </div>
   </td>
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__type-col___25OJ8"
