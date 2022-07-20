@@ -23,7 +23,7 @@ import styles from './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
-import Awards from './Awards';
+// import Awards from './Awards';
 
 /**
  * Inspects a subtrack and determines if the member is active
@@ -149,7 +149,7 @@ class ProfilePage extends React.Component {
       lookupData,
       handleParam,
       meta,
-      rewards,
+      // rewards,
     } = this.props;
 
     const {
@@ -226,11 +226,11 @@ class ProfilePage extends React.Component {
             </div>
           </div>
         </div>
-        {
-          (rewards || []).length ? (
-            <Awards rewards={rewards} />
-          ) : null
-        }
+        {/* { */}
+        {/*   (rewards || []).length ? ( */}
+        {/*     <Awards rewards={rewards} /> */}
+        {/*   ) : null */}
+        {/* } */}
         <Activity
           memberStats={stats}
           hasMM={hasMM}
@@ -287,7 +287,7 @@ ProfilePage.defaultProps = {
   challenges: null,
   skills: null,
   stats: null,
-  rewards: [],
+  // rewards: [],
 };
 
 ProfilePage.propTypes = {
@@ -301,7 +301,7 @@ ProfilePage.propTypes = {
   lookupData: PT.shape().isRequired,
   handleParam: PT.string.isRequired,
   meta: PT.shape().isRequired,
-  rewards: PT.arrayOf(PT.shape()),
+  // rewards: PT.arrayOf(PT.shape()),
   clearSubtrackChallenges: PT.func.isRequired,
 };
 
