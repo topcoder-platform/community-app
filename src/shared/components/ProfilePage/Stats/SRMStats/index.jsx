@@ -1,197 +1,192 @@
 /* eslint-env browser */
 import React from 'react';
 import PT from 'prop-types';
-import styles from './styles.scss';
+import './styles.scss';
 
 const percentageFunc = n => `${(n * 100).toFixed(0)}%`;
 
 const SRMStats = ({ subTrackDetails }) => {
   const { challenges } = subTrackDetails;
   return (
-    <ul styleName="divisions">
+    <div styleName="divisions-container">
       {
         [subTrackDetails.division1, subTrackDetails.division2]
           .map((division, i) => ({ division, i }))
           .filter(({ division: { levels } }) => levels && levels.length)
           .map(({ division, i }) => (
-            <li key={`division${i + 1}`} styleName="division">
-              <ul>
-                <li styleName="totals">
-                  <ul styleName="row">
-                    <li styleName="left">
-                      <h3>
-                        {`division ${i + 1}`}
-                      </h3>
-                      <span>
-                        TOTAL
-                      </span>
-                    </li>
-                    <li>
-                      <h3>
-                        {percentageFunc(division.total.percentSuccessful)}
-                      </h3>
-                      <span>
+            <React.Fragment>
+              <table key={`division${i + 1}`} styleName="division">
+                <thead>
+                  <tr>
+                    <th>
+                      <h5>
+                        {`Division ${i + 1}`}
+                      </h5>
+                    </th>
+                    <th>
+                      <h5>
                         SUCCESS
-                      </span>
-                    </li>
-                    <li>
-                      <h3>
-                        {division.total.problemsSubmitted}
-                      </h3>
-                      <span>
-                        SUBMITTED
-                      </span>
-                    </li>
-                    <li>
-                      <h3>
-                        {division.total.problemsFailed}
-                      </h3>
-                      <span>
+                      </h5>
+                    </th>
+                    <th>
+                      <h5>
+                        CREATED
+                      </h5>
+                    </th>
+                    <th>
+                      <h5>
                         FAILED CHALLENGES
-                      </span>
-                    </li>
-                    <li>
-                      <h3>
+                      </h5>
+                    </th>
+                    <th>
+                      <h5>
+                        FAILED SYS TEST
+                      </h5>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <h5>
+                        TOTAL
+                      </h5>
+                    </td>
+                    <td>
+                      <h5>
+                        {percentageFunc(division.total.percentSuccessful)}
+                      </h5>
+                    </td>
+                    <td>
+                      <h5>
+                        {division.total.problemsSubmitted}
+                      </h5>
+                    </td>
+                    <td>
+                      <h5>
+                        {division.total.problemsFailed}
+                      </h5>
+                    </td>
+                    <td>
+                      <h5>
                         {division.total.problemsSysByTest}
-                      </h3>
-                      <span>
-                        FAILED SYS. TEST
-                      </span>
-                    </li>
-                  </ul>
-                </li>
-                {
-                  division.levels.map(level => (
-                    <li styleName="level" key={level.levelName}>
-                      <ul styleName="row">
-                        <li styleName="left" className={styles.level}>
-                          <h3 styleName="level">
-                            {level.levelName}
-                          </h3>
-                        </li>
-                        <li>
-                          <h3>
-                            {percentageFunc(level.percentSuccessful)}
-                          </h3>
-                          <span>
-                            SUCCESS
-                          </span>
-                        </li>
-                        <li>
-                          <h3>
-                            {level.problemsSubmitted}
-                          </h3>
-                          <span>
-                            SUBMITTED
-                          </span>
-                        </li>
-                        <li>
-                          <h3>
-                            {level.problemsFailed}
-                          </h3>
-                          <span>
-                            FAILED CHALLENGES
-                          </span>
-                        </li>
-                        <li>
-                          <h3>
-                            {level.problemsSysByTest}
-                          </h3>
-                          <span>
-                            FAILED SYS. TEST
-                          </span>
-                        </li>
-                      </ul>
-                    </li>
-                  ))
-                }
-              </ul>
-            </li>
+                      </h5>
+                    </td>
+                  </tr>
+                  { division.levels.map(level => (
+                    <tr key={level.levelName}>
+                      <td>
+                        <h5>
+                          {level.levelName}
+                        </h5>
+                      </td>
+                      <td>
+                        <h5>
+                          {percentageFunc(level.percentSuccessful)}
+                        </h5>
+                      </td>
+                      <td>
+                        <h5>
+                          {level.problemsSubmitted}
+                        </h5>
+                      </td>
+                      <td>
+                        <h5>
+                          {level.problemsFailed}
+                        </h5>
+                      </td>
+                      <td>
+                        <h5>
+                          {level.problemsSysByTest}
+                        </h5>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <hr />
+            </React.Fragment>
           ))
       }
       {
         challenges.levels && challenges.levels.length
         && (
-        <li styleName="division">
-          <ul>
-            <li styleName="totals">
-              <ul styleName="row">
-                <li styleName="left" className={styles.wide}>
-                  <h3>
-                    CHALLENGES
-                  </h3>
-                  <span>
-                    TOTAL
-                  </span>
-                </li>
-                <li>
-                  <h3>
-                    {percentageFunc(challenges.total.percentSuccessful)}
-                  </h3>
-                  <span>
-                    SUCCESS
-                  </span>
-                </li>
-                <li>
-                  <h3>
-                    {challenges.total.problemsSubmitted}
-                  </h3>
-                  <span>
-                    CREATED
-                  </span>
-                </li>
-                <li>
-                  <h3>
-                    {challenges.total.problemsFailed}
-                  </h3>
-                  <span>
-                    FAILED
-                  </span>
-                </li>
-              </ul>
-            </li>
-            {
-              challenges.levels.map(level => (
-                <li styleName="level" key={level.levelName}>
-                  <ul styleName="row">
-                    <li styleName="left" className={`${styles.level}  ${styles.wide}`}>
-                      <h3 styleName="level">
-                        {level.levelName}
-                      </h3>
-                    </li>
-                    <li>
-                      <h3>
-                        {percentageFunc(level.percentSuccessful)}
-                      </h3>
-                      <span>
-                        SUCCESS
-                      </span>
-                    </li>
-                    <li>
-                      <h3>
-                        {level.problemsSubmitted}
-                      </h3>
-                      <span>
-                        CREATED
-                      </span>
-                    </li>
-                    <li>
-                      <h3>
-                        {level.problemsFailed}
-                      </h3>
-                      <span>
-                        FAILED
-                      </span>
-                    </li>
-                  </ul>
-                </li>
-              ))
-            }
-          </ul>
-        </li>
-        )
-      }
-    </ul>
+        <table styleName="division">
+          <thead styleName="wide">
+            <tr>
+              <th>
+                <h5>
+                  Challenges
+                </h5>
+              </th>
+              <th>
+                <h5>
+                  SUCCESS
+                </h5>
+              </th>
+              <th>
+                <h5>
+                  CREATED
+                </h5>
+              </th>
+              <th>
+                <h5>
+                  FAILED
+                </h5>
+              </th>
+            </tr>
+          </thead>
+          <tbody styleName="wide">
+            <tr>
+              <td>
+                <h5>
+                  TOTAL
+                </h5>
+              </td>
+              <td>
+                <h5>
+                  {percentageFunc(challenges.total.percentSuccessful)}
+                </h5>
+              </td>
+              <td>
+                <h5>
+                  {challenges.total.problemsSubmitted}
+                </h5>
+              </td>
+              <td>
+                <h5>
+                  {challenges.total.problemsFailed}
+                </h5>
+              </td>
+            </tr>
+            { challenges.levels.map(level => (
+              <tr key={level.levelName}>
+                <td>
+                  <h5>
+                    {level.levelName}
+                  </h5>
+                </td>
+                <td>
+                  <h5>
+                    {percentageFunc(level.percentSuccessful)}
+                  </h5>
+                </td>
+                <td>
+                  <h5>
+                    {level.problemsSubmitted}
+                  </h5>
+                </td>
+                <td>
+                  <h5>
+                    {level.problemsFailed}
+                  </h5>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        )}
+    </div>
   );
 };
 
