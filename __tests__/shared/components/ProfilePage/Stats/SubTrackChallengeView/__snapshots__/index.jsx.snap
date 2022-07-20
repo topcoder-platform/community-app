@@ -963,6 +963,11 @@ exports[`SubtrackChallengeView matches shallow snapshot 1`] = `
   }
   challengesHasMore={null}
   handle="thomaskranitsas"
+  isAlreadyLoadChallenge={
+    Object {
+      "current": false,
+    }
+  }
   loadMarathon={[Function]}
   loadSRM={[Function]}
   loadSubtrackChallenges={[Function]}

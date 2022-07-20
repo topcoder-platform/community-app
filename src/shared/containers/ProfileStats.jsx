@@ -11,31 +11,27 @@ import ProfileStatsPage from 'components/ProfilePage/Stats';
 import { shouldShowGraph, isValidTrack, loadPublicStatsOnly } from 'utils/memberStats';
 import MetaTags from 'components/MetaTags';
 import _ from 'lodash';
-import qs from 'qs';
 import shortId from 'shortid';
 
-const getQueryParamsQuery = location => (
-  location.search ? qs.parse(location.search.slice(1)) : {}
-);
 class ProfileStatsContainer extends React.Component {
   componentDidMount() {
     const {
       handleParam,
-      location,
+      track,
+      subTrack,
       loadStats,
       loadStatsHistoryAndDistribution,
       meta,
       auth,
     } = this.props;
 
-    const trackAndSubTrack = getQueryParamsQuery(location);
     loadStats(handleParam, _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])), auth.tokenV3);
-    if (shouldShowGraph(trackAndSubTrack)) {
+    if (shouldShowGraph({ track, subTrack })) {
       loadStatsHistoryAndDistribution(
         handleParam,
         _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])),
-        trackAndSubTrack.track,
-        trackAndSubTrack.subTrack,
+        track,
+        subTrack,
         auth.tokenV3,
       );
     }
@@ -44,7 +40,9 @@ class ProfileStatsContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {
       handleParam: nextHandleParam,
-      location: nextLocation,
+      track: nextTrack,
+      subTrack: nextSubTrack,
+      tab: nextTab,
       loadStats,
       loadStatsHistoryAndDistribution,
       meta,
@@ -52,28 +50,26 @@ class ProfileStatsContainer extends React.Component {
     } = nextProps;
     const {
       handleParam,
-      location,
+      track,
+      subTrack,
     } = this.props;
-
-    const nextQueryParams = getQueryParamsQuery(nextLocation);
-    const trackAndSubTrack = getQueryParamsQuery(location);
 
     if (nextHandleParam !== handleParam) {
       loadStats(nextHandleParam, _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])), auth.tokenV3);
-      if (
-        nextQueryParams.track !== trackAndSubTrack.track
-        || nextQueryParams.subTrack !== trackAndSubTrack.subTrack
-      ) {
-        if (shouldShowGraph(nextQueryParams)
-          && !nextQueryParams.tab) {
-          loadStatsHistoryAndDistribution(
-            nextHandleParam,
-            _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])),
-            nextQueryParams.track,
-            nextQueryParams.subTrack,
-            auth.tokenV3,
-          );
-        }
+    }
+    if (
+      nextTrack !== track
+      || nextSubTrack !== subTrack
+    ) {
+      if (shouldShowGraph({ track: nextTrack, subTrack: nextSubTrack })
+        && !nextTab) {
+        loadStatsHistoryAndDistribution(
+          nextHandleParam,
+          _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])),
+          nextTrack,
+          nextSubTrack,
+          auth.tokenV3,
+        );
       }
     }
   }
@@ -81,12 +77,12 @@ class ProfileStatsContainer extends React.Component {
   render() {
     const {
       loadingError,
-      location,
       isLoading,
       handleParam,
+      track,
+      subTrack,
     } = this.props;
 
-    const { track, subTrack, tab } = getQueryParamsQuery(location);
     if (loadingError || !isValidTrack(track, subTrack)) {
       return <Error404 />;
     }
@@ -104,9 +100,6 @@ class ProfileStatsContainer extends React.Component {
             : (
               <ProfileStatsPage
                 {...this.props}
-                track={track}
-                subTrack={subTrack}
-                tab={tab}
               />
             )
         }
@@ -121,13 +114,18 @@ ProfileStatsContainer.defaultProps = {
   statsDistribution: null,
   stats: null,
   info: null,
-  achievements: null,
   meta: null,
   auth: {},
+  isAlreadyLoadChallenge: {
+    current: false,
+  },
 };
 
 ProfileStatsContainer.propTypes = {
-  location: PT.shape().isRequired,
+  track: PT.string.isRequired,
+  subTrack: PT.string.isRequired,
+  tab: PT.string.isRequired,
+  setTab: PT.func.isRequired,
   loadingError: PT.bool,
   loadStats: PT.func.isRequired,
   loadStatsHistoryAndDistribution: PT.func.isRequired,
@@ -136,17 +134,18 @@ ProfileStatsContainer.propTypes = {
   statsDistribution: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   info: PT.shape(),
-  achievements: PT.arrayOf(PT.shape()),
   isLoading: PT.bool.isRequired,
   meta: PT.shape(),
   auth: PT.shape(),
+  isAlreadyLoadChallenge: PT.shape({
+    current: PT.bool,
+  }),
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const handleParam = ownProps.match.params.handle;
+  const { handleParam } = ownProps;
   const obj = _.get(state.members, handleParam, {});
   return ({
-    handleParam,
     loadingError: state.members.loadingError,
     isLoading: !state.profile.info
       || !_.get(obj, 'stats.data')
@@ -155,10 +154,7 @@ const mapStateToProps = (state, ownProps) => {
     stats: _.get(obj, 'stats.data'),
     statsHistory: _.get(obj, 'statsHistory.data'),
     statsDistribution: _.get(obj, 'statsDistribution.data'),
-    activeChallengesCount: _.get(obj, 'activeChallengesCount'),
     info: state.profile.info,
-    meta: ownProps.meta,
-    achievements: state.profile.achievements,
     auth: {
       ...state.auth,
     },
