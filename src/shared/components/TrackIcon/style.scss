@@ -5,9 +5,6 @@ $track-space-10: $base-unit * 2;
 $track-space-15: $base-unit * 3;
 $track-space-20: $base-unit * 4;
 $track-radius-4: $corner-radius * 2;
-$track-code-green: #35ac35;
-$track-code-blue: #2984bd;
-$track-code-turquose: #0ab88a;
 
 .trackIcon {
   display: flex;
@@ -34,25 +31,16 @@ $track-code-turquose: #0ab88a;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
-    &.design,
-    &.generic {
-      background: $track-code-blue;
-    }
-
-    &.develop,
-    &.development {
+    &.CH {
       background: $track-code-green;
     }
 
-    &.qa,
-    &.quality-assurance {
-      background: $track-code-turquose;
+    &.F2F {
+      background: $track-code-blue;
     }
 
-    &.data_science,
-    &.data-science,
-    &.data {
-      background: $tc-orange-110;
+    &.TSK {
+      background: $track-code-turquose;
     }
   }
 
@@ -69,29 +57,19 @@ $track-code-turquose: #0ab88a;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 
-    &.design,
-    &.generic {
-      color: $tc-light-blue-110;
-      background: $tc-light-blue-10;
+    &.CH {
+      color: $track-code-green;
+      background: $track-code-green-light;
     }
 
-    &.develop,
-    &.development {
-      color: $tc-green-110;
-      background: $tc-green-10;
+    &.F2F {
+      color: $track-code-blue;
+      background: $track-code-blue-light;
     }
 
-    &.qa,
-    &.quality-assurance {
-      color: #0ab88a;
-      background: #c1f5e7;
-    }
-
-    &.data_science,
-    &.data-science,
-    &.data {
-      color: $tc-orange-110;
-      background: $tc-orange-10;
+    &.TSK {
+      color: $track-code-turquose;
+      background: $track-code-turquose-light;
     }
   }
 

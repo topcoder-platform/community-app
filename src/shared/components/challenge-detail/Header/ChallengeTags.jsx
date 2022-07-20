@@ -13,21 +13,14 @@ import { config } from 'topcoder-react-utils';
 
 import {
   Tag,
-  DataScienceTrackTag,
-  DataScienceTrackEventTag,
-  DesignTrackTag,
-  DesignTrackEventTag,
   DevelopmentTrackTag,
-  DevelopmentTrackEventTag,
-  QATrackTag,
-  QATrackEventTag,
 } from 'topcoder-react-ui-kit';
 
 import { COMPETITION_TRACKS } from 'utils/tc';
 import VerifiedTag from 'components/challenge-listing/VerifiedTag';
 import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
 import { calculateScore } from '../../../utils/challenge-listing/helper';
-import style from './style.scss';
+import './style.scss';
 
 export default function ChallengeTags(props) {
   const {
@@ -42,66 +35,59 @@ export default function ChallengeTags(props) {
     openForRegistrationChallenges,
   } = props;
 
-  let EventTag;
-  let TrackTag;
-  switch (track) {
-    case COMPETITION_TRACKS.DS:
-      EventTag = DataScienceTrackEventTag;
-      TrackTag = DataScienceTrackTag;
-      break;
-    case COMPETITION_TRACKS.DES:
-      EventTag = DesignTrackEventTag;
-      TrackTag = DesignTrackTag;
-      break;
-    case COMPETITION_TRACKS.DEV:
-      EventTag = DevelopmentTrackEventTag;
-      TrackTag = DevelopmentTrackTag;
-      break;
-    case COMPETITION_TRACKS.QA:
-      EventTag = QATrackEventTag;
-      TrackTag = QATrackTag;
-      break;
-    default:
-      throw new Error('Wrong competition track value');
-  }
-
-
   const filteredChallenge = _.find(openForRegistrationChallenges, { id: challengeId });
   const matchSkills = filteredChallenge ? filteredChallenge.match_skills || [] : [];
   const matchScore = filteredChallenge ? filteredChallenge.jaccard_index || [] : 0;
 
   const tags = technPlatforms.filter(tag => !matchSkills.includes(tag));
+  const abbreviationName = challengeType ? challengeType.name : null;
+  let abbreviation;
+  switch (abbreviationName) {
+    case 'First2Finish':
+      abbreviation = 'F2F';
+      break;
+    case 'Challenge':
+      abbreviation = 'CH';
+      break;
+    case 'Task':
+      abbreviation = 'TSK';
+      break;
+    default:
+      abbreviation = null;
+  }
 
   return (
     <div>
       {
-        challengeType
-        && (
-          <div styleName={`type-tag ${track === COMPETITION_TRACKS.QA ? 'qa' : ''}`}>
-            <TrackTag
+        abbreviation && (
+          <div styleName={`type-tag ${abbreviation} ${track === COMPETITION_TRACKS.QA ? 'qa' : ''}`}>
+            <Tag
               onClick={() => (
                 setImmediate(() => setChallengeListingFilter(
-                  { types: [challengeType.abbreviation] },
+                  { types: [abbreviation] },
                 ))
               )
               }
-              to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
+              to={`${challengesUrl}?types[]=${encodeURIComponent(abbreviation)}`}
             >
-              {challengeType.name}
-            </TrackTag>
+              {abbreviationName}
+            </Tag>
           </div>
         )
       }
       {
-        events.map(event => (
-          <EventTag
-            to={`https://${event}.topcoder.com`}
+        abbreviation ? events.map(event => (
+          <div
             key={event}
-            theme={track === COMPETITION_TRACKS.QA ? { button: style.qaTrackEventTag } : undefined}
+            styleName={`event-tag ${abbreviation}`}
           >
-            {event}
-          </EventTag>
-        ))
+            <Tag
+              to={`https://${event}.topcoder.com`}
+            >
+              {event}
+            </Tag>
+          </div>
+        )) : null
       }
       {
         matchScore > 0 && config.ENABLE_RECOMMENDER && (

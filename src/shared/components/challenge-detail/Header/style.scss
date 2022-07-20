@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '~styles/mixins';
 
 .challengeAction {
@@ -159,6 +160,98 @@
 
 .type-tag {
   display: inline-block;
+
+  a {
+    color: $tc-white;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: $tc-white;
+    }
+  }
+
+  &.CH {
+    a {
+      background: $track-code-green;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $track-code-green;
+      }
+    }
+  }
+
+  &.F2F {
+    a {
+      background: $track-code-blue;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $track-code-blue;
+      }
+    }
+  }
+
+  &.TSK {
+    a {
+      background: $track-code-turquose;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $track-code-turquose;
+      }
+    }
+  }
+}
+
+.event-tag {
+  display: inline-block;
+
+  &.CH {
+    a {
+      background-color: $track-code-green-light;
+      color: $track-code-green;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $track-code-green-light;
+        color: $track-code-green;
+      }
+    }
+  }
+
+  &.F2F {
+    a {
+      background-color: $track-code-blue-light;
+      color: $track-code-blue;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $track-code-blue-light;
+        color: $track-code-blue;
+      }
+    }
+  }
+
+  &.TSK {
+    a {
+      background-color: $track-code-turquose-light;
+      color: $track-code-turquose;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $track-code-turquose-light;
+        color: $track-code-turquose;
+      }
+    }
+  }
 }
 
 .qa {
