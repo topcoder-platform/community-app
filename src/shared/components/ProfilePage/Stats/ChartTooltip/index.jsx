@@ -9,11 +9,13 @@ import './styles.scss';
 const ChartTooltip = ({
   show, left, top, challengeName,
   challengeData, rating, ratingColor, href,
+  id,
 }) => (
   <a
+    id={`chart-tooltip-${id}`}
     styleName="chart-tooltip"
     style={{
-      opacity: show ? 1 : 0,
+      display: show ? 'block' : 'none',
       left,
       top,
       pointerEvents: href ? 'all' : 'none',
@@ -44,6 +46,7 @@ ChartTooltip.defaultProps = {
   rating: 0,
   ratingColor: '',
   href: null,
+  id: '',
 };
 
 ChartTooltip.propTypes = {
@@ -55,6 +58,7 @@ ChartTooltip.propTypes = {
   rating: PT.number,
   ratingColor: PT.string,
   href: PT.string,
+  id: PT.string,
 };
 
 export default ChartTooltip;
