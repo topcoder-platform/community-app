@@ -678,7 +678,7 @@ export default function FiltersPanel({
                 >
                   <SwitchWithLabel
                     enabled={tcoToggle}
-                    labelAfter="TCO Eligible Challenges"
+                    labelAfter="Only Show TCO Eligible Challenges"
                     onSwitch={onSwitchTcoChallenge}
                   />
                 </span>
