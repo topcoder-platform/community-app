@@ -9,6 +9,7 @@ import { TABS } from 'actions/page/settings';
 
 import _ from 'lodash';
 import Header from './Header';
+import TopcoderAndYou from './TopcoderAndYou';
 import Tools from './Tools';
 
 import './style.scss';
@@ -33,7 +34,9 @@ export default function Settings(props) {
 
   const currentTab = _.find(SETTINGS_TABS, { link: newProps.settingsTab });
   const title = currentTab ? currentTab.title : 'Settings';
-  const childRef = createRef();
+  const profileRef = createRef();
+  const tracksRef = createRef();
+
   const [isSaving, setIsSaving] = useState(false);
 
   return (
@@ -47,7 +50,11 @@ export default function Settings(props) {
           settingsTab={newProps.settingsTab}
           selectTab={selectTab}
           saveSettings={() => {
-            childRef.current.onSaveBasicInfo();
+            if (tracksRef.current) {
+              tracksRef.current.onSaveTopcoderAndYou();
+            } else {
+              profileRef.current.onSaveBasicInfo();
+            }
           }}
           isSaving={isSaving}
         />
@@ -57,7 +64,18 @@ export default function Settings(props) {
           && (
             <ProfileSettings
               {...newProps}
-              ref={childRef}
+              ref={profileRef}
+              isSaving={isSaving}
+              setIsSaving={setIsSaving}
+            />
+          )
+        }
+        {
+          newProps.settingsTab === TABS.TRACKS
+          && (
+            <TopcoderAndYou
+              ref={tracksRef}
+              {...newProps}
               isSaving={isSaving}
               setIsSaving={setIsSaving}
             />

@@ -4,6 +4,14 @@
   display: flex;
 
   @include md-to-xl {
+    &.page-col {
+      flex-direction: column;
+
+      & > div {
+        width: 100%;
+      }
+    }
+
     &.page-row-half {
       & > div {
         width: 50%;

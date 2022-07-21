@@ -13,6 +13,7 @@ const SettingsBanner = ({
   description,
   children,
   defaultOpen,
+  row,
 }) => {
   const [open, setOpen] = useState(defaultOpen);
 
@@ -34,7 +35,7 @@ const SettingsBanner = ({
       {
         open ? (
           <div styleName="page-row">
-            <PageRow>
+            <PageRow row={row}>
               <div>
                 <p styleName="description">{description}</p>
               </div>
@@ -52,6 +53,7 @@ SettingsBanner.defaultProps = {
   description: '',
   children: null,
   defaultOpen: true,
+  row: true,
 };
 
 SettingsBanner.propTypes = {
@@ -59,6 +61,7 @@ SettingsBanner.propTypes = {
   description: PT.string,
   children: PT.node,
   defaultOpen: PT.bool,
+  row: PT.bool,
 };
 
 export default SettingsBanner;

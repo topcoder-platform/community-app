@@ -1,98 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="32px"
-   height="32px"
-   viewBox="0 0 32 32"
-   version="1.1"
-   id="svg82"
-   sodipodi:docname="ico-track-design.svg"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06">
-  <metadata
-     id="metadata86">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="2051"
-     inkscape:window-height="1101"
-     id="namedview84"
-     showgrid="false"
-     inkscape:zoom="35.5625"
-     inkscape:cx="16"
-     inkscape:cy="14.87522"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="ico-track-design" />
-  <!-- Generator: Sketch 3.4 (15588) - http://www.bohemiancoding.com/sketch -->
-  <title
-     id="title68">ico-track-design</title>
-  <desc
-     id="desc70">Created with Sketch.</desc>
-  <defs
-     id="defs72" />
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd"
-     sketch:type="MSPage">
-    <g
-       id="ico-track-design"
-       sketch:type="MSArtboardGroup"
-       stroke="#21B2F1"
-       stroke-width="1.2"
-       stroke-linecap="round"
-       stroke-linejoin="round">
-      <path
-         d="M11.0446574,17.3274409 L24.823359,3.60214262 C26.2984335,2.12707385 28.6888722,2.12707385 30.1639466,3.60214262 C31.6390114,5.07721226 31.6390114,7.4676567 30.1639466,8.94272634 L16.3852411,22.6680285 L11.0446574,17.3274409 Z"
-         id="Stroke-79"
-         sketch:type="MSShapeGroup" />
-      <path
-         d="M10.6862617,23.1954687 C9.0648603,21.5740683 6.44904271,21.5623191 4.84366337,23.1676975 C3.81827106,24.1930898 3.68048433,25.4662845 3.6922334,26.531197 C3.70398247,27.5832924 2.95202856,28.5445974 1.1138,28.5755726 C3.69543839,31.156142 8.19114077,31.5609581 10.7140328,29.038067 C12.4144785,27.3376252 12.1634626,24.6726743 10.6862617,23.1954687 L10.6862617,23.1954687 L10.6862617,23.1954687 Z"
-         id="Stroke-81"
-         sketch:type="MSShapeGroup" />
-      <path
-         d="M12.6082011,5.20431793 L9.40385145,8.40866759"
-         id="Stroke-83"
-         sketch:type="MSShapeGroup" />
-      <path
-         d="M27.5617809,20.1579939 L24.3574313,23.3623435"
-         id="Stroke-85"
-         sketch:type="MSShapeGroup" />
-      <path
-         d="m 19.135046,26.684776 1.472497,1.472496 c 1.299695,1.299695 2.681836,2.681839 2.681836,2.681839 l 7.476813,-7.476822 c 0,0 -4.544044,-4.862349 -4.751336,-5.077975"
-         id="Stroke-87"
-         sketch:type="MSShapeGroup"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="csccc" />
-      <path
-         d="M14.5505919,7.1335119 L9.40382934,2 L1.92701348,9.47681682 C1.92701348,9.47681682 3.5876467,11.137451 5.96118948,13.5109928"
-         id="Stroke-89"
-         sketch:type="MSShapeGroup" />
-    </g>
-  </g>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M20.863 3.44312C22.5463 1.59557 25.4537 1.59557 27.137 3.44312C28.2537 4.66874 29.9818 5.1318 31.5617 4.62871C33.9433 3.87033 36.4612 5.32405 36.9952 7.76573C37.3494 9.38547 38.6145 10.6506 40.2343 11.0048C42.6759 11.5388 44.1297 14.0567 43.3713 16.4383C42.8682 18.0182 43.3313 19.7463 44.5569 20.863C46.4044 22.5463 46.4044 25.4537 44.5569 27.137C43.3313 28.2537 42.8682 29.9818 43.3713 31.5617C44.1297 33.9433 42.6759 36.4612 40.2343 36.9952C38.6145 37.3494 37.3494 38.6145 36.9952 40.2343C36.4612 42.6759 33.9433 44.1297 31.5617 43.3713C29.9818 42.8682 28.2537 43.3313 27.137 44.5569C25.4537 46.4044 22.5463 46.4044 20.863 44.5569C19.7463 43.3313 18.0182 42.8682 16.4383 43.3713C14.0567 44.1297 11.5388 42.6759 11.0048 40.2343C10.6506 38.6145 9.38547 37.3494 7.76573 36.9952C5.32405 36.4612 3.87033 33.9433 4.62871 31.5617C5.1318 29.9818 4.66874 28.2537 3.44312 27.137C1.59557 25.4537 1.59557 22.5463 3.44312 20.863C4.66874 19.7463 5.1318 18.0182 4.62871 16.4383C3.87033 14.0567 5.32405 11.5388 7.76573 11.0048C9.38547 10.6506 10.6506 9.38547 11.0048 7.76573C11.5388 5.32405 14.0567 3.87033 16.4383 4.62871C18.0182 5.1318 19.7463 4.66874 20.863 3.44312Z" fill="url(#paint0_linear_5048_15454)"/>
+   <circle opacity="0.2" cx="24" cy="24" r="16.9263" fill="white"/>
+   <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3306 15.1074C16.1028 15.1074 15.1074 16.1027 15.1074 17.3305V29.5579C15.1074 31.3996 16.6004 32.8926 18.4422 32.8926C20.2839 32.8926 21.7769 31.3996 21.7769 29.5579V17.3305C21.7769 16.1027 20.7816 15.1074 19.5537 15.1074H17.3306ZM18.4422 30.6695C19.0561 30.6695 19.5537 30.1718 19.5537 29.5579C19.5537 28.944 19.0561 28.4463 18.4422 28.4463C17.8283 28.4463 17.3306 28.944 17.3306 29.5579C17.3306 30.1718 17.8283 30.6695 18.4422 30.6695Z" fill="white"/>
+   <path d="M24.0001 28.7159L29.4462 23.2698C30.3144 22.4016 30.3144 20.9939 29.4462 20.1257L27.8742 18.5537C27.006 17.6855 25.5984 17.6855 24.7302 18.5537L24.0001 19.2839V28.7159Z" fill="white"/>
+   <path d="M30.6696 32.8926H22.9674L29.6369 26.2232H30.6696C31.8974 26.2232 32.8927 27.2185 32.8927 28.4463V30.6695C32.8927 31.8973 31.8974 32.8926 30.6696 32.8926Z" fill="white"/>
+   <defs>
+      <linearGradient id="paint0_linear_5048_15454" x1="-1.49435e-07" y1="35.76" x2="49.4435" y2="31.3673" gradientUnits="userSpaceOnUse">
+         <stop stop-color="#065D6E"/>
+         <stop offset="0.0001" stop-color="#06596E"/>
+         <stop offset="1" stop-color="#3E3B91"/>
+      </linearGradient>
+   </defs>
 </svg>

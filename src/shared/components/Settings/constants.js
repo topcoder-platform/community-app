@@ -1,3 +1,4 @@
+
 export const SCREEN_SIZE = {
   SM: 767,
 };
@@ -29,5 +30,15 @@ export const PROFILE_SETTINGS = {
   hobbies: {
     title: 'Hobbies',
     description: 'Tell us about what you love to do in your free time.',
+  },
+};
+
+export const TOPCODER_AND_YOU = {
+  tracks: {
+    title: 'Tracks',
+    description: 'Topcoder\'s three categories of challenges... please pick at least one based on your skills and interests.',
+  },
+  community: {
+    title: 'Your Communities',
   },
 };

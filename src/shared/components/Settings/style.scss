@@ -338,12 +338,13 @@ $checkbox-bg-selected: $tc-dark-blue;
   }
 
   // Switch location
-  $switch-width: 34px;
+  $switch-width: 37px;
   $switch-height: 20px;
+  $switch-border-radius: 10px;
   $switch-handle-offset: 3px;
   $switch-handle-size: $switch-height - (2 * $switch-handle-offset);
-  $switch-active-color: $tc-dark-blue-110;
-  $switch-inactive-color: $tc-gray-20;
+  $switch-active-color: $listing-checkbox-green;
+  $switch-inactive-color: $tc-gray-40;
 
   @mixin switch-transition {
     transition: all 0.15s ease-in-out;
@@ -356,7 +357,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     margin-right: 10px;
     margin-left: 22px;
     background-color: $switch-inactive-color;
-    border-radius: $switch-height;
+    border-radius: $switch-border-radius;
     box-sizing: border-box;
     height: $switch-height;
     width: $switch-width;
@@ -377,9 +378,10 @@ $checkbox-bg-selected: $tc-dark-blue;
       @include switch-transition;
 
       display: block;
-      align-self: center;
+      align-self: flex-start;
       margin-right: 10px;
       margin-left: 15px;
+      margin-top: 10px;
       background-color: $switch-inactive-color;
       border-radius: $switch-height;
       box-sizing: border-box;

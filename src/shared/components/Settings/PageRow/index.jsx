@@ -9,12 +9,14 @@ import cn from 'classnames';
 import './styles.scss';
 
 const PageRow = ({
-  children, half = false, styleName, ...props
+  children, half = false, row, styleName, ...props
 }) => (
   <div
     styleName={cn(
       'page-row',
-      half ? 'page-row-half' : 'page-row-normal',
+      (row && half) && 'page-row-half',
+      row && 'page-row-normal',
+      !row && 'page-col',
       styleName || '',
     )}
     {...props}
@@ -26,12 +28,14 @@ const PageRow = ({
 PageRow.defaultProps = {
   children: null,
   half: false,
+  row: true,
   styleName: {},
 };
 
 PageRow.propTypes = {
   children: PT.node,
   half: PT.bool,
+  row: PT.bool,
   styleName: PT.shape(),
 };
 
