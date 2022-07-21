@@ -244,8 +244,7 @@ class ProfilePage extends React.Component {
         { showDetails && (
           <Modal
             theme={{
-              container: track === 'COPILOT' ? styles['modal-container-copilot']
-                : styles['modal-container'],
+              container: `${track === 'COPILOT' ? styles['modal-container-copilot'] : styles['modal-container']} ProfileModalContainer`,
               overlay: styles['modal-overlay'],
             }}
             onCancel={this.closeDetails}

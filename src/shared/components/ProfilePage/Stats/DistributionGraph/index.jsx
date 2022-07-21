@@ -183,6 +183,55 @@ export default class DistributionGraph extends React.Component {
       .attr('height', d => totalH - padding.bottom - yScale(d.number))
       .attr('fill', d => getRatingColor(d.start));
 
+    const updateTooltipPosition = () => {
+      const e = d3.mouse(document.getElementById('distribution-graph-container'));
+      const profileModalContainerEl = document.querySelector('.ProfileModalContainer');
+      const profileModalContainerRect = profileModalContainerEl
+        ? profileModalContainerEl.getBoundingClientRect() : null;
+      const graphEl = document.getElementById('distribution-graph-container');
+      const graphRect = graphEl ? graphEl.getBoundingClientRect() : null;
+      const tooltipElement = document.getElementById('chart-tooltip-distribution-graph');
+
+      let cx = e[0];
+      let cy = e[1];
+      const defaultWidth = 320;
+      const defaultHeight = 115;
+      if (tooltipElement) {
+        const { clientWidth, clientHeight } = tooltipElement;
+        cx -= ((clientWidth || defaultWidth) / 2);
+        cy += 15;
+
+        if (graphRect && profileModalContainerRect) {
+          const minLeft = profileModalContainerRect.x - graphRect.x;
+          const minTop = profileModalContainerRect.y - graphRect.y;
+          const maxRight = profileModalContainerRect.width + minLeft;
+          const maxBottom = profileModalContainerRect.height + minTop;
+          const minXTooltipPosition = minLeft;
+          const maxXTooltipPosition = maxRight - (clientWidth || defaultWidth);
+          const minYTooltipPosition = minTop;
+          const maxYTooltipPosition = maxBottom - (clientHeight || defaultHeight);
+          if (cx < minXTooltipPosition) {
+            cx = minXTooltipPosition;
+          }
+          if (cx > maxXTooltipPosition) {
+            cx = maxXTooltipPosition;
+          }
+          if (cy < minYTooltipPosition) {
+            cy = minYTooltipPosition;
+          }
+          if (cy > maxYTooltipPosition) {
+            cy = maxYTooltipPosition;
+          }
+        }
+      }
+
+      $scope.setState({
+        show: true,
+        left: cx,
+        top: cy,
+      });
+    };
+
     svg.selectAll('rect.hover')
       .data(ranges)
       .enter()
@@ -194,24 +243,16 @@ export default class DistributionGraph extends React.Component {
       .attr('width', xScale.rangeBand())
       .attr('height', d => totalH - padding.bottom - yScale(d.number))
       .on('mouseover', (d) => {
-        const e = d3.event;
         $scope.setState({
-          show: true,
-          left: e.pageX,
-          top: e.pageY,
           challengeName: `${d.number} Coders`,
           challengeData: `Rating Range: ${d.start} - ${d.start + 99}`,
           rating: d.number,
           ratingColor: getRatingColor(d.start),
         });
+        updateTooltipPosition();
       })
       .on('mousemove', () => {
-        const e = d3.event;
-        $scope.setState({
-          show: true,
-          left: e.pageX,
-          top: e.pageY,
-        });
+        updateTooltipPosition();
       })
       .on('mouseout', () => {
         $scope.setState({
@@ -253,8 +294,8 @@ export default class DistributionGraph extends React.Component {
 
   render() {
     return (
-      <div styleName="distribution-graph" ref={this.graphRef}>
-        <ChartTooltip {...this.state} />
+      <div id="distribution-graph-container" styleName="distribution-graph" ref={this.graphRef}>
+        <ChartTooltip id="distribution-graph" {...this.state} />
       </div>
     );
   }
