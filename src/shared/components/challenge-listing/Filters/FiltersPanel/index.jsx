@@ -666,8 +666,9 @@ export default function FiltersPanel({
             </React.Fragment>
           )
         }
-        {isTcoChallengesVisible
-            && (
+        {
+          isTcoChallengesVisible
+          && (
             <React.Fragment>
               <div styleName="filter-row tco-challenges-filter">
                 <span
@@ -695,9 +696,8 @@ export default function FiltersPanel({
                 </div>
               </div>
             </React.Fragment>
-            )
+          )
         }
-
       </div>
 
       {

@@ -120,10 +120,8 @@ hr.hr {
 
     .recommended-select-label,
     .tco-select-label {
-      width: 45%;
       margin-bottom: 16px;
       display: flex;
-      white-space: nowrap;
       line-height: 30px;
       justify-content: flex-start;
       margin-top: 15px;
@@ -133,8 +131,6 @@ hr.hr {
       }
 
       @include sm-to-md {
-        width: 50%;
-
         > div {
           display: inline-flex;
           flex-direction: row-reverse;
@@ -623,16 +619,13 @@ hr.hr {
 
     .recommended-challenge-tooltip,
     .tco-challenge-tooltip {
-      position: absolute;
-      left: 210px;
+      position: relative;
+      left: 7px;
+      top: 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       height: 100%;
-
-      @include xs-to-md {
-        left: 210px;
-      }
     }
   }
 }
