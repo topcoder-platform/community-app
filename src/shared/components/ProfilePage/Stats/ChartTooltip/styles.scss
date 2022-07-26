@@ -26,6 +26,24 @@
     transform: rotate(45deg);
   }
 
+  &.rotated {
+
+    &::before {
+      content: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 155px;
+      height: 10px;
+      width: 10px;
+      background-color: $tc-gray-80;
+      top: 110px;
+      transform: rotate(45deg);
+    }
+  }
+
   .tooltip-rating {
     width: 60px;
     height: 60px;

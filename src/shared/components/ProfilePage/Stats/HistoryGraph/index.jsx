@@ -256,6 +256,7 @@ export default class HistoryGraph extends React.Component {
 
       let cx = e[0];
       let cy = e[1];
+      let rotated = false;
       const defaultWidth = 320;
       const defaultHeight = 115;
       if (tooltipElement) {
@@ -282,12 +283,14 @@ export default class HistoryGraph extends React.Component {
             cy = minYTooltipPosition;
           }
           if (cy > maxYTooltipPosition) {
-            cy = maxYTooltipPosition;
+            cy -= clientHeight + 25;
+            rotated = true;
           }
         }
       }
 
       $scope.setState({
+        rotated,
         show: true,
         left: cx,
         top: cy,
