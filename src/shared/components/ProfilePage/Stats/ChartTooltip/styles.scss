@@ -27,6 +27,7 @@
   }
 
   &.rotated {
+
     &::before {
       content: none;
     }
