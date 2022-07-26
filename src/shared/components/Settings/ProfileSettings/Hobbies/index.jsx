@@ -82,31 +82,38 @@ const Hobbies = (props) => {
           </FormField>
         </form>
         <div styleName="edit-text-wrapper">
-          <AddItemIcon />
-          <span
-            styleName="edit-text"
-            role="presentation"
-            disabled={!canModifyTrait}
-            onClick={onHandleAddHobby}
-          >
-            {
-              isEdit ? (<React.Fragment>Edit hobby to your list</React.Fragment>)
-                : (<React.Fragment>Add hobby to your list</React.Fragment>)
-            }
-          </span>
-          {
-          isEdit && (
-            <div styleName="button-cancel">
+          {!isEdit && (
+            <span
+              styleName="edit-text"
+              role="presentation"
+              disabled={!canModifyTrait}
+              onClick={onHandleAddHobby}
+            >
+              <AddItemIcon /> Add hobby to your list
+            </span>
+          )}
+
+          { isEdit && (
+            <React.Fragment>
               <span
-                role="presentation"
                 styleName="edit-text"
-                onClick={onCancelEditStatus}
+                role="presentation"
+                disabled={!canModifyTrait}
+                onClick={onHandleAddHobby}
               >
-                Cancel
+                Edit hobby to your list
               </span>
-            </div>
-          )
-        }
+              <span styleName="button-cancel">
+                <span
+                  role="presentation"
+                  styleName="edit-text"
+                  onClick={onCancelEditStatus}
+                >
+                  Cancel
+                </span>
+              </span>
+            </React.Fragment>
+          )}
         </div>
       </div>
     </div>

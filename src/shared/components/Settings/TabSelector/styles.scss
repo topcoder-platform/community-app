@@ -6,6 +6,7 @@
   .item {
     height: 40px;
     margin: 0;
+    cursor: pointer;
 
     p {
       @include barlow-bold;
@@ -17,6 +18,10 @@
       text-transform: uppercase;
       padding-left: 16px;
       padding-top: 10px;
+    }
+
+    &:hover {
+      background-color: #bae1f9;
     }
   }
 
@@ -38,6 +43,7 @@
   border-radius: 4px 4px 0 0;
   border-bottom: 1px solid $listing-light-gray;
 
+  /* stylelint-disable no-descending-specificity */
   .item {
     @include barlow;
 
@@ -55,6 +61,7 @@
       background-color: #bae1f9;
     }
   }
+  /* stylelint-enable no-descending-specificity */
 
   .active {
     color: $tc-black;
@@ -79,11 +86,12 @@
 .mobile-tab-container {
   background-color: $listing-light-blue;
   height: 40px;
-  margin-top: 32px;
+  margin-top: $margin-xxl;
   display: flex;
   justify-content: space-between;
   border-radius: 4px 4px 0 0;
   border-bottom: 1px solid #d4d4d4;
+  cursor: pointer;
 
   .title {
     @include barlow-bold;
@@ -112,9 +120,5 @@
   .down {
     transform: scale(1.5) rotate(180deg);
     margin-right: 20px !important;
-  }
-
-  @include xs-to-md {
-    margin: 0;
   }
 }

@@ -6,14 +6,13 @@
  */
 import _ from 'lodash';
 import React from 'react';
-import ReactSelect from 'react-select';
 import PT from 'prop-types';
 import moment from 'moment';
 import ErrorMessage from 'components/Settings/ErrorMessage';
 import FormInputText from 'components/Settings/FormInputText';
 import Select from 'components/Settings/FormInputSelect';
 import FormField from 'components/Settings/FormField';
-import DatePickerGUIKit from '../../../GUIKit/Datepicker';
+import FormInputDatePicker from 'components/Settings/FormInputDatePicker';
 
 import '../styles.scss';
 
@@ -28,56 +27,6 @@ const PersonalDetails = (props) => {
     inputChanged,
     onUpdateCountry,
   } = props;
-
-  const renderResetButton = () => (
-    <div style={{ display: 'flex' }} className="reset-btn-container">
-      <button type="button" onClick={() => {}}>RESET</button>
-    </div>
-  );
-
-  const renderDatePickerMonthElement = ({ month, onMonthSelect, onYearSelect }) => {
-    const monthOptions = moment.months().map((label, value) => ({
-      value, label,
-    }));
-
-    const yearOptions = [];
-    for (let year = moment().year(), i = year; i > year - 99; i -= 1) {
-      yearOptions.push({ value: i, label: `${i}` });
-    }
-
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div>
-          <ReactSelect
-            value={month.month()}
-            options={monthOptions}
-            onChange={(option) => {
-              onMonthSelect(month, option.value);
-            }}
-            placeholder="Month"
-            clearable={false}
-            autosize={false}
-            searchable={false}
-            autoBlur={false}
-          />
-        </div>
-        <div>
-          <ReactSelect
-            value={month.year()}
-            options={yearOptions}
-            onChange={(option) => {
-              onYearSelect(month, option.value);
-            }}
-            placeholder="Year"
-            clearable={false}
-            autosize={false}
-            searchable={false}
-            autoBlur={false}
-          />
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div styleName="basic-info-container">
@@ -132,19 +81,15 @@ const PersonalDetails = (props) => {
 
           {/* Birth Date */}
           <FormField label="Birth Date">
-            <div styleName="datePicker">
-              <DatePickerGUIKit
-                readOnly
-                displayFormat="MM/DD/YYYY"
-                placeholder="MM/DD/YYYY"
-                isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
-                value={newBasicInfo.birthDate ? moment(newBasicInfo.birthDate).toDate() : null}
-                id="date-range-picker1"
-                renderMonthElement={renderDatePickerMonthElement}
-                onChange={date => onUpdateDate(date ? moment(date).format('MM/DD/YYYY') : null)}
-                renderCalendarInfo={() => renderResetButton}
-              />
-            </div>
+            <FormInputDatePicker
+              readOnly
+              displayFormat="MM/DD/YYYY"
+              placeholder="MM/DD/YYYY"
+              isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
+              value={newBasicInfo.birthDate}
+              id="date-range-picker1"
+              onChange={date => onUpdateDate(date)}
+            />
           </FormField>
 
           {/* Address */}

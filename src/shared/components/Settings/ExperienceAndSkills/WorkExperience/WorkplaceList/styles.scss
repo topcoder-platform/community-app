@@ -1,0 +1,22 @@
+@import "../../../style";
+
+.container {
+  width: 100%;
+  background-color: $tc-white;
+  padding: 0 0;
+  margin: 0 0 $margin-xxxxl;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+
+    li {
+      min-height: 90px;
+    }
+
+    li:last-child {
+      border-bottom: 1px solid $tc-gray-10;
+    }
+  }
+}

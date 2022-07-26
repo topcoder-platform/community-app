@@ -37,6 +37,8 @@ function Datepicker({
   readOnly,
   showClearDate,
   renderCalendarInfo,
+  className,
+  anchorDirection,
 }) {
   const sizeStyle = size === 'lg' ? 'lgSize' : 'xsSize';
   const [date, setDate] = useState(value ? moment(value) : null);
@@ -50,6 +52,7 @@ function Datepicker({
       styleName={`container ${sizeStyle} ${date ? 'haveValue' : ''} ${
         errorMsg ? 'haveError' : ''
       } ${focused ? 'isFocused' : ''}`}
+      className={className || ''}
     >
       <SingleDatePicker
         hideKeyboardShortcutsPanel
@@ -82,6 +85,7 @@ function Datepicker({
         readOnly={readOnly}
         showClearDate={showClearDate}
         renderCalendarInfo={renderCalendarInfo}
+        anchorDirection={anchorDirection}
       />
       {label ? (
         <span styleName="label">
@@ -113,6 +117,8 @@ Datepicker.defaultProps = {
   readOnly: false,
   showClearDate: false,
   renderCalendarInfo: null,
+  anchorDirection: 'left',
+  className: '',
 };
 
 Datepicker.propTypes = {
@@ -134,6 +140,8 @@ Datepicker.propTypes = {
   readOnly: PT.bool,
   showClearDate: PT.bool,
   renderCalendarInfo: PT.func,
+  anchorDirection: PT.oneOf(['left', 'right']),
+  className: PT.string,
 };
 
 export default Datepicker;

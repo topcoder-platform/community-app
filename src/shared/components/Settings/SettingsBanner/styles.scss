@@ -51,3 +51,15 @@
     margin-top: 32px;
   }
 }
+
+.collapse {
+  display: flex;
+  padding-right: 24px;
+  background: url('assets/images/icon-banner-selector.svg') no-repeat top 10px right 6px / auto;
+  cursor: pointer;
+
+  &.closed {
+    padding-bottom: 0;
+    background-image: url('assets/images/chevron-down-green.svg');
+  }
+}

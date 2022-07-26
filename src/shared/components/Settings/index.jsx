@@ -1,7 +1,7 @@
 /**
  * Settings page component.
  */
-import React, { createRef, useState } from 'react';
+import React, { useState } from 'react';
 import PT from 'prop-types';
 import MetaTags from 'components/MetaTags';
 
@@ -9,6 +9,7 @@ import { TABS } from 'actions/page/settings';
 
 import _ from 'lodash';
 import Header from './Header';
+import ExperienceAndSkills from './ExperienceAndSkills';
 import TopcoderAndYou from './TopcoderAndYou';
 import Tools from './Tools';
 
@@ -34,8 +35,10 @@ export default function Settings(props) {
 
   const currentTab = _.find(SETTINGS_TABS, { link: newProps.settingsTab });
   const title = currentTab ? currentTab.title : 'Settings';
-  const profileRef = createRef();
-  const tracksRef = createRef();
+
+  const profileRef = React.useRef();
+  const tracksRef = React.useRef();
+  const experienceAndSkillsRef = React.useRef();
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -50,10 +53,12 @@ export default function Settings(props) {
           settingsTab={newProps.settingsTab}
           selectTab={selectTab}
           saveSettings={() => {
-            if (tracksRef.current) {
+            if (newProps.settingsTab === TABS.TRACKS) {
               tracksRef.current.onSaveTopcoderAndYou();
-            } else {
+            } else if (newProps.settingsTab === TABS.PROFILE) {
               profileRef.current.onSaveBasicInfo();
+            } else if (newProps.settingsTab === TABS.SKILLS) {
+              experienceAndSkillsRef.current.save();
             }
           }}
           isSaving={isSaving}
@@ -65,6 +70,17 @@ export default function Settings(props) {
             <ProfileSettings
               {...newProps}
               ref={profileRef}
+              isSaving={isSaving}
+              setIsSaving={setIsSaving}
+            />
+          )
+        }
+        {
+          newProps.settingsTab === TABS.SKILLS
+          && (
+            <ExperienceAndSkills
+              ref={experienceAndSkillsRef}
+              {...newProps}
               isSaving={isSaving}
               setIsSaving={setIsSaving}
             />

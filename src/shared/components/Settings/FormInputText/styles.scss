@@ -5,15 +5,17 @@
   box-sizing: border-box !important;
   color: #767676 !important;
   font-size: 14px !important;
-  height: 24px !important;
+  height: 48px !important;
   outline: none !important;
-  border: 0 !important;
+  border: 1px solid #aaa !important;
   width: 100% !important;
   margin-bottom: 0 !important;
   box-shadow: none !important;
+  border-radius: inherit !important;
+  padding: 22px 9px 2px 9px;
 
   &::placeholder {
-    color: #aaa !important;
+    color: #767676 !important;
     text-transform: none !important;
   }
 

@@ -1,0 +1,249 @@
+@import "~styles/mixins";
+
+.modal-overlay {
+  background-color: rgba($color-tc-black, 0.85);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border-radius: 8px;
+  overflow-y: auto;
+  background: none;
+  top: 0;
+  left: 0;
+  transform: none;
+
+  .close {
+    padding: 0;
+    margin: 0 0 0 auto;
+    min-height: 0;
+  }
+}
+
+.modal-content {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  color: $color-black-100;
+  max-width: 794px;
+  background-color: $color-tc-white;
+  border-radius: 8px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 32px 0;
+}
+
+.modal-header {
+  @include barlow-condensed-medium;
+
+  font-size: 34px;
+  line-height: 32px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding: $pad-xxxl $pad-xxxxl $pad-xxxxl;
+  border-radius: 8px 8px 0 0;
+}
+
+.modal-body {
+  flex: auto;
+  display: flex;
+  padding: 0 $pad-xxxxl;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  padding: $pad-xxxxl 0;
+  margin: $margin-xxxl $margin-xxxxl 0;
+  border-top: 2px solid $color-black-10;
+  border-radius: 0 0 8px 8px;
+
+  @include xs-to-md {
+    padding: $pad-lg;
+    margin: 0 $margin-lg 0;
+  }
+}
+
+@include xs-to-md {
+  .modal {
+    padding: 0;
+    overflow-y: auto;
+    height: 100%;
+    max-height: 100%;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    z-index: 999999;
+  }
+
+  .modal-content {
+    min-height: 568px;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    @include barlow-semi-bold;
+
+    font-size: 16px;
+    line-height: 20px;
+    padding: $pad-lg;
+    border-radius: 0;
+  }
+
+  .modal-body {
+    padding: 0 $pad-lg;
+    flex-direction: column;
+  }
+
+  .modal-footer {
+    padding: $pad-lg;
+    margin: 0 $margin-lg 0;
+    border-radius: 0;
+  }
+}
+
+.tabs {
+  border-right: 2px solid $color-black-10;
+
+  li {
+    @include roboto-regular;
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    color: $color-black-80;
+    padding: $pad-sm $pad-xxxxl $pad-sm 0;
+    margin-top: -$margin-sm;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &.active,
+    &:hover {
+      color: $color-turq-160;
+    }
+  }
+}
+
+.tabContent {
+  flex: 0 0 auto;
+  padding-left: $pad-xxxxl;
+  width: calc(100% - 134px);
+
+  .title {
+    @include barlow-semi-bold;
+
+    font-size: 20px;
+    line-height: 20px;
+    color: inherit;
+    margin-bottom: $margin-xxl;
+  }
+}
+
+@include xs-to-md {
+  .tabs {
+    border: none;
+  }
+
+  .tabContent {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: $pad-lg 0 0;
+    margin: $margin-sm 0 0;
+    border-top: 2px solid $color-black-10;
+
+    .title {
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: margin-lg;
+    }
+  }
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px 4px;
+  min-height: 152px;
+
+  @include xs-to-md {
+    flex: 1 1 auto;
+    height: calc(100vh - 386px);
+    overflow-y: auto;
+  }
+}
+
+.skillListItem {
+  @include roboto-regular;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  color: $color-tc-white;
+  text-transform: capitalize;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: $pad-xs $pad-sm;
+  background-color: $color-teal-140;
+  border: 1px solid $color-teal-140;
+  border-radius: 4px;
+  cursor: default;
+
+  .close {
+    cursor: pointer;
+
+    svg {
+      display: block;
+    }
+  }
+
+  &.non-removable {
+    color: $color-black-100;
+    background-color: $color-tc-white;
+
+    .close {
+      display: none;
+    }
+
+    &.selected {
+      color: $color-tc-white;
+      background-color: $color-teal-140;
+
+      .close {
+        display: block;
+      }
+    }
+  }
+}
+
+.button-save {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: $color-turq-160 !important;
+  color: $color-tc-white !important;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

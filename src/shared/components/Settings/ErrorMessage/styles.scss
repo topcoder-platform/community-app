@@ -6,11 +6,11 @@
   &.active {
     @include roboto-medium;
 
-    display: inline;
+    display: block;
     border-radius: 5px;
     color: $tc-red-110;
     font-size: 12px;
-    margin: 0 0 0 10px;
+    margin: 10px 0 0 10px;
   }
 
   &.active-margin {

@@ -1,15 +1,17 @@
 
+import { TABS } from '../../actions/page/settings';
+
 export const SCREEN_SIZE = {
   SM: 767,
 };
 
 export const SETTINGS_TABS = [
-  { title: 'Profile', link: 'profile' },
-  { title: 'Experience & Skills', link: 'skills' },
-  { title: 'Topcoder & You', link: 'tracks' },
-  { title: 'Tools', link: 'tools' },
-  { title: 'Account', link: 'accounts' },
-  { title: 'Preferences', link: 'preferences' },
+  { title: 'Profile', link: TABS.PROFILE },
+  { title: 'Experience & Skills', link: TABS.SKILLS },
+  { title: 'Topcoder & You', link: TABS.TRACKS },
+  { title: 'Tools', link: TABS.TOOLS },
+  { title: 'Account', link: TABS.ACCOUNTS },
+  { title: 'Preferences', link: TABS.PREFERENCES },
 ];
 
 export const PROFILE_SETTINGS = {
@@ -42,3 +44,18 @@ export const TOPCODER_AND_YOU = {
     title: 'Your Communities',
   },
 };
+
+export const INTERESTS_AT_TOPCODER = [
+  'Top Paying Work',
+  'Skill Building / Upskilling',
+  'Work with Top Companies',
+  'Compete (Code & Design Challenges)',
+  'Full Time Freelance Work',
+  'Have Fun',
+  'Gain Technical Experience',
+  'Prepare for an interview',
+  'Competitive Programming',
+  'Earn Extra Money',
+  'Connect With Smart People',
+  'Explore / Not Sure',
+];

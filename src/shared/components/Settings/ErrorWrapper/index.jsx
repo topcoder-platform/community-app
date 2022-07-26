@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PT from 'prop-types';
+import { logger } from 'topcoder-react-lib';
 
 import './styles.scss';
 
@@ -8,38 +9,31 @@ export default class ErrorWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasError: false,
-      info: null,
+      error: null,
+      errorInfo: null,
     };
   }
 
   componentDidCatch(error, errorInfo) {
     // Catch errors in any child components and re-renders with an error message
     this.setState({
-      hasError: true,
-      info: errorInfo.componentStack,
+      error,
+      errorInfo,
     });
   }
 
   render() {
-    const { hasError, info } = this.state;
+    const { error, errorInfo } = this.state;
     const { children } = this.props;
-    let isCurrentTab = false;
 
-    if (hasError) {
-      if (info.toString().includes(children.type.displayName)) {
-        isCurrentTab = true;
-      }
+    if (error) {
+      logger.error(error, errorInfo);
 
-      if (isCurrentTab) {
-        return (
-          <div styleName="container">
-            <h4>{`There was an issue loading the ${children.type.displayName}`}</h4>
-          </div>
-        );
-      }
-
-      return children;
+      return (
+        <div styleName="container">
+          { process.env.NODE_ENV !== 'production' ? `${error.name}: ${error.message}` : 'There was an issue loading the page' }
+        </div>
+      );
     }
 
     return children;

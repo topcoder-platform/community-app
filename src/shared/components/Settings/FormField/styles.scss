@@ -5,13 +5,14 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  margin-bottom: 16px;
 
   .form-field {
-    border: 1px solid #aaa;
+    // border: 1px solid #aaa;
     border-radius: 4px;
     background: white;
-    padding-top: 24px;
-    margin-bottom: 10px;
+    // padding-top: 24px;
+    // margin-bottom: 10px;
 
     .label {
       @include roboto-regular;
@@ -21,8 +22,9 @@
       line-height: 10px;
       position: absolute;
       top: 10px;
-      left: 12px;
+      left: 11px;
       color: $listing-checkbox-green;
+      z-index: 1;
     }
   }
 }

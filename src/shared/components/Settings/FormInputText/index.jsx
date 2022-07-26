@@ -8,20 +8,23 @@ import PT from 'prop-types';
 import cn from 'classnames';
 import './styles.scss';
 
-const FormInputText = ({ styleName, ...props }) => (
+const FormInputText = ({ styleName, value, ...props }) => (
   <input
     type="text"
     styleName={cn('form-input-text', styleName || '')}
     {...props}
+    value={value || ''}
   />
 );
 
 FormInputText.defaultProps = {
-  styleName: {},
+  styleName: '',
+  value: '',
 };
 
 FormInputText.propTypes = {
-  styleName: PT.shape(),
+  styleName: PT.string,
+  value: PT.string,
 };
 
 export default FormInputText;

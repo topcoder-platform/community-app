@@ -6,7 +6,6 @@
  */
 import _ from 'lodash';
 import React from 'react';
-import ReactSelect from 'react-select';
 import PT from 'prop-types';
 import moment from 'moment';
 
@@ -14,7 +13,7 @@ import ErrorMessage from 'components/Settings/ErrorMessage';
 import FormInputText from 'components/Settings/FormInputText';
 import FormField from 'components/Settings/FormField';
 import AddItemIcon from 'assets/images/settings-add-item.svg';
-import DatePickerGUIKit from '../../../GUIKit/Datepicker';
+import FormInputDatePicker from 'components/Settings/FormInputDatePicker';
 
 import EducationList from './List';
 
@@ -38,56 +37,6 @@ const Learning = (props) => {
     onHandleAddEducation,
     onCancelEditStatus,
   } = props;
-
-  const renderResetButton = () => (
-    <div style={{ display: 'flex' }} className="reset-btn-container">
-      <button type="button" onClick={() => {}}>RESET</button>
-    </div>
-  );
-
-  const renderDatePickerMonthElement = ({ month, onMonthSelect, onYearSelect }) => {
-    const monthOptions = moment.months().map((label, value) => ({
-      value, label,
-    }));
-
-    const yearOptions = [];
-    for (let year = moment().year(), i = year; i > year - 99; i -= 1) {
-      yearOptions.push({ value: i, label: `${i}` });
-    }
-
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div>
-          <ReactSelect
-            value={month.month()}
-            options={monthOptions}
-            onChange={(option) => {
-              onMonthSelect(month, option.value);
-            }}
-            placeholder="Month"
-            clearable={false}
-            autosize={false}
-            searchable={false}
-            autoBlur={false}
-          />
-        </div>
-        <div>
-          <ReactSelect
-            value={month.year()}
-            options={yearOptions}
-            onChange={(option) => {
-              onYearSelect(month, option.value);
-            }}
-            placeholder="Year"
-            clearable={false}
-            autosize={false}
-            searchable={false}
-            autoBlur={false}
-          />
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div styleName="education-container">
@@ -139,18 +88,17 @@ const Learning = (props) => {
           <div styleName="date-wrapper">
             {/* Start Date */}
             <FormField label="Degree">
-              <div styleName="datePicker">
-                <DatePickerGUIKit
-                  readOnly
-                  displayFormat="MM/DD/YYYY"
-                  placeholder="MM/DD/YYYY"
-                  isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
-                  value={newEducation.timePeriodFrom}
-                  id="date-from1"
-                  onChange={date => onUpdateDate(date, 'timePeriodFrom')}
-                  renderMonthElement={renderDatePickerMonthElement}
-                />
-              </div>
+
+              <FormInputDatePicker
+                readOnly
+                displayFormat="MM/DD/YYYY"
+                placeholder="MM/DD/YYYY"
+                isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
+                value={newEducation.timePeriodFrom}
+                id="date-from1"
+                onChange={date => onUpdateDate(date, 'timePeriodFrom')}
+              />
+
               {isSubmit && (
                 <ErrorMessage
                   invalid={startDateInvalid}
@@ -161,10 +109,10 @@ const Learning = (props) => {
 
             {/* End Date */}
             <FormField label="End Date (or expected)">
-              <div styleName="datePicker">
-                {
+
+              {
                   newEducation.graduated ? (
-                    <DatePickerGUIKit
+                    <FormInputDatePicker
                       readOnly
                       displayFormat="MM/DD/YYYY"
                       placeholder="MM/DD/YYYY"
@@ -172,11 +120,9 @@ const Learning = (props) => {
                       value={newEducation.timePeriodTo}
                       id="date-to1"
                       onChange={date => onUpdateDate(date, 'timePeriodTo')}
-                      renderCalendarInfo={() => renderResetButton}
-                      renderMonthElement={renderDatePickerMonthElement}
                     />
                   ) : (
-                    <DatePickerGUIKit
+                    <FormInputDatePicker
                       readOnly
                       displayFormat="MM/DD/YYYY"
                       placeholder="MM/DD/YYYY"
@@ -185,12 +131,10 @@ const Learning = (props) => {
                       id="date-to1"
                       onChange={date => onUpdateDate(date, 'timePeriodTo')}
                       allowFutureYear
-                      renderCalendarInfo={() => renderResetButton}
-                      renderMonthElement={renderDatePickerMonthElement}
                     />
                   )
                 }
-              </div>
+
               {
                 isSubmit && (
                   <ErrorMessage
@@ -225,31 +169,37 @@ const Learning = (props) => {
           </div>
         </form>
         <div styleName="edit-text-wrapper">
-          <AddItemIcon />
-          <span
-            role="presentation"
-            styleName="edit-text"
-            onClick={onHandleAddEducation}
-          >
-            {
-              isEdit ? (<React.Fragment>Edit Another School / Degree</React.Fragment>)
-                : (<React.Fragment>Add Another School / Degree</React.Fragment>)
-            }
-          </span>
-        </div>
-        {
-          isEdit && (
-            <div styleName="button-cancel">
+          {!isEdit && (
+            <span
+              role="presentation"
+              styleName="edit-text"
+              onClick={onHandleAddEducation}
+            >
+              <AddItemIcon /> Add Another School / Degree
+            </span>
+          )}
+
+          { isEdit && (
+            <React.Fragment>
               <span
                 role="presentation"
                 styleName="edit-text"
-                onClick={onCancelEditStatus}
+                onClick={onHandleAddEducation}
               >
-                Cancel
+                Edit Another School / Degree
               </span>
-            </div>
-          )
-        }
+              <span styleName="button-cancel">
+                <span
+                  role="presentation"
+                  styleName="edit-text"
+                  onClick={onCancelEditStatus}
+                >
+                  Cancel
+                </span>
+              </span>
+            </React.Fragment>
+          )}
+        </div>
       </div>
     </div>
   );

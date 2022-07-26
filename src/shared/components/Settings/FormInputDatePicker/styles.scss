@@ -1,0 +1,151 @@
+@import "~styles/mixins";
+
+.formInputDatePicker {
+  :global {
+    @import '~react-select/dist/react-select';
+
+    .SingleDatePicker {
+      .SingleDatePickerInput {
+        .DateInput {
+          position: relative;
+
+          &::before {
+            content: url('assets/images/calendar-green.svg');
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            margin: 0 0 4px 10px;
+          }
+
+          .DateInput_input {
+            height: auto;
+            padding: 22px 0 2px;
+            padding-left: 28px;
+            padding-right: 28px;
+            margin: 0;
+            line-height: 22px;
+            cursor: pointer;
+
+            &::placeholder {
+              @include roboto-regular;
+
+              font-size: 14px;
+              line-height: 22px;
+              color: $color-black-60;
+            }
+          }
+        }
+
+        .SingleDatePickerInput_calendarIcon {
+          width: 24px !important;
+          padding-top: 10px !important;
+          padding-right: 10px !important;
+
+          &::before {
+            content: url('assets/images/dropdown-arrow.svg');
+            display: block;
+          }
+
+          svg {
+            display: none;
+          }
+        }
+      }
+
+      @include xs-to-md {
+        .SingleDatePickerInput {
+          .DateInput {
+            .DateInput_input {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    .DayPicker_weekHeaders {
+      z-index: 0;
+    }
+
+    .CalendarMonth_caption {
+      .Select {
+        .Select-control {
+          @include roboto-medium;
+
+          font-size: 16px;
+          line-height: 24px;
+          color: $tc-gray-90;
+          height: 24px;
+          min-width: 120px;
+          border: none;
+          box-shadow: none !important;
+          cursor: pointer;
+
+          .Select-value {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 25px;
+          }
+        }
+
+        .Select-menu-outer {
+          position: absolute;
+          top: calc(100% + 2px);
+          max-height: 320px;
+          border: 1px solid #767676;
+          border-radius: 0;
+
+          .Select-menu {
+            background-color: $tc-white;
+
+            .Select-option {
+              font-size: 16px;
+              line-height: 30px;
+              color: $tc-gray-90;
+              padding: 0 15px;
+
+              &.is-selected {
+                font-weight: bold;
+                background-color: #229173;
+              }
+
+              &:hover,
+              &.is-focused {
+                background-color: #229173;
+                color: $tc-white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .CalendarMonthGrid {
+      background: transparent !important;
+
+      .CalendarMonth {
+        background: transparent !important;
+      }
+    }
+
+    .reset-btn-container {
+      padding: 16px 0 15px;
+      margin: 0 15px;
+      border-top: 2px solid $listing-filter-bg;
+
+      button {
+        @include roboto-bold;
+
+        font-size: 12px;
+        line-height: 22px;
+        color: $listing-checkbox-green;
+        padding: 0 15px;
+        background: none;
+        border: 1.5px solid currentColor;
+        border-radius: 24px;
+      }
+    }
+  }
+}

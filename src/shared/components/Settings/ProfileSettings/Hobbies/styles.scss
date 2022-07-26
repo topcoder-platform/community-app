@@ -3,6 +3,9 @@
 
 .edit-text-wrapper {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px 36px;
 }
 
 .edit-text {
@@ -13,8 +16,10 @@
   line-height: 22px;
   text-align: center;
   color: $listing-checkbox-green;
-  margin-left: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .hide {

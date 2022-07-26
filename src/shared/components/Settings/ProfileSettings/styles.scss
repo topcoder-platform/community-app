@@ -143,63 +143,6 @@
   }
 }
 
-/*
- * React Select component styling
- */
-.basic-info-container .form-container .row .field :global .Select,
-.basic-info-container .form-container .row .field :global .Select-value span,
-.basic-info-container .form-container .row .field :global .Select-menu-outer,
-.basic-info-container.form-container .row .field :global .Select-placeholder,
-.basic-info-container .form-container .row .field :global .Select-input input {
-  color: $tc-gray-80;
-  font-size: 15px;
-
-  @include upto-sm {
-    margin-top: 5px;
-  }
-}
-
-.basic-info-container div[class="Select-control"] {
-  height: 40px;
-
-  div[class="Select-input"] {
-    height: 38px;
-
-    @include placeholder {
-      text-transform: capitalize;
-    }
-  }
-
-  div[class="Select-placeholder"] {
-    height: 38px;
-    line-height: 40px !important;
-
-    @include upto-sm {
-      line-height: 38px !important;
-    }
-  }
-
-  div[class="Select-value"] {
-    line-height: 40px !important;
-  }
-}
-
-.basic-info-container .form-container .row .field :global .Select-placeholder {
-  color: $tc-gray-50;
-}
-
-.date-picker {
-  padding: 0;
-  margin: 0;
-  border: none;
-}
-
-.date-picker-sm {
-  padding: 0;
-  margin: 0;
-  border: none;
-}
-
 .col-2,
 .col-percent50,
 .col-percent35 {

@@ -6,13 +6,14 @@
   color: #767676 !important;
   font-size: 14px !important;
   outline: none !important;
-  border: 0 !important;
+  border: 1px solid #aaa !important;
   width: 100% !important;
   min-height: 120px !important;
   border-radius: 4px;
   margin-bottom: 10px;
   resize: vertical;
   box-shadow: none !important;
+  padding: 22px 9px 2px 9px;
 
   &:hover {
     box-shadow: none !important;
