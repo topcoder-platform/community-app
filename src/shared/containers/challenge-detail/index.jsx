@@ -63,6 +63,8 @@ import ogQAChallenge from
   '../../../assets/images/open-graph/challenges/05-QA.png';
 import ogDSChallenge from
   '../../../assets/images/open-graph/challenges/04-Data-Science.png';
+import ogMMChallenge from
+'../../../assets/images/open-graph/challenges/MM-Challenge.png';
 
 /* A fallback image, just in case we missed some corner case. */
 import ogImage from
@@ -81,7 +83,7 @@ const DAY = 24 * 60 * MIN;
  * @return {String}
  */
 function getOgImage(challenge) {
-  const { legacy } = challenge;
+  const { legacy, tags } = challenge;
   const { subTrack } = legacy;
   if (challenge.name.startsWith('LUX -')) return ogBigPrizesChallenge;
   if (challenge.name.startsWith('RUX -')) return ogBigPrizesChallenge;
@@ -105,13 +107,15 @@ function getOgImage(challenge) {
     case SUBTRACKS.QA:
     case SUBTRACKS.TEST_SUITES:
       return ogQAChallenge;
-    case SUBTRACKS.DS: return ogDSChallenge;
+    case SUBTRACKS.MM:
+      if (challenge.tags && challenge.tags.indexOf(COMPETITION_TRACKS_V3.DS) !== -1) return ogDSChallenge;
+      return ogMMChallenge;
     default:
   }
   switch (challenge.track) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
     case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
-    case COMPETITION_TRACKS_V3.DS: return ogDSChallenge;
+    case COMPETITION_TRACKS_V3.DS: return ogMMChallenge;
     default: return ogImage;
   }
 }
