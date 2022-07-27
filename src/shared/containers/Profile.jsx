@@ -171,7 +171,7 @@ ProfileContainer.propTypes = {
   handleParam: PT.string.isRequired,
   info: PT.shape(),
   loadingError: PT.bool.isRequired,
-  loadMarathon: PT.bool.isRequired,
+  loadMarathon: PT.func.isRequired,
   loadProfile: PT.func.isRequired,
   loadMemberGroups: PT.func.isRequired,
   profileForHandle: PT.string,

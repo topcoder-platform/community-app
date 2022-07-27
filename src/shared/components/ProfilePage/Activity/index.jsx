@@ -20,7 +20,7 @@ const isHidden = (subtrack) => {
   return false;
 };
 
-const Activity = ({ memberStats, hasMM, handle }) => {
+const Activity = ({ memberStats, hasMM, onClick }) => {
   /**
    * Inspects a subtrack and determines if the member is active
    * based on submissions and/or ranks.
@@ -113,16 +113,16 @@ const Activity = ({ memberStats, hasMM, handle }) => {
   return (
     <div styleName="activity">
       <div styleName="header">
-        <span>TOPCODER ACTIVITY</span>
+        <span>TC ACTIVITY</span>
       </div>
 
-      {activeTracks.map(activeTrack => (
+      {activeTracks.map((activeTrack, index) => (
         <ActivityCard
-          stats={memberStats}
+          key={`${activeTrack.name}-${index}`} /* eslint-disable-line react/no-array-index-key */
           trackName={activeTrack.name}
           subTracks={activeTrack.subTracks}
           hasMM={hasMM}
-          handle={handle}
+          onClick={onClick}
         />
       ))}
     </div>
@@ -136,7 +136,7 @@ Activity.defaultProps = {
 Activity.propTypes = {
   memberStats: PT.arrayOf(PT.shape()),
   hasMM: PT.bool.isRequired,
-  handle: PT.string.isRequired,
+  onClick: PT.func.isRequired,
 };
 
 export default Activity;

@@ -1,0 +1,137 @@
+@import '~styles/mixins';
+
+table.challenges {
+  width: 100%;
+  padding: 32px, 0;
+
+  tbody {
+    width: 100%;
+    display: block;
+    max-height: 365px;
+    overflow-y: auto;
+
+    @include roboto-regular;
+
+    font-size: 16px;
+    line-height: 24px;
+
+    tr {
+      display: flex;
+      justify-content: space-between;
+      border-radius: 8px;
+      width: 100%;
+      padding: 24px;
+
+      &.even {
+        background: #f4f4f4;
+      }
+
+      &.odd {
+        background: #fff;
+      }
+
+      td {
+        display: flex;
+
+        &.challenge-info {
+          justify-content: flex-start;
+          align-items: baseline;
+          gap: 16px;
+
+          .challenge-name {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 26px;
+          }
+        }
+
+        &.challenge-result {
+          justify-content: flex-end;
+          align-items: center;
+          gap: 16px;
+
+          /*
+          .score {
+            .bold {
+              font-weight: 500;
+            }
+          }
+          */
+        }
+
+        &.hidden {
+          visibility: hidden;
+        }
+      }
+    }
+
+    @include xs-to-sm {
+      max-height: 360px;
+
+      tr {
+        flex-direction: column;
+        padding: 16px;
+        gap: 8px;
+
+        td {
+          &.challenge-info {
+            flex-direction: column;
+            gap: 0;
+
+            .challenge-name,
+            .challenge-date {
+              font-size: 14px;
+              line-height: 20px;
+            }
+          }
+
+          &.challenge-result {
+            justify-content: flex-start;
+
+            .score {
+              display: none;
+            }
+          }
+
+          &.hidden {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  color: #fff;
+
+  @include roboto-bold;
+
+  font-size: 14px;
+  line-height: 30px;
+
+  .text {
+    color: #fff;
+  }
+
+  @include xs-to-sm {
+    font-size: 12px;
+    line-height: 26px;
+  }
+}
+
+.participant {
+  background: #767676;
+}
+
+.placement {
+  background: #227681;
+
+  .place {
+    font-weight: 400;
+  }
+}

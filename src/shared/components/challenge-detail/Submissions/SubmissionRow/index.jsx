@@ -20,7 +20,7 @@ import style from './style.scss';
 
 export default function SubmissionRow({
   isMM, openHistory, member, submissions, score, toggleHistory,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating,
+  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
 }) {
   const {
     submissionTime, provisionalScore, status, submissionId,
@@ -59,19 +59,19 @@ export default function SubmissionRow({
   };
 
   return (
-    <div styleName="wrapper">
+    <div styleName={`wrapper ${viewAsTable ? 'wrapper-as-table' : ''} `}>
       <div styleName="row">
         {
           isMM ? (
             <React.Fragment>
-              <div styleName="col-1 col">
-                <div styleName="mobile-header">FINAL RANK</div>
+              <div styleName={`col-1 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+                <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>FINAL RANK</div>
                 {
                     isReviewPhaseComplete ? finalRank || 'N/A' : 'N/A'
                   }
               </div>
-              <div styleName="mobile-header">PROVISIONAL RANK</div>
-              <div styleName="col-2 col">
+              <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>PROVISIONAL RANK</div>
+              <div styleName={`col-2 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
                 <div>
                   { provisionalRank || 'N/A' }
                 </div>
@@ -79,14 +79,14 @@ export default function SubmissionRow({
             </React.Fragment>
           ) : null
         }
-        <div styleName="col-3 col">
-          <div styleName="mobile-header">RATING</div>
+        <div styleName={`col-3 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>RATING</div>
           <span styleName={`col level-${getRatingLevel(rating)}`}>
             {rating || '-'}
           </span>
         </div>
-        <div styleName="col-4 col">
-          <div styleName="mobile-header">USERNAME</div>
+        <div styleName={`col-4 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>USERNAME</div>
           <a
             href={`${window.origin}/members/${member}`}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
@@ -96,26 +96,26 @@ export default function SubmissionRow({
             {member || '-'}
           </a>
         </div>
-        <div styleName="col-5 col">
-          <div styleName="mobile-header">FINAL SCORE</div>
+        <div styleName={`col-5 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>FINAL SCORE</div>
           <div>
             {getFinalReviewResult()}
           </div>
         </div>
-        <div styleName="col-6 col">
-          <div styleName="mobile-header">PROVISIONAL SCORE</div>
+        <div styleName={`col-6 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>PROVISIONAL SCORE</div>
           <div>
             {getInitialReviewResult() ? getInitialReviewResult() : 'N/A'}
           </div>
         </div>
-        <div styleName="col-7 col">
-          <div styleName="mobile-header">SUBMISSION DATE</div>
+        <div styleName={`col-7 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>SUBMISSION DATE</div>
           <div styleName="time">
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
-        <div styleName="col-8 col">
-          <div styleName="mobile-header">ACTIONS</div>
+        <div styleName={`col-8 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>ACTIONS</div>
           <a
             onClick={toggleHistory}
             onKeyPress={toggleHistory}
@@ -240,4 +240,5 @@ SubmissionRow.propTypes = {
   finalRank: PT.number,
   provisionalRank: PT.number,
   onShowPopup: PT.func.isRequired,
+  viewAsTable: PT.bool.isRequired,
 };
