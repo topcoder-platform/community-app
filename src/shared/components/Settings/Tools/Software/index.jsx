@@ -11,13 +11,17 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import ErrorMessage from 'components/Settings/ErrorMessage';
-import Select from 'components/Select';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+import FormField from 'components/Settings/FormField';
+import FormInputText from 'components/Settings/FormInputText';
+import AddItemIcon from 'assets/images/settings-add-item.svg';
+import FormInputSelect from 'components/Settings/FormInputSelect';
+import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
+import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import ConfirmationModal from '../../ConfirmationModal';
 import dropdowns from './dropdowns.json';
 import SoftwareList from './List';
 
-import './styles.scss';
+import styles from './styles.scss';
 
 
 export default class Software extends ConsentComponent {
@@ -82,7 +86,7 @@ export default class Software extends ConsentComponent {
    * @param e event
    */
   onHandleAddSoftware(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { newSoftware } = this.state;
     this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newSoftware)) {
@@ -297,7 +301,7 @@ export default class Software extends ConsentComponent {
 
   render() {
     const {
-      softwareTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      softwareTrait, showConfirmation, indexNo, isEdit,
       formInvalid, isSubmit,
     } = this.state;
     const softwareItems = softwareTrait.traits
@@ -305,201 +309,113 @@ export default class Software extends ConsentComponent {
     const { newSoftware } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
     return (
-      <div styleName="software-container">
+      <React.Fragment>
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
         {showConfirmation
         && (
           <ConfirmationModal
-            onConfirm={() => this.showConsent(this.onDeleteSoftware.bind(this, indexNo))}
+            onConfirm={() => this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo))}
             onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
-            name={softwareTrait.traits.data[indexNo].name}
+            name={serviceProviderTrait.traits.data[indexNo].name}
           />
         )}
-        <h1>
-          Software
-        </h1>
-        <div styleName={`sub-title ${softwareItems.length > 0 ? '' : 'hidden'}`}>
-          Your software
-        </div>
-        {
-          !isMobileView
-          && (
-            <SoftwareList
-              softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onHandleDeleteSoftware}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditSoftware}
-            />
-          )
-        }
-        <div styleName={`sub-title ${softwareItems.length > 0 ? 'second' : 'first'}`}>
-          {
-            isEdit ? (<React.Fragment>Edit software</React.Fragment>)
-              : (<React.Fragment>Add a new software</React.Fragment>)
-          }
-        </div>
-        <div styleName="form-container-default">
-          <form name="device-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="softwareType">
-                  Type
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <Select
-                  name="softwareType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
-                  value={newSoftware.softwareType}
-                  placeholder="Software Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                  disabled={!canModifyTrait}
-                />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && formInvalid} addMargin message="Type cannot be empty" />
-                  )
-                }
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newSoftware.name.trim()) && formInvalid} message="Name cannot be empty" />
-                  )
-                }
-              </div>
-            </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddSoftware}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit software to your list</React.Fragment>)
-                    : (<React.Fragment>Add software to your list</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
+        <div styleName="form-container">
+          <Collapse>
+            <h2 styleName="form-title">
+              Software
+            </h2>
             {
-              isEdit && (
-                <div styleName="button-cancel">
+              softwareItems.length > 0
+              && (
+                <SoftwareList
+                  softwareList={{ items: softwareItems }}
+                  onDeleteItem={this.onHandleDeleteSoftware}
+                  disabled={!canModifyTrait}
+                  onEditItem={this.onEditSoftware}
+                />
+              )
+            }
+            <div styleName="form-content">
+              <div styleName="form-label">
+                {
+                  isEdit ? (<React.Fragment>Edit software</React.Fragment>)
+                    : (<React.Fragment>Add a new software</React.Fragment>)
+                }
+              </div>
+              <div styleName="form-body">
+                <form styleName="software-form" noValidate autoComplete="off">
+                  <FormField label="Software Type *" style={{ flex: '0 0 100%' }}>
+                    <FormInputSelect
+                      name="softwareType"
+                      options={dropdowns.type}
+                      onChange={this.onUpdateSelect}
+                      value={newSoftware.softwareType}
+                      placeholder="Select"
+                      labelKey="name"
+                      valueKey="name"
+                      clearable={false}
+                      disabled={!canModifyTrait}
+                    />
+                    {
+                      isSubmit && (
+                        <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && formInvalid} addMargin message="Type cannot be empty" />
+                      )
+                    }
+                  </FormField>
+
+                  <FormField label="Software Name *" style={{ flex: '0 0 100%' }}>
+                    <FormInputText
+                      disabled={!canModifyTrait}
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Type here the Software Name"
+                      onChange={this.onUpdateInput}
+                      value={newSoftware.name}
+                      maxLength="64"
+                      required
+                    />
+                    {
+                      isSubmit && (
+                        <ErrorMessage invalid={_.isEmpty(newSoftware.name.trim()) && formInvalid} message="Name cannot be empty" />
+                      )
+                    }
+                  </FormField>
+                </form>
+              </div>
+              <div styleName="form-footer">
+                {!isEdit && (
+                <PrimaryButton
+                  theme={{ button: styles.button }}
+                  onClick={this.onHandleAddSoftware}
+                >
+                  <AddItemIcon styleName="icon" /> Add Software to Your List
+                </PrimaryButton>
+                )}
+
+                { isEdit && (
+                <React.Fragment>
                   <PrimaryButton
-                    styleName="complete"
+                    theme={{ button: styles.button }}
+                    onClick={this.onHandleAddSoftware}
+                  >
+                    Edit Software to Your List
+                  </PrimaryButton>
+                  <SecondaryButton
+                    theme={{ button: styles.button }}
                     onClick={this.onCancelEditStatus}
                   >
                     Cancel
-                  </PrimaryButton>
-                </div>
-              )
-            }
-          </div>
-        </div>
-        <div styleName="form-container-mobile">
-          <form name="software-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <p>
-                {
-                  isEdit ? (<React.Fragment>Edit Software</React.Fragment>)
-                    : (<React.Fragment>Add Software</React.Fragment>)
-                }
-              </p>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="softwareType">
-                  Type
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <Select
-                  name="softwareType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
-                  value={newSoftware.softwareType}
-                  placeholder="Software Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                  disabled={!canModifyTrait}
-                />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && formInvalid} addMargin message="Type cannot be empty" />
-                  )
-                }
-              </div>
-              <div styleName="field col-2">
-                <label htmlFor="name">
-                  Name
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newSoftware.name) && formInvalid} message="Name cannot be empty" />
-                  )
-                }
+                  </SecondaryButton>
+                </React.Fragment>
+                )}
               </div>
             </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddSoftware}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit Software</React.Fragment>)
-                    : (<React.Fragment>Add Software</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
-            {
-              isEdit && (
-                <div styleName="button-cancel">
-                  <PrimaryButton
-                    styleName="complete"
-                    onClick={this.onCancelEditStatus}
-                  >
-                    Cancel
-                  </PrimaryButton>
-                </div>
-              )
-            }
-          </div>
+          </Collapse>
         </div>
-        {
-          isMobileView
-          && (
-            <SoftwareList
-              softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onHandleDeleteSoftware}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditSoftware}
-            />
-          )
-        }
-      </div>
+      </React.Fragment>
     );
   }
 }

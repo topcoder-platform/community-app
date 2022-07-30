@@ -359,17 +359,22 @@ export default class Languages extends ConsentComponent {
             <h2 styleName="form-title">
               Language Skills
             </h2>
+            {
+              languageItems.length > 0
+              && (
+                <LanguageList
+                  languageList={{ items: languageItems }}
+                  onDeleteItem={this.onHandleDeleteLanguage}
+                  onEditItem={this.onEditLanguage}
+                />
+              )
+            }
             <div styleName="form-content">
               <div styleName="form-label">
                 Let customers know the langagues you speak.
                 Multilingual? Magnifique.
               </div>
               <div styleName="form-body">
-                <LanguageList
-                  languageList={{ items: languageItems }}
-                  onDeleteItem={this.onHandleDeleteLanguage}
-                  onEditItem={this.onEditLanguage}
-                />
                 <form styleName="language-form" noValidate autoComplete="off">
                   <FormField label="Language *" style={{ flex: '0 0 100%' }}>
                     <FormInputSelect

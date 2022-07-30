@@ -11,13 +11,16 @@ import React from 'react';
 import PT from 'prop-types';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import ErrorMessage from 'components/Settings/ErrorMessage';
+import FormField from 'components/Settings/FormField';
+import AddItemIcon from 'assets/images/settings-add-item.svg';
+import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
+import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import InputSelect from 'components/InputSelect';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../ConfirmationModal';
 import DeviceList from './List';
 
-import './styles.scss';
+import styles from './styles.scss';
 
 export default class Devices extends ConsentComponent {
   constructor(props) {
@@ -83,7 +86,7 @@ export default class Devices extends ConsentComponent {
    * @param e event
    */
   onHandleAddDevice(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { newDevice, deviceTrait } = this.state;
     const { clearDeviceState } = this.props;
     this.setState({ isSubmit: true });
@@ -289,7 +292,7 @@ export default class Devices extends ConsentComponent {
 
   /**
    * Update deviceType
-   * @param e event
+   * @param option selected value
    */
   onUpdateType(val) {
     const {
@@ -452,7 +455,7 @@ export default class Devices extends ConsentComponent {
       isOsesLoading,
     } = lookupData;
     const {
-      deviceTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      deviceTrait, showConfirmation, indexNo, isEdit,
       formInvalid, isSubmit,
     } = this.state;
     const deviceItems = deviceTrait.traits
@@ -460,7 +463,7 @@ export default class Devices extends ConsentComponent {
     const { newDevice } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
     return (
-      <div styleName="devices-container">
+      <React.Fragment>
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
@@ -472,306 +475,130 @@ export default class Devices extends ConsentComponent {
             name={`${deviceTrait.traits.data[indexNo].deviceType}${!_.isEmpty(deviceTrait.traits.data[indexNo].manufacturer) ? ` ${deviceTrait.traits.data[indexNo].manufacturer}` : ''}`}
           />
         )}
-        <h1>
-          Devices
-        </h1>
-        <div styleName={`sub-title ${deviceItems.length > 0 ? '' : 'hidden'}`}>
-          Your devices
-        </div>
-        {
-          !isMobileView && deviceItems.length > 0
-          && (
-            <DeviceList
-              deviceList={{ items: deviceItems }}
-              onDeleteItem={this.onHandleDeleteDevice}
-              indexNo={indexNo}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditDevice}
-            />
-          )
-        }
-        <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
-          {
-            isEdit ? (<React.Fragment>Edit device</React.Fragment>)
-              : (<React.Fragment>Add a new device</React.Fragment>)
-          }
-        </div>
-        <div styleName="form-container-default">
-          <form name="device-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="deviceType">
-                  Type
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <InputSelect
-                  name="deviceType"
-                  options={types}
-                  onChange={this.onUpdateType}
-                  value={newDevice.deviceType}
-                  placeholder="Select device Type"
-                  valueKey="name"
-                  labelKey="name"
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && formInvalid} addMargin message="Type cannot be empty" />
-                  )
-                }
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1-no-padding">
-                <label htmlFor="manufacturer">
-                  Manufacturer
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <InputSelect
-                  name="manufacturer"
-                  options={manufacturers}
-                  onChange={this.onUpdateManufacturer}
-                  value={newDevice.manufacturer}
-                  placeholder="Select device Manufacturer"
-                  valueKey="name"
-                  labelKey="name"
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1-no-padding">
-                <label htmlFor="model">
-                  Model
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <InputSelect
-                  name="model"
-                  options={models}
-                  onChange={this.onUpdateModel}
-                  value={newDevice.model}
-                  placeholder="Select device Model"
-                  valueKey="model"
-                  labelKey="model"
-                  onLoadMore={this.onLoadMoreModels}
-                  isLoading={isModelsLoading}
-                  hasMore={hasMoreModels}
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1-no-padding">
-                <label htmlFor="operating-system">
-                  Operating System
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <InputSelect
-                  name="Operating System"
-                  options={oses}
-                  onChange={this.onUpdateOs}
-                  value={newDevice.operatingSystem}
-                  placeholder="Select device Operating System"
-                  valueKey="operatingSystem"
-                  labelKey="operatingSystem"
-                  hasMore={hasMoreOses}
-                  isLoading={isOsesLoading}
-                  onLoadMore={this.onLoadMoreOses}
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-              </div>
-            </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddDevice}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit device to your list</React.Fragment>)
-                    : (<React.Fragment>Add device to your list</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
+        <div styleName="form-container">
+          <Collapse>
+            <h2 styleName="form-title">
+              Your Devices
+            </h2>
             {
-              isEdit && (
-                <div styleName="button-cancel">
-                  <PrimaryButton
-                    styleName="complete"
-                    onClick={this.onCancelEditStatus}
-                  >
-                    Cancel
-                  </PrimaryButton>
-                </div>
+              deviceItems.length > 0
+              && (
+                <DeviceList
+                  deviceList={{ items: deviceItems }}
+                  onDeleteItem={this.onHandleDeleteDevice}
+                  onEditItem={this.onEditDevice}
+                />
               )
             }
-          </div>
-          <div styleName="help-text-container">
-            <div styleName="help-text-label">
-              Don&#39;t see your device?
-            </div>
-            <div styleName="help-text-email">
-              Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
-            </div>
-          </div>
-        </div>
-        <div styleName="form-container-mobile">
-          <form name="device-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <p>
-                {
-                  isEdit ? (<React.Fragment>Edit Device</React.Fragment>)
-                    : (<React.Fragment>Add Device</React.Fragment>)
-                }
-              </p>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="deviceType">
-                  Type
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <InputSelect
-                  name="deviceType"
-                  options={types}
-                  onChange={this.onUpdateType}
-                  value={newDevice.deviceType}
-                  placeholder="Select device Type"
-                  valueKey="name"
-                  labelKey="name"
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && formInvalid} addMargin message="Type cannot be empty" />
-                  )
-                }
+            <div styleName="form-content">
+              <div styleName="form-label">
+                Add a new device to your devices list
               </div>
-              <div styleName="field col-1">
-                <label htmlFor="manufacturer">
-                  Manufacturer
-                  <input type="hidden" />
-                </label>
-                <InputSelect
-                  name="manufacturer"
-                  options={manufacturers}
-                  onChange={this.onUpdateManufacturer}
-                  value={newDevice.manufacturer}
-                  placeholder="Select device Manufacturer"
-                  valueKey="name"
-                  labelKey="name"
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-2">
-                <label htmlFor="model">
-                  Model
-                  <input type="hidden" />
-                </label>
-                <InputSelect
-                  name="model"
-                  options={models}
-                  onChange={this.onUpdateModel}
-                  value={newDevice.model}
-                  placeholder="Select device Model"
-                  valueKey="model"
-                  labelKey="model"
-                  onLoadMore={this.onLoadMoreModels}
-                  isLoading={isModelsLoading}
-                  hasMore={hasMoreModels}
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-              </div>
-              <div styleName="field col-2">
-                <label htmlFor="operating-system">
-                  Operating System
-                  <input type="hidden" />
-                </label>
-                <InputSelect
-                  name="Operating System"
-                  options={oses}
-                  onChange={this.onUpdateOs}
-                  value={newDevice.operatingSystem}
-                  placeholder="Select device Operating System"
-                  valueKey="operatingSystem"
-                  labelKey="operatingSystem"
-                  hasMore={hasMoreOses}
-                  isLoading={isOsesLoading}
-                  onLoadMore={this.onLoadMoreOses}
-                  disabled={!canModifyTrait}
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                />
-              </div>
-            </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddDevice}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit Device</React.Fragment>)
-                    : (<React.Fragment>Add Device</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
-            {
-              isEdit && (
-                <div styleName="button-cancel">
-                  <PrimaryButton
-                    styleName="complete"
-                    onClick={this.onCancelEditStatus}
-                  >
-                    Cancel
-                  </PrimaryButton>
-                </div>
-              )
-            }
-          </div>
-          <div styleName="help-text-container">
-            <div styleName="help-text-label">
-              Don&#39;t see your device?
-            </div>
-            <div styleName="help-text-email">
-              Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
-            </div>
-          </div>
-        </div>
-        {
-          isMobileView
-          && (
-            <DeviceList
-              deviceList={{ items: deviceItems }}
-              indexNo={indexNo}
-              onDeleteItem={this.onHandleDeleteDevice}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditDevice}
-            />
-          )
-        }
+              <div styleName="form-body">
+                <form styleName="device-form" noValidate autoComplete="off">
+                  <FormField label="Device Type *" style={{ flex: '0 0 100%' }}>
+                    <InputSelect
+                      name="Device Type"
+                      options={types}
+                      value={newDevice.deviceType}
+                      onChange={this.onUpdateType}
+                      placeholder="Select"
+                      labelKey="name"
+                      valueKey="name"
+                      disabled={!canModifyTrait}
+                      clearable={false}
+                      onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+                    />
+                    { isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={_.isEmpty(newDevice.deviceType) && formInvalid}
+                        addMargin
+                        message="Type cannot be empty"
+                      />
+                    )
+                    }
+                  </FormField>
 
-      </div>
+                  <FormField label="Manufacturer" style={{ flex: '0 0 100%' }}>
+                    <InputSelect
+                      name="manufacturer"
+                      options={manufacturers}
+                      value={newDevice.manufacturer}
+                      onChange={this.onUpdateManufacturer}
+                      placeholder="Select"
+                      labelKey="name"
+                      valueKey="name"
+                      disabled={!canModifyTrait}
+                      onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+                    />
+                  </FormField>
+
+                  <FormField label="Model" style={{ flex: '0 0 100%' }}>
+                    <InputSelect
+                      name="model"
+                      options={models}
+                      onChange={this.onUpdateModel}
+                      value={newDevice.model}
+                      placeholder="Select device Model"
+                      valueKey="model"
+                      labelKey="model"
+                      onLoadMore={this.onLoadMoreModels}
+                      isLoading={isModelsLoading}
+                      hasMore={hasMoreModels}
+                      disabled={!canModifyTrait}
+                      onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+                    />
+                  </FormField>
+
+                  <FormField label="Operating System" style={{ flex: '0 0 100%' }}>
+                    <InputSelect
+                      name="Operating System"
+                      options={oses}
+                      onChange={this.onUpdateOs}
+                      value={newDevice.operatingSystem}
+                      placeholder="Select device Operating System"
+                      valueKey="operatingSystem"
+                      labelKey="operatingSystem"
+                      hasMore={hasMoreOses}
+                      isLoading={isOsesLoading}
+                      onLoadMore={this.onLoadMoreOses}
+                      disabled={!canModifyTrait}
+                      onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+                    />
+                  </FormField>
+                </form>
+              </div>
+              <div styleName="form-footer">
+                {!isEdit && (
+                <PrimaryButton
+                  theme={{ button: styles.button }}
+                  onClick={this.onHandleAddDevice}
+                >
+                  <AddItemIcon styleName="icon" /> Add Device to Your List
+                </PrimaryButton>
+                )}
+
+                { isEdit && (
+                <React.Fragment>
+                  <PrimaryButton
+                    theme={{ button: styles.button }}
+                    onClick={this.onHandleAddDevice}
+                  >
+                    Edit Device to Your List
+                  </PrimaryButton>
+                  <SecondaryButton
+                    theme={{ button: styles.button }}
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </SecondaryButton>
+                </React.Fragment>
+                )}
+              </div>
+            </div>
+          </Collapse>
+        </div>
+      </React.Fragment>
     );
   }
 }

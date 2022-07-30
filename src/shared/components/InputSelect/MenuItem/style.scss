@@ -1,21 +1,28 @@
 @import '~styles/mixins';
 
 .item {
-  height: 40px;
-  line-height: 40px;
+  @include roboto-regular;
+
+  height: 30px;
+  line-height: 30px;
+  font-weight: 400;
+  font-size: 16px;
   padding-left: 15px;
-  color: #262628;
-  font-size: 14px;
+  color: $tco-black;
 
   &:focus {
     outline: 0;
   }
 
   &:hover {
-    background-color: $tc-dark-blue-10;
+    background-color: $color-turq-160;
+    color: $tc-white;
   }
 }
 
 .is-select {
   @include roboto-bold;
+
+  background-color: $color-turq-160;
+  color: $tc-white;
 }

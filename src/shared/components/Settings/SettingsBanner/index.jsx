@@ -16,6 +16,7 @@ const SettingsBanner = ({
   row,
 }) => {
   const [open, setOpen] = useState(defaultOpen);
+  const childrenArr = React.Children.toArray(children);
 
   return (
     <div styleName="settings-banner">
@@ -35,11 +36,12 @@ const SettingsBanner = ({
       {
         open ? (
           <div styleName="page-row">
+            { childrenArr.length > 1 && childrenArr[0] }
             <PageRow row={row}>
               <div>
                 <p styleName="description">{description}</p>
               </div>
-              {children}
+              {childrenArr.length > 1 ? childrenArr[1] : childrenArr[0] }
             </PageRow>
           </div>
         ) : null

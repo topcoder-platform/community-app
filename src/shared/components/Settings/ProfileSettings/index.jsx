@@ -13,6 +13,8 @@ import { validateStartDate, validateEndDate } from 'utils/settings';
 import ImageInput from './ImageInput';
 import SettingsBanner from '../SettingsBanner';
 import PersonalDetails from './PersonalDetails';
+import EducationList from './Learning/List';
+import HobbyList from './Hobbies/List';
 
 import style from './styles.scss';
 
@@ -281,7 +283,7 @@ class ProfileSettings extends ConsentComponent {
       } else {
         newBasicInfo.birthDate = null;
       }
-    } catch (error) { // eslint-disable-line
+    } catch (error) {
       newBasicInfo.birthDate = null;
     }
 
@@ -924,209 +926,231 @@ class ProfileSettings extends ConsentComponent {
     this.setState({ newHobby, isSubmitHobby: false });
   }
 
-    /**
-     * Get hobby trait
-     * @param userTraits the all user traits
-     */
-    loadHobbyTrait = (userTraits) => {
-      const trait = userTraits.filter(t => t.traitId === 'hobby');
-      const hobbys = trait.length === 0 ? {} : trait[0];
-      return _.assign({}, hobbys);
-    }
+  /**
+   * Get hobby trait
+   * @param userTraits the all user traits
+   */
+  loadHobbyTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'hobby');
+    const hobbys = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, hobbys);
+  }
 
-    /**
-     * Edit hobby by index
-     * @param indexNoHobby the hobby index no
-     */
-    onEditHobby(indexNoHobby) {
-      const { hobbyTrait } = this.state;
+  /**
+   * Edit hobby by index
+   * @param indexNoHobby the hobby index no
+   */
+  onEditHobby(indexNoHobby) {
+    const { hobbyTrait } = this.state;
+    this.setState({
+      newHobby: {
+        hobby: hobbyTrait.traits.data[indexNoHobby].hobby,
+        description: _.isEmpty(hobbyTrait.traits.data[indexNoHobby].description) ? '' : hobbyTrait.traits.data[indexNoHobby].description,
+      },
+      isHobbyEdit: true,
+      indexNoHobby,
+      formInvalidHobby: false,
+      isSubmitHobby: false,
+    });
+  }
+
+  onCancelEditStatusHobby() {
+    const { isHobbyEdit } = this.state;
+    if (isHobbyEdit) {
       this.setState({
-        newHobby: {
-          hobby: hobbyTrait.traits.data[indexNoHobby].hobby,
-          description: _.isEmpty(hobbyTrait.traits.data[indexNoHobby].description) ? '' : hobbyTrait.traits.data[indexNoHobby].description,
-        },
-        isHobbyEdit: true,
-        indexNoHobby,
-        formInvalidHobby: false,
+        isHobbyEdit: false,
+        indexNoHobby: null,
         isSubmitHobby: false,
+        formInvalidHobby: false,
+        newHobby: {
+          hobby: '',
+          description: '',
+        },
       });
     }
+  }
 
-    onCancelEditStatusHobby() {
-      const { isHobbyEdit } = this.state;
-      if (isHobbyEdit) {
-        this.setState({
-          isHobbyEdit: false,
-          indexNoHobby: null,
-          isSubmitHobby: false,
-          formInvalidHobby: false,
-          newHobby: {
-            hobby: '',
-            description: '',
-          },
-        });
-      }
+  render() {
+    const {
+      personalDetails, aboutYou, learningAndEducations, hobbies,
+    } = PROFILE_SETTINGS;
+
+    const canModifyTrait = !this.props.traitRequestCount;
+    if (!canModifyTrait) {
+      this.props.setIsSaving(true);
+    } else {
+      this.props.setIsSaving(false);
     }
+    const { lookupData } = this.props;
+    const countries = _.get(lookupData, 'countries', []).map(country => ({
+      key: country.countryCode,
+      name: country.country,
+    }));
 
-    render() {
-      const {
-        personalDetails, aboutYou, learningAndEducations, hobbies,
-      } = PROFILE_SETTINGS;
+    const {
+      newBasicInfo,
+      newProfileInfo,
+      inputChanged,
+      showConfirmation,
+      showConfirmationHobby,
+      educationTrait,
+      indexNo,
+      formInvalid,
+      isSubmit,
+      isEdit,
+      isMobileView,
+      startDateInvalid,
+      startDateInvalidMsg,
+      endDateInvalid,
+      endDateInvalidMsg,
+      newEducation,
+      hobbyTrait,
+      isHobbyEdit,
+      formInvalidHobby,
+      isSubmitHobby,
+      newHobby,
+      indexNoHobby,
+    } = this.state;
 
-      const canModifyTrait = !this.props.traitRequestCount;
-      if (!canModifyTrait) {
-        this.props.setIsSaving(true);
-      } else {
-        this.props.setIsSaving(false);
-      }
-      const { lookupData } = this.props;
-      const countries = _.get(lookupData, 'countries', []).map(country => ({
-        key: country.countryCode,
-        name: country.country,
-      }));
+    const educationItems = educationTrait.traits
+      ? educationTrait.traits.data.slice() : [];
 
-      const {
-        newBasicInfo,
-        newProfileInfo,
-        inputChanged,
-        showConfirmation,
-        showConfirmationHobby,
-        educationTrait,
-        indexNo,
-        formInvalid,
-        isSubmit,
-        isEdit,
-        isMobileView,
-        startDateInvalid,
-        startDateInvalidMsg,
-        endDateInvalid,
-        endDateInvalidMsg,
-        newEducation,
-        hobbyTrait,
-        isHobbyEdit,
-        formInvalidHobby,
-        isSubmitHobby,
-        newHobby,
-        indexNoHobby,
-      } = this.state;
+    const hobbyItems = hobbyTrait.traits
+      ? hobbyTrait.traits.data.slice() : [];
 
-      const educationItems = educationTrait.traits
-        ? educationTrait.traits.data.slice() : [];
-
-      const hobbyItems = hobbyTrait.traits
-        ? hobbyTrait.traits.data.slice() : [];
-
-      return (
-        <React.Fragment>
-          <div styleName="profile-settings-container">
-            <div styleName="header">
-              <h3>BASIC INFO</h3>
-            </div>
-            {
-            this.shouldRenderConsent() && this.renderConsent()
+    return (
+      <React.Fragment>
+        <div styleName="profile-settings-container">
+          <div styleName="header">
+            <h3>BASIC INFO</h3>
+          </div>
+          {
+          this.shouldRenderConsent() && this.renderConsent()
+          }
+          {
+            showConfirmation && (
+              <ConfirmationModal
+                onConfirm={() => this.showConsent(this.onDeleteEducation.bind(this, indexNo))}
+                onCancel={() => this.setState({
+                  showConfirmation: false,
+                  indexNo: null,
+                })}
+                name={educationTrait.traits.data[indexNo].schoolCollegeName}
+              />
+            )
+          }
+          {
+            showConfirmationHobby && (
+              <ConfirmationModal
+                onConfirm={() => this.showConsent(this.onDeleteHobby.bind(this, indexNoHobby))}
+                onCancel={() => this.setState({ showConfirmation: false, indexNoHobby: null })}
+                name={hobbyTrait.traits.data[indexNoHobby].hobby}
+              />
+            )
           }
 
-            {
-          showConfirmation && (
-            <ConfirmationModal
-              onConfirm={() => this.showConsent(this.onDeleteEducation.bind(this, indexNo))}
-              onCancel={() => this.setState({
-                showConfirmation: false,
-                indexNo: null,
-              })}
-              name={educationTrait.traits.data[indexNo].schoolCollegeName}
-            />
-          )
-        }
-            {
-          showConfirmationHobby && (
-            <ConfirmationModal
-              onConfirm={() => this.showConsent(this.onDeleteHobby.bind(this, indexNoHobby))}
-              onCancel={() => this.setState({ showConfirmation: false, indexNoHobby: null })}
-              name={hobbyTrait.traits.data[indexNoHobby].hobby}
-            />
-          )
-        }
+          <ImageInput {...this.props} />
 
-            <ImageInput {...this.props} />
-
-            <SettingsBanner title={personalDetails.title} description={personalDetails.description}>
-              <PersonalDetails
-                countries={countries}
-                canModifyTrait={canModifyTrait}
-                newProfileInfo={newProfileInfo}
-                newBasicInfo={newBasicInfo}
-                onUpdateDate={this.onUpdateDate}
-                onUpdateInput={this.onUpdateInput}
-                inputChanged={inputChanged}
-                onUpdateCountry={this.onUpdateCountry}
-              />
-            </SettingsBanner>
-            <SettingsBanner title={aboutYou.title} description={aboutYou.description}>
-              <AboutYou
-                canModifyTrait={canModifyTrait}
-                newProfileInfo={newProfileInfo}
-                newBasicInfo={newBasicInfo}
-                onUpdateInput={this.onUpdateInput}
-              />
-            </SettingsBanner>
-            <SettingsBanner
-              title={learningAndEducations.title}
-              description={learningAndEducations.description}
-            >
-              <Learning
-                formInvalid={formInvalid}
-                isSubmit={isSubmit}
-                isEdit={isEdit}
-                isMobileView={isMobileView}
-                educationItems={educationItems}
-                onHandleDeleteEducation={this.onHandleDeleteEducation}
-                onEditEducation={this.onEditEducation}
-                startDateInvalid={startDateInvalid}
-                startDateInvalidMsg={startDateInvalidMsg}
-                endDateInvalid={endDateInvalid}
-                endDateInvalidMsg={endDateInvalidMsg}
-                newEducation={newEducation}
-                onUpdateInput={this.onUpdateEducationInput}
-                onUpdateDate={this.onUpdateEducationDate}
-                onHandleAddEducation={this.onHandleAddEducation}
-                onCancelEditStatus={this.onCancelEditStatus}
-              />
-            </SettingsBanner>
-            <SettingsBanner
-              title={hobbies.title}
-              description={hobbies.description}
-            >
-              <Hobbies
-                isMobileView={isMobileView}
-                hobbyItems={hobbyItems}
-                isEdit={isHobbyEdit}
-                onHandleDeleteHobby={this.onHandleDeleteHobby}
-                onEditHobby={this.onEditHobby}
-                canModifyTrait={canModifyTrait}
-                formInvalid={formInvalidHobby}
-                isSubmit={isSubmitHobby}
-                newHobby={newHobby}
-                onUpdateInput={this.onUpdateHobbyInput}
-                onHandleAddHobby={this.onHandleAddHobby}
-                onCancelEditStatus={this.onCancelEditStatusHobby}
-              />
-            </SettingsBanner>
-          </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              disabled={!canModifyTrait}
-              onClick={this.onHandleSaveBasicInfo}
-              theme={{
-                button: style['save-changes-btn'],
-              }}
-            >
-              Save Changes
-            </PrimaryButton>
-          </div>
-        </React.Fragment>
-      );
-    }
+          <SettingsBanner
+            title={personalDetails.title}
+            description={personalDetails.description}
+          >
+            <PersonalDetails
+              countries={countries}
+              canModifyTrait={canModifyTrait}
+              newProfileInfo={newProfileInfo}
+              newBasicInfo={newBasicInfo}
+              onUpdateDate={this.onUpdateDate}
+              onUpdateInput={this.onUpdateInput}
+              inputChanged={inputChanged}
+              onUpdateCountry={this.onUpdateCountry}
+            />
+          </SettingsBanner>
+          <SettingsBanner title={aboutYou.title} description={aboutYou.description}>
+            <AboutYou
+              canModifyTrait={canModifyTrait}
+              newProfileInfo={newProfileInfo}
+              newBasicInfo={newBasicInfo}
+              onUpdateInput={this.onUpdateInput}
+            />
+          </SettingsBanner>
+          <SettingsBanner
+            title={learningAndEducations.title}
+            description={learningAndEducations.description}
+          >
+            {
+              educationItems.length > 0
+              && (
+                <EducationList
+                  educationList={{ items: educationItems }}
+                  onDeleteItem={this.onHandleDeleteEducation}
+                  onEditItem={this.onEditEducation}
+                />
+              )
+            }
+            <Learning
+              formInvalid={formInvalid}
+              isSubmit={isSubmit}
+              isEdit={isEdit}
+              isMobileView={isMobileView}
+              educationItems={educationItems}
+              onHandleDeleteEducation={this.onHandleDeleteEducation}
+              onEditEducation={this.onEditEducation}
+              startDateInvalid={startDateInvalid}
+              startDateInvalidMsg={startDateInvalidMsg}
+              endDateInvalid={endDateInvalid}
+              endDateInvalidMsg={endDateInvalidMsg}
+              newEducation={newEducation}
+              onUpdateInput={this.onUpdateEducationInput}
+              onUpdateDate={this.onUpdateEducationDate}
+              onHandleAddEducation={this.onHandleAddEducation}
+              onCancelEditStatus={this.onCancelEditStatus}
+            />
+          </SettingsBanner>
+          <SettingsBanner
+            title={hobbies.title}
+            description={hobbies.description}
+          >
+            {
+              hobbyItems.length > 0
+              && (
+                <HobbyList
+                  hobbyList={{ items: hobbyItems }}
+                  onDeleteItem={this.onHandleDeleteHobby}
+                  onEditItem={this.onEditHobby}
+                />
+              )
+            }
+            <Hobbies
+              isMobileView={isMobileView}
+              hobbyItems={hobbyItems}
+              isEdit={isHobbyEdit}
+              onHandleDeleteHobby={this.onHandleDeleteHobby}
+              onEditHobby={this.onEditHobby}
+              canModifyTrait={canModifyTrait}
+              formInvalid={formInvalidHobby}
+              isSubmit={isSubmitHobby}
+              newHobby={newHobby}
+              onUpdateInput={this.onUpdateHobbyInput}
+              onHandleAddHobby={this.onHandleAddHobby}
+              onCancelEditStatus={this.onCancelEditStatusHobby}
+            />
+          </SettingsBanner>
+        </div>
+        <div styleName="button-save">
+          <PrimaryButton
+            disabled={!canModifyTrait}
+            onClick={this.onHandleSaveBasicInfo}
+            theme={{
+              button: style['save-changes-btn'],
+            }}
+          >
+            Save Changes
+          </PrimaryButton>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 ProfileSettings.defaultProps = {

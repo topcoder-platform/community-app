@@ -15,8 +15,6 @@ import FormField from 'components/Settings/FormField';
 import AddItemIcon from 'assets/images/settings-add-item.svg';
 import FormInputDatePicker from 'components/Settings/FormInputDatePicker';
 
-import EducationList from './List';
-
 import './styles.scss';
 
 const Learning = (props) => {
@@ -24,9 +22,6 @@ const Learning = (props) => {
     formInvalid,
     isSubmit,
     isEdit,
-    educationItems,
-    onHandleDeleteEducation,
-    onEditEducation,
     startDateInvalid,
     startDateInvalidMsg,
     endDateInvalid,
@@ -40,16 +35,6 @@ const Learning = (props) => {
 
   return (
     <div styleName="education-container">
-      {
-        educationItems.length > 0
-        && (
-          <EducationList
-            educationList={{ items: educationItems }}
-            onDeleteItem={onHandleDeleteEducation}
-            onEditItem={onEditEducation}
-          />
-        )
-      }
       <div styleName="form-container-default">
         <form name="device-form" noValidate autoComplete="off">
           {/* Name of College or University */}
@@ -209,7 +194,6 @@ Learning.defaultProps = {
   formInvalid: false,
   isSubmit: false,
   isEdit: false,
-  educationItems: [],
   newEducation: {},
   startDateInvalid: false,
   startDateInvalidMsg: '',
@@ -221,9 +205,6 @@ Learning.propTypes = {
   formInvalid: PT.bool,
   isSubmit: PT.bool,
   isEdit: PT.bool,
-  educationItems: PT.arrayOf(PT.shape()),
-  onHandleDeleteEducation: PT.func.isRequired,
-  onEditEducation: PT.func.isRequired,
   startDateInvalid: PT.bool,
   startDateInvalidMsg: PT.string,
   endDateInvalid: PT.bool,

@@ -12,16 +12,12 @@ import FormInputText from 'components/Settings/FormInputText';
 import FormInputTextArea from 'components/Settings/FormInputTextArea';
 import FormField from 'components/Settings/FormField';
 import AddItemIcon from 'assets/images/settings-add-item.svg';
-import HobbyList from './List';
 
 import './styles.scss';
 
 const Hobbies = (props) => {
   const {
-    hobbyItems,
     isEdit,
-    onHandleDeleteHobby,
-    onEditHobby,
     canModifyTrait,
     isSubmit,
     formInvalid,
@@ -33,16 +29,6 @@ const Hobbies = (props) => {
 
   return (
     <div styleName="hobby-container">
-      {
-      hobbyItems.length > 0
-      && (
-        <HobbyList
-          hobbyList={{ items: hobbyItems }}
-          onDeleteItem={onHandleDeleteHobby}
-          onEditItem={onEditHobby}
-        />
-      )
-    }
       <div styleName="form-container-default">
         <form name="device-form" noValidate autoComplete="off">
           {/* Hobby */}
@@ -121,7 +107,6 @@ const Hobbies = (props) => {
 };
 
 Hobbies.defaultProps = {
-  hobbyItems: [],
   isEdit: false,
   formInvalid: false,
   isSubmit: false,
@@ -129,10 +114,7 @@ Hobbies.defaultProps = {
 };
 
 Hobbies.propTypes = {
-  hobbyItems: PT.arrayOf(PT.shape()),
   isEdit: PT.bool,
-  onHandleDeleteHobby: PT.func.isRequired,
-  onEditHobby: PT.func.isRequired,
   canModifyTrait: PT.bool.isRequired,
   formInvalid: PT.bool,
   isSubmit: PT.bool,

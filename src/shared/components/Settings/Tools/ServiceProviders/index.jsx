@@ -11,13 +11,17 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import ErrorMessage from 'components/Settings/ErrorMessage';
-import Select from 'components/Select';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+import FormField from 'components/Settings/FormField';
+import FormInputText from 'components/Settings/FormInputText';
+import AddItemIcon from 'assets/images/settings-add-item.svg';
+import FormInputSelect from 'components/Settings/FormInputSelect';
+import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
+import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import ConfirmationModal from '../../ConfirmationModal';
 import dropdowns from './dropdowns.json';
 import ServiceProviderList from './List';
 
-import './styles.scss';
+import styles from './styles.scss';
 
 export default class ServiceProviders extends ConsentComponent {
   constructor(props) {
@@ -82,7 +86,7 @@ export default class ServiceProviders extends ConsentComponent {
    * @param e event
    */
   onHandleAddServiceProvider(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { newServiceProvider } = this.state;
     this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newServiceProvider)) {
@@ -294,7 +298,7 @@ export default class ServiceProviders extends ConsentComponent {
 
   render() {
     const {
-      serviceProviderTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      serviceProviderTrait, showConfirmation, indexNo, isEdit,
       formInvalid, isSubmit,
     } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
@@ -302,7 +306,7 @@ export default class ServiceProviders extends ConsentComponent {
     const { newServiceProvider } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
     return (
-      <div styleName="service-provider-container">
+      <React.Fragment>
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
@@ -314,189 +318,98 @@ export default class ServiceProviders extends ConsentComponent {
             name={serviceProviderTrait.traits.data[indexNo].name}
           />
         )}
-        <h1>
-          Service Providers
-        </h1>
-        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? '' : 'hidden'}`}>
-          Your service providers
-        </div>
-        {
-          !isMobileView && serviceProviderItems.length > 0
-          && (
-            <ServiceProviderList
-              serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onHandleDeleteServiceProvider}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditServiceProvider}
-            />
-          )
-        }
-        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? 'second' : 'first'}`}>
-          {
-            isEdit ? (<React.Fragment>Edit service provider</React.Fragment>)
-              : (<React.Fragment>Add a new service provider</React.Fragment>)
-          }
-        </div>
-        <div styleName="form-container-default">
-          <form name="device-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="serviceProviderType">
-                  Type
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <Select
-                  name="serviceProviderType"
-                  options={dropdowns.serviceProviderType}
-                  onChange={this.onUpdateSelect}
-                  value={newServiceProvider.serviceProviderType}
-                  placeholder="Service Provider Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                  disabled={!canModifyTrait}
-                />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && formInvalid} addMargin message="Type cannot be empty" />
-                  )
-                }
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && formInvalid} message="Name cannot be empty" />
-                  )
-                }
-              </div>
-            </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddServiceProvider}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit service provider to your list</React.Fragment>)
-                    : (<React.Fragment>Add service provider to your list</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
+        <div styleName="form-container">
+          <Collapse>
+            <h2 styleName="form-title">
+              Service Provider
+            </h2>
             {
-              isEdit && (
-                <div styleName="button-cancel">
+              serviceProviderItems.length > 0
+              && (
+                <ServiceProviderList
+                  serviceProviderList={{ items: serviceProviderItems }}
+                  onDeleteItem={this.onHandleDeleteServiceProvider}
+                  disabled={!canModifyTrait}
+                  onEditItem={this.onEditServiceProvider}
+                />
+              )
+            }
+            <div styleName="form-content">
+              <div styleName="form-label">
+                Add a new service provider
+              </div>
+              <div styleName="form-body">
+                <form styleName="service-provider-form" noValidate autoComplete="off">
+                  <FormField label="Service Provider Type *" style={{ flex: '0 0 100%' }}>
+                    <FormInputSelect
+                      name="serviceProviderType"
+                      options={dropdowns.serviceProviderType}
+                      onChange={this.onUpdateSelect}
+                      value={newServiceProvider.serviceProviderType}
+                      placeholder="Select"
+                      labelKey="name"
+                      valueKey="name"
+                      clearable={false}
+                      disabled={!canModifyTrait}
+                    />
+                    {
+                      isSubmit && (
+                        <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && formInvalid} addMargin message="Type cannot be empty" />
+                      )
+                    }
+                  </FormField>
+
+                  <FormField label="Service Provider Name *" style={{ flex: '0 0 100%' }}>
+                    <FormInputText
+                      disabled={!canModifyTrait}
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Type here the Service Provider Name"
+                      onChange={this.onUpdateInput}
+                      value={newServiceProvider.name}
+                      maxLength="64"
+                      required
+                    />
+                    {
+                      isSubmit && (
+                        <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && formInvalid} message="Name cannot be empty" />
+                      )
+                    }
+                  </FormField>
+                </form>
+              </div>
+              <div styleName="form-footer">
+                {!isEdit && (
+                <PrimaryButton
+                  theme={{ button: styles.button }}
+                  onClick={this.onHandleAddServiceProvider}
+                >
+                  <AddItemIcon styleName="icon" /> Add Service Provider to Your List
+                </PrimaryButton>
+                )}
+
+                { isEdit && (
+                <React.Fragment>
                   <PrimaryButton
-                    styleName="complete"
+                    theme={{ button: styles.button }}
+                    onClick={this.onHandleAddServiceProvider}
+                  >
+                    Edit Service Provider to Your List
+                  </PrimaryButton>
+                  <SecondaryButton
+                    theme={{ button: styles.button }}
                     onClick={this.onCancelEditStatus}
                   >
                     Cancel
-                  </PrimaryButton>
-                </div>
-              )
-            }
-          </div>
-        </div>
-        <div styleName="form-container-mobile">
-          <form name="service-provider-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <p>
-                {
-                  isEdit ? (<React.Fragment>Edit Service Provider</React.Fragment>)
-                    : (<React.Fragment>Add Service Provider</React.Fragment>)
-                }
-              </p>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="serviceProviderType">
-                  Type
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <Select
-                  name="serviceProviderType"
-                  options={dropdowns.serviceProviderType}
-                  onChange={this.onUpdateSelect}
-                  value={newServiceProvider.serviceProviderType}
-                  placeholder="Service Provider Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                  disabled={!canModifyTrait}
-                />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && formInvalid} addMargin message="Type cannot be empty" />
-                  )
-                }
-              </div>
-              <div styleName="field col-2">
-                <label htmlFor="name">
-                  Provider Name
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && formInvalid} message="Name cannot be empty" />
-                  )
-                }
+                  </SecondaryButton>
+                </React.Fragment>
+                )}
               </div>
             </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddServiceProvider}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit Provider</React.Fragment>)
-                    : (<React.Fragment>Add Provider</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
-            {
-              isEdit && (
-                <div styleName="button-cancel">
-                  <PrimaryButton
-                    styleName="complete"
-                    onClick={this.onCancelEditStatus}
-                  >
-                    Cancel
-                  </PrimaryButton>
-                </div>
-              )
-            }
-          </div>
+          </Collapse>
         </div>
-        {
-          isMobileView
-          && (
-            <ServiceProviderList
-              serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onHandleDeleteServiceProvider}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditServiceProvider}
-            />
-          )
-        }
-      </div>
+      </React.Fragment>
     );
   }
 }

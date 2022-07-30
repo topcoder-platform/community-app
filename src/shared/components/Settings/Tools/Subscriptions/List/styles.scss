@@ -4,6 +4,7 @@
   width: 100%;
   background-color: $tc-white;
   padding: 0;
+  margin: 0 0 $margin-xxxxl;
 
   &.active {
     margin-top: 20px;
@@ -19,11 +20,7 @@
     justify-items: center;
 
     li {
-      min-height: 90px;
-    }
-
-    li:last-child {
-      border-bottom: 1px solid $tc-gray-10;
+      margin-bottom: $margin-md;
     }
   }
 

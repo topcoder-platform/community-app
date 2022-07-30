@@ -1,226 +1,111 @@
-@import "../../style";
+@import "~styles/mixins";
 
-.subscription-container {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
+.form-container {
+  padding: $pad-xxxxl;
+  background-color: $color-tc-white;
+  border-radius: 4px;
+  margin: $margin-sm 0 0;
 
-  h1 {
-    @include roboto-regular;
-
-    font-size: 28px;
-    line-height: 35px;
-    font-weight: 400;
-    color: $tc-black;
-    margin-bottom: 20px;
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 10px;
-
-    &.second {
-      margin-top: 50px;
-      margin-bottom: 30px;
-    }
-
-    &.first {
-      margin-bottom: 30px;
-    }
-
-    &.hidden {
-      display: none;
-    }
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-}
-
-.form-container-default {
-  @include form-container-default;
-
-  input {
-    @include roboto-regular;
-
-    height: 40px;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    color: $tc-black;
-    border: 1px solid $tc-gray-20;
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-    margin-bottom: 0;
-  }
-
-  .text-required {
-    @include roboto-medium;
-
-    font-size: 10px;
-    color: $tc-red-110;
-    margin-bottom: 5px;
-    text-align: right;
-  }
-}
-
-.form-container-mobile {
-  display: none;
-
-  @include upto-sm {
-    border: 0;
-    border-radius: 0;
+  .subscription-form {
     display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: $tc-gray-neutral-light;
-    width: 100%;
-  }
-
-  p {
-    @include roboto-regular;
-
-    font-size: 20px;
-    line-height: 30px;
-    font-weight: 400;
-    color: $tc-black;
-
-    @include upto-sm {
-      margin-bottom: 20px;
-    }
-  }
-
-  .row {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    align-content: space-between;
-
-    @include upto-sm {
-      width: 100%;
-      display: block;
-      margin-bottom: 0;
-    }
-
-    .field {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      margin-right: 10px;
-
-      @include upto-sm {
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 10px;
-      }
-
-      label {
-        @include roboto-medium;
-
-        font-size: 12px;
-        line-height: 15px;
-        font-weight: 500;
-        color: $tc-gray-80;
-        margin-bottom: 5px;
-        display: flex;
-        justify-content: space-between;
-
-        .text-required {
-          color: $tc-red-110;
-        }
-      }
-
-      &.col-1 {
-        width: 100%;
-      }
-
-      &.col-2 {
-        width: auto;
-      }
-    }
-
-    div.field:last-child {
-      margin-right: 0;
-    }
-  }
-
-  input {
-    @include roboto-regular;
-
-    margin: 0;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    color: $tc-black;
-    border: 1px solid $tc-gray-20;
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-
-    @include upto-sm {
-      margin-top: 5px;
-    }
+    flex-wrap: wrap;
   }
 }
 
-.button-container {
+.form-title {
+  @include barlow-semi-bold;
+
+  font-size: 20px;
+  line-height: 22px;
+  color: inherit;
+  text-transform: uppercase;
+  padding-bottom: $pad-xxxxl;
+}
+
+.form-content {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.form-label {
+  flex: 0 0 calc(50% - 13px);
+  padding-right: 230px;
+
+  @include roboto-regular;
+
+  font-size: 16px;
+  line-height: 26px;
+  color: inherit;
+}
+
+.form-body {
+  flex: 0 0 calc(50% + 13px);
+}
+
+.form-footer {
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
+  margin-left: calc(50% - 13px);
+  padding: $pad-sm 0;
+  flex-wrap: wrap;
+  gap: 8px 16px;
 
-  .button-save,
-  .button-cancel {
-    align-self: center;
+  .button {
+    @include roboto-bold;
 
-    @include upto-sm {
-      margin-top: 10px;
+    font-size: 14px;
+    line-height: 22px;
+    color: $color-turq-160;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    border: none;
+    cursor: pointer;
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none !important;
+      color: lighten($color-turq-160, 5%);
+      background: transparent !important;
+      box-shadow: none !important;
     }
 
-    .complete {
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 40px;
-      margin: 0;
-      padding: 0 0;
-      width: 240px;
-
-      @include upto-sm {
-        width: 156px;
-      }
-
-      @include roboto-medium;
+    .icon {
+      margin-right: $margin-xs;
     }
-  }
-
-  .button-cancel {
-    margin-left: 10px;
   }
 }
 
-/*
- * React Select component styling
- */
-.subscription-container .form-container .row .field :global .Select,
-.subscription-container .form-container .row .field :global .Select-value span,
-.subscription-container .form-container .row .field :global .Select-menu-outer,
-.subscription-container .form-container .row .field :global .Select-placeholder,
-.subscription-container .form-container .row .field :global .Select-input input {
-  color: $tc-gray-80;
-  font-size: 15px;
-
-  @include upto-sm {
-    margin-top: 5px;
+@include xs-to-md {
+  .form-container {
+    padding: $pad-xxl $pad-lg;
   }
-}
 
-.subscription-container .form-container .row .field :global .Select-placeholder {
-  color: $tc-gray-50;
+  .form-title {
+    @include barlow-condensed-medium;
+
+    font-size: 22px;
+    line-height: 24px;
+    padding-bottom: $pad-xxl;
+  }
+
+  .form-label {
+    flex: 1 1 100%;
+    padding: 0;
+    margin-bottom: $margin-xxl;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .form-body {
+    flex: 1 1 100%;
+  }
+
+  .form-footer {
+    margin: 0;
+  }
 }

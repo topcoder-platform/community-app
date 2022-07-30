@@ -434,18 +434,22 @@ export default class Work extends ConsentComponent {
                     : (<React.Fragment>Add a new workplace</React.Fragment>)
                 }
               </div>
-
+              {
+                workItems.length > 0
+                && (
+                  <WorkplaceList
+                    workList={{ items: workItems }}
+                    onDeleteItem={this.onHandleDeleteWork}
+                    onEditItem={this.onEditWork}
+                  />
+                )
+              }
               <div styleName="form-content">
                 <div styleName="form-label">
                   Enter your work experience to show customers the roles and responsibilites
                   you have held in the past.
                 </div>
                 <div styleName="form-body">
-                  <WorkplaceList
-                    workList={{ items: workItems }}
-                    onDeleteItem={this.onHandleDeleteWork}
-                    onEditItem={this.onEditWork}
-                  />
                   <form styleName="workplace-form" noValidate autoComplete="off">
                     <FormField label="Company *" style={{ flex: '0 0 100%' }}>
                       <FormInputText

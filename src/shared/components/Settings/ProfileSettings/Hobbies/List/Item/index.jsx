@@ -5,6 +5,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import ReactSVG from 'react-svg';
+import Tooltip from 'components/Tooltip';
+
 import { isomorphy } from 'topcoder-react-utils';
 
 
@@ -31,6 +33,18 @@ export default function Item(props) {
     return true;
   };
 
+  const deleteTip = (
+    <div styleName="tctooltiptext">
+      <p>Delete</p>
+    </div>
+  );
+
+  const editTip = (
+    <div styleName="tctooltiptext">
+      <p>Edit</p>
+    </div>
+  );
+
   return (
     <div styleName="container">
       <div styleName="hobby-info">
@@ -51,30 +65,39 @@ export default function Item(props) {
         </div>
       </div>
       <div styleName="operation-container">
-        <a
-          styleName="edit"
-          onKeyPress={() => onEditItem(index)}
-          tabIndex={0}
-          role="button"
-          onClick={() => onEditItem(index)}
+        <Tooltip
+          id="edit-tip"
+          content={editTip}
+          trigger={['hover', 'focus']}
         >
-          <img src={assets('./ico-edit.svg')} alt="edit-icon" />
-          <p>
-            Edit
-          </p>
-        </a>
-        <a
-          styleName="delete"
-          onKeyPress={() => onDeleteItem(index)}
-          tabIndex={0}
-          role="button"
-          onClick={() => onDeleteItem(index)}
-        >
-          <img src={assets('./ico-trash.svg')} alt="delete-icon" />
-          <p>
-            Delete
-          </p>
-        </a>
+          <a
+            styleName="edit"
+            onKeyPress={() => onEditItem(index)}
+            tabIndex={0}
+            role="button"
+            onClick={() => onEditItem(index)}
+          >
+            <img src={assets('./ico-edit.svg')} alt="edit-icon" />
+          </a>
+        </Tooltip>
+        <div styleName="delete-wrapper">
+          <Tooltip
+            id="delete-tip"
+            content={deleteTip}
+            trigger={['hover', 'focus']}
+          >
+            <a
+              styleName="delete"
+              onKeyPress={() => onDeleteItem(index)}
+              tabIndex={0}
+              role="button"
+              onClick={() => onDeleteItem(index)}
+            >
+              <img src={assets('./ico-trash.svg')} alt="delete-icon" />
+            </a>
+
+          </Tooltip>
+        </div>
       </div>
     </div>
   );
