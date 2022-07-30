@@ -116,81 +116,83 @@ export default function AddSkillsModal({
 
   return (
     <Modal theme={{ container: styles.modal, overlay: styles['modal-overlay'] }}>
-      <div styleName="modal-content">
-        <h3 styleName="modal-header">
-          Add Skills
-          <GhostButton theme={{ button: styles.close }} onClick={onClose}>
-            <IconClose />
-          </GhostButton>
-        </h3>
-        <div styleName="modal-body">
-          <nav styleName="tabs">
-            <ul>
-              <li
-                styleName={tab === CATEGORIES.design ? 'active' : ''}
-                role="presentation"
-                onClick={() => setTab(CATEGORIES.design)}
-                onKeyDown={() => {}}
-              >
-                { getTabName(CATEGORIES.design) }
-              </li>
-              <li
-                styleName={tab === CATEGORIES.develop ? 'active' : ''}
-                role="presentation"
-                onClick={() => setTab(CATEGORIES.develop)}
-                onKeyDown={() => {}}
-              >
-                { getTabName(CATEGORIES.develop) }
-              </li>
-              <li
-                styleName={tab === CATEGORIES.data_science ? 'active' : ''}
-                role="presentation"
-                onClick={() => setTab(CATEGORIES.data_science)}
-                onKeyDown={() => {}}
-              >
-                { getTabName(CATEGORIES.data_science) }
-              </li>
-              <li
-                styleName={tab === CATEGORIES.qa ? 'active' : ''}
-                role="presentation"
-                onClick={() => setTab(CATEGORIES.qa)}
-                onKeyDown={() => {}}
-              >
-                { getTabName(CATEGORIES.qa) }
-              </li>
-            </ul>
-          </nav>
-          <div styleName="tabContent">
-            <h4 styleName="title">Select {getTabName(tab)} Skills</h4>
+      <div styleName="modal-dialog">
+        <div styleName="modal-content">
+          <h3 styleName="modal-header">
+            Add Skills
+            <GhostButton theme={{ button: styles.close }} onClick={onClose}>
+              <IconClose />
+            </GhostButton>
+          </h3>
+          <div styleName="modal-body">
+            <nav styleName="tabs">
+              <ul>
+                <li
+                  styleName={tab === CATEGORIES.design ? 'active' : ''}
+                  role="presentation"
+                  onClick={() => setTab(CATEGORIES.design)}
+                  onKeyDown={() => {}}
+                >
+                  { getTabName(CATEGORIES.design) }
+                </li>
+                <li
+                  styleName={tab === CATEGORIES.develop ? 'active' : ''}
+                  role="presentation"
+                  onClick={() => setTab(CATEGORIES.develop)}
+                  onKeyDown={() => {}}
+                >
+                  { getTabName(CATEGORIES.develop) }
+                </li>
+                <li
+                  styleName={tab === CATEGORIES.data_science ? 'active' : ''}
+                  role="presentation"
+                  onClick={() => setTab(CATEGORIES.data_science)}
+                  onKeyDown={() => {}}
+                >
+                  { getTabName(CATEGORIES.data_science) }
+                </li>
+                <li
+                  styleName={tab === CATEGORIES.qa ? 'active' : ''}
+                  role="presentation"
+                  onClick={() => setTab(CATEGORIES.qa)}
+                  onKeyDown={() => {}}
+                >
+                  { getTabName(CATEGORIES.qa) }
+                </li>
+              </ul>
+            </nav>
+            <div styleName="tabContent">
+              <h4 styleName="title">Select {getTabName(tab)} Skills</h4>
 
-            <FormField label="Skill">
-              <FormInputSelect
-                options={lookupSkillsOptions}
-                onChange={(skill) => {
-                  handleSkillSelect(skill);
-                  setTempStr(skill.name);
-                  updateDisplayingSkills(skill);
-                }}
-                matchPos="any"
-                matchProp="name"
-                labelKey="name"
-                valueKey="name"
-                placeholder="Add new skill"
-                clearable={false}
-                disabled={disabled}
-                value={tempStr}
-              />
-            </FormField>
+              <FormField label="Skill">
+                <FormInputSelect
+                  options={lookupSkillsOptions}
+                  onChange={(skill) => {
+                    handleSkillSelect(skill);
+                    setTempStr(skill.name);
+                    updateDisplayingSkills(skill);
+                  }}
+                  matchPos="any"
+                  matchProp="name"
+                  labelKey="name"
+                  valueKey="name"
+                  placeholder="Add new skill"
+                  clearable={false}
+                  disabled={disabled}
+                  value={tempStr}
+                />
+              </FormField>
 
-            <ul styleName="skillList">
-              {skillList}
-            </ul>
+              <ul styleName="skillList">
+                {skillList}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div styleName="modal-footer">
-          <PrimaryButton theme={{ button: styles['button-save'] }} onClick={onSave} disabled={disabled}>
-            Save
-          </PrimaryButton>
+          <div styleName="modal-footer">
+            <PrimaryButton theme={{ button: styles['button-save'] }} onClick={onSave} disabled={disabled}>
+              Save
+            </PrimaryButton>
+          </div>
         </div>
       </div>
     </Modal>

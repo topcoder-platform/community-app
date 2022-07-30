@@ -142,10 +142,10 @@ export default class Interests extends ConsentComponent {
   processBasicInfo = (value, profile) => {
     const { newBasicInfo } = this.state;
     if (_.has(profile, 'handle')) {
-      Object.keys(newBasicInfo).reduce((acc, key) => {
-        if (_.has(value, key)) {
-          newBasicInfo[key] = value[key];
-        }
+      Object.keys(/* newBasicInfo */value).reduce((acc, key) => {
+        // if (_.has(value, key)) {
+        newBasicInfo[key] = value[key];
+        // }
         return acc;
       }, {});
     }

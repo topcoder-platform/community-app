@@ -68,7 +68,6 @@ export default class Skills extends ConsentComponent {
         data_science: [],
         qa: [],
       },
-      showAddSkillsModal: false,
     });
 
     this.processUserSkills(nextProps);
