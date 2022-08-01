@@ -21,7 +21,7 @@ const List = ({
         <div styleName="list-item_badge">
           <CourseBadge type={certificate.certificationTrackType || 'DEV'} />
         </div>
-        <div styleName="list-item_description">
+        <div>
           <div styleName="list-item_title">
             {certificate.certificationTitle}
           </div>

@@ -5,12 +5,14 @@
   background: $listing-filter-bg;
   padding: 32px;
   border-radius: 8px;
+
   @include xs-to-md {
     padding: 16px;
   }
 
   .title {
     @include barlow-semi-bold;
+
     font-size: 22px;
     line-height: 26px;
     color: $tco-black;
