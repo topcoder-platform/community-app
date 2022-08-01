@@ -1,0 +1,26 @@
+@import "~styles/mixins";
+
+.tca-certificate-modal {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    padding: 32px;
+    width: 980px;
+    max-width: 96vw;
+    @include xs-to-sm {
+        display: flex;
+        flex-direction: column;
+        max-width: none;
+        width: 100%;
+    }
+}
+
+.iframe {
+    display: block;
+    height: 600px;
+    width: 100%;
+    @include xs-to-sm {
+        height: auto;
+        flex: 1;
+    }
+}

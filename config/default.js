@@ -444,6 +444,7 @@ module.exports = {
   GIGS_PAGES_PATH: '/gigs',
   GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',
+  TC_ACADEMY_BASE_PATH: '/learn',
   GUIKIT: {
     DEBOUNCE_ON_CHANGE_TIME: 150,
   },
