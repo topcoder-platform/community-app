@@ -60,11 +60,11 @@ import ogFirst2FinishDESIGN from
 import ogFirst2FinishQA from
   '../../../assets/images/open-graph/challenges/QA-First2Finish.png';
 import ogDEVTask from
-  '../../../assets/images/open-graph/challenges/Development-First2Finish.png';
+  '../../../assets/images/open-graph/challenges/Development-Task.png';
 import ogDESIGNTask from
-  '../../../assets/images/open-graph/challenges/Design-First2Finish.png';
+  '../../../assets/images/open-graph/challenges/Design-Task.png';
 import ogQATask from
-  '../../../assets/images/open-graph/challenges/QA-First2Finish.png';
+  '../../../assets/images/open-graph/challenges/QA-Task.png';
 import ogDevelopment from
   '../../../assets/images/open-graph/challenges/03-Development.png';
 import ogBigPrizesChallenge from
