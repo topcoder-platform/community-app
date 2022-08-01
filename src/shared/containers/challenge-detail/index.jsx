@@ -138,7 +138,7 @@ function getOgImage(challenge) {
   }
   switch (challenge.track) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
-    case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
+    case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogUiDesign;
     case COMPETITION_TRACKS_V3.DS: return ogDSChallenge;
     default: return ogImage;
   }
