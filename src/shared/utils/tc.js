@@ -34,6 +34,7 @@ export const COMPETITION_TRACKS_V3 = {
   DESIGN: 'Design',
   DEVELOP: 'Development',
   DS: 'Data Science',
+  QA: 'Quality Assurance',
 };
 
 /* Holds valid subtracks (only some of possible values are included into this

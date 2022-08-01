@@ -53,8 +53,18 @@ import { getService } from 'services/contentful';
 
 import ogUiDesign from
   '../../../assets/images/open-graph/challenges/02-Design-Preview.png';
-import ogFirst2Finish from
-  '../../../assets/images/open-graph/challenges/09-First2Finish.png';
+import ogFirst2FinishDEV from
+  '../../../assets/images/open-graph/challenges/Development-First2Finish.png';
+import ogFirst2FinishDESIGN from
+  '../../../assets/images/open-graph/challenges/Design-First2Finish.png';
+import ogFirst2FinishQA from
+  '../../../assets/images/open-graph/challenges/QA-First2Finish.png';
+import ogDEVTask from
+  '../../../assets/images/open-graph/challenges/Development-First2Finish.png';
+import ogDESIGNTask from
+  '../../../assets/images/open-graph/challenges/Design-First2Finish.png';
+import ogQATask from
+  '../../../assets/images/open-graph/challenges/QA-First2Finish.png';
 import ogDevelopment from
   '../../../assets/images/open-graph/challenges/03-Development.png';
 import ogBigPrizesChallenge from
@@ -93,7 +103,13 @@ function getOgImage(challenge) {
   }
 
   switch (subTrack) {
-    case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
+    case SUBTRACKS.FIRST_2_FINISH:
+      switch (challenge.track) {
+        case COMPETITION_TRACKS_V3.DEVELOP: return challenge.type === 'Task' ? ogDEVTask : ogFirst2FinishDEV;
+        case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
+        case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogFirst2FinishQA;
+        default: return ogFirst2FinishDEV;
+      }
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
       const submission = (challenge.phases || [])
         .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
