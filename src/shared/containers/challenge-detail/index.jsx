@@ -106,10 +106,16 @@ function getOgImage(challenge) {
     case SUBTRACKS.FIRST_2_FINISH:
       switch (challenge.track) {
         case COMPETITION_TRACKS_V3.DEVELOP: return challenge.type === 'Task' ? ogDEVTask : ogFirst2FinishDEV;
-        case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
         case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogFirst2FinishQA;
         default: return ogFirst2FinishDEV;
       }
+
+    case SUBTRACKS.DESIGN_FIRST_2_FINISH:
+      switch (challenge.track) {
+        case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
+        default: return ogUiDesign;
+      }
+
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
       const submission = (challenge.phases || [])
         .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
