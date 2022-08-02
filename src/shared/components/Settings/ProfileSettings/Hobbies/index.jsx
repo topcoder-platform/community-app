@@ -37,7 +37,7 @@ const Hobbies = (props) => {
               id="hobby"
               name="hobby"
               type="text"
-              placeholder="Hobby"
+              placeholder="Type here your hobbies"
               onChange={onUpdateInput}
               value={newHobby.hobby}
               maxLength="128"
@@ -57,7 +57,7 @@ const Hobbies = (props) => {
               id="description"
               name="description"
               type="text"
-              placeholder="Description"
+              placeholder="Shot description about your hobby"
               onChange={onUpdateInput}
               value={newHobby.description}
               maxLength="160"

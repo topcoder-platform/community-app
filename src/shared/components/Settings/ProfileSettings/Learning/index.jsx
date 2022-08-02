@@ -72,12 +72,12 @@ const Learning = (props) => {
 
           <div styleName="date-wrapper">
             {/* Start Date */}
-            <FormField label="Degree">
+            <FormField label="Start Date">
 
               <FormInputDatePicker
                 readOnly
                 displayFormat="MM/DD/YYYY"
-                placeholder="MM/DD/YYYY"
+                placeholder="Select Start Date"
                 isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
                 value={newEducation.timePeriodFrom}
                 id="date-from1"
@@ -100,7 +100,7 @@ const Learning = (props) => {
                     <FormInputDatePicker
                       readOnly
                       displayFormat="MM/DD/YYYY"
-                      placeholder="MM/DD/YYYY"
+                      placeholder="Select End Date"
                       isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
                       value={newEducation.timePeriodTo}
                       id="date-to1"
@@ -110,7 +110,7 @@ const Learning = (props) => {
                     <FormInputDatePicker
                       readOnly
                       displayFormat="MM/DD/YYYY"
-                      placeholder="MM/DD/YYYY"
+                      placeholder="Select End Date"
                       value={newEducation.timePeriodTo}
                       isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
                       id="date-to1"

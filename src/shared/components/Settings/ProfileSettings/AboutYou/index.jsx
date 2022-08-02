@@ -29,7 +29,7 @@ const AboutYou = (props) => {
               id="currentLocation"
               name="currentLocation"
               type="text"
-              placeholder="Where in the world are you currently?"
+              placeholder="Where in the world are you?"
               onChange={onUpdateInput}
               value={newBasicInfo.currentLocation}
               maxLength="64"

@@ -172,7 +172,7 @@ const PersonalDetails = (props) => {
           </FormField>
 
           {/* Zip */}
-          <FormField label="ZIP">
+          <FormField label="Zip/Postal Code">
             <FormInputText
               disabled={!canModifyTrait}
               id="zipCode"
