@@ -22,4 +22,10 @@
   &:focus {
     box-shadow: none !important;
   }
+
+  &:disabled {
+    background: $color-black-10 !important;
+    border: 1px solid #aaa !important;
+    border-radius: 4px !important;
+  }
 }

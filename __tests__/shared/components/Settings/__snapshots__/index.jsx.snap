@@ -41,7 +41,7 @@ exports[`renders account setting page correctly 1`] = `
             "title": "Tools",
           },
           Object {
-            "link": "accounts",
+            "link": "account",
             "title": "Account",
           },
           Object {
@@ -798,7 +798,7 @@ exports[`renders preferences setting page correctly 1`] = `
             "title": "Tools",
           },
           Object {
-            "link": "accounts",
+            "link": "account",
             "title": "Account",
           },
           Object {
@@ -1552,7 +1552,7 @@ exports[`renders profile setting page correctly 1`] = `
             "title": "Tools",
           },
           Object {
-            "link": "accounts",
+            "link": "account",
             "title": "Account",
           },
           Object {
@@ -2312,7 +2312,7 @@ exports[`renders tools setting page correctly 1`] = `
             "title": "Tools",
           },
           Object {
-            "link": "accounts",
+            "link": "account",
             "title": "Account",
           },
           Object {

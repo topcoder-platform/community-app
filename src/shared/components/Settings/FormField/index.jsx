@@ -5,12 +5,15 @@
 */
 import React from 'react';
 import PT from 'prop-types';
+import cn from 'classnames';
 import './styles.scss';
 
-const FormField = ({ children, label = '', style }) => (
+const FormField = ({
+  children, label = '', disabled, style,
+}) => (
   <div styleName="form-field-wrapper" style={style}>
     <div styleName="form-field">
-      <div styleName="label" role="presentation">
+      <div styleName={cn('label', disabled ? 'disabled' : null)} role="presentation">
         {label}
       </div>
       {children}
@@ -21,12 +24,14 @@ const FormField = ({ children, label = '', style }) => (
 FormField.defaultProps = {
   label: '',
   children: null,
+  disabled: false,
   style: {},
 };
 
 FormField.propTypes = {
   label: PT.string,
   children: PT.node,
+  disabled: PT.bool,
   style: PT.object,
 };
 

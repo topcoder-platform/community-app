@@ -10,7 +10,7 @@ export const SETTINGS_TABS = [
   { title: 'Experience & Skills', link: TABS.SKILLS },
   { title: 'Topcoder & You', link: TABS.TRACKS },
   { title: 'Tools', link: TABS.TOOLS },
-  { title: 'Account', link: TABS.ACCOUNTS },
+  { title: 'Account', link: TABS.ACCOUNT },
   { title: 'Preferences', link: TABS.PREFERENCES },
 ];
 

@@ -9,7 +9,7 @@ export const TABS = {
   SKILLS: 'skills',
   TRACKS: 'tracks',
   TOOLS: 'tools',
-  ACCOUNTS: 'accounts',
+  ACCOUNT: 'account',
   PREFERENCES: 'preferences',
 };
 

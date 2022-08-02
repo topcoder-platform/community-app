@@ -40,6 +40,7 @@ export default function Settings(props) {
   const tracksRef = React.useRef();
   const experienceAndSkillsRef = React.useRef();
   const toolsRef = React.useRef();
+  const accountRef = React.useRef();
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -62,6 +63,8 @@ export default function Settings(props) {
               experienceAndSkillsRef.current.save();
             } else if (newProps.settingsTab === TABS.TOOLS) {
               toolsRef.current.save();
+            } else if (newProps.settingsTab === TABS.ACCOUNT) {
+              accountRef.current.save();
             }
           }}
           isSaving={isSaving}
@@ -112,10 +115,13 @@ export default function Settings(props) {
           )
         }
         {
-          newProps.settingsTab === TABS.ACCOUNTS
+          newProps.settingsTab === TABS.ACCOUNT
           && (
             <Account
+              ref={accountRef}
               {...newProps}
+              isSaving={isSaving}
+              setIsSaving={setIsSaving}
             />
           )
         }

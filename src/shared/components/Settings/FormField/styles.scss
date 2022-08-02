@@ -25,6 +25,10 @@
       left: 11px;
       color: $listing-checkbox-green;
       z-index: 1;
+
+      &.disabled {
+        color: $color-black-60;
+      }
     }
   }
 }

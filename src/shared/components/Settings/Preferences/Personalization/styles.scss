@@ -24,11 +24,10 @@
   }
 
   .user-consent-container {
-    border-top: 1px solid $tc-gray-neutral-dark;
-    min-height: 4px;
+    min-height: 100px;
 
-    @include upto-sm {
-      min-height: 1px;
-    }
+    // @include upto-sm {
+    //   min-height: 1px;
+    // }
   }
 }
