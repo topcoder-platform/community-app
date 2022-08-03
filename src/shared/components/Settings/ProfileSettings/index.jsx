@@ -257,6 +257,17 @@ class ProfileSettings extends ConsentComponent {
       newBasicInfo, newProfileInfo, newEducation, newHobby,
     } = this.state;
 
+    if (!_.isEmpty(newEducation.timePeriodFrom)
+      && !_.isEmpty(newEducation.timePeriodTo)
+      && _.trim(newEducation.schoolCollegeName).length
+    ) {
+      this.setState({ isSubmit: true });
+      if (this.onCheckEducationFormValue(newEducation)) {
+        setIsSaving(false);
+        return;
+      }
+    }
+
     if (!this.onCheckEducationFormValue(newEducation)) {
       this.showConsent(this.onAddEducation.bind(this));
     }
