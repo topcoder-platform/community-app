@@ -392,12 +392,10 @@ class ProfileSettings extends ConsentComponent {
   }
 
   onUpdateDate(date) {
-    if (date) {
-      const { newBasicInfo: oldBasicInfo } = this.state;
-      const newBasicInfo = { ...oldBasicInfo };
-      newBasicInfo.birthDate = date;
-      this.setState({ newBasicInfo, inputChanged: true });
-    }
+    const { newBasicInfo: oldBasicInfo } = this.state;
+    const newBasicInfo = { ...oldBasicInfo };
+    newBasicInfo.birthDate = date;
+    this.setState({ newBasicInfo, inputChanged: true });
   }
 
   onUpdateCountry(country) {

@@ -87,6 +87,12 @@
             align-items: center;
             justify-content: flex-end;
             padding-right: 25px;
+
+            .Select-value-label {
+              @include roboto-medium;
+
+              font-size: 16px;
+            }
           }
         }
 
@@ -130,6 +136,10 @@
       }
     }
 
+    .CalendarDay__today {
+      font-weight: 700;
+    }
+
     .reset-btn-container {
       padding: 16px 0 15px;
       margin: 0 15px;
@@ -147,5 +157,10 @@
         border-radius: 24px;
       }
     }
+  }
+
+  .navigationIcon {
+    height: 26px;
+    width: 26px;
   }
 }

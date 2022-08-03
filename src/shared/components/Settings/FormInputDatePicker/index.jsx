@@ -4,6 +4,9 @@ import PT from 'prop-types';
 import moment from 'moment';
 import ReactSelect from 'react-select';
 import DatePicker from 'components/GUIKit/Datepicker';
+import PrevIcon from 'assets/images/preferences/arrow-circle-left.svg';
+import NextIcon from 'assets/images/preferences/arrow-circle-right.svg';
+import DropdownArrow from 'assets/images/dropdown-arrow.svg';
 import styles from './styles.scss';
 
 const renderResetButton = props => (
@@ -36,7 +39,7 @@ const renderDatePickerMonthElement = ({ month, onMonthSelect, onYearSelect }) =>
   for (let year = moment().year(), i = year; i > year - 99; i -= 1) {
     yearOptions.push({ value: i, label: `${i}` });
   }
-
+  const customArrow = () => <DropdownArrow />;
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <div>
@@ -51,6 +54,8 @@ const renderDatePickerMonthElement = ({ month, onMonthSelect, onYearSelect }) =>
           autosize={false}
           searchable={false}
           autoBlur={false}
+          arrowRenderer={customArrow}
+          className={styles.dateSelect}
         />
       </div>
       <div>
@@ -65,6 +70,8 @@ const renderDatePickerMonthElement = ({ month, onMonthSelect, onYearSelect }) =>
           autosize={false}
           searchable={false}
           autoBlur={false}
+          arrowRenderer={customArrow}
+          className={styles.dateSelect}
         />
       </div>
     </div>
@@ -88,6 +95,8 @@ export default function FormInputDatePicker(props) {
       renderCalendarInfo={() => renderResetButton(props)}
       renderMonthElement={renderDatePickerMonthElement}
       className={styles.formInputDatePicker}
+      navPrev={<PrevIcon className={styles.navigationIcon} />}
+      navNext={<NextIcon className={styles.navigationIcon} />}
     />
   );
 }

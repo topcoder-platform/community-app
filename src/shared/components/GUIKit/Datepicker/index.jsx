@@ -39,6 +39,8 @@ function Datepicker({
   renderCalendarInfo,
   className,
   anchorDirection,
+  navPrev,
+  navNext,
 }) {
   const sizeStyle = size === 'lg' ? 'lgSize' : 'xsSize';
   const [date, setDate] = useState(value ? moment(value) : null);
@@ -69,8 +71,8 @@ function Datepicker({
         placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
         inputIconPosition="after"
         numberOfMonths={1}
-        navPrev={<IconPrev />}
-        navNext={<IconNext />}
+        navPrev={navPrev}
+        navNext={navNext}
         displayFormat={displayFormat}
         daySize={width > 600 ? 47 : 35}
         renderDayContents={d => (<div>{d.date ? d.date() : ''}</div>)}
@@ -119,6 +121,8 @@ Datepicker.defaultProps = {
   renderCalendarInfo: null,
   anchorDirection: 'left',
   className: '',
+  navPrev: <IconPrev />,
+  navNext: <IconNext />,
 };
 
 Datepicker.propTypes = {
@@ -142,6 +146,8 @@ Datepicker.propTypes = {
   renderCalendarInfo: PT.func,
   anchorDirection: PT.oneOf(['left', 'right']),
   className: PT.string,
+  navPrev: PT.node,
+  navNext: PT.node,
 };
 
 export default Datepicker;
