@@ -6,7 +6,7 @@ import { config } from 'topcoder-react-utils';
 import ProfileModal from '../../ProfileModal';
 import styles from './styles.scss';
 
-const tcAcademyPath = `${config.PLATFORM_SITE_URL}${config.TC_ACADEMY_BASE_PATH}`;
+const tcAcademyPath = `${config.PLATFORMUI_SITE_URL}${config.TC_ACADEMY_BASE_PATH}`;
 
 const TcaCertificateModal = ({
   certificate,
