@@ -31,8 +31,13 @@
     border-radius: 50px !important;
     background: #137d60 !important;
     color: #fff !important;
-    height: 48px;
+    text-transform: uppercase;
+    padding: 11px 23px;
     margin: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
   }
 
   @include xs-to-md {

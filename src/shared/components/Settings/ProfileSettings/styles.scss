@@ -10,20 +10,36 @@
   }
 }
 
-.save-changes-btn {
-  @include roboto-bold;
+.footer {
+  display: flex;
+  flex-direction: row-reverse;
 
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-  border-radius: 50px !important;
-  background: #137d60 !important;
-  color: #fff !important;
-  text-transform: uppercase;
+  .save-changes-btn {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 50px !important;
+    background: #137d60 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 11px 23px;
+    margin: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
 
   @include xs-to-md {
-    font-size: 14px;
-    line-height: 20px;
+    padding: $pad-xxxxl 0 $pad-sm;
+    border-top: 2px solid $color-black-10;
+
+    .save-changes-btn {
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 }
 

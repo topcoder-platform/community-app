@@ -453,7 +453,7 @@ class TopcoderAndYou extends ConsentComponent {
             />
           </SettingsBanner>
         </div>
-        <div styleName="button-save">
+        <div styleName="footer">
           <PrimaryButton
             onClick={this.onHandleSaveTopcoderAndYou}
             theme={{

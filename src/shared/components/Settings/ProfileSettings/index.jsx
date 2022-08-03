@@ -1157,7 +1157,7 @@ class ProfileSettings extends ConsentComponent {
             />
           </SettingsBanner>
         </div>
-        <div styleName="button-save">
+        <div styleName="footer">
           <PrimaryButton
             disabled={!canModifyTrait}
             onClick={this.onHandleSaveBasicInfo}
