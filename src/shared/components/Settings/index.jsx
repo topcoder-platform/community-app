@@ -58,7 +58,7 @@ export default function Settings(props) {
             if (newProps.settingsTab === TABS.TRACKS) {
               tracksRef.current.onSaveTopcoderAndYou();
             } else if (newProps.settingsTab === TABS.PROFILE) {
-              profileRef.current.onSaveBasicInfo();
+              profileRef.current.onHandleSaveBasicInfo();
             } else if (newProps.settingsTab === TABS.SKILLS) {
               experienceAndSkillsRef.current.save();
             } else if (newProps.settingsTab === TABS.TOOLS) {

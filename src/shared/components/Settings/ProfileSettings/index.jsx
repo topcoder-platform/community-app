@@ -249,16 +249,27 @@ class ProfileSettings extends ConsentComponent {
    * @param {*} e event
    */
   onHandleSaveBasicInfo(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { setIsSaving } = this.props;
-    this.setState({ inputChange: true });
+    this.setState({ inputChange: true, isSubmit: true, isSubmitHobby: true });
     setIsSaving(true);
-    const { newBasicInfo, newProfileInfo } = this.state;
-    if (this.onCheckFormValue(newBasicInfo, newProfileInfo)) {
-      setIsSaving(false);
-      return;
+    const {
+      newBasicInfo, newProfileInfo, newEducation, newHobby,
+    } = this.state;
+
+    if (!this.onCheckEducationFormValue(newEducation)) {
+      this.showConsent(this.onAddEducation.bind(this));
     }
-    this.showConsent(this.onSaveBasicInfo.bind(this));
+
+    if (!this.onCheckFormValueHobby(newHobby)) {
+      this.showConsent(this.onAddHobby.bind(this));
+    }
+
+    if (!this.onCheckFormValue(newBasicInfo, newProfileInfo)) {
+      this.showConsent(this.onSaveBasicInfo.bind(this));
+    } else {
+      setIsSaving(false);
+    }
   }
 
   /**
@@ -742,7 +753,7 @@ class ProfileSettings extends ConsentComponent {
    * @param e event
    */
   onHandleAddEducation(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { newEducation } = this.state;
     this.setState({ isSubmit: true });
     if (this.onCheckEducationFormValue(newEducation)) {
