@@ -23,7 +23,7 @@ export const PROFILE_SETTINGS = {
   aboutYou: {
     title: 'About You',
     description:
-      'Let customers know the langagues you speak. Multilingual? Magnifique.',
+      'Enter a short bio to help potential customers know you.',
   },
   learningAndEducations: {
     title: 'Learning & Education',
