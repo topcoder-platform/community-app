@@ -38,21 +38,6 @@ const AboutYou = (props) => {
           </FormField>
 
           {/* Primary interests */}
-          <FormField label="Primary interests">
-            <FormInputText
-              disabled={!canModifyTrait}
-              id="primaryInterestInTopcoder"
-              name="primaryInterestInTopcoder"
-              type="text"
-              placeholder="Primary Interest In Topcoder"
-              onChange={onUpdateInput}
-              value={newBasicInfo.primaryInterestInTopcoder}
-              maxLength="64"
-              required
-            />
-          </FormField>
-
-          {/* Primary interests */}
           <FormField label="Short bio">
             <FormInputTextArea
               disabled={!canModifyTrait}
