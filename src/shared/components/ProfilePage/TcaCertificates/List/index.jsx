@@ -4,6 +4,8 @@ import PT from 'prop-types';
 import './styles.scss';
 import CourseBadge from '../CourseBadge';
 
+const preventDefault = ev => ev.stopPropagation();
+
 const List = ({
   certificates,
   onClick,
@@ -26,7 +28,7 @@ const List = ({
             {certificate.certificationTitle}
           </div>
           <div styleName="list-item_sub">
-            <a href={`//${certificate.providerUrl}`} target="blank" rel="noopener">
+            <a href={`//${certificate.providerUrl}`} target="blank" rel="noopener" onClick={preventDefault}>
               by {certificate.provider}
             </a>
           </div>
