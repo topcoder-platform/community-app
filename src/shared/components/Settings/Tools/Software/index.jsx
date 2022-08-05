@@ -316,9 +316,9 @@ export default class Software extends ConsentComponent {
         {showConfirmation
         && (
           <ConfirmationModal
-            onConfirm={() => this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo))}
+            onConfirm={() => this.showConsent(this.onDeleteSoftware.bind(this, indexNo))}
             onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
-            name={serviceProviderTrait.traits.data[indexNo].name}
+            name={softwareTrait.traits.data[indexNo].name}
           />
         )}
         <div styleName="form-container">
