@@ -1,0 +1,63 @@
+@import "~styles/mixins";
+
+.list {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+
+  @include xs-to-sm {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: 16px;
+  }
+}
+
+.list-item {
+  background: $listing-white;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 316px;
+  transition: 0.25s ease-in-out;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 16px rgba(22, 103, 154, 0.5);
+  }
+
+  @include xs-to-sm {
+    width: 100%;
+  }
+}
+
+.list-item_badge {
+  width: 48px;
+  height: 48px;
+
+  svg {
+    display: block;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.list-item_title {
+  @include roboto-sans-regular;
+
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+.list-item_sub {
+  @include roboto-sans-regular;
+
+  font-style: italic;
+  font-size: 14px;
+  line-height: 22px;
+  color: $listing-placeholder-gray;
+}

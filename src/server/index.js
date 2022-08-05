@@ -138,11 +138,10 @@ async function onExpressJsSetup(server) {
     res.header('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
 
     if (req.url.startsWith('/__community__/veterans') || req.hostname === 'veterans.topcoder.com' || req.url.startsWith('/__community__/tco') || tcoPattern.test(req.hostname)) {
-      res.header('Cache-Control', 'no-cache');
       res.header(
         'Content-Security-Policy',
         "default-src 'self';"
-        + " script-src 'report-sample' 'self'"
+        + " script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'"
           + ` ${config.CDN.PUBLIC}`
           + ' http://www.google-analytics.com'
           + ' https://www.google-analytics.com'
