@@ -9,6 +9,8 @@ import { ReduxToastr } from 'react-redux-toastr/lib/ReduxToastr';
 import ToastrBox from 'react-redux-toastr/lib/ToastrBox';
 import ProgressBar from 'react-redux-toastr/lib/ProgressBar';
 import * as actions from 'react-redux-toastr/lib/actions';
+import CheckmarkIcon from 'assets/images/icon-checkmark.svg';
+import './styles.scss';
 
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-underscore-dangle */
@@ -24,28 +26,26 @@ class ExtendedToastrBox extends ToastrBox {
     } = this.props.item;
 
     return (
-      <div role="button">
-        <div className="rrt-left-container">
-          <div className="rrt-holder">
-            {this.renderIcon()}
-          </div>
+      <div role="button" styleName="content">
+        <div styleName="left-container">
+          {this.renderIcon()}
         </div>
         {options.status && type === 'light' && <div className={classnames('toastr-status', options.status)} />}
-        <div className="rrt-middle-container">
+        <div styleName="middle-container">
           {title && (
-          <div className="rrt-title">
+          <div styleName="title">
             {title}
           </div>
           )}
           {message && (
-          <div className="rrt-text">
+          <div styleName="text">
             {message}
           </div>
           )}
           {options.component && this.renderSubComponent()}
         </div>
 
-        <div className="rrt-right-container">
+        <div styleName="right-container">
           {options.showCloseButton && this.renderCloseButton()}
         </div>
         {this.state.progressBar ? <ProgressBar {...this.state.progressBar} /> : null}
@@ -67,13 +67,13 @@ class ExtendedReduxToastr extends ReduxToastr {
             progressBar: this.props.progressBar,
             transitionIn: this.props.transitionIn,
             transitionOut: this.props.transitionOut,
+            icon: <CheckmarkIcon />,
             ...item.options,
-            showCloseButton: false,
           },
         };
 
         return (
-          <span key={item.id}>
+          <span key={item.id} styleName="toastr-container">
             <ExtendedToastrBox
               inMemory={this.toastrFired}
               addToMemory={() => this._addToMemory(item.id)}
