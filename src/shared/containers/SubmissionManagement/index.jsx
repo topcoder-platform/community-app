@@ -21,6 +21,10 @@ import smpActions from '../../actions/page/submission_management';
 
 const { getService } = services.submissions;
 
+const theme = {
+  container: style.modalContainer,
+};
+
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
   componentDidMount() {
@@ -108,6 +112,7 @@ class SubmissionManagementPageContainer extends React.Component {
           {showModal && (
           <Modal
             onCancel={deleting ? _.noop : onCancelSubmissionDelete}
+            theme={theme}
           >
             <div styleName="modal-content">
               <p styleName="are-you-sure">
