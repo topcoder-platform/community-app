@@ -23,6 +23,7 @@ class ProfileContainer extends React.Component {
       handleParam,
       loadProfile,
       loadMarathon,
+      loadCertificates,
       meta,
       auth,
       info,
@@ -31,7 +32,9 @@ class ProfileContainer extends React.Component {
 
     if (info) {
       loadMarathon(handleParam, auth.tokenV3, info.userId);
+      loadCertificates(info.userId);
     }
+
     // Redirect to the communities own profile page if
     //  - the member whose profile is being viewed is part of one of the configured communities
     //  - the user is not a topcoder user (has an email with @topcoder.com)
@@ -64,6 +67,7 @@ class ProfileContainer extends React.Component {
       loadProfile,
       loadMarathon,
       loadMemberGroups,
+      loadCertificates,
       meta,
       auth,
       info,
@@ -81,6 +85,7 @@ class ProfileContainer extends React.Component {
 
     if (info && info.userId && info !== prevInfo) {
       loadMarathon(handleParam, auth.tokenV3, info.userId);
+      loadCertificates(info.userId);
     }
     if (auth.tokenV3 && auth.user && auth.user.handle !== handleParam
       && info != null && info.userId != null
@@ -174,6 +179,7 @@ ProfileContainer.propTypes = {
   loadMarathon: PT.func.isRequired,
   loadProfile: PT.func.isRequired,
   loadMemberGroups: PT.func.isRequired,
+  loadCertificates: PT.func.isRequired,
   profileForHandle: PT.string,
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
@@ -202,6 +208,7 @@ const mapStateToProps = (state, ownProps) => ({
   lookupData: state.lookup,
   rewards: state.members[ownProps.match.params.handle]
     ? state.members[ownProps.match.params.handle].rewards : [],
+  tcAcademyCertifications: state.tcAcademy.certifications,
   auth: {
     ...state.auth,
   },
@@ -211,6 +218,8 @@ function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   const lookupActions = actions.lookup;
   const memberActions = actions.members;
+  const tcaActions = actions.tcAcademy;
+
   return {
     loadMemberGroups: (userId, tokenV3) => {
       dispatch(actions.groups.getMemberGroups(userId, tokenV3));
@@ -247,6 +256,10 @@ function mapDispatchToProps(dispatch) {
         CHALLENGE_PER_PAGE,
         true,
       ));
+    },
+    loadCertificates: (userId) => {
+      dispatch(tcaActions.getTcaCertificationsInit(userId));
+      dispatch(tcaActions.getTcaCertificationsDone(userId));
     },
   };
 }

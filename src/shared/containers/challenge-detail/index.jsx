@@ -139,6 +139,7 @@ class ChallengeDetailPageContainer extends React.Component {
         sort: '',
       },
       notFoundCountryFlagUrl: {},
+      viewAsTable: false,
     };
 
     this.instanceId = shortId();
@@ -365,6 +366,7 @@ class ChallengeDetailPageContainer extends React.Component {
       submissionsSort,
       notFoundCountryFlagUrl,
       mySubmissionsSort,
+      viewAsTable,
     } = this.state;
 
     const {
@@ -481,6 +483,7 @@ class ChallengeDetailPageContainer extends React.Component {
               submissionEnded={submissionEnded}
               mySubmissions={challenge.isRegistered ? mySubmissions : []}
               openForRegistrationChallenges={openForRegistrationChallenges}
+              viewAsTable={viewAsTable && isMM}
               onSort={(currenctSelected, sort) => {
                 if (currenctSelected === 'submissions') {
                   this.setState({ submissionsSort: sort });
@@ -568,6 +571,8 @@ class ChallengeDetailPageContainer extends React.Component {
                 isLegacyMM={isLegacyMM}
                 submissionEnded={submissionEnded}
                 challengesUrl={challengesUrl}
+                viewAsTable={viewAsTable && isMM}
+                setViewAsTable={value => this.setState({ viewAsTable: value })}
               />
             )
           }

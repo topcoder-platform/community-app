@@ -23,6 +23,8 @@ import styles from './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
+import TcaCertificates from './TcaCertificates';
+import ProfileModal from './ProfileModal';
 // import Awards from './Awards';
 
 /**
@@ -149,6 +151,7 @@ class ProfilePage extends React.Component {
       lookupData,
       handleParam,
       meta,
+      tcAcademyCertifications,
       // rewards,
     } = this.props;
 
@@ -226,6 +229,12 @@ class ProfilePage extends React.Component {
             </div>
           </div>
         </div>
+        {tcAcademyCertifications.length > 0 && (
+          <TcaCertificates
+            certificates={tcAcademyCertifications}
+            memberHandle={handleParam}
+          />
+        )}
         {/* { */}
         {/*   (rewards || []).length ? ( */}
         {/*     <Awards rewards={rewards} /> */}
@@ -287,6 +296,7 @@ ProfilePage.defaultProps = {
   skills: null,
   stats: null,
   // rewards: [],
+  tcAcademyCertifications: [],
 };
 
 ProfilePage.propTypes = {
@@ -302,6 +312,7 @@ ProfilePage.propTypes = {
   meta: PT.shape().isRequired,
   // rewards: PT.arrayOf(PT.shape()),
   clearSubtrackChallenges: PT.func.isRequired,
+  tcAcademyCertifications: PT.arrayOf(PT.shape()),
 };
 
 function mapDispatchToProps(dispatch) {

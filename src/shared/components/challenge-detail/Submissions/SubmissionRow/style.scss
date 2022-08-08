@@ -63,6 +63,24 @@
   }
 }
 
+.wrapper-as-table {
+  @include xs-to-sm {
+    min-width: 1920px !important;
+  }
+
+  .row {
+    @include xs-to-sm {
+      flex-direction: row !important;
+      border-top: 1px solid $tc-gray-10 !important;
+      margin-left: 0 !important;
+      margin-top: 0 !important;
+      margin-right: 0 !important;
+      padding-top: 16px !important;
+      padding-bottom: 16px !important;
+    }
+  }
+}
+
 .wrapper {
   a { cursor: pointer; }
 
@@ -76,9 +94,9 @@
       flex-direction: column;
       border-top: 1px solid #e9e9e9;
       border-bottom: 0;
-      margin-left: 16px;
+      margin-left: 0;
       margin-top: 25px;
-      margin-right: 34px;
+      margin-right: 15px;
     }
 
     &.no-border {
@@ -122,6 +140,66 @@
     @include xs-to-sm {
       padding-top: 0;
       padding-bottom: 0;
+    }
+  }
+
+  .col-view-as-table {
+    @include xs-to-sm {
+      @include roboto-medium;
+
+      color: #2a2a2a;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      text-align: left;
+    }
+
+    &.col-1 {
+      @include xs-to-sm {
+        flex: 39 !important;
+      }
+    }
+
+    &.col-2 {
+      @include xs-to-sm {
+        flex: 37 !important;
+      }
+    }
+
+    &.col-3 {
+      @include xs-to-sm {
+        flex: 74 !important;
+      }
+    }
+
+    &.col-4 {
+      @include xs-to-sm {
+        flex: 15 !important;
+      }
+    }
+
+    &.col-5 {
+      @include xs-to-sm {
+        flex: 22 !important;
+      }
+    }
+
+    &.col-6 {
+      @include xs-to-sm {
+        flex: 38 !important;
+      }
+    }
+
+    &.col-7 {
+      @include xs-to-sm {
+        flex: 35 !important;
+      }
+    }
+
+    &.col-8 {
+      @include xs-to-sm {
+        flex: 25 !important;
+      }
     }
   }
 
@@ -273,21 +351,6 @@ hr {
   }
 }
 
-.container {
-  width: 750px !important;
-  border-radius: 8px;
-
-  @include xs-to-sm {
-    width: 100%;
-    margin: 0;
-    max-width: 100vw;
-    height: 100%;
-    max-height: 100vh;
-    padding: 24px 16px;
-    z-index: 999999;
-  }
-}
-
 .close-btn {
   cursor: pointer;
   display: flex;
@@ -312,6 +375,14 @@ hr {
     border-top: 1px solid #e9e9e9;
     position: sticky;
     margin-bottom: 16px;
+  }
+}
+
+.view-as-table-header {
+  display: none !important;
+
+  @include xs-to-sm {
+    display: none !important;
   }
 }
 
