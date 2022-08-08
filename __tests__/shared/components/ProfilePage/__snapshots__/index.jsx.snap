@@ -713,6 +713,7 @@ exports[`renders a full Profile correctly 1`] = `
       "unsubscribe": null,
     }
   }
+  tcAcademyCertifications={Array []}
 />
 `;
 
@@ -862,5 +863,6 @@ exports[`renders an empty Profile correctly 1`] = `
       "unsubscribe": null,
     }
   }
+  tcAcademyCertifications={Array []}
 />
 `;
