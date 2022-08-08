@@ -97,25 +97,33 @@ export function getHistory(stats, track, subTrack) {
 }
 
 
+// NOTE: perserve the legacy format func for future reference
 const percentageFunc = n => `${(n * 100).toFixed(2)}%`;
-const formatWithDecimalFunc = n => `${n.toFixed(2)}%`; // fixed issue #1011
-const percentileFunc = n => (n === 0 ? '0' : `${n.toFixed(0)}%`);
-const ratingFunc = n => n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// const percentageFunc = n => `${(n * 100).toFixed(0)}%`;
+// const formatWithDecimalFunc = n => `${n.toFixed(2)}%`; // fixed issue #1011
+const formatWithDecimalFunc = n => `${n.toFixed(1).replace(/\.0$/, '')}%`;
+const percentileFunc = n => `${n.toFixed(1).replace(/\.0$/, '')}%`;
+// const ratingFunc = n => n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const ratingFunc = n => n.toFixed(0);
 const defaultRenderFunc = n => n.toFixed(0);
+const formatPlacement = n => n.toFixed(2).replace(/0+$/, '').replace(/\.$/, '');
 
 
 const interestingData = {
   DESIGN: [
     { key: 'wins', label: 'wins', postFunc: null },
     { key: 'challenges', label: 'challenges', postFunc: null },
+    { key: 'winPercent', label: 'percentile', postFunc: percentileFunc },
+    { key: 'screeningSuccessRate', label: 'Screening Success Rate', postFunc: percentileFunc },
+    { key: 'avgPlacement', label: 'Average Placement', postFunc: formatPlacement },
   ],
   DEVELOP: [
     { key: 'rank.rating', label: 'rating', postFunc: ratingFunc },
     { key: 'rank.overallRank', label: 'rank', postFunc: null },
     { key: 'rank.overallPercentile', label: 'percentile', postFunc: percentileFunc },
-    { key: 'submissions.submissions', label: 'challenges', postFunc: null },
     { key: 'wins', label: 'wins', postFunc: null },
-    { key: 'rank.reliability', label: 'reliability', postFunc: percentageFunc },
+    { key: 'submissions.submissions', label: 'challenges', postFunc: null },
+    // { key: 'rank.reliability', label: 'reliability', postFunc: percentageFunc },
   ],
   'DATA_SCIENCE.SRM': [
     { key: 'rank.rating', label: 'rating', postFunc: ratingFunc },

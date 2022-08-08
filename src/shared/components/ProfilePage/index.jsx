@@ -3,11 +3,16 @@
  * of a TopCoder member.
  */
 /* eslint-env browser */
+/* eslint-disable no-shadow */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
+import shortId from 'shortid';
+import { actions } from 'topcoder-react-lib';
+import { connect } from 'react-redux';
 
+import ProfileStats from 'containers/ProfileStats';
 import { dataMap } from './ExternalLink';
 import Header from './Header';
 import MemberTracks from './MemberTracks';
@@ -16,6 +21,9 @@ import './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
+import TcaCertificates from './TcaCertificates';
+import ProfileModal from './ProfileModal';
+// import Awards from './Awards';
 
 /**
  * Inspects a subtrack and determines if the member is active
@@ -41,10 +49,17 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // NOTE: When showDetails is true, track and subTrack must have been setted.
+      track: '',
+      subTrack: '',
+      tab: '',
       isMobile: false,
+      showDetails: false,
     };
 
     this.handleResize = this.handleResize.bind(this);
+    this.closeDetails = this.closeDetails.bind(this);
+    this.isAlreadyLoadChallenge = React.createRef();
   }
 
   componentDidMount() {
@@ -117,6 +132,12 @@ class ProfilePage extends React.Component {
     this.setState({ isMobile: window.innerWidth < 768 });
   }
 
+  closeDetails() {
+    const { clearSubtrackChallenges, handleParam } = this.props;
+    clearSubtrackChallenges(handleParam);
+    this.setState({ showDetails: false, track: '', subTrack: '' });
+  }
+
   render() {
     const {
       copilot,
@@ -126,9 +147,19 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
+      handleParam,
+      meta,
+      tcAcademyCertifications,
+      // rewards,
     } = this.props;
 
-    const { isMobile } = this.state;
+    const {
+      track,
+      subTrack,
+      tab,
+      isMobile,
+      showDetails,
+    } = this.state;
 
     let { info } = this.props;
 
@@ -168,7 +199,7 @@ class ProfilePage extends React.Component {
     }
 
     // no rating MM
-    const hasMM = challenges && challenges.length;
+    const hasMM = !!(challenges && challenges.length);
 
     return (
       <div styleName="outer-container">
@@ -196,11 +227,49 @@ class ProfilePage extends React.Component {
             </div>
           </div>
         </div>
+        {tcAcademyCertifications.length > 0 && (
+          <TcaCertificates
+            certificates={tcAcademyCertifications}
+            memberHandle={handleParam}
+          />
+        )}
+        {/* { */}
+        {/*   (rewards || []).length ? ( */}
+        {/*     <Awards rewards={rewards} /> */}
+        {/*   ) : null */}
+        {/* } */}
         <Activity
           memberStats={stats}
           hasMM={hasMM}
-          handle={info.handle}
+          onClick={({ track, subTrack }) => {
+            this.isAlreadyLoadChallenge.current = false;
+            this.setState({
+              track, subTrack, showDetails: true, tab: '',
+            });
+          }}
         />
+        { showDetails && (
+          <ProfileModal
+            title={(
+              subTrack === 'SRM'
+                ? 'Single round match'
+                : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
+            )}
+            onCancel={this.closeDetails}
+          >
+            <ProfileStats
+              handleParam={handleParam}
+              meta={meta}
+              track={track}
+              subTrack={subTrack}
+              tab={tab}
+              setTab={(tab) => {
+                this.setState({ tab });
+              }}
+              isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
+            />
+          </ProfileModal>
+        )}
       </div>
     );
   }
@@ -212,6 +281,8 @@ ProfilePage.defaultProps = {
   challenges: null,
   skills: null,
   stats: null,
+  // rewards: [],
+  tcAcademyCertifications: [],
 };
 
 ProfilePage.propTypes = {
@@ -223,6 +294,29 @@ ProfilePage.propTypes = {
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
+  handleParam: PT.string.isRequired,
+  meta: PT.shape().isRequired,
+  // rewards: PT.arrayOf(PT.shape()),
+  clearSubtrackChallenges: PT.func.isRequired,
+  tcAcademyCertifications: PT.arrayOf(PT.shape()),
 };
 
-export default ProfilePage;
+function mapDispatchToProps(dispatch) {
+  const action = actions.members;
+
+  return {
+    clearSubtrackChallenges: (
+      handle,
+    ) => {
+      const uuid = shortId();
+      dispatch(action.getSubtrackChallengesInit(handle, uuid, 1));
+    },
+  };
+}
+
+const Container = connect(
+  () => ({}),
+  mapDispatchToProps,
+)(ProfilePage);
+
+export default Container;

@@ -25,8 +25,8 @@ const MemberTracks = ({
           && (
           <div styleName="member-tracks">
               {
-                [...info.tracks, ...(indexOf(info.tracks, 'DATA_SCIENCE') === -1 && hasMM ? ['DATA_SCIENCE'] : []), ...(copilot ? ['COPILOT'] : [])].map(track => (
-                  <TrackItem trackName={trackMap[track] || ''} />
+                [...info.tracks, ...(indexOf(info.tracks, 'DATA_SCIENCE') === -1 && hasMM ? ['DATA_SCIENCE'] : []), ...(copilot ? ['COPILOT'] : [])].map((track, index) => (
+                  <TrackItem key={index} trackName={trackMap[track] || ''} /> /* eslint-disable-line react/no-array-index-key */
                 ))
               }
           </div>

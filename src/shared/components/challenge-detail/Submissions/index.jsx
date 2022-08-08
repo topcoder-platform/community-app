@@ -22,6 +22,10 @@ import challengeDetailsActions from 'actions/page/challenge-details';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { goToLogin, getRatingLevel } from 'utils/tc';
 import Lock from '../icons/lock.svg';
+import ViewAsListActive from '../icons/view-as-list-active.svg';
+import ViewAsListInactive from '../icons/view-as-list-inactive.svg';
+import ViewAsTableActive from '../icons/view-as-table-active.svg';
+import ViewAsTableInactive from '../icons/view-as-table-inactive.svg';
 import SubmissionRow from './SubmissionRow';
 import SubmissionInformationModal from './SubmissionInformationModal';
 import style from './style.scss';
@@ -284,6 +288,8 @@ class SubmissionsComponent extends React.Component {
       unregistering,
       isLegacyMM,
       challengesUrl,
+      viewAsTable,
+      setViewAsTable,
     } = this.props;
     const {
       checkpoints,
@@ -440,6 +446,27 @@ class SubmissionsComponent extends React.Component {
     return (
       <div styleName={`container dev ${isMM ? 'mm' : 'non-mm'}`}>
         {
+          isMM ? (
+            <div styleName="view-as">
+              <span styleName="title">View as</span>
+              {
+                viewAsTable ? (
+                  <React.Fragment>
+                    <ViewAsListInactive styleName="list-icon" onClick={() => setViewAsTable(false)} />
+                    <ViewAsTableActive styleName="table-icon" onClick={() => setViewAsTable(true)} />
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <ViewAsListActive styleName="list-icon" onClick={() => setViewAsTable(false)} />
+                    <ViewAsTableInactive styleName="table-icon" onClick={() => setViewAsTable(true)} />
+                  </React.Fragment>
+                )
+              }
+            </div>
+          ) : null
+        }
+        <div styleName={`${viewAsTable ? 'view-as-table' : ''}`}>
+          {
             !isMM && (
               <div styleName="head">
                 {
@@ -564,9 +591,9 @@ class SubmissionsComponent extends React.Component {
               </div>
             )
           }
-        {
+          {
             isMM && (
-              <div styleName="sub-head">
+              <div styleName={`sub-head ${viewAsTable ? 'sub-head-table' : ''}`}>
                 <div styleName="col-1 col">
                   <button
                     type="button"
@@ -748,7 +775,7 @@ class SubmissionsComponent extends React.Component {
               </div>
             )
           }
-        {
+          {
             isMM && (
               sortedSubmissions.map((submission, index) => (
                 <SubmissionRow
@@ -765,11 +792,12 @@ class SubmissionsComponent extends React.Component {
                   getFlagFirstTry={this.getFlagFirstTry}
                   onGetFlagImageFail={onGetFlagImageFail}
                   submissionDetail={submission}
+                  viewAsTable={viewAsTable}
                 />
               ))
             )
           }
-        {
+          {
             !isMM && (
               sortedSubmissions.map(s => (
                 <div key={_.get(s.registrant, 'memberHandle', '') + s.created} styleName="row">
@@ -824,9 +852,10 @@ class SubmissionsComponent extends React.Component {
               ))
             )
           }
-        {
+          {
           isMM && <div styleName="bottom-line" />
         }
+        </div>
         {isMM && (
           <div styleName="btn-add-submission">
             <Button
@@ -903,6 +932,8 @@ SubmissionsComponent.propTypes = {
   submissionEnded: PT.bool.isRequired,
   isLegacyMM: PT.bool.isRequired,
   challengesUrl: PT.string.isRequired,
+  viewAsTable: PT.bool.isRequired,
+  setViewAsTable: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

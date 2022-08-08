@@ -1,896 +1,868 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a full Profile correctly 1`] = `
-<div
-  className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
->
-  <div>
-    <Connect(ProfileHeader)
-      info={
-        Object {
-          "competitionCountryCode": "USA",
-          "createdAt": "2004-03-21T21:05Z",
-          "createdBy": "200000",
-          "description": "Test Description",
-          "handle": "testHandle",
-          "handleLower": "testhandle",
-          "homeCountryCode": "USA",
-          "maxRating": Object {
-            "rating": 0,
-            "subTrack": null,
-            "track": null,
-          },
-          "photoURL": null,
-          "status": "ACTIVE",
-          "tracks": Array [
-            "DATA_SCIENCE",
-            "DESIGN",
-            "DEVELOP",
-          ],
-          "updatedAt": "2017-10-17T17:13Z",
-          "updatedBy": "200000",
-          "userId": 200000,
-        }
-      }
-    />
-    <div
-      className="src-shared-components-ProfilePage-___styles__content___2JKnD"
-    >
-      <div
-        className="src-shared-components-ProfilePage-___styles__left-content___1QEHu"
-      >
-        <MemberTracks
-          copilot={true}
-          hasMM={null}
-          info={
-            Object {
-              "competitionCountryCode": "USA",
-              "createdAt": "2004-03-21T21:05Z",
-              "createdBy": "200000",
-              "description": "Test Description",
-              "handle": "testHandle",
-              "handleLower": "testhandle",
-              "homeCountryCode": "USA",
-              "maxRating": Object {
-                "rating": 0,
-                "subTrack": null,
-                "track": null,
-              },
-              "photoURL": null,
-              "status": "ACTIVE",
-              "tracks": Array [
-                "DATA_SCIENCE",
-                "DESIGN",
-                "DEVELOP",
-              ],
-              "updatedAt": "2017-10-17T17:13Z",
-              "updatedBy": "200000",
-              "userId": 200000,
-            }
-          }
-        />
-        <Skills
-          isMobile={false}
-          skills={
-            Array [
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "117",
-                "tagName": "API",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "125",
-                "tagName": "Bash",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "132",
-                "tagName": "C#",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "153",
-                "tagName": "CSS",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "159",
-                "tagName": "Database",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "168",
-                "tagName": "EC2",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "170",
-                "tagName": "EJB",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "176",
-                "tagName": "Excel",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "212",
-                "tagName": "HTML",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "247",
-                "tagName": "Java",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "248",
-                "tagName": "JavaScript",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "259",
-                "tagName": "JSON",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "260",
-                "tagName": "JSP",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "284",
-                "tagName": "MySql",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "286",
-                "tagName": "Node.js",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "294",
-                "tagName": "Oracle",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "295",
-                "tagName": "Oracle Database",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "306",
-                "tagName": "PostgreSQL",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "317",
-                "tagName": "Redis",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "323",
-                "tagName": "REST",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "CHALLENGE",
-                ],
-                "tagId": "328",
-                "tagName": "Salesforce",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "355",
-                "tagName": "SQL",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "356",
-                "tagName": "SQL Server",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "387",
-                "tagName": "Web Services",
-              },
-              Object {
-                "hidden": false,
-                "score": 1,
-                "sources": Array [
-                  "USER_ENTERED",
-                ],
-                "tagId": "401",
-                "tagName": "XML",
-              },
-            ]
-          }
-        />
-        <p
-          className="src-shared-components-ProfilePage-___styles__description___3m4a3"
-        >
-          Test Description
-        </p>
-      </div>
-      <div
-        className="src-shared-components-ProfilePage-___styles__right-content___1PO0x"
-      >
-        <MemberInfo
-          country=""
-          info={
-            Object {
-              "competitionCountryCode": "USA",
-              "createdAt": "2004-03-21T21:05Z",
-              "createdBy": "200000",
-              "description": "Test Description",
-              "handle": "testHandle",
-              "handleLower": "testhandle",
-              "homeCountryCode": "USA",
-              "maxRating": Object {
-                "rating": 0,
-                "subTrack": null,
-                "track": null,
-              },
-              "photoURL": null,
-              "status": "ACTIVE",
-              "tracks": Array [
-                "DATA_SCIENCE",
-                "DESIGN",
-                "DEVELOP",
-              ],
-              "updatedAt": "2017-10-17T17:13Z",
-              "updatedBy": "200000",
-              "userId": 200000,
-            }
-          }
-          wins={0}
-        />
-      </div>
-    </div>
-  </div>
-  <Activity
-    handle="testHandle"
-    hasMM={null}
-    memberStats={
+<ProfilePage
+  achievements={
+    Array [
       Object {
-        "COPILOT": Object {
-          "fulfillment": "98",
-        },
-        "DATA_SCIENCE": Object {
-          "MARATHON_MATCH": Object {
-            "challenges": 2,
-            "rank": Object {
-              "avgNumSubmissions": 0,
-              "avgRank": 0,
-              "bestRank": 0,
-              "competitions": 0,
-              "countryRank": 0,
-              "defaultLanguage": "Java",
-              "maximumRating": 0,
-              "minimumRating": 0,
-              "percentile": 0,
-              "rank": 0,
-              "rating": 1800,
-              "schoolRank": 0,
-              "topFiveFinishes": 0,
-              "topTenFinishes": 0,
-              "volatility": 0,
-            },
-            "wins": 1,
+        "date": "2017-09-18T00:00:00.000-04:00",
+        "description": "SRM Engagement Honor",
+      },
+      Object {
+        "date": "2015-07-23T00:00:00.000-04:00",
+        "description": "Studio First Passing Submission",
+      },
+      Object {
+        "date": "2015-06-02T00:00:00.000-04:00",
+        "description": "Participant Badge",
+      },
+      Object {
+        "date": "2015-04-29T00:00:00.000-04:00",
+        "description": "Show Your Skills iOS Badge",
+      },
+      Object {
+        "date": "2015-04-23T00:00:00.000-04:00",
+        "description": "iOS Participant Badge",
+      },
+      Object {
+        "date": "2013-03-21T00:00:00.000-04:00",
+        "description": "First Forum Post",
+      },
+      Object {
+        "date": "2013-02-20T00:00:00.000-05:00",
+        "description": "One Hundred Forum Posts",
+      },
+      Object {
+        "date": "2012-11-28T00:00:00.000-05:00",
+        "description": "Five Hundred Forum Posts",
+      },
+      Object {
+        "date": "2012-09-29T00:00:00.000-04:00",
+        "description": "First Passing Submission",
+      },
+      Object {
+        "date": "2012-04-30T00:00:00.000-04:00",
+        "description": "One Thousand Forum Posts",
+      },
+      Object {
+        "date": "2012-02-17T00:00:00.000-05:00",
+        "description": "Studio First Forum Post",
+      },
+      Object {
+        "date": "2009-06-23T00:00:00.000-04:00",
+        "description": "Studio One Hundred Forum Posts",
+      },
+      Object {
+        "date": "2005-01-29T00:00:00.000-05:00",
+        "description": "Five Thousand Forum Posts",
+      },
+    ]
+  }
+  challenges={null}
+  clearSubtrackChallenges={[Function]}
+  copilot={true}
+  country="United States"
+  externalAccounts={
+    Object {
+      "behance": null,
+      "bitbucket": Object {
+        "followers": 0,
+        "handle": "testHandle",
+        "languages": null,
+        "profileURL": "https://bitbucket.org/testHandle/",
+        "repos": 0,
+      },
+      "dribbble": null,
+      "github": null,
+      "handle": "testHandle",
+      "linkedin": null,
+      "stackoverflow": Object {
+        "answers": 42,
+        "name": "testHandle",
+        "reputation": 1000,
+      },
+      "twitter": null,
+      "userId": 200000,
+    }
+  }
+  externalLinks={
+    Array [
+      Object {
+        "URL": "www.topcoder.com",
+        "description": "Topcoder!",
+        "handle": "testHandle",
+        "title": "topcoder",
+        "userId": 200000,
+      },
+    ]
+  }
+  handleParam="testHandle"
+  info={
+    Object {
+      "competitionCountryCode": "USA",
+      "createdAt": "2004-03-21T21:05Z",
+      "createdBy": "200000",
+      "description": "Test Description",
+      "handle": "testHandle",
+      "handleLower": "testhandle",
+      "homeCountryCode": "USA",
+      "maxRating": Object {
+        "rating": 0,
+        "subTrack": null,
+        "track": null,
+      },
+      "photoURL": null,
+      "status": "ACTIVE",
+      "tracks": Array [
+        "DATA_SCIENCE",
+        "DESIGN",
+        "DEVELOP",
+      ],
+      "updatedAt": "2017-10-17T17:13Z",
+      "updatedBy": "200000",
+      "userId": 200000,
+    }
+  }
+  loadingError={false}
+  profileForHandle="testHandle"
+  skills={
+    Object {
+      "117": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "API",
+      },
+      "125": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Bash",
+      },
+      "132": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "C#",
+      },
+      "153": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "CSS",
+      },
+      "159": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Database",
+      },
+      "168": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "EC2",
+      },
+      "170": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "EJB",
+      },
+      "176": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Excel",
+      },
+      "212": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "HTML",
+      },
+      "247": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Java",
+      },
+      "248": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "JavaScript",
+      },
+      "259": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "JSON",
+      },
+      "260": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "JSP",
+      },
+      "284": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "MySql",
+      },
+      "286": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Node.js",
+      },
+      "294": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Oracle",
+      },
+      "295": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Oracle Database",
+      },
+      "306": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "PostgreSQL",
+      },
+      "317": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Redis",
+      },
+      "323": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "REST",
+      },
+      "328": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "CHALLENGE",
+        ],
+        "tagName": "Salesforce",
+      },
+      "355": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "SQL",
+      },
+      "356": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "SQL Server",
+      },
+      "387": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "Web Services",
+      },
+      "401": Object {
+        "hidden": false,
+        "score": 1,
+        "sources": Array [
+          "USER_ENTERED",
+        ],
+        "tagName": "XML",
+      },
+    }
+  }
+  stats={
+    Object {
+      "COPILOT": Object {
+        "fulfillment": "98",
+      },
+      "DATA_SCIENCE": Object {
+        "MARATHON_MATCH": Object {
+          "challenges": 2,
+          "rank": Object {
+            "avgNumSubmissions": 0,
+            "avgRank": 0,
+            "bestRank": 0,
+            "competitions": 0,
+            "countryRank": 0,
+            "defaultLanguage": "Java",
+            "maximumRating": 0,
+            "minimumRating": 0,
+            "percentile": 0,
+            "rank": 0,
+            "rating": 1800,
+            "schoolRank": 0,
+            "topFiveFinishes": 0,
+            "topTenFinishes": 0,
+            "volatility": 0,
           },
-          "SRM": Object {
-            "challengeDetails": null,
-            "challenges": 0,
-            "division1": null,
-            "division2": null,
+          "wins": 1,
+        },
+        "SRM": Object {
+          "challengeDetails": null,
+          "challenges": 0,
+          "division1": null,
+          "division2": null,
+          "rank": Object {
+            "competitions": 0,
+            "countryRank": 0,
+            "defaultLanguage": "Java",
+            "maximumRating": 0,
+            "minimumRating": 0,
+            "percentile": 0,
+            "rank": 0,
+            "rating": 1650,
+            "schoolRank": 0,
+            "volatility": 0,
+          },
+          "wins": 0,
+        },
+        "challenges": 5,
+        "wins": 4,
+      },
+      "DESIGN": Object {
+        "challenges": 49,
+        "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+        "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
+        "subTracks": Array [
+          Object {
+            "avgPlacement": 0,
+            "challenges": 3,
+            "id": 20,
+            "mostRecentEventDate": "2010-06-30T07:00:00.000Z",
+            "mostRecentSubmission": "2009-04-16T22:17:00.000Z",
+            "name": "LOGO_DESIGN",
+            "numInquiries": 3,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0.3333333333333333,
+            "submissions": 1,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 21,
+            "id": 17,
+            "mostRecentEventDate": "2014-12-16T09:01:12.000Z",
+            "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
+            "name": "WEB_DESIGNS",
+            "numInquiries": 21,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0.04761904761904762,
+            "submissions": 1,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 3,
+            "id": 34,
+            "mostRecentEventDate": "2009-09-08T12:00:00.000Z",
+            "name": "STUDIO_OTHER",
+            "numInquiries": 3,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0,
+            "submissions": 0,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 6,
+            "id": 16,
+            "mostRecentEventDate": "2014-05-22T01:00:10.000Z",
+            "name": "BANNERS_OR_ICONS",
+            "numInquiries": 6,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0,
+            "submissions": 0,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 5,
+            "id": 18,
+            "mostRecentEventDate": "2014-06-06T03:53:03.000Z",
+            "name": "WIREFRAMES",
+            "numInquiries": 5,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0,
+            "submissions": 0,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 5,
+            "id": 40,
+            "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+            "name": "DESIGN_FIRST_2_FINISH",
+            "numInquiries": 5,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0,
+            "submissions": 0,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 1,
+            "id": 32,
+            "mostRecentEventDate": "2010-02-05T23:00:00.000Z",
+            "name": "APPLICATION_FRONT_END_DESIGN",
+            "numInquiries": 1,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0,
+            "submissions": 0,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 3,
+            "id": 21,
+            "mostRecentEventDate": "2014-07-08T10:00:16.000Z",
+            "name": "PRINT_OR_PRESENTATION",
+            "numInquiries": 3,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0,
+            "submissions": 0,
+            "winPercent": 0,
+            "wins": 0,
+          },
+          Object {
+            "avgPlacement": 0,
+            "challenges": 2,
+            "id": 30,
+            "mostRecentEventDate": "2014-04-11T09:00:08.000Z",
+            "name": "WIDGET_OR_MOBILE_SCREEN_DESIGN",
+            "numInquiries": 2,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "submissionRate": 0,
+            "submissions": 0,
+            "winPercent": 0,
+            "wins": 0,
+          },
+        ],
+        "wins": 0,
+      },
+      "DEVELOP": Object {
+        "challenges": 29,
+        "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+        "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
+        "subTracks": Array [
+          Object {
+            "challenges": 6,
+            "id": 125,
+            "mostRecentEventDate": "2014-10-06T11:30:02.000Z",
+            "name": "ASSEMBLY_COMPETITION",
             "rank": Object {
-              "competitions": 0,
-              "countryRank": 0,
-              "defaultLanguage": "Java",
-              "maximumRating": 0,
-              "minimumRating": 0,
-              "percentile": 0,
-              "rank": 0,
-              "rating": 1650,
-              "schoolRank": 0,
-              "volatility": 0,
+              "activeCountryRank": null,
+              "activePercentile": null,
+              "activeRank": null,
+              "activeSchoolRank": null,
+              "maxRating": null,
+              "minRating": null,
+              "overallCountryRank": null,
+              "overallPercentile": null,
+              "overallRank": null,
+              "overallSchoolRank": null,
+              "rating": null,
+              "reliability": null,
+              "volatility": null,
+            },
+            "submissions": Object {
+              "appealSuccessRate": 0,
+              "appeals": 0,
+              "avgPlacement": 0,
+              "avgScore": 0,
+              "maxScore": 0,
+              "minScore": 0,
+              "numInquiries": 6,
+              "passedReview": 0,
+              "passedScreening": 0,
+              "reviewSuccessRate": 0,
+              "screeningSuccessRate": 0,
+              "submissionRate": 0,
+              "submissions": 0,
+              "winPercent": 0,
             },
             "wins": 0,
           },
-          "challenges": 5,
-          "wins": 4,
-        },
-        "DESIGN": Object {
-          "challenges": 49,
-          "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
-          "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
-          "subTracks": Array [
-            Object {
-              "avgPlacement": 0,
-              "challenges": 3,
-              "id": 20,
-              "mostRecentEventDate": "2010-06-30T07:00:00.000Z",
-              "mostRecentSubmission": "2009-04-16T22:17:00.000Z",
-              "name": "LOGO_DESIGN",
-              "numInquiries": 3,
-              "passedScreening": 0,
-              "screeningSuccessRate": 0,
-              "submissionRate": 0.3333333333333333,
-              "submissions": 1,
-              "winPercent": 0,
-              "wins": 0,
+          Object {
+            "challenges": 1,
+            "id": 134,
+            "mostRecentEventDate": "2014-03-22T22:00:03.000Z",
+            "name": "CONCEPTUALIZATION",
+            "rank": Object {
+              "activeCountryRank": null,
+              "activePercentile": null,
+              "activeRank": null,
+              "activeSchoolRank": null,
+              "maxRating": null,
+              "minRating": null,
+              "overallCountryRank": null,
+              "overallPercentile": null,
+              "overallRank": null,
+              "overallSchoolRank": null,
+              "rating": null,
+              "reliability": null,
+              "volatility": null,
             },
-            Object {
+            "submissions": Object {
+              "appealSuccessRate": 0,
+              "appeals": 0,
               "avgPlacement": 0,
-              "challenges": 21,
-              "id": 17,
-              "mostRecentEventDate": "2014-12-16T09:01:12.000Z",
-              "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
-              "name": "WEB_DESIGNS",
-              "numInquiries": 21,
-              "passedScreening": 0,
-              "screeningSuccessRate": 0,
-              "submissionRate": 0.04761904761904762,
-              "submissions": 1,
-              "winPercent": 0,
-              "wins": 0,
-            },
-            Object {
-              "avgPlacement": 0,
-              "challenges": 3,
-              "id": 34,
-              "mostRecentEventDate": "2009-09-08T12:00:00.000Z",
-              "name": "STUDIO_OTHER",
-              "numInquiries": 3,
-              "passedScreening": 0,
-              "screeningSuccessRate": 0,
-              "submissionRate": 0,
-              "submissions": 0,
-              "winPercent": 0,
-              "wins": 0,
-            },
-            Object {
-              "avgPlacement": 0,
-              "challenges": 6,
-              "id": 16,
-              "mostRecentEventDate": "2014-05-22T01:00:10.000Z",
-              "name": "BANNERS_OR_ICONS",
-              "numInquiries": 6,
-              "passedScreening": 0,
-              "screeningSuccessRate": 0,
-              "submissionRate": 0,
-              "submissions": 0,
-              "winPercent": 0,
-              "wins": 0,
-            },
-            Object {
-              "avgPlacement": 0,
-              "challenges": 5,
-              "id": 18,
-              "mostRecentEventDate": "2014-06-06T03:53:03.000Z",
-              "name": "WIREFRAMES",
-              "numInquiries": 5,
-              "passedScreening": 0,
-              "screeningSuccessRate": 0,
-              "submissionRate": 0,
-              "submissions": 0,
-              "winPercent": 0,
-              "wins": 0,
-            },
-            Object {
-              "avgPlacement": 0,
-              "challenges": 5,
-              "id": 40,
-              "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
-              "name": "DESIGN_FIRST_2_FINISH",
-              "numInquiries": 5,
-              "passedScreening": 0,
-              "screeningSuccessRate": 0,
-              "submissionRate": 0,
-              "submissions": 0,
-              "winPercent": 0,
-              "wins": 0,
-            },
-            Object {
-              "avgPlacement": 0,
-              "challenges": 1,
-              "id": 32,
-              "mostRecentEventDate": "2010-02-05T23:00:00.000Z",
-              "name": "APPLICATION_FRONT_END_DESIGN",
+              "avgScore": 0,
+              "maxScore": 0,
+              "minScore": 0,
               "numInquiries": 1,
+              "passedReview": 0,
               "passedScreening": 0,
+              "reviewSuccessRate": 0,
               "screeningSuccessRate": 0,
               "submissionRate": 0,
               "submissions": 0,
               "winPercent": 0,
-              "wins": 0,
             },
-            Object {
-              "avgPlacement": 0,
-              "challenges": 3,
-              "id": 21,
-              "mostRecentEventDate": "2014-07-08T10:00:16.000Z",
-              "name": "PRINT_OR_PRESENTATION",
-              "numInquiries": 3,
-              "passedScreening": 0,
-              "screeningSuccessRate": 0,
-              "submissionRate": 0,
-              "submissions": 0,
-              "winPercent": 0,
-              "wins": 0,
+            "wins": 0,
+          },
+          Object {
+            "challenges": 20,
+            "id": 149,
+            "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+            "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
+            "name": "FIRST_2_FINISH",
+            "rank": Object {
+              "activeCountryRank": null,
+              "activePercentile": null,
+              "activeRank": null,
+              "activeSchoolRank": null,
+              "maxRating": null,
+              "minRating": null,
+              "overallCountryRank": null,
+              "overallPercentile": null,
+              "overallRank": null,
+              "overallSchoolRank": null,
+              "rating": null,
+              "reliability": null,
+              "volatility": null,
             },
-            Object {
+            "submissions": Object {
+              "appealSuccessRate": 0,
+              "appeals": 0,
+              "avgPlacement": 1,
+              "avgScore": 100,
+              "maxScore": 100,
+              "minScore": 100,
+              "numInquiries": 20,
+              "passedReview": 3,
+              "passedScreening": 3,
+              "reviewSuccessRate": 0.6,
+              "screeningSuccessRate": 0.6,
+              "submissionRate": 0.25,
+              "submissions": 5,
+              "winPercent": 0.6,
+            },
+            "wins": 3,
+          },
+          Object {
+            "challenges": 2,
+            "id": 150,
+            "mostRecentEventDate": "2014-10-31T08:37:11.000Z",
+            "name": "CODE",
+            "rank": Object {
+              "activeCountryRank": null,
+              "activePercentile": null,
+              "activeRank": null,
+              "activeSchoolRank": null,
+              "maxRating": null,
+              "minRating": null,
+              "overallCountryRank": null,
+              "overallPercentile": null,
+              "overallRank": null,
+              "overallSchoolRank": null,
+              "rating": null,
+              "reliability": null,
+              "volatility": null,
+            },
+            "submissions": Object {
+              "appealSuccessRate": 0,
+              "appeals": 0,
               "avgPlacement": 0,
-              "challenges": 2,
-              "id": 30,
-              "mostRecentEventDate": "2014-04-11T09:00:08.000Z",
-              "name": "WIDGET_OR_MOBILE_SCREEN_DESIGN",
+              "avgScore": 0,
+              "maxScore": 0,
+              "minScore": 0,
               "numInquiries": 2,
+              "passedReview": 0,
               "passedScreening": 0,
+              "reviewSuccessRate": 0,
               "screeningSuccessRate": 0,
               "submissionRate": 0,
               "submissions": 0,
               "winPercent": 0,
-              "wins": 0,
             },
-          ],
-          "wins": 0,
-        },
-        "DEVELOP": Object {
-          "challenges": 29,
-          "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
-          "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
-          "subTracks": Array [
-            Object {
-              "challenges": 6,
-              "id": 125,
-              "mostRecentEventDate": "2014-10-06T11:30:02.000Z",
-              "name": "ASSEMBLY_COMPETITION",
-              "rank": Object {
-                "activeCountryRank": null,
-                "activePercentile": null,
-                "activeRank": null,
-                "activeSchoolRank": null,
-                "maxRating": null,
-                "minRating": null,
-                "overallCountryRank": null,
-                "overallPercentile": null,
-                "overallRank": null,
-                "overallSchoolRank": null,
-                "rating": null,
-                "reliability": null,
-                "volatility": null,
-              },
-              "submissions": Object {
-                "appealSuccessRate": 0,
-                "appeals": 0,
-                "avgPlacement": 0,
-                "avgScore": 0,
-                "maxScore": 0,
-                "minScore": 0,
-                "numInquiries": 6,
-                "passedReview": 0,
-                "passedScreening": 0,
-                "reviewSuccessRate": 0,
-                "screeningSuccessRate": 0,
-                "submissionRate": 0,
-                "submissions": 0,
-                "winPercent": 0,
-              },
-              "wins": 0,
-            },
-            Object {
-              "challenges": 1,
-              "id": 134,
-              "mostRecentEventDate": "2014-03-22T22:00:03.000Z",
-              "name": "CONCEPTUALIZATION",
-              "rank": Object {
-                "activeCountryRank": null,
-                "activePercentile": null,
-                "activeRank": null,
-                "activeSchoolRank": null,
-                "maxRating": null,
-                "minRating": null,
-                "overallCountryRank": null,
-                "overallPercentile": null,
-                "overallRank": null,
-                "overallSchoolRank": null,
-                "rating": null,
-                "reliability": null,
-                "volatility": null,
-              },
-              "submissions": Object {
-                "appealSuccessRate": 0,
-                "appeals": 0,
-                "avgPlacement": 0,
-                "avgScore": 0,
-                "maxScore": 0,
-                "minScore": 0,
-                "numInquiries": 1,
-                "passedReview": 0,
-                "passedScreening": 0,
-                "reviewSuccessRate": 0,
-                "screeningSuccessRate": 0,
-                "submissionRate": 0,
-                "submissions": 0,
-                "winPercent": 0,
-              },
-              "wins": 0,
-            },
-            Object {
-              "challenges": 20,
-              "id": 149,
-              "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
-              "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
-              "name": "FIRST_2_FINISH",
-              "rank": Object {
-                "activeCountryRank": null,
-                "activePercentile": null,
-                "activeRank": null,
-                "activeSchoolRank": null,
-                "maxRating": null,
-                "minRating": null,
-                "overallCountryRank": null,
-                "overallPercentile": null,
-                "overallRank": null,
-                "overallSchoolRank": null,
-                "rating": null,
-                "reliability": null,
-                "volatility": null,
-              },
-              "submissions": Object {
-                "appealSuccessRate": 0,
-                "appeals": 0,
-                "avgPlacement": 1,
-                "avgScore": 100,
-                "maxScore": 100,
-                "minScore": 100,
-                "numInquiries": 20,
-                "passedReview": 3,
-                "passedScreening": 3,
-                "reviewSuccessRate": 0.6,
-                "screeningSuccessRate": 0.6,
-                "submissionRate": 0.25,
-                "submissions": 5,
-                "winPercent": 0.6,
-              },
-              "wins": 3,
-            },
-            Object {
-              "challenges": 2,
-              "id": 150,
-              "mostRecentEventDate": "2014-10-31T08:37:11.000Z",
-              "name": "CODE",
-              "rank": Object {
-                "activeCountryRank": null,
-                "activePercentile": null,
-                "activeRank": null,
-                "activeSchoolRank": null,
-                "maxRating": null,
-                "minRating": null,
-                "overallCountryRank": null,
-                "overallPercentile": null,
-                "overallRank": null,
-                "overallSchoolRank": null,
-                "rating": null,
-                "reliability": null,
-                "volatility": null,
-              },
-              "submissions": Object {
-                "appealSuccessRate": 0,
-                "appeals": 0,
-                "avgPlacement": 0,
-                "avgScore": 0,
-                "maxScore": 0,
-                "minScore": 0,
-                "numInquiries": 2,
-                "passedReview": 0,
-                "passedScreening": 0,
-                "reviewSuccessRate": 0,
-                "screeningSuccessRate": 0,
-                "submissionRate": 0,
-                "submissions": 0,
-                "winPercent": 0,
-              },
-              "wins": 0,
-            },
-          ],
-          "wins": 3,
-        },
-        "challenges": 78,
-        "createdAt": null,
-        "createdBy": null,
-        "handle": "testHandle",
-        "handleLower": "testhandle",
-        "maxRating": Object {
-          "rating": 0,
-          "subTrack": null,
-          "track": null,
-        },
-        "updatedAt": null,
-        "updatedBy": null,
-        "userId": 200000,
+            "wins": 0,
+          },
+        ],
         "wins": 3,
-      }
+      },
+      "challenges": 78,
+      "createdAt": null,
+      "createdBy": null,
+      "handle": "testHandle",
+      "handleLower": "testhandle",
+      "maxRating": Object {
+        "rating": 0,
+        "subTrack": null,
+        "track": null,
+      },
+      "updatedAt": null,
+      "updatedBy": null,
+      "userId": 200000,
+      "wins": 3,
     }
-  />
-</div>
+  }
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
+    }
+  }
+  tcAcademyCertifications={Array []}
+/>
 `;
 
 exports[`renders an empty Profile correctly 1`] = `
-<div
-  className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
->
-  <div>
-    <Connect(ProfileHeader)
-      info={
-        Object {
-          "competitionCountryCode": "USA",
-          "createdAt": "2004-03-21T21:05Z",
-          "createdBy": "200000",
-          "description": "Test Description",
-          "handle": "testHandle",
-          "handleLower": "testhandle",
-          "homeCountryCode": "USA",
-          "maxRating": Object {
+<ProfilePage
+  achievements={Array []}
+  challenges={null}
+  clearSubtrackChallenges={[Function]}
+  copilot={false}
+  country="United States"
+  externalAccounts={
+    Object {
+      "behance": null,
+      "bitbucket": null,
+      "dribbble": null,
+      "github": null,
+      "handle": "testHandle",
+      "linkedin": null,
+      "stackoverflow": null,
+      "twitter": null,
+      "userId": 200000,
+    }
+  }
+  externalLinks={Array []}
+  handleParam="testHandle"
+  info={
+    Object {
+      "competitionCountryCode": "USA",
+      "createdAt": "2004-03-21T21:05Z",
+      "createdBy": "200000",
+      "description": "Test Description",
+      "handle": "testHandle",
+      "handleLower": "testhandle",
+      "homeCountryCode": "USA",
+      "maxRating": Object {
+        "rating": 0,
+        "subTrack": null,
+        "track": null,
+      },
+      "photoURL": null,
+      "status": "ACTIVE",
+      "tracks": Array [],
+      "updatedAt": "2017-10-17T17:13Z",
+      "updatedBy": "200000",
+      "userId": 200000,
+    }
+  }
+  loadingError={false}
+  profileForHandle="testHandle"
+  skills={Object {}}
+  stats={
+    Object {
+      "COPILOT": null,
+      "DATA_SCIENCE": Object {
+        "MARATHON_MATCH": Object {
+          "challenges": 0,
+          "rank": Object {
+            "avgNumSubmissions": 0,
+            "avgRank": 0,
+            "bestRank": 0,
+            "competitions": 0,
+            "countryRank": 0,
+            "defaultLanguage": "Java",
+            "maximumRating": 0,
+            "minimumRating": 0,
+            "percentile": 0,
+            "rank": 0,
             "rating": 0,
-            "subTrack": null,
-            "track": null,
+            "schoolRank": 0,
+            "topFiveFinishes": 0,
+            "topTenFinishes": 0,
+            "volatility": 0,
           },
-          "photoURL": null,
-          "status": "ACTIVE",
-          "tracks": Array [],
-          "updatedAt": "2017-10-17T17:13Z",
-          "updatedBy": "200000",
-          "userId": 200000,
-        }
-      }
-    />
-    <div
-      className="src-shared-components-ProfilePage-___styles__content___2JKnD"
-    >
-      <div
-        className="src-shared-components-ProfilePage-___styles__left-content___1QEHu"
-      >
-        <MemberTracks
-          copilot={false}
-          hasMM={null}
-          info={
-            Object {
-              "competitionCountryCode": "USA",
-              "createdAt": "2004-03-21T21:05Z",
-              "createdBy": "200000",
-              "description": "Test Description",
-              "handle": "testHandle",
-              "handleLower": "testhandle",
-              "homeCountryCode": "USA",
-              "maxRating": Object {
-                "rating": 0,
-                "subTrack": null,
-                "track": null,
-              },
-              "photoURL": null,
-              "status": "ACTIVE",
-              "tracks": Array [],
-              "updatedAt": "2017-10-17T17:13Z",
-              "updatedBy": "200000",
-              "userId": 200000,
-            }
-          }
-        />
-        <p
-          className="src-shared-components-ProfilePage-___styles__description___3m4a3"
-        >
-          Test Description
-        </p>
-      </div>
-      <div
-        className="src-shared-components-ProfilePage-___styles__right-content___1PO0x"
-      >
-        <MemberInfo
-          country=""
-          info={
-            Object {
-              "competitionCountryCode": "USA",
-              "createdAt": "2004-03-21T21:05Z",
-              "createdBy": "200000",
-              "description": "Test Description",
-              "handle": "testHandle",
-              "handleLower": "testhandle",
-              "homeCountryCode": "USA",
-              "maxRating": Object {
-                "rating": 0,
-                "subTrack": null,
-                "track": null,
-              },
-              "photoURL": null,
-              "status": "ACTIVE",
-              "tracks": Array [],
-              "updatedAt": "2017-10-17T17:13Z",
-              "updatedBy": "200000",
-              "userId": 200000,
-            }
-          }
-          wins={0}
-        />
-      </div>
-    </div>
-  </div>
-  <Activity
-    handle="testHandle"
-    hasMM={null}
-    memberStats={
-      Object {
-        "COPILOT": null,
-        "DATA_SCIENCE": Object {
-          "MARATHON_MATCH": Object {
-            "challenges": 0,
-            "rank": Object {
-              "avgNumSubmissions": 0,
-              "avgRank": 0,
-              "bestRank": 0,
-              "competitions": 0,
-              "countryRank": 0,
-              "defaultLanguage": "Java",
-              "maximumRating": 0,
-              "minimumRating": 0,
-              "percentile": 0,
-              "rank": 0,
-              "rating": 0,
-              "schoolRank": 0,
-              "topFiveFinishes": 0,
-              "topTenFinishes": 0,
-              "volatility": 0,
-            },
-            "wins": 0,
-          },
-          "SRM": Object {
-            "challengeDetails": null,
-            "challenges": 0,
-            "division1": null,
-            "division2": null,
-            "rank": Object {
-              "competitions": 0,
-              "countryRank": 0,
-              "defaultLanguage": "Java",
-              "maximumRating": 0,
-              "minimumRating": 0,
-              "percentile": 0,
-              "rank": 0,
-              "rating": 0,
-              "schoolRank": 0,
-              "volatility": 0,
-            },
-            "wins": 0,
-          },
-          "challenges": 0,
           "wins": 0,
         },
-        "DESIGN": Object {
+        "SRM": Object {
+          "challengeDetails": null,
           "challenges": 0,
-          "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
-          "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
-          "subTracks": Array [],
-          "wins": 0,
-        },
-        "DEVELOP": Object {
-          "challenges": 0,
-          "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
-          "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
-          "subTracks": Array [],
+          "division1": null,
+          "division2": null,
+          "rank": Object {
+            "competitions": 0,
+            "countryRank": 0,
+            "defaultLanguage": "Java",
+            "maximumRating": 0,
+            "minimumRating": 0,
+            "percentile": 0,
+            "rank": 0,
+            "rating": 0,
+            "schoolRank": 0,
+            "volatility": 0,
+          },
           "wins": 0,
         },
         "challenges": 0,
-        "createdAt": null,
-        "createdBy": null,
-        "handle": "testHandle",
-        "handleLower": "testhandle",
-        "maxRating": Object {
-          "rating": 0,
-          "subTrack": null,
-          "track": null,
-        },
-        "updatedAt": null,
-        "updatedBy": null,
-        "userId": 200000,
         "wins": 0,
-      }
+      },
+      "DESIGN": Object {
+        "challenges": 0,
+        "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+        "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
+        "subTracks": Array [],
+        "wins": 0,
+      },
+      "DEVELOP": Object {
+        "challenges": 0,
+        "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+        "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
+        "subTracks": Array [],
+        "wins": 0,
+      },
+      "challenges": 0,
+      "createdAt": null,
+      "createdBy": null,
+      "handle": "testHandle",
+      "handleLower": "testhandle",
+      "maxRating": Object {
+        "rating": 0,
+        "subTrack": null,
+        "track": null,
+      },
+      "updatedAt": null,
+      "updatedBy": null,
+      "userId": 200000,
+      "wins": 0,
     }
-  />
-</div>
+  }
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
+    }
+  }
+  tcAcademyCertifications={Array []}
+/>
 `;

@@ -103,7 +103,7 @@ module.exports = {
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
     CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
-
+    TCO_OPEN_URL: 'https://www.topcoder-dev.com/community/member-programs/topcoder-open',
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
@@ -444,6 +444,7 @@ module.exports = {
   GIGS_PAGES_PATH: '/gigs',
   GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',
+  TC_ACADEMY_BASE_PATH: '/learn',
   GUIKIT: {
     DEBOUNCE_ON_CHANGE_TIME: 150,
   },
@@ -452,4 +453,5 @@ module.exports = {
     SDK_KEY: '7V4CJhurXT3Y3bnzv1hv1',
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
+  PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
 };

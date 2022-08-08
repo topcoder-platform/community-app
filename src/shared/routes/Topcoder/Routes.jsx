@@ -32,7 +32,6 @@ import Settings from '../Settings';
 import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
-import ProfileStats from '../ProfileStats';
 import MemberSearch from '../../containers/MemberSearch';
 
 import './styles.scss';
@@ -93,11 +92,6 @@ export default function Topcoder() {
               <Route
                 component={() => <Settings base="/settings" />}
                 path="/settings"
-              />
-              <Route
-                component={ProfileStats}
-                exact
-                path="/members/:handle([\w\-\[\].{} ]{2,15})/details"
               />
               {/* EDU Portal */}
               <Route

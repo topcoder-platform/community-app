@@ -26,6 +26,7 @@ module.exports = {
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder.com',
     CHALLENGES_URL: 'https://www.topcoder.com/challenges',
+    TCO_OPEN_URL: 'https://www.topcoder.com/community/member-programs/topcoder-open',
 
     AUTH: 'https://accounts-auth0.topcoder.com',
     BASE: 'https://www.topcoder.com',
@@ -225,4 +226,5 @@ module.exports = {
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   ENABLE_RECOMMENDER: true,
   PLATFORM_SITE_URL: 'https://platform.topcoder.com',
+  PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder.com',
 };

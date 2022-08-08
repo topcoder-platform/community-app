@@ -5,4 +5,5 @@ module.exports = {
     USER_SETTINGS: '', /* No dev server is available for saved searches */
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
+  PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
 };
