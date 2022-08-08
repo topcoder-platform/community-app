@@ -206,6 +206,8 @@ const mapStateToProps = (state, ownProps) => ({
   stats: state.profile.stats,
   memberGroups: state.groups.memberGroups,
   lookupData: state.lookup,
+  rewards: state.members[ownProps.match.params.handle]
+    ? state.members[ownProps.match.params.handle].rewards : [],
   tcAcademyCertifications: state.tcAcademy.certifications,
   auth: {
     ...state.auth,
