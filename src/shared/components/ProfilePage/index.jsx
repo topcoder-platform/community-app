@@ -24,7 +24,7 @@ import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
 import TcaCertificates from './TcaCertificates';
-// import ProfileModal from './ProfileModal';
+import ProfileModal from './ProfileModal';
 // import Awards from './Awards';
 
 /**

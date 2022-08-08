@@ -234,6 +234,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getSkillsInit());
       dispatch(a.getStatsInit());
       dispatch(lookupActions.getCountriesInit());
+      dispatch(memberActions.getGamificationRewardsInit(handle));
       dispatch(a.getAchievementsV3Done(handle));
       dispatch(a.getExternalAccountsDone(handle));
       dispatch(a.getExternalLinksDone(handle));
@@ -241,6 +242,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getSkillsDone(handle));
       dispatch(a.getStatsDone(handle, showPublicStats ? undefined : groupIds, tokenV3));
       dispatch(lookupActions.getCountriesDone());
+      dispatch(memberActions.getGamificationRewardsDone(handle, tokenV3));
     },
     loadMarathon: (handle, tokenV3, memberId) => {
       const uuid = shortId();
