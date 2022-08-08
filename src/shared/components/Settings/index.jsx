@@ -68,6 +68,7 @@ export default function Settings(props) {
             }
           }}
           isSaving={isSaving}
+          isPreferencesTab={newProps.settingsTab === TABS.PREFERENCES}
         />
         <TabSelector activeTab={newProps.settingsTab} tabs={SETTINGS_TABS} selectTab={selectTab} />
         {

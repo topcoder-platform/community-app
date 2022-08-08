@@ -1,16 +1,6 @@
 @import "../../style";
 
 .Personalization {
-  margin-bottom: 60px;
-
-  @include from-sm-to-lg {
-    margin-bottom: 0;
-  }
-
-  @include upto-sm {
-    margin-bottom: 0;
-  }
-
   .title {
     @include tc-heading-lg;
 
@@ -21,13 +11,5 @@
       line-height: 30px;
       margin: 20px;
     }
-  }
-
-  .user-consent-container {
-    min-height: 100px;
-
-    // @include upto-sm {
-    //   min-height: 1px;
-    // }
   }
 }

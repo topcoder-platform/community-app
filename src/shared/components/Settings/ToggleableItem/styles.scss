@@ -14,6 +14,10 @@
     display: flex;
     flex-direction: column;
     padding-right: 20px;
+
+    @media (max-width: 374px) {
+      padding-right: 16px;
+    }
   }
 
   p.primary {
@@ -36,8 +40,13 @@
   }
 
   .onoffswitch-no-padding-right {
-    margin-right: 0;
-    position: relative;
-    bottom: 15px;
+    margin-right: 9px;
+    margin-left: 0;
+    margin-top: 10px;
+    align-self: flex-start;
+
+    @media (max-width: 374px) {
+      margin-right: 0;
+    }
   }
 }
