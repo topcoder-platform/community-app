@@ -14,7 +14,6 @@ exports[`renders account setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
-      isPreferencesTab={false}
       isSaving={false}
       saveSettings={[Function]}
       selectTab={[Function]}
@@ -772,7 +771,6 @@ exports[`renders preferences setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
-      isPreferencesTab={false}
       isSaving={false}
       saveSettings={[Function]}
       selectTab={[Function]}
@@ -1527,7 +1525,6 @@ exports[`renders profile setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
-      isPreferencesTab={false}
       isSaving={false}
       saveSettings={[Function]}
       selectTab={[Function]}
@@ -2288,7 +2285,6 @@ exports[`renders tools setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
-      isPreferencesTab={false}
       isSaving={false}
       saveSettings={[Function]}
       selectTab={[Function]}
