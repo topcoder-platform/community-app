@@ -57,7 +57,7 @@ const Hobbies = (props) => {
               id="description"
               name="description"
               type="text"
-              placeholder="Shot description about your hobby"
+              placeholder="Short description about your hobby"
               onChange={onUpdateInput}
               value={newHobby.description}
               maxLength="160"

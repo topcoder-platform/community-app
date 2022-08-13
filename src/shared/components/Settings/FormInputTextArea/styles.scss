@@ -20,8 +20,11 @@
   }
 
   &::placeholder {
-    color: #aaa !important;
+    color: #767676 !important;
     text-transform: none !important;
+    font-size: 14px !important;
+    opacity: 1 !important;
+    font-weight: 400 !important;
   }
 
   &:focus {
