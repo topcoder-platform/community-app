@@ -7,7 +7,7 @@ import PT from 'prop-types';
 
 import style from './styles.scss';
 
-export default function Header({ saveSettings, isSaving, isPreferencesTab }) {
+export default function Header({ saveSettings, isSaving }) {
   return (
     <div styleName="Header">
       <div styleName="title">
@@ -16,7 +16,7 @@ export default function Header({ saveSettings, isSaving, isPreferencesTab }) {
       <Button
         onClick={saveSettings}
         theme={{ button: style.saveButton }}
-        disabled={isSaving || isPreferencesTab}
+        disabled={isSaving}
       >
         <span>SAVE CHANGES</span>
       </Button>
@@ -26,11 +26,9 @@ export default function Header({ saveSettings, isSaving, isPreferencesTab }) {
 
 Header.defaultProps = {
   isSaving: false,
-  isPreferencesTab: false,
 };
 
 Header.propTypes = {
   saveSettings: PT.func.isRequired,
-  isPreferencesTab: PT.bool,
   isSaving: PT.bool,
 };

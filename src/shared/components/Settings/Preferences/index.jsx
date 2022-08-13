@@ -10,16 +10,41 @@ import ErrorWrapper from '../ErrorWrapper';
 import styles from './styles.scss';
 
 export default class Preferences extends React.Component {
+  constructor(props) {
+    super(props);
+    this.save = this.save.bind(this);
+    this.newsRef = React.createRef();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { isSaving, setIsSaving } = this.props;
+    if (isSaving !== nextProps.isSaving) {
+      setTimeout(() => {
+        setIsSaving(false);
+      }, 600);
+    }
+  }
+
+  save() {
+    const { isSaving, setIsSaving } = this.props;
+    if (isSaving) {
+      return;
+    }
+    setIsSaving(true);
+
+    this.newsRef.current.getWrappedInstance().save();
+  }
+
   render() {
-    const { profile: { email } } = this.props;
+    const { profile: { email }, isSaving } = this.props;
 
     const saveBtn = (
       <PrimaryButton
         onClick={this.save}
         theme={{
-          button: `${styles['save-changes-btn']} ${styles.disabled}`,
+          button: `${styles['save-changes-btn']} ${isSaving ? styles.disabled : ''}`,
         }}
-        disabled
+        disabled={!!isSaving}
       >
         Save Changes
       </PrimaryButton>
@@ -34,6 +59,7 @@ export default class Preferences extends React.Component {
           <div styleName="platform-banner">
             <NewsletterPreferencesContainer
               email={email}
+              ref={this.newsRef}
             />
             <PreferenceList />
           </div>
@@ -44,6 +70,12 @@ export default class Preferences extends React.Component {
   }
 }
 
+Preferences.defaultProps = {
+  isSaving: false,
+};
+
 Preferences.propTypes = {
   profile: PT.shape().isRequired,
+  isSaving: PT.bool,
+  setIsSaving: PT.func.isRequired,
 };

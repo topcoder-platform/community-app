@@ -42,6 +42,7 @@ export default function Settings(props) {
   const experienceAndSkillsRef = React.useRef();
   const toolsRef = React.useRef();
   const accountRef = React.useRef();
+  const preferencesRef = React.useRef();
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -66,10 +67,11 @@ export default function Settings(props) {
               toolsRef.current.save();
             } else if (newProps.settingsTab === TABS.ACCOUNT) {
               accountRef.current.save();
+            } else if (newProps.settingsTab === TABS.PREFERENCES) {
+              preferencesRef.current.save();
             }
           }}
           isSaving={isSaving}
-          isPreferencesTab={newProps.settingsTab === TABS.PREFERENCES}
         />
         <TabSelector activeTab={newProps.settingsTab} tabs={SETTINGS_TABS} selectTab={selectTab} />
         {
@@ -131,7 +133,10 @@ export default function Settings(props) {
           newProps.settingsTab === TABS.PREFERENCES
           && (
             <Preferences
+              ref={preferencesRef}
               {...newProps}
+              isSaving={isSaving}
+              setIsSaving={setIsSaving}
             />
           )
         }

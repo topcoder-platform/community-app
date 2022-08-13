@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,6 +6,11 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Email from 'components/Settings/Preferences/Email';
 
 class NewsletterPreferencesContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.save = this.save.bind(this);
+  }
+
   componentDidMount() {
     const {
       loading,
@@ -16,6 +20,11 @@ class NewsletterPreferencesContainer extends React.Component {
     if (!loading) {
       getNewsletterPreferencesDone(email);
     }
+  }
+
+  save() {
+    const { saveEmailPreferences } = this.props;
+    saveEmailPreferences();
   }
 
   render() {
@@ -87,6 +96,7 @@ function mapDispatchToProps(dispatch) {
 const Container = connect(
   mapStateToProps,
   mapDispatchToProps,
+  null, { withRef: true },
 )(NewsletterPreferencesContainer);
 
 export default Container;
