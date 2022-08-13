@@ -687,13 +687,10 @@ class ProfileSettings extends ConsentComponent {
     }
     if (_.isEmpty(education.timePeriodFrom)) {
       delete education.timePeriodFrom;
-    } else {
-      education.timePeriodFrom = new Date(newEducation.timePeriodFrom).getTime();
     }
+
     if (_.isEmpty(education.timePeriodTo)) {
       delete education.timePeriodTo;
-    } else {
-      education.timePeriodTo = new Date(newEducation.timePeriodTo).getTime();
     }
 
     if (educationTrait.traits && educationTrait.traits.data.length > 0) {
