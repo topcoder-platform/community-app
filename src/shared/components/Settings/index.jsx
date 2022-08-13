@@ -30,6 +30,7 @@ export default function Settings(props) {
   }
 
   const selectTab = (tab) => {
+    newProps.selectTab(tab);
     newProps.history.push(`/settings/${tab}`);
   };
 

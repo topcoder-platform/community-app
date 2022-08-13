@@ -19,7 +19,9 @@ const TabSelector = ({
   const onActiveClick = (tab) => {
     setCurrentSelected(tab.link);
     setIsTabClosed(true);
-    selectTab(tab.link);
+    setImmediate(() => {
+      selectTab(tab.link);
+    });
   };
 
   const desktopTab = (
