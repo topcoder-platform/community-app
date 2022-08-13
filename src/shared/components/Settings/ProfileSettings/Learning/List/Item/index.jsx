@@ -98,7 +98,7 @@ export default function Item(props) {
         </div>
         <div styleName={`education-parameters${hasSecondLine() ? '' : ' single-line'}`}>
           <div styleName={`parameter-first-line${hasSecondLine() ? '' : ' single-line'}`}>
-            { `${education.schoolCollegeName} | ${education.major}`}
+            { education.major ? `${education.schoolCollegeName} | ${education.major}` : `${education.schoolCollegeName}`}
           </div>
           {
             hasSecondLine() && (
