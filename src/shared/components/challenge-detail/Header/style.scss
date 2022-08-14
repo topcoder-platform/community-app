@@ -387,6 +387,7 @@
     .prizes-ops-container {
       background-color: $tc-white;
       border: 2px solid $tc-gray-20;
+      border-bottom: none;
       border-top-right-radius: 6px;
       border-top-left-radius: 6px;
       margin-top: 16px;
@@ -546,84 +547,42 @@
     }
 
     .deadlines-view {
-      border-radius: 0 0 6px 6px;
+      border-radius: 0 0 8px 8px;
       border: 0 hidden $tc-white;
       overflow: hidden;
-      margin: 0 14px 0 4px;
+      margin: 0 14px 0 5px;
       min-height: 96px;
 
       .deadlines-overview {
         background-color: #555;
-        display: flex;
-        flex-wrap: wrap;
+        display: none;
+        align-items: center;
         justify-content: space-between;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
+        height: 56px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
 
         &.opened {
           border-radius: 0 !important;
         }
 
         @include xs-to-md {
-          flex-wrap: nowrap;
+          display: flex;
+          padding: 0 16px;
         }
 
         .deadlines-overview-text {
-          @include roboto-regular;
+          @include barlow-semi-bold;
 
-          display: flex;
-          justify-content: flex-start;
           color: $tc-white;
-          line-height: 20px;
-          padding: 23px 26px;
-          font-size: 15px;
-
-          @include xs-to-md {
-            flex-direction: column;
-          }
-
-          .next-deadline {
-            word-wrap: normal;
-            border-right: $tc-gray-50 solid 1px;
-            padding-right: 10px;
-            display: inline;
-
-            @include xs-to-md {
-              border-right: none;
-            }
-          }
-
-          .completed {
-            border-right: none;
-          }
-
-          .current-phase {
-            overflow-wrap: normal;
-            padding-left: 10px;
-
-            @include xs-to-md {
-              padding-left: 0;
-              margin-top: 4px;
-            }
-          }
-
-          .deadline-highlighted {
-            color: $tc-white;
-            font-weight: 700;
-          }
+          font-size: 16px;
+          line-height: 18px;
+          text-transform: uppercase;
         }
 
         .deadlines-collapser {
-          @include roboto-medium;
-
-          font-size: 13px;
-          color: $tc-gray-20;
-          letter-spacing: 0;
-          line-height: 20px;
-          padding: 15px 20px;
-          margin-top: 10px;
-          margin-right: 8px;
           cursor: pointer;
+          margin-top: 2px;
 
           .collapse-text {
             svg {
