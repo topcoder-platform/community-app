@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="12px" viewBox="0 0 17 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
-    <defs></defs>
-    <g id="Styleguide" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Header" transform="translate(-246.000000, -2080.000000)" fill-rule="nonzero" fill="#DCDCE0">
-            <path d="M254.5,2080 C254.734483,2080 254.967955,2080.0761 255.157967,2080.22925 L263,2086.55505 L261.684067,2088 L254.5,2082.20404 L247.315933,2088 L246,2086.55505 L253.842033,2080.22925 C254.032045,2080.0761 254.265517,2080 254.5,2080 Z" id="icon-arrow-up"></path>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M19.7071 15.7071C19.3166 16.0976 18.6834 16.0976 18.2929 15.7071L12 9.41421L5.70711 15.7071C5.31658 16.0976 4.68342 16.0976 4.29289 15.7071C3.90237 15.3166 3.90237 14.6834 4.29289 14.2929L11.2929 7.29289C11.6834 6.90237 12.3166 6.90237 12.7071 7.29289L19.7071 14.2929C20.0976 14.6834 20.0976 15.3166 19.7071 15.7071Z" fill="white"/>
 </svg>

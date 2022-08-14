@@ -12,6 +12,7 @@ import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
@@ -28,10 +29,6 @@ import DeadlinesPanel from './DeadlinesPanel';
 import TabSelector from './TabSelector';
 
 import style from './style.scss';
-
-/* Holds day and hour range in ms. */
-const HOUR_MS = 60 * 60 * 1000;
-const DAY_MS = 24 * HOUR_MS;
 
 export default function ChallengeHeader(props) {
   const {
@@ -50,7 +47,7 @@ export default function ChallengeHeader(props) {
     unregistering,
     challengeTypesMap,
     selectedView,
-    showDeadlineDetail,
+    showDeadlineDetail: showDeadlineDetailProp,
     hasFirstPlacement,
     hasThriveArticles,
     hasRecommendedChallenges,
@@ -77,6 +74,9 @@ export default function ChallengeHeader(props) {
     type,
     track,
   } = challenge;
+
+  const desktop = useMediaQuery({ minWidth: 1024 });
+  const showDeadlineDetail = desktop || showDeadlineDetailProp;
 
   const tags = challenge.tags || [];
 
@@ -127,26 +127,6 @@ export default function ChallengeHeader(props) {
      * are Deleted
     */
   const hasSubmissions = !_.isEmpty(mySubmissions);
-
-  const openPhases = sortedAllPhases.filter(p => p.isOpen);
-  let nextPhase = openPhases[0];
-  if (hasRegistered && openPhases[0] && openPhases[0].name === 'Registration') {
-    nextPhase = openPhases[1] || {};
-  }
-  const nextDeadline = nextPhase && nextPhase.name;
-
-  const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
-  const currentTime = moment();
-
-  let timeLeft = deadlineEnd.isAfter(currentTime)
-    ? deadlineEnd.diff(currentTime) : 0;
-
-  let format;
-  if (timeLeft > DAY_MS) format = 'D[d] H[h]';
-  else if (timeLeft > HOUR_MS) format = 'H[h] m[min]';
-  else format = 'm[min] s[s]';
-
-  timeLeft = moment.duration(timeLeft).format(format);
 
   let relevantPhases = [];
 
@@ -209,41 +189,6 @@ export default function ChallengeHeader(props) {
   }
 
   const checkpointCount = checkpoints && checkpoints.numberOfPassedScreeningSubmissions;
-
-  let nextDeadlineMsg;
-  switch ((status || '').toLowerCase()) {
-    case 'active':
-      nextDeadlineMsg = (
-        <div styleName="next-deadline">
-          Next Deadline:
-          {' '}
-          {
-            <span styleName="deadline-highlighted">
-              {nextDeadline || '-'}
-            </span>
-            }
-        </div>
-      );
-      break;
-    case 'completed':
-      nextDeadlineMsg = (
-        <div styleName="completed">
-          The challenge is finished.
-        </div>
-      );
-      break;
-    default:
-      nextDeadlineMsg = (
-        <div>
-          Status:
-          &zwnj;
-          <span styleName="deadline-highlighted">
-            {_.upperFirst(_.lowerCase(status))}
-          </span>
-        </div>
-      );
-      break;
-  }
 
   // Legacy MMs have a roundId field, but new MMs do not.
   // This is used to disable registration/submission for legacy MMs.
@@ -425,18 +370,7 @@ export default function ChallengeHeader(props) {
         <div styleName="deadlines-view">
           <div styleName={`deadlines-overview ${showDeadlineDetail ? 'opened' : ''}`}>
             <div styleName="deadlines-overview-text">
-              {nextDeadlineMsg}
-              {
-                  (status || '').toLowerCase() === 'active'
-                  && (
-                  <div styleName="current-phase">
-                    Current Deadline Ends:{' '}
-                    <span styleName="deadline-highlighted">
-                      {timeLeft}
-                    </span>
-                  </div>
-                  )
-                }
+              Competition Timeline
             </div>
             <a
               onClick={onToggleDeadlines}
