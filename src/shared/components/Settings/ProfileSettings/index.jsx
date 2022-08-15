@@ -171,13 +171,6 @@ class ProfileSettings extends ConsentComponent {
       endDateInvalid: false,
       endDateInvalidMsg: '',
       isSubmit: false,
-      newEducation: {
-        schoolCollegeName: '',
-        major: '',
-        timePeriodFrom: '',
-        timePeriodTo: '',
-        graduated: false,
-      },
     });
 
     this.setState({
@@ -185,10 +178,6 @@ class ProfileSettings extends ConsentComponent {
       personalizationTrait,
       formInvalidHobby: false,
       isSubmitHobby: false,
-      newHobby: {
-        hobby: '',
-        description: '',
-      },
     });
   }
 
