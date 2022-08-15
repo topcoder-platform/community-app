@@ -21,6 +21,10 @@ import smpActions from '../../actions/page/submission_management';
 
 const { getService } = services.submissions;
 
+const theme = {
+  container: style.modalContainer,
+};
+
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
   componentDidMount() {
@@ -39,6 +43,20 @@ class SubmissionManagementPageContainer extends React.Component {
     }
 
     if (challengeId !== loadingSubmissionsForChallengeId) {
+      loadMySubmissions(authTokens, challengeId);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      loadMySubmissions, authTokens, deletionSucceed, challengeId,
+    } = this.props;
+
+    if (deletionSucceed && !prevProps.deletionSucceed) {
+      /*
+        After delete operation there is a time delay
+        to affect the changes.
+      */
       loadMySubmissions(authTokens, challengeId);
     }
   }
@@ -108,6 +126,7 @@ class SubmissionManagementPageContainer extends React.Component {
           {showModal && (
           <Modal
             onCancel={deleting ? _.noop : onCancelSubmissionDelete}
+            theme={theme}
           >
             <div styleName="modal-content">
               <p styleName="are-you-sure">
@@ -179,6 +198,7 @@ SubmissionManagementPageContainer.defaultProps = {
   showModal: false,
   toBeDeletedId: '',
   challenge: null,
+  deletionSucceed: false,
 };
 
 SubmissionManagementPageContainer.propTypes = {
@@ -199,6 +219,7 @@ SubmissionManagementPageContainer.propTypes = {
   showModal: PT.bool,
   onCancelSubmissionDelete: PT.func.isRequired,
   toBeDeletedId: PT.string,
+  deletionSucceed: PT.bool,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
 };
@@ -232,6 +253,7 @@ function mapStateToProps(state, props) {
 
     showModal: state.page.submissionManagement.showModal,
     toBeDeletedId: state.page.submissionManagement.toBeDeletedId,
+    deletionSucceed: state.page.submissionManagement.deletionSucceed,
 
     authTokens: state.auth,
     registrants: state.challenge.details.registrants,
