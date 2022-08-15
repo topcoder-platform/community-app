@@ -82,6 +82,10 @@
           box-shadow: none !important;
           cursor: pointer;
 
+          @media screen and (max-width: 425px) {
+            min-width: 100px;
+          }
+
           .Select-value {
             display: flex;
             align-items: center;
