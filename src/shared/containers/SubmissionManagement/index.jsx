@@ -47,6 +47,20 @@ class SubmissionManagementPageContainer extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const {
+      loadMySubmissions, authTokens, deletionSucceed, challengeId,
+    } = this.props;
+
+    if (deletionSucceed && !prevProps.deletionSucceed) {
+      /*
+        After delete operation there is a time delay
+        to affect the changes.
+      */
+      loadMySubmissions(authTokens, challengeId);
+    }
+  }
+
   render() {
     const {
       authTokens,
@@ -184,6 +198,7 @@ SubmissionManagementPageContainer.defaultProps = {
   showModal: false,
   toBeDeletedId: '',
   challenge: null,
+  deletionSucceed: false,
 };
 
 SubmissionManagementPageContainer.propTypes = {
@@ -204,6 +219,7 @@ SubmissionManagementPageContainer.propTypes = {
   showModal: PT.bool,
   onCancelSubmissionDelete: PT.func.isRequired,
   toBeDeletedId: PT.string,
+  deletionSucceed: PT.bool,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
 };
@@ -237,6 +253,7 @@ function mapStateToProps(state, props) {
 
     showModal: state.page.submissionManagement.showModal,
     toBeDeletedId: state.page.submissionManagement.toBeDeletedId,
+    deletionSucceed: state.page.submissionManagement.deletionSucceed,
 
     authTokens: state.auth,
     registrants: state.challenge.details.registrants,

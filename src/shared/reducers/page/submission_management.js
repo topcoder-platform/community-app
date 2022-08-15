@@ -29,6 +29,14 @@ function create(initialState = {}) {
       ...state,
       showModal: false,
       toBeDeletedId: '',
+      deletionSucceed: false,
+    }),
+
+    'SMP/DELETE_SUBMISSION_INIT': state => ({
+      ...state,
+      deletingSubmission: false,
+      showModal: false,
+      toBeDeletedId: '',
     }),
 
     'SMP/DELETE_SUBMISSION_DONE': state => ({
@@ -36,12 +44,14 @@ function create(initialState = {}) {
       deletingSubmission: false,
       showModal: false,
       toBeDeletedId: '',
+      deletionSucceed: true,
     }),
 
   }, _.defaults(initialState, {
     showDetails: {},
     showModal: false,
     toBeDeletedId: '',
+    deletionSucceed: false,
   }));
 }
 
