@@ -8,6 +8,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
+import { Modal } from 'topcoder-react-ui-kit';
+import IconClose from 'assets/images/icon-close-green.svg';
 import shortId from 'shortid';
 import { actions } from 'topcoder-react-lib';
 import { connect } from 'react-redux';
@@ -17,12 +19,11 @@ import { dataMap } from './ExternalLink';
 import Header from './Header';
 import MemberTracks from './MemberTracks';
 
-import './styles.scss';
+import styles from './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
 import TcaCertificates from './TcaCertificates';
-import ProfileModal from './ProfileModal';
 // import Awards from './Awards';
 
 /**
@@ -249,26 +250,38 @@ class ProfilePage extends React.Component {
           }}
         />
         { showDetails && (
-          <ProfileModal
-            title={(
-              subTrack === 'SRM'
-                ? 'Single round match'
-                : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
-            )}
+          <Modal
+            theme={{
+              container: `${track === 'COPILOT' ? styles['modal-container-copilot'] : styles['modal-container']} ProfileModalContainer`,
+              overlay: styles['modal-overlay'],
+            }}
             onCancel={this.closeDetails}
           >
-            <ProfileStats
-              handleParam={handleParam}
-              meta={meta}
-              track={track}
-              subTrack={subTrack}
-              tab={tab}
-              setTab={(tab) => {
-                this.setState({ tab });
-              }}
-              isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
-            />
-          </ProfileModal>
+            <React.Fragment>
+              <div styleName="header">
+                <h2 styleName="title">
+                  {
+                    subTrack === 'SRM' ? 'Single round match'
+                      : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
+                  }
+                </h2>
+                <div styleName="icon" role="presentation" onClick={this.closeDetails}>
+                  <IconClose />
+                </div>
+              </div>
+              <ProfileStats
+                handleParam={handleParam}
+                meta={meta}
+                track={track}
+                subTrack={subTrack}
+                tab={tab}
+                setTab={(tab) => {
+                  this.setState({ tab });
+                }}
+                isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
+              />
+            </React.Fragment>
+          </Modal>
         )}
       </div>
     );

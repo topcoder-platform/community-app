@@ -206,6 +206,8 @@ const mapStateToProps = (state, ownProps) => ({
   stats: state.profile.stats,
   memberGroups: state.groups.memberGroups,
   lookupData: state.lookup,
+  rewards: state.members[ownProps.match.params.handle]
+    ? state.members[ownProps.match.params.handle].rewards : [],
   tcAcademyCertifications: state.tcAcademy.certifications,
   auth: {
     ...state.auth,
@@ -232,6 +234,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getSkillsInit());
       dispatch(a.getStatsInit());
       dispatch(lookupActions.getCountriesInit());
+      dispatch(memberActions.getGamificationRewardsInit(handle));
       dispatch(a.getAchievementsV3Done(handle));
       dispatch(a.getExternalAccountsDone(handle));
       dispatch(a.getExternalLinksDone(handle));
@@ -239,6 +242,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getSkillsDone(handle));
       dispatch(a.getStatsDone(handle, showPublicStats ? undefined : groupIds, tokenV3));
       dispatch(lookupActions.getCountriesDone());
+      dispatch(memberActions.getGamificationRewardsDone(handle, tokenV3));
     },
     loadMarathon: (handle, tokenV3, memberId) => {
       const uuid = shortId();
