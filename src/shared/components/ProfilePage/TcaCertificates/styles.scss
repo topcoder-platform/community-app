@@ -1,0 +1,40 @@
+@import "~styles/mixins";
+
+.tca-certificates {
+  margin-top: 32px;
+  background: $listing-filter-bg;
+  padding: 32px;
+  border-radius: 8px;
+
+  @include xs-to-md {
+    padding: 16px;
+  }
+
+  .title {
+    @include barlow-semi-bold;
+
+    font-size: 22px;
+    line-height: 26px;
+    color: $tco-black;
+    text-transform: uppercase;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    svg {
+      width: 37px;
+      height: 38px;
+    }
+
+    @include xs-to-md {
+      font-size: 18px;
+      line-height: 20px;
+
+      svg {
+        width: 31px;
+        height: 33px;
+      }
+    }
+  }
+}

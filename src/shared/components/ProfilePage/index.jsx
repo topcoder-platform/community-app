@@ -8,8 +8,6 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
-import { Modal } from 'topcoder-react-ui-kit';
-import IconClose from 'assets/images/icon-close-green.svg';
 import shortId from 'shortid';
 import { actions } from 'topcoder-react-lib';
 import { connect } from 'react-redux';
@@ -19,10 +17,12 @@ import { dataMap } from './ExternalLink';
 import Header from './Header';
 import MemberTracks from './MemberTracks';
 
-import styles from './styles.scss';
+import './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
+import TcaCertificates from './TcaCertificates';
+import ProfileModal from './ProfileModal';
 // import Awards from './Awards';
 
 /**
@@ -149,6 +149,7 @@ class ProfilePage extends React.Component {
       lookupData,
       handleParam,
       meta,
+      tcAcademyCertifications,
       // rewards,
     } = this.props;
 
@@ -226,6 +227,12 @@ class ProfilePage extends React.Component {
             </div>
           </div>
         </div>
+        {tcAcademyCertifications.length > 0 && (
+          <TcaCertificates
+            certificates={tcAcademyCertifications}
+            memberHandle={handleParam}
+          />
+        )}
         {/* { */}
         {/*   (rewards || []).length ? ( */}
         {/*     <Awards rewards={rewards} /> */}
@@ -242,39 +249,26 @@ class ProfilePage extends React.Component {
           }}
         />
         { showDetails && (
-          <Modal
-            theme={{
-              container: track === 'COPILOT' ? styles['modal-container-copilot']
-                : styles['modal-container'],
-              overlay: styles['modal-overlay'],
-            }}
+          <ProfileModal
+            title={(
+              subTrack === 'SRM'
+                ? 'Single round match'
+                : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
+            )}
             onCancel={this.closeDetails}
           >
-            <React.Fragment>
-              <div styleName="header">
-                <h2 styleName="title">
-                  {
-                    subTrack === 'SRM' ? 'Single round match'
-                      : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
-                  }
-                </h2>
-                <div styleName="icon" role="presentation" onClick={this.closeDetails}>
-                  <IconClose />
-                </div>
-              </div>
-              <ProfileStats
-                handleParam={handleParam}
-                meta={meta}
-                track={track}
-                subTrack={subTrack}
-                tab={tab}
-                setTab={(tab) => {
-                  this.setState({ tab });
-                }}
-                isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
-              />
-            </React.Fragment>
-          </Modal>
+            <ProfileStats
+              handleParam={handleParam}
+              meta={meta}
+              track={track}
+              subTrack={subTrack}
+              tab={tab}
+              setTab={(tab) => {
+                this.setState({ tab });
+              }}
+              isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
+            />
+          </ProfileModal>
         )}
       </div>
     );
@@ -288,6 +282,7 @@ ProfilePage.defaultProps = {
   skills: null,
   stats: null,
   // rewards: [],
+  tcAcademyCertifications: [],
 };
 
 ProfilePage.propTypes = {
@@ -303,6 +298,7 @@ ProfilePage.propTypes = {
   meta: PT.shape().isRequired,
   // rewards: PT.arrayOf(PT.shape()),
   clearSubtrackChallenges: PT.func.isRequired,
+  tcAcademyCertifications: PT.arrayOf(PT.shape()),
 };
 
 function mapDispatchToProps(dispatch) {
