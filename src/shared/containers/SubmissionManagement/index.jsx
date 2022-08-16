@@ -21,6 +21,7 @@ import smpActions from '../../actions/page/submission_management';
 
 const { getService } = services.submissions;
 
+const TIME_DELAY = 300;
 const theme = {
   container: style.modalContainer,
 };
@@ -52,12 +53,10 @@ class SubmissionManagementPageContainer extends React.Component {
       loadMySubmissions, authTokens, deletionSucceed, challengeId,
     } = this.props;
 
-    if (deletionSucceed && !prevProps.deletionSucceed) {
-      /*
-        After delete operation there is a time delay
-        to affect the changes.
-      */
-      loadMySubmissions(authTokens, challengeId);
+    if (deletionSucceed !== prevProps.deletionSucceed) {
+      setTimeout(() => {
+        loadMySubmissions(authTokens, challengeId);
+      }, TIME_DELAY);
     }
   }
 

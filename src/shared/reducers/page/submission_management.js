@@ -35,8 +35,17 @@ function create(initialState = {}) {
     'SMP/DELETE_SUBMISSION_INIT': state => ({
       ...state,
       deletingSubmission: false,
+      deletionSucceed: false,
       showModal: false,
       toBeDeletedId: '',
+    }),
+
+    'SMP/DELETE_SUBMISSION_FAIL': state => ({
+      ...state,
+      deletingSubmission: false,
+      showModal: false,
+      toBeDeletedId: '',
+      deletionSucceed: true,
     }),
 
     'SMP/DELETE_SUBMISSION_DONE': state => ({
