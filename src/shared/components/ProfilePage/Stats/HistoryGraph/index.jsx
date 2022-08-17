@@ -34,7 +34,12 @@ export default class HistoryGraph extends React.Component {
       }
     };
     window.addEventListener('resize', this.resizeHandle);
-    this.bodyClickHandle = () => this.setState({ show: false });
+    this.bodyClickHandle = (event) => {
+      if (event.target && event.target.tagName === 'circle') {
+        return;
+      }
+      this.setState({ show: false });
+    };
     document.body.addEventListener('click', this.bodyClickHandle);
   }
 
@@ -240,6 +245,58 @@ export default class HistoryGraph extends React.Component {
       .attr('stroke-width', 3);
       */
 
+    const updateTooltipPosition = () => {
+      const e = d3.mouse(document.getElementById('history-graph-container'));
+      const profileModalContainerEl = document.querySelector('.ProfileModalContainer');
+      const profileModalContainerRect = profileModalContainerEl
+        ? profileModalContainerEl.getBoundingClientRect() : null;
+      const graphEl = document.getElementById('history-graph-container');
+      const graphRect = graphEl ? graphEl.getBoundingClientRect() : null;
+      const tooltipElement = document.getElementById('chart-tooltip-history-graph');
+
+      let cx = e[0];
+      let cy = e[1];
+      let rotated = false;
+      const defaultWidth = 320;
+      const defaultHeight = 115;
+      if (tooltipElement) {
+        const { clientWidth, clientHeight } = tooltipElement;
+        cx -= ((clientWidth || defaultWidth) / 2);
+        cy += 15;
+
+        if (graphRect && profileModalContainerRect) {
+          const minLeft = profileModalContainerRect.x - graphRect.x;
+          const minTop = profileModalContainerRect.y - graphRect.y;
+          const maxRight = profileModalContainerRect.width + minLeft;
+          const maxBottom = profileModalContainerRect.height + minTop;
+          const minXTooltipPosition = minLeft;
+          const maxXTooltipPosition = maxRight - (clientWidth || defaultWidth);
+          const minYTooltipPosition = minTop;
+          const maxYTooltipPosition = maxBottom - (clientHeight || defaultHeight);
+          if (cx < minXTooltipPosition) {
+            cx = minXTooltipPosition;
+          }
+          if (cx > maxXTooltipPosition) {
+            cx = maxXTooltipPosition;
+          }
+          if (cy < minYTooltipPosition) {
+            cy = minYTooltipPosition;
+          }
+          if (cy > maxYTooltipPosition) {
+            cy -= clientHeight + 25;
+            rotated = true;
+          }
+        }
+      }
+
+      $scope.setState({
+        rotated,
+        show: true,
+        left: cx,
+        top: cy,
+      });
+    };
+
     svg.selectAll('circle')
       .data(history)
       .enter()
@@ -249,24 +306,25 @@ export default class HistoryGraph extends React.Component {
       .attr('r', 5.5)
       .attr('fill', d => getRatingColor(d.newRating))
       .on('mouseover', (d) => {
-        const e = d3.event;
         $scope.setState({
-          show: true,
-          left: e.pageX,
-          top: e.pageY,
           challengeName: d.challengeName,
           challengeData: moment(d.ratingDate).format('MMM DD, YYYY'),
           rating: d.newRating,
           ratingColor: getRatingColor(d.newRating),
           href: getChallengeLink(d.challengeId),
         });
+
+        updateTooltipPosition();
+      })
+      .on('mousemove', () => {
+        updateTooltipPosition();
       });
   }
 
   render() {
     return (
-      <div styleName="history-graph" ref={this.graphRef}>
-        <ChartTooltip {...this.state} />
+      <div id="history-graph-container" styleName="history-graph" ref={this.graphRef}>
+        <ChartTooltip id="history-graph" {...this.state} />
       </div>
     );
   }

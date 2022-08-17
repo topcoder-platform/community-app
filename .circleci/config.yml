@@ -349,7 +349,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - free
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - reskin-profile-settings
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -378,6 +378,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feat/fetch-active-review-types-only
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
