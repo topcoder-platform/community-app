@@ -21,7 +21,7 @@ import smpActions from '../../actions/page/submission_management';
 
 const { getService } = services.submissions;
 
-const TIME_DELAY = 500;
+const TIME_DELAY = 750;
 const theme = {
   container: style.modalContainer,
 };
