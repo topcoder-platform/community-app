@@ -22,6 +22,7 @@ import ui, { factory as uiFactory } from './ui';
 import settings, { factory as settingsFactory } from './settings';
 
 import reviewOpportunityDetails from './review-opportunity-details';
+import profile from './profile';
 
 /**
  * Reducer factory.
@@ -40,6 +41,7 @@ export function factory(req) {
     dashboard,
     reviewOpportunityDetails,
     submissionManagement,
+    profile,
   }));
 }
 
@@ -52,4 +54,5 @@ export default combineReducers({
   submission,
   ui,
   submissionManagement,
+  profile,
 });
