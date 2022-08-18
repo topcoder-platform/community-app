@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - reskin-tco-badge
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
@@ -370,8 +370,7 @@ workflows:
           filters:
             branches:
               only:
-                - footer-update
-                - reskin-tco-badge
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
