@@ -70,10 +70,6 @@ export default class ServiceProviders extends ConsentComponent {
       personalizationTrait,
       formInvalid: false,
       isSubmit: false,
-      newServiceProvider: {
-        serviceProviderType: '',
-        name: '',
-      },
     });
   }
 

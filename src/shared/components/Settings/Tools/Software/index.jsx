@@ -70,10 +70,6 @@ export default class Software extends ConsentComponent {
       personalizationTrait,
       formInvalid: false,
       isSubmit: false,
-      newSoftware: {
-        softwareType: '',
-        name: '',
-      },
     });
   }
 

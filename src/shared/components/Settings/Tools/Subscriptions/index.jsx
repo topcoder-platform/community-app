@@ -66,9 +66,6 @@ export default class Subscription extends ConsentComponent {
       personalizationTrait,
       formInvalid: false,
       isSubmit: false,
-      newSubscription: {
-        name: '',
-      },
     });
   }
 
