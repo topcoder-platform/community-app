@@ -127,7 +127,7 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
-      rewards,
+      badges,
     } = this.props;
 
     const { isMobile } = this.state;
@@ -199,8 +199,8 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         {
-          (rewards || []).length ? (
-            <Awards rewards={rewards} />
+          (badges && (badges.rows || [])).length ? (
+            <Awards badges={badges.rows} />
           ) : null
         }
         <Activity
@@ -219,7 +219,7 @@ ProfilePage.defaultProps = {
   challenges: null,
   skills: null,
   stats: null,
-  rewards: [],
+  badges: {},
 };
 
 ProfilePage.propTypes = {
@@ -231,7 +231,7 @@ ProfilePage.propTypes = {
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
-  rewards: PT.arrayOf(PT.shape()),
+  badges: PT.shape(),
 };
 
 export default ProfilePage;

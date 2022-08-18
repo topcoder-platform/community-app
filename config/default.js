@@ -452,4 +452,7 @@ module.exports = {
     SDK_KEY: '7V4CJhurXT3Y3bnzv1hv1',
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
+  GAMIFICATION: {
+    ORG_ID: ''
+  }
 };

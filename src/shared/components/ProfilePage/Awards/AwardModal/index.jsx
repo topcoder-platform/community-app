@@ -8,14 +8,14 @@ const AwatarModal = ({
   modalData,
 }) => {
   const {
-    title, description, imageUrl, mimeType,
+    title, description, imageUrl,
   } = modalData;
 
   return (
     <div styleName="awardModal">
       {
         imageUrl ? (
-          <img src={imageUrl} type={mimeType} alt="award-badge" styleName="image" />
+          <img src={imageUrl} alt="award-badge" styleName="image" />
         ) : (
           <FallBackAwardIcon styleName="image" />
         )
@@ -43,7 +43,6 @@ AwatarModal.propTypes = {
       title: PT.string,
       description: PT.string,
       imageUrl: PT.string,
-      mimeType: PT.string,
     },
   ),
 };

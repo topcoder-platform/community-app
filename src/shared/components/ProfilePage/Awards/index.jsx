@@ -8,7 +8,7 @@ import style from './styles.scss';
 import AwardBadge from './AwardBadge';
 import AwatarModal from './AwardModal';
 
-const Awards = ({ rewards }) => {
+const Awards = ({ badges }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
 
@@ -21,24 +21,21 @@ const Awards = ({ rewards }) => {
 
         <div styleName="badgesContainer">
           {
-            rewards.map((reward) => {
-              const title = _.get(reward, 'awarded.reward.attrs.behaviours[0].behaviour.name');
-              const description = _.get(reward, 'awarded.reward.message');
-              const imageUrl = _.get(reward, 'awarded.reward.imageUrl');
-              const mimeType = _.get(reward, 'awarded.reward.mimeType');
+            badges.map((reward) => {
+              const title = _.get(reward, 'org_badge.badge_name');
+              const description = _.get(reward, 'org_badge.badge_description');
+              const imageUrl = _.get(reward, 'org_badge.badge_image_url');
 
               return (
                 <AwardBadge
                   title={title}
                   imageUrl={imageUrl}
-                  mimeType={mimeType}
                   onSelectBadge={() => {
                     setShowModal(true);
                     setModalData({
                       title,
                       description,
                       imageUrl,
-                      mimeType,
                     });
                   }}
                 />
@@ -71,11 +68,11 @@ const Awards = ({ rewards }) => {
 };
 
 Awards.defaultProps = {
-  rewards: [],
+  badges: [],
 };
 
 Awards.propTypes = {
-  rewards: PT.arrayOf(PT.shape()),
+  badges: PT.arrayOf(PT.shape()),
 };
 
 export default Awards;
