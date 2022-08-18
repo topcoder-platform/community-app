@@ -90,7 +90,7 @@ export default function Submission(props) {
            */ }
           {status !== CHALLENGE_STATUS.COMPLETED
              && track === COMPETITION_TRACKS.DES
-             && (
+             && safeForDownloadCheck === true && (
              <button
                styleName="delete-icon"
                onClick={() => onDelete(submissionObject.id)}
@@ -99,8 +99,8 @@ export default function Submission(props) {
              >
                <DeleteIcon />
              </button>
-             )
-           }
+          )
+          }
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.id)}

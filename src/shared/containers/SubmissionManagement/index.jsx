@@ -11,6 +11,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import SubmissionManagement from 'components/SubmissionManagement/SubmissionManagement';
 import React from 'react';
 import PT from 'prop-types';
+import { safeForDownload } from 'utils/tc';
 import { connect } from 'react-redux';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
@@ -28,6 +29,14 @@ const theme = {
 
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      needReload: false,
+    };
+  }
+
   componentDidMount() {
     const {
       authTokens,
@@ -45,6 +54,23 @@ class SubmissionManagementPageContainer extends React.Component {
 
     if (challengeId !== loadingSubmissionsForChallengeId) {
       loadMySubmissions(authTokens, challengeId);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      loadMySubmissions, authTokens, challengeId, mySubmissions,
+    } = nextProps;
+    const { needReload } = this.state;
+
+    if (needReload === false && mySubmissions) {
+      if (mySubmissions.find(item => safeForDownload(item.url) !== true)) {
+        this.setState({ needReload: true });
+        setTimeout(() => {
+          loadMySubmissions(authTokens, challengeId);
+          this.setState({ needReload: false });
+        }, 2000);
+      }
     }
   }
 
