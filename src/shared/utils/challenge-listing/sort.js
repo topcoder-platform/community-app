@@ -7,13 +7,16 @@ import { sumBy } from 'lodash';
 import { calculateScore } from './helper';
 // import { phaseStartDate, phaseEndDate } from './helper';
 
+const PRIZE = 'overview.totalPrizes';
+
 export const SORTS = {
   CURRENT_PHASE: 'current-phase',
   MOST_RECENT: 'updated',
   MOST_RECENT_START_DATE: 'startDate',
   // NUM_REGISTRANTS: 'num-registrants',
   // NUM_SUBMISSIONS: 'num-submissions',
-  PRIZE_HIGH_TO_LOW: 'overview.totalPrizes',
+  PRIZE_HIGH_TO_LOW: 'overview.totalPrizes-high-to-low',
+  PRIZE_LOW_TO_HIGH: 'overview.totalPrizes-low-to-high',
   // TIME_TO_REGISTER: 'registrationEndDate',
   // TIME_TO_SUBMIT: 'submissionEndDate',
   TITLE_A_TO_Z: 'name',
@@ -40,6 +43,13 @@ export default {
     func: (a, b) => b.totalPrize - a.totalPrize,
     name: 'Prize high to low',
     order: 'desc',
+    field: PRIZE,
+  },
+  [SORTS.PRIZE_LOW_TO_HIGH]: {
+    func: (a, b) => b.totalPrize - a.totalPrize,
+    name: 'Prize low to high',
+    order: 'asc',
+    field: PRIZE,
   },
   // [SORTS.TIME_TO_REGISTER]: {
   //   func: (a, b) => {

@@ -184,6 +184,7 @@ function getMyPastChallengesInit(uuid, page, frontFilter) {
  */
 function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const { sorts } = frontFilter;
+  const sortObj = SORT[sorts[BUCKETS.ONGOING]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -193,8 +194,8 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
       registrationEndDateEnd: new Date().toISOString(),
       perPage: PAGE_SIZE,
       page: page + 1,
-      sortBy: sorts[BUCKETS.ONGOING],
-      sortOrder: SORT[sorts[BUCKETS.ONGOING]].order,
+      sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ONGOING],
+      sortOrder: sortObj.order,
     },
   };
   delete filter.frontFilter.sorts;
@@ -245,7 +246,7 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
 function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
   tokenV3, frontFilter = {}, recommended = false, handle) {
   const { sorts } = frontFilter;
-  const sortOrder = SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]];
+  const sortObj = SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -254,8 +255,8 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
       currentPhaseName: 'Registration',
       perPage: PAGE_SIZE,
       page: page + 1,
-      sortBy: sorts[BUCKETS.OPEN_FOR_REGISTRATION],
-      sortOrder: sortOrder ? sortOrder.order : 'asc',
+      sortBy: sortObj && sortObj.field ? sortObj.field : sorts[BUCKETS.OPEN_FOR_REGISTRATION],
+      sortOrder: sortObj ? sortObj.order : 'asc',
     },
   };
   delete filter.frontFilter.sorts;
@@ -280,6 +281,7 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
 function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const userId = decodeToken(tokenV3).userId.toString();
   const { sorts } = frontFilter;
+  const sortObj = SORT[sorts[BUCKETS.MY]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -288,8 +290,8 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
       memberId: userId,
       perPage: PAGE_SIZE,
       page: page + 1,
-      sortBy: sorts[BUCKETS.MY],
-      sortOrder: SORT[sorts[BUCKETS.MY]].order,
+      sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.MY],
+      sortOrder: sortObj.order,
     },
   };
   delete filter.frontFilter.sorts;
@@ -304,6 +306,7 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
 
 function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const { sorts } = frontFilter;
+  const sortObj = SORT[sorts[BUCKETS.ALL]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -311,8 +314,8 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
       status: 'Active',
       perPage: PAGE_SIZE,
       page: page + 1,
-      sortBy: sorts[BUCKETS.ALL],
-      sortOrder: SORT[sorts[BUCKETS.ALL]].order,
+      sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ALL],
+      sortOrder: sortObj.order,
     },
   };
   delete filter.frontFilter.sorts;
@@ -328,6 +331,7 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
 function getMyPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const userId = decodeToken(tokenV3).userId.toString();
   const { sorts } = frontFilter;
+  const sortObj = SORT[sorts[BUCKETS.MY_PAST]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -336,8 +340,8 @@ function getMyPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
       memberId: userId,
       perPage: PAGE_SIZE,
       page: page + 1,
-      sortBy: sorts[BUCKETS.MY_PAST],
-      sortOrder: SORT[sorts[BUCKETS.MY_PAST]].order,
+      sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.MY_PAST],
+      sortOrder: sortObj.order,
     },
   };
   delete filter.frontFilter.sorts;
@@ -436,6 +440,7 @@ function getPastChallengesInit(uuid, page, frontFilter) {
  */
 function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const { sorts } = frontFilter;
+  const sortObj = SORT[sorts[BUCKETS.ALL_PAST]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -443,8 +448,8 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
       status: 'Completed',
       perPage: PAGE_SIZE,
       page: page + 1,
-      sortBy: sorts[BUCKETS.ALL_PAST],
-      sortOrder: SORT[sorts[BUCKETS.ALL_PAST]].order,
+      sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ALL_PAST],
+      sortOrder: sortObj.order,
     },
   };
   delete filter.frontFilter.sorts;
@@ -546,6 +551,7 @@ export default createActions({
     DROP_MY_CHALLENGES: _.noop,
     DROP_ALL_CHALLENGES: _.noop,
     DROP_PAST_CHALLENGES: _.noop,
+    DROP_MY_PAST_CHALLENGES: _.noop,
     DROP_RECOMMENDED_CHALLENGES: _.noop,
 
     // GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,

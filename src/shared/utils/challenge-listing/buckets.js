@@ -30,6 +30,8 @@ export const BUCKET_DATA = {
     name: 'All Challenges',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
+      SORTS.PRIZE_HIGH_TO_LOW,
+      SORTS.PRIZE_LOW_TO_HIGH,
       SORTS.TITLE_A_TO_Z,
     ],
   },
@@ -46,6 +48,7 @@ export const BUCKET_DATA = {
       // SORTS.NUM_REGISTRANTS,
       // SORTS.NUM_SUBMISSIONS,
       SORTS.PRIZE_HIGH_TO_LOW,
+      SORTS.PRIZE_LOW_TO_HIGH,
       SORTS.TITLE_A_TO_Z,
     ],
   },
@@ -65,6 +68,7 @@ export const BUCKET_DATA = {
       // SORTS.NUM_REGISTRANTS,
       // SORTS.NUM_SUBMISSIONS,
       SORTS.PRIZE_HIGH_TO_LOW,
+      SORTS.PRIZE_LOW_TO_HIGH,
       SORTS.TITLE_A_TO_Z,
     ],
   },
@@ -82,6 +86,7 @@ export const BUCKET_DATA = {
       SORTS.CURRENT_PHASE,
       SORTS.TITLE_A_TO_Z,
       SORTS.PRIZE_HIGH_TO_LOW,
+      SORTS.PRIZE_LOW_TO_HIGH,
     ],
   },
   [BUCKETS.UPCOMING]: {
