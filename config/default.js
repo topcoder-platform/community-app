@@ -453,6 +453,6 @@ module.exports = {
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
   GAMIFICATION: {
-    ORG_ID: '',
+    ORG_ID: '6052dd9b-ea80-494b-b258-edd1331e27a3',
   },
 };
