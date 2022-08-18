@@ -29,8 +29,8 @@
     background-color: #bae1f9;
 
     p {
-      color: $tco-black;
-      font-weight: 700;
+      color: $tc-black;
+      font-weight: 600;
     }
   }
 }
@@ -64,8 +64,10 @@
   /* stylelint-enable no-descending-specificity */
 
   .active {
+    @include barlow;
+
     color: $tc-black;
-    font-weight: 700;
+    font-weight: 600;
     background-color: #bae1f9;
 
     &::after {
@@ -78,7 +80,7 @@
       z-index: 100;
       display: block;
       position: absolute;
-      top: 160px;
+      top: 159px;
     }
   }
 }
@@ -96,8 +98,8 @@
   .title {
     @include barlow-bold;
 
-    font-weight: 700;
-    color: $tco-black;
+    font-weight: 600;
+    color: $tc-black;
     font-size: 14px;
     line-height: 20px;
     text-transform: uppercase;
