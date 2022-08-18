@@ -15,7 +15,7 @@ import FormField from 'components/Settings/FormField';
 import AddItemIcon from 'assets/images/settings-add-item.svg';
 import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
 import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
-import InputSelect from 'components/InputSelect';
+import FormInputSelect from 'components/Settings/FormInputSelect';
 import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../ConfirmationModal';
 import DeviceList from './List';
@@ -299,14 +299,14 @@ export default class Devices extends ConsentComponent {
       getManufacturers,
     } = this.props;
 
-    const newDevice = { deviceType: val };
+    const newDevice = { deviceType: val.name };
     newDevice.manufacturer = '';
     newDevice.model = '';
     newDevice.operatingSystem = '';
     this.setState({ newDevice, isSubmit: false });
 
     // preload manufacturers
-    getManufacturers(val);
+    getManufacturers(val.name);
   }
 
   /**
@@ -319,7 +319,7 @@ export default class Devices extends ConsentComponent {
     } = this.props;
     const { newDevice: device } = this.state;
     const newDevice = { ..._.pick(device, ['deviceType']) };
-    newDevice.manufacturer = val;
+    newDevice.manufacturer = val.name;
     newDevice.model = '';
     newDevice.operatingSystem = '';
     this.setState({ newDevice, isSubmit: false });
@@ -338,7 +338,7 @@ export default class Devices extends ConsentComponent {
     } = this.props;
     const { newDevice: device } = this.state;
     const newDevice = { ..._.pick(device, ['deviceType', 'manufacturer']) };
-    newDevice.model = val;
+    newDevice.model = val.model;
     newDevice.operatingSystem = '';
     this.setState({ newDevice, isSubmit: false });
 
@@ -353,7 +353,7 @@ export default class Devices extends ConsentComponent {
   onUpdateOs(val) {
     const { newDevice: device } = this.state;
     const newDevice = { ..._.pick(device, ['deviceType', 'manufacturer', 'model']) };
-    newDevice.operatingSystem = val;
+    newDevice.operatingSystem = val.operatingSystem;
     this.setState({ newDevice, isSubmit: false });
   }
 
@@ -462,6 +462,7 @@ export default class Devices extends ConsentComponent {
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
+
     return (
       <React.Fragment>
         {
@@ -497,7 +498,7 @@ export default class Devices extends ConsentComponent {
               <div styleName="form-body">
                 <form styleName="device-form" noValidate autoComplete="off">
                   <FormField label="Device Type *" style={{ flex: '0 0 100%' }}>
-                    <InputSelect
+                    <FormInputSelect
                       name="Device Type"
                       options={types}
                       value={newDevice.deviceType}
@@ -520,7 +521,7 @@ export default class Devices extends ConsentComponent {
                   </FormField>
 
                   <FormField label="Manufacturer" style={{ flex: '0 0 100%' }}>
-                    <InputSelect
+                    <FormInputSelect
                       name="manufacturer"
                       options={manufacturers}
                       value={newDevice.manufacturer}
@@ -534,7 +535,7 @@ export default class Devices extends ConsentComponent {
                   </FormField>
 
                   <FormField label="Model" style={{ flex: '0 0 100%' }}>
-                    <InputSelect
+                    <FormInputSelect
                       name="model"
                       options={models}
                       onChange={this.onUpdateModel}
@@ -551,7 +552,7 @@ export default class Devices extends ConsentComponent {
                   </FormField>
 
                   <FormField label="Operating System" style={{ flex: '0 0 100%' }}>
-                    <InputSelect
+                    <FormInputSelect
                       name="Operating System"
                       options={oses}
                       onChange={this.onUpdateOs}
