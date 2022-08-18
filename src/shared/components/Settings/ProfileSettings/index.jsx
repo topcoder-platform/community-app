@@ -1049,8 +1049,8 @@ class ProfileSettings extends ConsentComponent {
             showConfirmationHobby && (
               <ConfirmationModal
                 onConfirm={() => this.showConsent(this.onDeleteHobby.bind(this, indexNoHobby))}
-                onCancel={() => this.setState({ showConfirmation: false, indexNoHobby: null })}
-                name={hobbyTrait.traits.data[indexNoHobby].hobby}
+                onCancel={() => this.setState({ showConfirmationHobby: false, indexNoHobby: null })}
+                name={indexNoHobby ? hobbyTrait.traits.data[indexNoHobby].hobby : ''}
               />
             )
           }

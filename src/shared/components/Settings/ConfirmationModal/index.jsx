@@ -1,24 +1,35 @@
 import React from 'react';
 import PT from 'prop-types';
-import { Modal, PrimaryButton, GhostButton } from 'topcoder-react-ui-kit';
-import modal from './styles.scss';
+import {
+  Modal, PrimaryButton, Button, GhostButton,
+} from 'topcoder-react-ui-kit';
+import IconClose from 'assets/images/icon-close.svg';
+
+import styles from './styles.scss';
 
 export default function ConfirmationModal(props) {
   const { onConfirm, onCancel, name } = props;
   return (
-    <Modal theme={modal}>
-      <div styleName="modal.deletion-confirmation-container">
-        <div styleName="modal.deletion-confirmation">
-          <div styleName="modal.deletion-confirmation-title">HEADS UP!</div>
-          <div styleName="modal.deletion-confirmation-message">
-            Are you sure you want to delete `{name}`? This action can&apos;t be undone.
+    <Modal theme={{ container: styles.modal, overlay: styles['modal-overlay'] }}>
+      <div styleName="modal-dialog">
+        <div styleName="modal-content">
+          <div styleName="modal-header">
+            HEADS UP!
+            <GhostButton theme={{ button: styles.close }} onClick={onCancel}>
+              <IconClose />
+            </GhostButton>
           </div>
-          <div styleName="modal.deletion-confirmation-buttons">
-            <div styleName="modal.deletion-confirmation-button-yes">
-              <GhostButton onClick={onConfirm}>Yes, Delete</GhostButton>
+          <div styleName="modal-body">
+            <span styleName="title">
+              Are you sure you want to delete `{name}`? This action can&apos;t be undone.
+            </span>
+          </div>
+          <div styleName="modal-footer">
+            <div>
+              <PrimaryButton theme={{ button: styles['button-save'] }} onClick={onConfirm}>Yes, Delete</PrimaryButton>
             </div>
-            <div styleName="modal.deletion-confirmation-button-no">
-              <PrimaryButton onClick={onCancel}>Cancel</PrimaryButton>
+            <div>
+              <Button theme={{ button: styles['button-save-ghost'] }} onClick={onCancel}>Cancel</Button>
             </div>
           </div>
         </div>
