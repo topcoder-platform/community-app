@@ -17,7 +17,7 @@ const data = [
     icon: payment,
     name: 'Payment',
     description: 'To setup your payments preferences, please click the “Go To Payments” button.',
-    link: `${config.URL.COMMUNITY}/tc?module=EditPaymentPreferences`,
+    link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
     linkTitle: 'GO TO PAYMENTS',
   },
 ];
