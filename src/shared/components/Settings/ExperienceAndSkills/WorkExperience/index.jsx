@@ -489,7 +489,7 @@ export default class Work extends ConsentComponent {
                         name="industry"
                         value={newWork.industry}
                         onChange={this.onUpdateInput}
-                        placeholder="Select industry"
+                        placeholder="Enter industry"
                         maxLength="64"
                       />
                     </FormField>

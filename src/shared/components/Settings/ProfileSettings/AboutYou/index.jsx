@@ -38,7 +38,7 @@ const AboutYou = (props) => {
           </FormField>
 
           {/* Primary interests */}
-          <FormField label="Short bio">
+          <FormField label="Short bio" isTextarea>
             <FormInputTextArea
               disabled={!canModifyTrait}
               id="description"
