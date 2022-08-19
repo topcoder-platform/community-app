@@ -32,7 +32,7 @@ const Hobbies = (props) => {
       <div styleName="form-container-default">
         <form name="device-form" noValidate autoComplete="off">
           {/* Hobby */}
-          <FormField label="Hobby">
+          <FormField label="Hobby" required>
             <FormInputText
               id="hobby"
               name="hobby"

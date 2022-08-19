@@ -336,7 +336,7 @@ export default class ServiceProviders extends ConsentComponent {
               </div>
               <div styleName="form-body">
                 <form styleName="service-provider-form" noValidate autoComplete="off">
-                  <FormField label="Service Provider Type *" style={{ flex: '0 0 100%' }}>
+                  <FormField label="Service Provider Type" style={{ flex: '0 0 100%' }} required>
                     <FormInputSelect
                       name="serviceProviderType"
                       options={dropdowns.serviceProviderType}
@@ -355,7 +355,7 @@ export default class ServiceProviders extends ConsentComponent {
                     }
                   </FormField>
 
-                  <FormField label="Service Provider Name *" style={{ flex: '0 0 100%' }}>
+                  <FormField label="Service Provider Name" style={{ flex: '0 0 100%' }} required>
                     <FormInputText
                       disabled={!canModifyTrait}
                       id="name"

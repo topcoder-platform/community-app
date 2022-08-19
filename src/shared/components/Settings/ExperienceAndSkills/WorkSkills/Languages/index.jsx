@@ -376,7 +376,7 @@ export default class Languages extends ConsentComponent {
               </div>
               <div styleName="form-body">
                 <form styleName="language-form" noValidate autoComplete="off">
-                  <FormField label="Language *" style={{ flex: '0 0 100%' }}>
+                  <FormField label="Language" style={{ flex: '0 0 100%' }} required>
                     <FormInputSelect
                       name="language"
                       options={dropdowns.language}

@@ -451,7 +451,7 @@ export default class Work extends ConsentComponent {
                 </div>
                 <div styleName="form-body">
                   <form styleName="workplace-form" noValidate autoComplete="off">
-                    <FormField label="Company *" style={{ flex: '0 0 100%' }}>
+                    <FormField label="Company" style={{ flex: '0 0 100%' }} required>
                       <FormInputText
                         id="company"
                         name="company"

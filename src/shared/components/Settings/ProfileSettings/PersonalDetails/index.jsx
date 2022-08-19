@@ -34,7 +34,7 @@ const PersonalDetails = (props) => {
         <form name="basic-info-form" noValidate autoComplete="off">
 
           {/* First Name */}
-          <FormField label="First Name">
+          <FormField label="First Name" required>
             <FormInputText
               disabled={!canModifyTrait}
               id="firstName"
@@ -57,7 +57,7 @@ const PersonalDetails = (props) => {
           </FormField>
 
           {/* Last Name */}
-          <FormField label="Last Name">
+          <FormField label="Last Name" required>
             <FormInputText
               disabled={!canModifyTrait}
               id="lastName"
@@ -192,7 +192,7 @@ const PersonalDetails = (props) => {
           </FormField>
 
           {/* Country */}
-          <FormField label="Country">
+          <FormField label="Country" required>
             <Select
               name="country"
               options={countries}
