@@ -160,7 +160,7 @@ const Learning = (props) => {
               styleName="edit-text"
               onClick={onHandleAddEducation}
             >
-              <AddItemIcon /> Add Another School / Degree
+              <AddItemIcon /> Add School / Degree
             </span>
           )}
 
