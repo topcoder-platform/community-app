@@ -3,6 +3,7 @@ import PT from 'prop-types';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/tc-edu/icon-close-big.svg';
 import _ from 'lodash';
+import md from 'utils/markdown';
 
 import style from './styles.scss';
 import AwardBadge from './AwardBadge';
@@ -23,8 +24,11 @@ const Awards = ({ badges }) => {
           {
             badges.map((reward) => {
               const title = _.get(reward, 'org_badge.badge_name');
-              const description = _.get(reward, 'org_badge.badge_description');
               const imageUrl = _.get(reward, 'org_badge.badge_image_url');
+              let description = _.get(reward, 'org_badge.badge_description');
+              if (description) {
+                description = md(description);
+              }
 
               return (
                 <AwardBadge
