@@ -8,6 +8,7 @@
       border: 1px solid $color-black-40;
       box-shadow: none !important;
       cursor: pointer;
+      border-color: #aaaaab !important;
 
       .Select-placeholder {
         padding: 22px 0 2px 10px !important;
@@ -92,7 +93,7 @@
           &.is-selected {
             font-weight: bold;
             color: $tc-gray-90;
-            background-color: #229173;
+            background-color: $tc-white;
           }
         }
       }

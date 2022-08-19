@@ -81,6 +81,7 @@
           border: none;
           box-shadow: none !important;
           cursor: pointer;
+          border-color: #aaaaab !important;
 
           @media screen and (max-width: 425px) {
             min-width: 100px;
@@ -118,7 +119,7 @@
 
               &.is-selected {
                 font-weight: bold;
-                background-color: #229173;
+                background-color: $tc-white;
               }
 
               &:hover,
