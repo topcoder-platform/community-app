@@ -342,7 +342,7 @@ export default class Software extends ConsentComponent {
               </div>
               <div styleName="form-body">
                 <form styleName="software-form" noValidate autoComplete="off">
-                  <FormField label="Software Type *" style={{ flex: '0 0 100%' }}>
+                  <FormField label="Software Type" style={{ flex: '0 0 100%' }} required>
                     <FormInputSelect
                       name="softwareType"
                       options={dropdowns.type}
@@ -361,7 +361,7 @@ export default class Software extends ConsentComponent {
                     }
                   </FormField>
 
-                  <FormField label="Software Name *" style={{ flex: '0 0 100%' }}>
+                  <FormField label="Software Name" style={{ flex: '0 0 100%' }} required>
                     <FormInputText
                       disabled={!canModifyTrait}
                       id="name"

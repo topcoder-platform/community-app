@@ -9,12 +9,13 @@ import cn from 'classnames';
 import './styles.scss';
 
 const FormField = ({
-  children, label = '', disabled, style,
+  children, label = '', disabled, style, required,
 }) => (
   <div styleName="form-field-wrapper" style={style}>
     <div styleName="form-field">
       <div styleName={cn('label', disabled ? 'disabled' : null)} role="presentation">
         {label}
+        { required && <span styleName="required">*</span> }
       </div>
       {children}
     </div>
@@ -26,6 +27,7 @@ FormField.defaultProps = {
   children: null,
   disabled: false,
   style: {},
+  required: false,
 };
 
 FormField.propTypes = {
@@ -33,6 +35,7 @@ FormField.propTypes = {
   children: PT.node,
   disabled: PT.bool,
   style: PT.object,
+  required: PT.bool,
 };
 
 export default FormField;

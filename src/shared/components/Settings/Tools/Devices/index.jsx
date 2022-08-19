@@ -497,7 +497,7 @@ export default class Devices extends ConsentComponent {
               </div>
               <div styleName="form-body">
                 <form styleName="device-form" noValidate autoComplete="off">
-                  <FormField label="Device Type *" style={{ flex: '0 0 100%' }}>
+                  <FormField label="Device Type" style={{ flex: '0 0 100%' }} required>
                     <FormInputSelect
                       name="Device Type"
                       options={types}

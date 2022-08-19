@@ -38,7 +38,7 @@ const Learning = (props) => {
       <div styleName="form-container-default">
         <form name="device-form" noValidate autoComplete="off">
           {/* Name of College or University */}
-          <FormField label="Name of College or University">
+          <FormField label="Name of College or University" required>
             <FormInputText
               id="schoolCollegeName"
               name="schoolCollegeName"

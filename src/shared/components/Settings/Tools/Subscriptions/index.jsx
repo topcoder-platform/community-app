@@ -321,7 +321,7 @@ export default class Subscription extends ConsentComponent {
               </div>
               <div styleName="form-body">
                 <form styleName="subscription-form" noValidate autoComplete="off">
-                  <FormField label="Subscription Name" style={{ flex: '0 0 100%' }}>
+                  <FormField label="Subscription Name" style={{ flex: '0 0 100%' }} required>
                     <FormInputText
                       disabled={!canModifyTrait}
                       id="name"

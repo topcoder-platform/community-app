@@ -29,6 +29,11 @@
       &.disabled {
         color: $color-black-60;
       }
+
+      .required {
+        color: $member-red;
+        margin-left: 5px;
+      }
     }
   }
 }
