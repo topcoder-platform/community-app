@@ -9,8 +9,7 @@ import cn from 'classnames';
 import './styles.scss';
 
 const FormField = ({
-  children, label = '', disabled, style, required,
-  children, label = '', disabled, style, isTextarea,
+  children, label = '', disabled, style, required, isTextarea,
 }) => (
   <div styleName="form-field-wrapper" style={style}>
     <div styleName="form-field">
