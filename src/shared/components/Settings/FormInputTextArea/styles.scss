@@ -31,3 +31,17 @@
     box-shadow: none !important;
   }
 }
+
+.char-count {
+  @include roboto-regular;
+
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-size: 11px;
+  padding-right: 5px;
+}
+
+.grey {
+  color: $tc-gray-40;
+}

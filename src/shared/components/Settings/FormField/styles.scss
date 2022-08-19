@@ -29,6 +29,10 @@
       &.disabled {
         color: $color-black-60;
       }
+
+      &.isTextarea {
+        top: 10px;
+      }
     }
   }
 }
