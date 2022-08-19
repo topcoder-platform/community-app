@@ -50,6 +50,7 @@
   margin: 0 32px;
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 
   @include xs-to-sm {
     flex-direction: column;
