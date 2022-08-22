@@ -6,7 +6,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { isomorphy } from 'topcoder-react-utils';
+import { isomorphy, config } from 'topcoder-react-utils';
 
 import { dataMap } from './ExternalLink';
 import Header from './Header';
@@ -199,7 +199,7 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         {
-          (badges && (badges.rows || [])).length ? (
+          (config.GAMIFICATION.ENABLE_BADGE_UI && badges && (badges.rows || [])).length ? (
             <Awards badges={badges.rows} />
           ) : null
         }
