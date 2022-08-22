@@ -22,7 +22,6 @@ import smpActions from '../../actions/page/submission_management';
 
 const { getService } = services.submissions;
 
-const TIME_DELAY = 750;
 const theme = {
   container: style.modalContainer,
 };
@@ -34,6 +33,8 @@ class SubmissionManagementPageContainer extends React.Component {
 
     this.state = {
       needReload: false,
+      initialState: true,
+      submissions: [],
     };
   }
 
@@ -76,13 +77,30 @@ class SubmissionManagementPageContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const {
-      loadMySubmissions, authTokens, deletionSucceed, challengeId,
+      deletionSucceed,
+      toBeDeletedId,
+      mySubmissions,
     } = this.props;
+    const { initialState } = this.state;
+
+    if (initialState && mySubmissions) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        submissions: [...mySubmissions],
+        initialState: false,
+      });
+      return;
+    }
+    const { submissions } = this.state;
 
     if (deletionSucceed !== prevProps.deletionSucceed) {
-      setTimeout(() => {
-        loadMySubmissions(authTokens, challengeId);
-      }, TIME_DELAY);
+      _.remove(submissions, submission => (
+        submission.id === toBeDeletedId
+      ));
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        submissions,
+      });
     }
   }
 
@@ -96,7 +114,6 @@ class SubmissionManagementPageContainer extends React.Component {
       loadingSubmissionsForChallengeId,
       submissionPhaseStartDate,
       isLoadingChallenge,
-      mySubmissions,
       onCancelSubmissionDelete,
       onShowDetails,
       onSubmissionDelete,
@@ -105,6 +122,9 @@ class SubmissionManagementPageContainer extends React.Component {
       showModal,
       toBeDeletedId,
     } = this.props;
+
+    const { submissions } = this.state;
+
     if (!challenge.isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
     const isEmpty = _.isEmpty(challenge);
@@ -139,7 +159,7 @@ class SubmissionManagementPageContainer extends React.Component {
               challenge={challenge}
               challengesUrl={challengesUrl}
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
-              submissions={mySubmissions}
+              submissions={submissions}
               showDetails={showDetails}
               submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}

@@ -32,12 +32,12 @@ function create(initialState = {}) {
       deletionSucceed: false,
     }),
 
-    'SMP/DELETE_SUBMISSION_INIT': state => ({
+    'SMP/DELETE_SUBMISSION_INIT': (state, { payload }) => ({
       ...state,
       deletingSubmission: false,
       deletionSucceed: false,
       showModal: false,
-      toBeDeletedId: '',
+      toBeDeletedId: payload,
     }),
 
     'SMP/DELETE_SUBMISSION_FAIL': state => ({
@@ -48,11 +48,11 @@ function create(initialState = {}) {
       deletionSucceed: true,
     }),
 
-    'SMP/DELETE_SUBMISSION_DONE': state => ({
+    'SMP/DELETE_SUBMISSION_DONE': (state, { payload }) => ({
       ...state,
       deletingSubmission: false,
       showModal: false,
-      toBeDeletedId: '',
+      toBeDeletedId: payload,
       deletionSucceed: true,
     }),
 
