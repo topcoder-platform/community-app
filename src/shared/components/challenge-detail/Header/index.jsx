@@ -136,15 +136,7 @@ export default function ChallengeHeader(props) {
         const end = phaseEndDate(phase);
         return moment(end).isAfter();
       }
-      const phaseLowerCase = phase.name.toLowerCase();
-      if (phaseLowerCase.includes('screening') || phaseLowerCase.includes('specification')) {
-        return false;
-      }
-      if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint')
-          || phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
-        return true;
-      }
-      return false;
+      return true;
     });
 
     relevantPhases.sort((a, b) => {
