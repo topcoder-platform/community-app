@@ -171,7 +171,7 @@ const Learning = (props) => {
                 styleName="edit-text"
                 onClick={onHandleAddEducation}
               >
-                Edit Another School / Degree
+                Edit School / Degree
               </span>
               <span styleName="button-cancel">
                 <span
