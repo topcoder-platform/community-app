@@ -3,7 +3,7 @@ import PT from 'prop-types';
 import {
   Modal, PrimaryButton, Button, GhostButton,
 } from 'topcoder-react-ui-kit';
-import IconClose from 'assets/images/icon-close.svg';
+import IconClose from 'assets/images/icon-close-green.svg';
 
 import styles from './styles.scss';
 
@@ -14,14 +14,14 @@ export default function ConfirmationModal(props) {
       <div styleName="modal-dialog">
         <div styleName="modal-content">
           <div styleName="modal-header">
-            HEADS UP!
+            DELETE CONFIRMATION
             <GhostButton theme={{ button: styles.close }} onClick={onCancel}>
               <IconClose />
             </GhostButton>
           </div>
           <div styleName="modal-body">
             <span styleName="title">
-              Are you sure you want to delete `{name}`? This action can&apos;t be undone.
+              Are you sure you want to delete<span>{' '}{name}</span>? This action cannot be undone.
             </span>
           </div>
           <div styleName="modal-footer">
@@ -29,7 +29,7 @@ export default function ConfirmationModal(props) {
               <PrimaryButton theme={{ button: styles['button-save'] }} onClick={onConfirm}>Yes, Delete</PrimaryButton>
             </div>
             <div>
-              <Button theme={{ button: styles['button-save-ghost'] }} onClick={onCancel}>Cancel</Button>
+              <Button theme={{ button: styles['button-save-ghost'] }} onClick={onCancel}>No, Cancel</Button>
             </div>
           </div>
         </div>

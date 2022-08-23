@@ -44,15 +44,15 @@
   border-radius: 8px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   margin: 32px;
-  width: calc(100% - 64px);
+  width: 100%;
 }
 
 .modal-header {
-  @include roboto-bold;
+  @include barlow-bold;
 
-  font-size: 34px;
-  line-height: 32px;
-  font-weight: 500;
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 600;
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -69,14 +69,19 @@
 
   .title {
     font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0.5px;
-    font-weight: 500;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-    display: flex;
+    line-height: 24px;
+    font-weight: 400;
+    padding: 24px 0;
     align-items: center;
     border-radius: 8px 8px 0 0;
+    border-top: 2px solid $color-black-10;
+    border-bottom: 2px solid $color-black-10;
+    width: 100%;
+
+    span {
+      font-weight: 800;
+      margin-left: 5px;
+    }
 
     @include xs-to-sm {
       font-size: 16px;
@@ -88,14 +93,15 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: flex-end;
-  padding: $pad-xxxxl 0;
-  margin: $margin-xxxl $margin-xxxxl 0;
-  border-top: 2px solid $color-black-10;
+  padding: 24px 0;
   border-radius: 0 0 8px 8px;
+  margin-right: 24px;
 
   @include xs-to-md {
     padding: $pad-lg;
     margin: 0 $margin-lg 0;
+    width: 100%;
+    padding-right: 24px !important;
   }
 }
 
@@ -151,15 +157,15 @@
   font-size: 16px;
   line-height: 24px;
   border-radius: 50px !important;
-  color: #2a2a2a !important;
+  color: #137d60 !important;
   text-transform: uppercase;
   background-color: #fff !important;
-  border: 1px solid #2a2a2a !important;
+  border: 2px solid #137d60 !important;
 
   &:hover {
     background-color: #fff !important;
     background-image: none !important;
-    border-color: #2a2a2a !important;
+    border-color: #137d60 !important;
   }
 
   @include xs-to-md {

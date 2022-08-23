@@ -89,7 +89,7 @@ export default class ExistingLinks extends ConsentComponent {
               <div styleName="modal.deletion-confirmation-container">
                 <div styleName="modal.deletion-confirmation">
                   <div styleName="modal.deletion-confirmation-title">
-                    Heads Up!
+                    DELETE CONFIRMATION
                   </div>
                   <div styleName="modal.deletion-confirmation-message">
                     Are you sure you want to delete the external link
