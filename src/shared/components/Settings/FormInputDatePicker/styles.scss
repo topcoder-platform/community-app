@@ -33,6 +33,7 @@
               font-size: 14px;
               line-height: 22px;
               color: $color-black-60;
+              text-transform: capitalize !important;
             }
           }
         }
@@ -58,6 +59,7 @@
           .DateInput {
             .DateInput_input {
               font-size: 14px;
+              text-transform: capitalize;
             }
           }
         }

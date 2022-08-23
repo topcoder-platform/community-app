@@ -84,7 +84,7 @@ const PersonalDetails = (props) => {
             <FormInputDatePicker
               readOnly
               displayFormat="MM/DD/YYYY"
-              placeholder="MM/DD/YYYY"
+              placeholder="Select Birth Date"
               isOutsideRange={function dayAfterToday(date) { return moment(date).add(-1, 'days').isAfter(); }}
               value={newBasicInfo.birthDate}
               id="date-range-picker1"
