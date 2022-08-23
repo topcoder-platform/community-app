@@ -33,10 +33,17 @@ async function fetchDataDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL
         return result.json();
       });
 
+    let preferences = [];
+    let status = 'notsubscribed';
+    if (!error && subs.status === 'subscribed') {
+      status = 'subscribed';
+      preferences = subs.interests;
+    }
+
     return {
       email: emailHash,
-      preferences: subs.interests,
-      status: subs.status,
+      preferences,
+      status,
       error,
     };
   } catch (error) {
