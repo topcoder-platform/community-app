@@ -32,6 +32,7 @@ class ProfileSettings extends ConsentComponent {
     this.onUpdateCountry = this.onUpdateCountry.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onUpdateDate = this.onUpdateDate.bind(this);
+    this.onSaveProfile = this.onSaveProfile.bind(this);
     this.onHandleSaveBasicInfo = this.onHandleSaveBasicInfo.bind(this);
     this.onSaveBasicInfo = this.onSaveBasicInfo.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -80,6 +81,7 @@ class ProfileSettings extends ConsentComponent {
         graduated: false,
       },
       isSubmit: false,
+      educationInputChanged: false,
       isMobileView: false,
       screenSM: 767,
       isEdit: false,
@@ -113,6 +115,7 @@ class ProfileSettings extends ConsentComponent {
       isSubmitHobby: false,
       indexNoHobby: null,
       isHobbyEdit: false,
+      hobbyInputChanged: false,
       newHobby: {
         hobby: '',
         description: '',
@@ -240,37 +243,18 @@ class ProfileSettings extends ConsentComponent {
   onHandleSaveBasicInfo(e) {
     if (e) e.preventDefault();
     const { setIsSaving } = this.props;
-    this.setState({ inputChange: true, isSubmit: true, isSubmitHobby: true });
+    this.setState({ inputChange: true });
     setIsSaving(true);
     const {
-      newBasicInfo, newProfileInfo, newEducation, newHobby,
+      newBasicInfo, newProfileInfo,
     } = this.state;
-
-    if (!_.isEmpty(newEducation.timePeriodFrom)
-      && !_.isEmpty(newEducation.timePeriodTo)
-      && _.trim(newEducation.schoolCollegeName).length
-    ) {
-      this.setState({ isSubmit: true });
-      if (this.onCheckEducationFormValue(newEducation)) {
-        setIsSaving(false);
-        return;
-      }
-    }
-
-    if (!this.onCheckEducationFormValue(newEducation)) {
-      this.showConsent(this.onAddEducation.bind(this));
-    }
-
-    if (!this.onCheckFormValueHobby(newHobby)) {
-      this.showConsent(this.onAddHobby.bind(this));
-    }
-
-    if (!this.onCheckFormValue(newBasicInfo, newProfileInfo)) {
-      this.showConsent(this.onSaveBasicInfo.bind(this));
-    } else {
+    if (this.onCheckFormValue(newBasicInfo, newProfileInfo)) {
       setIsSaving(false);
+      return;
     }
+    this.showConsent(this.onSaveBasicInfo.bind(this));
   }
+
 
   /**
    * Save Basic Info
@@ -352,6 +336,49 @@ class ProfileSettings extends ConsentComponent {
     await updateProfileV5(updateProfileData, handle, tokenV3);
 
     this.props.setIsSaving(false);
+  }
+
+  /**
+   * Save Changes
+   */
+  onSaveProfile() {
+    const { isSaving, setIsSaving } = this.props;
+    const {
+      inputChanged,
+      educationInputChanged,
+      hobbyInputChanged,
+      newBasicInfo,
+      newProfileInfo,
+      newEducation,
+      newHobby,
+    } = this.state;
+
+    if (isSaving) {
+      return;
+    }
+
+    let valid = true;
+    let dirty;
+
+    if (inputChanged) {
+      dirty = true;
+      valid = valid && !this.onCheckFormValue(newBasicInfo, newProfileInfo);
+      this.onHandleSaveBasicInfo();
+    }
+
+    if (educationInputChanged) {
+      dirty = true;
+      valid = valid && !this.onCheckEducationFormValue(newEducation);
+      this.onHandleAddEducation();
+    }
+
+    if (hobbyInputChanged) {
+      dirty = true;
+      valid = valid && !this.onCheckFormValueHobby(newHobby);
+      this.onHandleAddHobby();
+    }
+
+    if (valid && dirty) setIsSaving(true);
   }
 
   onUpdateInput(e) {
@@ -582,7 +609,7 @@ class ProfileSettings extends ConsentComponent {
     const { newEducation: oldEducation } = this.state;
     const newEducation = { ...oldEducation };
     newEducation[timePeriod] = date || '';
-    this.setState({ newEducation, isSubmit: false });
+    this.setState({ newEducation, isSubmit: false, educationInputChanged: true });
   }
 
   /**
@@ -705,6 +732,7 @@ class ProfileSettings extends ConsentComponent {
       newEducation: empty,
       isEdit: false,
       indexNo: null,
+      educationInputChanged: false,
       isSubmit: false,
     });
     // save personalization
@@ -740,7 +768,7 @@ class ProfileSettings extends ConsentComponent {
       }
     }
 
-    this.setState({ newEducation, isSubmit: false });
+    this.setState({ newEducation, isSubmit: false, educationInputChanged: true });
   }
 
   /**
@@ -800,7 +828,7 @@ class ProfileSettings extends ConsentComponent {
    * @param e event
    */
   onHandleAddHobby(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { newHobby } = this.state;
     this.setState({ isSubmitHobby: true });
     if (this.onCheckFormValueHobby(newHobby)) {
@@ -905,7 +933,7 @@ class ProfileSettings extends ConsentComponent {
       newHobby: empty,
       isHobbyEdit: false,
       indexNoHobby: null,
-      inputChanged: false,
+      hobbyInputChanged: false,
     });
 
     // save personalization
@@ -929,7 +957,7 @@ class ProfileSettings extends ConsentComponent {
     const { newHobby: oldHobby } = this.state;
     const newHobby = { ...oldHobby };
     newHobby[e.target.name] = e.target.value;
-    this.setState({ newHobby, isSubmitHobby: false });
+    this.setState({ newHobby, isSubmitHobby: false, hobbyInputChanged: true });
   }
 
   /**
@@ -1146,7 +1174,7 @@ class ProfileSettings extends ConsentComponent {
         <div styleName="footer">
           <PrimaryButton
             disabled={!canModifyTrait}
-            onClick={this.onHandleSaveBasicInfo}
+            onClick={this.onSaveProfile}
             theme={{
               button: style['save-changes-btn'],
             }}
