@@ -187,7 +187,8 @@ class SubmissionManagementPageContainer extends React.Component {
                 This will permanently remove all
                 files from our servers and can’t be undone.
                 You’ll have to upload all the files again in order to restore it.
-                Note that deleting the file may take a few minutes to propagate through the Topcoder platform.
+                Note that deleting the file may take a few minutes to propagate 
+                through the Topcoder platform.
               </p>
               <div
                 /* NOTE: Current implementation of the loading indicator is
