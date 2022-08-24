@@ -45,7 +45,7 @@ export default function SubmissionManagement(props) {
 
   const challengeType = track.toLowerCase();
 
-  const isDesign = challengeType === 'design';
+  // const isDesign = challengeType === 'design';
   const isDevelop = challengeType === 'development';
   const currentPhase = challenge.phases
     .filter(p => p.name !== 'Registration' && p.isOpen)
@@ -141,32 +141,15 @@ export default function SubmissionManagement(props) {
              )
            }
         </div>
-        {
-           isDesign && (
-             <p styleName="recommend-info">
-               {/* eslint-disable-next-line max-len */}
-               We always recommend to download your submission to check you uploaded the correct .zip files&nbsp;
-               {/* eslint-disable-next-line max-len */}
-               and also to verify your declarations file is accurate. If you don’t want to see a submission&nbsp;
-               {/* eslint-disable-next-line max-len */}
-               simply delete it. If you have a new submissions, use the “Add Submission” button to add one&nbsp;
-               to the top of the list.
-             </p>
-           )
-         }
-        {
-           isDevelop && (
-             <p styleName="recommend-info">
-               {/* eslint-disable-next-line max-len */}
-               We always recommend to download your submission to check you uploaded the correct .zip files&nbsp;
-               {/* eslint-disable-next-line max-len */}
-               and also to verify your declarations file is accurate. If you don’t want to see a submission&nbsp;
-               {/* eslint-disable-next-line max-len */}
-               simply delete it. If you have a new submissions, use the “Add Submission” button to add one&nbsp;
-               to the top of the list.
-             </p>
-           )
-         }
+        <p styleName="recommend-info">
+          {/* eslint-disable-next-line max-len */}
+          We always recommend downloading your submission to check you uploaded the correct .zip files&nbsp;
+          {/* eslint-disable-next-line max-len */}
+          and also to verify your declaration file is accurate.&nbsp;
+          {/* eslint-disable-next-line max-len */}
+          If you have a new submission, use the “Add Submission” button to add one&nbsp;
+          to the top of the list.
+        </p>
         {loadingSubmissions && <LoadingIndicator />}
         {!loadingSubmissions
            && (
