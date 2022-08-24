@@ -587,16 +587,25 @@ hr.hr {
         .Select.is-focused > .Select-control {
           outline: none;
           box-shadow: none;
-          border-color: #151516 !important;
         }
 
         .Select-menu-outer {
-          margin-top: 1px;
           font-size: 14px;
 
+          .Select-option {
+            color: #2a2a2b !important;
+            padding: 8px 15px;
+          }
+
           .Select-option.is-selected {
-            background-color: #137d60 !important;
-            color: $tc-white !important;
+            font-weight: 700;
+            color: #2a2a2b !important;
+            background-color: #fff !important;
+          }
+
+          .Select-option:hover {
+            background-color: #229173 !important;
+            color: #fff !important;
           }
         }
       }
