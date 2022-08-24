@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - tco23
+                - PROD-2254_challenge_spec_format_issue
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
