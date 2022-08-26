@@ -1,4 +1,5 @@
 /* eslint-disable prefer-destructuring */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
@@ -13,16 +14,36 @@ export default class Preferences extends React.Component {
   constructor(props) {
     super(props);
     this.save = this.save.bind(this);
+    this.loadOnboardingChecklistTrait = this.loadOnboardingChecklistTrait.bind(this);
     this.newsRef = React.createRef();
+
+    const { userTraits } = props;
+    this.state = {
+      onboardingChecklistTrait: this.loadOnboardingChecklistTrait(userTraits),
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     const { isSaving, setIsSaving } = this.props;
+    const onboardingChecklistTrait = this.loadOnboardingChecklistTrait(nextProps.userTraits);
+    this.setState({
+      onboardingChecklistTrait,
+    });
     if (isSaving !== nextProps.isSaving) {
       setTimeout(() => {
         setIsSaving(false);
       }, 600);
     }
+  }
+
+  /**
+   * Get onboarding checklist trait
+   * @param userTraits the all user traits
+   */
+  loadOnboardingChecklistTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'onboarding_checklist');
+    const onboardingChecklist = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, onboardingChecklist);
   }
 
   save() {
@@ -37,6 +58,14 @@ export default class Preferences extends React.Component {
 
   render() {
     const { profile: { email }, isSaving } = this.props;
+    const { onboardingChecklistTrait } = this.state;
+
+    const traitData = onboardingChecklistTrait.traits.data[0];
+    let paymentSetupCompleted = false;
+    if (_.has(traitData, 'user_payment_method')) {
+      paymentSetupCompleted = !_.isEmpty(traitData.user_payment_method.payment_method)
+        && traitData.user_payment_method.status === 'completed';
+    }
 
     const saveBtn = (
       <PrimaryButton
@@ -61,7 +90,7 @@ export default class Preferences extends React.Component {
               email={email}
               ref={this.newsRef}
             />
-            <PreferenceList />
+            <PreferenceList paymentSetupCompleted={paymentSetupCompleted} />
           </div>
         </div>
         <div styleName="footer">{saveBtn}</div>
@@ -78,4 +107,5 @@ Preferences.propTypes = {
   profile: PT.shape().isRequired,
   isSaving: PT.bool,
   setIsSaving: PT.func.isRequired,
+  userTraits: PT.array.isRequired,
 };

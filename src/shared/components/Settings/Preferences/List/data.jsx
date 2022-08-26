@@ -18,6 +18,7 @@ const data = [
     name: 'Payment',
     description: 'To setup your payments preferences, please click the “Go To Payments” button.',
     link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
+    altLink: `${config.URL.THRIVE}/articles/Payment%20Methods`,
     linkTitle: 'GO TO PAYMENTS',
   },
 ];
