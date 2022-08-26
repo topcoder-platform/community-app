@@ -150,6 +150,16 @@ export default function ChallengeHeader(props) {
       const bEndDate = phaseEndDate(b);
       return moment(aEndDate).diff(bEndDate);
     });
+
+    if (trackLower === 'design') {
+      // condition for 2 round challenge for now
+      if (relevantPhases.length === 8) {
+        relevantPhases = _.filter(relevantPhases, p => !(p.name.toLowerCase().includes('checkpoint screening') || p.name.toLowerCase().includes('screening')));
+      }
+    }
+    if (trackLower === 'quality-assurance') {
+      relevantPhases = _.filter(relevantPhases, p => !(p.name.toLowerCase().includes('specification submission') || p.name.toLowerCase().includes('specification review')));
+    }
     if (type === 'First2Finish' && status === 'Completed') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
       const endPhaseDate = Math.max(...phases2.map(d => phaseEndDate(d)));
