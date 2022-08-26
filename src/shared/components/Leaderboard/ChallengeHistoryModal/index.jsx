@@ -39,8 +39,8 @@ class ChallengeHistoryModal extends Component {
     } = this.props;
     const { sortParam } = this.state;
     const challengesOrdered = _.orderBy(challenges, [sortParam.field], [sortParam.order]);
-    const placeLabel = competitor['member_profile_basic.handle'] ? 'tco_leaderboard.placement' : 'place';
-    const pointsLabel = competitor['member_profile_basic.handle'] ? 'tco_leaderboard.tco_points' : 'points';
+    const placeLabel = competitor['member_profile_basic.handle'] ? (competitor['tco23_leaderboard.placement'] ? 'tco23_leaderboard.placement' : 'tco_leaderboard.placement') : 'place';
+    const pointsLabel = competitor['member_profile_basic.handle'] ? (competitor['tco23_leaderboard.tco_points'] ? 'tco23_leaderboard.tco_points' : 'tco_leaderboard.tco_points') : 'points';
     const styles = THEMES[themeName] || THEMES.Default;
     /* eslint-disable no-confusing-arrow */
     const sortInner = () => themeName === 'TCO23' ? (
@@ -95,7 +95,7 @@ class ChallengeHistoryModal extends Component {
                         }}
                         type="button"
                       >
-                        { sortInner() }
+                        {sortInner()}
                       </button>
                     </div>
                   </th>
@@ -117,7 +117,7 @@ class ChallengeHistoryModal extends Component {
                     }}
                     type="button"
                   >
-                    { sortInner() }
+                    {sortInner()}
                   </button>
                 </div>
               </th>
@@ -125,23 +125,24 @@ class ChallengeHistoryModal extends Component {
           </thead>
           <tbody>
             {
-              challengesOrdered.map(challenge => (
-                <tr className={styles.row} key={`${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}`}>
+              challengesOrdered.map(challenge => {
+                const challengeId = challenge['tco23_leaderboard.challenge_id'] || challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id;
+                return <tr className={styles.row} key={`${challengeId}`}>
                   <td className={styles.name}>
-                    <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id || challenge['challenge.challenge_GUID']}/`} className={styles.link} target="_blank" rel="noopener noreferrer">
-                      {challenge.challenge_name || challenge['challenge.challenge_name'] || challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}
+                    <a href={`${config.URL.BASE}/challenges/${challengeId || challenge['challenge.challenge_GUID']}/`} className={styles.link} target="_blank" rel="noopener noreferrer">
+                      {challenge.challenge_name || challenge['challenge.challenge_name'] || challengeId}
                     </a>
                   </td>
                   {
                     !isCopilot ? (
-                      <td className={styles.placement}>{challenge['tco_leaderboard.placement'] || challenge.place}<span>placement</span></td>
+                      <td className={styles.placement}>{challenge[placeLabel] || challenge.place}<span>placement</span></td>
                     ) : null
                   }
                   <td className={styles.points}>
-                    {challenge['tco_leaderboard.tco_points'] || challenge.points}<span>points</span>
+                    {challenge[pointsLabel] || challenge.points}<span>points</span>
                   </td>
                 </tr>
-              ))
+              })
             }
           </tbody>
         </table>
