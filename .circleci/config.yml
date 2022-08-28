@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - develop
+                - submission_delete_button
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
@@ -397,6 +398,7 @@ workflows:
             branches:
               ignore:
                 - develop
+                - submission_delete_button
 
   Smoke Testing:
     when: << pipeline.parameters.run_smoketesting >>
