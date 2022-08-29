@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - tco23
+                - gig-share
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
