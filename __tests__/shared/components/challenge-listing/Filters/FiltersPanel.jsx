@@ -30,6 +30,7 @@ const mockDatas = [{
   selectedCommunityId: '1',
   setFilterState,
   setSearchText,
+  activeBucket: 'all',
   validKeywords: ['key', 'word'],
   validTypes: [{ name: 'sub', subTrack: 'sub' }, { name: 'track', subTrack: 'track' }],
   onClose,
@@ -47,6 +48,7 @@ const mockDatas = [{
   filterState: {
     groups: [],
   },
+  activeBucket: 'openForRegistration',
   hidden: false,
   onSaveFilter,
   selectCommunity,

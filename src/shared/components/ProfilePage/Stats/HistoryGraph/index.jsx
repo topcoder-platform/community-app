@@ -5,7 +5,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
-import { getRatingColor, RATING_COLORS } from 'utils/tc';
+import { getRatingColor } from 'utils/tc';
+// import { RATING_COLORS } from 'utils/tc';
 import ChartTooltip from '../ChartTooltip';
 import styles from './index.scss';
 
@@ -33,7 +34,12 @@ export default class HistoryGraph extends React.Component {
       }
     };
     window.addEventListener('resize', this.resizeHandle);
-    this.bodyClickHandle = () => this.setState({ show: false });
+    this.bodyClickHandle = (event) => {
+      if (event.target && event.target.tagName === 'circle') {
+        return;
+      }
+      this.setState({ show: false });
+    };
     document.body.addEventListener('click', this.bodyClickHandle);
   }
 
@@ -52,10 +58,7 @@ export default class HistoryGraph extends React.Component {
   }
 
   static getMobileWidthGrapthMeasurements() {
-    if (window.innerWidth < 400) {
-      return 200;
-    }
-    return 300;
+    return window.innerWidth - 32;
   }
 
   draw() {
@@ -83,35 +86,36 @@ export default class HistoryGraph extends React.Component {
     const parseDate = d3.time.format.utc('%Y-%m-%dT%H:%M:%S.%LZ').parse;
 
     const desktopMeasurements = {
-      w: 835,
-      h: 400,
+      w: subTrack === 'SRM' ? 534 : 390,
+      h: 344,
       padding: {
-        top: 20,
-        right: 5,
-        bottom: 100,
-        left: 60,
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
       },
     };
 
     const mobileMeasurements = {
       w: 0,
-      h: 200,
+      h: 240,
       padding: {
-        top: 10,
-        right: 30,
-        bottom: 50,
-        left: 60,
+        top: 0,
+        right: 0,
+        bottom: 24,
+        left: 0,
       },
     };
 
     d3.select($scope.graphRef.current).select('svg').remove();
-    let { w } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
-    const { h, padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    let { w, h } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    const { padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
     if (!$scope.desktop) {
       w = HistoryGraph.getMobileWidthGrapthMeasurements();
+      h = w * 240 / 288.0;
       this.mobileWidth = w;
     }
-    const totalH = h + padding.top + padding.bottom;
+    // const totalH = h + padding.top + padding.bottom;
 
     const x = d3.time.scale()
       .range([padding.left + 5, (w + padding.left) - 5])
@@ -160,6 +164,7 @@ export default class HistoryGraph extends React.Component {
       .attr('height', h);
 
 
+    /*
     svg.append('g')
       .attr('class', `${styles.x} ${styles.axis}`)
       .attr('transform', `translate(0,${h + padding.top})`)
@@ -169,6 +174,7 @@ export default class HistoryGraph extends React.Component {
           ? m.format('YYYY')
           : m.format('MMM').toUpperCase();
       }));
+      */
 
     svg.selectAll(`g.${styles.x}.${styles.axis} .tick text`)
       .attr('font-weight', d => (moment(d).format('MM') === '01' ? 'bold' : 'normal'))
@@ -176,10 +182,12 @@ export default class HistoryGraph extends React.Component {
       .attr('font-size', () => 11);
 
 
+    /*
     svg.append('g')
       .attr('class', `${styles.y} ${styles.axis}`)
       .attr('transform', `translate(${padding.left - 25})`)
       .call(yAxis().tickFormat(d => `${parseInt(d, 10)}`));
+      */
 
     svg.append('g')
       .attr('class', `${styles.x} ${styles.grid}`)
@@ -197,6 +205,7 @@ export default class HistoryGraph extends React.Component {
       .attr('class', styles.line)
       .attr('d', line);
 
+    /*
     function processRatingStripePoint(_y) {
       if (_y < padding.top || Number.isNaN(_y)) {
         return padding.top;
@@ -205,6 +214,7 @@ export default class HistoryGraph extends React.Component {
       }
       return _y;
     }
+    */
 
     function getChallengeLink(challengeId) {
       if (track === 'DEVELOP') {
@@ -221,6 +231,7 @@ export default class HistoryGraph extends React.Component {
       return null;
     }
 
+    /*
     svg.append('g')
       .selectAll('line')
       .data(RATING_COLORS)
@@ -232,6 +243,59 @@ export default class HistoryGraph extends React.Component {
       .attr('y2', d => processRatingStripePoint(y(d.limit - 1)))
       .attr('stroke', d => d.color)
       .attr('stroke-width', 3);
+      */
+
+    const updateTooltipPosition = () => {
+      const e = d3.mouse(document.getElementById('history-graph-container'));
+      const profileModalContainerEl = document.querySelector('.ProfileModalContainer');
+      const profileModalContainerRect = profileModalContainerEl
+        ? profileModalContainerEl.getBoundingClientRect() : null;
+      const graphEl = document.getElementById('history-graph-container');
+      const graphRect = graphEl ? graphEl.getBoundingClientRect() : null;
+      const tooltipElement = document.getElementById('chart-tooltip-history-graph');
+
+      let cx = e[0];
+      let cy = e[1];
+      let rotated = false;
+      const defaultWidth = 320;
+      const defaultHeight = 115;
+      if (tooltipElement) {
+        const { clientWidth, clientHeight } = tooltipElement;
+        cx -= ((clientWidth || defaultWidth) / 2);
+        cy += 15;
+
+        if (graphRect && profileModalContainerRect) {
+          const minLeft = profileModalContainerRect.x - graphRect.x;
+          const minTop = profileModalContainerRect.y - graphRect.y;
+          const maxRight = profileModalContainerRect.width + minLeft;
+          const maxBottom = profileModalContainerRect.height + minTop;
+          const minXTooltipPosition = minLeft;
+          const maxXTooltipPosition = maxRight - (clientWidth || defaultWidth);
+          const minYTooltipPosition = minTop;
+          const maxYTooltipPosition = maxBottom - (clientHeight || defaultHeight);
+          if (cx < minXTooltipPosition) {
+            cx = minXTooltipPosition;
+          }
+          if (cx > maxXTooltipPosition) {
+            cx = maxXTooltipPosition;
+          }
+          if (cy < minYTooltipPosition) {
+            cy = minYTooltipPosition;
+          }
+          if (cy > maxYTooltipPosition) {
+            cy -= clientHeight + 25;
+            rotated = true;
+          }
+        }
+      }
+
+      $scope.setState({
+        rotated,
+        show: true,
+        left: cx,
+        top: cy,
+      });
+    };
 
     svg.selectAll('circle')
       .data(history)
@@ -242,24 +306,25 @@ export default class HistoryGraph extends React.Component {
       .attr('r', 5.5)
       .attr('fill', d => getRatingColor(d.newRating))
       .on('mouseover', (d) => {
-        const e = d3.event;
         $scope.setState({
-          show: true,
-          left: e.pageX,
-          top: e.pageY,
           challengeName: d.challengeName,
           challengeData: moment(d.ratingDate).format('MMM DD, YYYY'),
           rating: d.newRating,
           ratingColor: getRatingColor(d.newRating),
           href: getChallengeLink(d.challengeId),
         });
+
+        updateTooltipPosition();
+      })
+      .on('mousemove', () => {
+        updateTooltipPosition();
       });
   }
 
   render() {
     return (
-      <div styleName="history-graph" ref={this.graphRef}>
-        <ChartTooltip {...this.state} />
+      <div id="history-graph-container" styleName="history-graph" ref={this.graphRef}>
+        <ChartTooltip id="history-graph" {...this.state} />
       </div>
     );
   }

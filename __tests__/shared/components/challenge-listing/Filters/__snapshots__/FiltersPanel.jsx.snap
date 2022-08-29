@@ -62,6 +62,7 @@ exports[`Matches shallow shapshot 2`] = `
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__bucket-selector-mobile___JbE2n"
       >
         <BucketSelector
+          activeBucket="openForRegistration"
           disabled={false}
           expanding={false}
           isAuth={false}
@@ -209,7 +210,79 @@ exports[`Matches shallow shapshot 2`] = `
     <hr
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
     />
+    <React.Fragment>
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-challenges-filter___3XG63"
+      >
+        <span
+          aria-checked={false}
+          aria-label="Tco eligible challenge toggle button pressed Off"
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-select-label___3ATak"
+          role="switch"
+        >
+          <ThemedSwitchWithLabel
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
+            enabled={false}
+            labelAfter="Only Show TCO Eligible Challenges"
+            labelBefore=""
+            mapThemrProps={[Function]}
+            onSwitch={[Function]}
+            themePriority="adhoc-context-default"
+          />
+        </span>
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-challenge-tooltip___17i7n"
+        >
+          <Tooltip
+            align={Object {}}
+            className=""
+            content={
+              <div
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tctooltiptext___2Lyji"
+              >
+                <p>
+                  Earn TCO points by participating in these 
+                  <br />
+                  challenges. 
+                  <a
+                    href="https://www.topcoder-dev.com/community/member-programs/topcoder-open"
+                    rel="noreferrer noopener"
+                    target="_blank"
+                  >
+                    Learn more about TCO
+                  </a>
+                </p>
+              </div>
+            }
+            defaultVisible={false}
+            id="tco-tip"
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={false}
+            trigger={
+              Array [
+                "hover",
+                "focus",
+              ]
+            }
+          >
+            <CircleIcon
+              fill="none"
+              height="14"
+              viewBox="0 0 14 14"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            />
+          </Tooltip>
+        </div>
+      </div>
+    </React.Fragment>
   </div>
+  <hr
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
+  />
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >

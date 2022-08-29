@@ -59,6 +59,7 @@ export default function ChallengeHeader(props) {
     mySubmissions,
     openForRegistrationChallenges,
     onSort,
+    viewAsTable,
   } = props;
 
   const {
@@ -479,6 +480,7 @@ export default function ChallengeHeader(props) {
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
           onSort={onSort}
+          viewAsTable={viewAsTable}
         />
       </div>
     </div>
@@ -544,4 +546,5 @@ ChallengeHeader.propTypes = {
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
   onSort: PT.func.isRequired,
+  viewAsTable: PT.bool.isRequired,
 };

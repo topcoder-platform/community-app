@@ -118,11 +118,10 @@ hr.hr {
   .filter-row {
     display: flex;
 
-    .recommended-select-label {
-      width: 45%;
+    .recommended-select-label,
+    .tco-select-label {
       margin-bottom: 16px;
       display: flex;
-      white-space: nowrap;
       line-height: 30px;
       justify-content: flex-start;
       margin-top: 15px;
@@ -132,8 +131,6 @@ hr.hr {
       }
 
       @include sm-to-md {
-        width: 50%;
-
         > div {
           display: inline-flex;
           flex-direction: row-reverse;
@@ -606,7 +603,8 @@ hr.hr {
     }
   }
 
-  .recommended-challenges-filter {
+  .recommended-challenges-filter,
+  .tco-challenges-filter {
     display: flex;
     margin: 0;
     position: relative;
@@ -619,17 +617,15 @@ hr.hr {
       flex-direction: row;
     }
 
-    .recommended-challenge-tooltip {
-      position: absolute;
-      left: 210px;
+    .recommended-challenge-tooltip,
+    .tco-challenge-tooltip {
+      position: relative;
+      left: 7px;
+      top: 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       height: 100%;
-
-      @include xs-to-md {
-        left: 210px;
-      }
     }
   }
 }
@@ -639,6 +635,10 @@ hr.hr {
   color: $tc-white;
   border-radius: 8px;
   padding: 10px;
+
+  a {
+    font-weight: bold;
+  }
 }
 
 .tctooltiptext::after {

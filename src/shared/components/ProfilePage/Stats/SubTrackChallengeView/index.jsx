@@ -7,128 +7,15 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
-import InfiniteScroll from 'react-infinite-scroller';
 import shortId from 'shortid';
 
-import ChallengeTile from 'components/ChallengeTile';
-import SRMTile from 'components/SRMTile';
 import { actions } from 'topcoder-react-lib';
-import { OLD_COMPETITION_TRACKS, COMPETITION_TRACKS } from 'utils/tc';
 import LoadingIndicator from 'components/LoadingIndicator';
-import GalleryModal from './GalleryModal';
+import ChallengeTable from './ChallengeTable';
 import './style.scss';
 
 // how many challenges to query per batch
-const CHALLENGE_PER_PAGE = 36;
-
-/**
- * @static
- * @desc pre-process subtrach challenge array to prepare for rendering
- * @param {String} one raw challenge just retrieved from API
- */
-const processPastChallenge = (challenge) => {
-  const cloned = _.cloneDeep(challenge);
-  if (cloned.userDetails) {
-    // process placement for challenges having winningPlacements array in response
-    if (Array.isArray(cloned.userDetails.winningPlacements)) {
-      cloned.highestPlacement = _.min(cloned.userDetails.winningPlacements, 'placed').placed;
-    }
-    // process placement for design challenges
-    if (cloned.track === 'DESIGN'
-        && cloned.userDetails.submissions
-        && cloned.userDetails.submissions.length > 0) {
-      cloned.thumbnailId = cloned.userDetails.submissions[0].id;
-    }
-    // determines the user status for passing the review for one of the submissions
-    if (cloned.userDetails.submissions && cloned.userDetails.submissions.length > 0) {
-      cloned.passedReview = cloned.userDetails.submissions.filter(submission => submission.type === 'Contest Submission'
-        && (submission.status === 'Active'
-          || submission.status === 'Completed Without Win')).length > 0;
-    }
-    if (cloned.highestPlacement === 0) {
-      cloned.highestPlacement = null;
-    }
-    cloned.wonFirst = cloned.highestPlacement === 1;
-
-    cloned.userHasSubmitterRole = false;
-
-    // determines if user has submitter role or not
-    const { roles } = cloned.userDetails;
-    if (roles.length > 0) {
-      const submitterRole = _.findIndex(roles, (role) => {
-        const lRole = role.toLowerCase();
-        return lRole === 'submitter';
-      });
-      if (submitterRole >= 0) {
-        cloned.userHasSubmitterRole = true;
-      }
-    }
-
-    if (!cloned.userStatus) {
-      if (cloned.userDetails.hasUserSubmittedForReview) {
-        if (!cloned.passedReview) {
-          cloned.userStatus = 'PASSED_SCREENING';
-        } else {
-          cloned.userStatus = 'PASSED_REVIEW';
-        }
-      } else {
-        cloned.userStatus = 'NOT_FINISHED';
-      }
-
-      // if user does not has submitter role, just show Completed
-      if (!cloned.userHasSubmitterRole) {
-        cloned.userStatus = 'COMPLETED';
-      }
-    }
-
-    // adjust submissions
-    if (cloned.userDetails
-        && cloned.userDetails.submissions
-        && cloned.userDetails.submissions.length > 0) {
-      cloned.userDetails.submissions = cloned.userDetails.submissions
-        .filter(submission => submission && submission.submissionImage);
-      cloned.userDetails.submissions = _.sortBy(
-        cloned.userDetails.submissions,
-        submission => submission.placement,
-      );
-    }
-
-    if (!cloned.isPrivate
-        && cloned.userDetails
-        && cloned.userDetails.submissions
-        && cloned.userDetails.submissions.length > 0) {
-      // add attr imageURL
-      cloned.imageURL = cloned.userDetails.submissions[0].submissionImage
-                        && cloned.userDetails.submissions[0].submissionImage.full;
-      // add numImages
-      cloned.numImages = cloned.userDetails.submissions.length;
-    } else {
-      cloned.numImages = 0;
-    }
-
-    if (!cloned.type) {
-      cloned.type = cloned.subTrack;
-    }
-
-    switch (cloned.track) {
-      case OLD_COMPETITION_TRACKS.DATA_SCIENCE:
-        cloned.track = COMPETITION_TRACKS.DS;
-        break;
-      case OLD_COMPETITION_TRACKS.DESIGN:
-        cloned.track = COMPETITION_TRACKS.DES;
-        break;
-      case OLD_COMPETITION_TRACKS.DEVELOP:
-        cloned.track = COMPETITION_TRACKS.DEV;
-        break;
-      case OLD_COMPETITION_TRACKS.QA:
-        cloned.track = COMPETITION_TRACKS.QA;
-        break;
-      default:
-        break;
-    }
-  }
-  return cloned;
-};
+const CHALLENGE_PER_PAGE = 10;
 
 class SubTrackChallengeView extends React.Component {
   constructor(props, context) {
@@ -137,12 +24,7 @@ class SubTrackChallengeView extends React.Component {
       // this is current page number. starts with 1.
       // everytime we scroll at the bottom, we query from offset = pageNum * CHALLENGE_PER_PAGE
       pageNum: 1,
-      // which challenge's modal should be poped. null means no modal
-      challengeIndexToPopModal: null,
     };
-    this.onPageChange = this.onPageChange.bind(this);
-    this.onPopModal = this.onPopModal.bind(this);
-    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
   componentDidMount() {
@@ -151,108 +33,123 @@ class SubTrackChallengeView extends React.Component {
       auth,
       track,
       subTrack,
-      loadingSubTrackChallengesUUID,
       loadSubtrackChallenges,
       loadingSRMUUID,
       loadSRM,
       loadingMarathonUUID,
       loadMarathon,
       userId,
+      isAlreadyLoadChallenge,
     } = this.props;
 
     const {
       pageNum,
     } = this.state;
 
-    if (track === 'DEVELOP' || track === 'DESIGN') {
-      if (!loadingSubTrackChallengesUUID) {
-        loadSubtrackChallenges(
-          handle,
-          auth.tokenV3,
-          track, subTrack,
-          pageNum,
-          CHALLENGE_PER_PAGE,
-          true,
-          userId,
-        );
-      }
-    } else if (track === 'DATA_SCIENCE') {
+    if (!isAlreadyLoadChallenge.current && (track === 'DEVELOP' || track === 'DESIGN')) {
+      loadSubtrackChallenges(
+        handle,
+        auth.tokenV3,
+        track, subTrack,
+        pageNum,
+        CHALLENGE_PER_PAGE,
+        true,
+        userId,
+      );
+      isAlreadyLoadChallenge.current = true;
+    } else if (!isAlreadyLoadChallenge.current && track === 'DATA_SCIENCE') {
       if (subTrack === 'SRM') {
         if (!loadingSRMUUID) {
           // pageNum - 1 to match with v4 offset
           loadSRM(handle, auth.tokenV3, pageNum - 1, CHALLENGE_PER_PAGE, true);
+          isAlreadyLoadChallenge.current = true;
         }
       } else if (subTrack === 'MARATHON_MATCH') {
         if (!loadingMarathonUUID) {
           loadMarathon(handle, userId, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, true);
+          isAlreadyLoadChallenge.current = true;
         }
       }
     }
   }
 
-  onPageChange() {
-    const {
-      handle,
-      auth,
-      track,
-      subTrack,
-      loadingSubTrackChallengesUUID,
-      loadSubtrackChallenges,
-      loadingSRMUUID,
-      loadSRM,
-      loadingMarathonUUID,
-      loadMarathon,
-      userId,
-    } = this.props;
-
+  componentDidUpdate(prevProps) {
     const {
       pageNum,
     } = this.state;
 
-    if ((track === 'DEVELOP' || track === 'DESIGN')) {
-      if (!loadingSubTrackChallengesUUID) {
-        loadSubtrackChallenges(
-          handle,
-          auth.tokenV3,
-          track,
-          subTrack,
-          pageNum + 1,
-          CHALLENGE_PER_PAGE,
-          false,
-          userId,
-        );
-        this.setState({ pageNum: pageNum + 1 });
-      }
-      // if loadingSubTrackChallengesUUID is set in redux-store,
-      // it means there is already an ongoing query
-      // same to SRM and Marathon
-    } else if (track === 'DATA_SCIENCE') {
-      if (subTrack === 'SRM') {
-        if (!loadingSRMUUID) {
-          loadSRM(handle, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, false);
-          this.setState({ pageNum: pageNum + 1 });
-        }
-      } else if (subTrack === 'MARATHON_MATCH') {
-        if (!loadingMarathonUUID) {
-          loadMarathon(handle, userId, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
+    const {
+      handle,
+      auth,
+      loadSubtrackChallenges,
+      loadSRM,
+      loadMarathon,
+      userId,
+
+      track,
+      subTrack,
+      challenges,
+      challengesHasMore,
+      loadingSRMUUID,
+      userSrms,
+      userSrmHasMore,
+      loadingMarathonUUID,
+      userMarathons,
+      userMarathonHasMore,
+    } = this.props;
+
+    const isEqLen = (prevArr, arr) => (prevArr && prevArr.length) === (arr && arr.length);
+
+    if (track === 'DEVELOP' || track === 'DESIGN') {
+      if (!isEqLen(prevProps.challenges, challenges)) {
+        // NOTE: Loaded successful, nothing todo
+        if (challengesHasMore) {
+          loadSubtrackChallenges(
+            handle,
+            auth.tokenV3,
+            track,
+            subTrack,
+            pageNum + 1,
+            CHALLENGE_PER_PAGE,
+            false,
+            userId,
+          );
+          // eslint-disable-next-line react/no-did-update-set-state
           this.setState({ pageNum: pageNum + 1 });
         }
       }
     }
-  }
 
-  onPopModal(index) {
-    this.setState({ challengeIndexToPopModal: index });
-  }
+    if (track === 'DATA_SCIENCE' && subTrack === 'SRM') {
+      if (!loadingSRMUUID) {
+        if (!isEqLen(prevProps.userSrms, userSrms)) {
+          // NOTE: Loaded successful, nothing todo
+          if (userSrmHasMore) {
+            loadSRM(handle, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, false);
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState({ pageNum: pageNum + 1 });
+          }
+        }
+      }
+    }
 
-  onCloseModal() {
-    this.setState({ challengeIndexToPopModal: null });
+    if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH') {
+      if (!loadingMarathonUUID) {
+        if (!isEqLen(prevProps.userMarathons, userMarathons)) {
+          // NOTE: Loaded successful, nothing todo
+          if (userMarathonHasMore) {
+            loadMarathon(handle, userId, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState({ pageNum: pageNum + 1 });
+          }
+        }
+      }
+    }
   }
 
   render() {
     const {
       pageNum,
-      challengeIndexToPopModal,
     } = this.state;
 
     const {
@@ -262,12 +159,9 @@ class SubTrackChallengeView extends React.Component {
       loadingSRMUUID,
       loadingMarathonUUID,
       challenges,
-      challengesHasMore,
       userSrms,
-      userSrmHasMore,
       userMarathons,
-      userMarathonHasMore,
-      userId,
+      handle,
     } = this.props;
 
     if (pageNum === 1
@@ -295,44 +189,13 @@ class SubTrackChallengeView extends React.Component {
     }
 
     if (track === 'DEVELOP' || track === 'DESIGN') {
-      const challengeToRender = _.map(challenges, processPastChallenge);
+      //  const challengeToRender = _.map(challenges, processPastChallenge);
 
       return (
-        <div>
-          {challengeIndexToPopModal != null
-          && (
-          <div>
-            <GalleryModal
-              onCancel={this.onCloseModal}
-              challenge={challengeToRender[challengeIndexToPopModal]}
-            />
-          </div>
-          )
-            }
-          <InfiniteScroll
-            initialLoad={false}
-            loadMore={this.onPageChange}
-            hasMore={!loadingSubTrackChallengesUUID && challengesHasMore}
-            loader={<LoadingIndicator key="challenge-loader" />}
-            threshold={500}
-          >
-            <div styleName={track}>
-              <section>
-                <div styleName="challenges">
-                  {challengeToRender.map((item, index) => (
-                    <ChallengeTile
-                      challenge={item}
-                      onPopModal={this.onPopModal}
-                      index={index}
-                      key={`scroll-subtrack-challenge-${item.name}`}
-                    />
-                  ))}
-                </div>
-              </section>
-            </div>
-          </InfiniteScroll>
-          {loadingSubTrackChallengesUUID && <LoadingIndicator />}
-        </div>
+        <React.Fragment>
+          <ChallengeTable challenges={challenges} handle={handle} />
+          { loadingSubTrackChallengesUUID && <LoadingIndicator /> }
+        </React.Fragment>
       );
     } if (track === 'DATA_SCIENCE' && subTrack === 'SRM') {
       userSrms.sort((a, b) => {
@@ -347,25 +210,10 @@ class SubTrackChallengeView extends React.Component {
       });
 
       return (
-        <div>
-          <InfiniteScroll
-            initialLoad={false}
-            loadMore={this.onPageChange}
-            hasMore={!loadingSRMUUID && userSrmHasMore}
-            loader={<LoadingIndicator key="srm-loader" />}
-            threshold={500}
-          >
-            <div styleName={track}>
-              <section>
-                <div styleName="challenges">
-                  {userSrms && userSrms.map(item => <SRMTile key={`srm-${item.name}`} challenge={item} userId={userId} />)
-                  }
-                </div>
-              </section>
-            </div>
-          </InfiniteScroll>
-          {loadingSRMUUID && <LoadingIndicator />}
-        </div>
+        <React.Fragment>
+          <ChallengeTable challenges={userSrms} handle={handle} hideChallengeResult />
+          { loadingSRMUUID && <LoadingIndicator /> }
+        </React.Fragment>
       );
     } if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH') {
       const marathonToRender = _.map(
@@ -375,26 +223,12 @@ class SubTrackChallengeView extends React.Component {
           pointTotal: _.get(item, 'rounds.0.userMMDetails.pointTotal'),
         }),
       );
+
       return (
-        <div>
-          <InfiniteScroll
-            initialLoad={false}
-            loadMore={this.onPageChange}
-            hasMore={!loadingMarathonUUID && userMarathonHasMore}
-            loader={<LoadingIndicator key="marathon-loader" />}
-            threshold={500}
-          >
-            <div styleName={track}>
-              <section>
-                <div styleName="challenges">
-                  {marathonToRender.map(item => <ChallengeTile key={`marathon-${item.name}`} challenge={item} />)
-                  }
-                </div>
-              </section>
-            </div>
-          </InfiniteScroll>
-          {loadingMarathonUUID && <LoadingIndicator />}
-        </div>
+        <React.Fragment>
+          <ChallengeTable challenges={marathonToRender} handle={handle} hideChallengeResult />
+          { loadingMarathonUUID && <LoadingIndicator /> }
+        </React.Fragment>
       );
     }
 
@@ -445,7 +279,7 @@ function mapDispatchToProps(dispatch) {
       refresh,
     ) => {
       const uuid = shortId();
-      dispatch(action.getSubtrackChallengesInit(handle, uuid));
+      dispatch(action.getSubtrackChallengesInit(handle, uuid, pageNum));
       dispatch(action.getSubtrackChallengesDone(
         uuid,
         handle,
@@ -490,6 +324,10 @@ SubTrackChallengeView.defaultProps = {
   loadingMarathonUUID: null,
   userMarathons: null,
   userMarathonHasMore: null,
+
+  isAlreadyLoadChallenge: {
+    current: false,
+  },
 };
 
 SubTrackChallengeView.propTypes = {
@@ -514,6 +352,9 @@ SubTrackChallengeView.propTypes = {
   loadSubtrackChallenges: PT.func.isRequired,
   loadSRM: PT.func.isRequired,
   loadMarathon: PT.func.isRequired,
+  isAlreadyLoadChallenge: PT.shape({
+    current: PT.bool,
+  }),
 };
 
 const Container = connect(
