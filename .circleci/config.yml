@@ -370,7 +370,7 @@ workflows:
           filters:
             branches:
               only:
-                - social-share-updates
+                - tco23-leaderboards
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
