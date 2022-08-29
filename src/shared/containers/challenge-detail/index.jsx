@@ -53,8 +53,18 @@ import { getService } from 'services/contentful';
 
 import ogUiDesign from
   '../../../assets/images/open-graph/challenges/02-Design-Preview.png';
-import ogFirst2Finish from
-  '../../../assets/images/open-graph/challenges/09-First2Finish.png';
+import ogFirst2FinishDEV from
+  '../../../assets/images/open-graph/challenges/Development-First2Finish.png';
+import ogFirst2FinishDESIGN from
+  '../../../assets/images/open-graph/challenges/Design-First2Finish.png';
+import ogFirst2FinishQA from
+  '../../../assets/images/open-graph/challenges/QA-First2Finish.png';
+import ogDEVTask from
+  '../../../assets/images/open-graph/challenges/Development-Task.png';
+import ogDESIGNTask from
+  '../../../assets/images/open-graph/challenges/Design-Task.png';
+import ogQATask from
+  '../../../assets/images/open-graph/challenges/QA-Task.png';
 import ogDevelopment from
   '../../../assets/images/open-graph/challenges/03-Development.png';
 import ogBigPrizesChallenge from
@@ -63,6 +73,8 @@ import ogQAChallenge from
   '../../../assets/images/open-graph/challenges/05-QA.png';
 import ogDSChallenge from
   '../../../assets/images/open-graph/challenges/04-Data-Science.png';
+import ogMMChallenge from
+  '../../../assets/images/open-graph/challenges/MM-Challenge.png';
 
 /* A fallback image, just in case we missed some corner case. */
 import ogImage from
@@ -91,7 +103,19 @@ function getOgImage(challenge) {
   }
 
   switch (subTrack) {
-    case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
+    case SUBTRACKS.FIRST_2_FINISH:
+      switch (challenge.track) {
+        case COMPETITION_TRACKS_V3.DEVELOP: return challenge.type === 'Task' ? ogDEVTask : ogFirst2FinishDEV;
+        case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogFirst2FinishQA;
+        default: return ogFirst2FinishDEV;
+      }
+
+    case SUBTRACKS.DESIGN_FIRST_2_FINISH:
+      switch (challenge.track) {
+        case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
+        default: return ogUiDesign;
+      }
+
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
       const submission = (challenge.phases || [])
         .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
@@ -105,13 +129,19 @@ function getOgImage(challenge) {
     case SUBTRACKS.QA:
     case SUBTRACKS.TEST_SUITES:
       return ogQAChallenge;
-    case SUBTRACKS.DS: return ogDSChallenge;
+    case SUBTRACKS.MM:
+      if (challenge.tags && challenge.tags.indexOf(COMPETITION_TRACKS_V3.DS) !== -1) {
+        return ogDSChallenge;
+      }
+      return ogMMChallenge;
     default:
   }
+
   switch (challenge.track) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
-    case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
+    case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogUiDesign;
     case COMPETITION_TRACKS_V3.DS: return ogDSChallenge;
+    case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogQAChallenge;
     default: return ogImage;
   }
 }
