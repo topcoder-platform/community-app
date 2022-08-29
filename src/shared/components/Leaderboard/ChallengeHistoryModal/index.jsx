@@ -39,7 +39,9 @@ class ChallengeHistoryModal extends Component {
     } = this.props;
     const { sortParam } = this.state;
     const challengesOrdered = _.orderBy(challenges, [sortParam.field], [sortParam.order]);
+    // eslint-disable-next-line
     const placeLabel = competitor['member_profile_basic.handle'] ? (competitor['tco23_leaderboard.placement'] ? 'tco23_leaderboard.placement' : 'tco_leaderboard.placement') : 'place';
+    // eslint-disable-next-line
     const pointsLabel = competitor['member_profile_basic.handle'] ? (competitor['tco23_leaderboard.tco_points'] ? 'tco23_leaderboard.tco_points' : 'tco_leaderboard.tco_points') : 'points';
     const styles = THEMES[themeName] || THEMES.Default;
     /* eslint-disable no-confusing-arrow */
@@ -125,23 +127,27 @@ class ChallengeHistoryModal extends Component {
           </thead>
           <tbody>
             {
-              challengesOrdered.map(challenge => {
+              challengesOrdered.map((challenge) => {
                 const challengeId = challenge['tco23_leaderboard.challenge_id'] || challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id;
-                return <tr className={styles.row} key={`${challengeId}`}>
-                  <td className={styles.name}>
-                    <a href={`${config.URL.BASE}/challenges/${challengeId || challenge['challenge.challenge_GUID']}/`} className={styles.link} target="_blank" rel="noopener noreferrer">
-                      {challenge.challenge_name || challenge['challenge.challenge_name'] || challengeId}
-                    </a>
-                  </td>
-                  {
+                return (
+                  <tr className={styles.row} key={`${challengeId}`}>
+                    <td className={styles.name}>
+                      <a href={`${config.URL.BASE}/challenges/${challengeId || challenge['challenge.challenge_GUID']}/`} className={styles.link} target="_blank" rel="noopener noreferrer">
+                        {challenge.challenge_name || challenge['challenge.challenge_name'] || challengeId}
+                      </a>
+                    </td>
+                    {
                     !isCopilot ? (
-                      <td className={styles.placement}>{challenge[placeLabel] || challenge.place}<span>placement</span></td>
+                      <td className={styles.placement}>
+                        {challenge[placeLabel]}<span>placement</span>
+                      </td>
                     ) : null
                   }
-                  <td className={styles.points}>
-                    {challenge[pointsLabel] || challenge.points}<span>points</span>
-                  </td>
-                </tr>
+                    <td className={styles.points}>
+                      {challenge[pointsLabel] || challenge.points}<span>points</span>
+                    </td>
+                  </tr>
+                );
               })
             }
           </tbody>

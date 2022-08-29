@@ -67,12 +67,11 @@ export default function LeaderboardTable(props) {
   const addSufix = val => isAlgo ? (val !== 1 ? `${val} matches` : `${val} match`) : (val !== 1 ? `${val} challenges` : `${val} challenge`);
   const renderTableRows = comps => (
     comps.map((competitor) => {
-      const tcoPoints =
-        competitor['tco23_leaderboard.tco_points'] ||
-        competitor['tco_leaderboard.tco_points'] ||
-        competitor.points ||
-        competitor['tco_leaderboard.total_score'] ||
-        competitor['srm_tco19.score'];
+      const tcoPoints = competitor['tco23_leaderboard.tco_points']
+        || competitor['tco_leaderboard.tco_points']
+        || competitor.points
+        || competitor['tco_leaderboard.total_score']
+        || competitor['srm_tco19.score'];
       const tcoChallengeCnt = competitor['tco23_leaderboard.challenge_count'] || competitor['tco_leaderboard.challenge_count'] || competitor.challengecount;
       let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
       if (photoUrl) {
