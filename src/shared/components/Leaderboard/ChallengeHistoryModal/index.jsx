@@ -128,7 +128,7 @@ class ChallengeHistoryModal extends Component {
           <tbody>
             {
               challengesOrdered.map((challenge) => {
-                const challengeId = challenge['tco23_leaderboard.challenge_id'] || challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id;
+                const challengeId = challenge['tco23_leaderboard.challenge_id'] || challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_GUID'] || challenge['challenge.challenge_id'] || challenge.challenge_id;
                 return (
                   <tr className={styles.row} key={`${challengeId}`}>
                     <td className={styles.name}>
