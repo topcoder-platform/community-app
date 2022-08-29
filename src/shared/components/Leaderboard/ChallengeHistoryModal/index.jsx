@@ -40,9 +40,9 @@ class ChallengeHistoryModal extends Component {
     const { sortParam } = this.state;
     const challengesOrdered = _.orderBy(challenges, [sortParam.field], [sortParam.order]);
     // eslint-disable-next-line
-    const placeLabel = competitor['member_profile_basic.handle'] ? (competitor['tco23_leaderboard.placement'] ? 'tco23_leaderboard.placement' : 'tco_leaderboard.placement') : 'place';
+    const placeLabel = competitor['tco23_leaderboard.challenge_count'] ? 'tco23_leaderboard.placement' : 'tco_leaderboard.placement';
     // eslint-disable-next-line
-    const pointsLabel = competitor['member_profile_basic.handle'] ? (competitor['tco23_leaderboard.tco_points'] ? 'tco23_leaderboard.tco_points' : 'tco_leaderboard.tco_points') : 'points';
+    const pointsLabel = competitor['tco23_leaderboard.tco_points'] ? 'tco23_leaderboard.tco_points' : 'tco_leaderboard.tco_points';
     const styles = THEMES[themeName] || THEMES.Default;
     /* eslint-disable no-confusing-arrow */
     const sortInner = () => themeName === 'TCO23' ? (

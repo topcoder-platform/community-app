@@ -224,7 +224,7 @@ export default function PodiumSpot(props) {
               </div>
             ) : null
           }
-          <div styleName={`${stylesName}.stats`}>
+          <div styleName={`${stylesName}.stats`} style={{ alignItems: 'flex-start' }}>
             <span styleName={`${stylesName}.value`}>{formatPoints(tcoPoints)}</span>
             <span styleName={`${stylesName}.value-title`}>points</span>
           </div>
