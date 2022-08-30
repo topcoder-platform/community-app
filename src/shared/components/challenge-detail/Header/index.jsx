@@ -80,7 +80,7 @@ export default function ChallengeHeader(props) {
 
   const tags = challenge.tags || [];
 
-  const allPhases = challenge.phases || [];
+  const allPhases = _.filter(challenge.phases || [], p => p.name !== 'Post-Mortem');
   const sortedAllPhases = _.cloneDeep(allPhases)
     .sort((a, b) => moment(phaseEndDate(a)).diff(phaseEndDate(b)));
 
