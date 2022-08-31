@@ -143,6 +143,8 @@ ENV GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
 # Optimizely
 ENV OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY
 
+ENV GAMIFICATION_ORG_ID=$GAMIFICATION_ORG_ID
+
 ################################################################################
 # Testing and build of the application inside the container.
 

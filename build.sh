@@ -53,6 +53,7 @@ docker build -t $TAG \
   --build-arg OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY \
   --build-arg COMMUNITY_APP_URL=$COMMUNITY_APP_URL \
   --build-arg GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY \
+  --build-arg GAMIFICATION_ORG_ID=$GAMIFICATION_ORG_ID \
   --build-arg VALID_ISSUERS=$VALID_ISSUERS .
 
 # Copies "node_modules" from the created image, if necessary for caching.

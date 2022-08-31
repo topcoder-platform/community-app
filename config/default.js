@@ -452,6 +452,9 @@ module.exports = {
   OPTIMIZELY: {
     SDK_KEY: '7V4CJhurXT3Y3bnzv1hv1',
   },
-  PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
+  GAMIFICATION: {
+    ORG_ID: '6052dd9b-ea80-494b-b258-edd1331e27a3',
+    ENABLE_BADGE_UI: true,
+  },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
 };
