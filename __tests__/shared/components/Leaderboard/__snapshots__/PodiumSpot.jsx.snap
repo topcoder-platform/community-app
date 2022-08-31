@@ -47,7 +47,7 @@ exports[`Matches shallow shapshot 1`] = `
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"
       >
-        0.00
+        NaN
       </span>
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value-title___1Jf_7"
@@ -106,7 +106,7 @@ exports[`Matches shallow shapshot 2`] = `
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"
       >
-        0.00
+        NaN
       </span>
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value-title___1Jf_7"

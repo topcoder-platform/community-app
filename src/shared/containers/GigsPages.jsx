@@ -23,6 +23,8 @@ const optimizelyClient = createInstance({
 });
 const cookies = require('browser-cookies');
 
+const GIGS_SOCIAL_SHARE_IMAGE = 'https://images.ctfassets.net/b5f1djy59z3a/4XlYNZgq5Kfa4XdwQ6pDfV/769ea7be756a88145b88ce685f050ebc/10_Freelance_Gig.png';
+
 function GigsPagesContainer(props) {
   const {
     match, profile, growSurf, getReferralId, tokenV3,
@@ -84,6 +86,7 @@ window._chatlio = window._chatlio||[];
       <MetaTags
         description={description}
         title={title}
+        image={GIGS_SOCIAL_SHARE_IMAGE}
       />
       <Header />
       {
