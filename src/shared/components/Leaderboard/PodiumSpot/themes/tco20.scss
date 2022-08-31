@@ -1,7 +1,8 @@
 @import '~styles/mixins';
 $podium-border-color: #ededf2;
 
-.PodiumSpot {
+.PodiumSpot,
+.PodiumSpotCondense {
   border-radius: 6px;
   padding: 23px 15px;
   display: flex;

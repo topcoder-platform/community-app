@@ -64,12 +64,13 @@ export default function Podium(props) {
           isTopGear={isTopGear}
           isAlgo={isAlgo}
           themeName={themeName}
+          podiumPlaces={comps.length}
         />
       </div>
     ));
 
     return (
-      <div styleName={`${stylesName}.PodiumWrap`} style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
+      <div styleName={`${stylesName}.${comps.length > 3 ? 'PodiumWrapCondense' : 'PodiumWrap'}`} style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
         {podiumSpots}
       </div>
     );
