@@ -25,7 +25,7 @@
  */
 
 import React from 'react';
-import PT from 'prop-types';
+import PT, { number } from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
@@ -48,6 +48,8 @@ const PODIUM_ITEM_MODIFIER = {
   2: 'second',
   3: 'third',
   4: 'fourth',
+  5: 'fifth',
+  6: 'sixt',
 };
 
 /**
@@ -78,6 +80,8 @@ const CUSTOM_STYLES = {
     2: avatarStyles['tco23-2'],
     3: avatarStyles['tco23-3'],
     4: avatarStyles['tco23-4'],
+    5: avatarStyles['tco23-5'],
+    6: avatarStyles['tco23-6'],
   },
 };
 
@@ -103,6 +107,8 @@ const DISPLAY_RANKING_NUM = {
   2: '2ND',
   3: '3RD',
   4: '4TH',
+  5: '5TH',
+  6: '6TH',
 };
 
 /**
@@ -121,14 +127,21 @@ export default function PodiumSpot(props) {
     isTopGear,
     isAlgo,
     themeName,
+    podiumPlaces,
   } = props;
 
   const stylesName = THEME[themeName];
+  const tcoPoints = competitor['tco23_leaderboard.tco_points']
+    || competitor['tco_leaderboard.tco_points']
+    || competitor.points
+    || competitor['tco_leaderboard.total_score']
+    || competitor['srm_tco19.score'];
+  const tcoChallengeCnt = competitor['tco23_leaderboard.challenge_count'] || competitor['tco_leaderboard.challenge_count'] || competitor.challengecount;
   let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
   if (photoUrl) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(photoUrl)}?size=160`;
   }
-  let rootStyle = `${stylesName}.PodiumSpot`;
+  let rootStyle = `${stylesName}.${podiumPlaces > 3 ? 'PodiumSpotCondense' : 'PodiumSpot'}`;
   if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` ${stylesName}.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
   const fulfillment = competitor['tco_leaderboard.fulfillment']
     ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
@@ -137,7 +150,7 @@ export default function PodiumSpot(props) {
   return themeName === 'TCO23' ? (
     <div styleName={rootStyle}>
       {
-        competitor.rank <= 4 && <h3 styleName={`${stylesName}.place`}>{`${DISPLAY_RANKING_NUM[competitor.rank]} PLACE`}</h3>
+        competitor.rank <= 6 && <h3 styleName={`${stylesName}.place`}>{`${DISPLAY_RANKING_NUM[competitor.rank]} PLACE`}</h3>
       }
       {
         onUsernameClick ? (
@@ -162,15 +175,24 @@ export default function PodiumSpot(props) {
       <div styleName={`${stylesName}.wave-wrap--${PODIUM_ITEM_MODIFIER[competitor.rank > 4 ? 4 : competitor.rank]}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="392"
-          height="25"
+          width={podiumPlaces > 3 ? 200 : 392}
+          height={podiumPlaces > 3 ? 16 : 25}
           fill="none"
-          viewBox="0 0 392 25"
+          viewBox={`0 0 ${podiumPlaces > 3 ? 200 : 392} ${podiumPlaces > 3 ? 16 : 25}`}
         >
-          <path
-            fill="#fff"
-            d="M296.123 1.385c47.038 0 82.638 9.395 95.877 14.093V.242H0v15.236C12.055 19.287 33.71 25 75.3 25c51.986 0 166.637-23.615 220.823-23.615z"
-          />
+          {
+            podiumPlaces > 3 ? (
+              <path
+                fill="#fff"
+                d="M149.572 0.823649C173.331 0.823652 191.313 6.86156 198 9.88051L198 0.0893164L7.94832e-07 0.0892861L3.05705e-07 9.88048C6.08897 12.3283 17.0268 16 38.0337 16C64.2924 16 122.203 0.823644 149.572 0.823649Z"
+              />
+            ) : (
+              <path
+                fill="#fff"
+                d="M296.123 1.385c47.038 0 82.638 9.395 95.877 14.093V.242H0v15.236C12.055 19.287 33.71 25 75.3 25c51.986 0 166.637-23.615 220.823-23.615z"
+              />
+            )
+          }
         </svg>
         <span styleName={`${stylesName}.leaderboard-avatar`}>
           {
@@ -194,28 +216,28 @@ export default function PodiumSpot(props) {
               </div>
             ) : null
           }
+          {
+            isAlgo ? (
+              <div styleName={`${stylesName}.stats`} style={{ alignItems: 'flex-start' }}>
+                <span styleName={`${stylesName}.value`}>{tcoPoints}</span>
+                <span styleName={`${stylesName}.value-title`}>total score</span>
+              </div>
+            ) : null
+          }
+          <div styleName={`${stylesName}.stats`} style={{ alignItems: 'flex-start' }}>
+            <span styleName={`${stylesName}.value`}>{formatPoints(tcoPoints)}</span>
+            <span styleName={`${stylesName}.value-title`}>points</span>
+          </div>
           <div styleName={`${stylesName}.stats`}>
-            <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
+            <span styleName={`${stylesName}.value`}>{tcoChallengeCnt}</span>
             {
               isAlgo ? (
-                <span styleName={`${stylesName}.value-title`}># of matches</span>
+                <span styleName={`${stylesName}.value-title`}>matches</span>
               ) : (
                 <span styleName={`${stylesName}.value-title`}>challenges</span>
               )
             }
           </div>
-          <div styleName={`${stylesName}.stats`}>
-            <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
-            <span styleName={`${stylesName}.value-title`}>points</span>
-          </div>
-          {
-            isAlgo ? (
-              <div styleName={`${stylesName}.stats`}>
-                <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</span>
-                <span styleName={`${stylesName}.value-title`}>total score</span>
-              </div>
-            ) : null
-          }
         </div>
       </div>
     </div>
@@ -294,7 +316,7 @@ export default function PodiumSpot(props) {
           ) : null
         }
         <div styleName={`${stylesName}.stats-count`}>
-          <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
+          <span styleName={`${stylesName}.value`}>{tcoChallengeCnt}</span>
           {
             isAlgo ? (
               <span styleName={`${stylesName}.value-title`}># of matches</span>
@@ -304,7 +326,7 @@ export default function PodiumSpot(props) {
           }
         </div>
         <div styleName={`${stylesName}.stats`}>
-          <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
+          <span styleName={`${stylesName}.value`}>{formatPoints(tcoPoints)}</span>
           <span styleName={`${stylesName}.value-title`}>points</span>
         </div>
         {
@@ -326,7 +348,7 @@ export default function PodiumSpot(props) {
         {
           isAlgo ? (
             <div styleName={`${stylesName}.stats`}>
-              <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</span>
+              <span styleName={`${stylesName}.value`}>{tcoPoints}</span>
               <span styleName={`${stylesName}.value-title`}>total score</span>
             </div>
           ) : null
@@ -354,6 +376,7 @@ PodiumSpot.propTypes = {
   isTopGear: PT.bool,
   isAlgo: PT.bool,
   themeName: PT.string,
+  podiumPlaces: number,
 };
 
 PodiumSpot.defaultProps = {
@@ -362,4 +385,5 @@ PodiumSpot.defaultProps = {
   isTopGear: false,
   isAlgo: false,
   themeName: 'Default',
+  podiumPlaces: 1,
 };

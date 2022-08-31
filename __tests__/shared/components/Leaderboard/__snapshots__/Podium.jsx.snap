@@ -5,7 +5,7 @@ exports[`Matches shallow shapshot 1`] = `
   className="src-shared-components-Leaderboard-Podium-themes-___default__Podium___1qIZm"
 >
   <div
-    className="src-shared-components-Leaderboard-Podium-themes-___default__PodiumWrap___2hDWP"
+    className="src-shared-components-Leaderboard-Podium-themes-___default__PodiumWrapCondense___3aV24"
     style={
       Object {
         "justify-content": "space-between",
@@ -29,6 +29,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        podiumPlaces={4}
         themeName="Default"
       />
     </div>
@@ -49,6 +50,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        podiumPlaces={4}
         themeName="Default"
       />
     </div>
@@ -69,6 +71,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        podiumPlaces={4}
         themeName="Default"
       />
     </div>
@@ -89,6 +92,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        podiumPlaces={4}
         themeName="Default"
       />
     </div>
