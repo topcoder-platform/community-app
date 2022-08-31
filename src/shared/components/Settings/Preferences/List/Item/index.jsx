@@ -38,7 +38,7 @@ export default function Item({
         </div>
         {
           !isSubscribeForm ? (
-            <a href={link} styleName="link-btn"><span>{ linkTitle }</span></a>
+            <a href={link} target="_blank" rel="noopener noreferrer" styleName="link-btn"><span>{ linkTitle }</span></a>
           ) : (
             <form action="https://topcoder.us13.list-manage.com/subscribe/post?u=65bd5a1857b73643aad556093&amp;id=28bfd3c062" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" noValidate>
               <input type="email" value={email} readOnly name="EMAIL" id="mce-EMAIL" />

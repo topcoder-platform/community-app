@@ -59,12 +59,14 @@ export default class Preferences extends React.Component {
   render() {
     const { profile: { email }, isSaving } = this.props;
     const { onboardingChecklistTrait } = this.state;
-
-    const traitData = onboardingChecklistTrait.traits.data[0];
     let paymentSetupCompleted = false;
-    if (_.has(traitData, 'user_payment_method')) {
-      paymentSetupCompleted = !_.isEmpty(traitData.user_payment_method.payment_method)
-        && traitData.user_payment_method.status === 'completed';
+
+    if (onboardingChecklistTrait.traits && onboardingChecklistTrait.traits.data.length > 0) {
+      const traitData = onboardingChecklistTrait.traits.data[0];
+      if (_.has(traitData, 'user_payment_method')) {
+        paymentSetupCompleted = !_.isEmpty(traitData.user_payment_method.payment_method)
+          && traitData.user_payment_method.status === 'completed';
+      }
     }
 
     const saveBtn = (
