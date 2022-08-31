@@ -78,6 +78,9 @@ ARG GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
 # Optimizely
 ARG OPTIMIZELY_SDK_KEY
 
+# Gamification
+ARG GAMIFICATION_ORG_ID
+
 ################################################################################
 # Setting of environment variables in the Docker image.
 
