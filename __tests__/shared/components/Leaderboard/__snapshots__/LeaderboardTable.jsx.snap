@@ -70,7 +70,6 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
         >
           <span>
-            0
              points
           </span>
           <span>
@@ -84,7 +83,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-points___2-5d7"
       >
-        0.00
+        NaN
       </td>
     </tr>
     <tr>
@@ -125,7 +124,6 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
         >
           <span>
-            0
              points
           </span>
           <span>
@@ -139,7 +137,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-points___2-5d7"
       >
-        0.00
+        NaN
       </td>
     </tr>
     <tr>
@@ -180,7 +178,6 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
         >
           <span>
-            0
              points
           </span>
           <span>
@@ -194,7 +191,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-points___2-5d7"
       >
-        0.00
+        NaN
       </td>
     </tr>
     <tr>
@@ -235,7 +232,6 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
         >
           <span>
-            0
              points
           </span>
           <span>
@@ -249,7 +245,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-points___2-5d7"
       >
-        0.00
+        NaN
       </td>
     </tr>
   </tbody>

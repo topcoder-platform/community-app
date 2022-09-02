@@ -5,15 +5,18 @@
 import React from 'react';
 import PT from 'prop-types';
 import './styles.scss';
+import cn from 'classnames';
 
 const ChartTooltip = ({
   show, left, top, challengeName,
-  challengeData, rating, ratingColor, href,
+  challengeData, rating, rotated, ratingColor, href,
+  id,
 }) => (
   <a
-    styleName="chart-tooltip"
+    id={`chart-tooltip-${id}`}
+    styleName={cn('chart-tooltip', rotated ? 'rotated' : null)}
     style={{
-      opacity: show ? 1 : 0,
+      display: show ? 'block' : 'none',
       left,
       top,
       pointerEvents: href ? 'all' : 'none',
@@ -44,6 +47,8 @@ ChartTooltip.defaultProps = {
   rating: 0,
   ratingColor: '',
   href: null,
+  rotated: false,
+  id: '',
 };
 
 ChartTooltip.propTypes = {
@@ -55,6 +60,8 @@ ChartTooltip.propTypes = {
   rating: PT.number,
   ratingColor: PT.string,
   href: PT.string,
+  rotated: PT.bool,
+  id: PT.string,
 };
 
 export default ChartTooltip;

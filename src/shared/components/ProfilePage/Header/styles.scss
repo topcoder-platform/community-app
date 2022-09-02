@@ -6,11 +6,11 @@
     background-repeat: no-repeat;
     background-position: center center;
     width: 100%;
-    max-width: $screen-max;
     margin: 0 auto;
     height: 115px;
     position: absolute;
     top: 0;
+    left: 0;
 
     @include xs-to-sm {
       height: 173px;
@@ -23,8 +23,9 @@
       left: 0;
       width: 100%;
       height: 60px;
-      background: url(assets/images/profile/header-overlay.svg);
+      background: url(assets/images/profile/header-overlay.png);
       background-repeat: no-repeat;
+      background-size: 100% 100%;
 
       @include xs-to-sm {
         height: 36px;

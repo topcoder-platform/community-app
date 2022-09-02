@@ -34,6 +34,7 @@ export const COMPETITION_TRACKS_V3 = {
   DESIGN: 'Design',
   DEVELOP: 'Development',
   DS: 'Data Science',
+  QA: 'Quality Assurance',
 };
 
 /* Holds valid subtracks (only some of possible values are included into this
@@ -44,7 +45,8 @@ export const SUBTRACKS = {
   WIREFRAMES: 'WIREFRAMES',
   QA: 'BUG_HUNT',
   TEST_SUITES: 'TEST_SUITES',
-  DS: 'DEVELOP_MARATHON_MATCH',
+  MM: 'DEVELOP_MARATHON_MATCH',
+  DESIGN_FIRST_2_FINISH: 'DESIGN_FIRST_2_FINISH',
 };
 
 /**

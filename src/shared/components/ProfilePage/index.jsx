@@ -7,23 +7,23 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { isomorphy } from 'topcoder-react-utils';
+import { isomorphy, config } from 'topcoder-react-utils';
+import { Modal } from 'topcoder-react-ui-kit';
+import IconClose from 'assets/images/icon-close-green.svg';
 import shortId from 'shortid';
 import { actions } from 'topcoder-react-lib';
 import { connect } from 'react-redux';
-
 import ProfileStats from 'containers/ProfileStats';
 import { dataMap } from './ExternalLink';
 import Header from './Header';
 import MemberTracks from './MemberTracks';
 
-import './styles.scss';
+import styles from './styles.scss';
 import Skills from './Skills';
 import MemberInfo from './MemberInfo';
 import Activity from './Activity';
+import Awards from './Awards';
 import TcaCertificates from './TcaCertificates';
-import ProfileModal from './ProfileModal';
-// import Awards from './Awards';
 
 /**
  * Inspects a subtrack and determines if the member is active
@@ -147,10 +147,10 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
+      badges,
       handleParam,
       meta,
       tcAcademyCertifications,
-      // rewards,
     } = this.props;
 
     const {
@@ -227,6 +227,11 @@ class ProfilePage extends React.Component {
             </div>
           </div>
         </div>
+        {
+          (config.GAMIFICATION.ENABLE_BADGE_UI && badges && (badges.rows || [])).length ? (
+            <Awards badges={badges.rows} />
+          ) : null
+        }
         {tcAcademyCertifications.length > 0 && (
           <TcaCertificates
             certificates={tcAcademyCertifications}
@@ -249,26 +254,38 @@ class ProfilePage extends React.Component {
           }}
         />
         { showDetails && (
-          <ProfileModal
-            title={(
-              subTrack === 'SRM'
-                ? 'Single round match'
-                : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
-            )}
+          <Modal
+            theme={{
+              container: `${track === 'COPILOT' ? styles['modal-container-copilot'] : styles['modal-container']} ProfileModalContainer`,
+              overlay: styles['modal-overlay'],
+            }}
             onCancel={this.closeDetails}
           >
-            <ProfileStats
-              handleParam={handleParam}
-              meta={meta}
-              track={track}
-              subTrack={subTrack}
-              tab={tab}
-              setTab={(tab) => {
-                this.setState({ tab });
-              }}
-              isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
-            />
-          </ProfileModal>
+            <React.Fragment>
+              <div styleName="header">
+                <h2 styleName="title">
+                  {
+                    subTrack === 'SRM' ? 'Single round match'
+                      : subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')
+                  }
+                </h2>
+                <div styleName="icon" role="presentation" onClick={this.closeDetails}>
+                  <IconClose />
+                </div>
+              </div>
+              <ProfileStats
+                handleParam={handleParam}
+                meta={meta}
+                track={track}
+                subTrack={subTrack}
+                tab={tab}
+                setTab={(tab) => {
+                  this.setState({ tab });
+                }}
+                isAlreadyLoadChallenge={this.isAlreadyLoadChallenge}
+              />
+            </React.Fragment>
+          </Modal>
         )}
       </div>
     );
@@ -281,7 +298,7 @@ ProfilePage.defaultProps = {
   challenges: null,
   skills: null,
   stats: null,
-  // rewards: [],
+  badges: {},
   tcAcademyCertifications: [],
 };
 
@@ -294,9 +311,9 @@ ProfilePage.propTypes = {
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
+  badges: PT.shape(),
   handleParam: PT.string.isRequired,
   meta: PT.shape().isRequired,
-  // rewards: PT.arrayOf(PT.shape()),
   clearSubtrackChallenges: PT.func.isRequired,
   tcAcademyCertifications: PT.arrayOf(PT.shape()),
 };

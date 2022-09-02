@@ -7,6 +7,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
+import profileActions from 'actions/page/profile';
 import shortId from 'shortid';
 import MetaTags from 'components/MetaTags';
 import Error404 from 'components/Error404';
@@ -206,6 +207,8 @@ const mapStateToProps = (state, ownProps) => ({
   stats: state.profile.stats,
   memberGroups: state.groups.memberGroups,
   lookupData: state.lookup,
+  badges: state.page.profile[ownProps.match.params.handle]
+    ? state.page.profile[ownProps.match.params.handle].badges : {},
   tcAcademyCertifications: state.tcAcademy.certifications,
   auth: {
     ...state.auth,
@@ -232,6 +235,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getSkillsInit());
       dispatch(a.getStatsInit());
       dispatch(lookupActions.getCountriesInit());
+      dispatch(profileActions.page.profile.getGamificationBadgesInit(handle));
       dispatch(a.getAchievementsV3Done(handle));
       dispatch(a.getExternalAccountsDone(handle));
       dispatch(a.getExternalLinksDone(handle));
@@ -239,6 +243,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getSkillsDone(handle));
       dispatch(a.getStatsDone(handle, showPublicStats ? undefined : groupIds, tokenV3));
       dispatch(lookupActions.getCountriesDone());
+      dispatch(profileActions.page.profile.getGamificationBadgesDone(handle));
     },
     loadMarathon: (handle, tokenV3, memberId) => {
       const uuid = shortId();
