@@ -25,7 +25,7 @@
  */
 
 import React from 'react';
-import PT, { number } from 'prop-types';
+import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
@@ -127,7 +127,6 @@ export default function PodiumSpot(props) {
     isTopGear,
     isAlgo,
     themeName,
-    podiumPlaces,
   } = props;
 
   const stylesName = THEME[themeName];
@@ -141,7 +140,7 @@ export default function PodiumSpot(props) {
   if (photoUrl) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(photoUrl)}?size=160`;
   }
-  let rootStyle = `${stylesName}.${podiumPlaces > 3 ? 'PodiumSpotCondense' : 'PodiumSpot'}`;
+  let rootStyle = `${stylesName}.${themeName === 'TCO23' ? 'PodiumSpotCondense' : 'PodiumSpot'}`;
   if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` ${stylesName}.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
   const fulfillment = competitor['tco_leaderboard.fulfillment']
     ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
@@ -175,24 +174,15 @@ export default function PodiumSpot(props) {
       <div styleName={`${stylesName}.wave-wrap--${PODIUM_ITEM_MODIFIER[competitor.rank > 4 ? 4 : competitor.rank]}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width={podiumPlaces > 3 ? 200 : 392}
-          height={podiumPlaces > 3 ? 16 : 25}
+          width={200}
+          height={16}
           fill="none"
-          viewBox={`0 0 ${podiumPlaces > 3 ? 200 : 392} ${podiumPlaces > 3 ? 16 : 25}`}
+          viewBox="0 0 200 16"
         >
-          {
-            podiumPlaces > 3 ? (
-              <path
-                fill="#fff"
-                d="M149.572 0.823649C173.331 0.823652 191.313 6.86156 198 9.88051L198 0.0893164L7.94832e-07 0.0892861L3.05705e-07 9.88048C6.08897 12.3283 17.0268 16 38.0337 16C64.2924 16 122.203 0.823644 149.572 0.823649Z"
-              />
-            ) : (
-              <path
-                fill="#fff"
-                d="M296.123 1.385c47.038 0 82.638 9.395 95.877 14.093V.242H0v15.236C12.055 19.287 33.71 25 75.3 25c51.986 0 166.637-23.615 220.823-23.615z"
-              />
-            )
-          }
+          <path
+            fill="#fff"
+            d="M149.572 0.823649C173.331 0.823652 191.313 6.86156 198 9.88051L198 0.0893164L7.94832e-07 0.0892861L3.05705e-07 9.88048C6.08897 12.3283 17.0268 16 38.0337 16C64.2924 16 122.203 0.823644 149.572 0.823649Z"
+          />
         </svg>
         <span styleName={`${stylesName}.leaderboard-avatar`}>
           {
@@ -376,7 +366,6 @@ PodiumSpot.propTypes = {
   isTopGear: PT.bool,
   isAlgo: PT.bool,
   themeName: PT.string,
-  podiumPlaces: number,
 };
 
 PodiumSpot.defaultProps = {
@@ -385,5 +374,4 @@ PodiumSpot.defaultProps = {
   isTopGear: false,
   isAlgo: false,
   themeName: 'Default',
-  podiumPlaces: 1,
 };
