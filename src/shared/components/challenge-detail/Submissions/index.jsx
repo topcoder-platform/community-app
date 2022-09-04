@@ -71,7 +71,7 @@ class SubmissionsComponent extends React.Component {
     }
     this.updateSortedSubmissions();
   }
-  
+
   componentDidUpdate(prevProps) {
     const isMM = this.isMM();
 
