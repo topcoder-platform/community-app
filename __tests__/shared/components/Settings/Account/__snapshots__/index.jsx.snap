@@ -1,36 +1,740 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders account setting page correctly 1`] = `
-<div
-  className="src-shared-components-Settings-Account-___styles__account-container___2rdYG"
->
+<ErrorWrapper>
   <div
-    className="src-shared-components-Settings-Account-___styles__col-bar___3MCVp"
+    className="src-shared-components-Settings-Account-___styles__account-container___2rdYG"
   >
-    <SideBar
-      icons={
+    <div
+      className="src-shared-components-Settings-Account-___styles__header___1pDi6"
+    >
+      <h3>
+        Account information & Security
+      </h3>
+    </div>
+    <MyAccount
+      clearIncorrectPassword={[Function]}
+      isSaving={false}
+      profile={
         Object {
-          "my account": <MyAccountIcon
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
-            xmlns="http://www.w3.org/2000/svg"
-          />,
+          "addresses": Array [
+            Object {
+              "city": "Cheng Du",
+              "createdAt": null,
+              "createdBy": "",
+              "stateCode": "Sichuan",
+              "streetAddr1": "Street line 1, #432",
+              "streetAddr2": "",
+              "type": "HOME",
+              "updatedAt": null,
+              "updatedBy": "",
+              "zip": "610101",
+            },
+          ],
+          "competitionCountryCode": "CHN",
+          "createdAt": "2006-10-06T08:49Z",
+          "createdBy": "22655076",
+          "description": "Hello",
+          "email": "tcscoder@gmail.com",
+          "firstName": "Mike",
+          "groups": Array [
+            Object {
+              "createdAt": "2017-09-11T13:54:47.000Z",
+              "createdBy": "8547899",
+              "description": "Blockchain",
+              "id": "20000010",
+              "modifiedAt": null,
+              "modifiedBy": null,
+              "name": "Blockchain",
+              "parentGroup": null,
+              "privateGroup": true,
+              "selfRegister": true,
+              "subGroups": null,
+            },
+            Object {
+              "createdAt": "2017-10-19T10:54:47.000Z",
+              "createdBy": "8547899",
+              "description": "Veterans",
+              "id": "20000013",
+              "modifiedAt": null,
+              "modifiedBy": null,
+              "name": "Veterans",
+              "parentGroup": null,
+              "privateGroup": true,
+              "selfRegister": true,
+              "subGroups": null,
+            },
+            Object {
+              "createdAt": "2017-11-06T15:49:35.000Z",
+              "createdBy": "8547899",
+              "description": "Cognitive Community",
+              "id": "20000015",
+              "modifiedAt": null,
+              "modifiedBy": null,
+              "name": "Cognitive",
+              "parentGroup": null,
+              "privateGroup": true,
+              "selfRegister": true,
+              "subGroups": null,
+            },
+          ],
+          "handle": "tcscoder",
+          "handleLower": "tcscoder",
+          "homeCountryCode": "CHN",
+          "lastName": "Smith",
+          "maxRating": Object {
+            "rating": 2162,
+            "subTrack": "DEVELOPMENT",
+            "track": "DEVELOP",
+          },
+          "otherLangName": "Som",
+          "photoURL": "https://topcoder-prod-media.s3.amazonaws.com/member/profile/tcscoder-1525559661069.png",
+          "status": "ACTIVE",
+          "tracks": Array [
+            "DEVELOP",
+          ],
+          "updatedAt": "2018-05-05T22:34Z",
+          "updatedBy": "22655076",
+          "userId": 22655076,
         }
       }
-      names={
-        Array [
-          "my account",
-        ]
+      profileState={
+        Object {
+          "achievements": Array [
+            Object {
+              "date": "2016-09-02T00:00:00.000-04:00",
+              "description": "iOS Developer Challenger Badge",
+            },
+            Object {
+              "date": "2015-08-05T00:00:00.000-04:00",
+              "description": "Participant Badge",
+            },
+            Object {
+              "date": "2015-08-05T00:00:00.000-04:00",
+              "description": "iOS Participant Badge",
+            },
+            Object {
+              "date": "2014-07-01T00:00:00.000-04:00",
+              "description": "Digital Run Top Five",
+            },
+            Object {
+              "date": "2014-07-01T00:00:00.000-04:00",
+              "description": "Digital Run Winner",
+            },
+            Object {
+              "date": "2014-02-11T00:00:00.000-05:00",
+              "description": "First Milestone Prize",
+            },
+            Object {
+              "date": "2013-03-15T00:00:00.000-04:00",
+              "description": "First Forum Post",
+            },
+            Object {
+              "date": "2013-03-04T00:00:00.000-05:00",
+              "description": "First Passing Submission",
+            },
+            Object {
+              "date": "2013-02-28T00:00:00.000-05:00",
+              "description": "First Placement",
+            },
+            Object {
+              "date": "2013-02-28T00:00:00.000-05:00",
+              "description": "First Win",
+            },
+            Object {
+              "date": "2012-11-09T00:00:00.000-05:00",
+              "description": "One Hundred Forum Posts",
+            },
+            Object {
+              "date": "2010-10-09T00:00:00.000-04:00",
+              "description": "Five Hundred Forum Posts",
+            },
+            Object {
+              "date": "2009-04-04T00:00:00.000-04:00",
+              "description": "Twenty Five Placements",
+            },
+            Object {
+              "date": "2008-07-01T00:00:00.000-04:00",
+              "description": "Twenty Five First Placement Win",
+            },
+            Object {
+              "date": "2008-06-11T00:00:00.000-04:00",
+              "description": "One Thousand Forum Posts",
+            },
+            Object {
+              "date": "2008-05-12T00:00:00.000-04:00",
+              "description": "Fifty Passing Submissions",
+            },
+            Object {
+              "date": "2008-05-03T00:00:00.000-04:00",
+              "description": "Fifty Placements",
+            },
+            Object {
+              "date": "2008-05-01T00:00:00.000-04:00",
+              "description": "TopCoder Development Coder of the Month for May 2008",
+            },
+            Object {
+              "date": "2007-03-30T00:00:00.000-04:00",
+              "description": "Fifty First Placement Win",
+            },
+            Object {
+              "date": "2006-11-03T00:00:00.000-05:00",
+              "description": "One Hundred Passing Submissions",
+            },
+            Object {
+              "date": "2006-10-28T00:00:00.000-04:00",
+              "description": "One Hundred First Placement Win",
+            },
+            Object {
+              "date": "2006-10-28T00:00:00.000-04:00",
+              "description": "One hundred Placements",
+            },
+            Object {
+              "date": "2006-10-28T00:00:00.000-04:00",
+              "description": "SRM Engagement Honor",
+            },
+          ],
+          "copilot": false,
+          "country": "China",
+          "credential": Object {
+            "activationCode": "SDUUH(HFS",
+            "hasPassword": true,
+            "resetToken": null,
+          },
+          "emailPreferences": Object {
+            "TOPCODER_NL_DESIGN": true,
+            "TOPCODER_NL_DEV": true,
+            "TOPCODER_NL_GEN": true,
+          },
+          "externalAccounts": Object {
+            "behance": null,
+            "bitbucket": null,
+            "createdAt": null,
+            "createdBy": null,
+            "dribbble": null,
+            "github": null,
+            "handle": "tcscoder",
+            "linkedin": null,
+            "stackoverflow": null,
+            "twitter": null,
+            "updatedAt": null,
+            "updatedBy": null,
+            "userId": 22655076,
+          },
+          "externalLinks": Array [
+            Object {
+              "URL": "https://www.google.com",
+              "description": "Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.",
+              "entities": null,
+              "handle": "tcscoder",
+              "images": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
+              "key": "4c7136cdbbf227274e49c475e7541abf",
+              "keywords": null,
+              "source": "embed.ly",
+              "synchronizedAt": 1525560141959,
+              "title": "Google",
+              "userId": 22655076,
+            },
+          ],
+          "info": null,
+          "linkedAccounts": Array [
+            Object {
+              "context": null,
+              "email": "tcscoder@gmail.com",
+              "emailVerified": false,
+              "enterprise": false,
+              "name": "tcscoder",
+              "provider": null,
+              "providerType": "github",
+              "social": true,
+              "userId": "623633",
+            },
+            Object {
+              "context": null,
+              "email": "",
+              "emailVerified": false,
+              "enterprise": false,
+              "name": "1233342",
+              "provider": null,
+              "providerType": "stackoverflow",
+              "social": true,
+              "userId": "1233342",
+            },
+          ],
+          "loadingError": false,
+          "profileForHandle": "tcscoder",
+          "skills": Object {
+            "100": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": ".NET",
+            },
+            "101": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "ActionScript",
+            },
+            "109": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Android",
+            },
+            "110": Object {
+              "hidden": false,
+              "score": 10,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "AngularJS",
+            },
+            "115": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "USER_ENTERED",
+              ],
+              "tagName": "Apache Kafka",
+            },
+            "117": Object {
+              "hidden": false,
+              "score": 4,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "API",
+            },
+            "127": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Blackberry SDK",
+            },
+            "132": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "C#",
+            },
+            "153": Object {
+              "hidden": false,
+              "score": 10,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "CSS",
+            },
+            "154": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "USER_ENTERED",
+              ],
+              "tagName": "CSS3",
+            },
+            "163": Object {
+              "hidden": false,
+              "score": 5,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Docker",
+            },
+            "170": Object {
+              "hidden": false,
+              "score": 18,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "EJB",
+            },
+            "171": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Elasticsearch",
+            },
+            "177": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Express",
+            },
+            "182": Object {
+              "hidden": false,
+              "score": 3,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "Flex",
+            },
+            "186": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Force.Com Sites",
+            },
+            "211": Object {
+              "hidden": false,
+              "score": 12,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Hibernate",
+            },
+            "212": Object {
+              "hidden": false,
+              "score": 6,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "HTML",
+            },
+            "213": Object {
+              "hidden": false,
+              "score": 12,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "HTML5",
+            },
+            "214": Object {
+              "hidden": false,
+              "score": 3,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "HTTP",
+            },
+            "219": Object {
+              "hidden": false,
+              "score": 5,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "IBM DB2",
+            },
+            "229": Object {
+              "hidden": false,
+              "score": 3,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "IBM Websphere Application Server",
+            },
+            "232": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "IBM WebSphere MQ",
+            },
+            "244": Object {
+              "hidden": false,
+              "score": 15,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "J2EE",
+            },
+            "247": Object {
+              "hidden": false,
+              "score": 123,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Java",
+            },
+            "248": Object {
+              "hidden": false,
+              "score": 20,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "JavaScript",
+            },
+            "249": Object {
+              "hidden": false,
+              "score": 3,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "JBoss Seam",
+            },
+            "250": Object {
+              "hidden": false,
+              "score": 3,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "JDBC",
+            },
+            "254": Object {
+              "hidden": false,
+              "score": 9,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "JPA",
+            },
+            "255": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "jQuery",
+            },
+            "258": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "JSF",
+            },
+            "259": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "JSON",
+            },
+            "260": Object {
+              "hidden": false,
+              "score": 21,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "JSP",
+            },
+            "276": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Maven",
+            },
+            "281": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "MongoDB",
+            },
+            "284": Object {
+              "hidden": false,
+              "score": 7,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "MySql",
+            },
+            "286": Object {
+              "hidden": false,
+              "score": 18,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "Node.js",
+            },
+            "295": Object {
+              "hidden": false,
+              "score": 14,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Oracle Database",
+            },
+            "303": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "PHP",
+            },
+            "306": Object {
+              "hidden": false,
+              "score": 8,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "PostgreSQL",
+            },
+            "315": Object {
+              "hidden": false,
+              "score": 1,
+              "sources": Array [
+                "USER_ENTERED",
+              ],
+              "tagName": "React.js",
+            },
+            "323": Object {
+              "hidden": false,
+              "score": 5,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "REST",
+            },
+            "328": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Salesforce",
+            },
+            "337": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Servlet",
+            },
+            "344": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "Sharepoint 3.0",
+            },
+            "354": Object {
+              "hidden": false,
+              "score": 15,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Spring",
+            },
+            "355": Object {
+              "hidden": false,
+              "score": 4,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "SQL",
+            },
+            "356": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "SQL Server",
+            },
+            "362": Object {
+              "hidden": false,
+              "score": 3,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Struts",
+            },
+            "387": Object {
+              "hidden": false,
+              "score": 8,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "Web Services",
+            },
+            "401": Object {
+              "hidden": false,
+              "score": 6,
+              "sources": Array [
+                "CHALLENGE",
+              ],
+              "tagName": "XML",
+            },
+            "402": Object {
+              "hidden": false,
+              "score": 2,
+              "sources": Array [
+                "CHALLENGE",
+                "USER_ENTERED",
+              ],
+              "tagName": "XSL",
+            },
+          },
+          "stats": null,
+        }
       }
+      setIsSaving={[Function]}
+      settingsPageState={Object {}}
+      settingsUI={
+        Object {
+          "TABS": Object {
+            "ACCOUNT": Object {
+              "MYACCOUNT": "my account",
+            },
+          },
+        }
+      }
+      tokenV3=""
+      updatePassword={[Function]}
+      updateProfile={[Function]}
     />
   </div>
   <div
-    className="src-shared-components-Settings-Account-___styles__col-content___1gt_Z"
+    className="src-shared-components-Settings-Account-___styles__footer___1T0Du"
   >
-    <ErrorWrapper>
-      <Unknown />
-    </ErrorWrapper>
+    <ThemedButton
+      active={false}
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
+      onClick={[Function]}
+      onMouseDown={null}
+      openNewTab={false}
+      replace={false}
+      size={null}
+      theme={
+        Object {
+          "button": "src-shared-components-Settings-Account-styles___save-changes-btn___2_XRYn ",
+        }
+      }
+      themePriority="adhoc-context-default"
+      to={null}
+      type="button"
+    >
+      Save Changes
+    </ThemedButton>
   </div>
-</div>
+</ErrorWrapper>
 `;

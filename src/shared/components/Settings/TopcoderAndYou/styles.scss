@@ -1,0 +1,100 @@
+@import "~styles/mixins";
+@import "../style.scss";
+
+.footer {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .save-changes-btn {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 50px !important;
+    background: #137d60 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 11px 23px;
+    margin: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  @include xs-to-md {
+    padding: $pad-xxxxl 0 $pad-sm;
+    border-top: 2px solid $color-black-10;
+
+    .save-changes-btn {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
+
+.profile-settings-container {
+  background-color: $listing-filter-bg;
+  padding: 32px;
+  border-radius: 8px;
+  margin: 40px 0 32px;
+
+  .header {
+    h3 {
+      @include barlow-bold;
+
+      font-size: 20px;
+      line-height: 22px;
+      color: $tco-black;
+      text-transform: uppercase;
+
+      @include xs-to-md {
+        @include barlow-condensed-semi-bold;
+
+        font-size: 27px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  @include xs-to-md {
+    padding: 10px 16px;
+  }
+}
+
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+.you-and-topcoder-container {
+  display: flex;
+  flex-direction: column;
+
+  @include upto-sm {
+    padding: 0;
+    margin-top: 24px;
+  }
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+  }
+}
+
+.track-list {
+  margin-top: 32px;
+
+  @include upto-sm {
+    padding: 0;
+    margin-top: 24px;
+  }
+}

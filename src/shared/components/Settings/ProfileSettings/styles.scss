@@ -1,0 +1,170 @@
+@import "~styles/mixins";
+@import "../style.scss";
+
+.datePicker {
+  input {
+    border: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 25px !important;
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .save-changes-btn {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 50px !important;
+    background: #137d60 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 11px 23px;
+    margin: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  @include xs-to-md {
+    padding: $pad-xxxxl 0 $pad-sm;
+    border-top: 2px solid $color-black-10;
+
+    .save-changes-btn {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
+
+.profile-settings-container {
+  background-color: $listing-filter-bg;
+  padding: 32px;
+  border-radius: 8px;
+  margin: 40px 0 32px;
+
+  .header {
+    h3 {
+      @include barlow-bold;
+
+      font-size: 20px;
+      line-height: 22px;
+      color: $tco-black;
+      text-transform: uppercase;
+
+      @include xs-to-md {
+        @include barlow-condensed-semi-bold;
+
+        font-size: 27px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  @include xs-to-md {
+    padding: 10px 16px;
+  }
+}
+
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+.basic-info-container {
+  display: flex;
+  flex-direction: column;
+
+  @include upto-sm {
+    padding: 0;
+    margin-top: 24px;
+  }
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+  }
+}
+
+.form-container-default {
+  @include form-container-default;
+
+  input {
+    @include roboto-regular;
+
+    height: 40px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-bottom: 0;
+
+    @include placeholder {
+      text-transform: capitalize;
+    }
+  }
+
+  textarea {
+    @include placeholder {
+      text-transform: capitalize;
+    }
+  }
+
+  .text-required {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: $tc-red-110;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+
+  .text-optional {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: #888894;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+
+  .row {
+    .col-1 {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      max-width: 0;
+      min-width: 0;
+      margin-right: 0;
+      width: auto;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+    }
+  }
+}
+
+.col-2,
+.col-percent50,
+.col-percent35 {
+  width: auto;
+}
+
+.second-addr {
+  margin-top: 10px;
+}

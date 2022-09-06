@@ -13,7 +13,7 @@ import ErrorIcons from 'containers/ErrorIcons';
 
 import { DevTools, isomorphy, config } from 'topcoder-react-utils';
 
-import ExtendedReduxToastr from 'containers/toastr';
+import ExtendedReduxToastr from 'containers/Toastr';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
@@ -48,6 +48,7 @@ export default function App() {
         transitionIn="fadeIn"
         transitionOut="fadeOut"
         progressBar={false}
+        showCloseButton
       />
       { isomorphy.isDevBuild() ? <DevTools /> : undefined }
     </div>

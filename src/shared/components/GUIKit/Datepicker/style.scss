@@ -73,7 +73,7 @@
         width: 100%;
         font-family: "Roboto", Helvetica, Arial, sans-serif;
         font-weight: 400;
-        font-size: 15px;
+        font-size: 14px;
         margin: 0;
         background: #fff;
         position: relative;
@@ -81,8 +81,8 @@
         vertical-align: middle;
 
         input {
-          @include textInput;
-
+          font-size: 14px;
+          text-transform: capitalize;
           height: 52px;
           padding-right: 48px;
         }

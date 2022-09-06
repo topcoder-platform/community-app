@@ -1,130 +1,97 @@
-/**
- * Child component of Settings/Account renders setting page for account.
- */
-/* eslint-disable no-undef */
+/* eslint-disable prefer-destructuring */
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
-
-import Accordion from 'components/Settings/Accordion';
-import MyAccountIcon from 'assets/images/account/sideicons/myaccount.svg';
-// import LinkedAccountIcon from 'assets/images/account/sideicons/linkedaccount.svg';
-import ErrorWrapper from 'components/Settings/ErrorWrapper';
-import SideBar from '../SideBar';
-import ComingSoon from '../ComingSoon';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import MyAccount from './MyAccount';
-// import LinkedAccount from './LinkedAccount';
-import { SCREEN_SIZE } from '../constants';
-import './styles.scss';
+import ErrorWrapper from '../ErrorWrapper';
+
+import styles from './styles.scss';
 
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
-    const hash = decodeURIComponent(_.get(props, 'location.hash', '').substring(1));
-    this.tablink = hash.replace('-', ' ');
-    const { toggleAccountSideTab } = this.props;
-    if (this.tablink) {
-      toggleAccountSideTab(this.tablink);
-    }
-    this.state = {
-      isMobileView: false,
-    };
-    this.clearNotifiation = this.clearNotifiation.bind(this);
-    this.updatePredicate = this.updatePredicate.bind(this);
+    this.save = this.save.bind(this);
+    this.myAccountRef = React.createRef();
   }
 
-  componentDidMount() {
-    this.clearNotifiation();
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { settingsUI: { currentAccountTab } } = this.props;
-    if (prevProps.settingsUI.currentAccountTab !== currentAccountTab) {
-      window.location.hash = currentAccountTab.replace(' ', '-');
-      this.clearNotifiation();
+  componentWillReceiveProps() {
+    const { isSaving, setIsSaving } = this.props;
+    if (isSaving) {
+      setIsSaving(false);
     }
   }
 
-  componentWillUnmount() {
-    this.clearNotifiation();
-    window.removeEventListener('resize', this.updatePredicate);
-  }
-
-  clearNotifiation() {
-    const { clearToastrNotification } = this.props;
-    if (clearToastrNotification) {
-      clearToastrNotification();
+  save() {
+    const { isSaving, setIsSaving } = this.props;
+    if (isSaving) {
+      return;
     }
-  }
+    const {
+      newPassword,
+      currentPassword,
+      reNewPassword,
+      passwordValid,
+      rePasswordValid,
+      updatingPassword,
+    } = this.myAccountRef.current.state;
 
-  updatePredicate() {
-    this.setState({ isMobileView: window.innerWidth <= SCREEN_SIZE.SM });
+    const newAccountDirty = newPassword !== ''
+      && currentPassword !== ''
+      && reNewPassword !== '';
+
+    let valid = true;
+    let dirty;
+
+    if (newAccountDirty) {
+      valid = valid && (passwordValid && rePasswordValid && !updatingPassword);
+      dirty = true;
+    }
+
+    if (dirty && valid) {
+      this.myAccountRef.current.onUpdatePassword();
+      setIsSaving(true);
+    }
   }
 
   render() {
-    const {
-      settingsUI,
-      toggleAccountSideTab,
-    } = this.props;
-    const { isMobileView } = this.state;
-    const tabs = settingsUI.TABS.ACCOUNT;
-    const names = Object.keys(tabs).map(key => tabs[key]);
-    const currentTab = this.tablink || settingsUI.currentAccountTab;
-    const icons = {
-      'my account': <MyAccountIcon />,
-      // 'linked accounts': <LinkedAccountIcon />,
-    };
-    const renderTabContent = (tab) => {
-      switch (tab) {
-        case 'my account':
-          return <MyAccount {...this.props} />;
-        // case 'linked accounts':
-        //   return <LinkedAccount {...this.props} />;
-        default:
-          return <ComingSoon />;
-      }
-    };
+    const { isSaving } = this.props;
+
+    const saveBtn = (
+      <PrimaryButton
+        onClick={this.save}
+        theme={{
+          button: `${styles['save-changes-btn']} ${isSaving ? styles.disabled : ''}`,
+        }}
+        disabled={!!isSaving}
+      >
+        Save Changes
+      </PrimaryButton>
+    );
 
     return (
-      <div styleName="account-container">
-        {isMobileView && (
-          <div styleName="mobile-view">
-            <Accordion
-              icons={icons}
-              names={names}
-              currentSidebarTab={currentTab}
-              renderTabContent={renderTabContent}
-              toggleSidebarTab={toggleAccountSideTab}
-            />
+      <ErrorWrapper>
+        <div styleName="account-container">
+          <div styleName="header">
+            <h3>Account information & Security</h3>
           </div>
-        )}
-        <div styleName="col-bar">
-          <SideBar
-            icons={icons}
-            names={names}
-            currentTab={currentTab}
-            toggle={toggleAccountSideTab}
+          <MyAccount
+            {...this.props}
+            ref={this.myAccountRef}
           />
         </div>
-        {
-          !isMobileView && (
-          <div styleName="col-content">
-            <ErrorWrapper>
-              { renderTabContent(currentTab) }
-            </ErrorWrapper>
-          </div>
-          )
-        }
-      </div>
+        <div styleName="footer">{saveBtn}</div>
+      </ErrorWrapper>
     );
   }
 }
 
+Account.defaultProps = {
+  isSaving: false,
+  setIsSaving: () => {},
+};
+
 Account.propTypes = {
-  settingsUI: PT.shape().isRequired,
-  toggleAccountSideTab: PT.func.isRequired,
-  clearToastrNotification: PT.func.isRequired,
-  location: PT.shape().isRequired,
+  // userTraits: PT.array.isRequired,
+  isSaving: PT.bool,
+  setIsSaving: PT.func,
 };

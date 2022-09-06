@@ -1,145 +1,113 @@
-/**
- * Child component of Settings
- * Preferences renders setting page for user preferences.
- */
-/* eslint-disable no-undef */
-/* eslint-disable no-return-assign */
+/* eslint-disable prefer-destructuring */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { config } from 'topcoder-react-utils';
-
-import Accordion from 'components/Settings/Accordion';
-import LoadingIndicator from 'components/LoadingIndicator';
-import EmailIcon from 'assets/images/preferences/email.svg';
-import Forum from 'assets/images/preferences/forum.svg';
-import Payment from 'assets/images/preferences/payment.svg';
-import SideBar from 'components/Settings/SideBar';
-import ErrorWrapper from 'components/Settings/ErrorWrapper';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import NewsletterPreferencesContainer from 'containers/NewsletterPreferences';
-import { SCREEN_SIZE } from '../constants';
+import PreferenceList from './List';
 
-import './styles.scss';
+import ErrorWrapper from '../ErrorWrapper';
 
-const tabs = {
-  EMAIL: 'e-mail',
-  FORUM: 'forum',
-  PAYMENT: 'payment',
-};
-
-const icons = {
-  'e-mail': <EmailIcon />,
-  forum: <Forum />,
-  payment: <Payment />,
-};
+import styles from './styles.scss';
 
 export default class Preferences extends React.Component {
   constructor(props) {
     super(props);
+    this.save = this.save.bind(this);
+    this.loadOnboardingChecklistTrait = this.loadOnboardingChecklistTrait.bind(this);
+    this.newsRef = React.createRef();
+
+    const { userTraits } = props;
     this.state = {
-      currentTab: 'e-mail',
-      isMobileView: false,
+      onboardingChecklistTrait: this.loadOnboardingChecklistTrait(userTraits),
     };
-    this.previousTab = null;
-    this.toggleTab = this.toggleTab.bind(this);
-    this.renderTabContent = this.renderTabContent.bind(this);
-    this.clearNotifiation = this.clearNotifiation.bind(this);
-    this.updatePredicate = this.updatePredicate.bind(this);
   }
 
-  componentDidMount() {
-    this.clearNotifiation();
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
-  }
-
-  componentDidUpdate() {
-    const { currentTab } = this.state;
-    if (currentTab !== this.previousTab) {
-      this.clearNotifiation();
+  componentWillReceiveProps(nextProps) {
+    const { isSaving, setIsSaving } = this.props;
+    const onboardingChecklistTrait = this.loadOnboardingChecklistTrait(nextProps.userTraits);
+    this.setState({
+      onboardingChecklistTrait,
+    });
+    if (isSaving !== nextProps.isSaving) {
+      setTimeout(() => {
+        setIsSaving(false);
+      }, 600);
     }
   }
 
-  componentWillUnmount() {
-    this.clearNotifiation();
-    window.removeEventListener('resize', this.updatePredicate);
+  /**
+   * Get onboarding checklist trait
+   * @param userTraits the all user traits
+   */
+  loadOnboardingChecklistTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'onboarding_checklist');
+    const onboardingChecklist = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, onboardingChecklist);
   }
 
-  clearNotifiation() {
-    const { clearToastrNotification } = this.props;
-    if (clearToastrNotification) {
-      clearToastrNotification();
+  save() {
+    const { isSaving, setIsSaving } = this.props;
+    if (isSaving) {
+      return;
     }
-  }
+    setIsSaving(true);
 
-  updatePredicate() {
-    this.setState({ isMobileView: window.innerWidth <= SCREEN_SIZE.SM });
-  }
-
-  /* Add this to resolve checkbox checked issue when switch mobile to other device */
-  toggleTab(tab) {
-    const { currentTab } = this.state;
-    this.previousTab = currentTab;
-    this.setState({ currentTab: tab });
-  }
-
-  renderTabContent(tab) {
-    const { profile: { email } } = this.props;
-    switch (tab) {
-      case 'e-mail':
-        return <NewsletterPreferencesContainer email={email} />;
-      case 'forum':
-        return (window.location.href = `${config.URL.FORUMS_VANILLA}/profile/preferences`) && <LoadingIndicator />;
-      case 'payment':
-        return (window.location.href = `${config.URL.COMMUNITY}/tc?module=EditPaymentPreferences`) && <LoadingIndicator />;
-      default:
-        return null;
-    }
+    this.newsRef.current.getWrappedInstance().save();
   }
 
   render() {
-    const {
-      currentTab,
-      isMobileView,
-    } = this.state;
+    const { profile: { email }, isSaving } = this.props;
+    const { onboardingChecklistTrait } = this.state;
+    let paymentSetupCompleted = false;
 
-    const names = Object.keys(tabs).map(key => tabs[key]);
+    if (onboardingChecklistTrait.traits && onboardingChecklistTrait.traits.data.length > 0) {
+      const traitData = onboardingChecklistTrait.traits.data[0];
+      if (_.has(traitData, 'user_payment_method')) {
+        paymentSetupCompleted = !_.isEmpty(traitData.user_payment_method.payment_method)
+          && traitData.user_payment_method.status === 'completed';
+      }
+    }
+
+    const saveBtn = (
+      <PrimaryButton
+        onClick={this.save}
+        theme={{
+          button: `${styles['save-changes-btn']} ${isSaving ? styles.disabled : ''}`,
+        }}
+        disabled={!!isSaving}
+      >
+        Save Changes
+      </PrimaryButton>
+    );
 
     return (
-      <div styleName="preferences-container">
-        {isMobileView && (
-          <div styleName="mobile-view">
-            <Accordion
-              icons={icons}
-              names={names}
-              currentSidebarTab={currentTab}
-              renderTabContent={this.renderTabContent}
-              toggleSidebarTab={this.toggleTab}
+      <ErrorWrapper>
+        <div styleName="preferences-container">
+          <div styleName="header">
+            <h3>Platform preferences</h3>
+          </div>
+          <div styleName="platform-banner">
+            <NewsletterPreferencesContainer
+              email={email}
+              ref={this.newsRef}
             />
+            <PreferenceList paymentSetupCompleted={paymentSetupCompleted} />
           </div>
-        )}
-        <div styleName="col-bar">
-          <SideBar
-            icons={icons}
-            names={names}
-            currentTab={currentTab}
-            toggle={this.toggleTab}
-          />
         </div>
-        {
-          !isMobileView && (
-          <div styleName="col-content">
-            <ErrorWrapper>
-              { this.renderTabContent(currentTab) }
-            </ErrorWrapper>
-          </div>
-          )
-        }
-      </div>
+        <div styleName="footer">{saveBtn}</div>
+      </ErrorWrapper>
     );
   }
 }
 
+Preferences.defaultProps = {
+  isSaving: false,
+};
+
 Preferences.propTypes = {
-  clearToastrNotification: PT.func.isRequired,
   profile: PT.shape().isRequired,
+  isSaving: PT.bool,
+  setIsSaving: PT.func.isRequired,
+  userTraits: PT.array.isRequired,
 };

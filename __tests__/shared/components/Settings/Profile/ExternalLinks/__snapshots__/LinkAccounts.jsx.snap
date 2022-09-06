@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders link accounts section of profile setting page correctly 1`] = `
-<div
-  className="src-shared-components-Settings-Profile-ExternalLinks-___styles__external-links___1Yaua"
-/>
-`;

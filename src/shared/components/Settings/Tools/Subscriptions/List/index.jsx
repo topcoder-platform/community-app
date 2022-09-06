@@ -11,12 +11,11 @@ export default function SubscriptionList(props) {
   const {
     subscriptionList,
     onDeleteItem,
-    disabled,
     onEditItem,
   } = props;
 
   return (
-    <div styleName={`container ${subscriptionList.items.length > 0 ? 'active' : ''} ${disabled ? 'disabled' : ''}`}>
+    <div styleName="container">
       <ul>
         {
           subscriptionList.items.map((subscription, index) => (
@@ -39,9 +38,7 @@ SubscriptionList.propTypes = {
   subscriptionList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
   onEditItem: PT.func.isRequired,
-  disabled: PT.bool,
 };
 
 SubscriptionList.defaultProps = {
-  disabled: false,
 };

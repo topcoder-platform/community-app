@@ -6,8 +6,9 @@ import { debounce, map } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { toastr } from 'react-redux-toastr';
-
 import ToggleableItem from 'components/Settings/ToggleableItem';
+import Item from '../List/Item';
+import subscribe from './data';
 
 import './styles.scss';
 
@@ -29,7 +30,7 @@ const newsletters = [
   {
     id: 'd0c48e9da3',
     name: 'Gig Work',
-    desc: 'This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href="https://www.topcoder.com/community/taas" style="color:#0d61bf;text-decoration:underline">Gig Work</a> page.',
+    desc: 'This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href="https://www.topcoder.com/community/taas" style="color:#0d61bf;text-decoration:none;font-weight:500;">Gig Work page.</a>',
   },
   {
     id: 'a8f858cdf1',
@@ -49,7 +50,7 @@ const newsletters = [
   {
     id: '603c900c32',
     name: 'TCO Newsletter',
-    desc: 'For all the latest updates surrounding the <a href="https://www.topcoder.com/community/member-programs/topcoder-open" style="color:#0d61bf;text-decoration:underline">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!',
+    desc: 'For all the latest updates surrounding the <a href="https://www.topcoder.com/community/member-programs/topcoder-open" style="color:#0d61bf;text-decoration:none;font-weight:700;">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!',
   },
   {
     id: '3460574ddd',
@@ -59,14 +60,14 @@ const newsletters = [
   {
     id: 'ee26600945',
     name: 'NASA Community',
-    desc: 'Receive email notifications for all the latest news and announcements of our <a href="https://www.topcoder.com/community/nasa" style="color:#0d61bf;text-decoration:underline">NASA Member Program</a>.',
+    desc: 'Receive email notifications for all the latest news and announcements of our <a href="https://www.topcoder.com/community/nasa" style="color:#0d61bf;text-decoration:none;font-weight:500;">NASA Member Program</a>.',
   },
 ];
 const programs = [
   {
     id: 'cafe98d7a7',
     name: 'Beta Testers',
-    desc: 'If you have applied and been approved as a <a href="https://www.topcoder.com/community/member-programs/beta-testers" style="color:#0d61bf;text-decoration:underline">Beta Tester</a>, you may control the emails you receive here.',
+    desc: 'If you have applied and been approved as a <a href="https://www.topcoder.com/community/member-programs/beta-testers" style="color:#0d61bf;text-decoration:none;font-weight:500;">Beta Tester</a>, you may control the emails you receive here.',
   },
 ];
 
@@ -124,26 +125,20 @@ export default class EmailPreferences extends React.Component {
     const { email } = this.props;
     return (
       <div styleName="EmailPreferences">
-        <h1 styleName="title">
-          E-Mail Preferences
-        </h1>
         {
           status !== 'subscribed' ? (
-            <div styleName="unsubscribed-msg">
-              <h3>You are not subscribed to receive Topcoder emails</h3>
-              <p>If this was a mistake or if you would like to resubscribe, please click the button below.</p>
-              <form action="https://topcoder.us13.list-manage.com/subscribe/post?u=65bd5a1857b73643aad556093&amp;id=28bfd3c062" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" noValidate>
-                <input type="email" value={email} readOnly name="EMAIL" id="mce-EMAIL" />
-                <input type="checkbox" id="gdpr_11101" name="gdpr[11101]" value="Y" />
-                <input type="text" name="b_65bd5a1857b73643aad556093_28bfd3c062" tabIndex="-1" value="" />
-                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="submit-button" />
-              </form>
-            </div>
+            <Item
+              isSubscribeForm
+              email={email}
+              key={subscribe.id}
+              id={subscribe.id}
+              title={subscribe.name}
+              description={subscribe.description}
+              linkTitle={subscribe.linkTitle}
+            />
           ) : (
             <React.Fragment>
-              <div styleName="sub-title">Newsletters</div>
-              <div styleName="preferences-container">
-                {
+              {
                   map(newsletters, (newsletter) => {
                     const checked = emailPreferences[newsletter.id];
                     return (
@@ -160,10 +155,7 @@ export default class EmailPreferences extends React.Component {
                     );
                   })
                 }
-              </div>
-              <div styleName="sub-title-2">Programs</div>
-              <div styleName="preferences-container">
-                {
+              {
                   map(programs, (program) => {
                     const checked = emailPreferences[program.id];
                     return (
@@ -180,7 +172,6 @@ export default class EmailPreferences extends React.Component {
                     );
                   })
                 }
-              </div>
             </React.Fragment>
           )
         }

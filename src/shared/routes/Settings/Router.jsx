@@ -16,7 +16,7 @@ import Error404 from 'components/Error404';
 export default function Router({ base }) {
   return (
     <Switch>
-      <Route component={Settings} exact path={`${base}/:settingsTab(profile|tools|account|preferences)`} />
+      <Route component={Settings} exact path={`${base}/:settingsTab(profile|skills|tracks|tools|account|preferences)`} />
       <Route component={EmailVerification} exact path={`${base}/account/changeEmail`} />
       <Route component={Success} exact path={`${base}/account/email-verification/success`} />
       <Route component={Failed} exact path={`${base}/account/email-verification/failure`} />

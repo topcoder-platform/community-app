@@ -1,85 +1,34 @@
 /**
- * Child component of Settings/Header
+ * Header component for settings page
  */
 import React from 'react';
+import { Button } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
-import { TABS } from 'actions/page/settings';
 
-import './styles.scss';
+import style from './styles.scss';
 
-export default function Header(props) {
-  const {
-    selectTab,
-    settingsTab,
-  } = props;
-
-  const clickTab = (e, tab) => {
-    e.preventDefault();
-    setImmediate(() => {
-      selectTab(tab);
-    });
-  };
-
+export default function Header({ saveSettings, isSaving }) {
   return (
     <div styleName="Header">
       <div styleName="title">
-        <h1>
-          Settings
-        </h1>
+        <h1>Profile Settings</h1>
       </div>
-      <nav styleName="tabs">
-        <ul>
-          <li>
-            <a
-              role="link"
-              tabIndex={0}
-              onKeyPress={e => clickTab(e, TABS.PROFILE)}
-              onClick={e => clickTab(e, TABS.PROFILE)}
-              styleName={settingsTab === TABS.PROFILE ? 'active-tab' : ''}
-            >
-              Profile
-            </a>
-          </li>
-          <li>
-            <a
-              role="link"
-              tabIndex={0}
-              onKeyPress={e => clickTab(e, TABS.TOOLS)}
-              onClick={e => clickTab(e, TABS.TOOLS)}
-              styleName={settingsTab === TABS.TOOLS ? 'active-tab' : ''}
-            >
-              Tools
-            </a>
-          </li>
-          <li>
-            <a
-              role="link"
-              tabIndex={0}
-              onKeyPress={e => clickTab(e, TABS.ACCOUNT)}
-              onClick={e => clickTab(e, TABS.ACCOUNT)}
-              styleName={settingsTab === TABS.ACCOUNT ? 'active-tab' : ''}
-            >
-              Account
-            </a>
-          </li>
-          <li>
-            <a
-              role="link"
-              tabIndex={0}
-              onKeyPress={e => clickTab(e, TABS.PREFERENCES)}
-              onClick={e => clickTab(e, TABS.PREFERENCES)}
-              styleName={settingsTab === TABS.PREFERENCES ? 'active-tab' : ''}
-            >
-              Preferences
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Button
+        onClick={saveSettings}
+        theme={{ button: style.saveButton }}
+        disabled={isSaving}
+      >
+        <span>SAVE CHANGES</span>
+      </Button>
     </div>
   );
 }
 
+Header.defaultProps = {
+  isSaving: false,
+};
+
 Header.propTypes = {
-  settingsTab: PT.string.isRequired,
-  selectTab: PT.func.isRequired,
+  saveSettings: PT.func.isRequired,
+  isSaving: PT.bool,
 };
