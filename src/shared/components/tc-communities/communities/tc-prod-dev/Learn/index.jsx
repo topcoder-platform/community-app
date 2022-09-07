@@ -101,7 +101,7 @@ export default function Learn() {
           <AccordionItem title="Managing your Badges">
             <Text>
               <p>
-                Make sure you&apos;ve setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you&apos;ve earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false
+                Make sure you&apos;ve setup your payment preferences at https://community.topcoder.com/tc?module=PactsMemberServlet?module=PaymentHistory.  When you&apos;ve earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false
               </p>
             </Text>
           </AccordionItem>

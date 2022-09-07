@@ -90,7 +90,7 @@ export default class Preferences extends React.Component {
       case 'forum':
         return (window.location.href = `${config.URL.FORUMS_VANILLA}/profile/preferences`) && <LoadingIndicator />;
       case 'payment':
-        return (window.location.href = `${config.URL.COMMUNITY}/tc?module=EditPaymentPreferences`) && <LoadingIndicator />;
+        return (window.location.href = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false&ref=nav`) && <LoadingIndicator />;
       default:
         return null;
     }
