@@ -153,8 +153,18 @@ export default function ChallengeHeader(props) {
 
     if (trackLower === 'design') {
       // condition for 2 round challenge for now
-      if (relevantPhases.length === 8) {
+      let finalStartDate;
+      if (relevantPhases.length === 8 || challenge.timelineTemplateId === 'd4201ca4-8437-4d63-9957-3f7708184b07') {
         relevantPhases = _.filter(relevantPhases, p => !(p.name.toLowerCase().includes('checkpoint screening') || p.name.toLowerCase().includes('screening')));
+        _.map(relevantPhases, (phase) => {
+          if (phase.name === 'Checkpoint Review') {
+            finalStartDate = phase.scheduledEndDate;
+          }
+          if (phase.name === 'Submission') {
+            // eslint-disable-next-line no-param-reassign
+            phase.scheduledStartDate = finalStartDate;
+          }
+        });
       }
     }
     if (trackLower === 'quality-assurance') {
@@ -449,6 +459,7 @@ ChallengeHeader.propTypes = {
     platforms: PT.any,
     tags: PT.any,
     prizes: PT.any,
+    timelineTemplateId: PT.string,
     reliabilityBonus: PT.any,
     userDetails: PT.any,
     currentPhases: PT.any,
