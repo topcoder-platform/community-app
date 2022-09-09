@@ -19,14 +19,14 @@ export default function DeadlinesPanel({ deadlines }) {
     name = name.replace(/\bCheckpoint\b/, 'Checkpoint');
     if (/.+submission/i.test(name)) {
       hasSubmissionPhase = true;
-      name = name.replace(/submission/i, 'Round');
+      name = name.replace(/submission/i, 'Submission');
     } else {
       switch (name) {
         case 'Submission':
-          name = hasSubmissionPhase ? 'Finals' : 'Submission';
+          name = hasSubmissionPhase ? 'Final Submission' : 'Submission';
           break;
         case 'Review':
-          name = hasSubmissionPhase ? 'Finals Review' : name;
+          name = hasSubmissionPhase ? 'Final Review' : name;
           break;
         case 'Appeals':
           name = hasSubmissionPhase ? 'Appeals Due' : name;
