@@ -45,6 +45,8 @@ jspm_packages
 # macOS system files
 *.DS_Store
 
+.env.sh
+
 # Misc files
 .build-info
 .vscode

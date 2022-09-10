@@ -67,6 +67,12 @@ export default function LeaderboardTable(props) {
   const addSufix = val => isAlgo ? (val !== 1 ? `${val} matches` : `${val} match`) : (val !== 1 ? `${val} challenges` : `${val} challenge`);
   const renderTableRows = comps => (
     comps.map((competitor) => {
+      const tcoPoints = competitor['tco23_leaderboard.tco_points']
+        || competitor['tco_leaderboard.tco_points']
+        || competitor.points
+        || competitor['tco_leaderboard.total_score']
+        || competitor['srm_tco19.score'];
+      const tcoChallengeCnt = competitor['tco23_leaderboard.challenge_count'] || competitor['tco_leaderboard.challenge_count'] || competitor.challengecount;
       let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
       if (photoUrl) {
         photoUrl = `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(photoUrl)}?size=40`;
@@ -147,13 +153,13 @@ export default function LeaderboardTable(props) {
             }
             <div styleName={`${stylesName}.winnings-info`}>
               {fulfillment && (<span>{fulfillment} fulfillment</span>)}
-              <span>{competitor['tco_leaderboard.tco_points'] || competitor.points} points</span>
+              <span>{tcoPoints} points</span>
               {
                 themeName === 'TCO23' ? (
                   <div onClick={() => onUsernameClick(competitor)} styleName={`${stylesName}.mobile-link`}>
-                    {addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}
+                    {addSufix(tcoChallengeCnt)}
                   </div>
-                ) : <span>{addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}</span>
+                ) : <span>{addSufix(tcoChallengeCnt)}</span>
               }
             </div>
           </td>
@@ -172,15 +178,15 @@ export default function LeaderboardTable(props) {
                       style={{ cursor: 'pointer', display: 'inline-block', color: '#0d61bf' }}
                       onClick={() => onUsernameClick(competitor)}
                     >
-                      { `${addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}` }
+                      {`${addSufix(tcoChallengeCnt)}`}
                     </div>
-                  ) : `${addSufix(competitor['tco_leaderboard.challenge_count'] || competitor.challengecount)}`
+                  ) : `${addSufix(tcoChallengeCnt)}`
               ) : (
-                competitor['tco_leaderboard.challenge_count'] || competitor.challengecount
+                tcoChallengeCnt
               )
             }
           </td>
-          <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</td>
+          <td styleName={`${stylesName}.col-points`}>{formatPoints(tcoPoints)}</td>
           {
             isTopGear ? (
               <td styleName={`${stylesName}.col-points`}>{competitor.wins}</td>
@@ -193,7 +199,7 @@ export default function LeaderboardTable(props) {
           }
           {
             isAlgo ? (
-              <td styleName={`${stylesName}.col-points`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</td>
+              <td styleName={`${stylesName}.col-points`}>{tcoPoints}</td>
             ) : null
           }
         </tr>

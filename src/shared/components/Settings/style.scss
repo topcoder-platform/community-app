@@ -1,4 +1,5 @@
-@import '~styles/mixins';
+/* stylelint-disable no-descending-specificity */
+@import "~styles/mixins";
 
 $screen-sm: 768px !default;
 $screen-md: 1024px !default;
@@ -39,34 +40,24 @@ $checkbox-bg-selected: $tc-dark-blue;
 }
 
 .container {
-  background: $tc-gray-neutral-dark;
-  padding: 30px 60px;
+  background: $tc-white;
   width: 100%;
-  box-shadow: 0 1px 0 0 #f0f0f0;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: $pad-xxxxl $pad-xxxxl $pad-xxxl;
 
-  @include from-sm-to-lg {
-    padding: 30px;
-  }
-
-  @include upto-sm {
-    padding: 10px;
+  @include xs-to-md {
+    padding: $pad-lg;
   }
 }
 
 .page {
   background: $tc-white;
-  border-radius: 6px;
-  margin: 0 auto;
-  max-width: 1246px;
 }
 
 @mixin form-container-default {
   display: flex;
   flex-direction: column;
-
-  @include upto-sm {
-    display: none;
-  }
 
   .row {
     width: 100%;
@@ -191,6 +182,8 @@ $checkbox-bg-selected: $tc-dark-blue;
     .Select-value-label,
     .Select-menu-outer {
       @include roboto-sans-regular;
+
+      padding-top: 0;
     }
 
     input {
@@ -307,12 +300,6 @@ $checkbox-bg-selected: $tc-dark-blue;
           text-transform: none;
         }
 
-        .char-count {
-          float: right;
-          font-size: 11px;
-          padding-right: 5px;
-        }
-
         .grey {
           color: $tc-gray-40;
         }
@@ -341,12 +328,13 @@ $checkbox-bg-selected: $tc-dark-blue;
   }
 
   // Switch location
-  $switch-width: 34px;
+  $switch-width: 37px;
   $switch-height: 20px;
+  $switch-border-radius: 10px;
   $switch-handle-offset: 3px;
   $switch-handle-size: $switch-height - (2 * $switch-handle-offset);
-  $switch-active-color: $tc-dark-blue-110;
-  $switch-inactive-color: $tc-gray-20;
+  $switch-active-color: $listing-checkbox-green;
+  $switch-inactive-color: $tc-gray-40;
 
   @mixin switch-transition {
     transition: all 0.15s ease-in-out;
@@ -359,7 +347,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     margin-right: 10px;
     margin-left: 22px;
     background-color: $switch-inactive-color;
-    border-radius: $switch-height;
+    border-radius: $switch-border-radius;
     box-sizing: border-box;
     height: $switch-height;
     width: $switch-width;
@@ -380,9 +368,10 @@ $checkbox-bg-selected: $tc-dark-blue;
       @include switch-transition;
 
       display: block;
-      align-self: center;
+      align-self: flex-start;
       margin-right: 10px;
       margin-left: 15px;
+      margin-top: 10px;
       background-color: $switch-inactive-color;
       border-radius: $switch-height;
       box-sizing: border-box;
@@ -465,8 +454,8 @@ $checkbox-bg-selected: $tc-dark-blue;
   // Switch is on
   .onoffswitch-inner::before {
     background-color: transparent; //$switch-active-color;
-    color: transparent;// $switch-active-color;
-    content: '';
+    color: transparent; // $switch-active-color;
+    content: "";
     padding-left: 10px;
   }
 
@@ -474,7 +463,7 @@ $checkbox-bg-selected: $tc-dark-blue;
   .onoffswitch-inner::after {
     background-color: transparent; // $switch-inactive-color;
     color: transparent; // $switch-inactive-color;
-    content: '';
+    content: "";
     padding-right: 10px;
     text-align: right;
   }

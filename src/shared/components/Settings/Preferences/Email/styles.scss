@@ -1,6 +1,17 @@
 @import "../../style";
+@import "~styles/mixins";
 
 .EmailPreferences {
+  display: flex;
+  flex-direction: column;
+  gap: $margin-xxxxl;
+  margin-bottom: $margin-xxxxl;
+
+  @include upto-sm {
+    gap: $margin-xxl;
+    margin-bottom: $margin-xxl;
+  }
+
   .title {
     @include tc-heading-lg;
 
@@ -33,10 +44,6 @@
     margin-top: 30px;
   }
 
-  .preferences-container {
-    border-top: 1px solid $tc-gray-neutral-dark;
-  }
-
   .unsubscribed-msg {
     @include roboto-regular;
 
@@ -65,24 +72,31 @@
     }
 
     #mc-embedded-subscribe {
-      @include roboto-medium;
+      @include roboto-bold;
 
       display: inline-block;
-      margin-top: 20px;
+      text-align: center;
+      margin: 0;
+      height: 48px;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.008em;
+      text-transform: uppercase;
+      color: $color-turq-160 !important;
+      padding: 12px 22px;
+      background: $tc-white;
+      border: 2px solid $color-turq-160;
+      border-radius: 50px;
+      box-shadow: none;
       cursor: pointer;
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      padding: 0;
-      width: 170px;
-      white-space: nowrap;
-      background-color: #006ad7;
-      color: white;
-      border-radius: 4px;
-
-      &:hover {
-        background-image: linear-gradient(180deg, #3996ff, #127bf3);
-      }
     }
   }
+
+  // .subscribe-container {
+  //   margin-bottom: $margin-xxxxl;
+
+  //   @include upto-sm {
+  //     margin-bottom: $margin-xxl;
+  //   }
+  // }
 }

@@ -11,6 +11,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import SubmissionManagement from 'components/SubmissionManagement/SubmissionManagement';
 import React from 'react';
 import PT from 'prop-types';
+import { safeForDownload } from 'utils/tc';
 import { connect } from 'react-redux';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
@@ -21,8 +22,22 @@ import smpActions from '../../actions/page/submission_management';
 
 const { getService } = services.submissions;
 
+const theme = {
+  container: style.modalContainer,
+};
+
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      needReload: false,
+      initialState: true,
+      submissions: [],
+    };
+  }
+
   componentDidMount() {
     const {
       authTokens,
@@ -43,6 +58,52 @@ class SubmissionManagementPageContainer extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {
+      loadMySubmissions, authTokens, challengeId, mySubmissions,
+    } = nextProps;
+    const { needReload } = this.state;
+
+    if (needReload === false && mySubmissions) {
+      if (mySubmissions.find(item => safeForDownload(item.url) !== true)) {
+        this.setState({ needReload: true });
+        setTimeout(() => {
+          loadMySubmissions(authTokens, challengeId);
+          this.setState({ needReload: false });
+        }, 2000);
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      deletionSucceed,
+      toBeDeletedId,
+      mySubmissions,
+    } = this.props;
+    const { initialState } = this.state;
+
+    if (initialState && mySubmissions) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        submissions: [...mySubmissions],
+        initialState: false,
+      });
+      return;
+    }
+    const { submissions } = this.state;
+
+    if (deletionSucceed !== prevProps.deletionSucceed) {
+      _.remove(submissions, submission => (
+        submission.id === toBeDeletedId
+      ));
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        submissions,
+      });
+    }
+  }
+
   render() {
     const {
       authTokens,
@@ -53,7 +114,6 @@ class SubmissionManagementPageContainer extends React.Component {
       loadingSubmissionsForChallengeId,
       submissionPhaseStartDate,
       isLoadingChallenge,
-      mySubmissions,
       onCancelSubmissionDelete,
       onShowDetails,
       onSubmissionDelete,
@@ -62,6 +122,9 @@ class SubmissionManagementPageContainer extends React.Component {
       showModal,
       toBeDeletedId,
     } = this.props;
+
+    const { submissions } = this.state;
+
     if (!challenge.isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
     const isEmpty = _.isEmpty(challenge);
@@ -96,7 +159,7 @@ class SubmissionManagementPageContainer extends React.Component {
               challenge={challenge}
               challengesUrl={challengesUrl}
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
-              submissions={mySubmissions}
+              submissions={submissions}
               showDetails={showDetails}
               submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}
@@ -108,6 +171,7 @@ class SubmissionManagementPageContainer extends React.Component {
           {showModal && (
           <Modal
             onCancel={deleting ? _.noop : onCancelSubmissionDelete}
+            theme={theme}
           >
             <div styleName="modal-content">
               <p styleName="are-you-sure">
@@ -123,6 +187,8 @@ class SubmissionManagementPageContainer extends React.Component {
                 This will permanently remove all
                 files from our servers and can’t be undone.
                 You’ll have to upload all the files again in order to restore it.
+                Note that deleting the file may take a few minutes to propagate
+                through the Topcoder platform.
               </p>
               <div
                 /* NOTE: Current implementation of the loading indicator is
@@ -179,6 +245,7 @@ SubmissionManagementPageContainer.defaultProps = {
   showModal: false,
   toBeDeletedId: '',
   challenge: null,
+  deletionSucceed: false,
 };
 
 SubmissionManagementPageContainer.propTypes = {
@@ -199,6 +266,7 @@ SubmissionManagementPageContainer.propTypes = {
   showModal: PT.bool,
   onCancelSubmissionDelete: PT.func.isRequired,
   toBeDeletedId: PT.string,
+  deletionSucceed: PT.bool,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
 };
@@ -232,6 +300,7 @@ function mapStateToProps(state, props) {
 
     showModal: state.page.submissionManagement.showModal,
     toBeDeletedId: state.page.submissionManagement.toBeDeletedId,
+    deletionSucceed: state.page.submissionManagement.deletionSucceed,
 
     authTokens: state.auth,
     registrants: state.challenge.details.registrants,

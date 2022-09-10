@@ -11,8 +11,12 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import ErrorMessage from 'components/Settings/ErrorMessage';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
-import ConfirmationModal from '../../CofirmationModal';
+import FormField from 'components/Settings/FormField';
+import FormInputText from 'components/Settings/FormInputText';
+import AddItemIcon from 'assets/images/settings-add-item.svg';
+import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
+import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../ConfirmationModal';
 import SubscriptionList from './List';
 
 import styles from './styles.scss';
@@ -62,9 +66,6 @@ export default class Subscription extends ConsentComponent {
       personalizationTrait,
       formInvalid: false,
       isSubmit: false,
-      newSubscription: {
-        name: '',
-      },
     });
   }
 
@@ -77,7 +78,7 @@ export default class Subscription extends ConsentComponent {
    * @param e event
    */
   onHandleAddSubscription(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const { newSubscription } = this.state;
     this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newSubscription)) {
@@ -275,7 +276,7 @@ export default class Subscription extends ConsentComponent {
 
   render() {
     const {
-      subscriptionTrait, isMobileView, showConfirmation, indexNo, isEdit, isSubmit,
+      subscriptionTrait, showConfirmation, indexNo, isEdit, isSubmit,
     } = this.state;
     const subscriptionItems = subscriptionTrait.traits
       ? subscriptionTrait.traits.data.slice() : [];
@@ -283,173 +284,94 @@ export default class Subscription extends ConsentComponent {
     const canModifyTrait = !this.props.traitRequestCount;
 
     return (
-      <div styleName="subscription-container">
+      <React.Fragment>
         {
-          this.shouldRenderConsent() && this.renderConsent()
-        }
+        this.shouldRenderConsent() && this.renderConsent()
+      }
         {showConfirmation
-        && (
-          <ConfirmationModal
-            onConfirm={() => this.showConsent(this.onDeleteSubscription.bind(this, indexNo))}
-            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
-            name={subscriptionTrait.traits.data[indexNo].name}
-          />
-        )}
-        <h1>
-          Subscriptions
-        </h1>
-        <div styleName={`sub-title ${subscriptionItems.length > 0 ? '' : 'hidden'}`}>
-          Your subscriptions
-        </div>
-        {
-          !isMobileView
-          && (
-            <SubscriptionList
-              subscriptionList={{ items: subscriptionItems }}
-              onDeleteItem={this.onHandleDeleteSubscription}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditSubscription}
-            />
-          )
-        }
-        <div styleName={`sub-title ${subscriptionItems.length > 0 ? 'second' : 'first'}`}>
-          {
-            isEdit ? (<React.Fragment>Edit subscription</React.Fragment>)
-              : (<React.Fragment>Add a new subscription</React.Fragment>)
+      && (
+        <ConfirmationModal
+          onConfirm={() => this.showConsent(this.onDeleteSubscription.bind(this, indexNo))}
+          onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+          name={subscriptionTrait.traits.data[indexNo].name}
+        />
+      )}
+        <div styleName="form-container">
+          <Collapse>
+            <h2 styleName="form-title">
+              Subscriptions
+            </h2>
+            {
+            subscriptionItems.length > 0
+            && (
+              <SubscriptionList
+                subscriptionList={{ items: subscriptionItems }}
+                onDeleteItem={this.onHandleDeleteSubscription}
+                disabled={!canModifyTrait}
+                onEditItem={this.onEditSubscription}
+              />
+            )
           }
-        </div>
-        <div styleName="form-container-default">
-          <form name="device-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input
-                  disabled={!canModifyTrait}
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Name"
-                  onChange={this.onUpdateInput}
-                  value={newSubscription.name}
-                  maxLength="128"
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                  required
-                />
+            <div styleName="form-content">
+              <div styleName="form-label">
                 {
-                  isSubmit && (
-                    <ErrorMessage invalid={formInvalid} message="Name cannot be empty" />
-                  )
+                  isEdit ? (<React.Fragment>Edit subscription</React.Fragment>)
+                    : (<React.Fragment>Add a new subscription</React.Fragment>)
                 }
               </div>
-            </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                theme={{ button: styles.complete }}
-                onClick={this.onHandleAddSubscription}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit subscription to your list</React.Fragment>)
-                    : (<React.Fragment>Add subscription to your list</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
-            {
-              isEdit && (
-                <div styleName="button-cancel">
+              <div styleName="form-body">
+                <form styleName="subscription-form" noValidate autoComplete="off">
+                  <FormField label="Subscription Name" style={{ flex: '0 0 100%' }} required>
+                    <FormInputText
+                      disabled={!canModifyTrait}
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Type here the Subscription Name"
+                      onChange={this.onUpdateInput}
+                      value={newSubscription.name}
+                      maxLength="64"
+                      required
+                    />
+                    {
+                      isSubmit && (
+                        <ErrorMessage invalid={formInvalid} message="Name cannot be empty" />
+                      )
+                    }
+                  </FormField>
+                </form>
+              </div>
+              <div styleName="form-footer">
+                {!isEdit && (
+                <PrimaryButton
+                  theme={{ button: styles.button }}
+                  onClick={this.onHandleAddSubscription}
+                >
+                  <AddItemIcon styleName="icon" /> Add Subscription to Your List
+                </PrimaryButton>
+                )}
+
+                { isEdit && (
+                <React.Fragment>
                   <PrimaryButton
-                    styleName="complete"
+                    theme={{ button: styles.button }}
+                    onClick={this.onHandleAddSubscription}
+                  >
+                    Edit Subscription to Your List
+                  </PrimaryButton>
+                  <SecondaryButton
+                    theme={{ button: styles.button }}
                     onClick={this.onCancelEditStatus}
                   >
                     Cancel
-                  </PrimaryButton>
-                </div>
-              )
-            }
-          </div>
-        </div>
-        <div styleName="form-container-mobile">
-          <form name="subscription-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <p>
-                {
-                  isEdit ? (<React.Fragment>Edit Subscription</React.Fragment>)
-                    : (<React.Fragment>Add Subscription</React.Fragment>)
-                }
-              </p>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input
-                  disabled={!canModifyTrait}
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Name"
-                  onChange={this.onUpdateInput}
-                  value={newSubscription.name}
-                  maxLength="128"
-                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-                  required
-                />
-                {
-                  isSubmit && (
-                    <ErrorMessage invalid={formInvalid} message="Name cannot be empty" />
-                  )
-                }
+                  </SecondaryButton>
+                </React.Fragment>
+                )}
               </div>
             </div>
-          </form>
-          <div styleName="button-container">
-            <div styleName="button-save">
-              <PrimaryButton
-                theme={{ button: styles.complete }}
-                onClick={this.onHandleAddSubscription}
-              >
-                {
-                  isEdit ? (<React.Fragment>Edit Subscription</React.Fragment>)
-                    : (<React.Fragment>Add Subscription</React.Fragment>)
-                }
-              </PrimaryButton>
-            </div>
-            {
-              isEdit && (
-                <div styleName="button-cancel">
-                  <PrimaryButton
-                    styleName="complete"
-                    onClick={this.onCancelEditStatus}
-                  >
-                    Cancel
-                  </PrimaryButton>
-                </div>
-              )
-            }
-          </div>
+          </Collapse>
         </div>
-        {
-          isMobileView
-          && (
-            <SubscriptionList
-              subscriptionList={{ items: subscriptionItems }}
-              onDeleteItem={this.onHandleDeleteSubscription}
-              disabled={!canModifyTrait}
-              onEditItem={this.onEditSubscription}
-            />
-          )
-        }
-      </div>
+      </React.Fragment>
     );
   }
 }

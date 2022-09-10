@@ -2,7 +2,8 @@
 @import '~styles/mixins';
 $podium-border-color: #ededf2;
 
-.PodiumSpot {
+.PodiumSpot,
+.PodiumSpotCondense {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -120,7 +121,7 @@ $podium-border-color: #ededf2;
     line-height: 44px;
     text-transform: uppercase;
     margin-bottom: 8px;
-    color: #2a2a2a;
+    color: #000;
   }
 
   .wave-wrap--first,
@@ -133,11 +134,11 @@ $podium-border-color: #ededf2;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 120px;
-    padding-bottom: 36px;
+    margin-top: 45px;
+    padding-bottom: 24px;
 
     .leaderboard-avatar {
-      margin-top: -120px;
+      margin-top: -70px;
       border: 3px solid white;
       border-radius: 50%;
       height: 152px;
@@ -160,6 +161,7 @@ $podium-border-color: #ededf2;
 
     svg {
       margin-top: -1px;
+      transform: scaleX(1.03);
     }
   }
 
@@ -168,16 +170,104 @@ $podium-border-color: #ededf2;
   }
 
   .wave-wrap--second {
-    background-color: #219174;
-  }
-
-  .wave-wrap--third {
     background-color: #16679a;
   }
 
+  .wave-wrap--third {
+    background-color: #227681;
+  }
+
   .wave-wrap--fourth {
+    background-color: #219174;
+
     .stats {
-      color: #2a2a2a;
+      color: #fff;
+    }
+  }
+
+  .wave-wrap--fifth {
+    background-color: #219174;
+  }
+
+  .wave-wrap--sixt {
+    background-color: #219174;
+  }
+}
+
+.PodiumSpotCondense {
+  min-width: auto;
+  max-width: 200px;
+  padding-top: 24px;
+
+  @media screen and (min-width: 375px) and (max-width: 768px) {
+    max-width: 162px;
+    margin: auto;
+  }
+
+  @media screen and (max-width: 3320px) {
+    margin-bottom: 15px;
+  }
+
+  .place {
+    @include barlow-condensed-semi-bold;
+
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 28px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #000;
+    border: none;
+    padding: 0;
+  }
+
+  .handle-link {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .leaderboard-avatar {
+    height: 88px !important;
+    width: 88px !important;
+  }
+
+  .winnings-info {
+    margin-top: 16px;
+
+    @include xs-to-sm {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 13px;
+    }
+
+    .stats {
+      margin-right: 16px !important;
+
+      @include xs-to-sm {
+        flex-direction: row;
+        margin-bottom: 4px;
+      }
+
+      &:last-child {
+        margin-right: 0 !important;
+      }
+
+      .value {
+        font-size: 14px !important;
+        font-weight: 700;
+        line-height: 16px !important;
+        text-align: left;
+
+        @include xs-to-sm {
+          margin-right: 4px !important;
+        }
+      }
+
+      .value-title {
+        font-size: 12px !important;
+        font-weight: 400;
+        line-height: 18px !important;
+      }
     }
   }
 }
@@ -210,10 +300,26 @@ $podium-border-color: #ededf2;
   }
 }
 
+.PodiumSpot--fifth {
+  .ranking {
+    background-color: #1e94a3;
+    color: #fff;
+  }
+}
+
+.PodiumSpot--sixt {
+  .ranking {
+    background-color: #1e94a3;
+    color: #fff;
+  }
+}
+
 .PodiumSpot--first,
 .PodiumSpot--second,
 .PodiumSpot--third,
-.PodiumSpot--fourth {
+.PodiumSpot--fourth,
+.PodiumSpot--fifth,
+.PodiumSpot--sixt {
   margin-top: 0;
 
   .leaderboard-avatar {

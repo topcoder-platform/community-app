@@ -1,0 +1,85 @@
+@import "~styles/mixins";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+
+  .title {
+    @include barlow-medium;
+
+    font-weight: 600;
+    color: #2a2a2a;
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: uppercase;
+  }
+
+  .icon {
+    cursor: pointer;
+    margin-top: 5px;
+  }
+}
+
+.awards {
+  background-color: $listing-filter-bg;
+  border-radius: 8px;
+  margin: 68px 0 -36px 0;
+  padding-bottom: 32px;
+
+  .header {
+    padding: 32px 0 20px 32px;
+
+    @include xs-to-sm {
+      padding: 16px 0 16px 16px;
+    }
+
+    span {
+      @include barlow-bold;
+
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 22px;
+      text-transform: uppercase;
+      color: $tco-black;
+    }
+  }
+}
+
+.badgesContainer {
+  margin: 0 32px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  @include xs-to-sm {
+    flex-direction: column;
+    margin: 0 16px;
+  }
+}
+
+.award-modal {
+  padding-bottom: 10px;
+  border-radius: 8px;
+  margin: 25px 32px 32px;
+}
+
+hr {
+  opacity: 0.5;
+}
+
+.container {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  min-width: 600px;
+
+  @include xs-to-sm {
+    width: 90%;
+    min-width: unset;
+  }
+}
+
+.overlay {
+  background-color: #0c0c0c;
+  opacity: 0.85;
+}
