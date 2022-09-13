@@ -8,19 +8,54 @@ exports[`renders account setting page correctly 1`] = `
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
-    title="Edit Profile | TopCoder"
+    title="Profile | TopCoder"
   />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      isSaving={false}
+      saveSettings={[Function]}
       selectTab={[Function]}
       settingsTab="profile"
     />
-    <Profile
+    <TabSelector
+      activeTab="profile"
+      selectTab={[Function]}
+      tabs={
+        Array [
+          Object {
+            "link": "profile",
+            "title": "Profile",
+          },
+          Object {
+            "link": "skills",
+            "title": "Experience & Skills",
+          },
+          Object {
+            "link": "tracks",
+            "title": "Topcoder & You",
+          },
+          Object {
+            "link": "tools",
+            "title": "Tools",
+          },
+          Object {
+            "link": "account",
+            "title": "Account",
+          },
+          Object {
+            "link": "preferences",
+            "title": "Preferences",
+          },
+        ]
+      }
+    />
+    <ProfileSettings
       clearIncorrectPassword={[Function]}
       handle=""
       history={Object {}}
+      isSaving={false}
       match={
         Object {
           "isExact": true,
@@ -710,6 +745,7 @@ exports[`renders account setting page correctly 1`] = `
         }
       }
       selectTab={[Function]}
+      setIsSaving={[Function]}
       settingsPageState={Object {}}
       settingsTab="profile"
       showXlBadge={[Function]}
@@ -729,18 +765,53 @@ exports[`renders preferences setting page correctly 1`] = `
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
-    title="Edit Profile | TopCoder"
+    title="Profile | TopCoder"
   />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      isSaving={false}
+      saveSettings={[Function]}
       selectTab={[Function]}
       settingsTab="profile"
     />
-    <Profile
+    <TabSelector
+      activeTab="profile"
+      selectTab={[Function]}
+      tabs={
+        Array [
+          Object {
+            "link": "profile",
+            "title": "Profile",
+          },
+          Object {
+            "link": "skills",
+            "title": "Experience & Skills",
+          },
+          Object {
+            "link": "tracks",
+            "title": "Topcoder & You",
+          },
+          Object {
+            "link": "tools",
+            "title": "Tools",
+          },
+          Object {
+            "link": "account",
+            "title": "Account",
+          },
+          Object {
+            "link": "preferences",
+            "title": "Preferences",
+          },
+        ]
+      }
+    />
+    <ProfileSettings
       handle=""
       history={Object {}}
+      isSaving={false}
       match={
         Object {
           "isExact": true,
@@ -1430,6 +1501,7 @@ exports[`renders preferences setting page correctly 1`] = `
         }
       }
       selectTab={[Function]}
+      setIsSaving={[Function]}
       settingsPageState={Object {}}
       settingsTab="profile"
       showXlBadge={[Function]}
@@ -1447,21 +1519,56 @@ exports[`renders profile setting page correctly 1`] = `
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
-    title="Edit Profile | TopCoder"
+    title="Profile | TopCoder"
   />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      isSaving={false}
+      saveSettings={[Function]}
       selectTab={[Function]}
       settingsTab="profile"
     />
-    <Profile
+    <TabSelector
+      activeTab="profile"
+      selectTab={[Function]}
+      tabs={
+        Array [
+          Object {
+            "link": "profile",
+            "title": "Profile",
+          },
+          Object {
+            "link": "skills",
+            "title": "Experience & Skills",
+          },
+          Object {
+            "link": "tracks",
+            "title": "Topcoder & You",
+          },
+          Object {
+            "link": "tools",
+            "title": "Tools",
+          },
+          Object {
+            "link": "account",
+            "title": "Account",
+          },
+          Object {
+            "link": "preferences",
+            "title": "Preferences",
+          },
+        ]
+      }
+    />
+    <ProfileSettings
       addSkill={[Function]}
       deletePhoto={[Function]}
       handle=""
       hideSkill={[Function]}
       history={Object {}}
+      isSaving={false}
       lookupData={Object {}}
       match={
         Object {
@@ -2152,6 +2259,7 @@ exports[`renders profile setting page correctly 1`] = `
         }
       }
       selectTab={[Function]}
+      setIsSaving={[Function]}
       settingsPageState={Object {}}
       settingsTab="profile"
       showXlBadge={[Function]}
@@ -2171,18 +2279,53 @@ exports[`renders tools setting page correctly 1`] = `
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
-    title="Edit Profile | TopCoder"
+    title="Profile | TopCoder"
   />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      isSaving={false}
+      saveSettings={[Function]}
       selectTab={[Function]}
       settingsTab="profile"
     />
-    <Profile
+    <TabSelector
+      activeTab="profile"
+      selectTab={[Function]}
+      tabs={
+        Array [
+          Object {
+            "link": "profile",
+            "title": "Profile",
+          },
+          Object {
+            "link": "skills",
+            "title": "Experience & Skills",
+          },
+          Object {
+            "link": "tracks",
+            "title": "Topcoder & You",
+          },
+          Object {
+            "link": "tools",
+            "title": "Tools",
+          },
+          Object {
+            "link": "account",
+            "title": "Account",
+          },
+          Object {
+            "link": "preferences",
+            "title": "Preferences",
+          },
+        ]
+      }
+    />
+    <ProfileSettings
       handle=""
       history={Object {}}
+      isSaving={false}
       match={
         Object {
           "isExact": true,
@@ -2872,6 +3015,7 @@ exports[`renders tools setting page correctly 1`] = `
         }
       }
       selectTab={[Function]}
+      setIsSaving={[Function]}
       settingsPageState={Object {}}
       settingsTab="profile"
       showXlBadge={[Function]}

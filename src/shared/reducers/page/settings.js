@@ -22,6 +22,22 @@ function onClearToastrNotification() {
   });
 }
 
+let updateSkillsTimeout;
+// Debounce the toastr to group notifications
+function updateSkillsToastr(title, message) {
+  if (updateSkillsTimeout) {
+    clearTimeout(updateSkillsTimeout);
+  }
+  const isFirstCall = !updateSkillsTimeout;
+  updateSkillsTimeout = setTimeout(() => {
+    if (isFirstCall) {
+      toastr.success(title, message);
+    } else {
+      toastr.success('Your skills have been updated');
+    }
+    updateSkillsTimeout = null;
+  }, 3000);
+}
 
 function mergeSkills(state, { type, payload, error }) {
   if (error) {
@@ -87,12 +103,12 @@ function mergeSkills(state, { type, payload, error }) {
     if (payload.skill) {
       addedSkillName = payload.skill.name;
     }
-    toastrSuccess('Success! ', `Skill "${addedSkillName}" was added.`);
+    updateSkillsToastr('Success! ', `Skill "${addedSkillName}" was added.`);
   } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
     if (payload.skill) {
       removedSkillName = payload.skill.name;
     }
-    toastrSuccess('Success! ', `Skill "${removedSkillName}" was removed.`);
+    updateSkillsToastr('Success! ', `Skill "${removedSkillName}" was removed.`);
   }
 
   return {

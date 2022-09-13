@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { map, filter } from 'lodash';
-import DownArrowIcon from 'assets/images/select-arrow.svg';
 import uuid from 'uuid';
 import PT from 'prop-types';
-import cn from 'classnames';
 import MenuItem from './MenuItem';
 import './style.scss';
-
 
 export default class InputSelect extends Component {
   constructor(props) {
@@ -14,11 +11,13 @@ export default class InputSelect extends Component {
     this.state = {
       filterVal: '',
       isShowModal: false,
+      inputValue: '',
       _id: uuid(),
     };
 
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.onToggleModal = this.onToggleModal.bind(this);
+    this.onShowModal = this.onShowModal.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onLoadMore = this.onLoadMore.bind(this);
@@ -28,9 +27,16 @@ export default class InputSelect extends Component {
     document.addEventListener('click', this.handleClickOutside);
   }
 
+  componentWillReceiveProps(props) {
+    this.setState({
+      inputValue: props.value,
+    });
+  }
+
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
   }
+
 
   onToggleModal(evt) {
     const {
@@ -47,6 +53,21 @@ export default class InputSelect extends Component {
 
     this.setState({
       isShowModal: !isShowModal,
+      filterVal: '',
+    });
+  }
+
+  onShowModal(evt) {
+    const {
+      disabled,
+    } = this.props;
+
+    evt.stopPropagation();
+
+    if (disabled) { return; }
+
+    this.setState({
+      isShowModal: true,
       filterVal: '',
     });
   }
@@ -79,6 +100,7 @@ export default class InputSelect extends Component {
   }
 
   onFilterChange(evt) {
+    this.setState({ inputValue: evt.target.value });
     evt.stopPropagation();
     this.setState({
       filterVal: evt.target.value,
@@ -138,15 +160,16 @@ export default class InputSelect extends Component {
       _id,
       isShowModal,
       filterVal,
+      inputValue,
     } = this.state;
 
     const escapeRegExp = stringToGoIntoTheRegex => stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); /* eslint-disable-line no-useless-escape */
-    let fiterList = options;
+    let filterList = options;
     if (filterVal) {
       const REG = new RegExp(escapeRegExp(filterVal), 'i');
-      fiterList = filter(options, o => REG.test(o[labelKey]));
+      filterList = filter(options, o => REG.test(o[labelKey]));
     }
-    const list = map(fiterList, o => (
+    const list = map(filterList, o => (
       <MenuItem
         data={o}
         labelKey={labelKey}
@@ -160,21 +183,37 @@ export default class InputSelect extends Component {
       <div className={_id} styleName="container">
         <div
           styleName="input-container"
-          tabIndex={0}
-          role="button"
-          onKeyPress={() => {}}
-          onClick={this.onToggleModal}
         >
-          <div styleName={cn('input-label', { 'input-placeholder': value.length === 0 })}>{value.length ? value : placeholder }</div>
-          <div styleName="input-arrow"><DownArrowIcon /></div>
+          <div
+            tabIndex={0}
+            role="button"
+            onKeyPress={() => {}}
+            onClick={this.onShowModal}
+            style={{ width: '100%' }}
+          >
+            <input
+              styleName="input-text"
+              type="text"
+              onChange={this.onFilterChange}
+              placeholder={placeholder}
+              value={inputValue}
+              disabled={options.length === 0 && true}
+              onKeyPress={onKeyPress}
+            />
+          </div>
+          <div
+            tabIndex={0}
+            role="button"
+            onKeyPress={() => {}}
+            styleName="select-arrow-zone"
+            onClick={this.onToggleModal}
+          >
+            <span styleName="select-arrow" />
+          </div>
         </div>
         {isShowModal && options.length > 0
           ? (
             <div styleName="modal">
-              <div styleName="modal-input-container">
-
-                <input type="text" onChange={this.onFilterChange} placeholder="Search" onKeyPress={onKeyPress} />
-              </div>
               <div styleName="modal-list-container" onScroll={this.onLoadMore}>
                 {list}
               </div>
@@ -184,7 +223,6 @@ export default class InputSelect extends Component {
     );
   }
 }
-
 
 InputSelect.defaultProps = {
   options: [],

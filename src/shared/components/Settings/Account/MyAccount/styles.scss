@@ -1,4 +1,5 @@
 @import "../../style";
+@import "~styles/mixins";
 
 .hide {
   display: none;
@@ -41,19 +42,6 @@
     @include upto-sm {
       display: none;
     }
-  }
-
-  .error-message {
-    @include roboto-medium;
-
-    display: block;
-    border-radius: 5px;
-    background-color: $tc-red-10;
-    color: $tc-red-110;
-    font-size: 15px;
-    padding: 15px;
-    margin: 15px 0;
-    line-height: 20px;
   }
 }
 
@@ -357,6 +345,132 @@
   }
 }
 
+.form-container {
+  padding: $pad-xxxxl;
+  background-color: $color-tc-white;
+  border-radius: 4px;
+  margin: $margin-sm 0 0;
+
+  .password-form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .account-form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .error-message {
+    @include roboto-medium;
+
+    display: block;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    padding: 15px;
+    margin: 6px 0;
+    line-height: 20px;
+  }
+}
+
+.form-title {
+  @include barlow-semi-bold;
+
+  font-size: 20px;
+  line-height: 22px;
+  color: inherit;
+  text-transform: uppercase;
+  padding-bottom: $pad-xxxxl;
+}
+
+.form-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.form-label {
+  flex: 0 0 calc(50% - 13px);
+  padding-right: 230px;
+
+  @include roboto-regular;
+
+  font-size: 16px;
+  line-height: 26px;
+  color: inherit;
+}
+
+.form-body {
+  flex: 0 0 calc(50% + 13px);
+}
+
+.button-change-password {
+  margin-bottom: 16px;
+
+  .button {
+    @include roboto-bold;
+
+    padding: 12px 24px;
+    background: $tc-white;
+    border: 2px solid $color-black-5;
+    border-radius: 50px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.008em;
+    text-transform: uppercase;
+    color: $color-black-60;
+    height: 48px;
+    width: 207px;
+    margin: 0;
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none !important;
+      background: none !important;
+      border-color: $color-black-5;
+      color: $color-black-60;
+      box-shadow: none !important;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+}
+
+@include xs-to-md {
+  .form-container {
+    padding: $pad-xxl $pad-lg;
+  }
+
+  .form-title {
+    @include barlow-semi-bold;
+
+    font-size: 20px;
+    line-height: 22px;
+    padding-bottom: $pad-xxl;
+  }
+
+  .form-label {
+    flex: 1 1 100%;
+    padding: 0;
+    margin-bottom: $margin-xxl;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .form-body {
+    flex: 1 1 100%;
+  }
+
+  .form-footer {
+    margin: 0;
+  }
+}
+
 .button-change-email {
   margin-left: auto;
   margin-right: auto;
@@ -471,36 +585,6 @@
   }
 }
 
-.button-change-password {
-  margin-left: auto;
-  margin-right: auto;
-
-  div:first-child {
-    height: 40px;
-    margin: 0;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-
-  button,
-  a {
-    @include roboto-medium;
-
-    height: 40px;
-    font-size: 15px;
-    font-weight: 500;
-    margin: 0;
-    padding: 0;
-    min-width: 155px;
-    white-space: nowrap;
-  }
-
-  .white-label {
-    color: $tc-white;
-    margin: 0;
-  }
-}
-
 $tips-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.2);
 $tips-background: $tc-gray-neutral-light;
 
@@ -541,9 +625,11 @@ $tips-background: $tc-gray-neutral-light;
   }
 
   p {
-    @include merriweather-sans-regular;
+    // @include merriweather-sans-regular;
+    @include roboto-medium;
 
     color: $tc-gray-90;
+    font-weight: 400;
     font-size: 13px;
     line-height: 1.3;
     padding-bottom: 10px;
@@ -690,5 +776,20 @@ $tips-background: $tc-gray-neutral-light;
   .verification-send-details {
     width: 520px;
     min-height: 256px;
+  }
+}
+
+.sso-text {
+  p {
+    @include roboto-regular;
+
+    margin: 12px 0;
+    font-size: 16px;
+    line-height: 26px;
+    color: inherit;
+
+    @include xs-to-md {
+      font-size: 14px;
+    }
   }
 }

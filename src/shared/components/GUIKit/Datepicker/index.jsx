@@ -32,6 +32,15 @@ function Datepicker({
   displayFormat,
   minDate,
   maxDate,
+  id,
+  renderMonthElement,
+  readOnly,
+  showClearDate,
+  renderCalendarInfo,
+  className,
+  anchorDirection,
+  navPrev,
+  navNext,
 }) {
   const sizeStyle = size === 'lg' ? 'lgSize' : 'xsSize';
   const [date, setDate] = useState(value ? moment(value) : null);
@@ -45,6 +54,7 @@ function Datepicker({
       styleName={`container ${sizeStyle} ${date ? 'haveValue' : ''} ${
         errorMsg ? 'haveError' : ''
       } ${focused ? 'isFocused' : ''}`}
+      className={className || ''}
     >
       <SingleDatePicker
         hideKeyboardShortcutsPanel
@@ -57,12 +67,12 @@ function Datepicker({
         focused={focused}
         onFocusChange={({ focused: changedFocused }) => setFocused(changedFocused)
         }
-        id={`${value}-${placeholder}-${label}-${errorMsg}-${required}`}
+        id={id || `${value}-${placeholder}-${label}-${errorMsg}-${required}`}
         placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
         inputIconPosition="after"
         numberOfMonths={1}
-        navPrev={<IconPrev />}
-        navNext={<IconNext />}
+        navPrev={navPrev}
+        navNext={navNext}
         displayFormat={displayFormat}
         daySize={width > 600 ? 47 : 35}
         renderDayContents={d => (<div>{d.date ? d.date() : ''}</div>)}
@@ -73,6 +83,11 @@ function Datepicker({
         isDayBlocked={isDayBlocked}
         minDate={minDate}
         maxDate={maxDate}
+        renderMonthElement={renderMonthElement}
+        readOnly={readOnly}
+        showClearDate={showClearDate}
+        renderCalendarInfo={renderCalendarInfo}
+        anchorDirection={anchorDirection}
       />
       {label ? (
         <span styleName="label">
@@ -99,6 +114,15 @@ Datepicker.defaultProps = {
   displayFormat: 'MMM DD, YYYY',
   minDate: null,
   maxDate: null,
+  id: '',
+  renderMonthElement: () => {},
+  readOnly: false,
+  showClearDate: false,
+  renderCalendarInfo: null,
+  anchorDirection: 'left',
+  className: '',
+  navPrev: <IconPrev />,
+  navNext: <IconNext />,
 };
 
 Datepicker.propTypes = {
@@ -115,6 +139,15 @@ Datepicker.propTypes = {
   displayFormat: PT.string,
   minDate: PT.instanceOf(moment),
   maxDate: PT.instanceOf(moment),
+  id: PT.string,
+  renderMonthElement: PT.func,
+  readOnly: PT.bool,
+  showClearDate: PT.bool,
+  renderCalendarInfo: PT.func,
+  anchorDirection: PT.oneOf(['left', 'right']),
+  className: PT.string,
+  navPrev: PT.node,
+  navNext: PT.node,
 };
 
 export default Datepicker;

@@ -1,0 +1,163 @@
+/*  GRAY */
+$color-tc-black: #0c0c0c;
+$color-black-100: #2a2a2a;
+$color-black-80: #555;
+$color-black-60: #767676;
+$color-black-40: #aaa;
+$color-black-20: #d4d4d4;
+$color-black-10: #e9e9e9;
+$color-black-5: #f4f4f4;
+$color-black-2: #fbfbfb;
+
+/* WHITE */
+$color-tc-white: #fff;
+
+/* RED */
+$color-red-100: #ef3a3a;
+$color-red-75: #f37593;
+$color-red-50: #f7a3b7;
+$color-red-25: #fbd1db;
+// dark
+$color-red-120: #be405e;
+$color-red-140: #8c384c;
+
+/* ORANGE */
+$color-orange-100: #ffc43d;
+$color-orange-75: #ffd36e;
+$color-orange-50: #ffe19e;
+$color-orange-25: #fff0ce;
+// dark
+$color-orange-120: #e2af3b;
+$color-orange-140: #b98f31;
+
+/* YELLOW */
+$color-yellow-100: #f9f649;
+$color-yellow-75: #fbf877;
+$color-yellow-50: #fbfaa4;
+$color-yellow-25: #fdfcd1;
+// dark
+$color-yellow-120: #ddda43;
+$color-yellow-140: #b6b431;
+
+/* GREEN */
+$color-green-100: #63f963;
+$color-green-75: #8afb8a;
+$color-green-50: #b0fcb1;
+$color-green-25: #d8fdd8;
+// dark
+$color-green-120: #4cc94c;
+$color-green-140: #35ac35;
+
+/*  TURQUOISE */
+$color-turq-100: #06d6a0;
+$color-turq-75: #45e1b8;
+$color-turq-50: #82eacf;
+$color-turq-25: #c1f5e7;
+$color-turq-15: #e0faf3;
+// dark
+$color-turq-120: #0ab88a;
+$color-turq-140: #219174;
+$color-turq-160: #137d60;
+$color-turq-180: #0d664e;
+
+/*  TEAL */
+$color-teal-100: #26b3c5;
+$color-teal-75: #54b4c0;
+$color-teal-50: #8dccd4;
+$color-teal-25: #c6e6ea;
+// dark
+$color-teal-120: #1e94a3;
+$color-teal-140: #227681;
+
+/*  BLUE */
+$color-blue-110: #0a7ac0;
+$color-blue-100: #2c95d7;
+$color-blue-75: #50ade8;
+$color-blue-50: #83c5ee;
+$color-blue-25: #bae1f9;
+$color-blue-15: #d6edfc;
+$color-blue-10: #eaf6fd;
+// dark
+$color-blue-120: #2984bd;
+$color-blue-140: #16679a;
+$color-blue-160: #05456d;
+$color-link-blue-dark: #0d61bf;
+$color-link-blue-light: #5fb7ee;
+
+/*  PURPLE */
+$color-purple-100: #9d41c9;
+$color-purple-75: #b671d7;
+$color-purple-50: #cd9fe3;
+$color-purple-25: #e6cff1;
+// dark
+$color-purple-120: #8231a9;
+$color-purple-140: #652385;
+
+/* ORANGE LEGACY */
+$color-legacy-100: #fd7d01;
+$color-legacy-75: #ffa45d;
+$color-legacy-50: #ffe3cf;
+$color-legacy-25: #fff0eb;
+// dark
+$color-legacy-120: #f46500;
+
+/* HANDLES */
+$color-handle-grey: $color-black-100;
+$color-handle-green: #2d7e2d;
+$color-handle-blue: #616bd5;
+$color-handle-yellow: #f2c900;
+$color-handle-red: #ef3a3a;
+
+/* GOLD  */
+$color-gold-1: #ffd84d;
+$color-gold-2: #c99014;
+$color-gold-3: #865e07;
+
+/* SILVER */
+$color-silver-1: #d1d0cf;
+$color-silver-2: #716d67;
+$color-silver-3: #554e48;
+
+/* BRONZE */
+$color-bronze-1: #d98f64;
+$color-bronze-2: #854e29;
+$color-bronze-3: #733d17;
+
+/* GRADIENTS */
+$color-tc-grad1: linear-gradient(90deg, #ffc43d 0%, #f37593 100%);
+$color-tc-grad2: linear-gradient(270deg, #0ab88a 0%, #63f963 100%);
+$color-tc-grad3: linear-gradient(90deg, #9d41c9 0.01%, #ef476f 100%);
+$color-tc-grad4: linear-gradient(90deg, #16679a 0%, #2c95d7 100%);
+$color-tc-grad5: linear-gradient(90deg, #26b3c5 0%, #45e1b8 100%);
+$color-tc-grad6: linear-gradient(90deg, #9d41c9 0%, #50ade8 100%);
+$color-tc-grad7: linear-gradient(90deg, #2c95d7 0%, #83c5ee 100%);
+$color-tc-grad8: linear-gradient(90deg, #ef476f 2.28%, #f9f649 100%);
+$color-tc-grad9: linear-gradient(270deg, #06d6a0 0%, #2c95d7 100%);
+$color-tc-grad10: linear-gradient(270deg, #9d41c9 0%, #f37593 100%);
+$color-tc-grad11: linear-gradient(90deg, #3023ae 0%, #c86dd7 100%);
+$color-tc-grad12: linear-gradient(90deg, #652385 0%, #8c384c 100%);
+$color-tc-grad13: linear-gradient(90deg, #219174 0%, #b98f31 100%);
+$color-tc-grad14: linear-gradient(0deg, #880152 0%, #be4a1d 100%);
+$color-tc-grad15: linear-gradient(84.45deg, $color-blue-160 2.12%, $color-blue-110 97.43%);
+
+/*  OPACITY */
+$color-black-100-opacity-80: rgba(255, 255, 255, 0.8);
+
+/* SPACING */
+$pad-xs: 4px;
+$pad-sm: 8px;
+$pad-md: 12px;
+$pad-lg: 16px;
+$pad-xl: 20px;
+$pad-xxl: 24px;
+$pad-xxxl: 28px;
+$pad-xxxxl: 32px;
+
+$margin-xs: 4px;
+$margin-sm: 8px;
+$margin-md: 12px;
+$margin-lg: 16px;
+$margin-xl: 20px;
+$margin-xxl: 24px;
+$margin-xxxl: 28px;
+$margin-xxxxl: 32px;

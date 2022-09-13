@@ -4,54 +4,14 @@ exports[`renders email preferences setting page correctly 1`] = `
 <div
   className="src-shared-components-Settings-Preferences-Email-___styles__EmailPreferences___2FUGT"
 >
-  <h1
-    className="src-shared-components-Settings-Preferences-Email-___styles__title___1q6eb"
-  >
-    E-Mail Preferences
-  </h1>
-  <div
-    className="src-shared-components-Settings-Preferences-Email-___styles__unsubscribed-msg___3yh6s"
-  >
-    <h3>
-      You are not subscribed to receive Topcoder emails
-    </h3>
-    <p>
-      If this was a mistake or if you would like to resubscribe, please click the button below.
-    </p>
-    <form
-      action="https://topcoder.us13.list-manage.com/subscribe/post?u=65bd5a1857b73643aad556093&id=28bfd3c062"
-      id="mc-embedded-subscribe-form"
-      method="post"
-      name="mc-embedded-subscribe-form"
-      noValidate={true}
-    >
-      <input
-        id="mce-EMAIL"
-        name="EMAIL"
-        readOnly={true}
-        type="email"
-        value="test@test.com"
-      />
-      <input
-        id="gdpr_11101"
-        name="gdpr[11101]"
-        type="checkbox"
-        value="Y"
-      />
-      <input
-        name="b_65bd5a1857b73643aad556093_28bfd3c062"
-        tabIndex="-1"
-        type="text"
-        value=""
-      />
-      <input
-        className="submit-button"
-        id="mc-embedded-subscribe"
-        name="subscribe"
-        type="submit"
-        value="Subscribe"
-      />
-    </form>
-  </div>
+  <Item
+    description="If this was a mistake or if you would like to resubscribe, please click the “Subscribe” button."
+    email="test@test.com"
+    id="email"
+    isSubscribeForm={true}
+    link=""
+    linkTitle="SUBSCRIBE"
+    title="You are not subscribed to receive topcoder emails"
+  />
 </div>
 `;

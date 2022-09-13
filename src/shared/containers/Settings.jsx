@@ -125,6 +125,7 @@ function mapStateToProps(state) {
     handle: _.get(state.auth, 'user.handle'),
     tokenV3: state.auth.tokenV3,
     profile: state.auth.profile,
+    user: state.auth.user,
     lookupData: state.lookup,
     profileState: state.profile,
     loadingError: state.profile.loadingError,
@@ -145,6 +146,7 @@ function mapDispatchToProps(dispatch) {
     profile,
     tokenV3,
     settingsTab,
+    user,
   }) => {
     dispatch(profileActions.loadProfile(handle));
     if (settingsTab === TABS.PROFILE) {
@@ -157,9 +159,17 @@ function mapDispatchToProps(dispatch) {
       // Deprecated. Leaving it here as reminder to update topcoder-react-lib as well
       // dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
-      dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
+      if (profile.userId) {
+        dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
+      } else if (user.userId) {
+        dispatch(profileActions.getLinkedAccountsDone(user, tokenV3));
+      }
       dispatch(profileActions.getExternalLinksDone(handle));
-      dispatch(profileActions.getCredentialDone(profile, tokenV3));
+      if (profile.userId) {
+        dispatch(profileActions.getCredentialDone(profile, tokenV3));
+      } else if (user.userId) {
+        dispatch(profileActions.getCredentialDone(user, tokenV3));
+      }
     } else if (settingsTab === TABS.TOOLS) {
       dispatch(lookupActions.getTypesInit());
       dispatch(lookupActions.getTypesDone());
