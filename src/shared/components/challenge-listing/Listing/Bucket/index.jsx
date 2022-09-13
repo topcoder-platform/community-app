@@ -24,6 +24,7 @@ import './style.scss';
 // const COLLAPSED_SIZE = 10;
 
 // const Filter = challengeUtils.filter;
+const LOADING_MESSAGE = 'Loading Challenges';
 
 export default function Bucket({
   bucket,
@@ -36,6 +37,7 @@ export default function Bucket({
   expand,
   filterState,
   // keepPlaceholders,
+  needLoad,
   loading,
   loadMore,
   newChallengeDetails,
@@ -137,7 +139,12 @@ export default function Bucket({
             title={BUCKET_DATA[bucket].name}
           />
           <h1 styleName="no-results">
-            {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+            {
+              needLoad ? LOADING_MESSAGE
+                : (
+                  `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`
+                )
+            }
           </h1>
         </div>
       </div>
@@ -262,6 +269,7 @@ Bucket.defaultProps = {
   expand: _.noop,
   challengeTypes: [],
   // keepPlaceholders: false,
+  needLoad: false,
   loading: false,
   loadMore: null,
   newChallengeDetails: false,
@@ -286,6 +294,7 @@ Bucket.propTypes = {
   challengesUrl: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   // keepPlaceholders: PT.bool,
+  needLoad: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,
   newChallengeDetails: PT.bool,
