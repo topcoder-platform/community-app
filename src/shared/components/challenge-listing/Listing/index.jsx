@@ -40,6 +40,7 @@ function Listing({
   // extraBucket,
   filterState,
   keepPastPlaceholders,
+  needLoad,
   loadingPastChallenges,
   loadingReviewOpportunities,
   loadingMyChallenges,
@@ -152,6 +153,7 @@ function Listing({
             expandTag={expandTag}
             filterState={filterState}
             keepPlaceholders={keepPastPlaceholders}
+            needLoad={needLoad}
             loading={loadingReviewOpportunities}
             loadMore={loadMoreReviewOpportunities}
             opportunities={reviewOpportunities}
@@ -182,6 +184,7 @@ function Listing({
             expandTag={expandTag}
             filterState={filterState}
             // keepPlaceholders={keepPlaceholders}
+            needLoad={needLoad}
             loading={loading}
             loadMore={loadMore}
             newChallengeDetails={newChallengeDetails}
@@ -322,6 +325,7 @@ Listing.propTypes = {
   // extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
+  needLoad: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
   loadingMyPastChallenges: PT.bool.isRequired,
