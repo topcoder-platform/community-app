@@ -17,7 +17,7 @@ export function phaseEndDate(phase) {
     return new Date(phase.scheduledEndDate);
   }
   // for other cases, take the `actualEndDate` as phase is already closed
-  return new Date(phase.actualEndDate || phase.scheduledEndDate);
+  return new Date(phase.scheduledEndDate || phase.actualEndDate);
 }
 
 /**
@@ -31,7 +31,7 @@ export function phaseStartDate(phase) {
     return new Date(phase.scheduledStartDate);
   }
   // For all other cases, take the `actualStartDate` as phase is already started
-  return new Date(phase.actualStartDate);
+  return new Date(phase.scheduledStartDate || phase.actualStartDate);
 }
 
 /**
