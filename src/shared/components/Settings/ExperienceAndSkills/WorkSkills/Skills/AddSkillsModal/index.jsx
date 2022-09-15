@@ -26,10 +26,15 @@ export default function AddSkillsModal({
   onSave,
   setEditingSkills,
 }) {
+  let category;
   const [tempStr, setTempStr] = React.useState('');
   const [tab, setTab] = React.useState(intialCategory);
   const [displayingSkills, setDisplayingSkills] = React.useState([]);
-  const category = tab;
+  if (process.env.NODE_ENV === 'production') {
+    category = tab.toUpperCase();
+  } else {
+    category = tab;
+  }
 
   // onInit
   React.useEffect(() => {
