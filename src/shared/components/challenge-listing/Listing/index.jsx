@@ -17,6 +17,7 @@ import CardPlaceholder from '../placeholders/ChallengeCard';
 import './style.scss';
 
 // const Filter = challengeUtils.filter;
+const LOADING_MESSAGE = 'Loading Challenges';
 
 function Listing({
   activeBucket,
@@ -258,7 +259,14 @@ function Listing({
         loading
           ? placeholders
           : (!filterState.recommended || activeBucket !== 'openForRegistration') && (
-            <div styleName="no-results">{ `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }</div>
+            <div styleName="no-results">
+              {
+                needLoad ? LOADING_MESSAGE
+                  : (
+                    `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`
+                  )
+              }
+            </div>
           )
       }
     </div>
