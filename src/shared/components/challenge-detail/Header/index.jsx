@@ -30,6 +30,10 @@ import TabSelector from './TabSelector';
 
 import style from './style.scss';
 
+/* Holds day and hour range in ms. */
+const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
+
 export default function ChallengeHeader(props) {
   const {
     isLoggedIn,
@@ -128,6 +132,26 @@ export default function ChallengeHeader(props) {
     */
   const hasSubmissions = !_.isEmpty(mySubmissions);
 
+  const openPhases = sortedAllPhases.filter(p => p.isOpen);
+  let nextPhase = openPhases[0];
+  if (hasRegistered && openPhases[0] && openPhases[0].name === 'Registration') {
+    nextPhase = openPhases[1] || {};
+  }
+  const nextDeadline = nextPhase && nextPhase.name;
+
+  const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
+  const currentTime = moment();
+
+  let timeLeft = deadlineEnd.isAfter(currentTime)
+    ? deadlineEnd.diff(currentTime) : 0;
+
+  let format;
+  if (timeLeft > DAY_MS) format = 'D[d] H[h]';
+  else if (timeLeft > HOUR_MS) format = 'H[h] m[min]';
+  else format = 'm[min] s[s]';
+
+  timeLeft = moment.duration(timeLeft).format(format);
+
   let relevantPhases = [];
 
   if (showDeadlineDetail) {
@@ -201,6 +225,41 @@ export default function ChallengeHeader(props) {
   }
 
   const checkpointCount = checkpoints && checkpoints.numberOfPassedScreeningSubmissions;
+
+  let nextDeadlineMsg;
+  switch ((status || '').toLowerCase()) {
+    case 'active':
+      nextDeadlineMsg = (
+        <div styleName="next-deadline">
+          Next Deadline:
+          {' '}
+          {
+            <span styleName="deadline-highlighted">
+              {nextDeadline || '-'}
+            </span>
+            }
+        </div>
+      );
+      break;
+    case 'completed':
+      nextDeadlineMsg = (
+        <div styleName="completed">
+          The challenge is finished.
+        </div>
+      );
+      break;
+    default:
+      nextDeadlineMsg = (
+        <div>
+          Status:
+          &zwnj;
+          <span styleName="deadline-highlighted">
+            {_.upperFirst(_.lowerCase(status))}
+          </span>
+        </div>
+      );
+      break;
+  }
 
   // Legacy MMs have a roundId field, but new MMs do not.
   // This is used to disable registration/submission for legacy MMs.
@@ -382,7 +441,18 @@ export default function ChallengeHeader(props) {
         <div styleName="deadlines-view">
           <div styleName={`deadlines-overview ${showDeadlineDetail ? 'opened' : ''}`}>
             <div styleName="deadlines-overview-text">
-              Competition Timeline
+              {nextDeadlineMsg}
+              {
+                  (status || '').toLowerCase() === 'active'
+                  && (
+                  <div styleName="current-phase">
+                    Current Deadline Ends:{' '}
+                    <span styleName="deadline-highlighted">
+                      {timeLeft}
+                    </span>
+                  </div>
+                  )
+                }
             </div>
             <a
               onClick={onToggleDeadlines}
