@@ -555,10 +555,9 @@
 
       .deadlines-overview {
         background-color: #555;
-        display: none;
         align-items: center;
         justify-content: space-between;
-        height: 56px;
+        height: 60px;
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
 
@@ -572,12 +571,49 @@
         }
 
         .deadlines-overview-text {
-          @include barlow-semi-bold;
+          @include roboto-regular;
 
+          display: flex;
+          justify-content: flex-start;
           color: $tc-white;
-          font-size: 16px;
-          line-height: 18px;
-          text-transform: uppercase;
+          line-height: 20px;
+          padding: 24px 23px;
+          font-size: 15px;
+
+          @include xs-to-md {
+            flex-direction: column;
+            padding: 0;
+          }
+
+          .next-deadline {
+            word-wrap: normal;
+            border-right: $tc-gray-50 solid 1px;
+            padding-right: 10px;
+            display: inline;
+
+            @include xs-to-md {
+              border-right: none;
+            }
+          }
+
+          .completed {
+            border-right: none;
+          }
+
+          .current-phase {
+            overflow-wrap: normal;
+            padding-left: 10px;
+
+            @include xs-to-md {
+              padding-left: 0;
+              margin-top: 4px;
+            }
+          }
+
+          .deadline-highlighted {
+            color: $tc-white;
+            font-weight: 700;
+          }
         }
 
         .deadlines-collapser {
