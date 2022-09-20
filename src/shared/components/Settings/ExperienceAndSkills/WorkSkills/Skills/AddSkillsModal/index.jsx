@@ -26,15 +26,10 @@ export default function AddSkillsModal({
   onSave,
   setEditingSkills,
 }) {
-  let category;
   const [tempStr, setTempStr] = React.useState('');
   const [tab, setTab] = React.useState(intialCategory);
   const [displayingSkills, setDisplayingSkills] = React.useState([]);
-  if (process.env.NODE_ENV === 'production') {
-    category = tab.toUpperCase();
-  } else {
-    category = tab;
-  }
+  const category = tab;
 
   // onInit
   React.useEffect(() => {
@@ -42,7 +37,7 @@ export default function AddSkillsModal({
     setDisplayingSkills([...userSkills]);
   }, [userSkills]);
 
-  const find = (arr, i) => arr && arr.indexOf(i) !== -1;
+  const find = (arr, i) => arr && _.findIndex(arr, e => e.toLowerCase() === i.toLowerCase()) !== -1;
   const findSkill = (arr, skill) => arr && arr.find(a => a.id === skill.id);
 
   const popularSkills = React.useMemo(() => allSkills
