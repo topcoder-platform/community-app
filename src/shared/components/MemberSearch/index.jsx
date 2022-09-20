@@ -4,8 +4,6 @@ import qs from 'qs';
 import MemberSearchView from './MemberSearchView';
 import { isEndOfScreen } from './helpers';
 
-import './style.scss';
-
 export default class MemberSearch extends Component {
   constructor(props) {
     super(props);
@@ -39,15 +37,7 @@ export default class MemberSearch extends Component {
 
   render() {
     return (
-      <div styleName="page-wrapper">
-        <div styleName="fold-wrapper">
-          <div styleName="view-container">
-            <div id="member-search-wrapper">
-              <MemberSearchView {...this.props} />
-            </div>
-          </div>
-        </div>
-      </div>
+      <MemberSearchView {...this.props} />
     );
   }
 }

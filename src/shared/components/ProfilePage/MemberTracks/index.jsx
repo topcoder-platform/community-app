@@ -5,18 +5,18 @@ import { indexOf } from 'lodash';
 import './styles.scss';
 import TrackItem from './TrackItem';
 
+export const trackMap = {
+  DEVELOP: 'Developer',
+  DESIGN: 'Designer',
+  DATA_SCIENCE: 'Data Scientist',
+};
+
 const MemberTracks = ({
   copilot,
   info,
   hasMM,
 }) => {
   const { tracks } = info;
-
-  const trackMap = {
-    DEVELOP: 'Developer',
-    DESIGN: 'Designer',
-    DATA_SCIENCE: 'Data Scientist',
-  };
 
   return (
     <div>

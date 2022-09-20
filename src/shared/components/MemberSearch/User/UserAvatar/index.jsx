@@ -1,47 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LevelDesignatorIcon from '../../icons/LevelDesignatorIcon';
-import { memberLevelByRating } from '../../helpers';
 
 import './style.scss';
+import { Link } from 'react-router-dom';
+import { getInitials } from '../../helpers';
 
-const UserAvatar = ({ showLevel, rating, photoURL }) => {
-  let levelIcon;
-
-  if (showLevel) {
-    levelIcon = (
-      <span styleName="user-rank">
-        <LevelDesignatorIcon level={memberLevelByRating(rating)} height="17px" width="17px" />
-      </span>
-    );
-  }
-
-  /* eslint-disable global-require */
-  let backgroundImageUrl = `url(${require('./default-avatar.svg')})`;
-
-  if (photoURL) {
-    backgroundImageUrl = `url(${photoURL}), ${backgroundImageUrl}`;
-  }
-
-  // Delete -r when taking member search back out of the angular app
-  // Renamed to -r to avoid naming collisions
-  return (
-    <div styleName="user-avatar-r" style={{ backgroundImage: backgroundImageUrl }}>
-      {levelIcon}
-    </div>
-  );
-};
-
-
-UserAvatar.propTypes = {
-  showLevel: PropTypes.bool,
-  rating: PropTypes.number.isRequired,
-  photoURL: PropTypes.string,
-};
+const UserAvatar = ({ photoURL, handle }) => (
+  <Link to={`/members/${handle}`}>
+    {
+        photoURL ? (
+          <div styleName="user-avatar-r" style={{ backgroundImage: `url(${photoURL})` }} />
+        ) : (
+          <div styleName="user-avatar-r user-avatar-default"><span>{getInitials(handle)}</span></div>
+        )
+      }
+  </Link>
+);
 
 UserAvatar.defaultProps = {
-  showLevel: '',
   photoURL: '',
+  handle: '',
 };
+
+UserAvatar.propTypes = {
+  photoURL: PropTypes.string,
+  handle: PropTypes.string,
+};
+
 
 export default UserAvatar;

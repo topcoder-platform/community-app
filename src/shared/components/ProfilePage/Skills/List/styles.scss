@@ -2,7 +2,8 @@
 
 .list {
   display: flex;
-  gap: 4px;
+  column-gap: 4px;
+  row-gap: 8px;
   margin-top: 8px;
   flex-wrap: wrap;
 }
@@ -37,6 +38,7 @@
   cursor: pointer;
   width: fit-content;
   padding: 1px 6px;
+  background-color: $tc-white;
 
   span {
     @include roboto-medium;

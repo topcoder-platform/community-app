@@ -1,23 +1,39 @@
 @import '~tc-ui/src/styles/tc-includes';
+@import "~styles/mixins";
 
-// Delete -r when taking member search back out of the angular app
-// Renamed to -r to avoid naming collisions
 .user-avatar-r {
-  width: 60px;
-  height: 60px;
-  margin-right: 20px;
+  width: 80px;
+  height: 80px;
+  margin-left: 24px;
   position: relative;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
+  border: 3px solid #fff;
 
-  @media (max-width: 700px) {
-    margin-right: 10px;
+  @include xs-to-sm {
+    width: 64px;
+    height: 64px;
+    margin-left: 0;
   }
+}
 
-  .user-rank {
-    position: absolute;
-    top: 0;
-    right: 0;
+.user-avatar-default {
+  background: linear-gradient(84.45deg, #05456d 2.12%, #0a7ac0 97.43%);
+  position: relative;
+
+  span {
+    @include barlow-condensed;
+
+    color: $tc-white;
+    font-size: 32px;
+    line-height: 32px;
+    font-weight: 600;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    flex-direction: column;
   }
 }
