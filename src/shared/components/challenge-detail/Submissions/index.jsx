@@ -58,7 +58,7 @@ class SubmissionsComponent extends React.Component {
 
   componentDidMount() {
     const { challenge, loadMMSubmissions, auth } = this.props;
-    const isMM = checkIsMM(challenge);
+    const isMM = this.isMM();
 
     // Check auth token, go to login page if invalid
     if (isMM && (_.isEmpty(auth) || _.isEmpty(auth.tokenV3) || isTokenExpired(auth.tokenV3))) {
@@ -73,8 +73,7 @@ class SubmissionsComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { challenge } = this.props;
-    const isMM = checkIsMM(challenge);
+    const isMM = this.isMM();
 
     const { submissions, mmSubmissions, submissionsSort } = this.props;
     if (
@@ -144,8 +143,7 @@ class SubmissionsComponent extends React.Component {
      * Update sorted submission array
      */
   updateSortedSubmissions() {
-    const { challenge } = this.props;
-    const isMM = checkIsMM(challenge);
+    const isMM = this.isMM();
     const { submissions, mmSubmissions } = this.props;
     const sortedSubmissions = _.cloneDeep(isMM ? mmSubmissions : submissions);
     this.sortSubmissions(sortedSubmissions);
@@ -157,8 +155,7 @@ class SubmissionsComponent extends React.Component {
      * @param {Array} submissions array of submission
      */
   sortSubmissions(submissions) {
-    const { challenge } = this.props;
-    const isMM = checkIsMM(challenge);
+    const isMM = this.isMM();
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
@@ -251,6 +248,11 @@ class SubmissionsComponent extends React.Component {
     });
   }
 
+  isMM() {
+    const { challenge } = this.props;
+    return challenge.track.toLowerCase() === 'data science' || checkIsMM(challenge);
+  }
+
   /**
      * Check if review phase complete
      */
@@ -299,7 +301,7 @@ class SubmissionsComponent extends React.Component {
       tags,
     } = challenge;
 
-    const isMM = checkIsMM(challenge);
+    const isMM = this.isMM();
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
