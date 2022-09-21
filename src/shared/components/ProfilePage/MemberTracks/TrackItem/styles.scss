@@ -4,6 +4,7 @@
   padding: 4px 10px;
   border: 2px solid $listing-checkbox-green;
   border-radius: 4px;
+  background-color: $tc-white !important;
 
   @include xs-to-sm {
     padding: 2px 10px;

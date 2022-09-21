@@ -1,10 +1,84 @@
-@import '~tc-ui/src/styles/tc-includes';
+@import "~styles/mixins";
 
-.member-search-view {
-  margin: 0 32px;
-  background-color: $tc-gray-neutral-dark;
+.member-search-wrapper {
+  max-width: $screen-max;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $tc-white;
+  margin-bottom: 32px;
 
-  @media (max-width: 700px) {
-    margin: 0 10px;
+  .member-search {
+    width: 100%;
+    margin-top: 32px;
+
+    @include xs-to-sm {
+      margin: 16px;
+    }
+  }
+}
+
+.title {
+  @include barlow-condensed;
+
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 32px;
+  letter-spacing: -1px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #eee;
+  color: $tco-black;
+
+  @include xs-to-md {
+    font-size: 26px;
+  }
+}
+
+.search-term {
+  @include barlow;
+
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 26px;
+  color: $tco-black;
+  margin-top: 32px;
+
+  @include xs-to-sm {
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 24px;
+  }
+}
+
+.member-search-item-wrapper {
+  margin-top: 42px;
+  display: flex;
+  flex-direction: column;
+
+  @include xs-to-sm {
+    margin-top: 24px;
+    border-bottom: 2px solid #e9e9e9;
+    padding-bottom: 24px;
+  }
+}
+
+.no-items {
+  text-align: center;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  span {
+    @include roboto-regular;
+
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #000;
+
+    @include xs-to-sm {
+      font-size: 20px;
+      line-height: 28px;
+    }
   }
 }

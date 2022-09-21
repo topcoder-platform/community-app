@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import { singlePluralFormatter } from '../../helpers';
 import ISOCountries from '../../helpers/ISOCountries';
 
@@ -18,23 +19,27 @@ const UsernameAndDetails = ({
 
   const numberWins = singlePluralFormatter(numWins, 'win');
 
-  const memberSinceMMMYYYY = moment(memberSince).format('MMM YYYY');
+  const memberSinceYYYY = moment(memberSince).format('YYYY');
 
   return (
     <div styleName="username-and-details">
       <h1 styleName="username">
-        {username}
+        <Link to={`/members/${username}`}>{username}</Link>
       </h1>
 
       <div styleName="user-details">
         <div styleName="country-and-wins">
           <span styleName="user-country">{userCountry}</span>
 
-          <span>{numberWins && ` / ${numberWins}`}</span>
+          {
+            numberWins
+              ? <span styleName="number-wins">{numberWins}</span>
+              : null
+          }
         </div>
 
         <div styleName="member-since">
-          Member since {memberSinceMMMYYYY}
+          Member since {memberSinceYYYY}
         </div>
       </div>
     </div>

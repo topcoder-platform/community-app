@@ -256,7 +256,8 @@ class ChallengeDetailPageContainer extends React.Component {
       history.push(history.location.pathname, history.state);
     }
 
-    if (!checkIsMM(challenge) && selectedTab === DETAIL_TABS.MM_DASHBOARD) {
+    if (!checkIsMM(challenge) && COMPETITION_TRACKS_V3.DS !== challenge.track
+      && selectedTab === DETAIL_TABS.MM_DASHBOARD) {
       onSelectorClicked(DETAIL_TABS.DETAILS);
     }
 
