@@ -37,7 +37,7 @@ export default function AddSkillsModal({
     setDisplayingSkills([...userSkills]);
   }, [userSkills]);
 
-  const find = (arr, i) => arr && arr.indexOf(i) !== -1;
+  const find = (arr, i) => arr && _.findIndex(arr, e => e.toLowerCase() === i.toLowerCase()) !== -1;
   const findSkill = (arr, skill) => arr && arr.find(a => a.id === skill.id);
 
   const popularSkills = React.useMemo(() => allSkills
