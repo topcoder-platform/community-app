@@ -60,10 +60,6 @@ export class FooterConstants {
             url: ConfigHelper.getFooterLink("blog"),
           },
           {
-            text: "Challenge Pipeline",
-            url: ConfigHelper.getFooterLink("challengePipeline"),
-          },
-          {
             text: "Events Calendar",
             url: ConfigHelper.getFooterLink("events"),
           },
@@ -86,6 +82,10 @@ export class FooterConstants {
           {
             text: "Thrive",
             url: ConfigHelper.getFooterLink("thrive"),
+          },
+          {
+            text: "Discord",
+            url: ConfigHelper.getFooterLink("discord_href"),
           },
         ],
         text: "COMMUNITY",
@@ -114,10 +114,6 @@ export class FooterConstants {
       About: {
         submenus: [
           {
-            text: "Admins",
-            url: ConfigHelper.getFooterLink("admins"),
-          },
-          {
             text: "Contact Us",
             url: ConfigHelper.getFooterLink("contactUs"),
           },
@@ -130,8 +126,8 @@ export class FooterConstants {
             url: ConfigHelper.getFooterLink("aboutCommunity"),
           },
           {
-            text: "Changelog",
-            url: ConfigHelper.getFooterLink("changeLog"),
+            text: "Releases & Updates",
+            url: ConfigHelper.getFooterLink("releasesAndUpdate"),
           },
           {
             text: "Talk to Sales",
@@ -141,7 +137,9 @@ export class FooterConstants {
         text: "ABOUT",
       },
     };
-
+    if (isLoggedIn) {
+      menuConfiguration['About'].submenus.splice(1, 1)
+    }
     return menuConfiguration;
   }
 
@@ -155,6 +153,7 @@ export class FooterConstants {
       ConfigHelper.getSocialLink("linkedin"),
       ConfigHelper.getSocialLink("twitter"),
       ConfigHelper.getSocialLink("instagram"),
+      ConfigHelper.getSocialLink("discord")
     ];
   }
 }

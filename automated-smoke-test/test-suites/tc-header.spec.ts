@@ -197,18 +197,18 @@ describe('Topcoder Header Tests: ', () => {
     });
 
     /**
-     * Verifies the 'Log Out' link in avatar user menu
-     */
-    it('[TC_056] should verify that clicking Logout button logouts the user from topcoder', async () => {
-      await HeaderHelper.verifyUserMenuLogoutLink();
-    });
-
-    /**
      * Verifies that user is able to search by username/skill using the search bar
      */
     it('[TC_057] should verify whether the user is able to search the member by their username/skill using the search icon.', async () => {
       await HeaderHelper.verifySearchByUsername(testData.search.username);
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
+    });
+
+    /**
+     * Verifies the 'Log Out' link in avatar user menu
+     */
+    it('[TC_056] should verify that clicking Logout button logouts the user from topcoder', async () => {
+      await HeaderHelper.verifyUserMenuLogoutLink();
     });
   });
 });

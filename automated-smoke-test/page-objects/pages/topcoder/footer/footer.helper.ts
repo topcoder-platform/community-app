@@ -48,20 +48,27 @@ export class FooterHelper {
       logger.info(footerLink.getText());
       const expectedUrl = submenus[i]['url'];
       expect(text).toEqual(submenus[i]['text']);
-      if (text === 'Forums') {
+      if (
+        text === 'Forums' ||
+        text === 'Discord' ||
+        text === 'Releases & Updates'
+      ) {
         const href = await footerLink.getAttribute('href');
         expect(href).toEqual(expectedUrl);
         continue;
       }
       await footerLink.click();
-      await BrowserHelper.sleep(1000);
       logger.info('Clicked on link ' + text);
+      await BrowserHelper.sleep(2500)
       if (text === 'Website Help') {
         const href = await footerLink.getAttribute('href');
         expect(href).toEqual(expectedUrl);
       } else if (
         text === 'Statistics' ||
-        text === 'Changelog'
+        text === 'Changelog' ||
+        text === 'All Challenges' ||
+        text === 'Programs' ||
+        text === 'Join Community'
       ) {
         await CommonHelper.verifyCurrentUrlToContain(expectedUrl);
       } else {
@@ -86,6 +93,8 @@ export class FooterHelper {
       const windowHandles = await BrowserHelper.getAllWindowHandles();
       await BrowserHelper.switchToWindow(windowHandles[1]);
       const currentUrl = await BrowserHelper.getCurrentUrl();
+      logger.info("The current URL is '" + currentUrl + "' for Social icon.")
+      await BrowserHelper.sleep(2000)
       expect(currentUrl.includes(configuredSocialLinks[i])).toBe(true);
       await BrowserHelper.close();
       await BrowserHelper.switchToWindow(windowHandles[0]);
@@ -99,6 +108,32 @@ export class FooterHelper {
     await this.footerPageObject.clickOnPoliciesLink();
     await BrowserHelper.sleep(1000);
     await CommonHelper.verifyCurrentUrl(ConfigHelper.getPoliciesUrl());
+  }
+
+  /**
+   * Verifies any footer section.
+   * It verifies the redirection of the footer links in a given section
+   * @param isLoggedIn
+   */
+  public static async verifyContentOfFooter(isLoggedIn: boolean) {
+    const footerContents = ["Compete", "Tracks", "Community", "HelpCenter", "About"]
+    for (let j = 0; j < footerContents.length; j++) {
+      let sectionName = footerContents[j]
+      const menuItem = FooterConstants.getFooterMenu(isLoggedIn)[sectionName];
+      let footerLinks = await this.footerPageObject.getAllFooterLinksInSection(
+        menuItem.text
+      );
+      for (let i = 0; i < footerLinks.length; i++) {
+        // This is needed to prevent stale state exception
+        footerLinks = await this.footerPageObject.getAllFooterLinksInSection(
+          menuItem.text
+        );
+        const footerLink = footerLinks[i];
+        expect(await this.footerPageObject.footerLinkIsVisible(footerLink)).toBe(
+          true
+        );
+      }
+    }
   }
 
   private static footerPageObject: FooterPage;

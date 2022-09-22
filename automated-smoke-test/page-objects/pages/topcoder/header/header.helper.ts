@@ -36,7 +36,7 @@ export class HeaderHelper {
    */
   public static async verifyLogoLink(isLoggedIn) {
     const expectedUrl = isLoggedIn
-      ? ConfigHelper.getSubMenuUrl('dashboard', true)
+      ? ConfigHelper.getSubMenuUrl('home', true)
       : ConfigHelper.getLogoRedirectionUrl();
     await this.headerPageObject.clickOnLogoLink();
     const currentUrl = await BrowserHelper.getCurrentUrl();
@@ -93,14 +93,14 @@ export class HeaderHelper {
       if (text === 'Payments') {
         await CommonHelper.verifyPopupWindowWithUrl(url);
       } else if (text === 'Forums') {
-        await CommonHelper.verifyPopupWindow();
+        await CommonHelper.verifyCurrentUrlToContain(url);
       } else if (text === 'Statistics') {
         await CommonHelper.verifyCurrentUrlToContain(url);
       } else if (text === 'Blog') {
         await CommonHelper.verifyPopupWindow();
       } else if (text === 'Thrive') {
         await CommonHelper.verifyCurrentUrlToContain(url);
-      }else {
+      } else {
         await CommonHelper.verifyCurrentUrl(url);
       }
 
@@ -209,7 +209,7 @@ export class HeaderHelper {
   }
 
   /**
-   * Verifies the behaviour of searching by skill
+   * Verifies the behavior of searching by skill
    * @param skill
    */
   public static async verifySearchBySkill(skill) {
