@@ -6,7 +6,6 @@ import React from 'react';
 
 import TwitterIcon from '../../../../../assets/images/social/icon_twitter.svg';
 import FacebookIcon from '../../../../../assets/images/social/icon_facebook.svg';
-import EmailIcon from '../../../../../assets/images/social/icon_email.svg';
 import MoreIcon from '../../../../../assets/images/social/icon_plus.svg';
 
 import './social_media.scss';
@@ -47,15 +46,6 @@ export default class ShareSocial extends React.Component {
             href="#"
           >
             <TwitterIcon />
-          </a>
-          <a
-            className="addthis_button_email"
-            target="_blank"
-            title="Email"
-            aria-label="Email this challenge"
-            href="#"
-          >
-            <EmailIcon />
           </a>
           <a
             className="addthis_button_compact"
