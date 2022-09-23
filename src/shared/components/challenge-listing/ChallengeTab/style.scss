@@ -50,13 +50,10 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
-
-    &:not(.active):hover {
-      background-color: #bae1f9;
-    }
   }
 
   .active {
+    background: $color-blue-25;
     color: $tc-black;
     font-weight: 700;
 
