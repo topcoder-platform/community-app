@@ -1,0 +1,30 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  max-height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  background-color: transparent;
+
+  &.not-selectable {
+    cursor: unset;
+  }
+}
+
+.img-container {
+  max-height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.btn-play {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+}

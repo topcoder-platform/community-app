@@ -123,4 +123,12 @@ export function removeTrailingSlash(url) {
     : url;
 }
 
+export function isImage(url) {
+  return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(`${url}`.toLowerCase());
+}
+
+export function isVideo(url) {
+  return /\.(mp4|mov|wmv|avi|mkv|flv)$/.test(`${url}`.toLowerCase());
+}
+
 export default undefined;

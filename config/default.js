@@ -167,6 +167,7 @@ module.exports = {
     SUBDOMAIN_PROFILE_CONFIG: [{
       groupId: '20000000', communityId: 'wipro', communityName: 'topgear', userProfile: 'https://topgear-app.wipro.com/user-details',
     }],
+    TIMELNE_EVENT_API: 'http://localhost:3003',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -457,4 +458,7 @@ module.exports = {
     ENABLE_BADGE_UI: true,
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
+  TIMELINE: {
+    REJECTION_EVENT_REASONS: ['Duplicate Event'],
+  },
 };

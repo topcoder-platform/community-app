@@ -1,0 +1,12 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 100px;
+}
+
+.overlay {
+  background-color: $tc-black;
+  opacity: 0.85;
+}
