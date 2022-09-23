@@ -112,6 +112,8 @@ export class ListingContainer extends React.Component {
       // activeBucket,
       auth,
       // dropChallenges,
+      communityId,
+      communitiesList,
       getCommunitiesList,
       // allActiveChallengesLoaded,
       // getRestActiveChallenges,
@@ -134,6 +136,7 @@ export class ListingContainer extends React.Component {
       getPastChallenges,
       filterState,
       loading,
+      setFilter,
     } = this.props;
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
@@ -175,6 +178,23 @@ export class ListingContainer extends React.Component {
 
     if (prevProps.filterState.recommended !== filterState.recommended && filterState.recommended) {
       bucket = 'openForRegistration';
+    }
+
+    if (prevProps.communitiesList.data.length !== communitiesList.data.length) {
+      let selectedCommunity;
+      if (communityId) {
+        selectedCommunity = communitiesList.data.find(item => item.communityId === communityId);
+      }
+      if (selectedCommunity) {
+        const groups = selectedCommunity.groupIds && selectedCommunity.groupIds.length
+          ? [selectedCommunity.groupIds[0]] : [];
+        // update the challenge listing filter for selected community
+        setFilter({
+          ..._.clone(filter),
+          groups,
+          events: [],
+        });
+      }
     }
 
     if (bucket) {
