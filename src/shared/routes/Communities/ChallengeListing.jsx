@@ -31,7 +31,8 @@ export default function ChallengeListingRoute({
 
           let { communityId } = query;
           if (!communityId
-          && !_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')) {
+          && (!_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')
+          || meta.communityId === 'wipro')) {
             ({ communityId } = meta);
           }
 
