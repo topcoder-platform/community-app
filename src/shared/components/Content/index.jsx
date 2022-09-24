@@ -22,9 +22,9 @@ export default function Content() {
       </h1>
       <ul>
         <li>
-        <Link to="/community/timeline-wall">
+          <Link to="/community/timeline-wall">
             totest: Timeline wall
-        </Link>
+          </Link>
         </li>
       </ul>
       <p>
