@@ -15,7 +15,10 @@ exports[`Matches shallow shapshot 1`] = `
   </h1>
   <ul>
     <li>
-      <Link to="/community/timeline-wall">
+      <Link
+        replace={false}
+        to="/community/timeline-wall"
+      >
         totest: Timeline wall
       </Link>
     </li>
