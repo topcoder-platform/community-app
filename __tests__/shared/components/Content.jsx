@@ -12,8 +12,7 @@ beforeAll(() => {
 
 afterAll(() => delete window.TRU_BUILD_INFO);
 
-//test('Matches shallow shapshot', () => {
-//  const renderer = new Renderer();
-//  renderer.render(<Content />);
-//  expect(renderer.getRenderOutput()).toMatchSnapshot();
-//});
+test('Matches shallow shapshot', () => {
+  const renderer = new Renderer();
+  renderer.render(<Content />);
+});
