@@ -20,6 +20,13 @@ export default function Content() {
       <h1>
         Topcoder Community App
       </h1>
+      <ul>
+        <li>
+        <Link to="/community/timeline-wall">
+            totest: Timeline wall
+        </Link>
+        </li>
+      </ul>
       <p>
         Isomorphic ReactJS App for new version of Topcoder community website.
         Technological stack includes:
