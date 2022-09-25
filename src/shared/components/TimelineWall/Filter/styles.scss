@@ -1,0 +1,74 @@
+@import '~styles/mixins';
+
+.filter {
+  position: absolute;
+  right: 32px;
+  top: 98px;
+  border-radius: 8px 0 0 8px;
+  background-color: $tc-white;
+  z-index: 1000000;
+  width: 120px;
+  padding: 12px 0;
+
+  @include xs-to-md {
+    display: none;
+  }
+}
+
+.year {
+  @include roboto-bold;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #555;
+  margin-top: 8px;
+  padding-left: 21px;
+  position: relative;
+  cursor: pointer;
+
+  &.active {
+    color: #0d61bf;
+
+    &::before {
+      content: "";
+      background: url("assets/images/timeline/filter-curve.svg");
+      position: absolute;
+      width: 10px;
+      height: 40px;
+      left: -9px;
+      top: -38%;
+    }
+
+    &::after {
+      background-color: #0d61bf;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background-color: #d4d4d4;
+    width: 8px;
+    top: 50%;
+    left: 0;
+  }
+}
+
+.month {
+  @include roboto-bold;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #555;
+  margin-top: 8px;
+  padding-left: 21px;
+  position: relative;
+  cursor: pointer;
+
+  &.active {
+    color: #0d61bf;
+  }
+}

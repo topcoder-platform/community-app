@@ -167,7 +167,6 @@ module.exports = {
     SUBDOMAIN_PROFILE_CONFIG: [{
       groupId: '20000000', communityId: 'wipro', communityName: 'topgear', userProfile: 'https://topgear-app.wipro.com/user-details',
     }],
-    TIMELNE_EVENT_API: 'http://localhost:3003',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -446,6 +445,7 @@ module.exports = {
   GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',
   TC_ACADEMY_BASE_PATH: '/learn',
+  TIMELINE_PAGES_PATH: '/community/timeline-wall',
   GUIKIT: {
     DEBOUNCE_ON_CHANGE_TIME: 150,
   },
@@ -458,7 +458,6 @@ module.exports = {
     ENABLE_BADGE_UI: true,
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
-  TIMELINE: {
-    REJECTION_EVENT_REASONS: ['Duplicate Event'],
-  },
+  TIMELINE_WALL_URL: 'http://localhost:8080',
+  TIMELINE_ADMIN_ROLES: ['Gamification Admin', 'Admin', 'administrator'],
 };

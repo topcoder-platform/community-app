@@ -136,6 +136,7 @@
     "react-syntax-highlighter": "^12.2.1",
     "react-tabs": "^2.2.2",
     "react-touch-events": "^2.1.0",
+    "react-vertical-timeline-component": "^3.5.2",
     "react-waypoint": "^7.1.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.4.0",

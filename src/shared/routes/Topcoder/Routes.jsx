@@ -33,6 +33,7 @@ import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
 import MemberSearch from '../../containers/MemberSearch';
+import TimelineWall from './TimelineWall';
 
 import './styles.scss';
 
@@ -45,6 +46,11 @@ export default function Topcoder() {
           component={HallOfFame}
           exact
           path="/community/hall-of-fame/:type/:eventId?"
+        />
+        <Route
+          component={TimelineWall}
+          exact
+          path={`${config.TIMELINE_PAGES_PATH}`}
         />
         <ContentfulRoute
           baseUrl="/"

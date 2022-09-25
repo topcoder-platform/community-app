@@ -1,0 +1,81 @@
+@import '~styles/mixins';
+
+.gallery-container {
+  width: 100%;
+  position: absolute;
+  max-width: 800px;
+  display: flex;
+  left: 20%;
+}
+
+.gallery {
+  width: 100%;
+  left: 39%;
+  top: 0;
+  margin-top: 47px;
+  z-index: 100000;
+
+  img,
+  video {
+    max-width: 800px;
+    width: 800px;
+    object-fit: cover;
+  }
+}
+
+.close-icon {
+  z-index: 100000;
+  width: 28px;
+  height: 28px;
+  margin-left: 12px;
+  margin-top: 47px;
+  cursor: pointer;
+}
+
+.left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  cursor: pointer;
+}
+
+.right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  cursor: pointer;
+}
+
+.gallery-items {
+  display: flex;
+  position: absolute;
+  z-index: 10000;
+  bottom: -142px;
+  gap: 16px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.gallery-item {
+  width: 136px;
+  height: 136px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.video {
+  &::after {
+    content: "";
+    position: absolute;
+    left: 46%;
+    top: 40%;
+    width: 32px;
+    height: 32px;
+    background: url("assets/images/timeline/video-preview.svg");
+  }
+}
+
+.current {
+  border: 1px solid #0ab88a;
+}

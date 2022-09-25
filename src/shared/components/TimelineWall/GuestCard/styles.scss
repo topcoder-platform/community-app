@@ -1,0 +1,35 @@
+@import '~styles/mixins';
+
+.guest-card {
+  display: flex;
+  background-color: $tc-white;
+  height: 65px;
+  filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.08));
+  margin-left: 96px;
+  margin-top: 34px;
+  border-radius: 8px;
+  width: 70%;
+  padding: 20px;
+  justify-content: space-between;
+
+  &::after {
+    content: '';
+    background: url("assets/images/timeline/input-pointer.svg");
+    left: 48%;
+    bottom: -8px;
+    width: 36px;
+    height: 9px;
+    position: absolute;
+  }
+
+  .title {
+    @include roboto-regular;
+
+    font-weight: 400;
+    color: $tc-black;
+    text-align: center;
+    line-height: 24px;
+    font-size: 16px;
+    margin: 0 auto;
+  }
+}

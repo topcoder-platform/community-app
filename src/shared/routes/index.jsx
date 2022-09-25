@@ -26,7 +26,6 @@ import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
 import TrackHomePages from './TrackHomePages';
-import TimelineWall from './TimelineWall';
 import PolicyPages from './PolicyPages';
 import GigsPages from './GigsPages';
 
@@ -95,10 +94,6 @@ function Routes({ communityId }) {
         <Redirect
           from="/community/data-science/data-science-tutorials/*"
           to="/community/competitive-programming/tutorials/*"
-        />
-        <Route
-          component={() => <TimelineWall />}
-          path="/community/timeline-wall"
         />
         <Route
           component={() => <TrackHomePages base="/community" />}
