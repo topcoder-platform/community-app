@@ -1,0 +1,226 @@
+@import "../../style";
+@import "~styles/mixins";
+
+.security-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: $pad-xxxxl;
+  background-color: $color-tc-white;
+  border-radius: 4px;
+  gap: 32px;
+
+  @include upto-sm {
+    padding: 26px 16px;
+    gap: 24px;
+  }
+
+  .security-title {
+    @include barlow-semi-bold;
+
+    font-size: 20px;
+    line-height: 22px;
+    color: #2a2a2a;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .factor-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: $pad-lg;
+    border: 1px solid $color-black-20;
+    border-radius: 8px;
+    gap: 16px;
+    width: 100%;
+
+    @include upto-sm {
+      gap: 8px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .icon-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 74px;
+      width: 74px;
+      height: 74px;
+      background: $color-black-5;
+      border-radius: 4px;
+
+      @include upto-sm {
+        align-self: flex-start;
+      }
+
+      img {
+        display: block;
+      }
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      @include upto-sm {
+        gap: 8px;
+      }
+
+      .info-first-line {
+        @include roboto-regular;
+
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: capitalize;
+        color: $tco-black;
+      }
+
+      .info-second-line {
+        @include roboto-regular;
+
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: $color-black-60;
+
+        @include upto-sm {
+          padding-right: 0;
+        }
+      }
+    }
+
+    .on-off-switch {
+      @include upto-sm {
+        display: block;
+        position: absolute;
+        align-self: flex-end;
+        margin-top: 10px;
+      }
+    }
+
+    .disabled-toggle {
+      cursor: not-allowed;
+    }
+
+    .button {
+      @include roboto-bold;
+
+      text-align: center;
+      margin: 0;
+      height: 48px;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: 0.008em;
+      text-transform: uppercase;
+      color: $color-turq-160;
+      padding: 12px 24px;
+      background: $tc-white;
+      border: 2px solid $color-turq-160;
+      border-radius: 50px;
+      cursor: pointer;
+
+      &.disabled {
+        background: #f4f4f4;
+        color: #767676;
+        border: none;
+        line-height: 24px;
+        pointer-events: none;
+      }
+
+      @include upto-sm {
+        display: none;
+      }
+    }
+  }
+}
+
+.step-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+
+  .step-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    .icon-unsuccessful {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 32px;
+      width: 32px;
+      height: 32px;
+
+      svg {
+        display: block;
+      }
+    }
+  }
+
+  .step-title {
+    @include barlow-condensed-medium;
+
+    font-size: 26px;
+    line-height: 28px;
+    color: $tco-black;
+    text-transform: uppercase;
+
+    &.error {
+      color: #ef476f;
+    }
+  }
+
+  .step-content {
+    @include roboto-regular;
+
+    font-size: 20px;
+    line-height: 26px;
+    color: $tco-black;
+  }
+
+  .app-store {
+    display: flex;
+    flex-direction: row;
+    padding: 16px 0;
+    align-items: flex-start;
+    gap: 100px;
+    width: 100%;
+    justify-content: center;
+
+    .market {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+  }
+
+  .body-logo {
+    display: flex;
+    flex-direction: row;
+    padding: 57px 0;
+    align-items: flex-start;
+    gap: 100px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.step-footer {
+  @include roboto-regular;
+
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #767676;
+  margin-top: auto;
+}

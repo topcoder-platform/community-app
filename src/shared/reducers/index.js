@@ -36,6 +36,7 @@ import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
+import { factory as mfaFactory } from './mfa';
 import newsletterPreferences from './newsletterPreferences';
 import mmLeaderboard from './mmLeaderboard';
 import tcoLeaderboards from './tco/leaderboards';
@@ -143,6 +144,7 @@ export function factory(req) {
     leaderboard: leaderboardFactory(req),
     scoreboard: scoreboardFactory(req),
     terms: termsFactory(req),
+    usermfa: mfaFactory(req),
     page: pageFactory(req),
   }).then(resolvedReducers => redux.combineReducers((state) => {
     const res = { ...state };
