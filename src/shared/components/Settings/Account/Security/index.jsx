@@ -103,13 +103,16 @@ export default function Security({
 
   const verificationPopup = () => {
     const diceUrl = config.DICE_VERIFIER_URL;
-    const accountsAuth = config.URL.AUTH;
+    let baseRedirectUrl = config.URL.BASE;
+    if (baseRedirectUrl.indexOf('-dev') !== -1) {
+      baseRedirectUrl = window.location.origin;
+    }
     const manager = new UserManager({
       authority: diceUrl,
       client_id: 'topcoder',
       response_type: 'code',
       scope: 'openid profile vc_authn',
-      popup_redirect_uri: `${accountsAuth}/dice-verify-callback.html`,
+      popup_redirect_uri: `${baseRedirectUrl}/community-app-assets/dice-signin-callback.html`,
       response_mode: 'query',
       loadUserInfo: false,
       popupWindowFeatures: 'location=no,toolbar=no,menubar=no,width=1000,height=611,left=100,top=100',
