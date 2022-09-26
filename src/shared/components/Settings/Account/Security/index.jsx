@@ -139,6 +139,9 @@ export default function Security({
   };
 
   const goToVerification = () => {
+    if (!getConnectionAccepted()) {
+      return;
+    }
     setSetupStep(2);
     verificationPopup();
   };
@@ -309,7 +312,7 @@ export default function Security({
               </div>
               <div styleName="info-second-line">
                 Status of MFA for your Topcoder account.
-                If enabled, MFA will be enofrced during the Topcoder login process.
+                If enabled, MFA will be enforced during the Topcoder login process.
               </div>
             </div>
             <div className="onoffswitch" styleName="on-off-switch">
