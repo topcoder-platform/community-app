@@ -357,10 +357,10 @@ export default function FiltersPanel({
     if (on) {
       setFilterState({
         ...filterState,
-        search: 'Practice Problem',
+        search: 'Practice',
         types: newTypes,
       });
-      setSearchText('Practice Problem');
+      setSearchText('Practice');
     } else {
       setFilterState({
         ...filterState,
@@ -753,18 +753,18 @@ export default function FiltersPanel({
             <div styleName="checkboxes">
               <div styleName="section-label">
 
-                <span styleName="checkbox" role="switch" aria-checked={isSearchOn('Practice Problem')}>
+                <span styleName="checkbox" role="switch" aria-checked={isSearchOn('Practice')}>
                   <SwitchWithLabel
-                    enabled={isSearchOn('Practice Problem')}
-                    labelAfter="Practice Problem"
-                    onSwitch={on => switchSearch('Practice Problem', on)}
+                    enabled={isSearchOn('Practice')}
+                    labelAfter="Practice"
+                    onSwitch={on => switchSearch('Practice', on)}
                   />
                 </span>
                 <div styleName="hover-control">
                   <span
                     styleName="control-item"
-                    onClick={() => toggleOnlyLearn('Practice Problem')}
-                    onKeyPress={() => toggleOnlyLearn('Practice Problem')}
+                    onClick={() => toggleOnlyLearn('Practice')}
+                    onKeyPress={() => toggleOnlyLearn('Practice')}
                   >
                     Only
                   </span>
