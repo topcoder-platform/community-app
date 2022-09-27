@@ -1,8 +1,7 @@
 import React from 'react';
-import _ from 'lodash';
 import Renderer from 'react-test-renderer/shallow';
 
-let ChallengeListing = require('components/challenge-listing').default;
+const ChallengeListing = require('components/challenge-listing').default;
 
 const selectBucket = jest.fn();
 const setFilterState = jest.fn();
@@ -22,11 +21,6 @@ const mockData1 = {
   sorts: {},
   auth: {},
 };
-
-const mockData2 = _.extend({}, mockData1, {
-  communityFilter: {},
-  loadingChallenges: true,
-});
 
 describe('Matches shallow shapshot 1', () => {
   test('shapshot 1', () => {

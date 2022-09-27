@@ -202,7 +202,7 @@ const ChallengeListing = (props) => {
       </div>
     </div>
   );
-}
+};
 
 ChallengeListing.defaultProps = {
   auth: null,
