@@ -313,8 +313,6 @@ async function onExpressJsSetup(server) {
    * page would do on signing / rejecting a document. */
   server.use('/community-app-assets/api/mock/docu-sign', (req, res) => setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
 
-  server.use('/community-app-assets/dice-signin-callback.html', (req, res) => res.sendFile(path.resolve(__dirname, './static/dice-signin-callback.html')));
-
   /* TODO:
    * This is a temporary fallback route: some of the assets in the app are not
    * properly packed with Webpack, and they rely on just being copied into some

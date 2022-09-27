@@ -227,5 +227,5 @@ module.exports = {
   ENABLE_RECOMMENDER: true,
   PLATFORM_SITE_URL: 'https://platform.topcoder.com',
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder.com',
-  DICE_VERIFIER_URL: 'https://tc-vcauth.diceid.com',
+  DICE_VERIFY_URL: 'https://accounts-auth0.topcoder.com',
 };

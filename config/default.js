@@ -457,5 +457,5 @@ module.exports = {
     ENABLE_BADGE_UI: true,
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
-  DICE_VERIFIER_URL: 'https://tc-vcauth-uat.diceid.com',
+  DICE_VERIFY_URL: 'https://accounts-auth0.topcoder-dev.com',
 };

@@ -3,7 +3,6 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import QRCode from 'react-qr-code';
-import { UserManager } from 'oidc-client';
 import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
 import MfaImage from 'assets/images/account/security/mfa.svg';
 import DiceLogo from 'assets/images/account/security/dicelogo.png';
@@ -12,6 +11,7 @@ import GooglePlay from 'assets/images/account/security/google-play.svg';
 import AppleStore from 'assets/images/account/security/apple-store.svg';
 import UnsuccessfulIcon from 'assets/images/account/security/unsuccessful.svg';
 import Modal from './Modal';
+import VerificationListener from './VerificationListener';
 
 
 import './styles.scss';
@@ -23,6 +23,7 @@ export default function Security({
   const [setupStep, setSetupStep] = useState(-1);
   const [isConnVerifyRunning, setIsConnVerifyRunning] = useState(false);
   const [connVerifyCounter, setConnVerifyCounter] = useState(0);
+  const diceVerifyUrl = config.DICE_VERIFY_URL;
   const useInterval = (callback, delay) => {
     const savedCallback = useRef();
 
@@ -101,53 +102,22 @@ export default function Security({
     }
   };
 
-  const verificationPopup = () => {
-    const diceUrl = config.DICE_VERIFIER_URL;
-    let baseRedirectUrl = config.URL.BASE;
-    if (baseRedirectUrl.indexOf('-dev') !== -1) {
-      baseRedirectUrl = window.location.origin;
-    }
-    const manager = new UserManager({
-      authority: diceUrl,
-      client_id: 'topcoder',
-      response_type: 'code',
-      scope: 'openid profile vc_authn',
-      popup_redirect_uri: `${baseRedirectUrl}/community-app-assets/dice-signin-callback.html`,
-      response_mode: 'query',
-      loadUserInfo: false,
-      popupWindowFeatures: 'location=no,toolbar=no,menubar=no,width=1000,height=611,left=100,top=100',
-    });
-    manager.settings.metadata = {
-      issuer: diceUrl,
-      jwks_uri: `${diceUrl}/.well-known/openid-configuration/jwks`,
-      authorization_endpoint: `${diceUrl}/vc/connect/authorize?pres_req_conf_id=Topcoder_2FA_Validate_Cred`,
-      token_endpoint: `${diceUrl}/vc/connect/token`,
-      userinfo_endpoint: `${diceUrl}/connect/userinfo`,
-      check_session_iframe: `${diceUrl}/vc/connect/checksession`,
-      revocation_endpoint: `${diceUrl}/vc/connect/revocation`,
-    };
-
-    manager.signinPopup().then(
-      (user) => {
-        const userEmail = _.get(user, 'profile.Email');
-        if (!_.isUndefined(userEmail) && _.lowerCase(userEmail) === _.lowerCase(emailAddress)) {
-          updateUserDice(userId, true, tokenV3);
-          setSetupStep(3);
-        } else {
-          setSetupStep(4);
-        }
-      },
-      () => { setSetupStep(4); },
-    );
-  };
-
   const goToVerification = () => {
     if (!getConnectionAccepted()) {
       return;
     }
     setSetupStep(2);
-    verificationPopup();
   };
+
+  const verificationCallback = (data) => {
+    const userEmail = _.get(data, 'profile.Email');
+    if (!_.isUndefined(userEmail) && _.lowerCase(userEmail) === _.lowerCase(emailAddress)) {
+      updateUserDice(userId, true, tokenV3);
+      setSetupStep(3);
+    } else {
+      setSetupStep(4);
+    }
+  }
 
   const finishSetup = () => {
     getUser2fa(userId, tokenV3);
@@ -216,27 +186,19 @@ export default function Security({
       </div>
     </Modal>,
     <Modal
-      onCancel={closeSetup}
-      leftButtonName="Cancel"
-      leftButtonClick={closeSetup}
-      rightButtonName="Finish"
-      rightButtonClick={() => {}}
-      rightButtonDisabled
+      showTools={false}
+      onCancel={()=>{}}
+      leftButtonName=""
+      leftButtonClick={()=>{}}
+      rightButtonName=""
+      rightButtonClick={()=>{}}
     >
-      <div styleName="step-body">
-        <div styleName="step-title">
-          Processing...
-        </div>
-        <div styleName="step-content">
-          Please wait while your credentials are validated.
-        </div>
-        <div styleName="body-logo">
-          <img src={DiceLogoBig} alt="diceid" />
-        </div>
-      </div>
-      <div styleName="step-footer">
-        Powered by DICE ID
-      </div>
+      <iframe src={`${diceVerifyUrl}/dice-verifier.html`} />
+      <VerificationListener
+        event="message"
+        callback={verificationCallback}
+        source={`${diceVerifyUrl}/dice-verify-callback.html`}
+      />
     </Modal>,
     <Modal
       onCancel={closeSetup}
