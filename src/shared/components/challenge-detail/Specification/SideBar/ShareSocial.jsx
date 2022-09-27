@@ -22,8 +22,15 @@ export default class ShareSocial extends React.Component {
       }
     } else {
       const scriptNode = document.createElement('script');
+      const scriptNodeConfig = document.createElement('script');
+
+      scriptNode.type = 'text/javascript';
+      scriptNodeConfig.type = 'text/javascript';
       scriptNode.src = 'https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52f22306211cecfc';
+      scriptNodeConfig.text = "var addthis_config = { services_exclude: 'email' };";
+
       this.shareDiv.appendChild(scriptNode);
+      this.shareDiv.appendChild(scriptNodeConfig);
     }
   }
 
