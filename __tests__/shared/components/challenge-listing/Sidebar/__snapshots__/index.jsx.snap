@@ -5,6 +5,25 @@ exports[`Matches shallow shapshot 1`] = `
   className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
 >
   <div
+    className="src-shared-components-challenge-listing-Sidebar-___style__buttons___1im2_"
+  >
+    <Button
+      composeContextTheme="softly"
+      disabled={false}
+      isInverted={false}
+      isPrimary={false}
+      onClick={[Function]}
+      theme={
+        Object {
+          "button": undefined,
+        }
+      }
+      themePriority="adhoc-default-context"
+    >
+      RESET FILTERS
+    </Button>
+  </div>
+  <div
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
     <Connect(Container) />
@@ -27,6 +46,25 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
 >
+  <div
+    className="src-shared-components-challenge-listing-Sidebar-___style__buttons___1im2_"
+  >
+    <Button
+      composeContextTheme="softly"
+      disabled={false}
+      isInverted={false}
+      isPrimary={false}
+      onClick={[Function]}
+      theme={
+        Object {
+          "button": undefined,
+        }
+      }
+      themePriority="adhoc-default-context"
+    >
+      RESET FILTERS
+    </Button>
+  </div>
   <div
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >

@@ -160,6 +160,11 @@ SidebarContainer.propTypes = {
   // user: PT.shape(),
   // userChallenges: PT.arrayOf(PT.string),
   expanding: PT.bool,
+  recommendedToggle: PT.bool.isRequired,
+  setRecommendedToggle: PT.func.isRequired,
+  tcoToggle: PT.bool.isRequired,
+  setTcoToggle: PT.func.isRequired,
+  defaultCommunityId: PT.string.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -170,10 +175,12 @@ function mapDispatchToProps(dispatch) {
     ...bindActionCreators(a, dispatch),
     setFilter: filter => dispatch(cla.setFilter(filter)),
     // selectCommunity: communityId => dispatch(cla.selectCommunity(communityId)),
+    setSort: (bucket, sort) => dispatch(cla.setSort(bucket, sort)),
+    selectCommunity: id => dispatch(cla.selectCommunity(id)),
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   // const { activeBucket } = state.challengeListing.sidebar;
   // const pending = _.keys(state.challengeListing.pendingRequests);
   // updateChallengeType(
@@ -195,6 +202,8 @@ function mapStateToProps(state) {
     // user: state.auth.user,
     // userChallenges: state.challengeListing.userChallenges,
     expanding: sb.expanding,
+    defaultCommunityId: ownProps.defaultCommunityId,
+    setSearchText: PT.func.isRequired,
   };
 }
 

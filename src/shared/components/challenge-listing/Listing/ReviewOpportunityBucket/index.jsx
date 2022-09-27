@@ -82,7 +82,7 @@ export default function ReviewOpportunityBucket({
         filteredOpportunities
           ? filteredOpportunities.length > 0 && (
             <SortingSelectBar
-              title="Open for review"
+              title="Review Opportunities"
               options={
                 BUCKET_DATA[bucket].sorts.map(item => ({
                   label: Sort[item].name,
@@ -98,7 +98,7 @@ export default function ReviewOpportunityBucket({
           )
           : (
             <SortingSelectBar
-              title="Open for review"
+              title="Review Opportunities"
               onSelect={setSort}
               options={
                 BUCKET_DATA[bucket].sorts.map(item => ({

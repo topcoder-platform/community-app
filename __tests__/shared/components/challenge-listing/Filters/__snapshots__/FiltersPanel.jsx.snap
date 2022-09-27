@@ -20,30 +20,60 @@ exports[`Matches shallow shapshot 2`] = `
   className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1XPn6"
 >
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___dbqVu"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__headerWrapper___2jFVR"
   >
-    <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___n4gdC"
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___dbqVu"
     >
-      Filters
-    </span>
-    <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-    >
-      <UiSimpleRemove
-        className="cross"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-    </span>
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__mobile-buttons___2mcfT"
+      >
+        <span
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___n4gdC"
+        >
+          Filters
+        </span>
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__mobile-button___1ErxH"
+        >
+          <Button
+            composeContextTheme="softly"
+            disabled={false}
+            isInverted={false}
+            isPrimary={false}
+            onClick={[Function]}
+            theme={
+              Object {
+                "button": undefined,
+              }
+            }
+            themePriority="adhoc-default-context"
+          >
+            RESET FILTERS
+          </Button>
+        </div>
+      </div>
+      <span
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+      >
+        <UiSimpleRemove
+          className="cross"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+      </span>
+    </div>
   </div>
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W"
   >
+    <hr
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__mobile___2KBEt"
+    />
     <div
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
@@ -70,103 +100,448 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
     </div>
+    <hr
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__mobile___2KBEt"
+    />
     <div
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
       >
-        <span
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
         >
-          Challenge Category
-        </span>
+          <span
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+          >
+            Domain
+          </span>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__domain___3rCeT"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              All
+            </span>
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              None
+            </span>
+          </div>
+        </div>
         <div
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__switches___10Wrx"
         >
-          <span
-            aria-label="Design toggle button pressed Off"
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
-            role="switch"
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
           >
-            <ThemedSwitchWithLabel
-              composeAdhocTheme="deeply"
-              composeContextTheme="softly"
-              enabled={false}
-              labelAfter="Design"
-              labelBefore=""
-              mapThemrProps={[Function]}
-              onSwitch={[Function]}
-              themePriority="adhoc-context-default"
-            />
-          </span>
-          <span
-            aria-label="Development toggle button pressed Off"
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
-            role="switch"
+            <span
+              aria-label="Data Science toggle button pressed Off"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+              role="switch"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Data Science"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
           >
-            <ThemedSwitchWithLabel
-              composeAdhocTheme="deeply"
-              composeContextTheme="softly"
-              enabled={false}
-              labelAfter="Development"
-              labelBefore=""
-              mapThemrProps={[Function]}
-              onSwitch={[Function]}
-              themePriority="adhoc-context-default"
-            />
-          </span>
-          <span
-            aria-label="Data Science toggle button pressed Off"
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
-            role="switch"
+            <span
+              aria-label="Design toggle button pressed Off"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+              role="switch"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Design"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
           >
-            <ThemedSwitchWithLabel
-              composeAdhocTheme="deeply"
-              composeContextTheme="softly"
-              enabled={false}
-              labelAfter="Data Science"
-              labelBefore=""
-              mapThemrProps={[Function]}
-              onSwitch={[Function]}
-              themePriority="adhoc-context-default"
-            />
-          </span>
-          <span
-            aria-label="QA toggle button pressed Off"
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
-            role="switch"
+            <span
+              aria-label="Development toggle button pressed Off"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+              role="switch"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Development"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
           >
-            <ThemedSwitchWithLabel
-              composeAdhocTheme="deeply"
-              composeContextTheme="softly"
-              enabled={false}
-              labelAfter="QA"
-              labelBefore=""
-              mapThemrProps={[Function]}
-              onSwitch={[Function]}
-              themePriority="adhoc-context-default"
-            />
-          </span>
+            <span
+              aria-label="QA toggle button pressed Off"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+              role="switch"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="QA & Testing"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <hr
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
+    />
     <div
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__challenge-type___30Q7l"
       >
-        <span
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
         >
-          Challenge Type
-        </span>
+          <span
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+          >
+            Earn
+          </span>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              All
+            </span>
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              None
+            </span>
+          </div>
+        </div>
         <div
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"
         />
       </div>
     </div>
+    <hr
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
+    />
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__challenge-type___30Q7l"
+      >
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
+        >
+          <span
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+          >
+            Competitive Programming
+          </span>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              All
+            </span>
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              None
+            </span>
+          </div>
+        </div>
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"
+        >
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Marathon Match"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Rapid Development Match"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Single Round Match"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
+    />
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__challenge-type___30Q7l"
+      >
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
+        >
+          <span
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+          >
+            Learn
+          </span>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              All
+            </span>
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+            >
+              None
+            </span>
+          </div>
+        </div>
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"
+        >
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
+          >
+            <span
+              aria-checked={false}
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
+              role="switch"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Practice Problem"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
+          >
+            <span
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
+              role="switch"
+            >
+              <ThemedSwitchWithLabel
+                composeAdhocTheme="deeply"
+                composeContextTheme="softly"
+                enabled={false}
+                labelAfter="Skill Builder"
+                labelBefore=""
+                mapThemrProps={[Function]}
+                onSwitch={[Function]}
+                themePriority="adhoc-context-default"
+              />
+            </span>
+            <div
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+            >
+              <span
+                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
+                onClick={[Function]}
+                onKeyPress={[Function]}
+              >
+                Only
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
+    />
     <div
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
@@ -174,7 +549,7 @@ exports[`Matches shallow shapshot 2`] = `
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
       >
         <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community-label___V6Rpi"
           htmlFor="community-select"
         >
           Sub communities
@@ -215,7 +590,6 @@ exports[`Matches shallow shapshot 2`] = `
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-challenges-filter___3XG63"
       >
         <span
-          aria-checked={false}
           aria-label="Tco eligible challenge toggle button pressed Off"
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tco-select-label___3ATak"
           role="switch"
@@ -224,7 +598,7 @@ exports[`Matches shallow shapshot 2`] = `
             composeAdhocTheme="deeply"
             composeContextTheme="softly"
             enabled={false}
-            labelAfter="Only Show TCO Eligible Challenges"
+            labelAfter="TCO Eligible Only"
             labelBefore=""
             mapThemrProps={[Function]}
             onSwitch={[Function]}

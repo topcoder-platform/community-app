@@ -374,4 +374,23 @@ export function safeForDownload(url) {
   return true;
 }
 
+/**
+ * Test if a string is valid email
+ * @param {String} email The string to test
+ */
+export const getSectionOptions = (section) => {
+  switch (section) {
+    case 'domain':
+      return ['DS', 'Des', 'Dev', 'QA'];
+    case 'Earn':
+      return ['CH', 'F2F', 'TSK'];
+    case 'Competitive Programming':
+      return ['MM', 'RDM', 'SRM'];
+    case 'Learn':
+      return ['SKL'];
+    default:
+      return [];
+  }
+};
+
 export default undefined;

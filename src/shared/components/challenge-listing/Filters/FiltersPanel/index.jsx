@@ -22,7 +22,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import DateRangePicker from 'components/DateRangePicker';
@@ -30,7 +30,7 @@ import moment from 'moment';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
-import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import { getSectionOptions, REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
@@ -71,6 +71,10 @@ export default function FiltersPanel({
   setExpanded,
   setSort,
   selectBucket,
+  recommendedToggle,
+  setRecommendedToggle,
+  tcoToggle,
+  setTcoToggle,
 }) {
   if (hidden && !expanded) {
     return (
@@ -92,6 +96,14 @@ export default function FiltersPanel({
       </Button>
     );
   }
+
+  const earnSectionAbbreviations = ['CH', 'F2F', 'TSK'];
+
+  const competitiveProgrammingOptions = [
+    { label: 'Marathon Match', value: 'MM' },
+    { label: 'Rapid Development Match', value: 'RDM' },
+    { label: 'Single Round Match', value: 'SRM' },
+  ];
 
   const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) => Boolean(
     _.intersection(visitorGroupIds, communityGroupIds).length,
@@ -246,10 +258,117 @@ export default function FiltersPanel({
 
   const isTrackOn = track => filterState.tracks && filterState.tracks[track];
 
+  const isSearchOn = searchText => filterState.search === searchText;
+
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
     const filterObj = act(filterState, track);
     setFilterState({ ...filterObj });
+  };
+
+  const switchSearch = (target, on) => {
+    const searchText = on ? target : '';
+    setFilterState({
+      ...filterState,
+      search: searchText,
+    });
+    setSearchText(searchText);
+  };
+
+  const toggleSection = (section, on) => {
+    const filterObj = {};
+    const sections = getSectionOptions(section);
+    sections.forEach((item) => {
+      filterObj[item] = on;
+    });
+
+    setFilterState({
+      ...filterState,
+      tracks: filterObj,
+    });
+  };
+
+  const toggleOnlyTrack = (section, type) => {
+    const filterObj = {};
+    const sections = getSectionOptions(section);
+    sections.forEach((item) => {
+      filterObj[item] = false;
+    });
+
+    filterObj[type] = true;
+
+    setFilterState({
+      ...filterState,
+      tracks: filterObj,
+    });
+  };
+
+  const toggleTypes = (section, on) => {
+    const options = getSectionOptions(section);
+    const newTypes = on
+      ? _.union(filterState.types, options)
+      : filterState.types.filter(item => !options.includes(item));
+
+    setFilterState({
+      ...filterState,
+      types: newTypes,
+    });
+  };
+
+  const toggleOnly = (section, type) => {
+    const options = getSectionOptions(section);
+    const reducedTypes = filterState.types.filter(item => !options.includes(item));
+    const newTypes = _.union(reducedTypes, [type]);
+
+    setFilterState({
+      ...filterState,
+      types: newTypes,
+    });
+  };
+
+  const toggleOnlyLearn = (type) => {
+    const options = getSectionOptions('Learn');
+    const reducedTypes = filterState.types.filter(item => !options.includes(item));
+
+    if (type === 'SKL') {
+      const newTypes = _.union(reducedTypes, [type]);
+      setFilterState({
+        ...filterState,
+        types: newTypes,
+        search: '',
+      });
+      setSearchText('');
+    } else {
+      setFilterState({
+        ...filterState,
+        types: reducedTypes,
+        search: type,
+      });
+      setSearchText(type);
+    }
+  };
+
+  const toggleLearnSection = (section, on) => {
+    const options = getSectionOptions(section);
+    const newTypes = on
+      ? _.union(filterState.types, options)
+      : filterState.types.filter(item => !options.includes(item));
+
+    if (on) {
+      setFilterState({
+        ...filterState,
+        search: 'Practice Problem',
+        types: newTypes,
+      });
+      setSearchText('Practice Problem');
+    } else {
+      setFilterState({
+        ...filterState,
+        search: '',
+        types: newTypes,
+      });
+      setSearchText('');
+    }
   };
 
   const staticRanges = createStaticRanges();
@@ -258,8 +377,6 @@ export default function FiltersPanel({
 
   const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER);
   const isTcoChallengesVisible = activeBucket !== BUCKETS.REVIEW_OPPORTUNITIES;
-  const [recommendedToggle, setRecommendedToggle] = useState(false);
-  const [tcoToggle, setTcoToggle] = useState(false);
 
   useEffect(() => {
     if (!isFilterEmpty(filterState, past ? 'past' : '', activeBucket)
@@ -332,22 +449,130 @@ export default function FiltersPanel({
     </div>
   );
 
+  const resetFilters = () => {
+    setRecommendedToggle(false);
+    setTcoToggle(false);
+    setSort('openForRegistration', 'startDate');
+    setFilterState({
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      tco: false,
+      tags: [],
+      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SRM', 'SKL'],
+      groups: [],
+      events: [],
+      endDateStart: null,
+      startDateEnd: null,
+      status: 'Active',
+      reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
+      customDate: false,
+      recommended: false,
+    });
+    selectCommunity(defaultCommunityId);
+    setSearchText('');
+  };
+
+  const renderSectionOptions = (title, options) => (
+    <div styleName="filter-row">
+      <div styleName="filter challenge-type">
+        <div styleName="section-label">
+          <span styleName="label">
+            {title}
+          </span>
+          <div styleName="hover-control section">
+            <span
+              styleName="control-item"
+              onClick={() => toggleTypes(title, true)}
+              onKeyPress={() => toggleTypes(title, true)}
+            >
+              All
+            </span>
+            <span
+              styleName="control-item"
+              onClick={() => toggleTypes(title, false)}
+              onKeyPress={() => toggleTypes(title, false)}
+            >
+              None
+            </span>
+          </div>
+        </div>
+        <div styleName="checkboxes">
+          {
+            options.map(option => (
+              <div styleName="section-label">
+                <span styleName="checkbox" key={option.value}>
+                  <SwitchWithLabel
+                    enabled={(filterState.types || []).includes(option.value)}
+                    labelAfter={option.label}
+                    onSwitch={(e) => {
+                      let { types } = filterState;
+
+                      if (e) {
+                        types = types.concat(option.value);
+                      } else {
+                        types = types.filter(type => type !== option.value);
+                      }
+
+                      setFilterState({ ..._.clone(filterState), types });
+                    }}
+                  />
+                </span>
+
+                <div styleName="hover-control">
+                  <span
+                    styleName="control-item"
+                    onClick={() => toggleOnly(title, option.value)}
+                    onKeyPress={() => toggleOnly(title, option.value)}
+                  >
+                    Only
+                  </span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div styleName="FiltersPanel">
-      <div styleName="header">
-        <span styleName="title">
-          Filters
-        </span>
-        <span
-          styleName="close-icon"
-          onClick={() => onClose()}
-          onKeyPress={() => onClose()}
-        >
-          <UiSimpleRemove className="cross" />
-        </span>
+      <div styleName="headerWrapper">
+        <div styleName="header">
+          <div styleName="mobile-buttons">
+            <span styleName="title">
+              Filters
+            </span>
+            <div styleName="mobile-button">
+              <Button
+                composeContextTheme={COMPOSE.SOFT}
+                disabled={disableClearFilterButtons}
+                onClick={resetFilters}
+                theme={{ button: style.button }}
+                themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
+              >
+                RESET FILTERS
+              </Button>
+            </div>
+          </div>
+          <span
+            styleName="close-icon"
+            onClick={() => onClose()}
+            onKeyPress={() => onClose()}
+          >
+            <UiSimpleRemove className="cross" />
+          </span>
+        </div>
       </div>
 
+
       <div styleName="filters">
+        <hr styleName="hr mobile" />
         {/* <div styleName="filter-row">
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">
@@ -387,80 +612,198 @@ export default function FiltersPanel({
             />
           </div>
         </div>
+        <hr styleName="hr mobile" />
         <div styleName="filter-row">
           <div styleName="filter track">
-            <span styleName="label">
-              Challenge Category
-            </span>
+            <div styleName="section-label">
+              <span styleName="label">
+                Domain
+              </span>
+
+              <div styleName="hover-control domain">
+                <span
+                  styleName="control-item"
+                  onClick={() => toggleSection('domain', true)}
+                  onKeyPress={() => toggleSection('domain', true)}
+                >
+                  All
+                </span>
+                <span
+                  styleName="control-item"
+                  onClick={() => toggleSection('domain', false)}
+                  onKeyPress={() => toggleSection('domain', false)}
+                >
+                  None
+                </span>
+              </div>
+            </div>
             <div styleName="switches">
-              <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn('Des') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Des')}>
-                <SwitchWithLabel
-                  enabled={isTrackOn('Des')}
-                  labelAfter="Design"
-                  onSwitch={on => switchTrack('Des', on)}
-                />
-              </span>
-              <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn('Dev') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Dev')}>
-                <SwitchWithLabel
-                  enabled={isTrackOn('Dev')}
-                  labelAfter="Development"
-                  onSwitch={on => switchTrack('Dev', on)}
-                />
-              </span>
-              <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn('DS') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('DS')}>
-                <SwitchWithLabel
-                  enabled={isTrackOn('DS')}
-                  labelAfter="Data Science"
-                  onSwitch={on => switchTrack('DS', on)}
-                />
-              </span>
-              <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn('QA') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('QA')}>
-                <SwitchWithLabel
-                  enabled={isTrackOn('QA')}
-                  labelAfter="QA"
-                  onSwitch={on => switchTrack('QA', on)}
-                />
-              </span>
+              <div styleName="section-label">
+                <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn('DS') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('DS')}>
+                  <SwitchWithLabel
+                    enabled={isTrackOn('DS')}
+                    labelAfter="Data Science"
+                    onSwitch={on => switchTrack('DS', on)}
+                  />
+                </span>
+                <div styleName="hover-control">
+                  <span
+                    styleName="control-item"
+                    onClick={() => toggleOnlyTrack('domain', 'DS')}
+                    onKeyPress={() => toggleOnlyTrack('domain', 'DS')}
+                  >
+                    Only
+                  </span>
+                </div>
+              </div>
+              <div styleName="section-label">
+                <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn('Des') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Des')}>
+                  <SwitchWithLabel
+                    enabled={isTrackOn('Des')}
+                    labelAfter="Design"
+                    onSwitch={on => switchTrack('Des', on)}
+                  />
+                </span>
+                <div styleName="hover-control">
+                  <span
+                    styleName="control-item"
+                    onClick={() => toggleOnlyTrack('domain', 'Des')}
+                    onKeyPress={() => toggleOnlyTrack('domain', 'Des')}
+                  >
+                    Only
+                  </span>
+                </div>
+              </div>
+              <div styleName="section-label">
+                <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn('Dev') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Dev')}>
+                  <SwitchWithLabel
+                    enabled={isTrackOn('Dev')}
+                    labelAfter="Development"
+                    onSwitch={on => switchTrack('Dev', on)}
+                  />
+                </span>
+                <div styleName="hover-control">
+                  <span
+                    styleName="control-item"
+                    onClick={() => toggleOnlyTrack('domain', 'Dev')}
+                    onKeyPress={() => toggleOnlyTrack('domain', 'Dev')}
+                  >
+                    Only
+                  </span>
+                </div>
+              </div>
+              <div styleName="section-label">
+                <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn('QA') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('QA')}>
+                  <SwitchWithLabel
+                    enabled={isTrackOn('QA')}
+                    labelAfter="QA & Testing"
+                    onSwitch={on => switchTrack('QA', on)}
+                  />
+                </span>
+                <div styleName="hover-control">
+                  <span
+                    styleName="control-item"
+                    onClick={() => toggleOnlyTrack('domain', 'QA')}
+                    onKeyPress={() => toggleOnlyTrack('domain', 'QA')}
+                  >
+                    Only
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        {!isReviewOpportunitiesBucket && <hr styleName="hr" /> }
         { !isReviewOpportunitiesBucket
-          && (
-            <div styleName="filter-row">
-              <div styleName="filter challenge-type">
-                <span styleName="label">
-                  Challenge Type
+          ? renderSectionOptions('Earn', validTypes.map(mapTypes)
+            .filter(item => earnSectionAbbreviations.includes(item.value))) : null
+        }
+
+        {!isReviewOpportunitiesBucket && <hr styleName="hr" /> }
+        { !isReviewOpportunitiesBucket
+          ? renderSectionOptions('Competitive Programming', competitiveProgrammingOptions) : null
+        }
+
+        <hr styleName="hr" />
+        <div styleName="filter-row">
+          <div styleName="filter challenge-type">
+            <div styleName="section-label">
+              <span styleName="label">
+                Learn
+              </span>
+              <div styleName="hover-control section">
+                <span
+                  styleName="control-item"
+                  onClick={() => toggleLearnSection('Learn', true)}
+                  onKeyPress={() => toggleLearnSection('Learn', true)}
+                >
+                  All
                 </span>
-                <div styleName="checkboxes">
-                  {
-                    validTypes
-                      .map(mapTypes)
-                      .map(option => (
-                        <span styleName="checkbox" key={option.value}>
-                          <SwitchWithLabel
-                            enabled={filterState.types.includes(option.value)}
-                            labelAfter={option.label}
-                            onSwitch={(e) => {
-                              let { types } = filterState;
+                <span
+                  styleName="control-item"
+                  onClick={() => toggleLearnSection('Learn', false)}
+                  onKeyPress={() => toggleLearnSection('Learn', false)}
+                >
+                  None
+                </span>
+              </div>
+            </div>
 
-                              if (e) {
-                                types = types.concat(option.value);
-                              } else {
-                                types = types.filter(type => type !== option.value);
-                              }
+            <div styleName="checkboxes">
+              <div styleName="section-label">
 
-                              setFilterState({ ..._.clone(filterState), types });
-                            }}
-                          />
-                        </span>
-                      ))
-                  }
+                <span styleName="checkbox" role="switch" aria-checked={isSearchOn('Practice Problem')}>
+                  <SwitchWithLabel
+                    enabled={isSearchOn('Practice Problem')}
+                    labelAfter="Practice Problem"
+                    onSwitch={on => switchSearch('Practice Problem', on)}
+                  />
+                </span>
+                <div styleName="hover-control">
+                  <span
+                    styleName="control-item"
+                    onClick={() => toggleOnlyLearn('Practice Problem')}
+                    onKeyPress={() => toggleOnlyLearn('Practice Problem')}
+                  >
+                    Only
+                  </span>
+                </div>
+
+              </div>
+              <div styleName="section-label">
+                <span styleName="checkbox" role="switch" aria-checked={isTrackOn('SKL')}>
+                  <SwitchWithLabel
+                    enabled={(filterState.types || []).includes('SKL')}
+                    labelAfter="Skill Builder"
+                    onSwitch={(e) => {
+                      let { types } = filterState;
+
+                      if (e) {
+                        types = types.concat('SKL');
+                      } else {
+                        types = types.filter(type => type !== 'SKL');
+                      }
+
+                      setFilterState({ ..._.clone(filterState), types });
+                    }}
+                  />
+                </span>
+                <div styleName="hover-control">
+                  <span
+                    styleName="control-item"
+                    onClick={() => toggleOnlyLearn('SKL')}
+                    onKeyPress={() => toggleOnlyLearn('SKL')}
+                  >
+                    Only
+                  </span>
                 </div>
               </div>
             </div>
-          )
-        }
+          </div>
+        </div>
+
+        <hr styleName="hr" />
 
         { past
           && (
@@ -591,7 +934,7 @@ export default function FiltersPanel({
           && (
             <div styleName="filter-row">
               <div styleName="filter filter community">
-                <label htmlFor="community-select" styleName="label">
+                <label htmlFor="community-select" styleName="label community-label">
                   Sub communities
                   <input type="hidden" />
                 </label>
@@ -679,7 +1022,7 @@ export default function FiltersPanel({
                 >
                   <SwitchWithLabel
                     enabled={tcoToggle}
-                    labelAfter="Only Show TCO Eligible Challenges"
+                    labelAfter="TCO Eligible Only"
                     onSwitch={onSwitchTcoChallenge}
                   />
                 </span>
@@ -709,34 +1052,7 @@ export default function FiltersPanel({
         <Button
           composeContextTheme={COMPOSE.SOFT}
           disabled={disableClearFilterButtons}
-          onClick={() => {
-            setRecommendedToggle(false);
-            setTcoToggle(false);
-            setSort('openForRegistration', 'startDate');
-            setFilterState({
-              tracks: {
-                Dev: true,
-                Des: true,
-                DS: true,
-                QA: true,
-              },
-              search: '',
-              tco: false,
-              tags: [],
-              types: ['CH', 'F2F', 'TSK'],
-              groups: [],
-              events: [],
-              endDateStart: null,
-              startDateEnd: null,
-              status: 'Active',
-              reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
-              customDate: false,
-              recommended: false,
-            });
-            selectCommunity(defaultCommunityId);
-            setSearchText('');
-            // localStorage.setItem('trackStatus', JSON.stringify({}));
-          }}
+          onClick={resetFilters}
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >
@@ -787,4 +1103,8 @@ FiltersPanel.propTypes = {
   selectBucket: PT.func.isRequired,
   expanding: PT.bool,
   disabled: PT.bool,
+  recommendedToggle: PT.bool.isRequired,
+  setRecommendedToggle: PT.func.isRequired,
+  tcoToggle: PT.bool.isRequired,
+  setTcoToggle: PT.func.isRequired,
 };

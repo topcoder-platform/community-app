@@ -17,13 +17,18 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 // import _ from 'lodash';
 import { isPastBucket } from 'utils/challenge-listing/buckets';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
+import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import _ from 'lodash';
 import BucketSelector from './BucketSelector';
+import Button from '../Filters/Button';
+
 // import FiltersEditor from './FiltersEditor';
 // import Footer from './Footer';
-import './style.scss';
+import style from './style.scss';
 
 export default function SideBarFilters({
   activeBucket,
@@ -52,8 +57,43 @@ export default function SideBarFilters({
   // updateSavedFilter,
   // setFilter,
   setFilterState,
+  setRecommendedToggle,
+  setTcoToggle,
+  setSort,
+  defaultCommunityId,
+  selectCommunity,
+  setSearchText,
 }) {
   const past = isPastBucket(activeBucket);
+
+  const resetFilters = () => {
+    setRecommendedToggle(false);
+    setTcoToggle(false);
+    setSort('openForRegistration', 'startDate');
+    setFilterState({
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      tco: false,
+      tags: [],
+      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SRM', 'SKL'],
+      groups: [],
+      events: [],
+      endDateStart: null,
+      startDateEnd: null,
+      status: 'Active',
+      reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
+      customDate: false,
+      recommended: false,
+    });
+    selectCommunity(defaultCommunityId);
+    setSearchText('');
+  };
+
 
   return (
     <div styleName="SideBarFilters">
@@ -85,6 +125,17 @@ export default function SideBarFilters({
           Past Challenges
         </li>
       </ul> */}
+      <div styleName="buttons">
+        <Button
+          composeContextTheme={COMPOSE.SOFT}
+          // disabled={disableClearFilterButtons}
+          onClick={resetFilters}
+          theme={{ button: style.button }}
+          themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
+        >
+          RESET FILTERS
+        </Button>
+      </div>
       <div styleName="FilterBox">
         <ChallengeSearchBar setFilterState={setFilterState} />
 
@@ -165,4 +216,10 @@ SideBarFilters.propTypes = {
   // updateSavedFilter: PT.func.isRequired,
   // setFilter: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
+  setRecommendedToggle: PT.func.isRequired,
+  setTcoToggle: PT.func.isRequired,
+  setSort: PT.func.isRequired,
+  defaultCommunityId: PT.string.isRequired,
+  selectCommunity: PT.func.isRequired,
+  setSearchText: PT.func.isRequired,
 };

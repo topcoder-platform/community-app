@@ -124,6 +124,10 @@ export class Container extends React.Component {
       onClose,
       setSort,
       selectBucket,
+      recommendedToggle,
+      setRecommendedToggle,
+      tcoToggle,
+      setTcoToggle,
     } = this.props;
     const communityFilters2 = [
       {
@@ -151,6 +155,10 @@ export class Container extends React.Component {
         onClose={onClose}
         setSort={setSort}
         selectBucket={selectBucket}
+        recommendedToggle={recommendedToggle}
+        setRecommendedToggle={setRecommendedToggle}
+        tcoToggle={tcoToggle}
+        setTcoToggle={setTcoToggle}
       />
     );
 
@@ -197,6 +205,10 @@ Container.propTypes = {
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
+  recommendedToggle: PT.bool.isRequired,
+  setRecommendedToggle: PT.func.isRequired,
+  tcoToggle: PT.bool.isRequired,
+  setTcoToggle: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - develop
+                - multi_faceted_filters
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
@@ -399,6 +400,7 @@ workflows:
             branches:
               ignore:
                 - develop
+                - multi_faceted_filters
                 - submission_delete_button
 
   Smoke Testing:

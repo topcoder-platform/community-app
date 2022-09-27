@@ -10,8 +10,8 @@ $challenge-radius-4: $corner-radius * 2;
 
 .container {
   border-bottom: 1px solid $tc-gray-30;
-  padding-bottom: 16px;
-  margin: 2px 12px 2px 14px;
+  padding-bottom: 7px;
+  margin: -19px 4px 2px 7px;
 
   @include xs-to-md {
     padding: 0;

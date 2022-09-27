@@ -38,28 +38,3 @@ describe('Matches shallow shapshot 1', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
 });
-
-
-describe('Matches shallow shapshot 2', () => {
-  beforeEach(() => {
-    jest.resetModules();
-    jest.mock('react-responsive', () => ({
-      useMediaQuery: () => true,
-    }));
-    ChallengeListing = require('components/challenge-listing').default;
-  });
-
-  afterAll(() => {
-    jest.clearAllMocks();
-  });
-
-  test('shapshot 2', () => {
-    // require('utils/config');
-    const renderer = new Renderer();
-
-    renderer.render((
-      <ChallengeListing {...mockData2} />
-    ));
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
-  });
-});

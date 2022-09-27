@@ -6,7 +6,7 @@
 // import _ from 'lodash';
 import FilterPanel from 'containers/challenge-listing/FilterPanel';
 // import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import PT from 'prop-types';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Sidebar from 'containers/challenge-listing/Sidebar';
@@ -25,7 +25,7 @@ import './style.scss';
 // Number of challenge placeholder card to display
 // const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
-export default function ChallengeListing(props) {
+const ChallengeListing = (props) => {
   const {
     activeBucket,
     auth,
@@ -55,6 +55,9 @@ export default function ChallengeListing(props) {
     previousBucketOfPastChallengesTab,
     previousBucketOfActiveTab,
   } = props;
+
+  const [recommendedToggle, setRecommendedToggle] = useState(false);
+  const [tcoToggle, setTcoToggle] = useState(false);
 
   // const { challenges } = props;
 
@@ -174,6 +177,10 @@ export default function ChallengeListing(props) {
           <Sidebar
             expanding={expanding}
             setFilterState={props.setFilterState}
+            recommendedToggle={recommendedToggle}
+            setRecommendedToggle={setRecommendedToggle}
+            tcoToggle={tcoToggle}
+            setTcoToggle={setTcoToggle}
           />
 
           <FilterPanel
@@ -183,6 +190,10 @@ export default function ChallengeListing(props) {
             isAuth={Boolean(auth.user)}
             setFilterState={props.setFilterState}
             hidden={!desktop}
+            recommendedToggle={recommendedToggle}
+            setRecommendedToggle={setRecommendedToggle}
+            tcoToggle={tcoToggle}
+            setTcoToggle={setTcoToggle}
           />
         </div>
 
@@ -277,3 +288,5 @@ ChallengeListing.propTypes = {
   previousBucketOfPastChallengesTab: PT.string.isRequired,
   previousBucketOfActiveTab: PT.string.isRequired,
 };
+
+export default ChallengeListing;

@@ -34,7 +34,7 @@
   @include roboto-regular;
 
   font-size: 11px;
-  padding: 16px 24px;
+  padding: 16px 18px;
   margin-top: 0;
   background-color: $listing-filter-bg;
   border-bottom-left-radius: 8px;
@@ -51,8 +51,18 @@
     bottom: 0;
     right: 0;
     background: #f4f4f4;
-    padding: 15px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 0;
     overflow-y: scroll;
+  }
+
+  .headerWrapper {
+    position: fixed;
+    z-index: 1000;
+    width: 93%;
+    background: #f4f4f4;
+    padding-top: 15px;
   }
 
   .header {
@@ -107,14 +117,44 @@
   }
 }
 
+.mobile-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.mobile-button {
+  height: 24px;
+  min-height: 26px;
+
+  button {
+    @include roboto-bold;
+
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    padding: 5px 10px !important;
+  }
+}
+
 hr.hr {
   color: $tc-gray-10;
   background: $tc-gray-10;
   border: 0;
   height: 2px;
+
+  &.mobile {
+    display: none;
+
+    @include xs-to-md {
+      display: block;
+    }
+  }
 }
 
 .filters {
+  @include xs-to-md {
+    margin-top: 66px;
+  }
+
   .filter-row {
     display: flex;
 
@@ -195,7 +235,6 @@ hr.hr {
 
   .filter {
     width: 100%;
-    margin-bottom: 15px;
 
     .label {
       @include roboto-bold;
@@ -204,7 +243,7 @@ hr.hr {
       color: $tc-black;
       font-size: 12px;
       line-height: 15px;
-      margin-bottom: 8px;
+      margin-bottom: 15px;
       letter-spacing: 1px;
       text-transform: uppercase;
     }
@@ -224,6 +263,12 @@ hr.hr {
 
       .label + * {
         flex: 1;
+
+        @include xs-to-md {
+          flex: unset;
+          margin-right: 16px;
+          margin-top: 8px;
+        }
       }
 
       &.past-period,
@@ -247,7 +292,7 @@ hr.hr {
       .switches {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        flex-direction: column;
 
         .filter-switch-with-label {
           width: 45%;
@@ -408,13 +453,18 @@ hr.hr {
     &.challenge-type {
       .label {
         display: block;
+        margin-top: 13px;
+
+        @include xs-to-md {
+          margin-top: 0;
+        }
       }
 
       .checkboxes {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        justify-content: space-between;
+        flex-direction: column;
 
         .checkbox {
           position: relative;
@@ -518,6 +568,13 @@ hr.hr {
     }
 
     &.filter.community {
+      margin-bottom: 10px;
+
+      .community-label {
+        padding-top: 12px;
+        margin-top: -6px;
+      }
+
       .active-community {
         font-size: 14px;
         font-weight: normal;
@@ -667,4 +724,47 @@ hr.hr {
   left: 50%;
   border-top-color: $tc-black;
   z-index: 1000;
+}
+
+.section-label {
+  display: flex;
+  justify-content: space-between;
+
+  @include xs-to-md {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.section-label:hover .hover-control {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hover-control {
+  display: none;
+
+  @include xs-to-md {
+    display: flex;
+    margin-right: 53px;
+  }
+
+  &.section {
+    margin-top: 8px;
+  }
+
+  &.domain {
+    margin-top: -5px;
+  }
+}
+
+.control-item {
+  @include roboto-regular;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: $color-link-blue-dark;
+  cursor: pointer;
+  margin-left: 16px;
 }
