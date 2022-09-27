@@ -93,7 +93,7 @@ export default function Security({
     if (getConnectionAccepted() || usermfa.diceConnectionError) {
       setIsConnVerifyRunning(false);
     } else if (!usermfa.gettingDiceConnection && diceConnection.id) {
-      if (connVerifyCounter >= 60) {
+      if (connVerifyCounter >= 36) {
         closeSetup();
       } else {
         getDiceConnection(userId, diceConnection.id, tokenV3);
@@ -110,14 +110,18 @@ export default function Security({
   };
 
   const verificationCallback = (data) => {
-    const userEmail = _.get(data, 'profile.Email');
-    if (!_.isUndefined(userEmail) && _.lowerCase(userEmail) === _.lowerCase(emailAddress)) {
-      updateUserDice(userId, true, tokenV3);
-      setSetupStep(3);
+    if (data.success) {
+      const userEmail = _.get(data, 'user.profile.Email');
+      if (!_.isUndefined(userEmail) && _.lowerCase(userEmail) === _.lowerCase(emailAddress)) {
+        updateUserDice(userId, true, tokenV3);
+        setSetupStep(3);
+      } else {
+        setSetupStep(4);
+      }
     } else {
       setSetupStep(4);
     }
-  }
+  };
 
   const finishSetup = () => {
     getUser2fa(userId, tokenV3);
@@ -186,18 +190,28 @@ export default function Security({
       </div>
     </Modal>,
     <Modal
-      showTools={false}
-      onCancel={()=>{}}
-      leftButtonName=""
-      leftButtonClick={()=>{}}
+      onCancel={closeSetup}
+      leftButtonName="Cancel"
+      leftButtonClick={closeSetup}
       rightButtonName=""
-      rightButtonClick={()=>{}}
+      rightButtonClick={() => {}}
+      rightButtonHide
     >
-      <iframe src={`${diceVerifyUrl}/dice-verifier.html`} />
+      <div styleName="step-body">
+        <div styleName="step-title">
+          STEP 3 OF 3
+        </div>
+        <div styleName="step-content">
+          Scan the following DICE ID QR Code in your
+          DICE ID mobile application to confirm your credential.
+        </div>
+        <iframe src={`${diceVerifyUrl}/dice-verifier.html`} title="dice verifier" width="100%" height="350px" />
+      </div>
       <VerificationListener
         event="message"
         callback={verificationCallback}
-        source={`${diceVerifyUrl}/dice-verify-callback.html`}
+        origin={diceVerifyUrl}
+        type="DICE_VERIFICATION"
       />
     </Modal>,
     <Modal

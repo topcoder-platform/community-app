@@ -6,8 +6,8 @@ import CloseButton from 'assets/images/account/security/green-close.svg';
 import './style.scss';
 
 export default function DiceModal({
-  showTools, children, onCancel, leftButtonName, leftButtonDisabled, leftButtonClick,
-  rightButtonName, rightButtonDisabled, rightButtonClick,
+  children, onCancel, leftButtonName, leftButtonDisabled, leftButtonClick,
+  rightButtonName, rightButtonDisabled, rightButtonClick, rightButtonHide,
 }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -21,54 +21,53 @@ export default function DiceModal({
           styleName="container"
           onWheel={event => event.stopPropagation()}
         >
-          {showTools ? (
-            <><div styleName="header">
-              <div styleName="icon-wrapper">
-                <img src={DiceImage} alt="diceid" />
-              </div>
-              <div styleName="title">DICE ID authenticator setup </div>
-              <CloseButton onClick={onCancel} styleName="close-button" />
-            </div><div styleName="divider" /><div styleName="body">
-                {children}
-              </div><div styleName="divider" /><div styleName="footer">
-                <div
-                  styleName={`left-button ${leftButtonDisabled ? 'disabled' : ''}`}
-                  onClick={leftButtonClick}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={leftButtonClick}
-                >{leftButtonName}
-                </div>
-                <div
-                  styleName={`right-button ${rightButtonDisabled ? 'disabled' : ''}`}
-                  onClick={rightButtonClick}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={rightButtonClick}
-                >{rightButtonName}
-                </div>
-              </div></>
-          )
-          : (
+          <div styleName="header">
+            <div styleName="icon-wrapper">
+              <img src={DiceImage} alt="diceid" />
+            </div>
+            <div styleName="title">DICE ID authenticator setup </div>
+            <CloseButton onClick={onCancel} styleName="close-button" />
+          </div>
+          <div styleName="divider" />
+          <div styleName="body">
             {children}
-          )}
+          </div>
+          <div styleName="divider" />
+          <div styleName="footer">
+            <div
+              styleName={`left-button ${leftButtonDisabled ? 'disabled' : ''}`}
+              onClick={leftButtonClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={leftButtonClick}
+            >
+              {leftButtonName}
+            </div>
+            {!rightButtonHide && (
+            <div
+              styleName={`right-button ${rightButtonDisabled ? 'disabled' : ''}`}
+              onClick={rightButtonClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={rightButtonClick}
+            >
+              {rightButtonName}
+            </div>
+            )}
+          </div>
         </div>
-        <div
-          styleName="overlay"
-        />
+        <div styleName="overlay" />
       </React.Fragment>
     )
   );
 }
 DiceModal.defaultProps = {
-  showTools: true,
   children: null,
   leftButtonDisabled: false,
   rightButtonDisabled: false,
-
+  rightButtonHide: false,
 };
 DiceModal.propTypes = {
-  showTools: PT.bool,
   children: PT.node,
   onCancel: PT.func.isRequired,
   leftButtonName: PT.string.isRequired,
@@ -77,4 +76,5 @@ DiceModal.propTypes = {
   rightButtonName: PT.string.isRequired,
   rightButtonDisabled: PT.bool,
   rightButtonClick: PT.func.isRequired,
+  rightButtonHide: PT.bool,
 };

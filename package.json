@@ -95,7 +95,6 @@
     "node-cache": "^5.1.2",
     "node-forge": "^0.7.5",
     "nuka-carousel": "^4.5.3",
-    "oidc-client": "^1.11.5",
     "postcss": "^6.0.23",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",

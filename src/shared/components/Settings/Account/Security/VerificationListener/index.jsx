@@ -1,12 +1,14 @@
 import { useEffect, useCallback } from 'react';
 import PT from 'prop-types';
 
-export default function VerificationListener({ event, callback, source }) {
+export default function VerificationListener({
+  event, callback, origin, type,
+}) {
   const messageHandler = useCallback((e) => {
-    if (e.source.indexOf(source) !== -1) {
-        callback(e.data);
+    if (e.origin === origin && e.data && e.data.type && e.data.type === type) {
+      callback(e.data);
     }
-  }, [source])
+  }, [origin, type]);
 
   useEffect(() => {
     window.addEventListener(event, messageHandler);
@@ -16,8 +18,9 @@ export default function VerificationListener({ event, callback, source }) {
   return false;
 }
 
-DiceModal.propTypes = {
+VerificationListener.propTypes = {
   event: PT.string.isRequired,
   callback: PT.func.isRequired,
-  source: PT.string.isRequired,
+  origin: PT.string.isRequired,
+  type: PT.string.isRequired,
 };
