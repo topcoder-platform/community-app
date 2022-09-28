@@ -349,6 +349,7 @@ workflows:
           filters:
             branches:
               only:
+                - enable_dashboard_on_data_science
                 - free
       # This is alternate dev env for parallel testing
       - "build-test":
