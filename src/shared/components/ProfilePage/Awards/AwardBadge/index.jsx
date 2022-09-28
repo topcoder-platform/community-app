@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import React from 'react';
 import PT from 'prop-types';
 import FallBackAwardIcon from 'assets/images/default-award.svg';
