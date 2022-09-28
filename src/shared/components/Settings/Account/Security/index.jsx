@@ -17,7 +17,7 @@ import VerificationListener from './VerificationListener';
 import './styles.scss';
 
 export default function Security({
-  usermfa, getUser2fa, updateUser2fa, updateUserDice, getNewDiceConnection,
+  usermfa, updateUser2fa, updateUserDice, getNewDiceConnection,
   getDiceConnection, tokenV3, handle, emailAddress,
 }) {
   const [setupStep, setSetupStep] = useState(-1);
@@ -123,11 +123,6 @@ export default function Security({
     }
   };
 
-  const finishSetup = () => {
-    getUser2fa(userId, tokenV3);
-    closeSetup();
-  };
-
   useInterval(verifyConnection, setupStep === 1 && isConnVerifyRunning ? 5000 : null);
 
   const setupStepNodes = [
@@ -219,7 +214,7 @@ export default function Security({
       leftButtonName="Cancel"
       leftButtonClick={closeSetup}
       rightButtonName="Finish"
-      rightButtonClick={finishSetup}
+      rightButtonClick={closeSetup}
     >
       <div styleName="step-body">
         <div styleName="step-title">
@@ -245,7 +240,7 @@ export default function Security({
       leftButtonName="Cancel"
       leftButtonClick={closeSetup}
       rightButtonName="Finish"
-      rightButtonClick={finishSetup}
+      rightButtonClick={closeSetup}
     >
       <div styleName="step-body">
         <div styleName="step-title-container">
@@ -320,8 +315,11 @@ export default function Security({
               <div styleName="info-first-line">
                 DICE ID Authenticator App
               </div>
-              <div styleName="info-second-line">
+              <div styleName="info-second-line dice-info">
                 DICE ID authentication application
+              </div>
+              <div styleName="info-second-line dice-info-mobile">
+                {diceChecked ? 'DICE ID Authenticator is enabled.' : 'Please set up DICE ID Authenticator from your desktop device'}
               </div>
             </div>
             {diceChecked
@@ -359,7 +357,6 @@ export default function Security({
 
 Security.propTypes = {
   usermfa: PT.shape().isRequired,
-  getUser2fa: PT.func.isRequired,
   updateUser2fa: PT.func.isRequired,
   updateUserDice: PT.func.isRequired,
   getNewDiceConnection: PT.func.isRequired,

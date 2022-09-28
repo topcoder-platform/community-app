@@ -89,8 +89,20 @@
         line-height: 24px;
         color: $color-black-60;
 
+        &.dice-info-mobile {
+          display: none;
+        }
+
         @include upto-sm {
           padding-right: 0;
+
+          &.dice-info {
+            display: none;
+          }
+
+          &.dice-info-mobile {
+            display: block;
+          }
         }
       }
     }
