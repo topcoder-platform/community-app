@@ -1,7 +1,29 @@
 
-import { services, tc } from 'topcoder-react-lib';
+import { services } from 'topcoder-react-lib';
 
 const { getApi } = services.api;
+
+/**
+ * Handles the response from identity service
+ * @param {Object} res response
+ * @return {Promise} Resolves to the payload.
+ */
+async function handleResponse(res) {
+  const { result } = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result ? result.content : '');
+  }
+
+  if (!result) {
+    return null;
+  }
+
+  if ((!result.success)) {
+    throw new Error(result.content);
+  }
+  return result.content;
+}
 
 class MfaService {
   /**
@@ -21,7 +43,7 @@ class MfaService {
    */
   async getUser2fa(userId) {
     const res = await this.private.api.get(`/users/${userId}/2fa`);
-    return tc.getApiResponsePayload(res);
+    return handleResponse(res);
   }
 
   /**
@@ -36,7 +58,7 @@ class MfaService {
     };
 
     const res = await this.private.api.patchJson(`/users/${userId}/2fa`, { param: settings });
-    return tc.getApiResponsePayload(res);
+    return handleResponse(res);
   }
 
   /**
@@ -51,7 +73,7 @@ class MfaService {
     };
 
     const res = await this.private.api.patchJson(`/users/${userId}/2fa`, { param: settings });
-    return tc.getApiResponsePayload(res);
+    return handleResponse(res);
   }
 
   /**
@@ -61,7 +83,7 @@ class MfaService {
    */
   async getNewDiceConnection(userId) {
     const res = await this.private.api.get(`/users/${userId}/diceConnection`);
-    return tc.getApiResponsePayload(res);
+    return handleResponse(res);
   }
 
   /**
@@ -72,7 +94,7 @@ class MfaService {
    */
   async getDiceConnection(userId, connectionId) {
     const res = await this.private.api.get(`/users/${userId}/diceConnection/${connectionId}`);
-    return tc.getApiResponsePayload(res);
+    return handleResponse(res);
   }
 }
 

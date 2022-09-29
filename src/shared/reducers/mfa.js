@@ -4,7 +4,7 @@
 
 import actions from 'actions/mfa';
 import { handleActions } from 'redux-actions';
-import { logger, errors } from 'topcoder-react-lib';
+import { errors } from 'topcoder-react-lib';
 import _ from 'lodash';
 
 /**
@@ -15,8 +15,7 @@ import _ from 'lodash';
  */
 function onGetUser2faDone(state, { payload, error }) {
   if (error) {
-    logger.error('Failed to get user 2fa settings', payload);
-    errors.fireErrorMessage('Failed to get user 2fa settings', payload);
+    errors.fireErrorMessage('Failed to get user mfa settings', payload.message);
     return { ...state };
   }
 
@@ -34,9 +33,8 @@ function onGetUser2faDone(state, { payload, error }) {
  */
 function onUpdateUser2faDone(state, { payload, error }) {
   if (error) {
-    logger.error('Failed to update user 2fa settings', payload);
-    errors.fireErrorMessage('Failed to update user 2fa settings', payload);
-    return { ...state };
+    errors.fireErrorMessage('Failed to update user mfa settings', payload.message);
+    return { ...state, updatingUser2fa: false };
   }
 
   return ({
@@ -54,8 +52,7 @@ function onUpdateUser2faDone(state, { payload, error }) {
  */
 function onUpdateUserDiceDone(state, { payload, error }) {
   if (error) {
-    logger.error('Failed to update user dice settings', payload);
-    errors.fireErrorMessage('Failed to update user dice settings', payload);
+    errors.fireErrorMessage('Failed to update user dice settings', payload.message);
     return { ...state };
   }
 
@@ -73,9 +70,8 @@ function onUpdateUserDiceDone(state, { payload, error }) {
  */
 function onGetNewDiceConnectionDone(state, { payload, error }) {
   if (error) {
-    logger.error('Failed to get new dice connection', payload);
-    errors.fireErrorMessage('Failed to get new dice connection', payload);
-    return { ...state };
+    errors.fireErrorMessage('Failed to get new dice connection', payload.message);
+    return { ...state, gettingNewDiceConnection: false };
   }
 
   return ({
@@ -94,9 +90,8 @@ function onGetNewDiceConnectionDone(state, { payload, error }) {
  */
 function onGetDiceConnectionDone(state, { payload, error }) {
   if (error) {
-    logger.error('Failed to get dice connection', payload);
-    errors.fireErrorMessage('Failed to get dice connection', payload);
-    return { ...state, diceConnectionError: true };
+    errors.fireErrorMessage('Failed to get dice connection', payload.message);
+    return { ...state, diceConnectionError: true, gettingDiceConnection: false };
   }
 
   return ({

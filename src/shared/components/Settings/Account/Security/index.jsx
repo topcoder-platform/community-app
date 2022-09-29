@@ -23,6 +23,7 @@ export default function Security({
   const [setupStep, setSetupStep] = useState(-1);
   const [isConnVerifyRunning, setIsConnVerifyRunning] = useState(false);
   const [connVerifyCounter, setConnVerifyCounter] = useState(0);
+  const [isVerificationProcessing, setIsVerificationProcessing] = useState(false);
   const diceVerifyUrl = config.DICE_VERIFY_URL;
   const useInterval = (callback, delay) => {
     const savedCallback = useRef();
@@ -87,6 +88,7 @@ export default function Security({
 
   const closeSetup = () => {
     setSetupStep(-1);
+    setIsVerificationProcessing(false);
   };
 
   const verifyConnection = () => {
@@ -123,7 +125,25 @@ export default function Security({
     }
   };
 
+  const onStartProcessing = () => {
+    setIsVerificationProcessing(true);
+  };
+
   useInterval(verifyConnection, setupStep === 1 && isConnVerifyRunning ? 5000 : null);
+
+  const getVerificationStepTitle = () => {
+    if (isVerificationProcessing) {
+      return 'Processing...';
+    }
+    return 'STEP 3 OF 3';
+  };
+
+  const getVerificationStepText = () => {
+    if (isVerificationProcessing) {
+      return 'Please wait while your credentials are validated.';
+    }
+    return 'Scan the following DICE ID QR Code in your DICE ID mobile application to confirm your credential.';
+  };
 
   const setupStepNodes = [
     <Modal
@@ -143,11 +163,11 @@ export default function Security({
         </div>
         <div styleName="app-store">
           <div styleName="market">
-            <GooglePlay />
+            <a href="https://play.google.com/store/apps/details?id=com.diwallet1" target="_blank" rel="noreferrer"><GooglePlay /></a>
             <QRCode size={190} value="https://play.google.com/store/apps/details?id=com.diwallet1" />
           </div>
           <div styleName="market">
-            <AppleStore />
+            <a href="https://apps.apple.com/in/app/dice-id/id1624858853" target="_blank" rel="noreferrer"><AppleStore /></a>
             <QRCode size={190} value="https://apps.apple.com/in/app/dice-id/id1624858853" />
           </div>
         </div>
@@ -160,8 +180,8 @@ export default function Security({
     </Modal>,
     <Modal
       onCancel={closeSetup}
-      leftButtonName="Cancel"
-      leftButtonClick={closeSetup}
+      leftButtonName="Back"
+      leftButtonClick={openSetup}
       rightButtonName="Next"
       rightButtonClick={goToVerification}
       rightButtonDisabled={!getConnectionAccepted()}
@@ -194,19 +214,25 @@ export default function Security({
     >
       <div styleName="step-body">
         <div styleName="step-title">
-          STEP 3 OF 3
+          {getVerificationStepTitle()}
         </div>
         <div styleName="step-content">
-          Scan the following DICE ID QR Code in your
-          DICE ID mobile application to confirm your credential.
+          {getVerificationStepText()}
         </div>
         <iframe src={`${diceVerifyUrl}/dice-verifier.html`} title="dice verifier" width="100%" height="350px" />
       </div>
+      {isVerificationProcessing && (
+      <div styleName="step-footer">
+        Powered by DICE ID
+      </div>
+      )}
       <VerificationListener
         event="message"
         callback={verificationCallback}
         origin={diceVerifyUrl}
         type="DICE_VERIFICATION"
+        onProcessing={onStartProcessing}
+        startType="DICE_VERIFICATION_START"
       />
     </Modal>,
     <Modal
@@ -298,9 +324,9 @@ export default function Security({
                 checked={mfaChecked}
                 onChange={onUpdateMfaOption}
                 className="onoffswitch-checkbox"
-                disabled={mfaChecked}
+                disabled={mfaChecked && diceChecked}
               />
-              <label htmlFor="pre-onoffswitch-mfa" className="onoffswitch-label" styleName={mfaChecked ? 'disabled-toggle' : ''}>
+              <label htmlFor="pre-onoffswitch-mfa" className="onoffswitch-label" styleName={mfaChecked && diceChecked ? 'disabled-toggle' : ''}>
                 <span className="onoffswitch-inner" />
                 <span className="onoffswitch-switch" />
                 <input type="hidden" />
