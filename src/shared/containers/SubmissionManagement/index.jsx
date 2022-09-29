@@ -6,7 +6,9 @@
  */
 
 import _ from 'lodash';
-import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
+import AccessDenied, {
+  CAUSE as ACCESS_DENIED_REASON,
+} from 'components/tc-communities/AccessDenied';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SubmissionManagement from 'components/SubmissionManagement/SubmissionManagement';
 import React from 'react';
@@ -48,8 +50,7 @@ class SubmissionManagementPageContainer extends React.Component {
       loadMySubmissions,
     } = this.props;
 
-    if (!challenge
-      || (_.toString(challenge.id) !== _.toString(challengeId))) {
+    if (!challenge || _.toString(challenge.id) !== _.toString(challengeId)) {
       loadChallengeDetails(authTokens, challengeId);
     }
 
@@ -76,11 +77,7 @@ class SubmissionManagementPageContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {
-      deletionSucceed,
-      toBeDeletedId,
-      mySubmissions,
-    } = this.props;
+    const { deletionSucceed, toBeDeletedId, mySubmissions } = this.props;
     const { initialState } = this.state;
 
     if (initialState && mySubmissions) {
@@ -94,9 +91,7 @@ class SubmissionManagementPageContainer extends React.Component {
     const { submissions } = this.state;
 
     if (deletionSucceed !== prevProps.deletionSucceed) {
-      _.remove(submissions, submission => (
-        submission.id === toBeDeletedId
-      ));
+      _.remove(submissions, submission => submission.id === toBeDeletedId);
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         submissions,
@@ -125,7 +120,14 @@ class SubmissionManagementPageContainer extends React.Component {
 
     const { submissions } = this.state;
 
-    if (!challenge.isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
+    if (!challenge.isRegistered) {
+      return (
+        <AccessDenied
+          redirectLink={`${challengesUrl}/${challenge.id}`}
+          cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE}
+        />
+      );
+    }
 
     const isEmpty = _.isEmpty(challenge);
     const smConfig = {
@@ -133,16 +135,18 @@ class SubmissionManagementPageContainer extends React.Component {
       onDelete: onSubmissionDelete,
       onDownload: (challengeType, submissionId) => {
         const submissionsService = getService(authTokens.tokenV3);
-        submissionsService.downloadSubmission(submissionId)
-          .then((blob) => {
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `submission-${challengeType}-${submissionId}.zip`);
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
-          });
+        submissionsService.downloadSubmission(submissionId).then((blob) => {
+          const url = window.URL.createObjectURL(new Blob([blob]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute(
+            'download',
+            `submission-${challengeType}-${submissionId}.zip`,
+          );
+          document.body.appendChild(link);
+          link.click();
+          link.parentNode.removeChild(link);
+        });
       },
       onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${challengeId}`,
       challengeUrl: `${challengesUrl}/${challengeId}`,
@@ -153,8 +157,7 @@ class SubmissionManagementPageContainer extends React.Component {
     return (
       <div styleName="outer-container">
         <div styleName="submission-management-container" role="main">
-          {!isEmpty
-            && (
+          {!isEmpty && (
             <SubmissionManagement
               challenge={challenge}
               challengesUrl={challengesUrl}
@@ -164,71 +167,64 @@ class SubmissionManagementPageContainer extends React.Component {
               submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}
             />
-            )}
+          )}
           {isLoadingChallenge && <LoadingIndicator />}
           {/* TODO: The modal should be split out as a separate component.
-            * Not critical though, so keeping it here for the moment. */}
+           * Not critical though, so keeping it here for the moment. */}
           {showModal && (
-          <Modal
-            onCancel={deleting ? _.noop : onCancelSubmissionDelete}
-            theme={theme}
-          >
-            <div styleName="modal-content">
-              <p styleName="are-you-sure">
-                Are you sure you want to delete
-                submission
-                {' '}
-                <span styleName="id">
-                  {toBeDeletedId}
-                </span>
-                ?
-              </p>
-              <p styleName="remove-warn">
-                This will permanently remove all
-                files from our servers and can’t be undone.
-                You’ll have to upload all the files again in order to restore it.
-                Note that deleting the file may take a few minutes to propagate
-                through the Topcoder platform.
-              </p>
-              <div
-                /* NOTE: Current implementation of the loading indicator is
-                 * based on a gif image. Thus, we want to load create this
-                 * element from the beginning to ensure that the image is
-                 * downloaded in background, and will be shown immediately,
-                 * when needed. */
-                className={deleting ? '' : 'hidden'}
-                styleName="deletingIndicator"
-              >
-                <LoadingIndicator />
-              </div>
-              <div
-                className={deleting ? 'hidden' : ''}
-                styleName="action-btns"
-              >
-                <PrimaryButton
-                  theme={{
-                    button: style['add-sub-btn'],
-                  }}
-                  onClick={() => onCancelSubmissionDelete()}
+            <Modal
+              onCancel={deleting ? _.noop : onCancelSubmissionDelete}
+              theme={theme}
+            >
+              <div styleName="modal-content">
+                <p styleName="are-you-sure">
+                  Are you sure you want to delete submission{' '}
+                  <span styleName="id">{toBeDeletedId}</span>?
+                </p>
+                <p styleName="remove-warn">
+                  This will permanently remove all files from our servers and
+                  can’t be undone. You’ll have to upload all the files again in
+                  order to restore it. Note that deleting the file may take a
+                  few minutes to propagate through the Topcoder platform.
+                </p>
+                <div
+                  /* NOTE: Current implementation of the loading indicator is
+                   * based on a gif image. Thus, we want to load create this
+                   * element from the beginning to ensure that the image is
+                   * downloaded in background, and will be shown immediately,
+                   * when needed. */
+                  className={deleting ? '' : 'hidden'}
+                  styleName="deletingIndicator"
                 >
-                  Cancel
-                </PrimaryButton>
-                <PrimaryButton
-                  theme={{
-                    button: style['add-sub-btn-warning'],
-                  }}
-                  onClick={
-                    () => onSubmissionDeleteConfirmed(
+                  <LoadingIndicator />
+                </div>
+                <div
+                  className={deleting ? 'hidden' : ''}
+                  styleName="action-btns"
+                >
+                  <PrimaryButton
+                    theme={{
+                      button: style['add-sub-btn'],
+                    }}
+                    onClick={() => onCancelSubmissionDelete()}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                  <PrimaryButton
+                    theme={{
+                      button: style['add-sub-btn-warning'],
+                    }}
+                    onClick={() => onSubmissionDeleteConfirmed(
                       authTokens.tokenV3,
                       toBeDeletedId,
                     )
-                  }
-                >
-                  Delete Submission
-                </PrimaryButton>
+                    }
+                  >
+                    Delete Submission
+                  </PrimaryButton>
+                </div>
               </div>
-            </div>
-          </Modal>
+            </Modal>
           )}
         </div>
       </div>
@@ -275,11 +271,13 @@ function mapStateToProps(state, props) {
   const { challengeId } = props.match.params;
 
   let { mySubmissions } = state.challenge;
-  mySubmissions = challengeId === mySubmissions.challengeId
-    ? mySubmissions.v2 : null;
+  mySubmissions = challengeId === mySubmissions.challengeId ? mySubmissions.v2 : null;
 
   const allPhases = state.challenge.details.phases || [];
-  const submissionPhase = allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.name) && phase.isOpen) || {};
+  const submissionPhase = allPhases.find(
+    phase => ['Submission', 'Checkpoint Submission'].includes(phase.name)
+        && phase.isOpen,
+  ) || {};
 
   return {
     challengeId: String(challengeId),
@@ -294,7 +292,10 @@ function mapStateToProps(state, props) {
       state.challenge.loadingSubmissionsForChallengeId || '',
     mySubmissions,
 
-    submissionPhaseStartDate: submissionPhase.actualStartDate || submissionPhase.scheduledStartDate || '',
+    submissionPhaseStartDate:
+      submissionPhase.actualStartDate
+      || submissionPhase.scheduledStartDate
+      || '',
 
     showDetails: state.page.submissionManagement.showDetails,
 

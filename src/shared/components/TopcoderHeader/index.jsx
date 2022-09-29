@@ -50,7 +50,7 @@ const MENU = [{
   items: [{
     icon: <IconNavRocket />,
     link: '/challenges',
-    title: 'All Challenges',
+    title: 'All Competitions',
   }, {
     icon: <IconNavCP />,
     link: config.URL.ARENA,

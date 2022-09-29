@@ -16,7 +16,7 @@ import './style.scss';
 
 const Filter = challengeUtils.filter;
 
-const NO_RESULTS_MESSAGE = 'No challenges found';
+const NO_RESULTS_MESSAGE = 'No competitions found';
 
 // Functional implementation of ReviewOpportunityBucket component
 export default function ReviewOpportunityBucket({

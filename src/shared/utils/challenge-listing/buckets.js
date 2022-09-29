@@ -27,7 +27,7 @@ export const BUCKET_DATA = {
     //   status: ['Active'],
     // },
     // hideCount: false,
-    name: 'All Challenges',
+    name: 'All Competitions',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
       SORTS.PRIZE_HIGH_TO_LOW,
@@ -41,7 +41,7 @@ export const BUCKET_DATA = {
     //   // users: [userHandle],
     // },
     // hideCount: false,
-    name: 'My Challenges',
+    name: 'My Competitions',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
       // SORTS.TIME_TO_SUBMIT,
@@ -130,14 +130,14 @@ export const BUCKET_DATA = {
   //   ],
   // },
   [BUCKETS.ALL_PAST]: {
-    name: 'All Past Challenges',
+    name: 'All Past Competitions',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
       SORTS.TITLE_A_TO_Z,
     ],
   },
   [BUCKETS.MY_PAST]: {
-    name: 'My Past Challenges',
+    name: 'My Past Competitions',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
       SORTS.TITLE_A_TO_Z,
@@ -146,15 +146,15 @@ export const BUCKET_DATA = {
 };
 
 export const NO_LIVE_CHALLENGES_CONFIG = {
-  [BUCKETS.ALL]: 'No Live Challenges found',
-  [BUCKETS.MY]: 'No challenges found',
-  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found',
-  [BUCKETS.ONGOING]: 'No challenges found',
+  [BUCKETS.ALL]: 'No Live Competitions found',
+  [BUCKETS.MY]: 'No competitions found',
+  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No competitions found',
+  [BUCKETS.ONGOING]: 'No competitions found',
   // [BUCKETS.PAST]: 'No challenges found in Past Challenges',
   // [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
   // [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
-  [BUCKETS.ALL_PAST]: 'No challenges found',
-  [BUCKETS.MY_PAST]: 'No challenges found',
+  [BUCKETS.ALL_PAST]: 'No competitions found',
+  [BUCKETS.MY_PAST]: 'No competitions found',
 };
 
 /**

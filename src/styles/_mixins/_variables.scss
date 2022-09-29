@@ -53,9 +53,13 @@ $tooltip-gray: #222;
 @import "variables-platform-ui";
 
 /* track color */
-$track-code-green: #35ac35;
+$track-code-green: linear-gradient(264.69deg, #198807 2.17%, #017c6d 97.49%);
 $track-code-green-light: #d8fdd8;
-$track-code-blue: #2984bd;
+$track-code-blue: linear-gradient(84.45deg, #05456d 2.12%, #0a7ac0 97.43%);
 $track-code-blue-light: #bae1f9;
-$track-code-turquose: #0ab88a;
+$track-code-turquose: linear-gradient(263.22deg, #038664 2.65%, #075f96 98.14%);
 $track-code-turquose-light: #c1f5e7;
+$track-code-purplish: linear-gradient(83.58deg, #7b21a7 2.28%, #1974ad 97.67%);
+$track-code-red: linear-gradient(84.92deg, #880152 2.08%, #be4a1d 97.43%);
+$track-code-yellow: inear-gradient(90deg, #9f9900 0%, #3b890b 100%);
+$track-code-purple: linear-gradient(90deg, #652385 0%, #8c384c 100%);

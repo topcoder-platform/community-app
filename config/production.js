@@ -117,7 +117,7 @@ module.exports = {
           title: 'Compete',
           subMenu: [
             {
-              title: 'All Challenges',
+              title: 'All Competitions',
               href: '/challenges?ref=nav',
             },
             {

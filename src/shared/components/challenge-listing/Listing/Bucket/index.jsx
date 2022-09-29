@@ -129,6 +129,16 @@ export default function Bucket({
   //   );
   // }
 
+  const SRMComment = (
+    <div styleName="srm-comment-container">
+      <div styleName="srm-comment">
+        Looking for SRM Competitions? We are working on bringing SRMs to the platform.
+        Until then,&nbsp;
+        <a href="https://www.topcoder.com/community/arena">please check here.</a>
+      </div>
+    </div>
+  );
+  const isSRMSelected = !!filterState.types.find(item => item === 'SRM');
   if (!loading && filteredChallenges.length === 0) {
     return (
       <div>
@@ -136,6 +146,9 @@ export default function Bucket({
           <SortingSelectBar
             title={BUCKET_DATA[bucket].name}
           />
+          {
+            isSRMSelected && (SRMComment)
+          }
           <h1 styleName="no-results">
             {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
           </h1>
@@ -217,6 +230,9 @@ export default function Bucket({
                 }}
               />
             )
+        }
+        {
+          isSRMSelected && (SRMComment)
         }
         {
           isHighestPaying && (!loading || filteredChallenges.length > 0)

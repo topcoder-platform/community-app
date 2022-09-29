@@ -31,7 +31,11 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { getSectionOptions, REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
+import {
+  isFilterEmpty,
+  isPastBucket,
+  BUCKETS,
+} from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -114,52 +118,40 @@ export default function FiltersPanel({
   const getLabel = (community) => {
     const { communityName } = community;
     if (!isAuth) {
-      return (
-        <div>
-          {communityName}
-        </div>
-      );
+      return <div>{communityName}</div>;
     }
 
     // eslint-disable-next-line max-len
-    const visitorGroupIds = (auth.profile && auth.profile.groups) ? auth.profile.groups.map(g => g.id) : [];
+    const visitorGroupIds = auth.profile && auth.profile.groups
+      ? auth.profile.groups.map(g => g.id)
+      : [];
     const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,
     );
 
-    const registrationStatus = visitorRegisteredToCommunity
-      ? (
-        <div>
-          Registered
-        </div>
-      )
-      : (
-        <div>
-          You are
-          {' '}
-          <span styleName="bold uppercase">
-            not
-          </span>
-          {' '}
-          registered.
-          <Link
-            onMouseDown={(e) => {
-              const url = community.mainSubdomain ? (
-                config.URL.BASE.replace(/www/, community.mainSubdomain)
-              ) : `/community/${community.communityId}`;
-              window.open(url);
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            styleName="learn-more-link"
-            to=""
-            openInNewTab
-          >
-            Learn more
-          </Link>
-        </div>
-      );
+    const registrationStatus = visitorRegisteredToCommunity ? (
+      <div>Registered</div>
+    ) : (
+      <div>
+        You are <span styleName="bold uppercase">not</span> registered.
+        <Link
+          onMouseDown={(e) => {
+            const url = community.mainSubdomain
+              ? config.URL.BASE.replace(/www/, community.mainSubdomain)
+              : `/community/${community.communityId}`;
+            window.open(url);
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          styleName="learn-more-link"
+          to=""
+          openInNewTab
+        >
+          Learn more
+        </Link>
+      </div>
+    );
 
     // const filterFunction = Filter.getFilterFunction(community.challengeFilter);
     // const challengesInCommunity = challenges.filter(filterFunction).length;
@@ -168,9 +160,7 @@ export default function FiltersPanel({
       <div styleName="community-select-item">
         <div>
           <div styleName="community-name">
-            <div>
-              {communityName}
-            </div>
+            <div>{communityName}</div>
             {visitorRegisteredToCommunity && (
               <div styleName="checkmark-icon-container">
                 <CheckmarkIcon color="#fff" />
@@ -183,9 +173,7 @@ export default function FiltersPanel({
               : registrationStatus}
           </div>
         </div>
-        <div>
-          {/* {challengesInCommunity} */}
-        </div>
+        <div>{/* {challengesInCommunity} */}</div>
       </div>
     );
 
@@ -199,22 +187,19 @@ export default function FiltersPanel({
           position="bottom"
           trigger={['hover']}
           content={(
-            <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
+            <div
+              style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}
+            >
               <p>
                 You are
-                { !visitorRegisteredToCommunity && (
-                <span styleName="bold">
-                  NOT
-                </span>
-                )}
-                {' '}
+                {!visitorRegisteredToCommunity && (
+                  <span styleName="bold">NOT</span>
+                )}{' '}
                 registered for this sub community.
               </p>
               <p>
                 There are
-                {/* {challengesInCommunity} */}
-                {' '}
-                challenges in this sub community
+                {/* {challengesInCommunity} */} challenges in this sub community
               </p>
             </div>
           )}
@@ -226,17 +211,22 @@ export default function FiltersPanel({
   };
 
   const mapCommunityOps = (community) => {
-    if (community.challengeFilter
-      && community.challengeFilter.events && community.challengeFilter.events.length) {
+    if (
+      community.challengeFilter
+      && community.challengeFilter.events
+      && community.challengeFilter.events.length
+    ) {
       return `event_${community.challengeFilter.events[0]}`;
     }
 
     return community.communityName === 'All' ? '' : community.groupIds[0];
   };
 
-  const communityOps = communityFilters.filter(community => (
-    (!community.hidden && !community.hideFilter) || community.communityName === 'All'
-  ))
+  const communityOps = communityFilters
+    .filter(
+      community => (!community.hidden && !community.hideFilter)
+        || community.communityName === 'All',
+    )
     .map(community => ({
       label: community.communityName,
       value: mapCommunityOps(community),
@@ -245,7 +235,12 @@ export default function FiltersPanel({
     }));
 
   // const mapOps = item => ({ label: item, value: item });
-  const mapTypes = item => ({ label: item.name, value: item.abbreviation });
+  const mapTypes = item => ({
+    label: item.name,
+    value: item.abbreviation,
+    description: item.description,
+  });
+
   const getCommunityOption = () => {
     if (filterState.events && filterState.events.length) {
       return `event_${filterState.events[0]}`;
@@ -317,7 +312,9 @@ export default function FiltersPanel({
 
   const toggleOnly = (section, type) => {
     const options = getSectionOptions(section);
-    const reducedTypes = filterState.types.filter(item => !options.includes(item));
+    const reducedTypes = filterState.types.filter(
+      item => !options.includes(item),
+    );
     const newTypes = _.union(reducedTypes, [type]);
 
     setFilterState({
@@ -328,7 +325,9 @@ export default function FiltersPanel({
 
   const toggleOnlyLearn = (type) => {
     const options = getSectionOptions('Learn');
-    const reducedTypes = filterState.types.filter(item => !options.includes(item));
+    const reducedTypes = filterState.types.filter(
+      item => !options.includes(item),
+    );
 
     if (type === 'SKL') {
       const newTypes = _.union(reducedTypes, [type]);
@@ -373,13 +372,18 @@ export default function FiltersPanel({
 
   const staticRanges = createStaticRanges();
   const past = isPastBucket(activeBucket);
-  const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
+  const disableClearFilterButtons = isFilterEmpty(
+    filterState,
+    past ? 'past' : '',
+    activeBucket,
+  );
 
-  const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER);
+  const isRecommendedChallengesVisible = activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER;
   const isTcoChallengesVisible = activeBucket !== BUCKETS.REVIEW_OPPORTUNITIES;
 
   useEffect(() => {
-    if (!isFilterEmpty(filterState, past ? 'past' : '', activeBucket)
+    if (
+      !isFilterEmpty(filterState, past ? 'past' : '', activeBucket)
       && recommendedToggle
       && filterState.types.length !== _.uniq(filterState.types).length
     ) {
@@ -415,10 +419,11 @@ export default function FiltersPanel({
           Des: true,
           DS: true,
           QA: true,
+          CMP: true,
         },
         search: '',
         tags: [],
-        types: ['CH', 'F2F', 'TSK'],
+        types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'SRM'],
         groups: [],
         events: [],
         endDateStart: null,
@@ -437,14 +442,22 @@ export default function FiltersPanel({
 
   const recommendedCheckboxTip = (
     <div styleName="tctooltiptext">
-      <p>Show the best challenges for you.</p>
+      <p>Show the best competitions for you.</p>
     </div>
   );
 
   const tcoCheckboxTip = (
     <div styleName="tctooltiptext">
-      <p>Earn TCO points by participating in these <br />
-        challenges. <a href={config.URL.TCO_OPEN_URL} target="_blank" rel="noreferrer noopener">Learn more about TCO</a>
+      <p>
+        Earn TCO points by participating in these <br />
+        competitions.{' '}
+        <a
+          href={config.URL.TCO_OPEN_URL}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Learn more about TCO
+        </a>
       </p>
     </div>
   );
@@ -481,9 +494,7 @@ export default function FiltersPanel({
     <div styleName="filter-row">
       <div styleName="filter challenge-type">
         <div styleName="section-label">
-          <span styleName="label">
-            {title}
-          </span>
+          <span styleName="label">{title}</span>
           <div styleName="hover-control section">
             <span
               styleName="control-item"
@@ -502,39 +513,37 @@ export default function FiltersPanel({
           </div>
         </div>
         <div styleName="checkboxes">
-          {
-            options.map(option => (
-              <div styleName="section-label">
-                <span styleName="checkbox" key={option.value}>
-                  <SwitchWithLabel
-                    enabled={(filterState.types || []).includes(option.value)}
-                    labelAfter={option.label}
-                    onSwitch={(e) => {
-                      let { types } = filterState;
+          {options.map(option => (
+            <div styleName="section-label">
+              <span styleName="checkbox" key={option.value}>
+                <SwitchWithLabel
+                  enabled={(filterState.types || []).includes(option.value)}
+                  labelAfter={option.label}
+                  onSwitch={(e) => {
+                    let { types } = filterState;
 
-                      if (e) {
-                        types = types.concat(option.value);
-                      } else {
-                        types = types.filter(type => type !== option.value);
-                      }
+                    if (e) {
+                      types = types.concat(option.value);
+                    } else {
+                      types = types.filter(type => type !== option.value);
+                    }
 
-                      setFilterState({ ..._.clone(filterState), types });
-                    }}
-                  />
+                    setFilterState({ ..._.clone(filterState), types });
+                  }}
+                />
+              </span>
+
+              <div styleName="hover-control">
+                <span
+                  styleName="control-item"
+                  onClick={() => toggleOnly(title, option.value)}
+                  onKeyPress={() => toggleOnly(title, option.value)}
+                >
+                  Only
                 </span>
-
-                <div styleName="hover-control">
-                  <span
-                    styleName="control-item"
-                    onClick={() => toggleOnly(title, option.value)}
-                    onKeyPress={() => toggleOnly(title, option.value)}
-                  >
-                    Only
-                  </span>
-                </div>
               </div>
-            ))
-          }
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -545,9 +554,7 @@ export default function FiltersPanel({
       <div styleName="headerWrapper">
         <div styleName="header">
           <div styleName="mobile-buttons">
-            <span styleName="title">
-              Filters
-            </span>
+            <span styleName="title">Filters</span>
             <div styleName="mobile-button">
               <Button
                 composeContextTheme={COMPOSE.SOFT}
@@ -569,7 +576,6 @@ export default function FiltersPanel({
           </span>
         </div>
       </div>
-
 
       <div styleName="filters">
         <hr styleName="hr mobile" />
@@ -616,9 +622,7 @@ export default function FiltersPanel({
         <div styleName="filter-row">
           <div styleName="filter track">
             <div styleName="section-label">
-              <span styleName="label">
-                Domain
-              </span>
+              <span styleName="label">Domain</span>
 
               <div styleName="hover-control domain">
                 <span
@@ -639,7 +643,14 @@ export default function FiltersPanel({
             </div>
             <div styleName="switches">
               <div styleName="section-label">
-                <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn('DS') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('DS')}>
+                <span
+                  styleName="filter-switch-with-label"
+                  aria-label={`Data Science toggle button pressed ${
+                    isTrackOn('DS') ? 'On' : 'Off'
+                  }`}
+                  role="switch"
+                  aria-checked={isTrackOn('DS')}
+                >
                   <SwitchWithLabel
                     enabled={isTrackOn('DS')}
                     labelAfter="Data Science"
@@ -657,7 +668,14 @@ export default function FiltersPanel({
                 </div>
               </div>
               <div styleName="section-label">
-                <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn('Des') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Des')}>
+                <span
+                  styleName="filter-switch-with-label"
+                  aria-label={`Design toggle button pressed ${
+                    isTrackOn('Des') ? 'On' : 'Off'
+                  }`}
+                  role="switch"
+                  aria-checked={isTrackOn('Des')}
+                >
                   <SwitchWithLabel
                     enabled={isTrackOn('Des')}
                     labelAfter="Design"
@@ -675,7 +693,14 @@ export default function FiltersPanel({
                 </div>
               </div>
               <div styleName="section-label">
-                <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn('Dev') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Dev')}>
+                <span
+                  styleName="filter-switch-with-label"
+                  aria-label={`Development toggle button pressed ${
+                    isTrackOn('Dev') ? 'On' : 'Off'
+                  }`}
+                  role="switch"
+                  aria-checked={isTrackOn('Dev')}
+                >
                   <SwitchWithLabel
                     enabled={isTrackOn('Dev')}
                     labelAfter="Development"
@@ -693,7 +718,14 @@ export default function FiltersPanel({
                 </div>
               </div>
               <div styleName="section-label">
-                <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn('QA') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('QA')}>
+                <span
+                  styleName="filter-switch-with-label"
+                  aria-label={`QA toggle button pressed ${
+                    isTrackOn('QA') ? 'On' : 'Off'
+                  }`}
+                  role="switch"
+                  aria-checked={isTrackOn('QA')}
+                >
                   <SwitchWithLabel
                     enabled={isTrackOn('QA')}
                     labelAfter="QA & Testing"
@@ -714,24 +746,29 @@ export default function FiltersPanel({
           </div>
         </div>
 
-        {!isReviewOpportunitiesBucket && <hr styleName="hr" /> }
-        { !isReviewOpportunitiesBucket
-          ? renderSectionOptions('Earn', validTypes.map(mapTypes)
-            .filter(item => earnSectionAbbreviations.includes(item.value))) : null
-        }
+        {!isReviewOpportunitiesBucket && <hr styleName="hr" />}
+        {!isReviewOpportunitiesBucket
+          ? renderSectionOptions(
+            'Earn',
+            validTypes
+              .map(mapTypes)
+              .filter(item => earnSectionAbbreviations.includes(item.value)),
+          )
+          : null}
 
-        {!isReviewOpportunitiesBucket && <hr styleName="hr" /> }
-        { !isReviewOpportunitiesBucket
-          ? renderSectionOptions('Competitive Programming', competitiveProgrammingOptions) : null
-        }
+        {!isReviewOpportunitiesBucket && <hr styleName="hr" />}
+        {!isReviewOpportunitiesBucket
+          ? renderSectionOptions(
+            'Competitive Programming',
+            competitiveProgrammingOptions,
+          )
+          : null}
 
         <hr styleName="hr" />
         <div styleName="filter-row">
           <div styleName="filter challenge-type">
             <div styleName="section-label">
-              <span styleName="label">
-                Learn
-              </span>
+              <span styleName="label">Learn</span>
               <div styleName="hover-control section">
                 <span
                   styleName="control-item"
@@ -752,8 +789,11 @@ export default function FiltersPanel({
 
             <div styleName="checkboxes">
               <div styleName="section-label">
-
-                <span styleName="checkbox" role="switch" aria-checked={isSearchOn('Practice')}>
+                <span
+                  styleName="checkbox"
+                  role="switch"
+                  aria-checked={isSearchOn('Practice')}
+                >
                   <SwitchWithLabel
                     enabled={isSearchOn('Practice')}
                     labelAfter="Practice"
@@ -769,10 +809,13 @@ export default function FiltersPanel({
                     Only
                   </span>
                 </div>
-
               </div>
               <div styleName="section-label">
-                <span styleName="checkbox" role="switch" aria-checked={isTrackOn('SKL')}>
+                <span
+                  styleName="checkbox"
+                  role="switch"
+                  aria-checked={isTrackOn('SKL')}
+                >
                   <SwitchWithLabel
                     enabled={(filterState.types || []).includes('SKL')}
                     labelAfter="Skill Builder"
@@ -805,136 +848,139 @@ export default function FiltersPanel({
 
         <hr styleName="hr" />
 
-        { past
-          && (
-            <div styleName="filter-row">
-              <div styleName="filter past-period">
-                <span styleName="label">
-                  Past Period
-                </span>
-                <div styleName="radios">
-                  {
-                    staticRanges.map(range => (
-                      <span styleName="radio" key={range.label}>
-                        <input
-                          type="radio"
-                          styleName="input-control"
-                          name="past-period"
-                          id={range.label}
-                          value={range.label}
-                          checked={range.isCustom
-                            ? filterState.customDate
-                            : !filterState.customDate && range.isSelected({
+        {past && (
+          <div styleName="filter-row">
+            <div styleName="filter past-period">
+              <span styleName="label">Past Period</span>
+              <div styleName="radios">
+                {staticRanges.map(range => (
+                  <span styleName="radio" key={range.label}>
+                    <input
+                      type="radio"
+                      styleName="input-control"
+                      name="past-period"
+                      id={range.label}
+                      value={range.label}
+                      checked={
+                        range.isCustom
+                          ? filterState.customDate
+                          : !filterState.customDate
+                            && range.isSelected({
                               startDate: filterState.endDateStart,
                               endDate: filterState.startDateEnd,
                             })
-                          }
-                          onChange={() => {
-                            if (range.isCustom) {
-                              setFilterState({
-                                ..._.clone(filterState),
-                                customDate: true,
-                              });
-                            } else {
-                              setFilterState({
-                                ..._.clone(filterState),
-                                endDateStart: moment(range.startDate).toISOString(),
-                                startDateEnd: moment(range.endDate).toISOString(),
-                                customDate: false,
-                              });
-                            }
-                          }}
-                        />
-                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                        <label styleName="radio-label" htmlFor={range.label}>{range.label}</label>
-                      </span>
-                    ))
-                  }
-                </div>
+                      }
+                      onChange={() => {
+                        if (range.isCustom) {
+                          setFilterState({
+                            ..._.clone(filterState),
+                            customDate: true,
+                          });
+                        } else {
+                          setFilterState({
+                            ..._.clone(filterState),
+                            endDateStart: moment(range.startDate).toISOString(),
+                            startDateEnd: moment(range.endDate).toISOString(),
+                            customDate: false,
+                          });
+                        }
+                      }}
+                    />
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <label styleName="radio-label" htmlFor={range.label}>
+                      {range.label}
+                    </label>
+                  </span>
+                ))}
               </div>
             </div>
-          )
-        }
+          </div>
+        )}
 
-        { past && filterState.customDate
-          && (
-            <div styleName="filter-row">
-              <div styleName="filter dates">
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label htmlFor="input-start-date-range" styleName="label">
-                  Custom Date range
-                </label>
-                <DateRangePicker
-                  onChange={(range) => {
-                    const d = range.endDate ? moment(range.endDate).toISOString() : null;
-                    const s = range.startDate ? moment(range.startDate).toISOString() : null;
-                    setFilterState({
-                      ..._.clone(filterState),
-                      endDateStart: s,
-                      startDateEnd: d,
-                    });
-                  }}
-                  range={{
-                    startDate: filterState.endDateStart
-                      ? moment(filterState.endDateStart).toDate()
-                      : null,
-                    endDate: filterState.startDateEnd
-                      ? moment(filterState.startDateEnd).toDate()
-                      : null,
-                  }}
-                />
-              </div>
+        {past && filterState.customDate && (
+          <div styleName="filter-row">
+            <div styleName="filter dates">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="input-start-date-range" styleName="label">
+                Custom Date range
+              </label>
+              <DateRangePicker
+                onChange={(range) => {
+                  const d = range.endDate
+                    ? moment(range.endDate).toISOString()
+                    : null;
+                  const s = range.startDate
+                    ? moment(range.startDate).toISOString()
+                    : null;
+                  setFilterState({
+                    ..._.clone(filterState),
+                    endDateStart: s,
+                    startDateEnd: d,
+                  });
+                }}
+                range={{
+                  startDate: filterState.endDateStart
+                    ? moment(filterState.endDateStart).toDate()
+                    : null,
+                  endDate: filterState.startDateEnd
+                    ? moment(filterState.startDateEnd).toDate()
+                    : null,
+                }}
+              />
             </div>
-          )
-        }
+          </div>
+        )}
 
         {/* Only shown when the Review Opportunity bucket is selected */}
-        { isReviewOpportunitiesBucket
-          ? (
-            <div styleName="filter-row">
-              <div styleName="filter review-type">
-                <label htmlFor="review-type-select" styleName="label">
-                  Review Type
-                  <input type="hidden" />
-                </label>
-                <div styleName="checkboxes">
-                  {
-                    Object.entries(REVIEW_OPPORTUNITY_TYPES)
-                      .map(([value, label]) => ({ value, label }))
-                      .map(option => (
-                        <span styleName="checkbox" key={option.value}>
-                          <SwitchWithLabel
-                            enabled={filterState.reviewOpportunityTypes.includes(option.value)}
-                            labelAfter={option.label}
-                            onSwitch={(e) => {
-                              let { reviewOpportunityTypes = [] } = filterState;
+        {isReviewOpportunitiesBucket ? (
+          <div styleName="filter-row">
+            <div styleName="filter review-type">
+              <label htmlFor="review-type-select" styleName="label">
+                Review Type
+                <input type="hidden" />
+              </label>
+              <div styleName="checkboxes">
+                {Object.entries(REVIEW_OPPORTUNITY_TYPES)
+                  .map(([value, label]) => ({ value, label }))
+                  .map(option => (
+                    <span styleName="checkbox" key={option.value}>
+                      <SwitchWithLabel
+                        enabled={filterState.reviewOpportunityTypes.includes(
+                          option.value,
+                        )}
+                        labelAfter={option.label}
+                        onSwitch={(e) => {
+                          let { reviewOpportunityTypes = [] } = filterState;
 
-                              if (e) {
-                                reviewOpportunityTypes = reviewOpportunityTypes
-                                  .concat(option.value);
-                              } else {
-                                reviewOpportunityTypes = reviewOpportunityTypes.filter(
-                                  reviewType => reviewType !== option.value,
-                                );
-                              }
+                          if (e) {
+                            reviewOpportunityTypes = reviewOpportunityTypes.concat(option.value);
+                          } else {
+                            reviewOpportunityTypes = reviewOpportunityTypes.filter(
+                              reviewType => reviewType !== option.value,
+                            );
+                          }
 
-                              setFilterState({ ..._.clone(filterState), reviewOpportunityTypes });
-                            }}
-                          />
-                        </span>
-                      ))
-                  }
-                </div>
+                          setFilterState({
+                            ..._.clone(filterState),
+                            reviewOpportunityTypes,
+                          });
+                        }}
+                      />
+                    </span>
+                  ))}
               </div>
             </div>
-          ) : null
-        }
+          </div>
+        ) : null}
 
-        { !isReviewOpportunitiesBucket && !(recommendedToggle && activeBucket === 'openForRegistration')
-          && (
+        {!isReviewOpportunitiesBucket
+          && !(recommendedToggle && activeBucket === 'openForRegistration') && (
             <div styleName="filter-row">
               <div styleName="filter filter community">
-                <label htmlFor="community-select" styleName="label community-label">
+                <label
+                  htmlFor="community-select"
+                  styleName="label community-label"
+                >
                   Sub communities
                   <input type="hidden" />
                 </label>
@@ -965,88 +1011,81 @@ export default function FiltersPanel({
                   simpleValue
                   value={getCommunityOption()}
                   valueRenderer={option => (
-                    <span styleName="active-community">
-                      {option.name}
-                    </span>
+                    <span styleName="active-community">{option.name}</span>
                   )}
                   arrowRenderer={ArrowIcon}
                 />
               </div>
             </div>
-          )
-        }
+        )}
         <hr styleName="hr" />
 
-        {
-          isRecommendedChallengesVisible && _.get(auth, 'user.userId')
-          && (
-            <React.Fragment>
-              <div styleName="filter-row recommended-challenges-filter">
-                <span
-                  styleName="recommended-select-label"
-                  aria-label={`Recommended challenge toggle button pressed ${recommendedToggle ? 'On' : 'Off'}`}
-                  role="switch"
-                  aria-checked={recommendedToggle}
-                >
-                  <SwitchWithLabel
-                    enabled={recommendedToggle}
-                    labelAfter="Recommended Challenges"
-                    onSwitch={onSwitchRecommendedChallenge}
-                  />
-                </span>
+        {isRecommendedChallengesVisible && _.get(auth, 'user.userId') && (
+          <React.Fragment>
+            <div styleName="filter-row recommended-challenges-filter">
+              <span
+                styleName="recommended-select-label"
+                aria-label={`Recommended competition toggle button pressed ${
+                  recommendedToggle ? 'On' : 'Off'
+                }`}
+                role="switch"
+                aria-checked={recommendedToggle}
+              >
+                <SwitchWithLabel
+                  enabled={recommendedToggle}
+                  labelAfter="Recommended Competitions"
+                  onSwitch={onSwitchRecommendedChallenge}
+                />
+              </span>
 
-                <div styleName="recommended-challenge-tooltip">
-                  <Tooltip
-                    id="recommended-tip"
-                    content={recommendedCheckboxTip}
-                    className={style['tooltip-overlay']}
-                    trigger={['hover', 'focus']}
-                  >
-                    <CircleIcon />
-                  </Tooltip>
-                </div>
-              </div>
-            </React.Fragment>
-          )
-        }
-        {
-          isTcoChallengesVisible
-          && (
-            <React.Fragment>
-              <div styleName="filter-row tco-challenges-filter">
-                <span
-                  styleName="tco-select-label"
-                  aria-label={`Tco eligible challenge toggle button pressed ${tcoToggle ? 'On' : 'Off'}`}
-                  role="switch"
-                  aria-checked={tcoToggle}
+              <div styleName="recommended-challenge-tooltip">
+                <Tooltip
+                  id="recommended-tip"
+                  content={recommendedCheckboxTip}
+                  className={style['tooltip-overlay']}
+                  trigger={['hover', 'focus']}
                 >
-                  <SwitchWithLabel
-                    enabled={tcoToggle}
-                    labelAfter="TCO Eligible Only"
-                    onSwitch={onSwitchTcoChallenge}
-                  />
-                </span>
-
-                <div styleName="tco-challenge-tooltip">
-                  <Tooltip
-                    id="tco-tip"
-                    content={tcoCheckboxTip}
-                    className={style['tooltip-overlay']}
-                    trigger={['hover', 'focus']}
-                  >
-                    <CircleIcon />
-                  </Tooltip>
-                </div>
+                  <CircleIcon />
+                </Tooltip>
               </div>
-            </React.Fragment>
-          )
-        }
+            </div>
+          </React.Fragment>
+        )}
+        {isTcoChallengesVisible && (
+          <React.Fragment>
+            <div styleName="filter-row tco-challenges-filter">
+              <span
+                styleName="tco-select-label"
+                aria-label={`Tco eligible challenge toggle button pressed ${
+                  tcoToggle ? 'On' : 'Off'
+                }`}
+                role="switch"
+                aria-checked={tcoToggle}
+              >
+                <SwitchWithLabel
+                  enabled={tcoToggle}
+                  labelAfter="TCO Eligible Only"
+                  onSwitch={onSwitchTcoChallenge}
+                />
+              </span>
+
+              <div styleName="tco-challenge-tooltip">
+                <Tooltip
+                  id="tco-tip"
+                  content={tcoCheckboxTip}
+                  className={style['tooltip-overlay']}
+                  trigger={['hover', 'focus']}
+                >
+                  <CircleIcon />
+                </Tooltip>
+              </div>
+            </div>
+          </React.Fragment>
+        )}
       </div>
 
-      {
-        ((isRecommendedChallengesVisible && _.get(auth, 'user.userId')) || isTcoChallengesVisible)
-          && (<hr styleName="hr" />)
-      }
+      {((isRecommendedChallengesVisible && _.get(auth, 'user.userId'))
+        || isTcoChallengesVisible) && <hr styleName="hr" />}
 
       <div styleName="buttons">
         <Button
@@ -1076,10 +1115,12 @@ FiltersPanel.defaultProps = {
 };
 
 FiltersPanel.propTypes = {
-  communityFilters: PT.arrayOf(PT.shape({
-    communityId: PT.string.isRequired,
-    communityName: PT.string.isRequired,
-  })).isRequired,
+  communityFilters: PT.arrayOf(
+    PT.shape({
+      communityId: PT.string.isRequired,
+      communityName: PT.string.isRequired,
+    }),
+  ).isRequired,
   defaultCommunityId: PT.string.isRequired,
   activeBucket: PT.string.isRequired,
   filterState: PT.shape().isRequired,

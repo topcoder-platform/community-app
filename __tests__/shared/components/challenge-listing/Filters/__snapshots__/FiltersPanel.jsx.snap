@@ -618,7 +618,8 @@ exports[`Matches shallow shapshot 2`] = `
                 <p>
                   Earn TCO points by participating in these 
                   <br />
-                  challenges. 
+                  competitions.
+                   
                   <a
                     href="https://www.topcoder-dev.com/community/member-programs/topcoder-open"
                     rel="noreferrer noopener"

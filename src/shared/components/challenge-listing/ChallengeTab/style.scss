@@ -25,7 +25,7 @@
     background-color: #bae1f9;
 
     p {
-      color: $tco-black;
+      color: #555 !important;
       font-weight: 700;
     }
   }
@@ -44,7 +44,7 @@
 
     font-weight: 600;
     font-size: 14px;
-    color: $member-gray;
+    color: #555;
     line-height: 20px;
     padding: 12px 16px 10px 16px;
     cursor: pointer;
@@ -57,7 +57,7 @@
   }
 
   .active {
-    color: $tc-black;
+    color: #555 !important;
     font-weight: 700;
 
     &::after {

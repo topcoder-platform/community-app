@@ -13,7 +13,7 @@ exports[`Matches shallow shapshot 1`] = `
     href="https://www.topcoder-dev.com/tco"
   >
     <div
-      className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__tco-icon___18ZV7 src-shared-components-TrackIcon-___style__hidden___JXTEt"
+      className="src-shared-components-TrackIcon-___style__tco-icon___18ZV7 src-shared-components-TrackIcon-___style__hidden___JXTEt"
     >
       TCO
     </div>
@@ -26,7 +26,7 @@ exports[`Matches shallow shapshot 2`] = `
   className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
 >
   <div
-    className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__main-icon___1q-1_"
+    className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__main-icon___1q-1_ src-shared-components-TrackIcon-___style__withTco___3k0Aq"
   >
     CH
   </div>
@@ -34,7 +34,7 @@ exports[`Matches shallow shapshot 2`] = `
     href="https://www.topcoder-dev.com/tco"
   >
     <div
-      className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
+      className="src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
     >
       TCO
     </div>
@@ -47,7 +47,7 @@ exports[`Matches shallow shapshot 3`] = `
   className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
 >
   <div
-    className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__main-icon___1q-1_"
+    className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__main-icon___1q-1_ src-shared-components-TrackIcon-___style__withTco___3k0Aq"
   >
     CH
   </div>
@@ -55,7 +55,7 @@ exports[`Matches shallow shapshot 3`] = `
     href="https://www.topcoder-dev.com/tco"
   >
     <div
-      className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
+      className="src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
     >
       TCO
     </div>

@@ -8,8 +8,8 @@ $track-radius-4: $corner-radius * 2;
 
 .trackIcon {
   display: flex;
-  width: $base-unit * 6;
-  height: $base-unit * 6;
+  width: $base-unit * 6 + 2;
+  height: $base-unit * 6 + 2;
   margin-right: $track-space-20;
   flex-direction: column;
 
@@ -28,8 +28,6 @@ $track-radius-4: $corner-radius * 2;
     cursor: pointer;
     width: 100%;
     height: 100%;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
 
     &.CH {
       background: $track-code-green;
@@ -42,6 +40,27 @@ $track-radius-4: $corner-radius * 2;
     &.TSK {
       background: $track-code-turquose;
     }
+
+    &.MM {
+      background: $track-code-red;
+    }
+
+    &.RDM {
+      background: $track-code-purple;
+    }
+
+    &.SKL {
+      background: $track-code-purplish;
+    }
+
+    &.SRM {
+      background: $track-code-yellow;
+    }
+
+    &.withTco {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
   .tco-icon {
@@ -52,25 +71,12 @@ $track-radius-4: $corner-radius * 2;
     font-weight: 700;
     border-radius: $corner-radius + 1px;
     line-height: 8px;
-    padding: $base-unit - 1 0;
+    padding: 2px 0;
     margin-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-
-    &.CH {
-      color: $track-code-green;
-      background: $track-code-green-light;
-    }
-
-    &.F2F {
-      color: $track-code-blue;
-      background: $track-code-blue-light;
-    }
-
-    &.TSK {
-      color: $track-code-turquose;
-      background: $track-code-turquose-light;
-    }
+    color: #555;
+    background: #d4d4d4;
   }
 
   .hidden {

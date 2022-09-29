@@ -160,7 +160,7 @@ const ChallengeListing = (props) => {
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
 
-      <h1 styleName="tc-title">CHALLENGES</h1>
+      <h1 styleName="tc-title">COMPETITIONS</h1>
       <hr styleName="tc-seperator" />
 
       <ChallengeTab

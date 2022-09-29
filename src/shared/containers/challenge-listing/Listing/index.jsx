@@ -576,7 +576,7 @@ export class ListingContainer extends React.Component {
     let communityFilter = communityFilters.find(item => item.communityId === selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
-    const title = 'Topcoder Challenge Listings | Topcoder Community | Topcoder';
+    const title = 'Topcoder Competition Listings | Topcoder Community | Topcoder';
     const description = 'Browse the challenges currently available on Topcoder. Search by type of challenge, then find those of interest to register for and compete in today.';
 
     let banner;

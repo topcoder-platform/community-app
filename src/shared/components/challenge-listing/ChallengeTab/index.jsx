@@ -67,7 +67,7 @@ const ChallengeTab = ({
         }}
         role="presentation"
       >
-        ACTIVE CHALLENGES
+        ACTIVE
       </li>
       <li
         key="tab-item-past"
@@ -81,7 +81,7 @@ const ChallengeTab = ({
         }}
         role="presentation"
       >
-        PAST CHALLENGES
+        PAST
       </li>
     </ul>
   );
@@ -93,7 +93,7 @@ const ChallengeTab = ({
         role="presentation"
         onClick={() => setIsTabClosed(!isTabClosed)}
       >
-        <p styleName="title">{currentSelected ? 'PAST CHALLENGES' : 'ACTIVE CHALLENGES'}</p>
+        <p styleName="title">{currentSelected ? 'PAST' : 'ACTIVE'}</p>
         <div
           role="presentation"
           styleName={cn('icon', { down: !isTabClosed })}
@@ -110,14 +110,14 @@ const ChallengeTab = ({
               onClick={onActiveClick}
               styleName={cn('item', { active: !currentSelected })}
             >
-              <p>ACTIVE CHALLENGES</p>
+              <p>ACTIVE</p>
             </div>
             <div
               role="presentation"
               styleName={cn('item', { active: currentSelected })}
               onClick={onPastChallengesClick}
             >
-              <p>PAST CHALLENGES</p>
+              <p>PAST</p>
             </div>
           </div>
         )

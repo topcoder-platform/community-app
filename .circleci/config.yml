@@ -1,37 +1,37 @@
 version: 2.1
 parameters:
-    run_basedeployment:
-        default: true
-        type: boolean
-    run_smoketesting:
-        default: false
-        type: boolean
-    run_performancetesting:
-        default: false
-        type: boolean
+  run_basedeployment:
+    default: true
+    type: boolean
+  run_smoketesting:
+    default: false
+    type: boolean
+  run_performancetesting:
+    default: false
+    type: boolean
 
 defaults: &defaults
-    docker:
-      - image: docker:17.11.0-ce-git
-        environment:
-          ENV: $BASH_ENV
+  docker:
+    - image: docker:17.11.0-ce-git
+      environment:
+        ENV: $BASH_ENV
 
 install_dependency: &install_dependency
-          name: Installation of build and deployment dependencies.
-          command: |
-            apk update
-            apk add --no-cache bash openssl curl
-            apk upgrade
-            apk add --no-cache jq py-pip sudo
-            sudo pip install awscli --upgrade
+  name: Installation of build and deployment dependencies.
+  command: |
+    apk update
+    apk add --no-cache bash openssl curl
+    apk upgrade
+    apk add --no-cache jq py-pip sudo
+    sudo pip install awscli --upgrade
 
 install_deploysuite: &install_deploysuite
-          name: Installation of install_deploysuite.
-          command: |
-            git clone --branch dev_comm https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
+  name: Installation of install_deploysuite.
+  command: |
+    git clone --branch dev_comm https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+    cp ./../buildscript/master_deploy.sh .
+    cp ./../buildscript/buildenv.sh .
+    cp ./../buildscript/awsconfiguration.sh .
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
@@ -41,11 +41,11 @@ save_cache_settings: &save_cache_settings
     - node_modules
 
 build_docker_image: &build_docker_image
-          name: Build of Docker image
-          command: |
-            source buildenvvar
-            ./build.sh
-          no_output_timeout: 20m
+  name: Build of Docker image
+  command: |
+    source buildenvvar
+    ./build.sh
+  no_output_timeout: 20m
 jobs:
   # Build & Deploy against development backend
   "build-dev":
@@ -251,7 +251,7 @@ jobs:
       - store_artifacts:
           path: ./automated-smoke-test/test-results
 
-   # Automated Smoke Testing against Production
+    # Automated Smoke Testing against Production
   Smoke-Testing-On-Production:
     <<: *defaults
     steps:
@@ -322,9 +322,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run: mvn dependency:go-offline
 
@@ -345,7 +345,7 @@ workflows:
     jobs:
       # Development builds are executed on "new-develop" branch only.
       - "build-dev":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only:
@@ -353,28 +353,28 @@ workflows:
                 - multi_faceted_filters
       # This is alternate dev env for parallel testing
       - "build-test":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only:
                 - free
       # This is alternate dev env for parallel testing
       - "build-qa":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only:
                 - reskin-profile-settings
       # This is beta env for production soft releases
       - "build-prod-beta":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only:
                 - beta-demo
       # This is stage env for production QA releases
       - "build-prod-staging":
-          context : org-global
+          context: org-global
           filters: &filters-staging
             branches:
               only:
@@ -388,7 +388,7 @@ workflows:
       # deployed on the production
       # master branch.
       - "build-prod":
-          context : org-global
+          context: org-global
           filters: &filters-prod
             branches:
               only:
@@ -409,13 +409,13 @@ workflows:
       - Hold [Smoke-Testing]:
           type: approval
       - Smoke-Testing-On-Staging:
-          context : org-global
+          context: org-global
           requires:
             - Hold [Smoke-Testing]
           filters:
             <<: *filters-staging
       - Smoke-Testing-On-Production:
-          context : org-global
+          context: org-global
           requires:
             - Hold [Smoke-Testing]
           filters:

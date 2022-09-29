@@ -16,8 +16,8 @@ function NoRecommenderChallengeCard() {
         NO VERIFIED SKILLS ON YOUR PROFILE
       </span>
       <span styleName="text">
-        Your recommended challenges are based on your Verified Skills.
-        Competing in <Link styleName="challenge-link" to={`${base}/challenges`}>challenges</Link> is a great way to earn them.
+        Your recommended competitions are based on your Verified Skills.
+        Competing in <Link styleName="challenge-link" to={`${base}/challenges`}>competitions</Link> is a great way to earn them.
       </span>
     </div>
   );
