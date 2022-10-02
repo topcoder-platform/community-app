@@ -66,6 +66,8 @@ export class ListingContainer extends React.Component {
       filter,
     } = this.props;
 
+    const { needLoad } = this.state;
+
     markHeaderMenu();
 
     if (queryBucket !== activeBucket && _.includes(BUCKETS, queryBucket)) {
@@ -105,6 +107,10 @@ export class ListingContainer extends React.Component {
       });
     }
     // }
+
+    if (needLoad) {
+      this.setState({ needLoad: false });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -134,7 +140,6 @@ export class ListingContainer extends React.Component {
       getPastChallenges,
       filterState,
     } = this.props;
-    const { needLoad } = this.state;
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
     const handle = _.get(auth, 'user.handle');
@@ -259,10 +264,6 @@ export class ListingContainer extends React.Component {
     }
     if (filterChanged(filter, prevProps.filter)) {
       this.reloadChallenges();
-      if (needLoad) {
-        // eslint-disable-next-line react/no-did-update-set-state
-        this.setState({ needLoad: false });
-      }
     }
     setTimeout(() => {
       selectBucketDone();
