@@ -44,7 +44,6 @@ export class ListingContainer extends React.Component {
     super(props);
 
     this.state = {
-      needLoad: true,
       previousBucketOfActiveTab: null,
       previousBucketOfPastChallengesTab: null,
     };
@@ -65,8 +64,6 @@ export class ListingContainer extends React.Component {
       queryBucket,
       filter,
     } = this.props;
-
-    const { needLoad } = this.state;
 
     markHeaderMenu();
 
@@ -107,10 +104,6 @@ export class ListingContainer extends React.Component {
       });
     }
     // }
-
-    if (needLoad) {
-      this.setState({ needLoad: false });
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -502,7 +495,6 @@ export class ListingContainer extends React.Component {
     } = this.props;
 
     const {
-      needLoad,
       previousBucketOfActiveTab,
       previousBucketOfPastChallengesTab,
     } = this.state;
@@ -638,7 +630,6 @@ export class ListingContainer extends React.Component {
           keepPastPlaceholders={keepPastPlaceholders}
           // lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           // eslint-disable-next-line max-len
-          needLoad={needLoad}
           loadingMyChallenges={Boolean(loadingMyChallengesUUID)}
           loadingMyPastChallenges={Boolean(loadingMyPastChallengesUUID)}
           loadingAllChallenges={Boolean(loadingAllChallengesUUID)}

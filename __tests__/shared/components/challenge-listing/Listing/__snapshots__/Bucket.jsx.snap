@@ -84,7 +84,6 @@ exports[`Matches shallow shapshot 1`] = `
     expanding={false}
     loadMore={[MockFunction]}
     loading={false}
-    needLoad={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     setFilterState={[MockFunction]}
