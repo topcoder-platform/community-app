@@ -78,14 +78,14 @@
     "instagram": "https://www.instagram.com/topcoder/?ref=navb",
     "discord": "https://discord.com/invite/topcoder?ref=navb"
   },
-  "forumSettingUrl": "https://apps.topcoder.com/forums/?module=Settings",
+  "forumSettingUrl": "https://discussions.topcoder.com/profile/preferences",
   "paymentSettingUrl": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false&ref=nav",
   "helpUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles&ref=nav",
   "searchUrl": "https://www.topcoder.com/search/members",
   "allNotificationsUrl": "https://www.topcoder.com/notifications",
   "policiesUrl": "https://www.topcoder.com/policy?ref=navb",
   "username": "swap12875",
-  "password": "Swap@12875#",
+  "password": "Swap@12ka%",
   "email": "swap12875@gmail.com",
   "challangesLinks": {
     "rssFeedUrl": "http://feeds.topcoder.com/challenges/feed",
@@ -124,13 +124,12 @@
     "profileInfo": {
       "handle": "oton",
       "numberOfCollapsedSkills": 4,
-      "verifiedSkill": "Geometry",
+      "verifiedSkill": ["C#", "Geometry", "Simple Math"],
       "noneVerifiedSkill": "User Experience (Ux)",
       "country": "INDONESIA",
-      "memberSince": "MEMBER SINCE MAY, 2006",
-      "tracks": ["COPILOT", "DEVELOP", "DESIGN", "DATA_SCIENCE"],
-      "quote": "Indonesian. Dad of two. IA. WordPress/WooCommerce. Rails.",
-      "forumLink": "https://apps.topcoder.com/forums/?module=History&userID=22076237"
+      "memberSince": "Member Since May 2006",
+      "tracks": ["UX / UI DESIGN", "DEVELOPMENT", "DATA SCIENCE", "SPECIALIZED ROLES"],
+      "quote": "Indonesian. Dad of two. IA. WordPress/WooCommerce. Rails."
     },
     "memberHaveWebSectionInfo": {
       "handle": "oton",
@@ -138,45 +137,45 @@
     },
     "copilotProfile": {
       "handle": "oton",
-      "trackName": "COPILOT",
+      "trackName": "SPECIALIZED ROLES",
       "fullfillmentInfo": {
-        "name": "COPILOT",
+        "name": "Copilot",
         "info": "92.31%",
         "infoTitle": "FULFILLMENT",
-        "link": "https://www.topcoder.com/members/oton/details/?track=COPILOT&subTrack=COPILOT"
+        "link": "https://www.topcoder.com/members/oton"
       }
     },
     "designProfile": {
       "handle": "oton",
-      "trackName": "DESIGN",
+      "trackName": "UX / UI Design",
       "numberOfSubtracks": 8,
       "winInfo": {
-        "name": "WEB DESIGNS",
-        "info": "4",
+        "name": "Wireframes",
+        "info": "13",
         "infoTitle": "WINS",
-        "link": "https://www.topcoder.com/members/oton/details/?track=DESIGN&subTrack=WEB_DESIGNS"
+        "link": "https://www.topcoder.com/members/oton"
       }
     },
     "developmentProfile": {
       "handle": "oton",
-      "trackName": "DEVELOP",
+      "trackName": "DEVELOPMENT",
       "numberOfSubtracks": 2,
       "winInfo": {
-        "name": "UI PROTOTYPE COMPETITION",
-        "info": "908",
-        "infoTitle": "RATING",
-        "link": "https://www.topcoder.com/members/oton/details/?track=DEVELOP&subTrack=UI_PROTOTYPE_COMPETITION"
+        "name": "Wireframes",
+        "info": "0",
+        "infoTitle": "WINS",
+        "link": "https://www.topcoder.com/members/oton"
       }
     },
     "dataScienceProfile": {
       "handle": "oton",
-      "trackName": "DATA_SCIENCE",
+      "trackName": "DATA SCIENCE",
       "numberOfSubtracks": 1,
       "ratingInfo": {
         "name": "SRM",
         "info": "952",
         "infoTitle": "RATING",
-        "link": "https://www.topcoder.com/members/oton/details/?track=DATA_SCIENCE&subTrack=SRM"
+        "link": "https://www.topcoder.com/members/oton"
       }
     }
   }

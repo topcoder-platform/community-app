@@ -89,9 +89,11 @@ export class FooterHelper {
     const socialLinks = await this.footerPageObject.getAllSocialLinks();
     for (let i = 0; i < socialLinks.length; i++) {
       const socialLink = socialLinks[i];
+      await this.footerPageObject.waitTillIconDisplayedAndClickable(socialLink)
       await socialLink.click();
       const windowHandles = await BrowserHelper.getAllWindowHandles();
-      await BrowserHelper.switchToWindow(windowHandles[1]);
+      let windowHandlesStr = "" + windowHandles[1]
+      await BrowserHelper.switchToWindow(windowHandlesStr);
       const currentUrl = await BrowserHelper.getCurrentUrl();
       logger.info("The current URL is '" + currentUrl + "' for Social icon.")
       await BrowserHelper.sleep(2000)

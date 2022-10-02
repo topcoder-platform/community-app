@@ -49,7 +49,7 @@ export interface MemberHaveWebSectionInfoConfig {
 export interface MemberProfileInfoConfig {
   handle: string;
   numberOfCollapsedSkills: number;
-  verifiedSkill?: string;
+  verifiedSkill?: string[];
   noneVerifiedSkill?: string;
   country: string;
   memberSince: string;
