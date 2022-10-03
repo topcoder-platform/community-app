@@ -8,11 +8,9 @@
   padding: $pad-xxxxl;
   background-color: $color-tc-white;
   border-radius: 4px;
-  gap: 32px;
 
-  @include upto-sm {
+  @media (max-width: #{$screen-md - 1px}) {
     padding: 26px 16px;
-    gap: 24px;
   }
 
   .security-title {
@@ -33,13 +31,13 @@
     padding: $pad-lg;
     border: 1px solid $color-black-20;
     border-radius: 8px;
-    gap: 16px;
     width: 100%;
+    margin-top: 32px;
 
-    @include upto-sm {
-      gap: 8px;
+    @media (max-width: #{$screen-md - 1px}) {
       flex-direction: column;
       align-items: flex-start;
+      margin-top: 24px;
     }
 
     .icon-wrapper {
@@ -51,9 +49,11 @@
       height: 74px;
       background: $color-black-5;
       border-radius: 4px;
+      margin-right: 16px;
 
-      @include upto-sm {
+      @media (max-width: #{$screen-md - 1px}) {
         align-self: flex-start;
+        margin-bottom: 8px;
       }
 
       img {
@@ -66,10 +66,6 @@
       flex-direction: column;
       flex: 1;
 
-      @include upto-sm {
-        gap: 8px;
-      }
-
       .info-first-line {
         @include roboto-regular;
 
@@ -79,6 +75,10 @@
         letter-spacing: 0.5px;
         text-transform: capitalize;
         color: $tco-black;
+
+        @media (max-width: #{$screen-md - 1px}) {
+          margin-bottom: 8px;
+        }
       }
 
       .info-second-line {
@@ -93,7 +93,7 @@
           display: none;
         }
 
-        @include upto-sm {
+        @media (max-width: #{$screen-md - 1px}) {
           padding-right: 0;
 
           &.dice-info {
@@ -108,7 +108,7 @@
     }
 
     .on-off-switch {
-      @include upto-sm {
+      @media (max-width: #{$screen-md - 1px}) {
         display: block;
         position: absolute;
         align-self: flex-end;
@@ -146,7 +146,7 @@
         pointer-events: none;
       }
 
-      @include upto-sm {
+      @media (max-width: #{$screen-md - 1px}) {
         display: none;
       }
     }
