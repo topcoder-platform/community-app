@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - tco23
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
@@ -378,7 +378,8 @@ workflows:
             branches:
               only:
                 - develop
-                - feat/fetch-active-review-types-only
+                - old-mm-fix
+                - reskin-profile-settings
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
@@ -398,6 +399,7 @@ workflows:
             branches:
               ignore:
                 - develop
+                - submission_delete_button
 
   Smoke Testing:
     when: << pipeline.parameters.run_smoketesting >>

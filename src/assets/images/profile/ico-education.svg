@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 50 50">
     <g fill="none" fill-rule="evenodd">
         <rect width="34" height="40" x="1" fill="#CEE6FF" stroke="#444" stroke-width="2" rx="6"/>
         <path fill="#FFF" stroke="#444" stroke-width="2" d="M35 33H10v2c0 1.94-.795 3.72-2.1 5H30a5 5 0 0 0 5-5v-2zM5.03 22.258l.303-.86a6.953 6.953 0 0 0-.584-.177l-.222.862H4v.258h.54l.21.816c.136-.035.275-.064.415-.088l-.136-.81z"/>

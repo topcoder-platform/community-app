@@ -69,7 +69,7 @@ export default function Podium(props) {
     ));
 
     return (
-      <div styleName={`${stylesName}.PodiumWrap`} style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
+      <div styleName={`${stylesName}.${themeName === 'TCO23' ? 'PodiumWrapCondense' : 'PodiumWrap'}`} style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
         {podiumSpots}
       </div>
     );

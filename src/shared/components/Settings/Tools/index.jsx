@@ -1,146 +1,139 @@
-/**
- * Child component of Settings/Tools renders setting page for tools.
- */
-/* eslint-disable no-undef */
+/* eslint-disable prefer-destructuring */
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
+import Devices from './Devices';
+import Software from './Software';
+import ServiceProviders from './ServiceProviders';
+import Subscriptions from './Subscriptions';
+import ErrorWrapper from '../ErrorWrapper';
 
-import Accordion from 'components/Settings/Accordion';
-import SideBar from 'components/Settings/SideBar';
-import DevicesIcon from 'assets/images/tools/sideicons/devices.svg';
-import ServiceProvidersIcon from 'assets/images/tools/sideicons/serviceproviders.svg';
-import SoftwareIcon from 'assets/images/tools/sideicons/software.svg';
-import SubscriptionsIcon from 'assets/images/tools/sideicons/subscriptions.svg';
-import Devices from 'components/Settings/Tools/Devices';
-import ComingSoon from 'components/Settings/ComingSoon';
-import Software from 'components/Settings/Tools/Software';
-import ServiceProviders from 'components/Settings/Tools/ServiceProviders';
-import Subscriptions from 'components/Settings/Tools/Subscriptions';
-import ErrorWrapper from 'components/Settings/ErrorWrapper';
-import { SCREEN_SIZE } from '../constants';
-
-import './styles.scss';
+import styles from './styles.scss';
 
 export default class Tools extends React.Component {
   constructor(props) {
     super(props);
-    const hash = decodeURIComponent(_.get(props, 'location.hash', '').substring(1));
-    this.tablink = hash.replace('-', ' ');
-    const { toggleToolsSideTab } = this.props;
-    if (this.tablink) {
-      toggleToolsSideTab(this.tablink);
-    }
-    this.state = {
-      isMobileView: false,
-    };
-    this.clearNotifiation = this.clearNotifiation.bind(this);
-    this.updatePredicate = this.updatePredicate.bind(this);
+    this.save = this.save.bind(this);
+    this.deviceRef = React.createRef();
+    this.softwareRef = React.createRef();
+    this.serviceProviderRef = React.createRef();
+    this.subscriptionRef = React.createRef();
   }
 
-  componentDidMount() {
-    this.clearNotifiation();
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { settingsUI: { currentToolsTab } } = this.props;
-    if (prevProps.settingsUI.currentToolsTab !== currentToolsTab) {
-      window.location.hash = currentToolsTab.replace(' ', '-');
-      this.clearNotifiation();
+  componentWillReceiveProps(nextProps) {
+    const { isSaving, setIsSaving } = this.props;
+    if (isSaving && nextProps.userTraits) {
+      setIsSaving(false);
     }
   }
 
-  componentWillUnmount() {
-    this.clearNotifiation();
-    window.removeEventListener('resize', this.updatePredicate);
-  }
-
-  clearNotifiation() {
-    const { clearToastrNotification } = this.props;
-    if (clearToastrNotification) {
-      clearToastrNotification();
+  save() {
+    const { isSaving, setIsSaving } = this.props;
+    if (isSaving) {
+      return;
     }
-  }
+    const newDevice = this.deviceRef.current.state.newDevice;
+    const newDeviceDirty = newDevice.deviceType !== ''
+      || newDevice.manufacturer !== ''
+      || newDevice.model !== ''
+      || newDevice.operatingSystem !== '';
 
-  updatePredicate() {
-    this.setState({ isMobileView: window.innerWidth <= SCREEN_SIZE.SM });
+    const newSoftware = this.softwareRef.current.state.newSoftware;
+    const newSoftwareDirty = newSoftware.softwareType !== ''
+      || newSoftware.name !== '';
+
+    const newServiceProvider = this.serviceProviderRef.current.state.newServiceProvider;
+    const newServiceProviderDirty = newServiceProvider.serviceProviderType !== ''
+      || newServiceProvider.name !== '';
+
+    const newSubscription = this.subscriptionRef.current.state.newSubscription;
+    const newSubscriptionDirty = newSubscription.name !== '';
+
+    let valid = true;
+    let dirty;
+
+    if (newDeviceDirty) {
+      valid = valid && !this.deviceRef.current.onCheckFormValue(newDevice);
+      dirty = true;
+    }
+
+    if (newSoftwareDirty) {
+      valid = valid && !this.softwareRef.current.onCheckFormValue(newSoftware);
+      dirty = true;
+    }
+
+    if (newServiceProviderDirty) {
+      valid = valid && !this.serviceProviderRef.current.onCheckFormValue(newServiceProvider);
+      dirty = true;
+    }
+
+    if (newSubscriptionDirty) {
+      valid = valid && !this.subscriptionRef.current.onCheckFormValue(newSubscription);
+      dirty = true;
+    }
+    if (newDeviceDirty) this.deviceRef.current.onHandleAddDevice();
+    if (newSoftwareDirty) this.softwareRef.current.onHandleAddSoftware();
+    if (newServiceProviderDirty) {
+      this.serviceProviderRef.current.onHandleAddServiceProvider();
+    }
+    if (newSubscriptionDirty) {
+      this.subscriptionRef.current.onHandleAddSubscription();
+    }
+
+    if (dirty && valid) setIsSaving(true);
   }
 
   render() {
-    const { isMobileView } = this.state;
-    const {
-      settingsUI: { currentToolsTab, TABS },
-      toggleToolsSideTab,
-    } = this.props;
-    const tabs = TABS.TOOLS;
-    const names = Object.keys(tabs).map(key => tabs[key]);
-    const currentTab = this.tablink || currentToolsTab;
+    const { isSaving } = this.props;
 
-    const icons = {
-      devices: <DevicesIcon />,
-      'service providers': <ServiceProvidersIcon />,
-      software: <SoftwareIcon />,
-      subscriptions: <SubscriptionsIcon />,
-    };
-
-    const renderTabContent = (tab) => {
-      switch (tab) {
-        case 'devices':
-          return <Devices {...this.props} />;
-        case 'software':
-          return <Software {...this.props} />;
-        case 'service providers':
-          return <ServiceProviders {...this.props} />;
-        case 'subscriptions':
-          return <Subscriptions {...this.props} />;
-        default:
-          return <ComingSoon />;
-      }
-    };
+    const saveBtn = (
+      <PrimaryButton
+        onClick={this.save}
+        theme={{
+          button: `${styles['save-changes-btn']} ${isSaving ? styles.disabled : ''}`,
+        }}
+        disabled={!!isSaving}
+      >
+        Save Changes
+      </PrimaryButton>
+    );
 
     return (
-      <div styleName="tools-container">
-        {isMobileView && (
-          <div styleName="mobile-view">
-            <Accordion
-              icons={icons}
-              names={names}
-              currentSidebarTab={currentTab}
-              renderTabContent={renderTabContent}
-              toggleSidebarTab={toggleToolsSideTab}
-            />
+      <ErrorWrapper>
+        <div styleName="tools-container">
+          <div styleName="header" style={{ marginBottom: '40px' }}>
+            <h3>Devices And Softwares</h3>
           </div>
-        )}
-        <div styleName="col-bar">
-          <ErrorWrapper>
-            <SideBar
-              icons={icons}
-              names={names}
-              currentTab={currentTab}
-              toggle={toggleToolsSideTab}
-            />
-          </ErrorWrapper>
+          <Devices
+            {...this.props}
+            ref={this.deviceRef}
+          />
+          <Software
+            {...this.props}
+            ref={this.softwareRef}
+          />
+          <ServiceProviders
+            {...this.props}
+            ref={this.serviceProviderRef}
+          />
+          <Subscriptions
+            {...this.props}
+            ref={this.subscriptionRef}
+          />
         </div>
-        {
-          !isMobileView && (
-          <div styleName="col-content">
-            <ErrorWrapper>
-              { renderTabContent(currentTab) }
-            </ErrorWrapper>
-          </div>
-          )
-        }
-      </div>
+        <div styleName="footer">{saveBtn}</div>
+      </ErrorWrapper>
     );
   }
 }
 
+Tools.defaultProps = {
+  isSaving: false,
+  setIsSaving: () => {},
+};
 
 Tools.propTypes = {
-  settingsUI: PT.shape().isRequired,
-  toggleToolsSideTab: PT.func.isRequired,
-  clearToastrNotification: PT.func.isRequired,
-  location: PT.shape().isRequired,
+  userTraits: PT.array.isRequired,
+  isSaving: PT.bool,
+  setIsSaving: PT.func,
 };

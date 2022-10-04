@@ -6,9 +6,12 @@ import { createActions } from 'redux-actions';
 
 export const TABS = {
   PROFILE: 'profile',
+  SKILLS: 'skills',
+  TRACKS: 'tracks',
   TOOLS: 'tools',
   ACCOUNT: 'account',
   PREFERENCES: 'preferences',
+  PAYMENT: 'payment',
 };
 
 export default createActions({

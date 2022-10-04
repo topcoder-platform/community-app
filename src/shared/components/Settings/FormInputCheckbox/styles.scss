@@ -1,0 +1,65 @@
+@import "~styles/mixins";
+
+.formInputCheckbox {
+  display: inline-flex;
+  align-items: flex-start;
+  vertical-align: middle;
+  gap: 8px;
+  padding: 10px 0 6px;
+  margin-bottom: $margin-lg;
+
+  .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .checked,
+    .unchecked {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid #7f7f7f;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    .checked {
+      color: $color-tc-white;
+      background-color: $color-turq-160;
+      border-color: $color-turq-160;
+
+      svg { width: 80%; }
+    }
+
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: block;
+      opacity: 0;
+      visibility: visible;
+      cursor: inherit;
+
+      &:checked ~ .checked {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:not(:checked) ~ .unchecked { display: block; }
+    }
+  }
+
+  .label {
+    @include roboto-regular;
+
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+    cursor: default;
+  }
+}

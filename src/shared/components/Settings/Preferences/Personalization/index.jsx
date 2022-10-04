@@ -61,16 +61,14 @@ export default function Personalization({
 
   return (
     <div styleName="Personalization">
-      <div styleName="user-consent-container">
-        <ToggleableItem
-          id="user-consent"
-          value="user-consent"
-          checked={getUserConsent()}
-          primaryText={primaryText}
-          secondaryText={secondaryText}
-          onToggle={debounceUpdateConsent}
-        />
-      </div>
+      <ToggleableItem
+        id="user-consent"
+        value="user-consent"
+        checked={getUserConsent()}
+        primaryText={primaryText}
+        secondaryText={secondaryText}
+        onToggle={debounceUpdateConsent}
+      />
     </div>
   );
 }
