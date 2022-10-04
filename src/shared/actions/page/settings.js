@@ -11,6 +11,7 @@ export const TABS = {
   TOOLS: 'tools',
   ACCOUNT: 'account',
   PREFERENCES: 'preferences',
+  PAYMENT: 'payment',
 };
 
 export default createActions({

@@ -12,6 +12,7 @@ export const SETTINGS_TABS = [
   { title: 'Tools', link: TABS.TOOLS },
   { title: 'Account', link: TABS.ACCOUNT },
   { title: 'Preferences', link: TABS.PREFERENCES },
+  { title: 'Payment', link: TABS.PAYMENT },
 ];
 
 export const PROFILE_SETTINGS = {
