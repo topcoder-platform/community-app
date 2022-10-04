@@ -51,6 +51,9 @@ function Bucket({
     case BUCKETS.MY_PAST:
       count = meta.myPastChallengesCount;
       break;
+    case BUCKETS.REVIEW_OPPORTUNITIES:
+      count = meta.openReviewCount;
+      break;
     default:
   }
   // }
