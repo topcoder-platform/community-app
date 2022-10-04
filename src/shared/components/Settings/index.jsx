@@ -16,6 +16,7 @@ import Tools from './Tools';
 import './style.scss';
 import Account from './Account';
 import Preferences from './Preferences';
+import Payment from './Payment';
 import TabSelector from './TabSelector';
 import { SETTINGS_TABS } from './constants';
 
@@ -138,6 +139,12 @@ export default function Settings(props) {
               isSaving={isSaving}
               setIsSaving={setIsSaving}
             />
+          )
+        }
+        {
+          newProps.settingsTab === TABS.PAYMENT
+          && (
+            <Payment />
           )
         }
       </div>
