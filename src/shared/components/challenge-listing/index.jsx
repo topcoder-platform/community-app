@@ -118,6 +118,7 @@ export default function ChallengeListing(props) {
             // extraBucket={extraBucket}
       filterState={props.filterState}
       keepPastPlaceholders={keepPastPlaceholders}
+      needLoad={props.needLoad}
       loadingPastChallenges={props.loadingPastChallenges}
       loadingMyChallenges={props.loadingMyChallenges}
       loadingMyPastChallenges={props.loadingMyPastChallenges}
@@ -241,6 +242,7 @@ ChallengeListing.propTypes = {
   keepPastPlaceholders: PT.bool.isRequired,
   // lastUpdateOfActiveChallenges: PT.number.isRequired,
   // loadingChallenges: PT.bool.isRequired,
+  needLoad: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
   loadingMyPastChallenges: PT.bool.isRequired,
   loadingAllChallenges: PT.bool.isRequired,
