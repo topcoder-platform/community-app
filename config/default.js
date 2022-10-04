@@ -457,4 +457,5 @@ module.exports = {
     ENABLE_BADGE_UI: true,
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
+  CHALLENGE_LISTING_HOVER: true,
 };

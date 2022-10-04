@@ -253,18 +253,36 @@ export default function FiltersPanel({
 
   const isTrackOn = track => filterState.tracks && filterState.tracks[track];
 
-  const isSearchOn = searchText => filterState.search === searchText;
-
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
     const filterObj = act(filterState, track);
     setFilterState({ ...filterObj });
   };
 
-  const switchSearch = (target, on) => {
-    const searchText = on ? target : '';
+  const findSearchText = (types) => {
+    let searchText = '';
+
+    if (types.includes('MM')) {
+      searchText += 'MM Marathon Match ';
+    }
+
+    if (types.includes('RDM')) {
+      searchText += 'RDM Rapid Development Match ';
+    }
+
+    if (types.includes('PC')) {
+      searchText += 'Practice ';
+    }
+
+    return searchText.substring(0, searchText.length - 1);
+  };
+
+  const updateFilterStateByTypes = (newTypes) => {
+    const searchText = findSearchText(newTypes);
+
     setFilterState({
       ...filterState,
+      types: newTypes,
       search: searchText,
     });
     setSearchText(searchText);
@@ -304,10 +322,7 @@ export default function FiltersPanel({
       ? _.union(filterState.types, options)
       : filterState.types.filter(item => !options.includes(item));
 
-    setFilterState({
-      ...filterState,
-      types: newTypes,
-    });
+    updateFilterStateByTypes(newTypes);
   };
 
   const toggleOnly = (section, type) => {
@@ -316,11 +331,7 @@ export default function FiltersPanel({
       item => !options.includes(item),
     );
     const newTypes = _.union(reducedTypes, [type]);
-
-    setFilterState({
-      ...filterState,
-      types: newTypes,
-    });
+    updateFilterStateByTypes(newTypes);
   };
 
   const toggleOnlyLearn = (type) => {
@@ -329,22 +340,8 @@ export default function FiltersPanel({
       item => !options.includes(item),
     );
 
-    if (type === 'SKL') {
-      const newTypes = _.union(reducedTypes, [type]);
-      setFilterState({
-        ...filterState,
-        types: newTypes,
-        search: '',
-      });
-      setSearchText('');
-    } else {
-      setFilterState({
-        ...filterState,
-        types: reducedTypes,
-        search: type,
-      });
-      setSearchText(type);
-    }
+    const newTypes = _.union(reducedTypes, [type]);
+    updateFilterStateByTypes(newTypes);
   };
 
   const toggleLearnSection = (section, on) => {
@@ -353,21 +350,7 @@ export default function FiltersPanel({
       ? _.union(filterState.types, options)
       : filterState.types.filter(item => !options.includes(item));
 
-    if (on) {
-      setFilterState({
-        ...filterState,
-        search: 'Practice',
-        types: newTypes,
-      });
-      setSearchText('Practice');
-    } else {
-      setFilterState({
-        ...filterState,
-        search: '',
-        types: newTypes,
-      });
-      setSearchText('');
-    }
+    updateFilterStateByTypes(newTypes);
   };
 
   const staticRanges = createStaticRanges();
@@ -423,7 +406,7 @@ export default function FiltersPanel({
         },
         search: '',
         tags: [],
-        types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'SRM'],
+        types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'SRM', 'PC'],
         groups: [],
         events: [],
         endDateStart: null,
@@ -476,7 +459,7 @@ export default function FiltersPanel({
       search: '',
       tco: false,
       tags: [],
-      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SRM', 'SKL'],
+      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SRM', 'SKL', 'PC'],
       groups: [],
       events: [],
       endDateStart: null,
@@ -495,7 +478,9 @@ export default function FiltersPanel({
       <div styleName="filter challenge-type">
         <div styleName="section-label">
           <span styleName="label">{title}</span>
-          <div styleName="hover-control section">
+          <div styleName={config.CHALLENGE_LISTING_HOVER
+            ? 'hover-control section' : 'hover-control-hide'}
+          >
             <span
               styleName="control-item"
               onClick={() => toggleTypes(title, true)}
@@ -528,12 +513,14 @@ export default function FiltersPanel({
                       types = types.filter(type => type !== option.value);
                     }
 
-                    setFilterState({ ..._.clone(filterState), types });
+                    updateFilterStateByTypes(types);
                   }}
                 />
               </span>
 
-              <div styleName="hover-control">
+              <div styleName={config.CHALLENGE_LISTING_HOVER
+                ? 'hover-control section' : 'hover-control-hide'}
+              >
                 <span
                   styleName="control-item"
                   onClick={() => toggleOnly(title, option.value)}
@@ -548,6 +535,8 @@ export default function FiltersPanel({
       </div>
     </div>
   );
+
+  const isDevSelected = filterState.tracks ? filterState.tracks.Dev : false;
 
   return (
     <div styleName="FiltersPanel">
@@ -624,7 +613,9 @@ export default function FiltersPanel({
             <div styleName="section-label">
               <span styleName="label">Domain</span>
 
-              <div styleName="hover-control domain">
+              <div styleName={config.CHALLENGE_LISTING_HOVER
+                ? 'hover-control section' : 'hover-control-hide'}
+              >
                 <span
                   styleName="control-item"
                   onClick={() => toggleSection('domain', true)}
@@ -657,7 +648,9 @@ export default function FiltersPanel({
                     onSwitch={on => switchTrack('DS', on)}
                   />
                 </span>
-                <div styleName="hover-control">
+                <div styleName={config.CHALLENGE_LISTING_HOVER
+                  ? 'hover-control section' : 'hover-control-hide'}
+                >
                   <span
                     styleName="control-item"
                     onClick={() => toggleOnlyTrack('domain', 'DS')}
@@ -682,7 +675,9 @@ export default function FiltersPanel({
                     onSwitch={on => switchTrack('Des', on)}
                   />
                 </span>
-                <div styleName="hover-control">
+                <div styleName={config.CHALLENGE_LISTING_HOVER
+                  ? 'hover-control section' : 'hover-control-hide'}
+                >
                   <span
                     styleName="control-item"
                     onClick={() => toggleOnlyTrack('domain', 'Des')}
@@ -707,7 +702,9 @@ export default function FiltersPanel({
                     onSwitch={on => switchTrack('Dev', on)}
                   />
                 </span>
-                <div styleName="hover-control">
+                <div styleName={config.CHALLENGE_LISTING_HOVER
+                  ? 'hover-control section' : 'hover-control-hide'}
+                >
                   <span
                     styleName="control-item"
                     onClick={() => toggleOnlyTrack('domain', 'Dev')}
@@ -732,7 +729,9 @@ export default function FiltersPanel({
                     onSwitch={on => switchTrack('QA', on)}
                   />
                 </span>
-                <div styleName="hover-control">
+                <div styleName={config.CHALLENGE_LISTING_HOVER
+                  ? 'hover-control section' : 'hover-control-hide'}
+                >
                   <span
                     styleName="control-item"
                     onClick={() => toggleOnlyTrack('domain', 'QA')}
@@ -756,8 +755,8 @@ export default function FiltersPanel({
           )
           : null}
 
-        {!isReviewOpportunitiesBucket && <hr styleName="hr" />}
-        {!isReviewOpportunitiesBucket
+        {!isReviewOpportunitiesBucket && isDevSelected && <hr styleName="hr" />}
+        {!isReviewOpportunitiesBucket && isDevSelected
           ? renderSectionOptions(
             'Competitive Programming',
             competitiveProgrammingOptions,
@@ -769,7 +768,9 @@ export default function FiltersPanel({
           <div styleName="filter challenge-type">
             <div styleName="section-label">
               <span styleName="label">Learn</span>
-              <div styleName="hover-control section">
+              <div styleName={config.CHALLENGE_LISTING_HOVER
+                ? 'hover-control section' : 'hover-control-hide'}
+              >
                 <span
                   styleName="control-item"
                   onClick={() => toggleLearnSection('Learn', true)}
@@ -792,19 +793,31 @@ export default function FiltersPanel({
                 <span
                   styleName="checkbox"
                   role="switch"
-                  aria-checked={isSearchOn('Practice')}
+                  aria-checked={isTrackOn('PC')}
                 >
                   <SwitchWithLabel
-                    enabled={isSearchOn('Practice')}
+                    enabled={(filterState.types || []).includes('PC')}
                     labelAfter="Practice"
-                    onSwitch={on => switchSearch('Practice', on)}
+                    onSwitch={(e) => {
+                      let { types } = filterState;
+
+                      if (e) {
+                        types = types.concat('PC');
+                      } else {
+                        types = types.filter(type => type !== 'PC');
+                      }
+
+                      updateFilterStateByTypes(types);
+                    }}
                   />
                 </span>
-                <div styleName="hover-control">
+                <div styleName={config.CHALLENGE_LISTING_HOVER
+                  ? 'hover-control section' : 'hover-control-hide'}
+                >
                   <span
                     styleName="control-item"
-                    onClick={() => toggleOnlyLearn('Practice')}
-                    onKeyPress={() => toggleOnlyLearn('Practice')}
+                    onClick={() => toggleOnlyLearn('PC')}
+                    onKeyPress={() => toggleOnlyLearn('PC')}
                   >
                     Only
                   </span>
@@ -832,7 +845,9 @@ export default function FiltersPanel({
                     }}
                   />
                 </span>
-                <div styleName="hover-control">
+                <div styleName={config.CHALLENGE_LISTING_HOVER
+                  ? 'hover-control section' : 'hover-control-hide'}
+                >
                   <span
                     styleName="control-item"
                     onClick={() => toggleOnlyLearn('SKL')}

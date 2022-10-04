@@ -118,7 +118,7 @@ exports[`Matches shallow shapshot 2`] = `
             Domain
           </span>
           <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__domain___3rCeT"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
           >
             <span
               className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -159,7 +159,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -190,7 +190,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -221,7 +221,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -252,7 +252,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -322,135 +322,6 @@ exports[`Matches shallow shapshot 2`] = `
           <span
             className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
           >
-            Competitive Programming
-          </span>
-          <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
-          >
-            <span
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
-              onClick={[Function]}
-              onKeyPress={[Function]}
-            >
-              All
-            </span>
-            <span
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
-              onClick={[Function]}
-              onKeyPress={[Function]}
-            >
-              None
-            </span>
-          </div>
-        </div>
-        <div
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"
-        >
-          <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
-          >
-            <span
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
-            >
-              <ThemedSwitchWithLabel
-                composeAdhocTheme="deeply"
-                composeContextTheme="softly"
-                enabled={false}
-                labelAfter="Marathon Match"
-                labelBefore=""
-                mapThemrProps={[Function]}
-                onSwitch={[Function]}
-                themePriority="adhoc-context-default"
-              />
-            </span>
-            <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
-            >
-              <span
-                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
-                onClick={[Function]}
-                onKeyPress={[Function]}
-              >
-                Only
-              </span>
-            </div>
-          </div>
-          <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
-          >
-            <span
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
-            >
-              <ThemedSwitchWithLabel
-                composeAdhocTheme="deeply"
-                composeContextTheme="softly"
-                enabled={false}
-                labelAfter="Rapid Development Match"
-                labelBefore=""
-                mapThemrProps={[Function]}
-                onSwitch={[Function]}
-                themePriority="adhoc-context-default"
-              />
-            </span>
-            <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
-            >
-              <span
-                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
-                onClick={[Function]}
-                onKeyPress={[Function]}
-              >
-                Only
-              </span>
-            </div>
-          </div>
-          <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
-          >
-            <span
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
-            >
-              <ThemedSwitchWithLabel
-                composeAdhocTheme="deeply"
-                composeContextTheme="softly"
-                enabled={false}
-                labelAfter="Single Round Match"
-                labelBefore=""
-                mapThemrProps={[Function]}
-                onSwitch={[Function]}
-                themePriority="adhoc-context-default"
-              />
-            </span>
-            <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
-            >
-              <span
-                className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
-                onClick={[Function]}
-                onKeyPress={[Function]}
-              >
-                Only
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
-    />
-    <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
-    >
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__challenge-type___30Q7l"
-      >
-        <div
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
-        >
-          <span
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
-          >
             Learn
           </span>
           <div
@@ -479,7 +350,6 @@ exports[`Matches shallow shapshot 2`] = `
             className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section-label___AQLWS"
           >
             <span
-              aria-checked={false}
               className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkbox___3SjsV"
               role="switch"
             >
@@ -495,7 +365,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -525,7 +395,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"

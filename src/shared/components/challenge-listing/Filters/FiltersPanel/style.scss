@@ -773,6 +773,20 @@ hr.hr {
   justify-content: space-between;
 }
 
+.section-label:hover + .switches {
+  .hover-control {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.section-label:hover + .checkboxes {
+  .hover-control {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 .hover-control {
   display: none;
 
@@ -788,6 +802,10 @@ hr.hr {
   &.domain {
     margin-top: -5px;
   }
+}
+
+.hover-control-hide {
+  display: none;
 }
 
 .control-item {
