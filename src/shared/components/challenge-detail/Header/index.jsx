@@ -17,6 +17,9 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
+import {
+  getTimeLeft,
+} from 'utils/challenge-detail/helper';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
 
@@ -112,6 +115,10 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isOpen;
   }
 
+  const currentPhases = challenge.phases
+    .filter(p => p.name !== 'Registration' && p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+
   const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -137,10 +144,15 @@ export default function ChallengeHeader(props) {
   if (hasRegistered && openPhases[0] && openPhases[0].name === 'Registration') {
     nextPhase = openPhases[1] || {};
   }
-  const nextDeadline = nextPhase && nextPhase.name;
 
   const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
   const currentTime = moment();
+
+  const timeDiff = getTimeLeft(currentPhases, 'to go');
+
+  if (!timeDiff.late) {
+    timeDiff.text = timeDiff.text.replace('to go', '');
+  }
 
   let timeLeft = deadlineEnd.isAfter(currentTime)
     ? deadlineEnd.diff(currentTime) : 0;
@@ -228,19 +240,6 @@ export default function ChallengeHeader(props) {
 
   let nextDeadlineMsg;
   switch ((status || '').toLowerCase()) {
-    case 'active':
-      nextDeadlineMsg = (
-        <div styleName="next-deadline">
-          Next Deadline:
-          {' '}
-          {
-            <span styleName="deadline-highlighted">
-              {nextDeadline || '-'}
-            </span>
-            }
-        </div>
-      );
-      break;
     case 'completed':
       nextDeadlineMsg = (
         <div styleName="completed">
@@ -249,15 +248,15 @@ export default function ChallengeHeader(props) {
       );
       break;
     default:
-      nextDeadlineMsg = (
-        <div>
-          Status:
-          &zwnj;
-          <span styleName="deadline-highlighted">
-            {_.upperFirst(_.lowerCase(status))}
-          </span>
-        </div>
-      );
+      // nextDeadlineMsg = (
+      //   <div>
+      //     Status:
+      //     &zwnj;
+      //     <span styleName="deadline-highlighted">
+      //       {_.upperFirst(_.lowerCase(status))}
+      //     </span>
+      //   </div>
+      // );
       break;
   }
 
@@ -446,9 +445,9 @@ export default function ChallengeHeader(props) {
                   (status || '').toLowerCase() === 'active'
                   && (
                   <div styleName="current-phase">
-                    Current Deadline Ends:{' '}
+                    {currentPhases && `${currentPhases.name} Ends: `}
                     <span styleName="deadline-highlighted">
-                      {timeLeft}
+                      {timeDiff.text}
                     </span>
                   </div>
                   )
@@ -532,7 +531,6 @@ ChallengeHeader.propTypes = {
     timelineTemplateId: PT.string,
     reliabilityBonus: PT.any,
     userDetails: PT.any,
-    currentPhases: PT.any,
     numOfRegistrants: PT.any,
     numOfCheckpointSubmissions: PT.any,
     numOfSubmissions: PT.any,
