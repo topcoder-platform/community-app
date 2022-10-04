@@ -347,6 +347,7 @@ export class ListingContainer extends React.Component {
       getMyPastChallenges,
       getAllChallenges,
       getPastChallenges,
+      getReviewOpportunities,
       // lastRequestedPageOfActiveChallenges,
       // lastRequestedPageOfOpenForRegistrationChallenges,
       // lastRequestedPageOfMyChallenges,
@@ -404,6 +405,7 @@ export class ListingContainer extends React.Component {
       f.front,
     );
     getTotalChallengesCount(auth.tokenV3, f.front);
+    getReviewOpportunities(0, auth.tokenV3);
   }
 
   reloadChallenges() {
