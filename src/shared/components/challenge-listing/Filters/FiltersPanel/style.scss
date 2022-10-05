@@ -768,19 +768,19 @@ hr.hr {
   }
 }
 
-.section-label:hover .hover-control {
+.filter-row:hover .hover-control {
   display: flex;
   justify-content: space-between;
 }
 
-.section-label:hover + .switches {
+.filter-row:hover + .switches {
   .hover-control {
     display: flex;
     justify-content: space-between;
   }
 }
 
-.section-label:hover + .checkboxes {
+.filter-row:hover + .checkboxes {
   .hover-control {
     display: flex;
     justify-content: space-between;
