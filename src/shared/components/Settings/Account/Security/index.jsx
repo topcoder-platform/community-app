@@ -7,7 +7,7 @@ import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner'
 import MfaImage from 'assets/images/account/security/mfa.svg';
 import DiceLogo from 'assets/images/account/security/dicelogo.png';
 import DiceLogoBig from 'assets/images/account/security/dicelogobig.png';
-import GooglePlay from 'assets/images/account/security/google-play.svg';
+import GooglePlay from 'assets/images/account/security/google-play.png';
 import AppleStore from 'assets/images/account/security/apple-store.svg';
 import UnsuccessfulIcon from 'assets/images/account/security/unsuccessful.svg';
 import Modal from './Modal';
@@ -163,7 +163,7 @@ export default function Security({
         </div>
         <div styleName="app-store">
           <div styleName="market">
-            <a href="https://play.google.com/store/apps/details?id=com.diwallet1" target="_blank" rel="noreferrer"><GooglePlay /></a>
+            <a href="https://play.google.com/store/apps/details?id=com.diwallet1" target="_blank" rel="noreferrer"><img src={GooglePlay} alt="Google Play Store" /></a>
             <QRCode size={190} value="https://play.google.com/store/apps/details?id=com.diwallet1" />
           </div>
           <div styleName="market">
@@ -201,6 +201,7 @@ export default function Security({
         <div styleName="step-content">
           Once the connection is established, the service will offer you a Verifiable Credential.
           <br />Press the ACCEPT button in your DICE ID App.
+          <br />If you DECLINE the invitation, please try again after 5 minutes.
         </div>
       </div>
     </Modal>,
@@ -303,8 +304,27 @@ export default function Security({
             Security
           </h2>
           <div styleName="factor-container">
-            <div styleName="icon-wrapper">
-              <MfaImage />
+            <div styleName="first-line">
+              <div styleName="icon-wrapper">
+                <MfaImage />
+              </div>
+              <div className="onoffswitch" styleName="mfa-switch-mobile">
+                <input
+                  type="checkbox"
+                  name="eprf-onoffswitch"
+                  id="pre-onoffswitch-mfa"
+                  value="mfaEnabled"
+                  checked={mfaChecked}
+                  onChange={onUpdateMfaOption}
+                  className="onoffswitch-checkbox"
+                  disabled={mfaChecked && diceChecked}
+                />
+                <label htmlFor="pre-onoffswitch-mfa" className="onoffswitch-label" styleName={mfaChecked && diceChecked ? 'disabled-toggle' : ''}>
+                  <span className="onoffswitch-inner" />
+                  <span className="onoffswitch-switch" />
+                  <input type="hidden" />
+                </label>
+              </div>
             </div>
             <div styleName="info">
               <div styleName="info-first-line">
@@ -315,7 +335,7 @@ export default function Security({
                 If enabled, MFA will be enforced during the Topcoder login process.
               </div>
             </div>
-            <div className="onoffswitch" styleName="on-off-switch">
+            <div className="onoffswitch" styleName="mfa-switch">
               <input
                 type="checkbox"
                 name="eprf-onoffswitch"
@@ -350,7 +370,7 @@ export default function Security({
             </div>
             {diceChecked
               ? (
-                <div className="onoffswitch">
+                <div className="onoffswitch" styleName="dice-switch">
                   <input
                     type="checkbox"
                     name="pre-onoffswitch-dice"
