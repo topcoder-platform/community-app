@@ -6,7 +6,6 @@ import React from 'react';
 
 import TwitterIcon from '../../../../../assets/images/social/icon_twitter.svg';
 import FacebookIcon from '../../../../../assets/images/social/icon_facebook.svg';
-import EmailIcon from '../../../../../assets/images/social/icon_email.svg';
 import MoreIcon from '../../../../../assets/images/social/icon_plus.svg';
 
 import './social_media.scss';
@@ -23,8 +22,15 @@ export default class ShareSocial extends React.Component {
       }
     } else {
       const scriptNode = document.createElement('script');
+      const scriptNodeConfig = document.createElement('script');
+
+      scriptNode.type = 'text/javascript';
+      scriptNodeConfig.type = 'text/javascript';
       scriptNode.src = 'https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52f22306211cecfc';
+      scriptNodeConfig.text = "var addthis_config = { services_exclude: 'email' };";
+
       this.shareDiv.appendChild(scriptNode);
+      this.shareDiv.appendChild(scriptNodeConfig);
     }
   }
 
@@ -47,15 +53,6 @@ export default class ShareSocial extends React.Component {
             href="#"
           >
             <TwitterIcon />
-          </a>
-          <a
-            className="addthis_button_email"
-            target="_blank"
-            title="Email"
-            aria-label="Email this challenge"
-            href="#"
-          >
-            <EmailIcon />
           </a>
           <a
             className="addthis_button_compact"
