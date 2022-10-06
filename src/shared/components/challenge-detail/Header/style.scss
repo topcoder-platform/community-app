@@ -596,7 +596,8 @@
             }
           }
 
-          .completed {
+          .completed,
+          .draft {
             border-right: none;
           }
 
