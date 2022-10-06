@@ -66,6 +66,7 @@ exports[`Matches shallow shapshot 2`] = `
           disabled={false}
           expanding={false}
           isAuth={false}
+          isReviewer={false}
           past={false}
         />
       </div>
