@@ -35,7 +35,7 @@
   },
   "subMenuUrlsAfterLogin": {
     "home": "https://www.topcoder.com/home",
-    "myProfile": "https://www.topcoder.com/members/swap12875",
+    "myProfile": "https://www.topcoder.com/members/test_swap12875",
     "payments": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false&ref=nav",
     "forums": "https://discussions.topcoder.com/?ref=nav"
   },
@@ -84,8 +84,8 @@
   "searchUrl": "https://www.topcoder.com/search/members",
   "allNotificationsUrl": "https://www.topcoder.com/notifications",
   "policiesUrl": "https://www.topcoder.com/policy?ref=navb",
-  "username": "swap12875",
-  "password": "Swap@12ka%",
+  "username": "test_swap12875",
+  "password": "Swap@123456",
   "email": "swap12875@gmail.com",
   "challangesLinks": {
     "rssFeedUrl": "http://feeds.topcoder.com/challenges/feed",
