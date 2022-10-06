@@ -271,7 +271,7 @@ hr.hr {
         @include xs-to-md {
           flex: unset;
           margin-right: 16px;
-          margin-top: 8px;
+          margin-top: 4px;
         }
       }
 
@@ -796,11 +796,11 @@ hr.hr {
   }
 
   &.section {
-    margin-top: 8px;
+    margin-top: 7px;
   }
 
   &.domain {
-    margin-top: -5px;
+    margin-top: -6px;
   }
 }
 

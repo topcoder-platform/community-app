@@ -519,7 +519,7 @@ export default function FiltersPanel({
               </span>
 
               <div styleName={config.CHALLENGE_LISTING_HOVER
-                ? 'hover-control section' : 'hover-control-hide'}
+                ? 'hover-control' : 'hover-control-hide'}
               >
                 <span
                   styleName="control-item"
@@ -614,7 +614,7 @@ export default function FiltersPanel({
               <span styleName="label">Domain</span>
 
               <div styleName={config.CHALLENGE_LISTING_HOVER
-                ? 'hover-control section' : 'hover-control-hide'}
+                ? 'hover-control domain' : 'hover-control-hide'}
               >
                 <span
                   styleName="control-item"
@@ -649,7 +649,7 @@ export default function FiltersPanel({
                   />
                 </span>
                 <div styleName={config.CHALLENGE_LISTING_HOVER
-                  ? 'hover-control section' : 'hover-control-hide'}
+                  ? 'hover-control' : 'hover-control-hide'}
                 >
                   <span
                     styleName="control-item"
@@ -676,7 +676,7 @@ export default function FiltersPanel({
                   />
                 </span>
                 <div styleName={config.CHALLENGE_LISTING_HOVER
-                  ? 'hover-control section' : 'hover-control-hide'}
+                  ? 'hover-control' : 'hover-control-hide'}
                 >
                   <span
                     styleName="control-item"
@@ -703,7 +703,7 @@ export default function FiltersPanel({
                   />
                 </span>
                 <div styleName={config.CHALLENGE_LISTING_HOVER
-                  ? 'hover-control section' : 'hover-control-hide'}
+                  ? 'hover-control' : 'hover-control-hide'}
                 >
                   <span
                     styleName="control-item"
@@ -730,7 +730,7 @@ export default function FiltersPanel({
                   />
                 </span>
                 <div styleName={config.CHALLENGE_LISTING_HOVER
-                  ? 'hover-control section' : 'hover-control-hide'}
+                  ? 'hover-control' : 'hover-control-hide'}
                 >
                   <span
                     styleName="control-item"
@@ -812,7 +812,7 @@ export default function FiltersPanel({
                   />
                 </span>
                 <div styleName={config.CHALLENGE_LISTING_HOVER
-                  ? 'hover-control section' : 'hover-control-hide'}
+                  ? 'hover-control' : 'hover-control-hide'}
                 >
                   <span
                     styleName="control-item"
@@ -846,7 +846,7 @@ export default function FiltersPanel({
                   />
                 </span>
                 <div styleName={config.CHALLENGE_LISTING_HOVER
-                  ? 'hover-control section' : 'hover-control-hide'}
+                  ? 'hover-control' : 'hover-control-hide'}
                 >
                   <span
                     styleName="control-item"
