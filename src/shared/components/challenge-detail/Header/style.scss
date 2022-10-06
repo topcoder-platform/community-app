@@ -16,9 +16,10 @@
   width: 100%;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
   background: #137d60 !important;
   color: #fff !important;
+  white-space: nowrap;
+  padding: 0 35px !important;
 
   @include xs-to-sm {
     width: fit-content;
