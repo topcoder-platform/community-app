@@ -29,6 +29,7 @@ export default function BucketSelector({
   // extraBucket,
   // filterState,
   isAuth,
+  isReviewer,
   // savedFilters,
   selectBucket,
   // selectSavedFilter,
@@ -89,7 +90,7 @@ export default function BucketSelector({
         {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
         {/* DISABLED: Until api receive fix community-app#5073 */}
         {/* {getBucket(BUCKETS.ONGOING)} */}
-        {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
+        {isReviewer ? getBucket(BUCKETS.REVIEW_OPPORTUNITIES) : null}
         {/* {getBucket(BUCKETS.PAST)} */}
         {/* NOTE: We do not show upcoming challenges for now, for various reasons,
           * more political than technical ;)
@@ -140,6 +141,7 @@ BucketSelector.defaultProps = {
   disabled: false,
   // extraBucket: null,
   isAuth: false,
+  isReviewer: false,
   expanding: false,
   past: false,
 };
@@ -156,6 +158,7 @@ BucketSelector.propTypes = {
   // extraBucket: PT.string,
   // filterState: PT.shape().isRequired,
   isAuth: PT.bool,
+  isReviewer: PT.bool,
   // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
   // selectSavedFilter: PT.func.isRequired,
