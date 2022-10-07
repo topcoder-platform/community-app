@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 import moment from 'moment';
 import IconTrash from 'assets/images/profile/ico-trash.svg';
 import IconTooltipLeft from 'assets/images/timeline-wall/tooltip-left.svg';
@@ -10,12 +11,17 @@ import ModalDeleteConfirmation from '../../modal-delete-confirmation';
 import ModalPhotoViewer from '../../modal-photo-viewer';
 
 import './styles.scss';
+import { DEFAULT_AVATAR_URL } from '../../../../utils/url';
 
-function ApprovalItem({ className, event, removeEvent }) {
+function ApprovalItem({
+  className, event, removeEvent, userAvatars, deleteEvent, onApproveEvent,
+}) {
   const [showModalConfirmReject, setShowModalConfirmReject] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [showModalPhoto, setShowModalPhoto] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(0);
+
+  const photoURL = _.get(userAvatars, event.createdBy) || DEFAULT_AVATAR_URL;
 
   return (
     <div className={className} styleName="container">
@@ -28,8 +34,8 @@ function ApprovalItem({ className, event, removeEvent }) {
             <div styleName="block-left-top-left">
               <span styleName="text-date">{moment(event.eventDate).format('MMM DD, YYYY')}</span>
               <div styleName="separator" />
-              <img width="24" height="24" src={event.creator.avatar} alt="avatar" />
-              <span styleName="text-handle">{event.creator.handle}</span>
+              <img width="24" height="24" src={photoURL} alt="avatar" />
+              <span styleName="text-handle">{event.createdBy}</span>
             </div>
             <span styleName="text-date">Submitted date: {moment(event.submitedDate).format('MMM DD, YYYY')}</span>
           </div>
@@ -51,13 +57,13 @@ function ApprovalItem({ className, event, removeEvent }) {
               >REJECT
               </button>
 
-              <button styleName="btn-primary" type="button">APPROVE</button>
+              <button styleName="btn-primary" type="button" onClick={() => onApproveEvent(event.id)}>APPROVE</button>
             </div>
           </div>
         </div>
 
         <div styleName="photo-container">
-          {event.media.map(photo => (
+          {event.mediaFiles.map(photo => (
             <PhotoVideoItem
               key={photo.id}
               styleName="photo-item"
@@ -74,17 +80,19 @@ function ApprovalItem({ className, event, removeEvent }) {
       </div>
 
       {showModalConfirmReject ? (
-        <ModalConfirmReject onClose={(result) => {
-          if (result === true) {
-            removeEvent(showModalDelete);
-          }
-          setShowModalConfirmReject(false);
-        }}
+        <ModalConfirmReject
+          onClose={() => {
+            setShowModalConfirmReject(false);
+          }}
+          onReject={(body) => {
+            removeEvent(event.id, body);
+          }}
         />
       ) : null}
 
       {showModalDelete ? (
         <ModalDeleteConfirmation
+          id={event.id}
           eventItem={showModalDelete}
           onClose={(result) => {
             if (result === true) {
@@ -92,6 +100,8 @@ function ApprovalItem({ className, event, removeEvent }) {
             }
             setShowModalDelete(false);
           }}
+          handle={event.createdBy}
+          deleteEvent={deleteEvent}
         />
       ) : null}
 
@@ -101,7 +111,7 @@ function ApprovalItem({ className, event, removeEvent }) {
           onClose={() => {
             setShowModalPhoto(false);
           }}
-          photos={event.media}
+          photos={event.mediaFiles}
         />
       ) : null}
     </div>
@@ -117,6 +127,7 @@ ApprovalItem.defaultProps = {
     media: [],
   },
   removeEvent: () => { },
+  userAvatars: {},
 };
 
 /**
@@ -126,6 +137,9 @@ ApprovalItem.propTypes = {
   className: PT.string.isRequired,
   event: PT.shape(),
   removeEvent: PT.func,
+  userAvatars: PT.shape(),
+  deleteEvent: PT.func.isRequired,
+  onApproveEvent: PT.func.isRequired,
 };
 
 export default ApprovalItem;

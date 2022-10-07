@@ -12,29 +12,47 @@ import FormInputTextArea from 'components/Settings/FormInputTextArea';
 import PhotoVideoPicker from 'components/GUIKit/PhotoVideoPicker';
 import IconCloseGreen from 'assets/images/icon-close-green.svg';
 import IconCloseBlack from 'assets/images/tc-edu/icon-close-big.svg';
+import ModalEventAdd from '../../modal-event-add';
 
 import style from './styles.scss';
 
-function AddEvents({ className, role }) {
+function AddEvents({
+  className, isAuthenticated, createNewEvent, isAdmin,
+}) {
   const [formData, setFormData] = useState({
     eventName: '',
     description: '',
   });
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const canSubmitForm = useMemo(() => !!formData.eventName
     && !!formData.date
-    && !!formData.description
-    && !!formData.files
-    && !!formData.files.length, [formData]);
+    && !!formData.description, [formData]);
 
+  const submitEvent = () => {
+    const form = new FormData();
+    form.append('title', formData.eventName);
+    form.append('description', formData.description);
+    form.append('eventDate', formData.date);
+    form.append('mediaFiles', formData.files || []);
+
+    createNewEvent(form);
+
+    setFormData({
+      eventName: '',
+      description: '',
+    });
+    setShowModal(true);
+    setShowAddForm(false);
+  };
 
   return (
     <div className={className} styleName="container">
       <IconTooltipLeft styleName="hide-desktop show-mobile" />
 
-      {role === 'Guest' ? (<div styleName="no-login">Please login or create an account to add an event.</div>) : null}
-      {role !== 'Guest' && !showAddForm ? (
+      {!isAuthenticated ? (<div styleName="no-login">Please login or create an account to add an event.</div>) : null}
+      {isAuthenticated && !showAddForm ? (
         <button onClick={() => setShowAddForm(true)} styleName="btn-add-event" type="button">
           <span styleName="text-left">What event would you like to add?</span>
 
@@ -46,7 +64,7 @@ function AddEvents({ className, role }) {
         </button>
       ) : null}
 
-      {role !== 'Guest' && showAddForm ? (
+      {isAuthenticated && showAddForm ? (
         <div styleName="add-event-form">
           <div styleName="header">
             <span>Add New Event</span>
@@ -157,13 +175,7 @@ function AddEvents({ className, role }) {
             </button>
 
             <button
-              onClick={() => {
-                setFormData({
-                  eventName: '',
-                  description: '',
-                });
-                setShowAddForm(false);
-              }}
+              onClick={submitEvent}
               disabled={!canSubmitForm}
               styleName="btn-primary"
               type="button"
@@ -174,6 +186,15 @@ function AddEvents({ className, role }) {
       ) : null}
 
       <IconTooltipDown styleName="hide-mobile" />
+
+      {
+        showModal ? (
+          <ModalEventAdd
+            onClose={() => setShowModal(false)}
+            isAdmin={isAdmin}
+          />
+        ) : null
+      }
     </div>
   );
 }
@@ -183,7 +204,8 @@ function AddEvents({ className, role }) {
  */
 AddEvents.defaultProps = {
   className: '',
-  role: '',
+  isAuthenticated: false,
+  isAdmin: false,
 };
 
 /**
@@ -191,7 +213,9 @@ AddEvents.defaultProps = {
  */
 AddEvents.propTypes = {
   className: PT.string,
-  role: PT.string,
+  isAuthenticated: PT.bool,
+  createNewEvent: PT.func.isRequired,
+  isAdmin: PT.bool,
 };
 
 export default AddEvents;

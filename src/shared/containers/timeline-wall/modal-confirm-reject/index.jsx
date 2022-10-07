@@ -10,7 +10,7 @@ import { config } from 'topcoder-react-utils';
 
 import style from './styles.scss';
 
-function ModalConfirmReject({ onClose }) {
+function ModalConfirmReject({ onClose, onReject }) {
   const [formData, setFormData] = useState({
     note: '',
   });
@@ -82,6 +82,10 @@ function ModalConfirmReject({ onClose }) {
         <button
           onClick={() => {
             onClose(true);
+            onReject({
+              reason: formData.reason.value,
+              note: formData.note,
+            });
           }}
           styleName="btn-primary"
           type="button"
@@ -105,6 +109,7 @@ ModalConfirmReject.defaultProps = {
  */
 ModalConfirmReject.propTypes = {
   onClose: PT.func,
+  onReject: PT.func.isRequired,
 };
 
 export default ModalConfirmReject;

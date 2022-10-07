@@ -13,16 +13,6 @@ exports[`Matches shallow shapshot 1`] = `
   <h1>
     Topcoder Community App
   </h1>
-  <ul>
-    <li>
-      <Link
-        replace={false}
-        to="/community/timeline-wall"
-      >
-        totest: Timeline wall
-      </Link>
-    </li>
-  </ul>
   <p>
     Isomorphic ReactJS App for new version of Topcoder community website. Technological stack includes:
   </p>
@@ -55,7 +45,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       Hot reload of JS code and SCSS styles in dev environment (start it with
-       
+
       <code>
         $ npm run dev
       </code>
@@ -63,7 +53,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       Loading of .svg assets as ReactJS components with
-       
+
       <code>
         babel-plugin-inline-react-svg
       </code>
@@ -74,7 +64,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       React CSS Modules (with
-       
+
       <code>
         babel-plugin-react-css-modules
       </code>
@@ -95,17 +85,17 @@ exports[`Matches shallow shapshot 1`] = `
       <code>
         store.auth
       </code>
-       
+
       of Redux store, or in
       <code>
         v3jwt
       </code>
-       
+
       and
       <code>
         tcjwt
       </code>
-       
+
       cookies of the front-end requests to the server);
     </li>
     <li>
@@ -113,7 +103,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       Stylelint for SCSS (standard Stylelint style, run with
-       
+
       <code>
         $ npm run lint:scss
       </code>
@@ -131,7 +121,7 @@ exports[`Matches shallow shapshot 1`] = `
       <strong>
         Challenge Details Page
       </strong>
-       
+
       is available at the endpoint
       <code>
         /challenges/:challengeId
@@ -139,11 +129,11 @@ exports[`Matches shallow shapshot 1`] = `
       .
       <br />
       Here are some demo links valid in
-       
+
       <strong>
         production
       </strong>
-       
+
       environment:
       <br />
       ‌
@@ -191,7 +181,7 @@ exports[`Matches shallow shapshot 1`] = `
       .
       <br />
       Here are some demo links valid in
-       
+
       <strong>
         development
       </strong>
@@ -268,11 +258,11 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       Public Profile Page available at the
-       
+
       <code>
         /members/:handle
       </code>
-       
+
       endpoint. Valid links on dev:
       <br />
       <Link
@@ -312,7 +302,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Submission Management Page
       </a>
-       
+
       – generally available at the endpoint
       <code>
         /challenges/:challengeId/my-submissions
@@ -342,21 +332,21 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Member Search 1
       </Link>
-      , 
+      ,
       <Link
         replace={false}
         to="/search/members?q=github"
       >
         Member Search 2
       </Link>
-      , 
+      ,
       <Link
         replace={false}
         to="/search/members?q=not-found"
       >
         Member Search 3
       </Link>
-      , 
+      ,
       <Link
         replace={false}
         to="/search/members?q=Siebel"
@@ -379,16 +369,16 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       TCO Scoreboard demo is mounted on
-       
+
       <code>
         /scoreboard/:id
       </code>
       , where
-       
+
       <code>
         :id
       </code>
-       
+
       is the competition ID, not related to the regular challenge IDs. Here are two demo links for the scoreboards for the competitions created by the scoreboard init script: ‌
       <Link
         replace={false}
@@ -851,7 +841,7 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
-       
+
       — This is a part of simple PoC for CMS integration (Countentful CMS is the currently tested option);
     </li>
     <li>
@@ -861,7 +851,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Buttons
       </Link>
-       
+
       — Demo/test of standard buttons already available in the code, and customizable with help of
       <code>
         react-css-themr
@@ -891,7 +881,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Color Mixins
       </Link>
-       
+
       — Live demo of TC UI Kit color pallete;
     </li>
     <li>
@@ -901,7 +891,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         CSS Modules
       </Link>
-       
+
       - Demo/test of CSS modules in action;
     </li>
     <li>
@@ -911,7 +901,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Data Fetch
       </Link>
-       
+
       - Demonstrates how data fetching should be implemented in isomorphic way, using Redux with Flux Standard Actions and promise;
     </li>
     <li>
@@ -929,7 +919,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Error Message
       </Link>
-       
+
       - Demonstrates UI component for errors messaging;
     </li>
     <li>
@@ -939,7 +929,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Fonts Test
       </Link>
-       
+
       - A simple showcase of the fonts included into this repo, and the test of their proper inclusion into the bundle;
     </li>
     <li>
@@ -983,7 +973,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         ScalableRect
       </Link>
-       
+
       component makes it easy to create dynamically scaled components with fixed side ratio.
     </li>
     <li>
@@ -993,12 +983,12 @@ exports[`Matches shallow shapshot 1`] = `
       >
         SVG Loading
       </Link>
-       
+
       - Shows how to load
       <code>
         .svg
       </code>
-       
+
       assets with use of
       <code>
         babel-plugin-inline-react-svg
@@ -1012,7 +1002,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Tags
       </Link>
-       
+
       - Demo/test of standard tags already available in the code, and customizable with help of
       <code>
         react-css-themr
@@ -1026,7 +1016,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Super Themr
       </Link>
-       
+
       - Test/demo of
       <code>
         react-css-super-themr
@@ -1040,7 +1030,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Typography
       </Link>
-       
+
       - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
     </li>
     <li>
@@ -1050,7 +1040,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Thrive Articles Feed
       </Link>
-       
+
       - Demo of Thrive Articles Feed component
       <Link
         replace={false}
@@ -1058,7 +1048,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Gigs Feed
       </Link>
-       
+
       - Demo of Gigs Feed component
       <Link
         replace={false}
@@ -1066,7 +1056,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         TCO Leaderboards
       </Link>
-       
+
       Demo for TCO leaderboards component
       <Link
         replace={false}
@@ -1074,7 +1064,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Challenges Feed
       </Link>
-       
+
        - Demo of Challenges Feed Component
       <Link
         replace={false}
@@ -1082,7 +1072,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Blog Feed
       </Link>
-       
+
       - Demo of Blog Feed component
     </li>
     <li>
@@ -1092,7 +1082,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Member Path - Path Selector
       </Link>
-       
+
       — Demo for path selector component on member path page
     </li>
   </ul>

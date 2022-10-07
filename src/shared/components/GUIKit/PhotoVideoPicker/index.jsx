@@ -59,17 +59,21 @@ function PhotoVideoPicker({
                 </div>
               ) : null
             }
-            <section
-              styleName={cn('container', { hasError: !!errorMsg, hasFile: !!file && !!file.length })}
-              {...getRootProps()}
-              className={cn(className, getRootProps().className)}
-            >
-              <input {...getInputProps({
-                ...inputOptions,
-                accept: 'image/*, video/*',
-              })}
-              />
-              {
+            {
+              file.length < 3 ? (
+                <React.Fragment>
+
+                  <section
+                    styleName={cn('container', { hasError: !!errorMsg, hasFile: !!file && !!file.length })}
+                    {...getRootProps()}
+                    className={cn(className, getRootProps().className)}
+                  >
+                    <input {...getInputProps({
+                      ...inputOptions,
+                      accept: 'image/*, video/*',
+                    })}
+                    />
+                    {
                 file && file.length ? (
                   <div styleName="photo-list hide-mobile">
                     {file.map((fileInfo, index) => (
@@ -102,13 +106,17 @@ function PhotoVideoPicker({
                 )
               }
 
-              <React.Fragment>
-                <p styleName="infoText hide-desktop show-mobile">
-                  {infoTextMobile}
-                </p>
-                <button styleName="btn hide-desktop show-mobile" type="button">{btnText}</button>
-              </React.Fragment>
-            </section>
+                    <React.Fragment>
+                      <p styleName="infoText hide-desktop show-mobile">
+                        {infoTextMobile}
+                      </p>
+                      <button styleName="btn hide-desktop show-mobile" type="button">{btnText}</button>
+                    </React.Fragment>
+                  </section>
+
+                </React.Fragment>
+              ) : null
+            }
           </div>
         )}
       </Dropzone>

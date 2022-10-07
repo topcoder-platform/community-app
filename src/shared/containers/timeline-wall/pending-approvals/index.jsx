@@ -4,7 +4,9 @@ import ApprovalItem from './approval-item';
 
 import './styles.scss';
 
-function PendingApprovals({ className, events, removeEvent }) {
+function PendingApprovals({
+  className, events, removeEvent, userAvatars, deleteEvent, onApproveEvent,
+}) {
   return (
     <div className={className} styleName="container">
       <div styleName="reparator" />
@@ -15,12 +17,16 @@ function PendingApprovals({ className, events, removeEvent }) {
             key={item.id}
             event={item}
             styleName="content-item"
-            removeEvent={() => {
-              removeEvent(item);
-            }}
+            removeEvent={removeEvent}
+            userAvatars={userAvatars}
+            deleteEvent={deleteEvent}
+            onApproveEvent={onApproveEvent}
           />
         ))}
       </div>
+      {!events.length ? (
+        <span styleName="text-empty-result">No pending events.</span>
+      ) : null}
     </div>
   );
 }
@@ -32,6 +38,7 @@ PendingApprovals.defaultProps = {
   className: '',
   events: [],
   removeEvent: () => { },
+  userAvatars: {},
 };
 
 /**
@@ -41,6 +48,9 @@ PendingApprovals.propTypes = {
   className: PT.string,
   events: PT.arrayOf(PT.shape()),
   removeEvent: PT.func,
+  userAvatars: PT.shape(),
+  deleteEvent: PT.func.isRequired,
+  onApproveEvent: PT.func.isRequired,
 };
 
 export default PendingApprovals;

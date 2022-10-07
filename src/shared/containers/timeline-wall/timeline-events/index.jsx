@@ -11,13 +11,17 @@ import './styles.scss';
 
 function TimelineEvents({
   className,
-  role,
   events,
   removeEvent,
   setShowRightFilterMobile,
   showRightFilterMobile,
   selectedFilterValue,
   setSelectedFilterValue,
+  isAuthenticated,
+  isAdmin,
+  createNewEvent,
+  getAvatar,
+  userAvatars,
 }) {
   const [localEvents, setLocalEvents] = useState([]);
 
@@ -44,14 +48,22 @@ function TimelineEvents({
   return (
     <div className={className} styleName="container">
       <div styleName="left-content">
-        <AddEvent events={localEvents} role={role} />
+        <AddEvent
+          events={localEvents}
+          isAuthenticated={isAuthenticated}
+          createNewEvent={createNewEvent}
+          isAdmin={isAdmin}
+        />
         {localEvents.length ? (
           <Events
             events={localEvents}
-            role={role}
+            isAdmin={isAdmin}
+            isAuthenticated={isAuthenticated}
             removeEvent={(event) => {
               removeEvent(event);
             }}
+            getAvatar={getAvatar}
+            userAvatars={userAvatars}
           />
         )
           : null}
@@ -87,7 +99,6 @@ function TimelineEvents({
  */
 TimelineEvents.defaultProps = {
   className: '',
-  role: '',
   events: [],
   removeEvent: () => { },
   setShowRightFilterMobile: () => { },
@@ -97,6 +108,9 @@ TimelineEvents.defaultProps = {
     year: 0,
     month: -1,
   },
+  isAuthenticated: false,
+  isAdmin: false,
+  userAvatars: {},
 };
 
 /**
@@ -104,13 +118,17 @@ TimelineEvents.defaultProps = {
  */
 TimelineEvents.propTypes = {
   className: PT.string,
-  role: PT.string,
   events: PT.arrayOf(PT.shape()),
   removeEvent: PT.func,
   setShowRightFilterMobile: PT.func,
   showRightFilterMobile: PT.bool,
   setSelectedFilterValue: PT.func,
   selectedFilterValue: PT.shape(),
+  isAuthenticated: PT.bool,
+  isAdmin: PT.bool,
+  createNewEvent: PT.func.isRequired,
+  getAvatar: PT.func.isRequired,
+  userAvatars: PT.shape(),
 };
 
 export default TimelineEvents;

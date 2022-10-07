@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 import moment from 'moment';
 import IconCheveronDown from 'assets/images/timeline-wall/cheveron-down.svg';
 import IconTooltipLeft from 'assets/images/timeline-wall/tooltip-left.svg';
@@ -12,14 +13,17 @@ import ModalPhotoViewer from '../../../modal-photo-viewer';
 import PhotoItemsMobile from '../../../photo-items-mobile';
 import ModalDeleteConfirmation from '../../../modal-delete-confirmation';
 import './styles.scss';
+import { DEFAULT_AVATAR_URL } from '../../../../../utils/url';
 
 function EventItem({
-  className, isLeft, eventItem, role, removeEvent,
+  className, isLeft, eventItem, removeEvent, isAdmin, userAvatars,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showModalPhoto, setShowModalPhoto] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(0);
   const [showModalDelete, setShowModalDelete] = useState(false);
+
+  const photoURL = _.get(userAvatars, eventItem.createdBy) || DEFAULT_AVATAR_URL;
 
   return (
     <div
@@ -50,17 +54,17 @@ function EventItem({
         >{eventItem.description}
         </button>
 
-        {eventItem.media.length ? (
+        {eventItem.mediaFiles.length ? (
           <div styleName={cn('photo-container', {
-            'one-photo': eventItem.media.length === 1,
-            'two-photo': eventItem.media.length === 2,
+            'one-photo': eventItem.mediaFiles.length === 1,
+            'two-photo': eventItem.mediaFiles.length === 2,
           })}
           >
             <PhotoItemsMobile
               styleName="hide-desktop show-mobile photo-item"
-              photos={eventItem.media}
+              photos={eventItem.mediaFiles}
             />
-            {eventItem.media.map(photo => (
+            {eventItem.mediaFiles.map(photo => (
               <PhotoVideoItem
                 styleName="photo-item hide-mobile"
                 url={photo.url}
@@ -78,11 +82,11 @@ function EventItem({
 
         <div styleName="bottom">
           <div styleName="bottom-left">
-            <img width="23" height="23" src={eventItem.creator.avatar} alt="avatar" />
-            <span styleName="text-handle">{eventItem.creator.handle}</span>
+            <img width="23" height="23" src={photoURL} alt="avatar" />
+            <span styleName="text-handle">{eventItem.createdBy}</span>
             <span styleName="text-date">&nbsp;&nbsp;•&nbsp;&nbsp;{moment(eventItem.eventDate).format('MMM DD, YYYY')}</span>
           </div>
-          {role === 'Admin user' ? (
+          {isAdmin ? (
             <button
               styleName="btn-delete"
               type="button"
@@ -130,8 +134,9 @@ EventItem.defaultProps = {
     creator: {},
     media: [],
   },
-  role: '',
   removeEvent: () => {},
+  isAdmin: false,
+  userAvatars: {},
 };
 
 /**
@@ -141,8 +146,9 @@ EventItem.propTypes = {
   className: PT.string,
   isLeft: PT.bool,
   eventItem: PT.any,
-  role: PT.string,
   removeEvent: PT.func,
+  isAdmin: PT.bool,
+  userAvatars: PT.shape(),
 };
 
 export default EventItem;

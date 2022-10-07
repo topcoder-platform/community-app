@@ -3,22 +3,18 @@
  */
 
 import React from 'react';
-import path from 'path';
-import { AppChunk, webpack } from 'topcoder-react-utils';
+import { AppChunk } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-export default function TimelineWall() {
+export default function TimelineWall(props) {
   return (
     <AppChunk
       chunkName="timeline-wall/chunk"
       renderClientAsync={() => import(/* webpackChunkName: "timeline-wall/chunk" */'./Router')
-        .then(({ default: Router }) => <Router />)
+        .then(({ default: Router }) => <Router {...props} />)
       }
+      exact
       renderPlaceholder={() => <LoadingIndicator />}
-      renderServer={() => {
-        const Router = webpack.requireWeak(path.resolve(__dirname, './Router'));
-        return <Router />;
-      }}
     />
   );
 }

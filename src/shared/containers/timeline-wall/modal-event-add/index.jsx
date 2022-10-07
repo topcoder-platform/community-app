@@ -5,20 +5,21 @@ import IconCloseGreen from 'assets/images/icon-close-green.svg';
 
 import style from './styles.scss';
 
-function ModalDeleteConfirmation({
-  id, onClose, eventItem, handle, deleteEvent,
-}) {
+function ModalEventAdd({ onClose, isAdmin }) {
   return (
     <Modal
       theme={{ container: style.container, overlay: style.overlay }}
       onCancel={onClose}
     >
       <div styleName="header">
-        <span styleName="text-title">Delete Confirmation</span>
+        <span styleName="text-title">Confirmation</span>
         <button styleName="btn-close" onClick={onClose} type="button"><IconCloseGreen /></button>
       </div>
-      <span styleName="text-description">Are you sure you want to delete the event
-        <strong> “{eventItem.title}”</strong> from <strong>{handle}</strong>?
+      <span styleName="text-description">
+        {
+          isAdmin ? 'Thank you! Your event was submitted for review. You’ll receive an email once the review is completed'
+            : 'Thank you! Your event was added to the Timeline Wall.'
+        }
       </span>
       <div styleName="separator" />
       <div styleName="bottom">
@@ -26,17 +27,14 @@ function ModalDeleteConfirmation({
           onClick={onClose}
           styleName="btn-outline btn-cancel"
           type="button"
-        >NO, CANCEL
+        >CANCEL
         </button>
 
         <button
-          onClick={() => {
-            deleteEvent(id);
-            onClose(true);
-          }}
+          onClick={onClose}
           styleName="btn-primary"
           type="button"
-        >YES, DELETE
+        >OK
         </button>
       </div>
     </Modal>
@@ -46,25 +44,17 @@ function ModalDeleteConfirmation({
 /**
  * Default values for Props
  */
-ModalDeleteConfirmation.defaultProps = {
-  id: '',
+ModalEventAdd.defaultProps = {
   onClose: () => { },
-  eventItem: {
-    creator: {},
-    media: [],
-  },
-  handle: '',
+  isAdmin: false,
 };
 
 /**
  * Prop Validation
  */
-ModalDeleteConfirmation.propTypes = {
-  id: PT.string,
+ModalEventAdd.propTypes = {
   onClose: PT.func,
-  eventItem: PT.any,
-  handle: PT.string,
-  deleteEvent: PT.func.isRequired,
+  isAdmin: PT.bool,
 };
 
-export default ModalDeleteConfirmation;
+export default ModalEventAdd;

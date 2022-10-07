@@ -5,7 +5,9 @@ import EventItem from './event-item';
 
 const colors = ['green', 'red', 'purple'];
 
-function Events({ role, events, removeEvent }) {
+function Events({
+  events, removeEvent, isAuthenticated, getAvatar, userAvatars,
+}) {
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
   const [mobileItems, setMobileItems] = useState([]);
@@ -19,7 +21,7 @@ function Events({ role, events, removeEvent }) {
 
     for (let i = 0; i < events.length;) {
       const event = events[i];
-      const cellHeight = event.media.length > 0 ? 291 : 155;
+      const cellHeight = event.mediaFiles.length > 0 ? 291 : 155;
 
       if (leftHeight <= rightHeight) {
         leftItemsTmp.push({
@@ -53,7 +55,7 @@ function Events({ role, events, removeEvent }) {
       <div styleName="block-left hide-mobile">
         {leftItems.map(item => (
           <EventItem
-            role={role}
+            isAuthenticated={isAuthenticated}
             eventItem={item}
             styleName="event-item"
             isLeft
@@ -61,32 +63,38 @@ function Events({ role, events, removeEvent }) {
             removeEvent={() => {
               removeEvent(item);
             }}
+            getAvatar={getAvatar}
+            userAvatars={userAvatars}
           />
         ))}
       </div>
       <div styleName="block-right hide-mobile">
         {rightItems.map(item => (
           <EventItem
-            role={role}
+            isAuthenticated={isAuthenticated}
             eventItem={item}
             styleName="event-item"
             key={item.id}
             removeEvent={() => {
               removeEvent(item);
             }}
+            getAvatar={getAvatar}
+            userAvatars={userAvatars}
           />
         ))}
       </div>
       <div styleName="block-mobile hide-desktop show-mobile">
         {mobileItems.map(item => (
           <EventItem
-            role={role}
+            isAuthenticated={isAuthenticated}
             eventItem={item}
             styleName="event-item"
             key={item.id}
             removeEvent={() => {
               removeEvent(item);
             }}
+            getAvatar={getAvatar}
+            userAvatars={userAvatars}
           />
         ))}
       </div>
@@ -98,18 +106,21 @@ function Events({ role, events, removeEvent }) {
  * Default values for Props
  */
 Events.defaultProps = {
-  role: '',
   events: [],
   removeEvent: () => { },
+  isAuthenticated: false,
+  userAvatars: {},
 };
 
 /**
  * Prop Validation
  */
 Events.propTypes = {
-  role: PT.string,
   events: PT.arrayOf(PT.shape()),
   removeEvent: PT.func,
+  isAuthenticated: PT.bool,
+  getAvatar: PT.func.isRequired,
+  userAvatars: PT.shape(),
 };
 
 export default Events;
