@@ -36,6 +36,7 @@ export default function BucketSelector({
   // setEditSavedFiltersMode,
   past,
   auth,
+  loading,
 }) {
   // let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
 
@@ -59,6 +60,7 @@ export default function BucketSelector({
           document.body.scrollTop = 0;
           document.documentElement.scrollTop = 0;
         }}
+        loading={loading}
       />
     );
   };
@@ -144,6 +146,7 @@ BucketSelector.defaultProps = {
   isAuth: false,
   expanding: false,
   past: false,
+  loading: true,
 };
 
 BucketSelector.propTypes = {
@@ -168,4 +171,5 @@ BucketSelector.propTypes = {
   // selectSavedFilter: PT.func.isRequired,
   // setEditSavedFiltersMode: PT.func.isRequired,
   past: PT.bool,
+  loading: PT.bool,
 };

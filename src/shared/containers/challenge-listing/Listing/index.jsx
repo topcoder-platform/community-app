@@ -64,6 +64,7 @@ export class ListingContainer extends React.Component {
       selectCommunity,
       queryBucket,
       filter,
+      getReviewOpportunities,
     } = this.props;
 
     markHeaderMenu();
@@ -105,6 +106,8 @@ export class ListingContainer extends React.Component {
       });
     }
     // }
+
+    getReviewOpportunities(0, auth.tokenV3);
   }
 
   componentDidUpdate(prevProps) {
@@ -138,6 +141,7 @@ export class ListingContainer extends React.Component {
       loading,
       setFilter,
     } = this.props;
+
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
     const handle = _.get(auth, 'user.handle');
@@ -347,7 +351,6 @@ export class ListingContainer extends React.Component {
       getMyPastChallenges,
       getAllChallenges,
       getPastChallenges,
-      getReviewOpportunities,
       // lastRequestedPageOfActiveChallenges,
       // lastRequestedPageOfOpenForRegistrationChallenges,
       // lastRequestedPageOfMyChallenges,
@@ -405,7 +408,6 @@ export class ListingContainer extends React.Component {
       f.front,
     );
     getTotalChallengesCount(auth.tokenV3, f.front);
-    getReviewOpportunities(0, auth.tokenV3);
   }
 
   reloadChallenges() {
