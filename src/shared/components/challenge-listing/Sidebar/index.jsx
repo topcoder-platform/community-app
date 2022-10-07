@@ -53,6 +53,7 @@ export default function SideBarFilters({
   // updateSavedFilter,
   // setFilter,
   setFilterState,
+  loading,
 }) {
   const past = isPastBucket(activeBucket);
 
@@ -120,6 +121,7 @@ export default function SideBarFilters({
           // selectSavedFilter={selectSavedFilter}
           // setEditSavedFiltersMode={setEditSavedFiltersMode}
           past={past}
+          loading={loading}
         />
         {/* )} */}
       </div>
@@ -168,4 +170,5 @@ SideBarFilters.propTypes = {
   // updateSavedFilter: PT.func.isRequired,
   // setFilter: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
+  loading: PT.bool.isRequired,
 };

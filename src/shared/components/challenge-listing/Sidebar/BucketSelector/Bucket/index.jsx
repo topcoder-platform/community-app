@@ -20,6 +20,7 @@ function Bucket({
   onClick,
   // allActiveChallengesLoaded,
   meta,
+  loading,
 }) {
   // let countEl;
   // if (!disabled) { // !bucket.hideCount &&
@@ -93,7 +94,7 @@ function Bucket({
         }}
       />
       <span styleName="bucketName">{BUCKET_DATA[bucket].name}</span>
-      {(bucket !== BUCKETS.ALL && count > 0) ? <span styleName="count">{count}</span> : null}
+      {(bucket !== BUCKETS.ALL && count > 0 && !loading) ? <span styleName="count">{count}</span> : null}
     </div>
   );
 }
@@ -103,6 +104,7 @@ Bucket.defaultProps = {
   disabled: false,
   onClick: _.noop,
   meta: {},
+  loading: true,
 };
 
 Bucket.propTypes = {
@@ -119,6 +121,7 @@ Bucket.propTypes = {
   onClick: PT.func,
   meta: PT.shape(),
   // allActiveChallengesLoaded: PT.bool.isRequired,
+  loading: PT.bool,
 };
 
 const mapStateToProps = (state) => {

@@ -175,6 +175,9 @@ export default function ChallengeListing(props) {
           <Sidebar
             expanding={expanding}
             setFilterState={props.setFilterState}
+            loadingMyChallenges={props.loadingMyChallenges}
+            loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
+            loadingReviewOpportunities={props.loadingReviewOpportunities}
           />
 
           <FilterPanel
