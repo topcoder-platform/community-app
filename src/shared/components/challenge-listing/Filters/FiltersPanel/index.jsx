@@ -259,33 +259,11 @@ export default function FiltersPanel({
     setFilterState({ ...filterObj });
   };
 
-  const findSearchText = (types) => {
-    let searchText = '';
-
-    if (types.includes('MM')) {
-      searchText += 'MM Marathon Match ';
-    }
-
-    if (types.includes('RDM')) {
-      searchText += 'RDM Rapid Development Match ';
-    }
-
-    if (types.includes('PC')) {
-      searchText += 'Practice ';
-    }
-
-    return searchText.substring(0, searchText.length - 1);
-  };
-
   const updateFilterStateByTypes = (newTypes) => {
-    const searchText = findSearchText(newTypes);
-
     setFilterState({
       ...filterState,
       types: newTypes,
-      search: searchText,
     });
-    setSearchText(searchText);
   };
 
   const toggleSection = (section, on) => {
