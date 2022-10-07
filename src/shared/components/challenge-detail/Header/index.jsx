@@ -244,23 +244,18 @@ export default function ChallengeHeader(props) {
         </div>
       );
       break;
-    case 'draft':
-      nextDeadlineMsg = (
-        <div styleName="draft">
-          In Draft
-        </div>
-      );
+    case 'active':
       break;
     default:
-      // nextDeadlineMsg = (
-      //   <div>
-      //     Status:
-      //     &zwnj;
-      //     <span styleName="deadline-highlighted">
-      //       {_.upperFirst(_.lowerCase(status))}
-      //     </span>
-      //   </div>
-      // );
+      nextDeadlineMsg = (
+        <div>
+          Status:
+          &zwnj;
+          <span styleName="deadline-highlighted">
+            {_.upperFirst(_.lowerCase(status))}
+          </span>
+        </div>
+      );
       break;
   }
 
