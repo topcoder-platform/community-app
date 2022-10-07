@@ -77,5 +77,5 @@ export const isReviewerOrAdmin = (auth) => {
     return false;
   }
 
-  return _.intersection(roles, ['administrator', 'Reviewer']).length;
+  return _.intersection(roles, ['administrator', 'Reviewer', 'Gamification Admin', 'Connect Admin', 'admin']).length;
 };

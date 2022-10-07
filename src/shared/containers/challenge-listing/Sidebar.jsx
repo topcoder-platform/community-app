@@ -189,6 +189,7 @@ function mapStateToProps(state) {
     // hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
+    auth: state.auth,
     // communityFilters: state.tcCommunities.list.data,
     // selectedCommunityId: state.challengeListing.selectedCommunityId,
     // tokenV2: state.auth.tokenV2,
