@@ -181,6 +181,7 @@ const ChallengeListing = (props) => {
             setRecommendedToggle={setRecommendedToggle}
             tcoToggle={tcoToggle}
             setTcoToggle={setTcoToggle}
+            setSearchText={setSearchText}
           />
 
           <FilterPanel

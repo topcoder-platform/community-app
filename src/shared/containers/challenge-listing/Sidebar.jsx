@@ -203,7 +203,6 @@ function mapStateToProps(state, ownProps) {
     // userChallenges: state.challengeListing.userChallenges,
     expanding: sb.expanding,
     defaultCommunityId: ownProps.defaultCommunityId,
-    setSearchText: PT.func.isRequired,
   };
 }
 
