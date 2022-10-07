@@ -13,13 +13,13 @@
 .submitButton {
   margin: $base-unit 0;
   min-width: 0;
-  width: 100%;
+  border-width: 2px !important;
   border-radius: 50px !important;
   height: 48px;
   background: #137d60 !important;
   color: #fff !important;
   white-space: nowrap;
-  padding: 0 35px !important;
+  padding: 12 24px !important;
 
   @include xs-to-sm {
     width: fit-content;
@@ -29,10 +29,10 @@
 .submitButtonDisabled {
   margin: $base-unit 0;
   min-width: 0;
-  width: 100%;
+  border-width: 2px !important;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
+  padding: 12 24px !important;
   color: #767676 !important;
   background: #f4f4f4 !important;
 
@@ -44,10 +44,10 @@
 .unregisterButton {
   margin: $base-unit 0;
   min-width: 0;
-  width: 100%;
+  border-width: 2px !important;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
+  padding: 12 24px !important;
   color: #137d60 !important;
   border-color: #137d60 !important;
   background: #fff !important;
@@ -60,15 +60,41 @@
 .registerBtn {
   margin: $base-unit 0;
   min-width: 0;
-  width: 100%;
+  border-width: 2px !important;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
+  padding: 12 24px !important;
   background-color: #137d60 !important;
 
   @include xs-to-sm {
     width: fit-content;
   }
+}
+
+.submitButton:hover,
+.registerBtn:hover {
+  color: #fff !important;
+  border-color: #219174 !important;
+  background: #219174 !important;
+}
+
+.unregisterButton:hover {
+  color: #219174 !important;
+  border-color: #219174 !important;
+  background: #fff !important;
+}
+
+.submitButton:active,
+.registerBtn:active {
+  color: #fff !important;
+  border-color: #0d664e !important;
+  background: #0d664e !important;
+}
+
+.unregisterButton:active {
+  color: #0d664e !important;
+  border-color: #0d664e !important;
+  background: #fff !important;
 }
 
 .challenge-ops-container {

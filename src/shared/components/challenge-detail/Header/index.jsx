@@ -426,16 +426,16 @@ export default function ChallengeHeader(props) {
                 Submit
               </PrimaryButton>
               {
-                  track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+                track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
                   && hasSubmissions && (
-                    <PrimaryButton
-                      theme={{ button: style.submitButton }}
-                      to={`${challengesUrl}/${challengeId}/my-submissions`}
-                    >
-                      View Submissions
-                    </PrimaryButton>
-                  )
-                }
+                  <PrimaryButton
+                    theme={{ button: style.submitButton }}
+                    to={`${challengesUrl}/${challengeId}/my-submissions`}
+                  >
+                    View Submissions
+                  </PrimaryButton>
+                )
+              }
             </div>
           </div>
         </div>
