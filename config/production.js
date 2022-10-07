@@ -194,6 +194,11 @@ module.exports = {
           href: 'https://discord.gg/topcoder?ref=nav',
           openNewTab: true,
         },
+        {
+          title: 'Learn',
+          href: 'https://platform-ui.topcoder.com/learn',
+          openNewTab: true,
+        },
       ],
     },
   ],
