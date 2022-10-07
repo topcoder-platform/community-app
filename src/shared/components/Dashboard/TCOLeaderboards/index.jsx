@@ -51,7 +51,7 @@ export default class TCOLeaderboards extends React.Component {
           <div styleName="handle">
             <a href={`https://topcoder.com/members/${row['member_profile_basic.handle']}`} target="_blank" rel="noreferrer">{row['member_profile_basic.handle']}</a>
           </div>
-          <span styleName="tcoPoints">{row['tco_leaderboard.tco_points'].toLocaleString('en-US', { maximumFractionDigits: 2 })}</span>
+          <span styleName="tcoPoints">{(row['tco23_leaderboard.tco_points'] ? row['tco23_leaderboard.tco_points'] : row['tco_leaderboard.tco_points']).toLocaleString('en-US', { maximumFractionDigits: 2 })}</span>
         </div>
       )) : <LoadingIndicator />;
 
