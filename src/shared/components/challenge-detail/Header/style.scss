@@ -20,6 +20,8 @@
   color: #fff !important;
   white-space: nowrap;
   padding: 12 24px !important;
+  font-weight: 700;
+  letter-spacing: 0.8em;
 
   @include xs-to-sm {
     width: fit-content;
@@ -35,6 +37,8 @@
   padding: 12 24px !important;
   color: #767676 !important;
   background: #f4f4f4 !important;
+  font-weight: 700;
+  letter-spacing: 0.8em;
 
   @include xs-to-sm {
     width: fit-content;
@@ -51,6 +55,8 @@
   color: #137d60 !important;
   border-color: #137d60 !important;
   background: #fff !important;
+  font-weight: 700;
+  letter-spacing: 0.8em;
 
   @include xs-to-sm {
     width: fit-content;
@@ -65,6 +71,8 @@
   height: 48px;
   padding: 12 24px !important;
   background-color: #137d60 !important;
+  font-weight: 700;
+  letter-spacing: 0.8em;
 
   @include xs-to-sm {
     width: fit-content;
