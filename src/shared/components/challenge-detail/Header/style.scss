@@ -10,8 +10,8 @@
   padding: 0 25px !important;
 }
 
-.submitButton {
-  margin: $base-unit 0;
+.challenge-ops-container .submitButton {
+  margin: 5px;
   min-width: 0;
   border-width: 2px !important;
   border-radius: 50px !important;
@@ -19,87 +19,87 @@
   background: #137d60 !important;
   color: #fff !important;
   white-space: nowrap;
-  padding: 12 24px !important;
+  padding: 12px 24px !important;
   font-weight: 700;
-  letter-spacing: 0.8em;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
 }
 
-.submitButtonDisabled {
-  margin: $base-unit 0;
+.challenge-ops-container .submitButtonDisabled {
+  margin: 5px;
   min-width: 0;
   border-width: 2px !important;
   border-radius: 50px !important;
   height: 48px;
-  padding: 12 24px !important;
+  padding: 12px 24px !important;
   color: #767676 !important;
   background: #f4f4f4 !important;
   font-weight: 700;
-  letter-spacing: 0.8em;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
 }
 
-.unregisterButton {
-  margin: $base-unit 0;
+.challenge-ops-container .unregisterButton {
+  margin: 5px;
   min-width: 0;
   border-width: 2px !important;
   border-radius: 50px !important;
   height: 48px;
-  padding: 12 24px !important;
+  padding: 12px 24px !important;
   color: #137d60 !important;
   border-color: #137d60 !important;
   background: #fff !important;
   font-weight: 700;
-  letter-spacing: 0.8em;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
 }
 
-.registerBtn {
-  margin: $base-unit 0;
+.challenge-ops-container .registerBtn {
+  margin: 5px;
   min-width: 0;
   border-width: 2px !important;
   border-radius: 50px !important;
   height: 48px;
-  padding: 12 24px !important;
+  padding: 12px 24px !important;
   background-color: #137d60 !important;
   font-weight: 700;
-  letter-spacing: 0.8em;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
 }
 
-.submitButton:hover,
-.registerBtn:hover {
+.challenge-ops-container .submitButton:hover,
+.challenge-ops-container .registerBtn:hover {
   color: #fff !important;
   border-color: #219174 !important;
   background: #219174 !important;
 }
 
-.unregisterButton:hover {
+.challenge-ops-container .unregisterButton:hover {
   color: #219174 !important;
   border-color: #219174 !important;
   background: #fff !important;
 }
 
-.submitButton:active,
-.registerBtn:active {
+.challenge-ops-container .submitButton:active,
+.challenge-ops-container .registerBtn:active {
   color: #fff !important;
   border-color: #0d664e !important;
   background: #0d664e !important;
 }
 
-.unregisterButton:active {
+.challenge-ops-container .unregisterButton:active {
   color: #0d664e !important;
   border-color: #0d664e !important;
   background: #fff !important;
