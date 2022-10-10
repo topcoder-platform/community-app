@@ -24,6 +24,17 @@ function onSelectTab(state, { payload }) {
 }
 
 /**
+ * Handles CHALLENGE/AUTO_REGISTER action
+ * @param {Object} state
+ * @param {Object} action
+ * @returns {Object}
+ */
+function onAutoRegister(state, { payload }) {
+  updateQuery({ autoRegister: payload });
+  return { ...state, autoRegister: payload };
+}
+
+/**
  * Handler for the SET_SPECS_TAB_STATE action.
  * @param {Object} state
  * @param {Object} action
@@ -99,6 +110,9 @@ export async function factory(req) {
   let state = {};
   if (req.query.tab) {
     state = onSelectTab(state, { payload: req.query.tab });
+  }
+  if (req.query.autoRegister && req.query.autoRegister === 'true') {
+    state = onAutoRegister(state, { payload: req.query.autoRegister });
   }
   return create(state);
 }

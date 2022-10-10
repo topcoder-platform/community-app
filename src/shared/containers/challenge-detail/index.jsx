@@ -192,6 +192,7 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       getAllCountries,
       getReviewTypes,
+      autoRegister,
     } = this.props;
 
     if (
@@ -234,6 +235,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     if (!reviewTypes.length) {
       getReviewTypes(auth.tokenV3);
+    }
+
+    if (auth.tokenV2 && auth.tokenV3 && !challenge.isRegistered && autoRegister === 'true') {
+      this.registerForChallenge();
     }
   }
 
@@ -701,6 +706,7 @@ class ChallengeDetailPageContainer extends React.Component {
 }
 
 ChallengeDetailPageContainer.defaultProps = {
+  autoRegister: 'false',
   challengesUrl: '/challenges',
   challengeTypes: [],
   checkpointResults: null,
@@ -725,6 +731,7 @@ ChallengeDetailPageContainer.defaultProps = {
 
 ChallengeDetailPageContainer.propTypes = {
   auth: PT.shape().isRequired,
+  autoRegister: PT.string,
   challenge: PT.shape().isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengeId: PT.string.isRequired,
@@ -883,6 +890,7 @@ function mapStateToProps(state, props) {
 
     /* TODO: Carefully move default value to defaultProps. */
     selectedTab: state.page.challengeDetails.selectedTab || 'details',
+    autoRegister: state.page.challengeDetails.autoRegister || 'false',
 
     specsTabState: state.page.challengeDetails.specsTabState,
     terms: state.terms.terms,
