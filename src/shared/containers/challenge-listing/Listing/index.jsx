@@ -23,6 +23,7 @@ import Banner from 'components/tc-communities/Banner';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import communityActions from 'actions/tc-communities';
+
 // import SORT from 'utils/challenge-listing/sort';
 import {
   BUCKETS, filterChanged, sortChangedBucket,
@@ -516,6 +517,7 @@ export class ListingContainer extends React.Component {
       setFilter,
       setSort,
       sorts,
+      setReviewCount,
       // hideTcLinksInSidebarFooter,
       // isBucketSwitching,
       // userChallenges,
@@ -702,6 +704,7 @@ export class ListingContainer extends React.Component {
           // userChallenges={[]}
           isLoggedIn={isLoggedIn}
           meta={meta}
+          setReviewCount={setReviewCount}
           setSearchText={setSearchText}
           previousBucketOfActiveTab={previousBucketOfActiveTab}
           previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
@@ -837,6 +840,7 @@ ListingContainer.propTypes = {
   // userChallenges: PT.arrayOf(PT.string),
   // getUserChallenges: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
+  setReviewCount: PT.func.isRequired,
   filterState: PT.shape().isRequired,
   loading: PT.bool,
 };

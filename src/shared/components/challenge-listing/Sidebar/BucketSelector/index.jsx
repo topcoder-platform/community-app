@@ -36,6 +36,7 @@ export default function BucketSelector({
   // setEditSavedFiltersMode,
   past,
   auth,
+  reviewCount,
   loading,
 }) {
   // let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
@@ -52,6 +53,7 @@ export default function BucketSelector({
       <Bucket
         active={!disabled && isActive}
         bucket={bucket}
+        reviewCount={reviewCount}
         // challenges={challenges}
         disabled={disabled}
         onClick={() => {
@@ -146,6 +148,7 @@ BucketSelector.defaultProps = {
   isAuth: false,
   expanding: false,
   past: false,
+  reviewCount: 0,
   loading: true,
 };
 
@@ -168,6 +171,7 @@ BucketSelector.propTypes = {
   isAuth: PT.bool,
   // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
+  reviewCount: PT.number,
   // selectSavedFilter: PT.func.isRequired,
   // setEditSavedFiltersMode: PT.func.isRequired,
   past: PT.bool,

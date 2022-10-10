@@ -69,6 +69,7 @@ exports[`Matches shallow shapshot 2`] = `
           isReviewer={false}
           loading={true}
           past={false}
+          reviewCount={0}
         />
       </div>
     </div>

@@ -15,6 +15,7 @@ exports[`Matches shallow shapshot 1`] = `
       isAuth={false}
       loading={true}
       past={false}
+      reviewCount={0}
       selectBucket={[MockFunction]}
     />
   </div>
@@ -39,6 +40,7 @@ exports[`Matches shallow shapshot 2`] = `
       isAuth={false}
       loading={true}
       past={false}
+      reviewCount={0}
       selectBucket={[MockFunction]}
     />
   </div>
