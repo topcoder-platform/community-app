@@ -53,6 +53,7 @@ export default function SideBarFilters({
   // updateSavedFilter,
   // setFilter,
   setFilterState,
+  reviewCount,
   loading,
 }) {
   const past = isPastBucket(activeBucket);
@@ -116,6 +117,7 @@ export default function SideBarFilters({
           // filterState={filterState}
           isAuth={isAuth}
           auth={auth}
+          reviewCount={reviewCount}
           // savedFilters={savedFilters}
           selectBucket={selectBucket}
           // selectSavedFilter={selectSavedFilter}
@@ -138,6 +140,7 @@ SideBarFilters.defaultProps = {
   // extraBucket: null,
   // hideTcLinksInFooter: false,
   isAuth: false,
+  reviewCount: 0,
   expanding: false,
 };
 
@@ -161,6 +164,7 @@ SideBarFilters.propTypes = {
   // hideTcLinksInFooter: PT.bool,
   auth: PT.shape().isRequired,
   isAuth: PT.bool,
+  reviewCount: PT.number,
   // resetFilterName: PT.func.isRequired,
   // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
