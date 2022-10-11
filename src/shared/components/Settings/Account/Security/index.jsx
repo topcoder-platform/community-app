@@ -162,16 +162,16 @@ export default function Security({
           Google Play Store or the iOS App Store.
         </div>
         <div styleName="app-store">
-          <div styleName="market">
-            <a href="https://play.google.com/store/apps/details?id=com.diwallet1" target="_blank" rel="noreferrer"><img src={GooglePlay} alt="Google Play Store" /></a>
+          <div styleName="market mmr">
+            <a href="https://play.google.com/store/apps/details?id=com.diwallet1" target="_blank" rel="noreferrer" styleName="market-link"><img src={GooglePlay} alt="Google Play Store" /></a>
             <QRCode size={190} value="https://play.google.com/store/apps/details?id=com.diwallet1" />
           </div>
           <div styleName="market">
-            <a href="https://apps.apple.com/in/app/dice-id/id1624858853" target="_blank" rel="noreferrer"><AppleStore /></a>
+            <a href="https://apps.apple.com/in/app/dice-id/id1624858853" target="_blank" rel="noreferrer" styleName="market-link"><AppleStore /></a>
             <QRCode size={190} value="https://apps.apple.com/in/app/dice-id/id1624858853" />
           </div>
         </div>
-        <div styleName="step-content">
+        <div styleName="step-content no-margin">
           After you have downloaded and installed the mobile app,
           <strong> make sure to complete the configuration process. </strong>
           When ready, click next below.
@@ -198,7 +198,7 @@ export default function Security({
             ? <QRCode size={298} value={diceConnection.connection} />
             : 'Loading'}
         </div>
-        <div styleName="step-content">
+        <div styleName="step-content no-margin">
           Once the connection is established, the service will offer you a Verifiable Credential.
           <br />Press the ACCEPT button in your DICE ID App.
           <br />If you DECLINE the invitation, please try again after 5 minutes.
@@ -255,7 +255,7 @@ export default function Security({
         <div styleName="body-logo">
           <img src={DiceLogoBig} alt="diceid" />
         </div>
-        <div styleName="step-content">
+        <div styleName="step-content no-margin">
           For more information on DICE ID, please visit<br />
           <a href="https://www.diceid.com/" target="_blank" rel="noreferrer" style={{ color: '#0D61BF' }}>https://www.diceid.com/</a><br /><br />
           Please click Finish bellow.
@@ -274,7 +274,7 @@ export default function Security({
           <div styleName="icon-unsuccessful">
             <UnsuccessfulIcon />
           </div>
-          <div styleName="step-title error">
+          <div styleName="step-title error no-margin">
             Unsuccessful Verification
           </div>
         </div>
@@ -286,7 +286,7 @@ export default function Security({
         <div styleName="body-logo">
           <img src={DiceLogoBig} alt="diceid" />
         </div>
-        <div styleName="step-content">
+        <div styleName="step-content no-margin">
           Please try again your process after few minutes.<br /><br />
           Please click Finish bellow.
         </div>

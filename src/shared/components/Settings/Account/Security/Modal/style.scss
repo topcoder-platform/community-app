@@ -17,7 +17,7 @@
 .container {
   background: #fff;
   position: fixed;
-  width: 1000px;
+  max-width: 1000px;
   height: 752px;
   max-height: 99%;
   top: 50%;
@@ -31,13 +31,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 24px;
 
     .icon-wrapper {
       display: flex;
@@ -76,6 +76,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 24px;
   }
 
   .divider {
@@ -83,6 +84,7 @@
     min-height: 2px;
     background-color: #e9e9e9;
     border-radius: 1px;
+    margin-bottom: 24px;
   }
 
   .footer {
@@ -109,6 +111,14 @@
       border-radius: 50px;
       cursor: pointer;
 
+      &:focus {
+        outline: none;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+
       &.disabled {
         background: #f4f4f4;
         color: #767676;
@@ -133,6 +143,14 @@
       background: $color-turq-160;
       border-radius: 50px;
       cursor: pointer;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
 
       &.disabled {
         background: #f4f4f4;
