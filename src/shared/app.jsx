@@ -38,6 +38,7 @@ export default function App() {
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="manifest" href="/challenges/manifest.json" />
         <script src={config.URL.ABANDONMENT_EMBED} async />
+        <script type="text/javascript" src="//cdn-3.convertexperiments.com/js/10005965-10006774.js" />
       </Helmet>
       <Routes />
       <ErrorMessage />
