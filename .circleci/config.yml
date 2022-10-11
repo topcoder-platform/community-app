@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - TCA-484
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
