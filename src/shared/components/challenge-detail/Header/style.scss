@@ -105,6 +105,30 @@
   background: #fff !important;
 }
 
+.challenge-ops-container .submitButton:focus,
+.challenge-ops-container .submitButton:focus-within,
+.challenge-ops-container .submitButton:focus-visible{
+  outline: none !important;
+  box-shadow: none !important;
+  border: 2px solid #219174 !important;
+}
+
+.challenge-ops-container .registerBtn:focus,
+.challenge-ops-container .registerBtn:focus-within,
+.challenge-ops-container .registerBtn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 2px solid #219174 !important;
+}
+
+.challenge-ops-container .unregisterButton:focus,
+.challenge-ops-container .unregisterButton:focus-within,
+.challenge-ops-container .unregisterButton:focus-visible{
+  outline: none !important;
+  box-shadow: none !important;
+  border: 2px solid #0d664e !important;
+}
+
 .challenge-ops-container {
   display: flex;
   margin-top: 32px;
