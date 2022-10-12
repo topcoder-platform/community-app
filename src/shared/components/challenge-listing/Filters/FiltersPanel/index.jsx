@@ -72,6 +72,7 @@ export default function FiltersPanel({
   setExpanded,
   setSort,
   selectBucket,
+  reviewCount,
 }) {
   if (hidden && !expanded) {
     return (
@@ -386,6 +387,7 @@ export default function FiltersPanel({
               isReviewer={isReviewerOrAdmin(auth)}
               selectBucket={selectBucket}
               past={past}
+              reviewCount={reviewCount}
             />
           </div>
         </div>
@@ -759,6 +761,7 @@ FiltersPanel.defaultProps = {
   onClose: _.noop,
   expanding: false,
   disabled: false,
+  reviewCount: 0,
 };
 
 FiltersPanel.propTypes = {
@@ -789,4 +792,5 @@ FiltersPanel.propTypes = {
   selectBucket: PT.func.isRequired,
   expanding: PT.bool,
   disabled: PT.bool,
+  reviewCount: PT.number,
 };

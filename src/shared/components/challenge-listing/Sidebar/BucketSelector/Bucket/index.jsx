@@ -93,7 +93,8 @@ function Bucket({
         }}
       />
       <span styleName="bucketName">{BUCKET_DATA[bucket].name}</span>
-      {(bucket !== BUCKETS.ALL && count > 0) ? <span styleName="count">{count}</span> : null}
+      {(bucket !== BUCKETS.ALL && bucket !== BUCKETS.REVIEW_OPPORTUNITIES && count > 0 && !loading) ? <span styleName="count">{count}</span> : null}
+      {(bucket === BUCKETS.REVIEW_OPPORTUNITIES && count > 0) ? <span styleName="count">{count}</span> : null}
     </div>
   );
 }
