@@ -61,11 +61,13 @@
     display: none;
 
     @include xs-to-md {
+      display: block;
       position: fixed;
       z-index: 1000;
       width: 93%;
       background: #f4f4f4;
-      padding-top: 15px;
+      padding-top: 23px;
+      padding-bottom: 12px;
     }
   }
 
@@ -75,15 +77,15 @@
     @include xs-to-md {
       display: flex;
       justify-content: space-between;
-      padding-bottom: 25px;
+      width: 99%;
     }
   }
 
   .title {
     display: none;
 
-    @include xs-to-md {
-      display: block;
+    @include xs-to-sm {
+      display: inline;
 
       @include barlow-bold;
 
@@ -129,6 +131,10 @@
 .mobile-button {
   height: 24px;
   min-height: 26px;
+
+  @include xs-to-sm {
+    display: none;
+  }
 
   button {
     @include roboto-bold;
