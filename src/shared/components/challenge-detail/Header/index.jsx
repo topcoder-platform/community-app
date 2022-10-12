@@ -213,26 +213,23 @@ export default function ChallengeHeader(props) {
           || phaseEndDate(p).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
-        name: 'Winners',
+        name: 'Winners Announced',
         isOpen: false,
         actualEndDate: endPhaseDate,
         scheduledEndDate: endPhaseDate,
       });
     } else if (relevantPhases.length > 1) {
-      const lastPhase = relevantPhases[relevantPhases.length - 1];
-      const lastPhaseTime = phaseEndDate(lastPhase).getTime();
-
+      // const lastPhase = relevantPhases[relevantPhases.length - 1];
+      // const lastPhaseTime = phaseEndDate(lastPhase).getTime();
       const appealsEndDate = phaseEndDate(sortedAllPhases[sortedAllPhases.length - 1]);
-      const appealsEnd = appealsEndDate.getTime();
-      if (lastPhaseTime < appealsEnd) {
-        relevantPhases.push({
-          id: -1,
-          name: 'Winners',
-          isOpen: false,
-          actualEndDate: appealsEndDate,
-          scheduledEndDate: appealsEndDate,
-        });
-      }
+      // const appealsEnd = appealsEndDate.getTime();
+      relevantPhases.push({
+        id: -1,
+        name: 'Winners Announced',
+        isOpen: false,
+        actualEndDate: appealsEndDate,
+        scheduledEndDate: appealsEndDate,
+      });
     }
   }
 
