@@ -326,12 +326,21 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     const {
       auth,
+      challenge,
       challengeId,
       communityId,
       openTermsModal,
       registerForChallenge,
       terms,
     } = this.props;
+    if (document && !document.domain.startsWith('www') && challenge.groups.length === 0) {
+      // When a user try to register public challenge under private community site,
+      // we should redirect user to the public challenge detail page,
+      // then perform auto registration of the challenge
+      const targetUrl = `${config.URL.BASE}/challenges/${challengeId}?autoRegister=true`;
+      window.open(targetUrl, '_blank');
+      return;
+    }
     if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
       window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}&regSource=challenges`;
