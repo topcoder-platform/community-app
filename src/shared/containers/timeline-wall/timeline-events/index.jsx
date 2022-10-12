@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PT from 'prop-types';
-import moment from 'moment';
-import _ from 'lodash';
 import cn from 'classnames';
 import AddEvent from './add-event';
 import Events from './events';
@@ -22,41 +20,23 @@ function TimelineEvents({
   createNewEvent,
   getAvatar,
   userAvatars,
+  onDoneAddEvent,
+  uploading,
 }) {
-  const [localEvents, setLocalEvents] = useState([]);
-
-  useEffect(() => {
-    setLocalEvents(_.filter(events, (event) => {
-      const eventDate = moment(event.eventDate);
-      if (!selectedFilterValue.year) {
-        return true;
-      }
-      if (eventDate.year() !== selectedFilterValue.year) {
-        return false;
-      }
-      if (selectedFilterValue.month < 0) {
-        return true;
-      }
-      if (eventDate.month() !== selectedFilterValue.month) {
-        return false;
-      }
-
-      return true;
-    }));
-  }, [events, selectedFilterValue]);
-
   return (
     <div className={className} styleName="container">
       <div styleName="left-content">
         <AddEvent
-          events={localEvents}
+          events={events}
           isAuthenticated={isAuthenticated}
           createNewEvent={createNewEvent}
           isAdmin={isAdmin}
+          onDoneAddEvent={onDoneAddEvent}
+          uploading={uploading}
         />
-        {localEvents.length ? (
+        {events.length ? (
           <Events
-            events={localEvents}
+            events={events}
             isAdmin={isAdmin}
             isAuthenticated={isAuthenticated}
             removeEvent={(event) => {
@@ -67,15 +47,15 @@ function TimelineEvents({
           />
         )
           : null}
-        {!localEvents.length && !!events.length && selectedFilterValue.month < 0 ? (
+        {!events.length && !!events.length && selectedFilterValue.month < 0 ? (
           <span styleName="text-empty-result">No events have been added for this year. Be the first who adds one.</span>
         )
           : null}
-        {!localEvents.length && !!events.length && selectedFilterValue.month >= 0 ? (
+        {!events.length && !!events.length && selectedFilterValue.month >= 0 ? (
           <span styleName="text-empty-result">No events have been added for this month. Be the first who adds one.</span>
         )
           : null}
-        {!localEvents.length && !events.length ? (
+        {!events.length && !events.length ? (
           <span styleName="text-empty-result">No events have been added. Be the first who adds one.</span>
         )
           : null}
@@ -111,6 +91,7 @@ TimelineEvents.defaultProps = {
   isAuthenticated: false,
   isAdmin: false,
   userAvatars: {},
+  uploading: false,
 };
 
 /**
@@ -128,7 +109,9 @@ TimelineEvents.propTypes = {
   isAdmin: PT.bool,
   createNewEvent: PT.func.isRequired,
   getAvatar: PT.func.isRequired,
+  onDoneAddEvent: PT.func.isRequired,
   userAvatars: PT.shape(),
+  uploading: PT.bool,
 };
 
 export default TimelineEvents;

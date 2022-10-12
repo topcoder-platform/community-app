@@ -34,6 +34,7 @@ function TimelineWallContainer(props) {
     getAvatar,
     userAvatars,
     pendingApprovals,
+    uploading,
   } = props;
 
   const role = 'Admin User';
@@ -75,6 +76,15 @@ function TimelineWallContainer(props) {
     }
   }, [pendingApprovals]);
 
+  useEffect(() => {
+    const target = document.getElementById(`${selectedFilterValue.year}-${selectedFilterValue.month}`);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' }, true);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [selectedFilterValue]);
+
 
   const deleteEvent = (id) => {
     deleteEventById(authToken, id, () => {
@@ -96,7 +106,7 @@ function TimelineWallContainer(props) {
 
   return (
     <div styleName="container">
-      <div styleName="header">
+      <div styleName={isAdmin ? 'header header-admin' : 'header'}>
         <img src={TopBanner} alt="top-banner" styleName="header-bg hide-mobile" />
         <img src={TopBannerMobile} alt="top-banner" styleName="header-bg hide-desktop show-mobile" />
 
@@ -153,8 +163,12 @@ function TimelineWallContainer(props) {
             createNewEvent={(body) => {
               createNewEvent(authToken, body);
             }}
+            onDoneAddEvent={() => {
+              getTimelineEvents();
+            }}
             getAvatar={getAvatar}
             userAvatars={userAvatars}
+            uploading={uploading}
           />
           <React.Fragment>
             {
@@ -185,6 +199,7 @@ TimelineWallContainer.defaultProps = {
   auth: null,
   isAdmin: false,
   loading: false,
+  uploading: false,
   events: [],
   userAvatars: {},
   pendingApprovals: [],
@@ -197,6 +212,7 @@ TimelineWallContainer.propTypes = {
   auth: PT.shape(),
   isAdmin: PT.bool,
   loading: PT.bool,
+  uploading: PT.bool,
   events: PT.arrayOf(PT.shape()),
   loadUserDetails: PT.func.isRequired,
   createNewEvent: PT.func.isRequired,
@@ -213,6 +229,7 @@ const mapStateToProps = state => ({
   },
   isAdmin: state.timelineWall.isAdmin,
   loading: state.timelineWall.loading,
+  uploading: state.timelineWall.uploading,
   events: state.timelineWall.events,
   userAvatars: state.timelineWall.userAvatars,
   pendingApprovals: state.timelineWall.pendingApprovals,

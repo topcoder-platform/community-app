@@ -78,6 +78,18 @@ function onPendingApprovalDone(state, { payload }) {
 }
 
 /**
+* Handles onCreateNewEventInit action.
+* @param {Object} state Previous state.
+* @param {Object} payload The payload.
+*/
+function onCreateNewEventInit(state) {
+  return {
+    ...state,
+    uploading: true,
+  };
+}
+
+/**
 * Handles onCreateNewEventDone action.
 * @param {Object} state Previous state.
 * @param {Object} payload The payload.
@@ -85,6 +97,7 @@ function onPendingApprovalDone(state, { payload }) {
 function onCreateNewEventDone(state) {
   return {
     ...state,
+    uploading: false,
   };
 }
 
@@ -134,7 +147,7 @@ function create(state = {}) {
     [actions.timeline.fetchTimelineEventsDone]: onEventsDone,
     [actions.timeline.fetchPendingApprovalsInit]: onPendingApprovalInit,
     [actions.timeline.fetchPendingApprovalsDone]: onPendingApprovalDone,
-    // [actions.timeline.createNewEventInit]: onCreateNewEventInit,
+    [actions.timeline.createNewEventInit]: onCreateNewEventInit,
     [actions.timeline.createNewEventDone]: onCreateNewEventDone,
     [actions.timeline.fetchUserAvatarInit]: onFetchUserAvatarInit,
     [actions.timeline.fetchUserAvatarDone]: onFetchUserAvatarDone,

@@ -31,6 +31,8 @@ function PhotoVideoPicker({
           ]);
         }}
         {...options}
+        accept={['image/jpeg', 'image/png', 'video/mp4', 'video/x-msvideo', 'video/webm']}
+        maxFiles={3}
       >
         {({ getRootProps, getInputProps }) => (
           <div styleName="wrapper-container">
@@ -60,7 +62,7 @@ function PhotoVideoPicker({
               ) : null
             }
             {
-              file.length < 3 ? (
+              file.length <= 3 ? (
                 <React.Fragment>
 
                   <section

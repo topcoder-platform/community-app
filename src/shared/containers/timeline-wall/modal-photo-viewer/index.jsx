@@ -11,9 +11,10 @@ import PhotoVideoItem from 'components/GUIKit/PhotoVideoItem';
 import style from './styles.scss';
 
 function ModalPhotoViewer({ onClose, selectedPhoto, photos }) {
+  const newPhotos = photos.map((photo, index) => ({ ...photo, id: index }));
   const [localSelectedPhoto, setLocalSelectedPhoto] = useState(selectedPhoto);
   const selectedPhotoObject = useMemo(
-    () => _.find(photos, { id: localSelectedPhoto }), [localSelectedPhoto],
+    () => _.find(newPhotos, { id: localSelectedPhoto }), [localSelectedPhoto],
   );
 
   return (

@@ -33,6 +33,7 @@ function EventItem({
         'color-red': eventItem.color === 'red',
         'color-purple': eventItem.color === 'purple',
       })}
+      id={moment(eventItem.eventDate).format('YYYY-MM')}
     >
       {isLeft ? null : (<div styleName="dot dot-left" />)}
       {isLeft ? null : (<IconTooltipLeft styleName="tooltip-indicator" />)}
@@ -105,7 +106,7 @@ function EventItem({
           onClose={() => {
             setShowModalPhoto(false);
           }}
-          photos={eventItem.media}
+          photos={eventItem.mediaFiles}
         />
       ) : null}
 

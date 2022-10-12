@@ -460,5 +460,6 @@ module.exports = {
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
   TIMELINE: {
     REJECTION_EVENT_REASONS: ['Duplicate Event'],
+    ALLOWED_FILETYPES: ['image/jpeg', 'image/png', 'video/mp4', 'video/x-msvideo', 'video/webm'],
   },
 };

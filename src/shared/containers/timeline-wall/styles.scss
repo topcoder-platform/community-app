@@ -1,4 +1,4 @@
-@import '~styles/mixins';
+@import "~styles/mixins";
 
 .container {
   display: flex;
@@ -17,6 +17,10 @@
   @media (max-width: 768px) {
     min-height: 190px;
   }
+}
+
+.header-admin {
+  min-height: 207px;
 }
 
 .header-content-1 {
