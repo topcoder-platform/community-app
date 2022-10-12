@@ -437,7 +437,7 @@ export default function FiltersPanel({
       search: '',
       tco: false,
       tags: [],
-      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SRM', 'SKL', 'PC'],
+      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'PC'],
       groups: [],
       events: [],
       endDateStart: null,

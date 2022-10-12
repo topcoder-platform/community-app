@@ -80,7 +80,7 @@ export default function SideBarFilters({
       search: '',
       tco: false,
       tags: [],
-      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'SRM', 'PC'],
+      types: ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'PC'],
       groups: [],
       events: [],
       endDateStart: null,
