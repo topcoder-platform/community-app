@@ -30,7 +30,6 @@ import {
 import MetaTags from 'components/MetaTags';
 import { USER_GROUP_MAXAGE } from 'config';
 import { updateChallengeType } from 'utils/challenge';
-
 import ogImage from '../../../../assets/images/social.png';
 import style from './styles.scss';
 
@@ -283,7 +282,12 @@ export class ListingContainer extends React.Component {
       sorts,
       filter,
     } = this.props;
+    let challengeTypes;
     const filterTemp = _.omit(filter, 'reviewOpportunityTypes', 'customDate');
+    if (_.isEmpty(filter.types)) {
+      challengeTypes = ['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'PC'];
+      filterTemp.types = challengeTypes;
+    }
     // let communityFilter = communitiesList.data.find(
     // item => item.communityId === selectedCommunityId,
     // );

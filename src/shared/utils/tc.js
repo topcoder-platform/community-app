@@ -385,7 +385,7 @@ export const getSectionOptions = (section) => {
     case 'Earn':
       return ['CH', 'F2F', 'TSK'];
     case 'Competitive Programming':
-      return ['MM', 'RDM', 'SRM'];
+      return ['MM', 'RDM', 'SRM', 'MA'];
     case 'Learn':
       return ['SKL', 'PC'];
     default:
