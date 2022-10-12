@@ -364,7 +364,7 @@ workflows:
           filters:
             branches:
               only:
-                - reskin-profile-settings
+                - feature/dice-setup
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

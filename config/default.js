@@ -462,4 +462,5 @@ module.exports = {
     ENABLE_BADGE_UI: true,
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
+  DICE_VERIFY_URL: 'https://accounts-auth0.topcoder-dev.com',
 };

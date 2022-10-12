@@ -3,6 +3,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import MyAccount from './MyAccount';
+import Security from './Security';
 import ErrorWrapper from '../ErrorWrapper';
 
 import styles from './styles.scss';
@@ -78,6 +79,9 @@ export default class Account extends React.Component {
             {...this.props}
             ref={this.myAccountRef}
           />
+          <Security
+            {...this.props}
+          />
         </div>
         <div styleName="footer">{saveBtn}</div>
       </ErrorWrapper>
@@ -87,7 +91,7 @@ export default class Account extends React.Component {
 
 Account.defaultProps = {
   isSaving: false,
-  setIsSaving: () => {},
+  setIsSaving: () => { },
 };
 
 Account.propTypes = {
