@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - reskin-profile-settings
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -379,7 +379,6 @@ workflows:
               only:
                 - develop
                 - old-mm-fix
-                - reskin-profile-settings
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
