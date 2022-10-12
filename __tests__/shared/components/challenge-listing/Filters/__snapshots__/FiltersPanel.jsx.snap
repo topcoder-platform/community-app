@@ -67,7 +67,9 @@ exports[`Matches shallow shapshot 2`] = `
           expanding={false}
           isAuth={false}
           isReviewer={false}
+          loading={true}
           past={false}
+          reviewCount={0}
         />
       </div>
     </div>
@@ -243,9 +245,9 @@ exports[`Matches shallow shapshot 2`] = `
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__tctooltiptext___2Lyji"
               >
                 <p>
-                  Earn TCO points by participating in these 
+                  Earn TCO points by participating in these
                   <br />
-                  challenges. 
+                  challenges.
                   <a
                     href="https://www.topcoder-dev.com/community/member-programs/topcoder-open"
                     rel="noreferrer noopener"

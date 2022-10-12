@@ -17,8 +17,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
-// import _ from 'lodash';
+// import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
 import { isPastBucket } from 'utils/challenge-listing/buckets';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
 import BucketSelector from './BucketSelector';
@@ -54,6 +53,8 @@ export default function SideBarFilters({
   // updateSavedFilter,
   // setFilter,
   setFilterState,
+  reviewCount,
+  loading,
 }) {
   const past = isPastBucket(activeBucket);
 
@@ -115,12 +116,14 @@ export default function SideBarFilters({
           // extraBucket={extraBucket}
           // filterState={filterState}
           isAuth={isAuth}
-          isReviewer={isReviewerOrAdmin(auth)}
+          auth={auth}
+          reviewCount={reviewCount}
           // savedFilters={savedFilters}
           selectBucket={selectBucket}
           // selectSavedFilter={selectSavedFilter}
           // setEditSavedFiltersMode={setEditSavedFiltersMode}
           past={past}
+          loading={loading}
         />
         {/* )} */}
       </div>
@@ -137,6 +140,7 @@ SideBarFilters.defaultProps = {
   // extraBucket: null,
   // hideTcLinksInFooter: false,
   isAuth: false,
+  reviewCount: 0,
   expanding: false,
 };
 
@@ -160,6 +164,7 @@ SideBarFilters.propTypes = {
   // hideTcLinksInFooter: PT.bool,
   auth: PT.shape().isRequired,
   isAuth: PT.bool,
+  reviewCount: PT.number,
   // resetFilterName: PT.func.isRequired,
   // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
@@ -169,4 +174,5 @@ SideBarFilters.propTypes = {
   // updateSavedFilter: PT.func.isRequired,
   // setFilter: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
+  loading: PT.bool.isRequired,
 };

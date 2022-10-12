@@ -509,7 +509,7 @@ function onGetReviewOpportunitiesDone(state, { payload, error }) {
     allReviewOpportunitiesLoaded: loaded.length === 0,
     meta: {
       ...state.meta,
-      openReviewCount: loaded.length,
+      openReviewCount: reviewOpportunities.length,
     },
   };
 }

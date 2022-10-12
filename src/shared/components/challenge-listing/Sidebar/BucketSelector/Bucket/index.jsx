@@ -18,8 +18,10 @@ function Bucket({
   // challenges,
   disabled,
   onClick,
+  reviewCount,
   // allActiveChallengesLoaded,
   meta,
+  loading,
 }) {
   // let countEl;
   // if (!disabled) { // !bucket.hideCount &&
@@ -52,7 +54,7 @@ function Bucket({
       count = meta.myPastChallengesCount;
       break;
     case BUCKETS.REVIEW_OPPORTUNITIES:
-      count = meta.openReviewCount;
+      count = reviewCount;
       break;
     default:
   }
@@ -104,6 +106,8 @@ Bucket.defaultProps = {
   disabled: false,
   onClick: _.noop,
   meta: {},
+  reviewCount: 0,
+  loading: true,
 };
 
 Bucket.propTypes = {
@@ -120,6 +124,8 @@ Bucket.propTypes = {
   onClick: PT.func,
   meta: PT.shape(),
   // allActiveChallengesLoaded: PT.bool.isRequired,
+  loading: PT.bool,
+  reviewCount: PT.number,
 };
 
 const mapStateToProps = (state) => {
