@@ -12,6 +12,7 @@ import { goToLogin } from 'utils/tc';
 import { actions } from 'topcoder-react-lib';
 import settingsActions, { TABS } from 'actions/page/settings';
 import settingsUIActions from 'actions/page/ui';
+import mfaActions from 'actions/mfa';
 
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -123,6 +124,7 @@ function mapStateToProps(state) {
     settingsPageState: state.page.settings,
     authenticating: state.auth.authenticating,
     handle: _.get(state.auth, 'user.handle'),
+    emailAddress: _.defaults(_.get(state.auth, 'user.email'), _.get(state.auth, 'profile.email')),
     tokenV3: state.auth.tokenV3,
     profile: state.auth.profile,
     user: state.auth.user,
@@ -134,6 +136,7 @@ function mapStateToProps(state) {
     traitRequestCount: state.settings.traitRequestCount,
     userTraits: state.settings.userTraits,
     skills: state.profile.skills,
+    usermfa: state.usermfa,
   };
 }
 
@@ -170,6 +173,11 @@ function mapDispatchToProps(dispatch) {
       } else if (user.userId) {
         dispatch(profileActions.getCredentialDone(user, tokenV3));
       }
+      if (profile.userId) {
+        dispatch(mfaActions.usermfa.getUser2faDone(profile.userId, tokenV3));
+      } else if (user.userId) {
+        dispatch(mfaActions.usermfa.getUser2faDone(user.userId, tokenV3));
+      }
     } else if (settingsTab === TABS.TOOLS) {
       dispatch(lookupActions.getTypesInit());
       dispatch(lookupActions.getTypesDone());
@@ -181,7 +189,7 @@ function mapDispatchToProps(dispatch) {
     selectTab: tab => dispatch(settingsActions.page.settings.selectTab(tab)),
     clearIncorrectPassword: () => dispatch(settingsActions.page.settings.clearIncorrectPassword()),
     clearToastrNotification:
-    (() => dispatch(settingsActions.page.settings.clearToastrNotification())),
+      (() => dispatch(settingsActions.page.settings.clearToastrNotification())),
     addWebLink: (handle, tokenV3, webLink) => {
       dispatch(profileActions.addWebLinkInit());
       dispatch(profileActions.addWebLinkDone(handle, tokenV3, webLink));
@@ -286,6 +294,24 @@ function mapDispatchToProps(dispatch) {
     },
     updateEmailConflict: (state) => {
       dispatch(actions.profile.updateEmailConflict(state));
+    },
+    getUser2fa: (userId, tokenV3) => {
+      dispatch(mfaActions.usermfa.getUser2faDone(userId, tokenV3));
+    },
+    updateUser2fa: (userId, mfaEnabled, tokenV3) => {
+      dispatch(mfaActions.usermfa.updateUser2faInit());
+      dispatch(mfaActions.usermfa.updateUser2faDone(userId, mfaEnabled, tokenV3));
+    },
+    updateUserDice: (userId, diceEnabled, tokenV3) => {
+      dispatch(mfaActions.usermfa.updateUserDiceDone(userId, diceEnabled, tokenV3));
+    },
+    getNewDiceConnection: (userId, tokenV3) => {
+      dispatch(mfaActions.usermfa.getNewDiceConnectionInit());
+      dispatch(mfaActions.usermfa.getNewDiceConnectionDone(userId, tokenV3));
+    },
+    getDiceConnection: (userId, connectionId, tokenV3) => {
+      dispatch(mfaActions.usermfa.getDiceConnectionInit());
+      dispatch(mfaActions.usermfa.getDiceConnectionDone(userId, connectionId, tokenV3));
     },
   };
 }
