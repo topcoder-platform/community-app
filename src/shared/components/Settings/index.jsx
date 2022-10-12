@@ -144,7 +144,7 @@ export default function Settings(props) {
         {
           newProps.settingsTab === TABS.PAYMENT
           && (
-            <Payment />
+            <Payment handle={newProps.handle} />
           )
         }
       </div>
@@ -152,10 +152,15 @@ export default function Settings(props) {
   );
 }
 
+Settings.defaultProps = {
+  handle: '',
+};
+
 Settings.propTypes = {
   settingsTab: PT.string.isRequired,
   profileState: PT.shape().isRequired,
   settingsPageState: PT.shape().isRequired,
   history: PT.shape().isRequired,
   selectTab: PT.func.isRequired,
+  handle: PT.string,
 };
