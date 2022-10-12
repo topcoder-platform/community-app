@@ -42,7 +42,12 @@ export default function ChallengeViewSelector(props) {
     viewAsTable,
   } = props;
 
-  const { type, tags } = challenge;
+  let showDashboard;
+  const { type, tags, metadata } = challenge;
+  const dashboardMetadata = _.find(metadata, { name: 'show_data_dashboard' });
+  if (dashboardMetadata) {
+    showDashboard = dashboardMetadata.value;
+  }
 
   const [currentSelected, setCurrentSelected] = useState('Details');
   const [isTabClosed, setIsTabClosed] = useState(true);
@@ -300,7 +305,7 @@ export default function ChallengeViewSelector(props) {
         return '';
       })()}
       {
-        (isMM || challenge.track.toLowerCase() === 'data science') && (
+        (challenge.track.toLowerCase() === 'data science' && showDashboard) && (
           <a
             tabIndex="0"
             role="tab"
@@ -455,6 +460,7 @@ ChallengeViewSelector.propTypes = {
     type: PT.string,
     track: PT.string,
     tags: PT.arrayOf(PT.shape()),
+    metadata: PT.arrayOf(PT.string),
     submissionViewable: PT.string,
   }),
   isMM: PT.bool,
