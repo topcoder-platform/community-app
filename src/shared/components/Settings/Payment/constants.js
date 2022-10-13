@@ -6,19 +6,19 @@ export const PAYMENT_PROVIDER = 'payment_provider';
 export const PAYMENT_METHODS = [
   {
     name: 'payoneer',
-    fees: 'Check with Payoneer directly for current transaction, conversion or bank fees.',
+    fees: '$0–$3 + Currency Conversion Rates May Apply',
     countries: 150,
     speed: 1,
   },
   {
     name: 'paypal',
-    fees: 'Check with PayPal directly for current transaction, conversion or bank fees.',
+    fees: '3.49% + an international fee (non US) + a fixed fee depending upon currency',
     countries: 200,
     speed: 1,
   },
   {
     name: 'western-union',
-    fees: 'Check with WesternUnion directly for current transaction, conversion or bank fees.',
+    fees: '$8 per transaction (your bank may charge additional fees)',
     countries: 200,
     speed: 3,
   },
