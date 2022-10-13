@@ -128,71 +128,77 @@ const PaymentProvider = ({ handleConfirm, handle }) => {
 
             {
               !selectedMode ? (
-                <div styleName="payment-methods">
-                  {PAYMENT_METHODS.map(method => (
-                    <div styleName="payment-method-card">
-                      <div styleName="">
-                        {PAYMENT_METHOD_MAP[method.name] === 'Payoneer' && (
-                        <PayoneerLogo />
-                        )}
-                        {PAYMENT_METHOD_MAP[method.name] === 'PayPal' && <PayPalLogo />}
-                        {PAYMENT_METHOD_MAP[method.name] === 'Western Union' && (
-                        <WesternUnionLogo />
-                        )}
+                <div>
+                  <div styleName="payment-methods">
+                    {PAYMENT_METHODS.map(method => (
+                      <div styleName="payment-method-card">
+                        <div styleName="">
+                          {PAYMENT_METHOD_MAP[method.name] === 'Payoneer' && (
+                          <PayoneerLogo />
+                          )}
+                          {PAYMENT_METHOD_MAP[method.name] === 'PayPal' && <PayPalLogo />}
+                          {PAYMENT_METHOD_MAP[method.name] === 'Western Union' && (
+                          <WesternUnionLogo />
+                          )}
+                        </div>
+                        <div styleName="divider" />
+                        <div styleName="content-wrapper">
+                          <PaymentInfo
+                            icon={<IconDollar />}
+                            label="Fees"
+                            value={method.fees}
+                            isLastChild={false}
+                          />
+                          <PaymentInfo
+                            icon={<IconWorld />}
+                            label="countries"
+                            value={`Available in ${method.countries}+ countries`}
+                            isLastChild={false}
+                          />
+                          <PaymentInfo
+                            icon={<IconSpeed />}
+                            label="Speed"
+                            value={`Up to ${method.speed} Business Day`}
+                            isLastChild
+                          />
+                        </div>
+                        <div styleName="button-wrapper">
+                          <Button
+                            type="secondary"
+                            theme={{ button: styles.button }}
+                            onClick={() => {
+                              setSelectedMethod(method.name);
+                            }}
+                          >
+                            SELECT {PAYMENT_METHOD_MAP[method.name]}
+                          </Button>
+                        </div>
                       </div>
-                      <div styleName="divider" />
-                      <div styleName="content-wrapper">
-                        <PaymentInfo
-                          icon={<IconDollar />}
-                          label="Fees"
-                          value={method.fees}
-                          isLastChild={false}
-                        />
-                        <PaymentInfo
-                          icon={<IconWorld />}
-                          label="countries"
-                          value={`Available in ${method.countries}+ countries`}
-                          isLastChild={false}
-                        />
-                        <PaymentInfo
-                          icon={<IconSpeed />}
-                          label="Speed"
-                          value={`Up to ${method.speed} Business Day`}
-                          isLastChild
-                        />
-                      </div>
-                      <div styleName="button-wrapper">
-                        <Button
-                          type="secondary"
-                          theme={{ button: styles.button }}
-                          onClick={() => {
-                            setSelectedMethod(method.name);
-                          }}
-                        >
-                          SELECT {PAYMENT_METHOD_MAP[method.name]}
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
 
-                  {selectedMethod && (
-                  <PaymentMethod
-                    paymentMethod={selectedMethod}
-                    show
-                    handle={handle}
-                    handleClose={() => {
-                      setSelectedMethod('');
-                    }}
-                    handleConfirm={() => {
-                      handleConfirm();
-                    }}
-                    paymentService={paymentService}
-                    setPaymentService={setPaymentService}
-                    setSelectedMode={setSelectedMode}
-                  />
-                  )}
+                    {selectedMethod && (
+                    <PaymentMethod
+                      paymentMethod={selectedMethod}
+                      show
+                      handle={handle}
+                      handleClose={() => {
+                        setSelectedMethod('');
+                      }}
+                      handleConfirm={() => {
+                        handleConfirm();
+                      }}
+                      paymentService={paymentService}
+                      setPaymentService={setPaymentService}
+                      setSelectedMode={setSelectedMode}
+                    />
+                    )}
+                  </div>
+                  <div styleName="info-text">
+                    The information above is gathered from each payment provider&apos;s
+                    respective website. We encourage you to do any additional information
+                    gathering you see fit prior to making a payment provider decision.
+                  </div>
                 </div>
-
               ) : null
             }
           </div>

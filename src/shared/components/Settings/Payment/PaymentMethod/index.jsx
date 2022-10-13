@@ -109,7 +109,7 @@ const PaymentMethod = ({
                     onClick={onVisitPaymentProvider}
                     disabled={emailedDetails}
                   >
-                    {`Visit ${PAYMENT_METHOD_MAP[paymentMethod]} to create account`}
+                    {`Visit ${PAYMENT_METHOD_MAP[paymentMethod]} to create an account`}
                   </Button>
                 </div>
               </div>
