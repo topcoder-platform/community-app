@@ -350,7 +350,6 @@ workflows:
             branches:
               only:
                 - develop
-                - multi_faceted_filters
       # This is alternate dev env for parallel testing
       - "build-test":
           context: org-global
@@ -365,6 +364,7 @@ workflows:
             branches:
               only:
                 - reskin-profile-settings
+                - multi_faceted_filters
       # This is beta env for production soft releases
       - "build-prod-beta":
           context: org-global
