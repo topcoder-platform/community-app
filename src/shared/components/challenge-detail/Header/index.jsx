@@ -397,7 +397,7 @@ export default function ChallengeHeader(props) {
                   onClick={unregisterFromChallenge}
                   theme={{
                     button: unregisterButtonDisabled
-                      ? style.submitButtonDisabled
+                      ? style.unregisterButtonDisabled
                       : style.unregisterButton,
                   }}
                 >
