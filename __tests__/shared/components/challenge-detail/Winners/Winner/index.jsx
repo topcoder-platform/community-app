@@ -8,8 +8,8 @@ const mockData = {
   isDesign: false,
   isMM: true,
   prizes: [
-    { value: 200, type: 'USD',},
-    { value: 100, type: 'USD',},
+    { value: 200, type: 'USD' },
+    { value: 100, type: 'USD' },
   ],
   submissions: [
     {
