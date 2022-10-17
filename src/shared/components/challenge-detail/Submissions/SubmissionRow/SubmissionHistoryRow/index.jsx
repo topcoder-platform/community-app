@@ -6,13 +6,17 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { services } from 'topcoder-react-lib';
 import moment from 'moment';
 import FailedSubmissionTooltip from '../../FailedSubmissionTooltip';
 // import Completed from '../../../icons/completed.svg';
 import InReview from '../../../icons/in-review.svg';
 import Queued from '../../../icons/queued.svg';
+import DownloadIcon from '../../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 
 import './style.scss';
+
+const { getService } = services.submissions;
 
 export default function SubmissionHistoryRow({
   isMM,
@@ -22,6 +26,9 @@ export default function SubmissionHistoryRow({
   submissionTime,
   isReviewPhaseComplete,
   status,
+  numWinners,
+  auth,
+  submissionId,
 }) {
   const getInitialReviewResult = () => {
     if (provisionalScore && provisionalScore < 0) return <FailedSubmissionTooltip />;
@@ -70,6 +77,32 @@ export default function SubmissionHistoryRow({
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
+        {
+          isMM && numWinners > 0 && (
+            <div styleName="col-2 col center">
+              <div styleName="mobile-header">Action</div>
+              <button
+                onClick={() => {
+                  // download submission
+                  const submissionsService = getService(auth.tokenV3);
+                  submissionsService.downloadSubmission(submissionId)
+                    .then((blob) => {
+                      const url = window.URL.createObjectURL(new Blob([blob]));
+                      const link = document.createElement('a');
+                      link.href = url;
+                      link.setAttribute('download', `submission-${submissionId}.zip`);
+                      document.body.appendChild(link);
+                      link.click();
+                      link.parentNode.removeChild(link);
+                    });
+                }}
+                type="button"
+              >
+                <DownloadIcon />
+              </button>
+            </div>
+          )
+        }
       </div>
     </div>
   );
@@ -95,4 +128,7 @@ SubmissionHistoryRow.propTypes = {
   ]),
   submissionTime: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
+  numWinners: PT.number.isRequired,
+  auth: PT.shape().isRequired,
+  submissionId: PT.string.isRequired,
 };

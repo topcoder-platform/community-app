@@ -103,6 +103,10 @@
         flex: 30;
       }
     }
+
+    &.center {
+      text-align: center;
+    }
   }
 }
 
@@ -121,4 +125,15 @@
     color: #767676;
     text-align: left;
   }
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  background: transparent;
+  text-transform: uppercase;
 }

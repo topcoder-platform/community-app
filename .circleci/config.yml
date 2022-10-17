@@ -365,6 +365,7 @@ workflows:
             branches:
               only:
                 - feature/dice-setup
+                - marathon_match_submission_download
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

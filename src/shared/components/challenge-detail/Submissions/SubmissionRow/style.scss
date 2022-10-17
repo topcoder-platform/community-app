@@ -1,5 +1,25 @@
 @import "~styles/mixins";
 
+.modal {
+  background: #fff;
+  border-radius: 4;
+  max-height: 95vh;
+  max-width: 1024px;
+  overflow: hidden;
+  padding: 40;
+  width: 480px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 999;
+
+  &.download {
+    width: 550px;
+  }
+}
+
 .history {
   padding-bottom: 10px;
   border-radius: 8px;
@@ -55,6 +75,10 @@
 
     &.col-5 {
       flex: 30;
+    }
+
+    &.center {
+      text-align: center;
     }
   }
 

@@ -292,6 +292,8 @@ class SubmissionsComponent extends React.Component {
       challengesUrl,
       viewAsTable,
       setViewAsTable,
+      numWinners,
+      auth,
     } = this.props;
     const {
       checkpoints,
@@ -795,6 +797,8 @@ class SubmissionsComponent extends React.Component {
                   onGetFlagImageFail={onGetFlagImageFail}
                   submissionDetail={submission}
                   viewAsTable={viewAsTable}
+                  numWinners={numWinners}
+                  auth={auth}
                 />
               ))
             )
@@ -936,6 +940,7 @@ SubmissionsComponent.propTypes = {
   challengesUrl: PT.string.isRequired,
   viewAsTable: PT.bool.isRequired,
   setViewAsTable: PT.func.isRequired,
+  numWinners: PT.number.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

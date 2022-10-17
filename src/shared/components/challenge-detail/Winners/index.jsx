@@ -14,6 +14,9 @@ export default function Winners({
   submissions,
   viewable,
   isDesign,
+  isMM,
+  isLoggedIn,
+  auth,
 }) {
   return (
     <div styleName="container">
@@ -21,11 +24,14 @@ export default function Winners({
         winners.map(w => (
           <Winner
             isDesign={isDesign}
+            isMM={isMM}
             key={`${w.handle}-${w.placement}`}
             prizes={prizes}
             submissions={submissions}
             viewable={viewable}
             winner={w}
+            isLoggedIn={isLoggedIn}
+            auth={auth}
           />
         ))
       }
@@ -39,12 +45,17 @@ Winners.defaultProps = {
   submissions: [],
   viewable: false,
   isDesign: false,
+  isMM: false,
+  isLoggedIn: false,
 };
 
 Winners.propTypes = {
   winners: PT.arrayOf(PT.shape()),
-  prizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.shape()),
   submissions: PT.arrayOf(PT.shape()),
   viewable: PT.bool,
   isDesign: PT.bool,
+  isMM: PT.bool,
+  isLoggedIn: PT.bool,
+  auth: PT.shape().isRequired,
 };

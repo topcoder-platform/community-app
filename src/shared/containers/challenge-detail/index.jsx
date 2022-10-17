@@ -604,6 +604,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 challengesUrl={challengesUrl}
                 viewAsTable={viewAsTable && isMM}
                 setViewAsTable={value => this.setState({ viewAsTable: value })}
+                numWinners={isLegacyMM ? 0 : winners.length}
               />
             )
           }
@@ -659,6 +660,9 @@ class ChallengeDetailPageContainer extends React.Component {
                 viewable={submissionsViewable ? submissionsViewable.value === 'true' : false}
                 submissions={challenge.submissions}
                 isDesign={track.toLowerCase() === 'design'}
+                isMM={isMM}
+                isLoggedIn={isLoggedIn}
+                auth={auth}
               />
             )
           }

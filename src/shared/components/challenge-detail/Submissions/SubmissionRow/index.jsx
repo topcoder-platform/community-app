@@ -21,6 +21,7 @@ import style from './style.scss';
 export default function SubmissionRow({
   isMM, openHistory, member, submissions, score, toggleHistory,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
+  numWinners, auth,
 }) {
   const {
     submissionTime, provisionalScore, status, submissionId,
@@ -129,7 +130,10 @@ export default function SubmissionRow({
         </div>
       </div>
       { openHistory && (
-        <Modal onCancel={toggleHistory} theme={style}>
+        <Modal
+          onCancel={toggleHistory}
+          theme={{ container: `${style.modal} ${isMM && numWinners > 0 ? style.download : ''}` }}
+        >
           <div styleName="history">
             <div styleName="header">
               <h2 styleName="title">Submission History</h2>
@@ -162,6 +166,13 @@ export default function SubmissionRow({
                   Time
                 </div>
                 {
+                  isMM && numWinners > 0 && (
+                    <div styleName="col-2 col center">
+                      Action
+                    </div>
+                  )
+                }
+                {
                   isMM && (
                     <div styleName="col">&nbsp;</div>
                   )
@@ -179,6 +190,9 @@ export default function SubmissionRow({
                     key={submissionHistory.submissionId}
                     onShowPopup={onShowPopup}
                     member={member}
+                    numWinners={numWinners}
+                    auth={auth}
+                    submissionId={submissionHistory.submissionId}
                   />
                 ))
               }
@@ -241,4 +255,6 @@ SubmissionRow.propTypes = {
   provisionalRank: PT.number,
   onShowPopup: PT.func.isRequired,
   viewAsTable: PT.bool.isRequired,
+  numWinners: PT.number.isRequired,
+  auth: PT.shape().isRequired,
 };
