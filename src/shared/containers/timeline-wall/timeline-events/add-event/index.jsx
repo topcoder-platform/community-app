@@ -10,6 +10,7 @@ import FormField from 'components/Settings/FormField';
 import FormInputDatePicker from 'components/Settings/FormInputDatePicker';
 import FormInputTextArea from 'components/Settings/FormInputTextArea';
 import PhotoVideoPicker from 'components/GUIKit/PhotoVideoPicker';
+import { config } from 'topcoder-react-utils';
 import IconCloseGreen from 'assets/images/icon-close-green.svg';
 import IconCloseBlack from 'assets/images/tc-edu/icon-close-big.svg';
 import ModalEventAdd from '../../modal-event-add';
@@ -17,7 +18,7 @@ import ModalEventAdd from '../../modal-event-add';
 import style from './styles.scss';
 
 function AddEvents({
-  className, isAuthenticated, createNewEvent, isAdmin,
+  className, isAuthenticated, createNewEvent, isAdmin, onDoneAddEvent, uploading,
 }) {
   const [formData, setFormData] = useState({
     eventName: '',
@@ -31,13 +32,7 @@ function AddEvents({
     && !!formData.description, [formData]);
 
   const submitEvent = () => {
-    const form = new FormData();
-    form.append('title', formData.eventName);
-    form.append('description', formData.description);
-    form.append('eventDate', formData.date);
-    form.append('mediaFiles', formData.files || []);
-
-    createNewEvent(form);
+    createNewEvent(formData);
 
     setFormData({
       eventName: '',
@@ -157,6 +152,10 @@ function AddEvents({
               infoText={'Drag & drop your photo or video here\nYou can upload only up to 3 photos/videos'}
               infoTextMobile="Drag & drop your photo or video here"
               btnText="BROWSE"
+              options={{
+                accept: config.TIMELINE.ALLOWED_FILETYPES || [],
+                maxFiles: 3,
+              }}
             />
           </div>
 
@@ -190,8 +189,14 @@ function AddEvents({
       {
         showModal ? (
           <ModalEventAdd
-            onClose={() => setShowModal(false)}
+            onClose={() => {
+              setShowModal(false);
+              if (isAdmin) {
+                onDoneAddEvent();
+              }
+            }}
             isAdmin={isAdmin}
+            uploading={uploading}
           />
         ) : null
       }
@@ -206,6 +211,7 @@ AddEvents.defaultProps = {
   className: '',
   isAuthenticated: false,
   isAdmin: false,
+  uploading: false,
 };
 
 /**
@@ -216,6 +222,8 @@ AddEvents.propTypes = {
   isAuthenticated: PT.bool,
   createNewEvent: PT.func.isRequired,
   isAdmin: PT.bool,
+  onDoneAddEvent: PT.func.isRequired,
+  uploading: PT.bool,
 };
 
 export default AddEvents;

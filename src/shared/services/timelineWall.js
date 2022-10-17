@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import fetch from 'isomorphic-fetch';
 import { config } from 'topcoder-react-utils';
 import { logger } from 'topcoder-react-lib';
 import _ from 'lodash';
@@ -66,12 +65,22 @@ export const getUserDetails = async (tokenV3) => {
 *
  * @returns {Promise}
  */
-export const createEvent = async (tokenV3, body) => {
+export const createEvent = async (tokenV3, formData) => {
+  const form = new FormData();
+  form.append('title', formData.eventName);
+  form.append('description', formData.description);
+  form.append('eventDate', formData.date);
+  if (formData.files) {
+    form.append('mediaFiles', new File(formData.files || [], formData.eventName));
+  }
+
   try {
     const res = await fetch(`${baseUrl}/timelineEvents`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${tokenV3}` },
-      body,
+      headers: {
+        Authorization: `Bearer ${tokenV3}`,
+      },
+      body: form,
     });
 
     return res.json();
