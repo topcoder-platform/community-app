@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import { getRatingLevel } from 'utils/tc';
+import { CHALLENGE_STATUS, getRatingLevel } from 'utils/tc';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/icon-close-green.svg';
 import moment from 'moment';
@@ -19,7 +19,7 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import style from './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory,
+  isMM, openHistory, member, submissions, score, toggleHistory, challengeStatus,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
   numWinners, auth,
 }) {
@@ -166,7 +166,7 @@ export default function SubmissionRow({
                   Time
                 </div>
                 {
-                  isMM && numWinners > 0 && (
+                  isMM && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
                     <div styleName="col-2 col center">
                       Action
                     </div>
@@ -185,6 +185,7 @@ export default function SubmissionRow({
                   <SubmissionHistoryRow
                     isReviewPhaseComplete={isReviewPhaseComplete}
                     isMM={isMM}
+                    challengeStatus={challengeStatus}
                     submission={submissions.length - index}
                     {...submissionHistory}
                     key={submissionHistory.submissionId}
@@ -221,6 +222,7 @@ SubmissionRow.propTypes = {
   isMM: PT.bool.isRequired,
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
+  challengeStatus: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
     provisionalScore: PT.oneOfType([
       PT.number,

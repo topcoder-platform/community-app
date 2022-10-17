@@ -8,6 +8,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { services } from 'topcoder-react-lib';
 import moment from 'moment';
+import { CHALLENGE_STATUS } from 'utils/tc';
 import FailedSubmissionTooltip from '../../FailedSubmissionTooltip';
 // import Completed from '../../../icons/completed.svg';
 import InReview from '../../../icons/in-review.svg';
@@ -26,8 +27,9 @@ export default function SubmissionHistoryRow({
   submissionTime,
   isReviewPhaseComplete,
   status,
-  numWinners,
+  challengeStatus,
   auth,
+  numWinners,
   submissionId,
 }) {
   const getInitialReviewResult = () => {
@@ -78,13 +80,13 @@ export default function SubmissionHistoryRow({
           </div>
         </div>
         {
-          isMM && numWinners > 0 && (
+          isMM && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
             <div styleName="col-2 col center">
               <div styleName="mobile-header">Action</div>
               <button
                 onClick={() => {
                   // download submission
-                  const submissionsService = getService(auth.tokenV3);
+                  const submissionsService = getService(auth.m2mToken);
                   submissionsService.downloadSubmission(submissionId)
                     .then((blob) => {
                       const url = window.URL.createObjectURL(new Blob([blob]));
@@ -127,8 +129,9 @@ SubmissionHistoryRow.propTypes = {
     PT.string,
   ]),
   submissionTime: PT.string.isRequired,
+  challengeStatus: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
-  numWinners: PT.number.isRequired,
   auth: PT.shape().isRequired,
+  numWinners: PT.number.isRequired,
   submissionId: PT.string.isRequired,
 };

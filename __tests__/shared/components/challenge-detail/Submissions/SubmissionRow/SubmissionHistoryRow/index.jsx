@@ -13,6 +13,7 @@ const mockData = {
   isReviewPhaseComplete: false,
   status: 'completed',
   numWinners: 1,
+  challengeStatus: 'Completed',
   auth: {
     tokenV3: 'tokenV3',
   },

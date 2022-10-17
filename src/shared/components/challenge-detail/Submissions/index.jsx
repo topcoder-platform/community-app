@@ -788,6 +788,7 @@ class SubmissionsComponent extends React.Component {
                   isMM={isMM}
                   key={submission.member}
                   {...submission}
+                  challengeStatus={challenge.status}
                   toggleHistory={() => { toggleSubmissionHistory(index); }}
                   openHistory={(submissionHistoryOpen[index.toString()] || false)}
                   isLoadingSubmissionInformation={isLoadingSubmissionInformation}
@@ -912,6 +913,7 @@ SubmissionsComponent.propTypes = {
     type: PT.string.isRequired,
     tags: PT.arrayOf(PT.string),
     registrants: PT.any,
+    status: PT.string.isRequired,
     phases: PT.any,
   }).isRequired,
   toggleSubmissionHistory: PT.func.isRequired,

@@ -89,7 +89,7 @@ export default function Winner({
                 styleName="download MM"
                 onClick={() => {
                   // download submission
-                  const submissionsService = getService(auth.tokenV3);
+                  const submissionsService = getService(auth.m2mToken);
                   submissionsService.downloadSubmission(mmSubmissionId)
                     .then((blob) => {
                       const url = window.URL.createObjectURL(new Blob([blob]));
