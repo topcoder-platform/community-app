@@ -402,6 +402,7 @@ workflows:
               ignore:
                 - develop
                 - submission_delete_button
+                - marathon_match_submission_download
 
   Smoke Testing:
     when: << pipeline.parameters.run_smoketesting >>
