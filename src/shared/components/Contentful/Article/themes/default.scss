@@ -493,6 +493,10 @@
     margin-bottom: 300px;
   }
 
+  @media screen and (max-width: 425px) {
+    margin-bottom: 180px;
+  }
+
   .bannerInner {
     display: flex;
     max-width: 1280px;
@@ -592,12 +596,6 @@
     position: relative;
     left: -2px;
     bottom: -10px;
-  }
-}
-.bannerContainer,
-.bannerContainerDefaultImage {
-  @media screen and (max-width: 425px) {
-    margin-bottom: 180px;
   }
 }
 
