@@ -15,7 +15,7 @@ export default function TrackIcon({
   const TCO_URL = `${MAIN_URL}/tco`;
   const trackStyle = track.replace(' ', '-').toLowerCase();
   let abbreviationStyle = type.abbreviation;
-  if (['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'SRM'].indexOf(abbreviationStyle) < 0) {
+  if (['CH', 'F2F', 'TSK', 'MM', 'RDM', 'SKL', 'SRM', 'PC'].indexOf(abbreviationStyle) < 0) {
     abbreviationStyle = '';
   }
   return (
@@ -26,13 +26,13 @@ export default function TrackIcon({
             encodeURIComponent(type.id)}`}
           styleName={`${trackStyle} main-icon ${tcoEligible ? 'withTco' : ''}`}
         >
-          {type.abbreviation}
+          {type.abbreviation === 'PC' ? 'P' : type.abbreviation}
         </a>
       ) : (
         <div
           styleName={`${abbreviationStyle} main-icon ${tcoEligible ? 'withTco' : ''}`}
         >
-          {type.abbreviation}
+          {type.abbreviation === 'PC' ? 'P' : type.abbreviation}
         </div>
       )}
       <a href={`${TCO_URL}`}>

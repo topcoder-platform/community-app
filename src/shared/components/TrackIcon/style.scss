@@ -57,6 +57,10 @@ $track-radius-4: $corner-radius * 2;
       background: $track-code-yellow;
     }
 
+    &.PC {
+      background: $track-code-grey;
+    }
+
     &.withTco {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
