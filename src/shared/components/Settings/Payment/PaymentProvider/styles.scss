@@ -51,11 +51,16 @@
     line-height: 24px;
     font-weight: 400;
     color: $tco-black;
-    width: 77vw;
+    padding-right: calc(38% - 18px);
+
+    @include sm-to-md {
+      padding-right: 77px;
+    }
 
     @include xs-to-sm {
       width: unset;
       font-size: 14px;
+      padding-right: 0;
     }
   }
 }
