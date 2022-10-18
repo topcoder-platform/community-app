@@ -70,8 +70,11 @@ export const createEvent = async (tokenV3, formData) => {
   form.append('title', formData.eventName);
   form.append('description', formData.description);
   form.append('eventDate', formData.date);
-  if (formData.files) {
-    form.append('mediaFiles', new File(formData.files || [], formData.eventName));
+  if (formData.files && formData.files.length) {
+    formData.files.forEach((file) => {
+      const fileExt = (file.type && file.type.length > 1) ? file.type.split('/')[1] : '';
+      form.append('mediaFiles', new File([file], `${formData.eventName}.${fileExt}`, { type: file.type }));
+    });
   }
 
   try {

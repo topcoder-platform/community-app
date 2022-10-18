@@ -2,6 +2,7 @@
  * Reducer for state.timelineWall
 */
 import actions from 'actions/timelineWall';
+import _ from 'lodash';
 import { handleActions } from 'redux-actions';
 import { DEFAULT_AVATAR_URL } from '../utils/url';
 
@@ -70,10 +71,11 @@ function onPendingApprovalInit(state) {
 * @param {Object} payload The payload.
 */
 function onPendingApprovalDone(state, { payload }) {
+  const approvals = _.isArray(payload) ? payload : [];
   return {
     ...state,
     loading: false,
-    pendingApprovals: payload,
+    pendingApprovals: approvals,
   };
 }
 
