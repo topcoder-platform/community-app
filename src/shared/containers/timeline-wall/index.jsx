@@ -77,9 +77,11 @@ function TimelineWallContainer(props) {
   }, [pendingApprovals]);
 
   useEffect(() => {
-    const target = document.getElementById(`${selectedFilterValue.year}-${selectedFilterValue.month}`);
+    const target = document.getElementById(`${selectedFilterValue.year}-${(selectedFilterValue.month + 1).toString().padStart(2, '0')}`);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' }, true);
+      const yOffset = -10;
+      const coordinate = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: coordinate, behavior: 'smooth' });
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
