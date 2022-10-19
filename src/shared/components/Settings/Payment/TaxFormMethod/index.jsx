@@ -171,7 +171,7 @@ const TaxFormMethod = ({
                 <Button
                   onClick={onConfirm}
                   disabled={!completeTaxForm}
-                  theme={{ button: styles['footer-confirm-button'] }}
+                  theme={{ button: !completeTaxForm ? styles['footer-confirm-disabled'] : styles['footer-confirm-button'] }}
                 >
                   Confirm
                 </Button>
