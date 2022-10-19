@@ -1,0 +1,386 @@
+@import '~styles/mixins';
+
+.page-wrapper {
+  padding: 0;
+
+  /* rc checkbox custom style */
+  :global {
+    .rc-checkbox.tax-service-rc-checkbox {
+      display: flex;
+      margin-top: 3px;
+
+      .rc-checkbox-inner {
+        width: 24px !important;
+        height: 24px !important;
+      }
+
+      &.rc-checkbox-checked {
+        .rc-checkbox-inner {
+          background-color: #0ab88a;
+          border-color: #0ab88a;
+        }
+      }
+
+      .rc-checkbox-inner::after {
+        left: 7px !important;
+        top: 0 !important;
+        width: 8px !important;
+        height: 16px !important;
+      }
+    }
+  }
+
+  .tax-method {
+    @include xs-to-sm {
+      padding: 0;
+    }
+
+    .page-content {
+      margin: 0;
+
+      @include xs-to-sm {
+        padding: 0;
+        margin: 0;
+      }
+
+      .page-header {
+        display: flex;
+        margin-bottom: 24px;
+
+        @include xs-to-sm {
+          margin-bottom: 18px;
+        }
+
+        .left-pane {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+
+          .tax-service-title {
+            @include barlow;
+
+            margin: 0;
+            font-size: 22px;
+            line-height: 26px;
+            font-weight: 500;
+            text-transform: uppercase;
+
+            @include xs-to-sm {
+              font-weight: 600;
+              font-size: 18px;
+              line-height: 20px;
+            }
+          }
+        }
+
+        .right-pane {
+          width: 400px;
+          display: flex;
+          align-items: center;
+          padding: 0 24px;
+
+          @include xs-to-sm {
+            width: 100%;
+            margin-top: 23px;
+            padding: 0 16px;
+            margin-bottom: 13px;
+          }
+        }
+      }
+
+      .tax-method-description {
+        @include roboto-regular;
+
+        margin-top: 24px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        color: #2a2a2a;
+
+        @include xs-to-sm {
+          margin-top: 16px;
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+
+      .container {
+        display: flex;
+        margin-top: 24px;
+        margin-bottom: 24px;
+
+        @include xs-to-sm {
+          flex-direction: column;
+          margin-bottom: 32px;
+          min-height: 500px;
+        }
+
+        .left-pane {
+          width: 73%;
+          padding-right: 32px;
+          display: flex;
+          border-right: 2px solid $profile-border-gray;
+          flex-direction: column;
+
+          @include xs-to-sm {
+            width: auto;
+            border-right: 0;
+            border-bottom: 2px solid $profile-border-gray;
+            padding-right: 0;
+            padding-bottom: 24px;
+          }
+
+          .title {
+            @include barlow;
+
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            text-transform: uppercase;
+
+            @include xs-to-sm {
+              font-size: 16px;
+              line-height: 18px;
+            }
+          }
+
+          .answer {
+            @include roboto-regular;
+
+            margin-top: 24px;
+            margin-bottom: 0;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+
+            @include xs-to-sm {
+              font-size: 14px;
+              line-height: 20px;
+            }
+          }
+
+          .infoLabel-container {
+            margin-top: 16px;
+            cursor: pointer;
+
+            .infoLabel {
+              @include roboto-regular;
+
+              margin-right: 10px;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 16px;
+              line-height: 24px;
+              color: #137d60;
+            }
+          }
+
+          .extraDetails {
+            @include roboto-regular;
+
+            margin-top: 16px;
+            font-style: normal;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+            color: $tco-black;
+
+            ul {
+              list-style: disc;
+              list-style-position: outside;
+              padding-left: 23px;
+              margin-bottom: 16px;
+            }
+          }
+
+          .button-container {
+            margin-top: 32px;
+            margin-bottom: 0;
+
+            @include xs-to-sm {
+              margin-top: 24px;
+            }
+
+            &.complete {
+              margin-top: 16px;
+              margin-bottom: 0;
+            }
+
+            .tax-method-button {
+              @include roboto-regular;
+
+              font-weight: 700;
+              font-size: 13px;
+              line-height: 24px;
+              letter-spacing: 0.008em;
+              text-transform: uppercase;
+              border-radius: 24px;
+              padding: 4px 20px;
+
+              &.instructions {
+                color: #137d60;
+                border: 2px solid #137d60;
+              }
+
+              &.disable-complete {
+                background: #f4f4f4;
+                color: #767676;
+                pointer-events: none;
+              }
+
+              &.enable-complete {
+                background: #137d60;
+                color: #fff;
+              }
+            }
+          }
+        }
+
+        .right-pane {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          margin-left: 32px;
+
+          @include xs-to-sm {
+            margin-left: 0;
+          }
+
+          .title {
+            @include barlow;
+
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            text-transform: uppercase;
+
+            @include xs-to-sm {
+              font-weight: 600;
+              font-size: 16px;
+              line-height: 18px;
+              margin: 24px 0;
+              color: $tco-black;
+            }
+          }
+
+          .important-text {
+            @include roboto-regular;
+
+            margin-top: 24px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+
+            @include xs-to-sm {
+              margin-top: 0;
+              font-size: 14px;
+              line-height: 20px;
+            }
+          }
+
+          .form-input-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 42px;
+
+            @include xs-to-sm {
+              margin-top: 32px;
+            }
+
+            .label {
+              @include roboto-regular;
+
+              margin-left: 8px;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 24px;
+            }
+          }
+        }
+      }
+
+      .footer {
+        margin-top: 18px;
+        margin-bottom: 32px;
+
+        @include xs-to-sm {
+          flex-direction: row;
+          align-items: center !important;
+          justify-content: center !important;
+          margin-top: 32px;
+        }
+
+        .confirm-button-wrapper {
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+
+          @include xs-to-sm {
+            margin-bottom: 0;
+          }
+
+          .footer-confirm-button {
+            height: 48px;
+            font-size: 16px !important;
+            line-height: 24px !important;
+            color: $tc-white !important;
+            font-weight: 700;
+            background: #137d60 !important;
+            border-radius: 50px !important;
+            padding: 12px 24px !important;
+            text-transform: uppercase;
+
+            @include roboto-bold;
+
+            @include xs-to-sm {
+              height: 40px;
+              padding: 14px 20px;
+              font-size: 14px;
+              line-height: 12px;
+            }
+          }
+        }
+      }
+    }
+
+    .page-divider {
+      border-bottom: 2px solid $profile-border-gray;
+    }
+  }
+}
+
+.modal-inner-no-max-width {
+  max-width: none !important;
+}
+
+.modal-overlay {
+  background: #000;
+}
+
+.modal-container {
+  width: 1200px;
+  max-width: 1232px;
+  border-radius: 8px;
+  padding: 32px 32px 0 32px;
+  gap: 24px;
+
+  @include xs-to-md {
+    width: 100%;
+    max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: 24px 16px;
+  }
+}
+
+.icon {
+  width: 14.4px;
+  height: 14.4px;
+  margin-right: 5px;
+  margin-top: 4px;
+  cursor: pointer !important;
+
+  @include xs-to-sm {
+    margin-top: 0;
+  }
+}

@@ -8,6 +8,7 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { getPaymentPageUrl } from 'utils/url';
 
 import ErrorWrapper from '../ErrorWrapper';
+import TaxForm from './TaxForm';
 import PaymentProvider from './PaymentProvider';
 
 
@@ -33,6 +34,7 @@ export default class Payment extends React.Component {
               <ArrowRightIcon />
             </a>
           </div>
+          <TaxForm handle={handle} handleConfirm={() => {}} />
           <PaymentProvider handle={handle} handleConfirm={() => {}} />
           <a href={getPaymentPageUrl()} rel="noreferrer" target="_blank" styleName="header__link__mobile">
             <span>Manage Your Payments</span>

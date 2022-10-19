@@ -43,8 +43,16 @@ const PaymentProvider = ({ handleConfirm, handle }) => {
   return (
     <div styleName="platform-banner">
       <div styleName="header">
-        <h3 styleName="banner-title">PAYMENT PROVIDER</h3>
-
+        <div styleName="title-container">
+          <h3 styleName="banner-title">PAYMENT PROVIDER</h3>
+          {
+            paymentService ? (
+              <span styleName="complete">Complete</span>
+            ) : (
+              <span styleName="required">Required</span>
+            )
+          }
+        </div>
         <span
           role="presentation"
           styleName={cn('icon', { up: collapse })}

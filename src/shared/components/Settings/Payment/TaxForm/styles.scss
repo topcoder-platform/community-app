@@ -5,6 +5,7 @@
   border-radius: 4px;
   width: 100%;
   padding: 32px;
+  margin-bottom: 8px;
 
   @include xs-to-sm {
     padding: 24px 16px;
@@ -69,6 +70,10 @@
 .content {
   margin-top: 33px;
 
+  @include xs-to-sm {
+    margin-top: 26px;
+  }
+
   .description {
     @include roboto-regular;
 
@@ -76,21 +81,16 @@
     line-height: 24px;
     font-weight: 400;
     color: $tco-black;
-    padding-right: calc(38% - 18px);
-
-    @include sm-to-md {
-      padding-right: 77px;
-    }
+    width: 77vw;
 
     @include xs-to-sm {
       width: unset;
       font-size: 14px;
-      padding-right: 0;
     }
   }
 }
 
-.selected-payment-logo {
+.selected-taxform-logo {
   width: 64px;
   height: 64px;
   min-height: 64px;
@@ -113,7 +113,7 @@
   }
 }
 
-.payment-logo {
+.taxform-logo {
   height: 40px;
   margin-top: -4px;
 
@@ -126,7 +126,7 @@
   }
 }
 
-.payment-methods {
+.taxform-methods {
   display: flex;
   margin-top: 32px;
   flex-wrap: wrap;
@@ -136,20 +136,18 @@
     margin-top: 16px;
   }
 
-  .payment-method-card {
+  .taxform-method-card {
     background-color: $tc-white;
     border: 1px solid $listing-light-gray;
     border-radius: 8px;
     padding: 30px 24px;
     display: flex;
-    min-width: 31%;
-    max-width: 31%;
     flex: 1;
     margin-right: 2%;
     flex-direction: column;
 
     svg {
-      max-width: 68vw !important;
+      border-radius: 48px;
     }
 
     @include xs-to-md {
@@ -165,19 +163,27 @@
 
     .button-wrapper {
       margin-top: 18px;
-      margin-left: -10px;
+      margin-left: -5px;
 
       @include xs-to-sm {
         margin-top: 24px;
       }
     }
 
-    .content-wrapper {
-      flex-direction: column;
+    .tax-description {
+      @include roboto-regular;
+
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+
+      p {
+        display: inline;
+      }
     }
   }
 
-  .payment-method-card:last-child {
+  .taxform-method-card:last-child {
     margin-right: 0;
 
     @include xs-to-sm {
@@ -195,14 +201,14 @@
 }
 
 .divider {
-  margin-top: 36px;
-  margin-bottom: 30px;
+  margin-top: 24px;
+  margin-bottom: 24px;
   height: 2px;
   border-radius: 1px;
   background: $profile-border-gray;
 }
 
-.payment-method-card .button {
+.taxform-method-card .button {
   @include roboto-bold;
 
   font-size: 14px;
@@ -288,8 +294,7 @@
 
   @include xs-to-sm {
     height: 32px;
-    width: 162px;
-    margin: 0;
+    margin: 0 !important;
   }
 }
 
@@ -301,7 +306,7 @@
   background: #fff;
   height: 96px;
   margin-top: 32px;
-  padding: 24px 10px;
+  padding: 16px;
 
   .selected-left {
     display: flex;
@@ -319,16 +324,22 @@
   @include xs-to-sm {
     height: auto;
     flex-direction: column;
+    margin-top: 24px;
   }
 }
 
-.payment-wrapper {
+.selected-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.taxform-wrapper {
   @include xs-to-sm {
     width: 87%;
   }
 }
 
-.payment-title {
+.taxform-title {
   @include roboto-bold;
 
   font-weight: 700;
@@ -337,16 +348,16 @@
   letter-spacing: 0.5px;
 }
 
-.payment-desc {
+.taxform-desc {
   @include roboto-regular;
 
   font-weight: 400;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 24px;
   letter-spacing: 0.5px;
   color: #767676;
 
   @include xs-to-sm {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 }
