@@ -349,8 +349,7 @@ workflows:
           filters:
             branches:
               only:
-                - enable_dashboard_on_data_science
-                - free
+                - TCA-539_tca-certifications-update-badges
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
