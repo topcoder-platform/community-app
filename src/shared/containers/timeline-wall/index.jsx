@@ -104,6 +104,8 @@ function TimelineWallContainer(props) {
     });
   };
 
+  const sortedEvents = _.orderBy(events, ['eventDate'], ['desc']);
+
   return (
     <div styleName="container">
       <div styleName={isAdmin ? 'header header-admin' : 'header'}>
@@ -153,7 +155,7 @@ function TimelineWallContainer(props) {
           <TimelineEvents
             isAuthenticated={!!authToken}
             isAdmin={isAdmin}
-            events={events}
+            events={sortedEvents}
             styleName={cn('tab-content', { hide: tab === 1, 'is-admin': role === 'Admin user' })}
             removeEvent={removeEvent}
             showRightFilterMobile={showRightFilterMobile}
