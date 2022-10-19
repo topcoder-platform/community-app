@@ -77,9 +77,11 @@ function TimelineWallContainer(props) {
   }, [pendingApprovals]);
 
   useEffect(() => {
-    const target = document.getElementById(`${selectedFilterValue.year}-${selectedFilterValue.month}`);
+    const target = document.getElementById(`${selectedFilterValue.year}-${(selectedFilterValue.month + 1).toString().padStart(2, '0')}`);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' }, true);
+      const yOffset = -10;
+      const coordinate = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: coordinate, behavior: 'smooth' });
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -103,6 +105,8 @@ function TimelineWallContainer(props) {
       getPendingApprovals(authToken);
     });
   };
+
+  const sortedEvents = _.orderBy(events, ['eventDate'], ['desc']);
 
   return (
     <div styleName="container">
@@ -153,7 +157,7 @@ function TimelineWallContainer(props) {
           <TimelineEvents
             isAuthenticated={!!authToken}
             isAdmin={isAdmin}
-            events={events}
+            events={sortedEvents}
             styleName={cn('tab-content', { hide: tab === 1, 'is-admin': role === 'Admin user' })}
             removeEvent={removeEvent}
             showRightFilterMobile={showRightFilterMobile}
