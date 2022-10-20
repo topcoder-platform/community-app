@@ -255,7 +255,10 @@ export default function FiltersPanel({
 
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
-    const filterObj = act(filterState, track);
+    let filterObj = act(filterState, track);
+    if (track === 'Dev') {
+      filterObj = act(filterObj, 'CMP');
+    }
     setFilterState({ ...filterObj });
   };
 
@@ -273,6 +276,8 @@ export default function FiltersPanel({
       filterObj[item] = on;
     });
 
+    filterObj.CMP = on;
+
     setFilterState({
       ...filterState,
       tracks: filterObj,
@@ -287,6 +292,9 @@ export default function FiltersPanel({
     });
 
     filterObj[type] = true;
+    if (type === 'Dev') {
+      filterObj.CMP = true;
+    }
 
     setFilterState({
       ...filterState,

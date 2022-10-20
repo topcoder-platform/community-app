@@ -62,6 +62,7 @@ export class ListingContainer extends React.Component {
       selectCommunity,
       queryBucket,
       filter,
+      filterState,
     } = this.props;
 
     markHeaderMenu();
@@ -74,6 +75,8 @@ export class ListingContainer extends React.Component {
       && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
       getCommunitiesList(auth);
     }
+
+    filterState.tracks.CMP = true;
 
     let selectedCommunity;
     if (communityId) {
