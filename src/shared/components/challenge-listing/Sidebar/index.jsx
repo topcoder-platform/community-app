@@ -17,8 +17,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
-// import _ from 'lodash';
+// import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
 import { isPastBucket } from 'utils/challenge-listing/buckets';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
 import BucketSelector from './BucketSelector';
@@ -115,7 +114,7 @@ export default function SideBarFilters({
           // extraBucket={extraBucket}
           // filterState={filterState}
           isAuth={isAuth}
-          isReviewer={isReviewerOrAdmin(auth)}
+          auth={auth}
           // savedFilters={savedFilters}
           selectBucket={selectBucket}
           // selectSavedFilter={selectSavedFilter}

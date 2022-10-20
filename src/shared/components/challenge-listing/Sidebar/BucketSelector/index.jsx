@@ -7,6 +7,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import Bucket from './Bucket';
@@ -29,12 +30,12 @@ export default function BucketSelector({
   // extraBucket,
   // filterState,
   isAuth,
-  isReviewer,
   // savedFilters,
   selectBucket,
   // selectSavedFilter,
   // setEditSavedFiltersMode,
   past,
+  auth,
 }) {
   // let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
 
@@ -90,7 +91,7 @@ export default function BucketSelector({
         {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
         {/* DISABLED: Until api receive fix community-app#5073 */}
         {/* {getBucket(BUCKETS.ONGOING)} */}
-        {isReviewer ? getBucket(BUCKETS.REVIEW_OPPORTUNITIES) : null}
+        {isReviewerOrAdmin(auth) ? getBucket(BUCKETS.REVIEW_OPPORTUNITIES) : null}
         {/* {getBucket(BUCKETS.PAST)} */}
         {/* NOTE: We do not show upcoming challenges for now, for various reasons,
           * more political than technical ;)
@@ -141,12 +142,16 @@ BucketSelector.defaultProps = {
   disabled: false,
   // extraBucket: null,
   isAuth: false,
-  isReviewer: false,
   expanding: false,
   past: false,
 };
 
 BucketSelector.propTypes = {
+  auth: PT.shape({
+    profile: PT.shape(),
+    tokenV3: PT.string,
+    user: PT.shape(),
+  }).isRequired,
   activeBucket: PT.string.isRequired,
   expanding: PT.bool,
   // activeSavedFilter: PT.number.isRequired,
@@ -158,7 +163,6 @@ BucketSelector.propTypes = {
   // extraBucket: PT.string,
   // filterState: PT.shape().isRequired,
   isAuth: PT.bool,
-  isReviewer: PT.bool,
   // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
   // selectSavedFilter: PT.func.isRequired,
