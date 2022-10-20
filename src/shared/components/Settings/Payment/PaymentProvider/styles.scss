@@ -208,12 +208,12 @@
   font-size: 14px;
   font-weight: 700;
   line-height: 24px;
-  height: 40px;
+  padding: 8px 24px !important;
   color: #137d60 !important;
   border: 2px solid #137d60 !important;
   border-radius: 24px !important;
   text-transform: uppercase;
-  padding: 5px 17px !important;
+  height: 40px;
   letter-spacing: 0.008em;
 
   &:hover {
@@ -225,10 +225,17 @@
   &:focus,
   &:focus-within,
   &:focus-visible {
-    outline: 0 !important;
+    outline: none !important;
     box-shadow: none !important;
-    color: #219174 !important;
-    border: 2px solid #219174 !important;
+    border-color: #0d664e;
+  }
+
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+    color: #0d664e !important;
+    border-color: #0d664e !important;
+    background: #fff !important;
   }
 
   @include xs-to-sm {
@@ -273,17 +280,36 @@
   border: 2px solid #137d60 !important;
   border-radius: 24px !important;
   background: #fff !important;
-  font-weight: 700;
-  font-size: 13px;
+  font-weight: 700 !important;
+  font-size: 13px !important;
   color: #137d60 !important;
-  line-height: 24px;
+  line-height: 24px !important;
   white-space: nowrap;
-  height: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.008em;
+  min-height: 0 !important;
+  max-height: 32px !important;
 
   &:hover {
     background-image: unset !important;
     color: #219174 !important;
     border: 2px solid #219174 !important;
+  }
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #0d664e;
+  }
+
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+    color: #0d664e !important;
+    border-color: #0d664e !important;
+    background: #fff !important;
   }
 
   @include xs-to-sm {

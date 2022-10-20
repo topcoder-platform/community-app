@@ -202,7 +202,7 @@
             }
 
             &.complete {
-              margin-top: 16px;
+              margin-top: 18px;
               margin-bottom: 0;
             }
 
@@ -215,22 +215,65 @@
               letter-spacing: 0.008em;
               text-transform: uppercase;
               border-radius: 24px;
-              padding: 4px 20px;
 
               &.instructions {
                 color: #137d60;
+                padding: 6px 20px;
                 border: 2px solid #137d60;
+
+                &:hover {
+                  background-image: unset !important;
+                  color: #219174 !important;
+                  border: 2px solid #219174 !important;
+                }
+
+                &:focus,
+                &:focus-within,
+                &:focus-visible {
+                  outline: none !important;
+                  box-shadow: none !important;
+                }
+
+                &:active {
+                  outline: none !important;
+                  box-shadow: none !important;
+                  color: #0d664e !important;
+                  border-color: #0d664e !important;
+                  background: #fff !important;
+                }
               }
 
               &.disable-complete {
                 background: #f4f4f4;
                 color: #767676;
+                padding: 8px 20px;
                 pointer-events: none;
               }
 
               &.enable-complete {
                 background: #137d60;
+                padding: 8px 20px;
                 color: #fff;
+
+                &:hover {
+                  color: #fff !important;
+                  background: #219174 !important;
+                  border-color: #219174 !important;
+                }
+
+                &:focus,
+                &:focus-within,
+                &:focus-visible {
+                  outline: none !important;
+                  box-shadow: none !important;
+                  border-color: #0d664e;
+                }
+
+                &:active {
+                  color: #fff !important;
+                  background: #0d664e !important;
+                  border-color: #0d664e !important;
+                }
               }
             }
           }

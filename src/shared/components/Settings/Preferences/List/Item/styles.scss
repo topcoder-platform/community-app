@@ -70,6 +70,27 @@
   border: 2px solid $color-turq-160;
   border-radius: 50px;
   cursor: pointer;
+
+  &:hover {
+    background-image: unset !important;
+    color: #219174 !important;
+    border: 2px solid #219174 !important;
+  }
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+    color: #0d664e !important;
+    border-color: #0d664e !important;
+    background: #fff !important;
+  }
 }
 
 .info {
