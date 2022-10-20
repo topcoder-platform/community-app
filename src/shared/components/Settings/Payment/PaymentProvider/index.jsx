@@ -184,22 +184,28 @@ const PaymentProvider = ({ handleConfirm, handle }) => {
                       </div>
                     ))}
 
-                  {selectedMethod && (
-                  <PaymentMethod
-                    paymentMethod={selectedMethod}
-                    show
-                    handle={handle}
-                    handleClose={() => {
-                      setSelectedMethod('');
-                    }}
-                    handleConfirm={() => {
-                      handleConfirm();
-                    }}
-                    paymentService={paymentService}
-                    setPaymentService={setPaymentService}
-                    setSelectedMode={setSelectedMode}
-                  />
-                  )}
+                    {selectedMethod && (
+                      <PaymentMethod
+                        paymentMethod={selectedMethod}
+                        show
+                        handle={handle}
+                        handleClose={() => {
+                          setSelectedMethod('');
+                        }}
+                        handleConfirm={() => {
+                          handleConfirm();
+                        }}
+                        paymentService={paymentService}
+                        setPaymentService={setPaymentService}
+                        setSelectedMode={setSelectedMode}
+                      />
+                    )}
+                  </div>
+                  <div styleName="info-text">
+                    The information above is gathered from each payment provider&apos;s
+                    respective website. We encourage you to do any additional information
+                    gathering you see fit prior to making a payment provider decision.
+                  </div>
                 </div>
               ) : null
             }

@@ -28,11 +28,11 @@
     h3 {
       @include barlow-bold;
 
-    font-size: 22px;
-    line-height: 26px;
-    font-weight: 600;
-    color: $tco-black;
-  }
+      font-size: 22px;
+      line-height: 26px;
+      font-weight: 600;
+      color: $tco-black;
+    }
 
     span {
       @include roboto-regular;
