@@ -131,7 +131,7 @@ export default function SubmissionRow({
       </div>
       { openHistory && (
         <Modal
-        <Modal onCancel={toggleHistory} theme={{ container: style.modal }}>
+          onCancel={toggleHistory}
           theme={{ container: `${style.modal} ${isMM && numWinners > 0 ? style.download : ''}` }}
         >
           <div styleName="history">
