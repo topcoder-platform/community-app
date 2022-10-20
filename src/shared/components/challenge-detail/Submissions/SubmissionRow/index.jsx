@@ -131,7 +131,7 @@ export default function SubmissionRow({
       </div>
       { openHistory && (
         <Modal
-          onCancel={toggleHistory}
+        <Modal onCancel={toggleHistory} theme={{ container: style.modal }}>
           theme={{ container: `${style.modal} ${isMM && numWinners > 0 ? style.download : ''}` }}
         >
           <div styleName="history">
@@ -198,8 +198,10 @@ export default function SubmissionRow({
                 ))
               }
             </div>
-            <div styleName="close-btn" onClick={toggleHistory} role="presentation">
-              <span>CLOSE</span>
+            <div styleName="close-wrapper">
+              <div styleName="close-btn" onClick={toggleHistory} role="presentation">
+                <span>CLOSE</span>
+              </div>
             </div>
           </div>
         </Modal>
