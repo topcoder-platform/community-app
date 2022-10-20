@@ -109,7 +109,7 @@ const PaymentMethod = ({
                     onClick={onVisitPaymentProvider}
                     disabled={emailedDetails}
                   >
-                    {`Visit ${PAYMENT_METHOD_MAP[paymentMethod]} to create account`}
+                    {`Visit ${PAYMENT_METHOD_MAP[paymentMethod]} to create an account`}
                   </Button>
                 </div>
               </div>
@@ -121,7 +121,7 @@ const PaymentMethod = ({
                 <Button
                   onClick={onConfirm}
                   disabled={!emailedDetails}
-                  theme={{ button: styles['footer-confirm-button'] }}
+                  theme={{ button: !emailedDetails ? styles['footer-confirm-disabled'] : styles['footer-confirm-button'] }}
                 >
                   Confirm
                 </Button>

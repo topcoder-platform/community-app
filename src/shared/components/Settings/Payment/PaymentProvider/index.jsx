@@ -43,8 +43,16 @@ const PaymentProvider = ({ handleConfirm, handle }) => {
   return (
     <div styleName="platform-banner">
       <div styleName="header">
-        <h3 styleName="banner-title">PAYMENT PROVIDER</h3>
-
+        <div styleName="title-container">
+          <h3 styleName="banner-title">PAYMENT PROVIDER</h3>
+          {
+            paymentService ? (
+              <span styleName="complete">Complete</span>
+            ) : (
+              <span styleName="required">Required</span>
+            )
+          }
+        </div>
         <span
           role="presentation"
           styleName={cn('icon', { up: collapse })}
@@ -128,52 +136,53 @@ const PaymentProvider = ({ handleConfirm, handle }) => {
 
             {
               !selectedMode ? (
-                <div styleName="payment-methods">
-                  {PAYMENT_METHODS.map(method => (
-                    <div styleName="payment-method-card">
-                      <div styleName="">
-                        {PAYMENT_METHOD_MAP[method.name] === 'Payoneer' && (
-                        <PayoneerLogo />
-                        )}
-                        {PAYMENT_METHOD_MAP[method.name] === 'PayPal' && <PayPalLogo />}
-                        {PAYMENT_METHOD_MAP[method.name] === 'Western Union' && (
-                        <WesternUnionLogo />
-                        )}
+                <div>
+                  <div styleName="payment-methods">
+                    {PAYMENT_METHODS.map(method => (
+                      <div styleName="payment-method-card">
+                        <div styleName="">
+                          {PAYMENT_METHOD_MAP[method.name] === 'Payoneer' && (
+                          <PayoneerLogo />
+                          )}
+                          {PAYMENT_METHOD_MAP[method.name] === 'PayPal' && <PayPalLogo />}
+                          {PAYMENT_METHOD_MAP[method.name] === 'Western Union' && (
+                          <WesternUnionLogo />
+                          )}
+                        </div>
+                        <div styleName="divider" />
+                        <div styleName="content-wrapper">
+                          <PaymentInfo
+                            icon={<IconDollar />}
+                            label="Fees"
+                            value={method.fees}
+                            isLastChild={false}
+                          />
+                          <PaymentInfo
+                            icon={<IconWorld />}
+                            label="countries"
+                            value={`Available in ${method.countries}+ countries`}
+                            isLastChild={false}
+                          />
+                          <PaymentInfo
+                            icon={<IconSpeed />}
+                            label="Speed"
+                            value={`Up to ${method.speed} Business Day`}
+                            isLastChild
+                          />
+                        </div>
+                        <div styleName="button-wrapper">
+                          <Button
+                            type="secondary"
+                            theme={{ button: styles.button }}
+                            onClick={() => {
+                              setSelectedMethod(method.name);
+                            }}
+                          >
+                            SELECT {PAYMENT_METHOD_MAP[method.name]}
+                          </Button>
+                        </div>
                       </div>
-                      <div styleName="divider" />
-                      <div styleName="content-wrapper">
-                        <PaymentInfo
-                          icon={<IconDollar />}
-                          label="Fees"
-                          value={method.fees}
-                          isLastChild={false}
-                        />
-                        <PaymentInfo
-                          icon={<IconWorld />}
-                          label="countries"
-                          value={`Available in ${method.countries}+ countries`}
-                          isLastChild={false}
-                        />
-                        <PaymentInfo
-                          icon={<IconSpeed />}
-                          label="Speed"
-                          value={`Up to ${method.speed} Business Day`}
-                          isLastChild
-                        />
-                      </div>
-                      <div styleName="button-wrapper">
-                        <Button
-                          type="secondary"
-                          theme={{ button: styles.button }}
-                          onClick={() => {
-                            setSelectedMethod(method.name);
-                          }}
-                        >
-                          SELECT {PAYMENT_METHOD_MAP[method.name]}
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
 
                   {selectedMethod && (
                   <PaymentMethod
@@ -192,7 +201,6 @@ const PaymentProvider = ({ handleConfirm, handle }) => {
                   />
                   )}
                 </div>
-
               ) : null
             }
           </div>
