@@ -96,10 +96,15 @@
     color: #fff !important;
     text-transform: uppercase;
     padding: 11px 23px;
+    letter-spacing: 0.008em !important;
     margin: 0;
 
-    &.disabled {
-      opacity: 0.5;
+    &:focus,
+    &:focus-within,
+    &:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border: none !important;
     }
 
     &:hover {
