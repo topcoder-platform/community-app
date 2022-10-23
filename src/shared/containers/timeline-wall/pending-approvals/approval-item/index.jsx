@@ -67,7 +67,7 @@ function ApprovalItem({
             <PhotoVideoItem
               key={photo.id}
               styleName="photo-item"
-              url={photo.url}
+              url={photo.previewUrl || photo.url}
               videoThumnailUrl={photo.videoThumnailUrl}
               isUrlPhoto={!photo.videoThumnailUrl}
               onClick={() => {
