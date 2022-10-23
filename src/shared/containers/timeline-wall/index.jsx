@@ -6,6 +6,7 @@ import TopBannerMobile from 'assets/images/timeline-wall/top-banner-mobile.png';
 import IconCheveronDownBlue from 'assets/images/timeline-wall/cheveron-down-blue.svg';
 import { deleteEventById, approveEventById, rejectEventById } from 'services/timelineWall';
 import cn from 'classnames';
+import moment from 'moment';
 import _ from 'lodash';
 import timelineActions from 'actions/timelineWall';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -77,7 +78,21 @@ function TimelineWallContainer(props) {
   }, [pendingApprovals]);
 
   useEffect(() => {
-    const target = document.getElementById(`${selectedFilterValue.year}-${(selectedFilterValue.month + 1).toString().padStart(2, '0')}`);
+    const currentYear = selectedFilterValue.year;
+    const currentMonth = selectedFilterValue.month;
+    const maxYear = 2032;
+    let target;
+    let date = moment(`${currentYear}-${currentMonth + 1}`).format('YYYY-MM');
+
+    while (!target) {
+      target = document.getElementById(`${moment(date).year()}-${(moment(date).month()).toString().padStart(2, '0')}`);
+
+      if (target || !moment(date).isValid() || moment(date).year() > maxYear) {
+        break;
+      }
+      date = moment(date).add(1, 'months').format('YYYY-MM');
+    }
+
     if (target) {
       const yOffset = -10;
       const coordinate = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
