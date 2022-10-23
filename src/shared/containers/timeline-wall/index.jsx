@@ -106,6 +106,7 @@ function TimelineWallContainer(props) {
   const deleteEvent = (id) => {
     deleteEventById(authToken, id, () => {
       getPendingApprovals(authToken);
+      getTimelineEvents();
     });
   };
 
@@ -115,9 +116,15 @@ function TimelineWallContainer(props) {
     });
   };
 
-  const removeEvent = (id, body) => {
-    rejectEventById(authToken, id, body, () => {
+  const removeEvent = (event = {}, body) => {
+    const rejectBody = body;
+    const id = event.id ? event.id : event;
+    if (!body.reason) {
+      rejectBody.reason = 'Deleted by admin.';
+    }
+    rejectEventById(authToken, id, rejectBody, () => {
       getPendingApprovals(authToken);
+      getTimelineEvents();
     });
   };
 
@@ -188,6 +195,7 @@ function TimelineWallContainer(props) {
             getAvatar={getAvatar}
             userAvatars={userAvatars}
             uploading={uploading}
+            deleteEvent={deleteEvent}
           />
           <React.Fragment>
             {
