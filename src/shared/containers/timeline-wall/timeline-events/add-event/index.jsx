@@ -149,7 +149,7 @@ function AddEvents({
                   files: files.slice(0, 3),
                 });
               }}
-              infoText={'Drag & drop your photo or video here\nYou can upload only up to 3 photos/videos'}
+              infoText={'Drag & drop your photo or video here\nYou can upload up to 3 photos/videos'}
               infoTextMobile="Drag & drop your photo or video here"
               btnText="BROWSE"
               options={{
