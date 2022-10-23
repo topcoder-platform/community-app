@@ -21,6 +21,15 @@ function PhotoVideoPicker({
   inputOptions,
   file,
 }) {
+  const renderUpload = () => (
+    <React.Fragment>
+      <p styleName="infoText hide-mobile">
+        {infoText}
+      </p>
+      <button styleName="btn hide-mobile" type="button">{btnText}</button>
+    </React.Fragment>
+  );
+
   return (
     <React.Fragment>
       <Dropzone
@@ -66,7 +75,7 @@ function PhotoVideoPicker({
                 <React.Fragment>
 
                   <section
-                    styleName={cn('container', { hasError: !!errorMsg, hasFile: !!file && !!file.length })}
+                    styleName={cn('container', { hasError: !!errorMsg, hasFile: !!file && !!file.length, 'hide-mobile': file.length === 3 })}
                     {...getRootProps()}
                     className={cn(className, getRootProps().className)}
                   >
@@ -76,44 +85,48 @@ function PhotoVideoPicker({
                     })}
                     />
                     {
-                file && file.length ? (
-                  <div styleName="photo-list hide-mobile">
-                    {file.map((fileInfo, index) => (
-                      <div
-                        styleName="photo-item"
-                        key={fileInfo.name}
-                      ><PhotoVideoItem notSelectable file={fileInfo} />
-                        <button
-                          type="button"
-                          styleName="btn-delete"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            const newFile = [...file];
-                            newFile.splice(index, 1);
-                            onFilePick(newFile);
-                          }}
-                        ><BtnDeletePhoto />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <React.Fragment>
-                    <p styleName="infoText hide-mobile">
-                      {infoText}
-                    </p>
-                    <button styleName="btn hide-mobile" type="button">{btnText}</button>
-                  </React.Fragment>
-                )
-              }
+                      file && file.length ? (
+                        <div styleName="photo-list hide-mobile">
+                          {file.map((fileInfo, index) => (
+                            <div
+                              styleName="photo-item"
+                              key={fileInfo.name}
+                            ><PhotoVideoItem notSelectable file={fileInfo} />
+                              <button
+                                type="button"
+                                styleName="btn-delete"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  e.preventDefault();
+                                  const newFile = [...file];
+                                  newFile.splice(index, 1);
+                                  onFilePick(newFile);
+                                }}
+                              ><BtnDeletePhoto />
+                              </button>
+                            </div>
+                          ))}
+                          {
+                            file.length < 3 && (
+                              <div styleName="photo-item browse-button">
+                                {renderUpload()}
+                              </div>
+                            )
+                          }
+                        </div>
+                      ) : renderUpload()
+                    }
 
-                    <React.Fragment>
-                      <p styleName="infoText hide-desktop show-mobile">
-                        {infoTextMobile}
-                      </p>
-                      <button styleName="btn hide-desktop show-mobile" type="button">{btnText}</button>
-                    </React.Fragment>
+                    {
+                      (file || []).length < 3 && (
+                        <React.Fragment>
+                          <p styleName="infoText hide-desktop show-mobile">
+                            {infoTextMobile}
+                          </p>
+                          <button styleName="btn hide-desktop show-mobile" type="button">{btnText}</button>
+                        </React.Fragment>
+                      )
+                    }
                   </section>
 
                 </React.Fragment>
