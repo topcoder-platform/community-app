@@ -67,7 +67,7 @@ function EventItem({
             />
             {eventItem.mediaFiles.map(photo => (
               <PhotoVideoItem
-                styleName="photo-item hide-mobile"
+                styleName="photo-item"
                 url={photo.previewUrl || photo.url}
                 videoThumnailUrl={photo.videoThumnailUrl}
                 isUrlPhoto={!photo.videoThumnailUrl}

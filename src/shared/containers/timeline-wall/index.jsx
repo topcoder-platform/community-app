@@ -7,6 +7,7 @@ import IconCheveronDownBlue from 'assets/images/timeline-wall/cheveron-down-blue
 import { deleteEventById, approveEventById, rejectEventById } from 'services/timelineWall';
 import cn from 'classnames';
 import moment from 'moment';
+import { useMediaQuery } from 'react-responsive';
 import _ from 'lodash';
 import timelineActions from 'actions/timelineWall';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -40,6 +41,9 @@ function TimelineWallContainer(props) {
 
   const role = 'Admin User';
   const authToken = _.get(auth, 'tokenV3');
+  const isMobile = useMediaQuery({
+    query: '(max-device-width: 768px)',
+  });
 
   useEffect(() => {
     if (authToken) {
@@ -79,7 +83,7 @@ function TimelineWallContainer(props) {
 
   useEffect(() => {
     const currentYear = selectedFilterValue.year;
-    const currentMonth = selectedFilterValue.month;
+    const currentMonth = Math.max(selectedFilterValue.month, 0);
     const maxYear = 2032;
     let target;
     let date = moment(`${currentYear}-${currentMonth + 1}`).format('YYYY-MM');
@@ -96,7 +100,11 @@ function TimelineWallContainer(props) {
     if (target) {
       const yOffset = -10;
       const coordinate = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: coordinate, behavior: 'smooth' });
+      if (isMobile) {
+        setTimeout(target.scrollTo(), 100);
+      } else {
+        window.scrollTo({ top: coordinate, behavior: 'smooth' });
+      }
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
