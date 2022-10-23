@@ -52,6 +52,10 @@
   width: 120px;
   border-radius: 8px;
   padding: 10px 0;
+  position: fixed;
+  right: 0;
+  max-height: 70%;
+  overflow: scroll;
 
   @media (max-width: 768px) {
     border-radius: 0;
