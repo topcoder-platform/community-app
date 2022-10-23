@@ -6,7 +6,7 @@ import EventItem from './event-item';
 const colors = ['green', 'red', 'purple'];
 
 function Events({
-  events, removeEvent, isAuthenticated, getAvatar, userAvatars,
+  events, removeEvent, isAuthenticated, getAvatar, userAvatars, isAdmin, deleteEvent,
 }) {
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
@@ -65,6 +65,8 @@ function Events({
             }}
             getAvatar={getAvatar}
             userAvatars={userAvatars}
+            isAdmin={isAdmin}
+            deleteEvent={deleteEvent}
           />
         ))}
       </div>
@@ -80,6 +82,8 @@ function Events({
             }}
             getAvatar={getAvatar}
             userAvatars={userAvatars}
+            isAdmin={isAdmin}
+            deleteEvent={deleteEvent}
           />
         ))}
       </div>
@@ -95,6 +99,8 @@ function Events({
             }}
             getAvatar={getAvatar}
             userAvatars={userAvatars}
+            isAdmin={isAdmin}
+            deleteEvent={deleteEvent}
           />
         ))}
       </div>
@@ -110,6 +116,7 @@ Events.defaultProps = {
   removeEvent: () => { },
   isAuthenticated: false,
   userAvatars: {},
+  isAdmin: false,
 };
 
 /**
@@ -121,6 +128,8 @@ Events.propTypes = {
   isAuthenticated: PT.bool,
   getAvatar: PT.func.isRequired,
   userAvatars: PT.shape(),
+  isAdmin: PT.bool,
+  deleteEvent: PT.func.isRequired,
 };
 
 export default Events;

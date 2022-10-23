@@ -22,6 +22,7 @@ function TimelineEvents({
   userAvatars,
   onDoneAddEvent,
   uploading,
+  deleteEvent,
 }) {
   return (
     <div className={className} styleName="container">
@@ -44,6 +45,7 @@ function TimelineEvents({
             }}
             getAvatar={getAvatar}
             userAvatars={userAvatars}
+            deleteEvent={deleteEvent}
           />
         )
           : null}
@@ -112,6 +114,7 @@ TimelineEvents.propTypes = {
   onDoneAddEvent: PT.func.isRequired,
   userAvatars: PT.shape(),
   uploading: PT.bool,
+  deleteEvent: PT.func.isRequired,
 };
 
 export default TimelineEvents;

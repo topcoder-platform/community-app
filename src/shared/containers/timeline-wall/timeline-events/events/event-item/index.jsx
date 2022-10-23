@@ -16,7 +16,7 @@ import './styles.scss';
 import { DEFAULT_AVATAR_URL } from '../../../../../utils/url';
 
 function EventItem({
-  className, isLeft, eventItem, removeEvent, isAdmin, userAvatars,
+  className, isLeft, eventItem, removeEvent, deleteEvent, isAdmin, userAvatars,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showModalPhoto, setShowModalPhoto] = useState(false);
@@ -112,6 +112,7 @@ function EventItem({
 
       {showModalDelete ? (
         <ModalDeleteConfirmation
+          id={eventItem.id}
           eventItem={showModalDelete}
           onClose={(result) => {
             if (result === true) {
@@ -119,6 +120,7 @@ function EventItem({
             }
             setShowModalDelete(false);
           }}
+          deleteEvent={deleteEvent}
         />
       ) : null}
     </div>
@@ -150,6 +152,7 @@ EventItem.propTypes = {
   removeEvent: PT.func,
   isAdmin: PT.bool,
   userAvatars: PT.shape(),
+  deleteEvent: PT.func.isRequired,
 };
 
 export default EventItem;
