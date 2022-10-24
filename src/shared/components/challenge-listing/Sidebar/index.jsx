@@ -76,7 +76,7 @@ export default function SideBarFilters({
         Des: true,
         DS: true,
         QA: true,
-        CMP: true
+        CMP: true,
       },
       search: '',
       tco: false,
