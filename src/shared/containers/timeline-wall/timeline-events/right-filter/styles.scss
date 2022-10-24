@@ -50,7 +50,8 @@
   display: flex;
   flex-direction: column;
   width: 120px;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   padding: 10px 0;
   position: fixed;
   right: 0;
