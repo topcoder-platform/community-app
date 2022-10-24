@@ -50,12 +50,24 @@
   display: flex;
   flex-direction: column;
   width: 120px;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   padding: 10px 0;
   position: fixed;
   right: 0;
+  left: 1374px;
   max-height: 70%;
   overflow: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+
+  @media (max-width: 1500px) {
+    left: unset;
+  }
 
   @media (max-width: 768px) {
     border-radius: 0;
