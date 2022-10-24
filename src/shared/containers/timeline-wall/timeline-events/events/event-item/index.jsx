@@ -16,7 +16,7 @@ import './styles.scss';
 import { DEFAULT_AVATAR_URL } from '../../../../../utils/url';
 
 function EventItem({
-  className, isLeft, eventItem, removeEvent, deleteEvent, isAdmin, userAvatars,
+  className, isLeft, eventItem, deleteEvent, isAdmin, userAvatars,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showModalPhoto, setShowModalPhoto] = useState(false);
@@ -67,7 +67,7 @@ function EventItem({
             />
             {eventItem.mediaFiles.map(photo => (
               <PhotoVideoItem
-                styleName="photo-item hide-mobile"
+                styleName="photo-item"
                 url={photo.previewUrl || photo.url}
                 videoThumnailUrl={photo.videoThumnailUrl}
                 isUrlPhoto={!photo.videoThumnailUrl}
@@ -114,10 +114,8 @@ function EventItem({
         <ModalDeleteConfirmation
           id={eventItem.id}
           eventItem={showModalDelete}
-          onClose={(result) => {
-            if (result === true) {
-              removeEvent(showModalDelete);
-            }
+          handle={eventItem.createdBy}
+          onClose={() => {
             setShowModalDelete(false);
           }}
           deleteEvent={deleteEvent}
@@ -137,7 +135,6 @@ EventItem.defaultProps = {
     creator: {},
     media: [],
   },
-  removeEvent: () => {},
   isAdmin: false,
   userAvatars: {},
 };
@@ -149,7 +146,6 @@ EventItem.propTypes = {
   className: PT.string,
   isLeft: PT.bool,
   eventItem: PT.any,
-  removeEvent: PT.func,
   isAdmin: PT.bool,
   userAvatars: PT.shape(),
   deleteEvent: PT.func.isRequired,
