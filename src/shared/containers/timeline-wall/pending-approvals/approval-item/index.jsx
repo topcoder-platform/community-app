@@ -94,10 +94,7 @@ function ApprovalItem({
         <ModalDeleteConfirmation
           id={event.id}
           eventItem={showModalDelete}
-          onClose={(result) => {
-            if (result === true) {
-              removeEvent(showModalDelete);
-            }
+          onClose={() => {
             setShowModalDelete(false);
           }}
           handle={event.createdBy}

@@ -114,10 +114,8 @@ function EventItem({
         <ModalDeleteConfirmation
           id={eventItem.id}
           eventItem={showModalDelete}
-          onClose={(result) => {
-            if (result === true) {
-              removeEvent(showModalDelete);
-            }
+          handle={eventItem.createdBy}
+          onClose={() => {
             setShowModalDelete(false);
           }}
           deleteEvent={deleteEvent}
