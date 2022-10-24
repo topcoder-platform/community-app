@@ -182,7 +182,10 @@ export const rejectEventById = async (tokenV3, id, body, successFn) => {
   try {
     fetch(`${baseUrl}/timelineEvents/${id}/reject`, {
       method: 'PUT',
-      headers: { Authorization: `Bearer ${tokenV3}` },
+      headers: {
+        Authorization: `Bearer ${tokenV3}`,
+        'Content-Type': 'application/json; charset=utf-8',
+      },
       body: JSON.stringify(body),
     }).then(() => {
       successFn();
