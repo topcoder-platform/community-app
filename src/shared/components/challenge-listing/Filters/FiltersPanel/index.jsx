@@ -441,6 +441,7 @@ export default function FiltersPanel({
         Des: true,
         DS: true,
         QA: true,
+        CMP: true,
       },
       search: '',
       tco: false,
