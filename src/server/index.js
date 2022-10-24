@@ -315,17 +315,16 @@ async function onExpressJsSetup(server) {
     const isValidUrl = (urlString) => {
       const urlPattern = new RegExp('^(https?:\\/\\/)?'// validate protocol
       + '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' // validate domain name
-      + '((\\d{1,3}\\.){3}\\d{1,3}))' // validate OR ip (v4) address
-      + '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-      + '(\\?[;&a-z\\d%_.~+=-]*)?' // validate query string
-      + '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+      + '((\\d{1,3}\\.){3}\\d{1,3}))'// validate OR ip (v4) address
+      + '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'// validate port and path
+      + '(\\?[;&a-z\\d%_.~+=-]*)?'// validate query string
+      + '(\\#[-a-z\\d_]*)?$', 'i'); // validate fragment locator
       return !!urlPattern.test(urlString);
-    }
-    if(isValidUrl(req.query.returnUrl)) {
+    };
+    if (isValidUrl(req.query.returnUrl)) {
       return setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000);
-    } else {
-      return res.status(400).send('Invalid return URL')
     }
+    return res.status(400).send('Invalid return URL');
   });
 
   /* TODO:
