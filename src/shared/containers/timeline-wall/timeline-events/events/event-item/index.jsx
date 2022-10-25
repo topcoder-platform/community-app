@@ -63,11 +63,11 @@ function EventItem({
           >
             <PhotoItemsMobile
               styleName="hide-desktop show-mobile photo-item"
-              photos={eventItem.mediaFiles}
+              photos={(eventItem.mediaFiles || []).map((photo, index) => ({ ...photo, id: index }))}
             />
             {eventItem.mediaFiles.map(photo => (
               <PhotoVideoItem
-                styleName="photo-item"
+                styleName="photo-item hide-mobile"
                 url={photo.previewUrl || photo.url}
                 videoThumnailUrl={photo.videoThumnailUrl}
                 isUrlPhoto={!photo.videoThumnailUrl}
