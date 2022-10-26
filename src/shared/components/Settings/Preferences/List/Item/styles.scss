@@ -11,6 +11,10 @@
   background: $tc-white;
   border: 1px solid $listing-light-gray;
   border-radius: 8px;
+
+  &.subscribed {
+    margin-bottom: 0 !important;
+  }
 }
 
 .item-container:not(:last-child) {

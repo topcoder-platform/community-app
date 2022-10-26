@@ -1,11 +1,10 @@
-import forum from 'assets/images/preferences/forum.svg';
 
 import { config } from 'topcoder-react-utils';
 
 const data = [
   {
     id: 'forum',
-    icon: forum,
+    icon: 'forum',
     name: 'Forum',
     description: 'To setup your forum preferences, please click the “Go To Forum” button.',
     link: `${config.URL.FORUMS_VANILLA}/profile/preferences`,
