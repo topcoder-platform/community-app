@@ -409,8 +409,8 @@ export default function SideBar({
               </h2>
               <p styleName="link-like-paragraph">
                 {
-                  submissionLimit
-                    ? submissionLimitDisplay : (
+                  !submissionLimit.value.unlimited
+                    ? JSON.parse(submissionLimit.value).count : (
                       <strong>
                         {submissionLimitDisplay}
                       </strong>
