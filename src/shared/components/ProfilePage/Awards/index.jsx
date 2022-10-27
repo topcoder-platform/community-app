@@ -4,12 +4,14 @@ import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/tc-edu/icon-close-big.svg';
 import _ from 'lodash';
 import md from 'utils/markdown';
+import { Link } from 'react-router-dom';
 
 import style from './styles.scss';
 import AwardBadge from './AwardBadge';
 import AwatarModal from './AwardModal';
 
-const Awards = ({ badges }) => {
+const Awards = ({ badges, info }) => {
+  const { handle } = info;
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
 
@@ -18,6 +20,10 @@ const Awards = ({ badges }) => {
       <div styleName="awards">
         <div styleName="header">
           <span>Community Awards & Honors</span>
+          <Link
+            to={`/members/${handle}/badges`}
+            styleName="viewAllLink"
+          >View All Badges</Link>
         </div>
 
         <div styleName="badgesContainer">
@@ -73,10 +79,12 @@ const Awards = ({ badges }) => {
 
 Awards.defaultProps = {
   badges: [],
+  info: {},
 };
 
 Awards.propTypes = {
   badges: PT.arrayOf(PT.shape()),
+  info: PT.shape(),
 };
 
 export default Awards;
