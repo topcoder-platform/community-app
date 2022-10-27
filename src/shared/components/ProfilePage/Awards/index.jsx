@@ -23,7 +23,9 @@ const Awards = ({ badges, info }) => {
           <Link
             to={`/members/${handle}/badges`}
             styleName="viewAllLink"
-          >View All Badges</Link>
+          >
+            View All Badges
+          </Link>
         </div>
 
         <div styleName="badgesContainer">
