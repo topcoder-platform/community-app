@@ -349,6 +349,7 @@ workflows:
           filters:
             branches:
               only:
+                - max_number_of_submissions
                 - TCA-539_tca-certifications-update-badges
       # This is alternate dev env for parallel testing
       - "build-test":
