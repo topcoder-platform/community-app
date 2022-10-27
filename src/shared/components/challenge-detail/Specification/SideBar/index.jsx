@@ -40,12 +40,13 @@ export default function SideBar({
   let submissionLimitDisplay = 'Unlimited';
   const submissionLimit = _.find(metadata, { name: 'submissionLimit' });
   const fileTypes = _.find(metadata, { name: 'fileTypes' });
+  const submissionLimitValue = JSON.parse(submissionLimit.value);
 
   if (submissionLimit) {
-    if (submissionLimit.value === 1) {
+    if (submissionLimitValue.count === 1) {
       submissionLimitDisplay = '1 submission';
-    } else if (submissionLimit.value > 1) {
-      submissionLimitDisplay = `${submissionLimit.value} submissions`;
+    } else if (submissionLimitValue.count > 1) {
+      submissionLimitDisplay = `${submissionLimitValue.count} submissions`;
     }
   }
 
