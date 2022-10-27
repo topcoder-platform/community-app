@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature/dice-setup
+                - feat/badge-box
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
