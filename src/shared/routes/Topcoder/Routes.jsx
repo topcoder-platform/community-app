@@ -31,6 +31,7 @@ import Notifications from './Notifications';
 import Settings from '../Settings';
 import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
+import ProfileBadges from '../ProfileBadges';
 import Scoreboard from '../tco/scoreboard';
 import MemberSearch from '../../containers/MemberSearch';
 
@@ -89,6 +90,15 @@ export default function Topcoder() {
                 exact
                 path="/members/:handle([\w\-\[\].{} ]{2,15})"
               />
+              {
+                config.GAMIFICATION.ENABLE_BADGE_UI && (
+                  <Route
+                    component={ProfileBadges}
+                    exact
+                    path="/members/:handle([\w\-\[\].{} ]{2,15})/badges"
+                  />
+                )
+              }
               <Route
                 component={() => <Settings base="/settings" />}
                 path="/settings"

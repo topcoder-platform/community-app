@@ -1,0 +1,144 @@
+/* stylelint-disable no-descending-specificity */
+@import "~styles/mixins";
+
+.outer-container {
+  width: 100%;
+  max-width: $screen-max;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  @include xs-to-md {
+    margin: 0 32px;
+  }
+
+  .memberPageBackLink {
+    text-transform: uppercase;
+    color: $listing-checkbox-green;
+    font-weight: 700;
+    font-family: Roboto, sans-serif;
+    margin: 32px 0;
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 6px;
+    }
+  }
+
+  .badgesWrap {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    margin-bottom: 32px;
+
+    .seactionTitle {
+      @include barlow-medium;
+
+      font-weight: 600;
+      color: #2a2a2a;
+      font-size: 22px;
+      line-height: 26px;
+      text-transform: uppercase;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #e9e9e9;
+    }
+
+    .badgesGrid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+
+      @include xs-to-sm {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include md {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .awardBadge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding-top: 32px;
+
+        .image {
+          width: 100px;
+          height: 100px;
+        }
+
+        .title {
+          @include roboto-bold;
+          $color: $tco-black;
+
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 16px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          align-items: center;
+          max-width: 130px;
+          margin-top: 17px;
+          text-transform: uppercase;
+
+          @include xs-to-sm {
+            max-width: unset;
+          }
+        }
+      }
+    }
+  }
+}
+
+.award-modal {
+  padding-bottom: 10px;
+  border-radius: 8px;
+  margin: 25px 32px 32px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    .title {
+      @include barlow-medium;
+
+      font-weight: 600;
+      color: #2a2a2a;
+      font-size: 22px;
+      line-height: 26px;
+      text-transform: uppercase;
+    }
+
+    .icon {
+      cursor: pointer;
+      margin-top: 5px;
+    }
+  }
+}
+
+hr {
+  opacity: 0.5;
+}
+
+.container {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  min-width: 600px;
+
+  @include xs-to-sm {
+    width: 90%;
+    min-width: unset;
+  }
+}
+
+.overlay {
+  background-color: #0c0c0c;
+  opacity: 0.85;
+}

@@ -27,6 +27,10 @@
     justify-content: center;
     flex-direction: column;
 
+    @include xs-to-md {
+      align-items: center;
+    }
+
     .title {
       @include roboto-bold;
 
