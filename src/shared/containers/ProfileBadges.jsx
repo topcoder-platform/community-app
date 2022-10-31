@@ -58,7 +58,7 @@ function mapDispatchToActions(dispatch) {
   return {
     loadBadges: (handle) => {
       dispatch(profileActions.page.profile.getGamificationBadgesInit(handle));
-      dispatch(profileActions.page.profile.getGamificationBadgesDone(handle, 36));
+      dispatch(profileActions.page.profile.getGamificationBadgesDone(handle, 100));
     },
   };
 }
