@@ -106,6 +106,10 @@
 
     &.center {
       text-align: center;
+
+      @include xs-to-sm {
+        text-align: left;
+      }
     }
   }
 }
