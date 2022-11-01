@@ -5,6 +5,7 @@ import IconClose from 'assets/images/tc-edu/icon-close-big.svg';
 import _ from 'lodash';
 import md from 'utils/markdown';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import style from './styles.scss';
 import AwardBadge from './AwardBadge';
@@ -37,6 +38,10 @@ const Awards = ({ badges, info }) => {
               if (description) {
                 description = md(description);
               }
+              let awardedAt = _.get(reward, 'awarded_at');
+              if (awardedAt) {
+                awardedAt = format(new Date(awardedAt), 'PPP');
+              }
 
               return (
                 <AwardBadge
@@ -48,6 +53,7 @@ const Awards = ({ badges, info }) => {
                       title,
                       description,
                       imageUrl,
+                      awardedAt,
                     });
                   }}
                 />

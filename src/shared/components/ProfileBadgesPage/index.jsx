@@ -6,6 +6,7 @@ import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/tc-edu/icon-close-big.svg';
 import FallBackAwardIcon from 'assets/images/default-award.svg';
 import md from 'utils/markdown';
+import { format } from 'date-fns';
 import AwardModal from '../ProfilePage/Awards/AwardModal';
 
 import style from './styles.scss';
@@ -47,6 +48,10 @@ const ProfileBadges = ({ badges, handleParam }) => {
               if (description) {
                 description = md(description);
               }
+              let awardedAt = get(reward, 'awarded_at');
+              if (awardedAt) {
+                awardedAt = format(new Date(awardedAt), 'PPP');
+              }
 
               return (
                 <div
@@ -58,6 +63,7 @@ const ProfileBadges = ({ badges, handleParam }) => {
                       title,
                       description,
                       imageUrl,
+                      awardedAt,
                     });
                   }}
                 >
