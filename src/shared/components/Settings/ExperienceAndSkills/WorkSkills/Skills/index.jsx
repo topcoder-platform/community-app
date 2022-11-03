@@ -1,6 +1,7 @@
 /**
  * Child component of Settings/Profile renders "Skills" section of profile setting page.
  */
+/* global analytics */
 
 import _ from 'lodash';
 import React from 'react';
@@ -285,6 +286,12 @@ export default class Skills extends ConsentComponent {
     if (toRemove.length) {
       this.onHandleDeleteSkills(toRemove);
     }
+
+    // track the CTA event
+    analytics.track('Member clicked "Save" on skills picker', {
+      handle: this.props.handle,
+      newSkill: this.state.newSkill,
+    });
   }
 
   render() {

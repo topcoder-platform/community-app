@@ -13,7 +13,8 @@ import {
   getFreshToken,
 } from '@topcoder-platform/tc-auth-lib';
 import { actions, logger, errors } from 'topcoder-react-lib';
-import { client, redux } from 'topcoder-react-utils';
+import { client, redux, config } from 'topcoder-react-utils';
+import gameActions from '../shared/actions/gamification';
 
 import './styles.scss';
 
@@ -80,7 +81,7 @@ function authenticate(store) {
 
   getFreshToken().then((tctV3) => {
     const tctV2 = cookies.get('tcjwt');
-    logger.log('Authenticated as:', decodeToken(tctV3));
+    logger.log('Authenticated as:', decodeToken(tctV3), gameActions);
     if (!tctV2) logger.error('Failed to fetch API v2 token!');
     return ({ tctV2, tctV3 });
   }).catch(() => {
@@ -91,6 +92,9 @@ function authenticate(store) {
     if (auth.profile && !analyticsIdentitySet) {
       identify(auth.profile, _.get(auth, 'user.roles'), auth.userIdHash);
       analyticsIdentitySet = true;
+      if (config.GAMIFICATION.ENABLE_SKILLS_REMIND_MODAL) {
+        store.dispatch(gameActions.gamification.onAuthenticate(auth.profile, store));
+      }
     }
     if (auth.tokenV3 !== (tctV3 || null)) {
       const action = actions.auth.loadProfile(tctV3);
@@ -102,6 +106,9 @@ function authenticate(store) {
         if (userId && userId !== prevUserId) {
           identify(profile, _.get(auth, user.roles), auth.userIdHash);
           analyticsIdentitySet = true;
+          if (config.GAMIFICATION.ENABLE_SKILLS_REMIND_MODAL) {
+            store.dispatch(gameActions.gamification.onAuthenticate(profile, store));
+          }
         }
       });
       store.dispatch(actions.auth.setTcTokenV3(tctV3));

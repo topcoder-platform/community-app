@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 import Routes from 'routes';
 import ErrorMessage from 'containers/ErrorMessage';
 import ErrorIcons from 'containers/ErrorIcons';
+import Gamification from 'containers/Gamification';
 
 import { DevTools, isomorphy, config } from 'topcoder-react-utils';
 
@@ -51,7 +52,12 @@ export default function App() {
         progressBar={false}
         showCloseButton
       />
-      { isomorphy.isDevBuild() ? <DevTools /> : undefined }
+      {isomorphy.isDevBuild() ? <DevTools /> : undefined}
+      {
+        isomorphy.isClientSide()
+        && config.GAMIFICATION.ENABLE_SKILLS_REMIND_MODAL
+        && <Gamification />
+      }
     </div>
   );
 }
