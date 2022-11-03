@@ -8,11 +8,10 @@ import { connect } from 'react-redux';
 import SkillsNagModal from 'components/Gamification/SkillsNagModal';
 import { keys } from 'lodash';
 import cookies from 'browser-cookies';
-import { config } from 'topcoder-react-utils';
 
 const REMIND_TIME_COOKIE_NAME = 'tc_skills_remind_time';
 const REMIND_TIME = 604800000; // a week
-const MIN_SKILLS_TO_REMIND = 5;
+export const MIN_SKILLS_TO_REMIND = 5;
 
 class GamificationContainer extends React.Component {
   constructor(props) {
@@ -20,7 +19,6 @@ class GamificationContainer extends React.Component {
 
     this.state = {
       showSkillsNagModal: false,
-      lastNagTime: cookies.get(REMIND_TIME_COOKIE_NAME),
     };
 
     this.onCancel = this.onCancel.bind(this);
@@ -39,7 +37,7 @@ class GamificationContainer extends React.Component {
       ...profile,
     });
     // navigate to skills
-    window.location = `${config.URL.BASE}/settings/skills`;
+    window.location = '/settings/skills';
   }
 
   onCancel() {
@@ -56,19 +54,21 @@ class GamificationContainer extends React.Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, handle } = this.props;
     const { state } = this;
     const now = new Date().getTime();
 
     if (!profile || profile.skills === null) {
-      // member skills still loading
+      // profile & member skills still loading
       return null;
     }
 
+    const lastNagTime = state.lastNagTime || cookies.get(`${REMIND_TIME_COOKIE_NAME}_${handle}`);
     // when to show the nag modal logic
     if (
-      !state.showSkillsNagModal
-      && (now - state.lastNagTime) > REMIND_TIME
+      window.location.pathname !== '/settings/skills'
+      && !state.showSkillsNagModal
+      && (now - lastNagTime) > REMIND_TIME
       && keys(profile.skills).length < MIN_SKILLS_TO_REMIND
     ) {
       const newNagTime = new Date().getTime();
@@ -76,14 +76,16 @@ class GamificationContainer extends React.Component {
         showSkillsNagModal: true,
         lastNagTime: `${newNagTime}`,
       });
-      cookies.set(REMIND_TIME_COOKIE_NAME, `${newNagTime}`);
+      cookies.set(`${REMIND_TIME_COOKIE_NAME}_${handle}`, `${newNagTime}`, { expires: 7 });
     }
 
     return state.showSkillsNagModal ? (
       <SkillsNagModal
+        handle={handle}
         skills={profile.skills}
         onCancel={this.onCancel}
         onCTA={this.onCTA}
+        MIN_SKILLS_TO_REMIND={MIN_SKILLS_TO_REMIND}
       />
     ) : null;
   }
@@ -91,15 +93,18 @@ class GamificationContainer extends React.Component {
 
 GamificationContainer.defaultProps = {
   profile: null,
+  handle: null,
 };
 
 GamificationContainer.propTypes = {
   profile: PT.shape(),
+  handle: PT.string,
 };
 
 function mapStateToProps(state) {
   return {
     profile: state.profile,
+    handle: state.auth && state.auth.user ? state.auth.user.handle : null,
   };
 }
 

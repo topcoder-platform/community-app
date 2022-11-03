@@ -7,9 +7,11 @@ import IconClose from 'assets/images/icon-close-green.svg';
 import style from './styles.scss';
 
 const SkillsNagModal = ({
+  handle,
   skills,
   onCancel,
   onCTA,
+  MIN_SKILLS_TO_REMIND,
 }) => (
   <Modal onCancel={onCancel} theme={style}>
     <div styleName="nagModal">
@@ -24,8 +26,10 @@ const SkillsNagModal = ({
       </div>
 
       <div styleName="description">
-        {`We have detected you have ${keys(skills).length} skill[s] added to your profile.
-        In order to match for opportunities at Topcoder, please add at least 5 skills to your profile.`}
+        <span>
+          {/* eslint-disable-next-line max-len */}
+          Hey <strong>{handle}</strong>, we have detected you have only {keys(skills).length} skill[s] added to your profile. In order to match for opportunities at Topcoder, please add at least <strong>{MIN_SKILLS_TO_REMIND} skills</strong> to your profile.
+        </span>
       </div>
 
       <div>
@@ -39,6 +43,8 @@ const SkillsNagModal = ({
 );
 
 SkillsNagModal.propTypes = {
+  MIN_SKILLS_TO_REMIND: PT.number.isRequired,
+  handle: PT.string.isRequired,
   skills: PT.shape().isRequired,
   onCancel: PT.func.isRequired,
   onCTA: PT.func.isRequired,
