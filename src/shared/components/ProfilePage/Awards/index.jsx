@@ -4,12 +4,15 @@ import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/tc-edu/icon-close-big.svg';
 import _ from 'lodash';
 import md from 'utils/markdown';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import style from './styles.scss';
 import AwardBadge from './AwardBadge';
 import AwatarModal from './AwardModal';
 
-const Awards = ({ badges }) => {
+
+const Awards = ({ badges, info }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
 
@@ -18,6 +21,12 @@ const Awards = ({ badges }) => {
       <div styleName="awards">
         <div styleName="header">
           <span>Community Awards & Honors</span>
+          <Link
+            to={`/members/${info.handle}/badges`}
+            styleName="badgesPageLink"
+          >
+            View All Badges
+          </Link>
         </div>
 
         <div styleName="badgesContainer">
@@ -28,6 +37,10 @@ const Awards = ({ badges }) => {
               let description = _.get(reward, 'org_badge.badge_description');
               if (description) {
                 description = md(description);
+              }
+              let awardedAt = _.get(reward, 'awarded_at');
+              if (awardedAt) {
+                awardedAt = format(new Date(awardedAt), 'PPP');
               }
 
               return (
@@ -40,6 +53,7 @@ const Awards = ({ badges }) => {
                       title,
                       description,
                       imageUrl,
+                      awardedAt,
                     });
                   }}
                 />
@@ -77,6 +91,7 @@ Awards.defaultProps = {
 
 Awards.propTypes = {
   badges: PT.arrayOf(PT.shape()),
+  info: PT.shape().isRequired,
 };
 
 export default Awards;

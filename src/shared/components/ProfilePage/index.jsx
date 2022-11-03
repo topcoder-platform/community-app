@@ -229,7 +229,7 @@ class ProfilePage extends React.Component {
         </div>
         {
           (config.GAMIFICATION.ENABLE_BADGE_UI && badges && (badges.rows || [])).length ? (
-            <Awards badges={badges.rows} />
+            <Awards badges={badges.rows} info={info} />
           ) : null
         }
         {tcAcademyCertifications.length > 0 && (
