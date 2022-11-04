@@ -31,6 +31,7 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
 import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
@@ -71,6 +72,7 @@ export default function FiltersPanel({
   setExpanded,
   setSort,
   selectBucket,
+  reviewCount,
 }) {
   if (hidden && !expanded) {
     return (
@@ -382,8 +384,10 @@ export default function FiltersPanel({
               disabled={disabled}
               expanding={expanding}
               isAuth={isAuth}
+              isReviewer={isReviewerOrAdmin(auth)}
               selectBucket={selectBucket}
               past={past}
+              reviewCount={reviewCount}
             />
           </div>
         </div>
@@ -757,6 +761,7 @@ FiltersPanel.defaultProps = {
   onClose: _.noop,
   expanding: false,
   disabled: false,
+  reviewCount: 0,
 };
 
 FiltersPanel.propTypes = {
@@ -787,4 +792,5 @@ FiltersPanel.propTypes = {
   selectBucket: PT.func.isRequired,
   expanding: PT.bool,
   disabled: PT.bool,
+  reviewCount: PT.number,
 };
