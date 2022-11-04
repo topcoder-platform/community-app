@@ -363,14 +363,14 @@ workflows:
           filters:
             branches:
               only:
-                - feat/GAME-197
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - beta-demo
+                - game-wrap-ups
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
