@@ -16,7 +16,6 @@ const CATEGORIES = {
 };
 
 export default function AddSkillsModal({
-  allSkills,
   disabled,
   category: intialCategory,
   editingSkills,
@@ -40,12 +39,6 @@ export default function AddSkillsModal({
   const find = (arr, i) => arr && _.findIndex(arr, e => e.toLowerCase() === i.toLowerCase()) !== -1;
   const findSkill = (arr, skill) => arr && arr.find(a => a.id === skill.id);
 
-  const popularSkills = React.useMemo(() => allSkills
-    .filter(skill => find(skill.categories, category))
-    .slice(0, 10)
-    .map(skill => _.cloneDeep(({ ...skill, isPopularSkill: true }))),
-  [allSkills, category]);
-
   const handleSkillSelect = (skill) => {
     setEditingSkills([...editingSkills, skill]);
   };
@@ -66,11 +59,6 @@ export default function AddSkillsModal({
   };
 
   const allDisplayingSkills = displayingSkills;
-  popularSkills.forEach((skill) => {
-    if (!findSkill(displayingSkills, skill)) {
-      allDisplayingSkills.push(skill);
-    }
-  });
 
   const lookupSkillsOptions = lookupSkills
     .filter(skill => !findSkill(allDisplayingSkills, skill))
@@ -200,7 +188,6 @@ export default function AddSkillsModal({
 }
 
 AddSkillsModal.propTypes = {
-  allSkills: PT.arrayOf(PT.shape()).isRequired,
   disabled: PT.bool.isRequired,
   category: PT.string.isRequired,
   editingSkills: PT.arrayOf(PT.shape()).isRequired,

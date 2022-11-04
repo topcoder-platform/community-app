@@ -287,8 +287,8 @@ export default class Skills extends ConsentComponent {
       this.onHandleDeleteSkills(toRemove);
     }
 
-    // track the CTA event
-    analytics.track('Member clicked "Save" on skills picker', {
+    // track skills update event
+    analytics.track('Member updated skills', {
       handle: this.props.handle,
       newSkill: this.state.newSkill,
     });
@@ -365,7 +365,6 @@ export default class Skills extends ConsentComponent {
         }
         { showAddSkillsModal && (
           <AddSkillsModal
-            allSkills={allSkills}
             lookupSkills={lookupSkills}
             userSkills={userSkills}
             disabled={!canModifyTrait}
