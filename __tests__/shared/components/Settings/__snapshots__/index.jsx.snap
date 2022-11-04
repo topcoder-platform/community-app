@@ -30,7 +30,7 @@ exports[`renders account setting page correctly 1`] = `
           },
           Object {
             "link": "skills",
-            "title": "Experience & Skills",
+            "title": "Skills & Experience",
           },
           Object {
             "link": "tracks",
@@ -787,7 +787,7 @@ exports[`renders preferences setting page correctly 1`] = `
           },
           Object {
             "link": "skills",
-            "title": "Experience & Skills",
+            "title": "Skills & Experience",
           },
           Object {
             "link": "tracks",
@@ -1541,7 +1541,7 @@ exports[`renders profile setting page correctly 1`] = `
           },
           Object {
             "link": "skills",
-            "title": "Experience & Skills",
+            "title": "Skills & Experience",
           },
           Object {
             "link": "tracks",
@@ -2301,7 +2301,7 @@ exports[`renders tools setting page correctly 1`] = `
           },
           Object {
             "link": "skills",
-            "title": "Experience & Skills",
+            "title": "Skills & Experience",
           },
           Object {
             "link": "tracks",
