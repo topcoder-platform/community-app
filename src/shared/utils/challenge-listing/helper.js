@@ -71,6 +71,7 @@ export const formatOrdinals = (n) => {
  * @returns {Boolean}
  */
 export const isReviewerOrAdmin = (auth) => {
+  console.log(`auth ` + JSON.stringify(auth, null, 2))
   const roles = _.get(auth, 'user.roles');
 
   if (!roles || !_.isArray(roles)) {
