@@ -370,7 +370,7 @@ workflows:
           filters:
             branches:
               only:
-                - beta-demo
+                - PROD-2993
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
