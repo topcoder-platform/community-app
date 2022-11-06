@@ -72,8 +72,8 @@ export const formatOrdinals = (n) => {
  */
 export const isReviewerOrAdmin = (auth) => {
   // eslint-disable-next-line no-console
-  console.log(`your user roles ${JSON.stringify(roles, null, 2)}`);
   const roles = _.get(auth, 'user.roles');
+  console.log(`your user roles ${JSON.stringify(roles, null, 2)}`);
 
   if (!roles || !_.isArray(roles)) {
     return false;
