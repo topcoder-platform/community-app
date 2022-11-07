@@ -194,6 +194,11 @@ module.exports = {
           href: 'https://discord.gg/topcoder?ref=nav',
           openNewTab: true,
         },
+        {
+          title: 'Learn',
+          href: 'https://platform-ui.topcoder.com/learn',
+          openNewTab: true,
+        },
       ],
     },
   ],
@@ -227,4 +232,5 @@ module.exports = {
   ENABLE_RECOMMENDER: true,
   PLATFORM_SITE_URL: 'https://platform.topcoder.com',
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder.com',
+  DICE_VERIFY_URL: 'https://accounts-auth0.topcoder.com',
 };

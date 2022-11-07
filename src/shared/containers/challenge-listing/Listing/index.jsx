@@ -23,6 +23,7 @@ import Banner from 'components/tc-communities/Banner';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import communityActions from 'actions/tc-communities';
+
 // import SORT from 'utils/challenge-listing/sort';
 import {
   BUCKETS, filterChanged, sortChangedBucket,
@@ -44,6 +45,7 @@ export class ListingContainer extends React.Component {
     super(props);
 
     this.state = {
+      needLoad: true,
       previousBucketOfActiveTab: null,
       previousBucketOfPastChallengesTab: null,
     };
@@ -63,6 +65,7 @@ export class ListingContainer extends React.Component {
       selectCommunity,
       queryBucket,
       filter,
+      getReviewOpportunities,
     } = this.props;
 
     markHeaderMenu();
@@ -104,6 +107,8 @@ export class ListingContainer extends React.Component {
       });
     }
     // }
+
+    getReviewOpportunities(0, auth.tokenV3);
   }
 
   componentDidUpdate(prevProps) {
@@ -111,6 +116,8 @@ export class ListingContainer extends React.Component {
       // activeBucket,
       auth,
       // dropChallenges,
+      communityId,
+      communitiesList,
       getCommunitiesList,
       // allActiveChallengesLoaded,
       // getRestActiveChallenges,
@@ -132,7 +139,10 @@ export class ListingContainer extends React.Component {
       dropPastChallenges,
       getPastChallenges,
       filterState,
+      loading,
+      setFilter,
     } = this.props;
+
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
     const handle = _.get(auth, 'user.handle');
@@ -173,6 +183,23 @@ export class ListingContainer extends React.Component {
 
     if (prevProps.filterState.recommended !== filterState.recommended && filterState.recommended) {
       bucket = 'openForRegistration';
+    }
+
+    if (prevProps.communitiesList.data.length !== communitiesList.data.length) {
+      let selectedCommunity;
+      if (communityId) {
+        selectedCommunity = communitiesList.data.find(item => item.communityId === communityId);
+      }
+      if (selectedCommunity) {
+        const groups = selectedCommunity.groupIds && selectedCommunity.groupIds.length
+          ? [selectedCommunity.groupIds[0]] : [];
+        // update the challenge listing filter for selected community
+        setFilter({
+          ..._.clone(filter),
+          groups,
+          events: [],
+        });
+      }
     }
 
     if (bucket) {
@@ -257,6 +284,10 @@ export class ListingContainer extends React.Component {
     }
     if (filterChanged(filter, prevProps.filter)) {
       this.reloadChallenges();
+      if (!loading) {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({ needLoad: false });
+      }
     }
     setTimeout(() => {
       selectBucketDone();
@@ -486,6 +517,7 @@ export class ListingContainer extends React.Component {
       setFilter,
       setSort,
       sorts,
+      setReviewCount,
       // hideTcLinksInSidebarFooter,
       // isBucketSwitching,
       // userChallenges,
@@ -495,6 +527,7 @@ export class ListingContainer extends React.Component {
     } = this.props;
 
     const {
+      needLoad,
       previousBucketOfActiveTab,
       previousBucketOfPastChallengesTab,
     } = this.state;
@@ -630,6 +663,7 @@ export class ListingContainer extends React.Component {
           keepPastPlaceholders={keepPastPlaceholders}
           // lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           // eslint-disable-next-line max-len
+          needLoad={needLoad}
           loadingMyChallenges={Boolean(loadingMyChallengesUUID)}
           loadingMyPastChallenges={Boolean(loadingMyPastChallengesUUID)}
           loadingAllChallenges={Boolean(loadingAllChallengesUUID)}
@@ -670,6 +704,7 @@ export class ListingContainer extends React.Component {
           // userChallenges={[]}
           isLoggedIn={isLoggedIn}
           meta={meta}
+          setReviewCount={setReviewCount}
           setSearchText={setSearchText}
           previousBucketOfActiveTab={previousBucketOfActiveTab}
           previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
@@ -706,6 +741,7 @@ ListingContainer.defaultProps = {
   queryBucket: BUCKETS.OPEN_FOR_REGISTRATION,
   meta: {},
   expanding: false,
+  loading: false,
   // isBucketSwitching: false,
   // userChallenges: [],
 };
@@ -804,7 +840,9 @@ ListingContainer.propTypes = {
   // userChallenges: PT.arrayOf(PT.string),
   // getUserChallenges: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
+  setReviewCount: PT.func.isRequired,
   filterState: PT.shape().isRequired,
+  loading: PT.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -865,6 +903,10 @@ const mapStateToProps = (state, ownProps) => {
     meta: cl.meta,
     // userChallenges: cl.userChallenges,
     filterState: cl.filter,
+    loading: Boolean(cl.loadingActiveChallengesUUID)
+      || Boolean(cl.loadingOpenForRegistrationChallengesUUID)
+      || Boolean(cl.loadingMyChallengesUUID) || Boolean(cl.loadingAllChallengesUUID)
+      || Boolean(cl.loadingPastChallengesUUID) || cl.loadingReviewOpportunitiesUUID,
   };
 };
 

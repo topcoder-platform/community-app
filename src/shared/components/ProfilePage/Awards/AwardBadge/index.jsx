@@ -18,6 +18,7 @@ const AwardBadge = ({
     }
     <div styleName="title">
       <span>
+        {/* eslint-disable-next-line react/no-danger */}
         <div dangerouslySetInnerHTML={{ __html: title }} />
       </span>
     </div>

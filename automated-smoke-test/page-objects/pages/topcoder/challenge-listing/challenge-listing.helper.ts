@@ -724,7 +724,7 @@ export class ChallengeListingPageHelper {
   static async verifyOpenForReviewChallengesOnly() {
     await this.waitForSubCommunity();
     const openForReviewLink = await ChallengeListingPageObject.filterChallengesBy(
-      'Open for review'
+      'Review Opportunities'
     );
     await openForReviewLink.click();
     await this.waitForLoadingNewChallengeList();
@@ -799,11 +799,11 @@ export class ChallengeListingPageHelper {
     expect(headers.length).toBe(0);
 
     const openForReviewLink = await ChallengeListingPageObject.filterChallengesBy(
-      'Open for review'
+      'Review Opportunities'
     );
     await openForReviewLink.click();
 
-    await this.waitTillOnlyOneHeaderPresentWithText('Open for review');
+    await this.waitTillOnlyOneHeaderPresentWithText('Review Opportunities');
     await CommonHelper.waitUntilVisibilityOf(
       () =>
         CommonHelper.findElementByText(

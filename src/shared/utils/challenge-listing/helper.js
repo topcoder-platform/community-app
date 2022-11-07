@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from 'moment';
 
 /**
@@ -61,4 +62,20 @@ export const formatOrdinals = (n) => {
   }
 
   return ord;
+};
+
+/**
+ * Check if user's role is reviewer or admin
+ * @param {Object || null} auth
+ *
+ * @returns {Boolean}
+ */
+export const isReviewerOrAdmin = (auth) => {
+  const roles = _.get(auth, 'user.roles');
+
+  if (!roles || !_.isArray(roles)) {
+    return false;
+  }
+
+  return _.intersection(roles, ['administrator', 'Reviewer', 'Gamification Admin', 'Connect Admin', 'admin']).length;
 };

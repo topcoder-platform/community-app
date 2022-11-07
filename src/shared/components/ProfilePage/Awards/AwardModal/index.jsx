@@ -8,7 +8,7 @@ const AwatarModal = ({
   modalData,
 }) => {
   const {
-    title, description, imageUrl,
+    title, description, imageUrl, awardedAt,
   } = modalData;
 
   return (
@@ -25,6 +25,9 @@ const AwatarModal = ({
         <div styleName="title">
           <span>{title}</span>
         </div>
+        {
+          awardedAt && <div styleName="awardedAt">{`Awarded on ${awardedAt}`}</div>
+        }
 
         <div styleName="description">{description}</div>
 
@@ -41,6 +44,7 @@ AwatarModal.propTypes = {
   modalData: PT.shape(
     {
       title: PT.string,
+      awardedAt: PT.string,
       description: PT.string,
       imageUrl: PT.string,
     },

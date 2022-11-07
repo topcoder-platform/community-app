@@ -507,6 +507,10 @@ function onGetReviewOpportunitiesDone(state, { payload, error }) {
     reviewOpportunities,
     loadingReviewOpportunitiesUUID: '',
     allReviewOpportunitiesLoaded: loaded.length === 0,
+    meta: {
+      ...state.meta,
+      openReviewCount: reviewOpportunities.length,
+    },
   };
 }
 

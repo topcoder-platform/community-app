@@ -349,7 +349,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - TCA-539_tca-certifications-update-badges
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - reskin-profile-settings
+                - feat/badges-box
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -379,6 +379,7 @@ workflows:
               only:
                 - develop
                 - old-mm-fix
+                - reskin-profile-settings
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration

@@ -411,6 +411,11 @@ module.exports = {
           href: 'https://discord.gg/topcoder',
           openNewTab: true,
         },
+        {
+          title: 'Learn',
+          href: 'https://platform-ui.topcoder-dev.com/learn',
+          openNewTab: true,
+        },
       ],
     },
   ],
@@ -458,6 +463,7 @@ module.exports = {
     ENABLE_BADGE_UI: true,
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
+  DICE_VERIFY_URL: 'https://accounts-auth0.topcoder-dev.com',
   TIMELINE: {
     REJECTION_EVENT_REASONS: ['Duplicate Event'],
     ALLOWED_FILETYPES: ['image/jpeg', 'image/png', 'video/mp4', 'video/x-msvideo', 'video/webm'],
