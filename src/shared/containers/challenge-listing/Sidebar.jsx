@@ -72,12 +72,6 @@ export class SidebarContainer extends React.Component {
     // } = this.props;
 
     const {
-      loadingMyChallenges,
-      loadingOpenForRegistrationChallenges,
-      loadingReviewOpportunities,
-    } = this.props;
-
-    const {
       previousBucketOfActiveTab,
       previousBucketOfPastChallengesTab,
     } = this.state;
@@ -103,10 +97,6 @@ export class SidebarContainer extends React.Component {
     // if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
     // const savedFilters = checkFilterErrors(origSavedFilters, updatedCommunityFilters);
-
-    const loading = loadingMyChallenges
-    || loadingOpenForRegistrationChallenges
-    || loadingReviewOpportunities;
 
     return (
       <Sidebar
@@ -136,7 +126,6 @@ export class SidebarContainer extends React.Component {
         setPreviousBucketOfPastChallengesTab={(bucket) => {
           this.setState({ previousBucketOfPastChallengesTab: bucket });
         }}
-        loading={loading}
       />
     );
   }
@@ -171,9 +160,6 @@ SidebarContainer.propTypes = {
   // user: PT.shape(),
   // userChallenges: PT.arrayOf(PT.string),
   expanding: PT.bool,
-  loadingMyChallenges: PT.bool.isRequired,
-  loadingOpenForRegistrationChallenges: PT.bool.isRequired,
-  loadingReviewOpportunities: PT.bool.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -203,7 +189,6 @@ function mapStateToProps(state) {
     // hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
-    auth: state.auth,
     // communityFilters: state.tcCommunities.list.data,
     // selectedCommunityId: state.challengeListing.selectedCommunityId,
     // tokenV2: state.auth.tokenV2,
