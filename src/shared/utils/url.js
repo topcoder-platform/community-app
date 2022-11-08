@@ -123,4 +123,14 @@ export function removeTrailingSlash(url) {
     : url;
 }
 
+export function isImage(url) {
+  return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(`${url}`.toLowerCase());
+}
+
+export function isVideo(url) {
+  return /\.(mp4|mov|wmv|webm|avi|mkv|flv)$/.test(`${url}`.toLowerCase());
+}
+
+export const DEFAULT_AVATAR_URL = 'https://images.ctfassets.net/b5f1djy59z3a/4PTwZVSf3W7qgs9WssqbVa/4c51312671a4b9acbdfd7f5e22320b62/default_avatar.svg';
+
 export default undefined;
