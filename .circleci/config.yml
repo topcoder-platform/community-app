@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - feature-timeline-wall
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
