@@ -15,7 +15,6 @@ import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
 import CardPlaceholder from '../placeholders/ChallengeCard';
 import './style.scss';
-import { isReviewerOrAdmin } from '../../../utils/challenge-listing/helper';
 
 // const Filter = challengeUtils.filter;
 const LOADING_MESSAGE = 'Loading Challenges';
@@ -147,33 +146,25 @@ function Listing({
        * and are only shown when explicitly chosen from the sidebar */
       isReviewOpportunitiesBucket(bucket)
         ? (
-          <React.Fragment>
-            {
-              isReviewerOrAdmin(auth) ? (
-                <ReviewOpportunityBucket
-                  // bucket={buckets[bucket]}
-                  bucket={bucket}
-                  challengesUrl={challengesUrl}
-                  expandedTags={expandedTags}
-                  expandTag={expandTag}
-                  filterState={filterState}
-                  keepPlaceholders={keepPastPlaceholders}
-                  needLoad={needLoad}
-                  loading={loadingReviewOpportunities}
-                  loadMore={loadMoreReviewOpportunities}
-                  opportunities={reviewOpportunities}
-                  setFilterState={setFilterState}
-                  setSort={sort => setSort(bucket, sort)}
-                  sort={sorts[bucket]}
-                  challengeTypes={challengeTypes}
-                  isLoggedIn={isLoggedIn}
-                  setSearchText={setSearchText}
-                />
-              ) : (
-                <div styleName="no-results">You have no access to review page.</div>
-              )
-            }
-          </React.Fragment>
+          <ReviewOpportunityBucket
+            // bucket={buckets[bucket]}
+            bucket={bucket}
+            challengesUrl={challengesUrl}
+            expandedTags={expandedTags}
+            expandTag={expandTag}
+            filterState={filterState}
+            keepPlaceholders={keepPastPlaceholders}
+            needLoad={needLoad}
+            loading={loadingReviewOpportunities}
+            loadMore={loadMoreReviewOpportunities}
+            opportunities={reviewOpportunities}
+            setFilterState={setFilterState}
+            setSort={sort => setSort(bucket, sort)}
+            sort={sorts[bucket]}
+            challengeTypes={challengeTypes}
+            isLoggedIn={isLoggedIn}
+            setSearchText={setSearchText}
+          />
         )
         : (
           <Bucket
