@@ -7,10 +7,6 @@
 import FilterPanel from 'containers/challenge-listing/FilterPanel';
 // import moment from 'moment';
 import React from 'react';
-import {
-  BUCKET_DATA,
-} from 'utils/challenge-listing/buckets';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
 import PT from 'prop-types';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Sidebar from 'containers/challenge-listing/Sidebar';
@@ -24,7 +20,7 @@ import ChallengeTab from './ChallengeTab';
 
 import './style.scss';
 
-const Filter = challengeUtils.filter;
+// const Filter = challengeUtils.filter;
 
 // Number of challenge placeholder card to display
 // const CHALLENGE_PLACEHOLDER_COUNT = 8;
@@ -58,29 +54,9 @@ export default function ChallengeListing(props) {
     setPreviousBucketOfPastChallengesTab,
     previousBucketOfPastChallengesTab,
     previousBucketOfActiveTab,
-    reviewOpportunities,
-    filterState,
-    challengeTypes,
   } = props;
 
   // const { challenges } = props;
-
-  // const activeSort = sort || BUCKET_DATA[bucket].sorts[0];
-
-  // const sortedOpportunities = _.clone(opportunities);
-  // sortedOpportunities.sort(Sort[activeSort].func);
-
-  /* Filtering for Review Opportunities will be done entirely in the front-end
-   * which means it can be done at render, rather than in the reducer,
-   * which avoids reloading the review opportunities from server every time
-   * a filter is changed.  */
-  const filteredOpportunities = reviewOpportunities.filter(
-    Filter.getReviewOpportunitiesFilterFunction({
-      ...BUCKET_DATA.reviewOpportunities.filter, // Default bucket filters from utils/buckets.js
-      ...filterState, // User selected filters
-    }, challengeTypes),
-    // }),
-  );
 
   // if (communityFilter) {
   //   challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
@@ -199,10 +175,6 @@ export default function ChallengeListing(props) {
           <Sidebar
             expanding={expanding}
             setFilterState={props.setFilterState}
-            loadingMyChallenges={props.loadingMyChallenges}
-            loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
-            loadingReviewOpportunities={props.loadingReviewOpportunities}
-            reviewCount={filteredOpportunities.length}
           />
 
           <FilterPanel
@@ -244,7 +216,6 @@ ChallengeListing.defaultProps = {
   expandTag: null,
   loadMoreActive: null,
   expanding: false,
-  challengeTypes: [],
   // isBucketSwitching: false,
   // userChallenges: [],
 };
@@ -259,7 +230,6 @@ ChallengeListing.propTypes = {
   allChallenges: PT.arrayOf(PT.shape()).isRequired,
   pastChallenges: PT.arrayOf(PT.shape()).isRequired,
   challengesUrl: PT.string.isRequired,
-  challengeTypes: PT.arrayOf(PT.shape()),
   // communityFilter: PT.shape(),
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,

@@ -114,7 +114,7 @@ export const BUCKET_DATA = {
   [BUCKETS.REVIEW_OPPORTUNITIES]: {
     filter: {},
     // hideCount: true,
-    name: 'Review Opportunities',
+    name: 'Open for Review',
     sorts: [
       SORTS.REVIEW_OPPORTUNITIES_START_DATE,
       SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
