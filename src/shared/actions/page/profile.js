@@ -21,11 +21,11 @@ async function getGamificationBadgesInit(handle) {
  * @param {String} handle Topcoder member handle.
  * @return {Action}
  */
-async function getGamificationBadgesDone(handle) {
+async function getGamificationBadgesDone(handle, limit) {
   try {
     const memberInfo = await fetch(`${config.API.V5}/members/${handle}`)
       .then(response => response.json());
-    const badges = await fetch(`${config.API.V5}/gamification/badges/assigned/${memberInfo.userId}?organization_id=${config.GAMIFICATION.ORG_ID}`)
+    const badges = await fetch(`${config.API.V5}/gamification/badges/assigned/${memberInfo.userId}?organization_id=${config.GAMIFICATION.ORG_ID}&limit=${limit || 4}`)
       .then(response => response.json());
 
     return {

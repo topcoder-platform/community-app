@@ -167,6 +167,7 @@ module.exports = {
     SUBDOMAIN_PROFILE_CONFIG: [{
       groupId: '20000000', communityId: 'wipro', communityName: 'topgear', userProfile: 'https://topgear-app.wipro.com/user-details',
     }],
+    TIMELNE_EVENT_API: 'https://api.topcoder-dev.com/v5/timeline-wall',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -464,4 +465,8 @@ module.exports = {
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
   DICE_VERIFY_URL: 'https://accounts-auth0.topcoder-dev.com',
+  TIMELINE: {
+    REJECTION_EVENT_REASONS: ['Duplicate Event'],
+    ALLOWED_FILETYPES: ['image/jpeg', 'image/png', 'video/mp4', 'video/x-msvideo', 'video/webm'],
+  },
 };

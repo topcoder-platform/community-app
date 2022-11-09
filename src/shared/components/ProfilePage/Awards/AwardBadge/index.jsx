@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import PT from 'prop-types';
 import FallBackAwardIcon from 'assets/images/default-award.svg';
@@ -17,6 +18,7 @@ const AwardBadge = ({
     }
     <div styleName="title">
       <span>
+        {/* eslint-disable-next-line react/no-danger */}
         <div dangerouslySetInnerHTML={{ __html: title }} />
       </span>
     </div>

@@ -10,64 +10,148 @@
   padding: 0 25px !important;
 }
 
-.submitButton {
-  margin: $base-unit 0;
+.challenge-ops-container .submitButton {
+  margin: 5px;
   min-width: 0;
-  width: 100%;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
   background: #137d60 !important;
   color: #fff !important;
+  white-space: nowrap;
+  padding: 12px 24px !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
 }
 
-.submitButtonDisabled {
-  margin: $base-unit 0;
+.challenge-ops-container .submitButtonDisabled {
+  margin: 5px;
   min-width: 0;
-  width: 100%;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
+  padding: 12px 24px !important;
   color: #767676 !important;
   background: #f4f4f4 !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
 }
 
-.unregisterButton {
-  margin: $base-unit 0;
+.challenge-ops-container .unregisterButton {
+  margin: 5px;
   min-width: 0;
-  width: 100%;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
+  padding: 12px 24px !important;
   color: #137d60 !important;
-  border-color: #137d60 !important;
+  border: 2px solid #137d60 !important;
   background: #fff !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
 }
 
-.registerBtn {
-  margin: $base-unit 0;
+.challenge-ops-container .unregisterButtonDisabled {
+  margin: 5px;
   min-width: 0;
-  width: 100%;
   border-radius: 50px !important;
   height: 48px;
-  padding: 0 25px !important;
-  background-color: #137d60 !important;
+  padding: 12px 24px !important;
+  color: #767676 !important;
+  border: 2px solid #f4f4f4;
+  background: #fff !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
   }
+}
+
+.challenge-ops-container .registerBtn {
+  margin: 5px;
+  min-width: 0;
+  border-radius: 50px !important;
+  height: 48px;
+  padding: 12px 24px !important;
+  background-color: #137d60 !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.008em;
+
+  @include xs-to-sm {
+    width: fit-content;
+  }
+}
+
+.challenge-ops-container .submitButton:hover,
+.challenge-ops-container .registerBtn:hover {
+  color: #fff !important;
+  background: #219174 !important;
+  border-color: #219174 !important;
+}
+
+.challenge-ops-container .unregisterButton:hover {
+  color: #219174 !important;
+  border-color: #219174 !important;
+  background: #fff !important;
+}
+
+.challenge-ops-container .submitButton:active,
+.challenge-ops-container .registerBtn:active {
+  color: #fff !important;
+  background: #0d664e !important;
+  border-color: #0d664e !important;
+}
+
+.challenge-ops-container .unregisterButton:active {
+  outline: none !important;
+  box-shadow: none !important;
+  color: #0d664e !important;
+  border-color: #0d664e !important;
+  background: #fff !important;
+}
+
+.challenge-ops-container .submitButton:focus,
+.challenge-ops-container .submitButton:focus-within,
+.challenge-ops-container .submitButton:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #0d664e;
+}
+
+.challenge-ops-container .registerBtn:focus,
+.challenge-ops-container .registerBtn:focus-within,
+.challenge-ops-container .registerBtn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #0d664e;
+}
+
+.challenge-ops-container .unregisterButton:focus,
+.challenge-ops-container .unregisterButton:focus-within,
+.challenge-ops-container .unregisterButton:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #0d664e;
 }
 
 .challenge-ops-container {
