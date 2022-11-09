@@ -2,10 +2,12 @@
  * Gamification container
  */
 /* global analytics */
+/* eslint-disable react/no-did-update-set-state */
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SkillsNagModal from 'components/Gamification/SkillsNagModal';
+import YouGotSkillsModal from 'components/Gamification/YouGotSkillsModal';
 import { keys } from 'lodash';
 import cookies from 'browser-cookies';
 
@@ -19,13 +21,74 @@ class GamificationContainer extends React.Component {
 
     this.state = {
       showSkillsNagModal: false,
+      showYouGotSkillsModal: false,
     };
 
-    this.onCancel = this.onCancel.bind(this);
-    this.onCTA = this.onCTA.bind(this);
+    this.onSkillsNagModalCancel = this.onSkillsNagModalCancel.bind(this);
+    this.onSkillsNagModalCTA = this.onSkillsNagModalCTA.bind(this);
+    this.onYouGotSkillsModalCancel = this.onYouGotSkillsModalCancel.bind(this);
+    this.onYouGotSkillsModalCTA = this.onYouGotSkillsModalCTA.bind(this);
   }
 
-  onCTA() {
+  componentDidUpdate(prevProps) {
+    const { profile: prevProfile } = prevProps;
+    const { profile, handle } = this.props;
+    const { state } = this;
+    const now = new Date().getTime();
+    const lastNagTime = state.lastNagTime || cookies.get(`${REMIND_TIME_COOKIE_NAME}_${handle}`);
+
+    // when to show YouGotSkills modal
+    if (
+      prevProfile.addingSkill
+      && profile.addingSkill === false
+      && keys(prevProfile.skills).length < MIN_SKILLS_TO_REMIND
+      && state.showYouGotSkillsModal === false
+    ) {
+      this.setState({
+        ...state,
+        showYouGotSkillsModal: true,
+      });
+    }
+
+    // when to show the nag modal
+    if (
+      window.location.pathname !== '/settings/skills'
+      && !state.showSkillsNagModal
+      && (now - lastNagTime) > REMIND_TIME
+      && keys(profile.skills).length < MIN_SKILLS_TO_REMIND
+    ) {
+      const newNagTime = new Date().getTime();
+      this.setState({
+        showSkillsNagModal: true,
+        lastNagTime: `${newNagTime}`,
+      });
+      cookies.set(`${REMIND_TIME_COOKIE_NAME}_${handle}`, `${newNagTime}`, { expires: 7 });
+    }
+  }
+
+  onYouGotSkillsModalCTA() {
+    const { profile } = this.props;
+    const { state } = this;
+    this.setState({
+      ...state,
+      showYouGotSkillsModal: false,
+    });
+    // track the CTA event
+    analytics.track('Member clicked CTA button on YouGotSkills modal', {
+      ...profile,
+    });
+    // TODO: trigger the CTA actual action
+  }
+
+  onYouGotSkillsModalCancel() {
+    const { state } = this;
+    this.setState({
+      ...state,
+      showYouGotSkillsModal: false,
+    });
+  }
+
+  onSkillsNagModalCTA() {
     const { profile } = this.props;
     const { state } = this;
     this.setState({
@@ -40,7 +103,7 @@ class GamificationContainer extends React.Component {
     window.location = '/settings/skills';
   }
 
-  onCancel() {
+  onSkillsNagModalCancel() {
     const { profile } = this.props;
     const { state } = this;
     this.setState({
@@ -56,38 +119,36 @@ class GamificationContainer extends React.Component {
   render() {
     const { profile, handle } = this.props;
     const { state } = this;
-    const now = new Date().getTime();
 
     if (!profile || profile.skills === null) {
       // profile & member skills still loading
       return null;
     }
 
-    const lastNagTime = state.lastNagTime || cookies.get(`${REMIND_TIME_COOKIE_NAME}_${handle}`);
-    // when to show the nag modal logic
-    if (
-      window.location.pathname !== '/settings/skills'
-      && !state.showSkillsNagModal
-      && (now - lastNagTime) > REMIND_TIME
-      && keys(profile.skills).length < MIN_SKILLS_TO_REMIND
-    ) {
-      const newNagTime = new Date().getTime();
-      this.setState({
-        showSkillsNagModal: true,
-        lastNagTime: `${newNagTime}`,
-      });
-      cookies.set(`${REMIND_TIME_COOKIE_NAME}_${handle}`, `${newNagTime}`, { expires: 7 });
-    }
-
-    return state.showSkillsNagModal ? (
-      <SkillsNagModal
-        handle={handle}
-        skills={profile.skills}
-        onCancel={this.onCancel}
-        onCTA={this.onCTA}
-        MIN_SKILLS_TO_REMIND={MIN_SKILLS_TO_REMIND}
-      />
-    ) : null;
+    return (
+      <React.Fragment>
+        {
+          state.showSkillsNagModal && (
+            <SkillsNagModal
+              handle={handle}
+              skills={profile.skills}
+              onCancel={this.onSkillsNagModalCancel}
+              onCTA={this.onSkillsNagModalCTA}
+              MIN_SKILLS_TO_REMIND={MIN_SKILLS_TO_REMIND}
+            />
+          )
+        }
+        {
+          state.showYouGotSkillsModal && (
+            <YouGotSkillsModal
+              handle={handle}
+              onCancel={this.onYouGotSkillsModalCancel}
+              onCTA={this.onYouGotSkillsModalCTA}
+            />
+          )
+        }
+      </React.Fragment>
+    );
   }
 }
 
