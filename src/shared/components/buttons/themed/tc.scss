@@ -29,6 +29,13 @@
     background-color: #137d60 !important;
     box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
   }
+
+  &:disabled {
+    background-color: #f4f4f4 !important;
+    color: #767676 !important;
+    pointer-events: none;
+    border: 1px solid #f4f4f4 !important;
+  }
 }
 
 @mixin primary-white {
