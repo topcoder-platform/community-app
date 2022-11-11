@@ -37,6 +37,7 @@ function TimelineWallContainer(props) {
     userAvatars,
     pendingApprovals,
     uploading,
+    uploadResult,
   } = props;
 
   const role = 'Admin User';
@@ -199,6 +200,7 @@ function TimelineWallContainer(props) {
             getAvatar={getAvatar}
             userAvatars={userAvatars}
             uploading={uploading}
+            uploadResult={uploadResult}
             deleteEvent={deleteEvent}
           />
           <React.Fragment>
@@ -231,6 +233,7 @@ TimelineWallContainer.defaultProps = {
   isAdmin: false,
   loading: false,
   uploading: false,
+  uploadResult: '',
   events: [],
   userAvatars: {},
   pendingApprovals: [],
@@ -244,6 +247,7 @@ TimelineWallContainer.propTypes = {
   isAdmin: PT.bool,
   loading: PT.bool,
   uploading: PT.bool,
+  uploadResult: PT.string,
   events: PT.arrayOf(PT.shape()),
   loadUserDetails: PT.func.isRequired,
   createNewEvent: PT.func.isRequired,
@@ -261,6 +265,7 @@ const mapStateToProps = state => ({
   isAdmin: state.timelineWall.isAdmin,
   loading: state.timelineWall.loading,
   uploading: state.timelineWall.uploading,
+  uploadResult: state.timelineWall.uploadResult,
   events: state.timelineWall.events,
   userAvatars: state.timelineWall.userAvatars,
   pendingApprovals: state.timelineWall.pendingApprovals,

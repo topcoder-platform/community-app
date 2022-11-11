@@ -18,7 +18,7 @@ import ModalEventAdd from '../../modal-event-add';
 import style from './styles.scss';
 
 function AddEvents({
-  className, isAuthenticated, createNewEvent, isAdmin, onDoneAddEvent, uploading,
+  className, isAuthenticated, createNewEvent, isAdmin, onDoneAddEvent, uploading, uploadResult,
 }) {
   const [formData, setFormData] = useState({
     eventName: '',
@@ -197,6 +197,7 @@ function AddEvents({
             }}
             isAdmin={isAdmin}
             uploading={uploading}
+            uploadResult={uploadResult}
           />
         ) : null
       }
@@ -212,6 +213,7 @@ AddEvents.defaultProps = {
   isAuthenticated: false,
   isAdmin: false,
   uploading: false,
+  uploadResult: '',
 };
 
 /**
@@ -224,6 +226,7 @@ AddEvents.propTypes = {
   isAdmin: PT.bool,
   onDoneAddEvent: PT.func.isRequired,
   uploading: PT.bool,
+  uploadResult: PT.string,
 };
 
 export default AddEvents;
