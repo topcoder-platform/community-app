@@ -16,7 +16,7 @@ import './styles.scss';
 import { DEFAULT_AVATAR_URL } from '../../../../../utils/url';
 
 function EventItem({
-  className, isLeft, eventItem, deleteEvent, isAdmin, userAvatars,
+  className, isLeft, eventItem, deleteEvent, isAdmin, userAvatars, idPrefix,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showModalPhoto, setShowModalPhoto] = useState(false);
@@ -33,7 +33,7 @@ function EventItem({
         'color-red': eventItem.color === 'red',
         'color-purple': eventItem.color === 'purple',
       })}
-      id={moment(eventItem.eventDate).format('YYYY-MM')}
+      id={`${idPrefix}${moment(eventItem.eventDate).format('YYYY-MM')}`}
     >
       {isLeft ? null : (<div styleName="dot dot-left" />)}
       {isLeft ? null : (<IconTooltipLeft styleName="tooltip-indicator" />)}
@@ -137,6 +137,7 @@ EventItem.defaultProps = {
   },
   isAdmin: false,
   userAvatars: {},
+  idPrefix: '',
 };
 
 /**
@@ -149,6 +150,7 @@ EventItem.propTypes = {
   isAdmin: PT.bool,
   userAvatars: PT.shape(),
   deleteEvent: PT.func.isRequired,
+  idPrefix: PT.string,
 };
 
 export default EventItem;
