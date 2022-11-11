@@ -67,6 +67,7 @@ function Events({
             userAvatars={userAvatars}
             isAdmin={isAdmin}
             deleteEvent={deleteEvent}
+            idPrefix="desktop-"
           />
         ))}
       </div>
@@ -84,6 +85,7 @@ function Events({
             userAvatars={userAvatars}
             isAdmin={isAdmin}
             deleteEvent={deleteEvent}
+            idPrefix="desktop-"
           />
         ))}
       </div>
@@ -101,6 +103,7 @@ function Events({
             userAvatars={userAvatars}
             isAdmin={isAdmin}
             deleteEvent={deleteEvent}
+            idPrefix="mobile-"
           />
         ))}
       </div>

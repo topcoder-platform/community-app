@@ -42,7 +42,7 @@ function TimelineWallContainer(props) {
   const role = 'Admin User';
   const authToken = _.get(auth, 'tokenV3');
   const isMobile = useMediaQuery({
-    query: '(max-device-width: 768px)',
+    query: '(max-width: 768px)',
   });
 
   useEffect(() => {
@@ -89,7 +89,7 @@ function TimelineWallContainer(props) {
     let date = moment(`${currentYear}-${currentMonth + 1}`).format('YYYY-MM');
 
     while (!target) {
-      target = document.getElementById(`${moment(date).year()}-${(moment(date).month()).toString().padStart(2, '0')}`);
+      target = document.getElementById(`${isMobile ? 'mobile-' : 'desktop-'}${moment(date).year()}-${(moment(date).month()).toString().padStart(2, '0')}`);
 
       if (target || !moment(date).isValid() || moment(date).year() > maxYear) {
         break;
@@ -100,11 +100,7 @@ function TimelineWallContainer(props) {
     if (target) {
       const yOffset = -10;
       const coordinate = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      if (isMobile) {
-        setTimeout(target.scrollTo(), 100);
-      } else {
-        window.scrollTo({ top: coordinate, behavior: 'smooth' });
-      }
+      window.scrollTo({ top: coordinate, behavior: 'smooth' });
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
