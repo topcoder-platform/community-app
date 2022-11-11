@@ -85,10 +85,14 @@ export const createEvent = async (tokenV3, formData) => {
       },
       body: form,
     });
+    if (res.status >= 300) {
+      const result = await res.json();
+      return result.message || 'There was an error during add event.';
+    }
 
-    return res.json();
+    return '';
   } catch (error) {
-    return [];
+    return 'There was an error during add event.';
   }
 };
 

@@ -6,7 +6,11 @@ import LoadingIndicator from 'components/LoadingIndicator';
 
 import style from './styles.scss';
 
-function ModalEventAdd({ onClose, isAdmin, uploading }) {
+function ModalEventAdd({
+  onClose, isAdmin, uploading, uploadResult,
+}) {
+  const successMessage = !isAdmin ? 'Thank you! Your event was submitted for review. You’ll receive an email once the review is completed'
+    : 'Thank you! Your event was added to the Timeline Wall.';
   return (
     <Modal
       theme={{ container: style.container, overlay: style.overlay }}
@@ -22,8 +26,7 @@ function ModalEventAdd({ onClose, isAdmin, uploading }) {
         ) : (
           <span styleName="text-description">
             {
-              !isAdmin ? 'Thank you! Your event was submitted for review. You’ll receive an email once the review is completed'
-                : 'Thank you! Your event was added to the Timeline Wall.'
+              uploadResult || successMessage
             }
           </span>
         )
@@ -56,6 +59,7 @@ ModalEventAdd.defaultProps = {
   onClose: () => { },
   isAdmin: false,
   uploading: false,
+  uploadResult: '',
 };
 
 /**
@@ -65,6 +69,7 @@ ModalEventAdd.propTypes = {
   onClose: PT.func,
   isAdmin: PT.bool,
   uploading: PT.bool,
+  uploadResult: PT.string,
 };
 
 export default ModalEventAdd;

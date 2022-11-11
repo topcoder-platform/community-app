@@ -87,6 +87,7 @@ function onPendingApprovalDone(state, { payload }) {
 function onCreateNewEventInit(state) {
   return {
     ...state,
+    uploadResult: '',
     uploading: true,
   };
 }
@@ -96,9 +97,10 @@ function onCreateNewEventInit(state) {
 * @param {Object} state Previous state.
 * @param {Object} payload The payload.
 */
-function onCreateNewEventDone(state) {
+function onCreateNewEventDone(state, { payload }) {
   return {
     ...state,
+    uploadResult: payload,
     uploading: false,
   };
 }
