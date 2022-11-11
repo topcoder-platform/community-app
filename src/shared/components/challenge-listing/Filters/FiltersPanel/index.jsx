@@ -31,7 +31,7 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
+// import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
 import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
@@ -384,7 +384,7 @@ export default function FiltersPanel({
               disabled={disabled}
               expanding={expanding}
               isAuth={isAuth}
-              isReviewer={isReviewerOrAdmin(auth)}
+              // isReviewer={isReviewerOrAdmin(auth)}
               selectBucket={selectBucket}
               past={past}
               reviewCount={reviewCount}

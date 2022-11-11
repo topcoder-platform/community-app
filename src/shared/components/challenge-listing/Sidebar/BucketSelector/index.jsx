@@ -7,7 +7,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
+// import { isReviewerOrAdmin } from 'utils/challenge-listing/helper';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import Bucket from './Bucket';
@@ -36,7 +36,7 @@ export default function BucketSelector({
   // selectSavedFilter,
   // setEditSavedFiltersMode,
   past,
-  auth,
+  // auth,
   reviewCount,
   loading,
 }) {
@@ -96,7 +96,8 @@ export default function BucketSelector({
         {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
         {/* DISABLED: Until api receive fix community-app#5073 */}
         {/* {getBucket(BUCKETS.ONGOING)} */}
-        {isReviewerOrAdmin(auth) ? getBucket(BUCKETS.REVIEW_OPPORTUNITIES) : null}
+        {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
+        {/* {isReviewerOrAdmin(auth) ? getBucket(BUCKETS.REVIEW_OPPORTUNITIES) : null} */}
         {/* {getBucket(BUCKETS.PAST)} */}
         {/* NOTE: We do not show upcoming challenges for now, for various reasons,
           * more political than technical ;)
