@@ -66,7 +66,6 @@ exports[`Matches shallow shapshot 2`] = `
           disabled={false}
           expanding={false}
           isAuth={false}
-          isReviewer={false}
           loading={true}
           past={false}
           reviewCount={0}

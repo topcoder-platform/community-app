@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import moment from 'moment';
 
 /**
@@ -70,12 +70,13 @@ export const formatOrdinals = (n) => {
  *
  * @returns {Boolean}
  */
-export const isReviewerOrAdmin = (auth) => {
-  const roles = _.get(auth, 'user.roles');
-
-  if (!roles || !_.isArray(roles)) {
-    return false;
-  }
-
-  return _.intersection(roles, ['administrator', 'Reviewer', 'Gamification Admin', 'Connect Admin', 'admin']).length;
-};
+// export const isReviewerOrAdmin = (auth) => {
+//   const roles = _.get(auth, 'user.roles');
+//
+//   if (!roles || !_.isArray(roles)) {
+//     return false;
+//   }
+//
+// eslint-disable-next-line max-len
+//   return _.intersection(roles, ['administrator', 'Reviewer', 'Gamification Admin', 'Connect Admin', 'admin']).length;
+// };
