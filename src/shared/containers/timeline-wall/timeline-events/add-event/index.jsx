@@ -86,7 +86,7 @@ function AddEvents({
                     id="eventName"
                     name="eventName"
                     type="text"
-                    placeholder="In 38 characters or less, write event name here"
+                    placeholder="Enter event title"
                     onChange={(e) => {
                       setFormData({
                         ...formData,
@@ -122,7 +122,7 @@ function AddEvents({
                   id="description"
                   name="description"
                   type="text"
-                  placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself"
+                  placeholder="Tell your community about this memory"
                   onChange={(e) => {
                     setFormData({
                       ...formData,
