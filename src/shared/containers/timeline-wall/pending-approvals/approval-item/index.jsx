@@ -35,7 +35,13 @@ function ApprovalItem({
               <span styleName="text-date">{moment(event.eventDate).format('MMM DD, YYYY')}</span>
               <div styleName="separator" />
               <img width="24" height="24" src={photoURL} alt="avatar" />
-              <span styleName="text-handle">{event.createdBy}</span>
+              <a
+                href={`${window.origin}/members/${event.createdBy}`}
+                target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                rel="noopener noreferrer"
+                styleName="text-handle"
+              >{event.createdBy}
+              </a>
             </div>
             <span styleName="text-date">Submitted date: {moment(event.submitedDate).format('MMM DD, YYYY')}</span>
           </div>

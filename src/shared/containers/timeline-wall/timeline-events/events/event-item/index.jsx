@@ -84,7 +84,13 @@ function EventItem({
         <div styleName="bottom">
           <div styleName="bottom-left">
             <img width="23" height="23" src={photoURL} alt="avatar" />
-            <span styleName="text-handle">{eventItem.createdBy}</span>
+            <a
+              styleName="text-handle"
+              href={`${window.origin}/members/${eventItem.createdBy}`}
+              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+              rel="noopener noreferrer"
+            >{eventItem.createdBy}
+            </a>
             <span styleName="text-date">&nbsp;&nbsp;•&nbsp;&nbsp;{moment(eventItem.eventDate).format('MMM DD, YYYY')}</span>
           </div>
           {isAdmin ? (
