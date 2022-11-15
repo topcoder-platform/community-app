@@ -4,7 +4,7 @@ import { logger } from 'topcoder-react-lib';
 import _ from 'lodash';
 import { DEFAULT_AVATAR_URL } from '../utils/url';
 
-const baseUrl = config.URL.TIMELNE_EVENT_API;
+const baseUrl = config.URL.TIMELINE_WALL_API;
 const v5ApiUrl = config.API.V5;
 
 /**
