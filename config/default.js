@@ -465,7 +465,7 @@ module.exports = {
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
   DICE_VERIFY_URL: 'https://accounts-auth0.topcoder-dev.com',
   TIMELINE: {
-    REJECTION_EVENT_REASONS: ['Duplicate Event'],
+    REJECTION_EVENT_REASONS: ['Duplicate Event', 'Violates the Topcoder terms', 'Inaccurate or Invalid'],
     ALLOWED_FILETYPES: ['image/jpeg', 'image/png', 'video/mp4', 'video/x-msvideo', 'video/webm'],
   },
 };
