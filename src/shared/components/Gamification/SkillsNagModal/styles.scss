@@ -54,6 +54,12 @@
     strong {
       font-weight: 700;
     }
+
+    .badgeWrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
   }
 }
 
