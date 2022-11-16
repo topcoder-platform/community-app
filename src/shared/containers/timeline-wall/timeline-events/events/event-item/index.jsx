@@ -16,7 +16,7 @@ import './styles.scss';
 import { DEFAULT_AVATAR_URL } from '../../../../../utils/url';
 
 function EventItem({
-  className, isLeft, eventItem, deleteEvent, isAdmin, userAvatars,
+  className, isLeft, eventItem, deleteEvent, isAdmin, userAvatars, idPrefix,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showModalPhoto, setShowModalPhoto] = useState(false);
@@ -33,7 +33,7 @@ function EventItem({
         'color-red': eventItem.color === 'red',
         'color-purple': eventItem.color === 'purple',
       })}
-      id={moment(eventItem.eventDate).format('YYYY-MM')}
+      id={`${idPrefix}${moment(eventItem.eventDate).format('YYYY-MM')}`}
     >
       {isLeft ? null : (<div styleName="dot dot-left" />)}
       {isLeft ? null : (<IconTooltipLeft styleName="tooltip-indicator" />)}
@@ -84,7 +84,13 @@ function EventItem({
         <div styleName="bottom">
           <div styleName="bottom-left">
             <img width="23" height="23" src={photoURL} alt="avatar" />
-            <span styleName="text-handle">{eventItem.createdBy}</span>
+            <a
+              styleName="text-handle"
+              href={`${window.origin}/members/${eventItem.createdBy}`}
+              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+              rel="noopener noreferrer"
+            >{eventItem.createdBy}
+            </a>
             <span styleName="text-date">&nbsp;&nbsp;•&nbsp;&nbsp;{moment(eventItem.eventDate).format('MMM DD, YYYY')}</span>
           </div>
           {isAdmin ? (
@@ -137,6 +143,7 @@ EventItem.defaultProps = {
   },
   isAdmin: false,
   userAvatars: {},
+  idPrefix: '',
 };
 
 /**
@@ -149,6 +156,7 @@ EventItem.propTypes = {
   isAdmin: PT.bool,
   userAvatars: PT.shape(),
   deleteEvent: PT.func.isRequired,
+  idPrefix: PT.string,
 };
 
 export default EventItem;

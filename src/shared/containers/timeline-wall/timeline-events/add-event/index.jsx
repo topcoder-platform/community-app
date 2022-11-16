@@ -18,7 +18,7 @@ import ModalEventAdd from '../../modal-event-add';
 import style from './styles.scss';
 
 function AddEvents({
-  className, isAuthenticated, createNewEvent, isAdmin, onDoneAddEvent, uploading,
+  className, isAuthenticated, createNewEvent, isAdmin, onDoneAddEvent, uploading, uploadResult,
 }) {
   const [formData, setFormData] = useState({
     eventName: '',
@@ -86,7 +86,7 @@ function AddEvents({
                     id="eventName"
                     name="eventName"
                     type="text"
-                    placeholder="In 38 characters or less, write event name here"
+                    placeholder="Enter event title"
                     onChange={(e) => {
                       setFormData({
                         ...formData,
@@ -122,7 +122,7 @@ function AddEvents({
                   id="description"
                   name="description"
                   type="text"
-                  placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself"
+                  placeholder="Tell your community about this memory"
                   onChange={(e) => {
                     setFormData({
                       ...formData,
@@ -197,6 +197,7 @@ function AddEvents({
             }}
             isAdmin={isAdmin}
             uploading={uploading}
+            uploadResult={uploadResult}
           />
         ) : null
       }
@@ -212,6 +213,7 @@ AddEvents.defaultProps = {
   isAuthenticated: false,
   isAdmin: false,
   uploading: false,
+  uploadResult: '',
 };
 
 /**
@@ -224,6 +226,7 @@ AddEvents.propTypes = {
   isAdmin: PT.bool,
   onDoneAddEvent: PT.func.isRequired,
   uploading: PT.bool,
+  uploadResult: PT.string,
 };
 
 export default AddEvents;

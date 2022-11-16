@@ -60,8 +60,7 @@ function onEventsDone(state, { payload }) {
 function onPendingApprovalInit(state) {
   return {
     ...state,
-    loading: true,
-    pendingApprovals: [],
+    loadingApprovals: true,
   };
 }
 
@@ -74,7 +73,7 @@ function onPendingApprovalDone(state, { payload }) {
   const approvals = _.isArray(payload) ? payload : [];
   return {
     ...state,
-    loading: false,
+    loadingApprovals: false,
     pendingApprovals: approvals,
   };
 }
@@ -87,6 +86,7 @@ function onPendingApprovalDone(state, { payload }) {
 function onCreateNewEventInit(state) {
   return {
     ...state,
+    uploadResult: '',
     uploading: true,
   };
 }
@@ -96,9 +96,10 @@ function onCreateNewEventInit(state) {
 * @param {Object} state Previous state.
 * @param {Object} payload The payload.
 */
-function onCreateNewEventDone(state) {
+function onCreateNewEventDone(state, { payload }) {
   return {
     ...state,
+    uploadResult: payload,
     uploading: false,
   };
 }

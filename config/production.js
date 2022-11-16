@@ -62,7 +62,7 @@ module.exports = {
     },
     EMAIL_VERIFY_URL: 'http://www.topcoder.com/settings/account/changeEmail',
     THRIVE_FEED: 'https://topcoder.com/api/feeds/thrive',
-    TIMELNE_EVENT_API: 'https://api.topcoder.com/v5/timeline-wall',
+    TIMELINE_WALL_API: 'https://api.topcoder.com/v5/timeline-wall',
   },
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */
