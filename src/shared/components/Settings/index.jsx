@@ -16,7 +16,6 @@ import Tools from './Tools';
 import './style.scss';
 import Account from './Account';
 import Preferences from './Preferences';
-import Payment from './Payment';
 import TabSelector from './TabSelector';
 import { SETTINGS_TABS } from './constants';
 
@@ -141,20 +140,10 @@ export default function Settings(props) {
             />
           )
         }
-        {
-          newProps.settingsTab === TABS.PAYMENT
-          && (
-            <Payment handle={newProps.handle} />
-          )
-        }
       </div>
     </div>
   );
 }
-
-Settings.defaultProps = {
-  handle: '',
-};
 
 Settings.propTypes = {
   settingsTab: PT.string.isRequired,
@@ -162,5 +151,4 @@ Settings.propTypes = {
   settingsPageState: PT.shape().isRequired,
   history: PT.shape().isRequired,
   selectTab: PT.func.isRequired,
-  handle: PT.string,
 };
