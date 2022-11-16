@@ -8,11 +8,12 @@
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
+import cn from 'classnames';
 import style from './styles.scss';
 
-const LoadingIndicator = ({ theme }) => (
+const LoadingIndicator = ({ theme, className }) => (
   <svg
-    className={theme.container}
+    className={cn(theme.container, className)}
     viewBox="0 0 64 64"
   >
     <circle
@@ -32,8 +33,13 @@ const LoadingIndicator = ({ theme }) => (
   </svg>
 );
 
+LoadingIndicator.defaultProps = {
+  className: '',
+};
+
 LoadingIndicator.propTypes = {
   theme: PT.shape().isRequired,
+  className: PT.string,
 };
 
 export default themr('LoadingIndicator', style)(LoadingIndicator);

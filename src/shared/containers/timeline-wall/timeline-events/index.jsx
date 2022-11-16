@@ -22,6 +22,7 @@ function TimelineEvents({
   userAvatars,
   onDoneAddEvent,
   uploading,
+  uploadResult,
   deleteEvent,
 }) {
   return (
@@ -34,6 +35,7 @@ function TimelineEvents({
           isAdmin={isAdmin}
           onDoneAddEvent={onDoneAddEvent}
           uploading={uploading}
+          uploadResult={uploadResult}
         />
         {events.length ? (
           <Events
@@ -94,6 +96,7 @@ TimelineEvents.defaultProps = {
   isAdmin: false,
   userAvatars: {},
   uploading: false,
+  uploadResult: '',
 };
 
 /**
@@ -114,6 +117,7 @@ TimelineEvents.propTypes = {
   onDoneAddEvent: PT.func.isRequired,
   userAvatars: PT.shape(),
   uploading: PT.bool,
+  uploadResult: PT.string,
   deleteEvent: PT.func.isRequired,
 };
 
