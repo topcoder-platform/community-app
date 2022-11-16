@@ -467,5 +467,6 @@ module.exports = {
   TIMELINE: {
     REJECTION_EVENT_REASONS: ['Duplicate Event', 'Violates the Topcoder terms', 'Inaccurate or Invalid'],
     ALLOWED_FILETYPES: ['image/jpeg', 'image/png', 'video/mp4', 'video/x-msvideo', 'video/webm'],
+    FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL: 5 * 60 * 1000, // 5 minutes
   },
 };
