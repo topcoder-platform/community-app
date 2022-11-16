@@ -42,6 +42,7 @@ class GamificationContainer extends React.Component {
       prevProfile.addingSkill
       && profile.addingSkill === false
       && keys(prevProfile.skills).length < MIN_SKILLS_TO_REMIND
+      && keys(profile.skills).length >= MIN_SKILLS_TO_REMIND
       && state.showYouGotSkillsModal === false
     ) {
       this.setState({
