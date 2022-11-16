@@ -370,7 +370,7 @@ workflows:
           filters:
             branches:
               only:
-                - game-wrap-ups
+                - GAME-47
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
