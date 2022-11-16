@@ -26,13 +26,14 @@ const SkillsNagModal = ({
       </div>
 
       <div styleName="description">
+
         <span>
           {/* eslint-disable-next-line max-len */}
           Hey <strong>{handle}</strong>, we have detected you have only {keys(skills).length} skill[s] added to your profile. In order to match for opportunities at Topcoder, please add at least <strong>{MIN_SKILLS_TO_REMIND} skills</strong> to your profile.
         </span>
       </div>
 
-      <div>
+      <div styleName="actionButtons">
         <button type="button" styleName="primaryBtn" onClick={onCTA}>
           Update Your Skills
         </button>

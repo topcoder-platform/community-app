@@ -67,7 +67,7 @@ class GamificationContainer extends React.Component {
   }
 
   onYouGotSkillsModalCTA() {
-    const { profile } = this.props;
+    const { profile, handle } = this.props;
     const { state } = this;
     this.setState({
       ...state,
@@ -77,7 +77,8 @@ class GamificationContainer extends React.Component {
     analytics.track('Member clicked CTA button on YouGotSkills modal', {
       ...profile,
     });
-    // TODO: trigger the CTA actual action
+    // Send them to profile page
+    window.location = `/members/${handle}`;
   }
 
   onYouGotSkillsModalCancel() {
