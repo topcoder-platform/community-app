@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {
+  useState, useEffect, useRef, useMemo,
+} from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import TopBanner from 'assets/images/timeline-wall/top-banner.png';
@@ -10,6 +12,7 @@ import cn from 'classnames';
 import moment from 'moment';
 import { useMediaQuery } from 'react-responsive';
 import _ from 'lodash';
+import { config } from 'topcoder-react-utils';
 import timelineActions from 'actions/timelineWall';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TimelineEvents from './timeline-events';
@@ -17,8 +20,11 @@ import PendingApprovals from './pending-approvals';
 
 import './styles.scss';
 
+
+const FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL = _.get(config, 'TIMELINE.FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL', 0);
 function TimelineWallContainer(props) {
   const [tab, setTab] = useState(0);
+  const fetchingApprovalsInterval = useRef(null);
   const [showRightFilterMobile, setShowRightFilterMobile] = useState(false);
   const [selectedFilterValue, setSelectedFilterValue] = useState({
     year: 0,
@@ -37,6 +43,7 @@ function TimelineWallContainer(props) {
     getAvatar,
     userAvatars,
     pendingApprovals,
+    loadingApprovals,
     uploading,
     uploadResult,
   } = props;
@@ -56,9 +63,25 @@ function TimelineWallContainer(props) {
   }, []);
 
   useEffect(() => {
-    if (authToken && isAdmin && !pendingApprovals.length) {
-      getPendingApprovals(authToken);
+    if (fetchingApprovalsInterval.current) {
+      clearInterval(fetchingApprovalsInterval.current);
+      fetchingApprovalsInterval.current = null;
     }
+    if (authToken && isAdmin) {
+      getPendingApprovals(authToken);
+      if (FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL) {
+        fetchingApprovalsInterval.current = setInterval(() => {
+          getPendingApprovals(authToken);
+        }, FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL);
+      }
+    }
+
+    return () => {
+      if (fetchingApprovalsInterval.current) {
+        clearInterval(fetchingApprovalsInterval.current);
+        fetchingApprovalsInterval.current = null;
+      }
+    };
   }, [isAdmin]);
 
   useEffect(() => {
@@ -73,7 +96,7 @@ function TimelineWallContainer(props) {
   }, [events]);
 
   useEffect(() => {
-    if ((pendingApprovals || []).length) {
+    if (pendingApprovals.length) {
       _.uniqBy(pendingApprovals, 'createdBy').forEach((eventItem) => {
         const photoURL = _.get(userAvatars, eventItem.createdBy);
         if (!photoURL) {
@@ -229,8 +252,10 @@ function TimelineWallContainer(props) {
           />
           <React.Fragment>
             {
-              loading ? (
-                <LoadingIndicator />
+              loadingApprovals ? (
+                <LoadingIndicator
+                  styleName={cn({ hide: tab === 0 })}
+                />
               ) : (
                 <PendingApprovals
                   events={pendingApprovals}
@@ -256,6 +281,7 @@ TimelineWallContainer.defaultProps = {
   auth: null,
   isAdmin: false,
   loading: false,
+  loadingApprovals: false,
   uploading: false,
   uploadResult: '',
   events: [],
@@ -270,6 +296,7 @@ TimelineWallContainer.propTypes = {
   auth: PT.shape(),
   isAdmin: PT.bool,
   loading: PT.bool,
+  loadingApprovals: PT.bool,
   uploading: PT.bool,
   uploadResult: PT.string,
   events: PT.arrayOf(PT.shape()),
@@ -288,11 +315,13 @@ const mapStateToProps = state => ({
   },
   isAdmin: state.timelineWall.isAdmin,
   loading: state.timelineWall.loading,
+  loadingApprovals: state.timelineWall.loadingApprovals
+    && !(state.timelineWall.pendingApprovals || []).length,
   uploading: state.timelineWall.uploading,
   uploadResult: state.timelineWall.uploadResult,
   events: state.timelineWall.events,
   userAvatars: state.timelineWall.userAvatars,
-  pendingApprovals: state.timelineWall.pendingApprovals,
+  pendingApprovals: state.timelineWall.pendingApprovals || [],
 });
 
 function mapDispatchToProps(dispatch) {

@@ -60,8 +60,7 @@ function onEventsDone(state, { payload }) {
 function onPendingApprovalInit(state) {
   return {
     ...state,
-    loading: true,
-    pendingApprovals: [],
+    loadingApprovals: true,
   };
 }
 
@@ -74,7 +73,7 @@ function onPendingApprovalDone(state, { payload }) {
   const approvals = _.isArray(payload) ? payload : [];
   return {
     ...state,
-    loading: false,
+    loadingApprovals: false,
     pendingApprovals: approvals,
   };
 }
