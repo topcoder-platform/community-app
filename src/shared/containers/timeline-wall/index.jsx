@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import TopBanner from 'assets/images/timeline-wall/top-banner.png';
 import TopBannerMobile from 'assets/images/timeline-wall/top-banner-mobile.png';
 import IconCheveronDownBlue from 'assets/images/timeline-wall/cheveron-down-blue.svg';
+import IconArrowRight from 'assets/images/timeline-wall/icon-arrow-right.svg';
 import { deleteEventById, approveEventById, rejectEventById } from 'services/timelineWall';
 import cn from 'classnames';
 import moment from 'moment';
@@ -134,10 +135,23 @@ function TimelineWallContainer(props) {
   };
 
   const sortedEvents = _.orderBy(events, ['eventDate'], ['desc']);
+  const shouldShowDiscuss = useMemo(() => {
+    if (tab !== 0) {
+      return false;
+    }
+    if (isAdmin) {
+      return !isMobile;
+    }
+    return true;
+  }, [isAdmin, isMobile, tab]);
 
   return (
     <div styleName="container">
-      <div styleName={isAdmin ? 'header header-admin' : 'header'}>
+      <div styleName={cn('header', {
+        'header-admin': isAdmin,
+        'header-with-discuss': shouldShowDiscuss,
+      })}
+      >
         <img src={TopBanner} alt="top-banner" styleName="header-bg hide-mobile" />
         <img src={TopBannerMobile} alt="top-banner" styleName="header-bg hide-desktop show-mobile" />
 
@@ -166,6 +180,16 @@ function TimelineWallContainer(props) {
             </button>
           </div>
         ) : (<h1 styleName="header-content-1">Topcoder Timeline Wall</h1>)}
+
+        {shouldShowDiscuss ? (
+          <button
+            type="button"
+            styleName="btn-discuss"
+          >
+            <span>DISCUSS</span>
+            <IconArrowRight />
+          </button>
+        ) : null}
 
         <button
           onClick={() => {
