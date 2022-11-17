@@ -22,6 +22,7 @@ class GamificationContainer extends React.Component {
     this.state = {
       showSkillsNagModal: false,
       showYouGotSkillsModal: false,
+      lastNagTime: cookies.get(`${REMIND_TIME_COOKIE_NAME}_${props.handle}`),
     };
 
     this.onSkillsNagModalCancel = this.onSkillsNagModalCancel.bind(this);
@@ -34,14 +35,17 @@ class GamificationContainer extends React.Component {
     const { profile: prevProfile } = prevProps;
     const { profile, handle } = this.props;
     const { state } = this;
+    const { lastNagTime } = state;
     const now = new Date().getTime();
-    const lastNagTime = state.lastNagTime || cookies.get(`${REMIND_TIME_COOKIE_NAME}_${handle}`);
 
     // when to show YouGotSkills modal
     if (
-      prevProfile.skills !== null
+      prevProfile
+      && prevProfile.skills !== null
+      && profile
+      && profile.skills !== null
       && keys(prevProfile.skills).length < MIN_SKILLS_TO_REMIND
-      && keys(profile.skills || {}).length >= MIN_SKILLS_TO_REMIND
+      && keys(profile.skills).length >= MIN_SKILLS_TO_REMIND
       && state.showYouGotSkillsModal === false
     ) {
       this.setState({
@@ -55,15 +59,15 @@ class GamificationContainer extends React.Component {
       window.location.pathname !== '/settings/skills'
       && !state.showSkillsNagModal
       && (now - lastNagTime) > REMIND_TIME
+      && profile
       && profile.skills !== null
       && keys(profile.skills).length < MIN_SKILLS_TO_REMIND
     ) {
-      const newNagTime = new Date().getTime();
       this.setState({
         showSkillsNagModal: true,
-        lastNagTime: `${newNagTime}`,
+        lastNagTime: `${now}`,
       });
-      cookies.set(`${REMIND_TIME_COOKIE_NAME}_${handle}`, `${newNagTime}`, { expires: 7 });
+      cookies.set(`${REMIND_TIME_COOKIE_NAME}_${handle}`, `${now}`, { expires: 7 });
     }
   }
 
@@ -122,8 +126,7 @@ class GamificationContainer extends React.Component {
     const { profile, handle } = this.props;
     const { state } = this;
 
-    if (!profile || profile.skills === null) {
-      // profile & member skills still loading
+    if (!profile) {
       return null;
     }
 
@@ -166,7 +169,14 @@ GamificationContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile,
+    profile: (
+      state.auth
+      && state.auth.user
+      && (
+        !state.profile.profileForHandle
+        || state.profile.profileForHandle === state.auth.user.handle
+      ))
+      ? state.profile : null,
     handle: state.auth && state.auth.user ? state.auth.user.handle : null,
   };
 }
