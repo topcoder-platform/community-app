@@ -55,7 +55,8 @@ class GamificationContainer extends React.Component {
       window.location.pathname !== '/settings/skills'
       && !state.showSkillsNagModal
       && (now - lastNagTime) > REMIND_TIME
-      && keys(profile.skills || {}).length < MIN_SKILLS_TO_REMIND
+      && profile.skills !== null
+      && keys(profile.skills).length < MIN_SKILLS_TO_REMIND
     ) {
       const newNagTime = new Date().getTime();
       this.setState({
