@@ -6,7 +6,7 @@ import IconClose from 'assets/images/icon-close-green.svg';
 import style from './styles.scss';
 
 const YouGotSkillsModal = ({
-  handle,
+  MIN_SKILLS_TO_REMIND,
   onCancel,
   onCTA,
 }) => (
@@ -15,7 +15,7 @@ const YouGotSkillsModal = ({
 
       <div styleName="header">
         <div styleName="title">
-          <span>Well done!</span>
+          <span>YOU’VE GOT SKILLS!</span>
         </div>
         <div styleName="icon" role="presentation" onClick={onCancel}>
           <IconClose />
@@ -125,7 +125,7 @@ const YouGotSkillsModal = ({
         </div>
         <span>
           {/* eslint-disable-next-line max-len */}
-          Congrats <strong>{handle}</strong>, by having 5 or more skills associated to your profile, not only will you have a more curated experience here at Topcoder, but you will also be presented with more opportunities.
+          By having <strong>{MIN_SKILLS_TO_REMIND} or more skills</strong> associated with your profile, not only will you have a more curated experience here at Topcoder, but you will also be presented with more opportunities that align with your strengths and interests.
         </span>
       </div>
 
@@ -140,7 +140,7 @@ const YouGotSkillsModal = ({
 );
 
 YouGotSkillsModal.propTypes = {
-  handle: PT.string.isRequired,
+  MIN_SKILLS_TO_REMIND: PT.number.isRequired,
   onCancel: PT.func.isRequired,
   onCTA: PT.func.isRequired,
 };

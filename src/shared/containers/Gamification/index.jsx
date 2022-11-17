@@ -39,10 +39,9 @@ class GamificationContainer extends React.Component {
 
     // when to show YouGotSkills modal
     if (
-      prevProfile.addingSkill
-      && profile.addingSkill === false
+      prevProfile.skills !== null
       && keys(prevProfile.skills).length < MIN_SKILLS_TO_REMIND
-      && keys(profile.skills).length >= MIN_SKILLS_TO_REMIND
+      && keys(profile.skills || {}).length >= MIN_SKILLS_TO_REMIND
       && state.showYouGotSkillsModal === false
     ) {
       this.setState({
@@ -56,7 +55,7 @@ class GamificationContainer extends React.Component {
       window.location.pathname !== '/settings/skills'
       && !state.showSkillsNagModal
       && (now - lastNagTime) > REMIND_TIME
-      && keys(profile.skills).length < MIN_SKILLS_TO_REMIND
+      && keys(profile.skills || {}).length < MIN_SKILLS_TO_REMIND
     ) {
       const newNagTime = new Date().getTime();
       this.setState({
@@ -143,7 +142,7 @@ class GamificationContainer extends React.Component {
         {
           state.showYouGotSkillsModal && (
             <YouGotSkillsModal
-              handle={handle}
+              MIN_SKILLS_TO_REMIND={MIN_SKILLS_TO_REMIND}
               onCancel={this.onYouGotSkillsModalCancel}
               onCTA={this.onYouGotSkillsModalCTA}
             />

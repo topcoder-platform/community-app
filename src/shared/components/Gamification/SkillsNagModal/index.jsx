@@ -6,6 +6,21 @@ import { keys } from 'lodash';
 import IconClose from 'assets/images/icon-close-green.svg';
 import style from './styles.scss';
 
+const skillCountStatement = (count) => {
+  let statement = '';
+  switch (count) {
+    case 0:
+      statement = 'don’t have any skills';
+      break;
+    case 1:
+      statement = 'only have 1 skill';
+      break;
+    default:
+      statement = `only have ${count} skills`;
+  }
+  return statement;
+};
+
 const SkillsNagModal = ({
   handle,
   skills,
@@ -123,7 +138,7 @@ const SkillsNagModal = ({
         </div>
         <span>
           {/* eslint-disable-next-line max-len */}
-          Hey <strong>{handle}</strong>, we have detected you have only {keys(skills).length} skill[s] added to your profile. In order to match for opportunities at Topcoder, please add at least <strong>{MIN_SKILLS_TO_REMIND} skills</strong> to your profile.
+          Hey <strong>{handle}</strong>, we have noticed that you {skillCountStatement(keys(skills).length)} added to your profile. To be able to match you with the best opportunities at Topcoder, please add at least <strong>{MIN_SKILLS_TO_REMIND} skills</strong> to your profile as soon as you can.
         </span>
       </div>
 
