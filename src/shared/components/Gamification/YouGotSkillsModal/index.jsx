@@ -131,7 +131,7 @@ const YouGotSkillsModal = ({
 
       <div styleName="actionButtons">
         <button type="button" styleName="primaryBtn" onClick={onCTA}>
-          Go to profile
+          Go to your public profile
         </button>
       </div>
 
