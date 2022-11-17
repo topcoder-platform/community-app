@@ -65,6 +65,7 @@ exports[`Matches shallow shapshot 2`] = `
         Joining...
       </span>
       <ThemedLoadingIndicator
+        className=""
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
         mapThemrProps={[Function]}

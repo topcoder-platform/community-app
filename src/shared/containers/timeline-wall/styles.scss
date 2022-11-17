@@ -17,10 +17,16 @@
   @media (max-width: 768px) {
     min-height: 190px;
   }
-}
 
-.header-admin {
-  min-height: 207px;
+  &.header-with-discuss {
+    @media (max-width: 768px) {
+      min-height: 214px;
+    }
+  }
+
+  &.header-admin {
+    min-height: 207px;
+  }
 }
 
 .header-content-1 {
@@ -66,6 +72,40 @@
 
 .hide {
   display: none !important;
+}
+
+.btn-discuss {
+  margin-top: 11px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 33px;
+  left: 1408px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: white;
+
+  @media (max-width: 1500px) {
+    left: unset;
+    right: 0;
+  }
+
+  @media (max-width: 768px) {
+    position: relative;
+    right: unset;
+    top: 0;
+    margin-left: 27px;
+  }
+
+  span {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    margin-right: 4px;
+  }
 }
 
 .tab-item {
