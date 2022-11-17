@@ -86,6 +86,10 @@
   border: none;
   color: white;
 
+  &:hover {
+    color: white;
+  }
+
   @media (max-width: 1500px) {
     left: unset;
     right: 0;

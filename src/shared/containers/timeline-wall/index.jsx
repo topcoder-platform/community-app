@@ -22,6 +22,7 @@ import './styles.scss';
 
 
 const FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL = _.get(config, 'TIMELINE.FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL', 0);
+const FORUM_LINK = _.get(config, 'TIMELINE.FORUM_LINK', '');
 function TimelineWallContainer(props) {
   const [tab, setTab] = useState(0);
   const fetchingApprovalsInterval = useRef(null);
@@ -205,13 +206,14 @@ function TimelineWallContainer(props) {
         ) : (<h1 styleName="header-content-1">Topcoder Timeline Wall</h1>)}
 
         {shouldShowDiscuss ? (
-          <button
+          <a
             type="button"
             styleName="btn-discuss"
+            href={FORUM_LINK}
           >
             <span>DISCUSS</span>
             <IconArrowRight />
-          </button>
+          </a>
         ) : null}
 
         <button
