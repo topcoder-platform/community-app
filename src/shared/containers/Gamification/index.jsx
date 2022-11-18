@@ -34,7 +34,7 @@ class GamificationContainer extends React.Component {
   componentDidMount() {
     const { auth, loadSkills } = this.props;
 
-    if (auth.user.handle && auth.tokenV3) {
+    if (auth.tokenV3 && auth.user.handle) {
       loadSkills(auth.user.handle);
     }
   }
