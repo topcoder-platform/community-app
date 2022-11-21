@@ -33,7 +33,7 @@ const SkillsNagModal = ({
 
       <div styleName="header">
         <div styleName="title">
-          <span>Profile Skills Reminder</span>
+          <span>UPDATE PROFILE SKILLS</span>
         </div>
         <div styleName="icon" role="presentation" onClick={onCancel}>
           <IconClose />
@@ -138,7 +138,7 @@ const SkillsNagModal = ({
         </div>
         <span>
           {/* eslint-disable-next-line max-len */}
-          Hey <strong>{handle}</strong>, we have noticed that you {skillCountStatement(keys(skills).length)} added to your profile. To be able to match you with the best opportunities at Topcoder, please add at least <strong>{MIN_SKILLS_TO_REMIND} skills</strong> to your profile as soon as you can.
+          Hey <strong>{handle}</strong>, we have noticed that you {skillCountStatement(keys(skills).length)} added to your profile. To be able to match you with the best opportunities at Topcoder, please add skills to that you have at least <strong>{MIN_SKILLS_TO_REMIND} skills</strong> listed in your profile.
         </span>
       </div>
 
