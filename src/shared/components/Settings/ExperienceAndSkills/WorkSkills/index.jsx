@@ -16,7 +16,7 @@ export default class WorkSkills extends React.Component {
   render() {
     return (
       <div styleName="workSkills">
-        <h2 styleName="title">Skills</h2>
+        <h2 styleName="title">About You</h2>
         <Skills
           {...this.props}
           ref={this.skillsRef}

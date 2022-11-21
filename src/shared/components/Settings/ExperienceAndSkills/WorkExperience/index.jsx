@@ -431,7 +431,7 @@ export default class Work extends ConsentComponent {
               <div styleName="form-title">
                 {
                   isEdit ? (<React.Fragment>Edit workplace</React.Fragment>)
-                    : (<React.Fragment>Add a new workplace</React.Fragment>)
+                    : (<React.Fragment>Jobs</React.Fragment>)
                 }
               </div>
               {
@@ -567,7 +567,7 @@ export default class Work extends ConsentComponent {
                     theme={{ button: styles.button }}
                     onClick={this.onHandleAddWork}
                   >
-                    <AddItemIcon styleName="icon" /> Add Another Job
+                    <AddItemIcon styleName="icon" /> Add Job
                   </PrimaryButton>
                 )}
 

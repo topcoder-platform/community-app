@@ -51,6 +51,17 @@
   background-color: $color-tc-white;
 }
 
+.title-wrap {
+  display: flex;
+  padding-bottom: 12px;
+
+  p {
+    @include roboto-regular;
+
+    line-height: 26px;
+  }
+}
+
 .form-title {
   @include barlow-semi-bold;
 
@@ -58,7 +69,7 @@
   line-height: 22px;
   color: inherit;
   text-transform: uppercase;
-  padding-bottom: $pad-xxxxl;
+  margin-right: 32px;
 }
 
 .form-content {
@@ -125,12 +136,18 @@
     padding: $pad-xxl $pad-lg;
   }
 
+  .title-wrap {
+    p {
+      font-size: 14px;
+      line-height: 24px;
+    }
+  }
+
   .form-title {
     @include barlow-condensed-medium;
 
     font-size: 22px;
     line-height: 24px;
-    padding-bottom: $pad-xxl;
   }
 
   .form-content {
