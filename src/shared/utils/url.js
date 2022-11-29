@@ -6,7 +6,7 @@
 
 import _ from 'lodash';
 import qs from 'qs';
-import { isomorphy } from 'topcoder-react-utils';
+import { isomorphy, config } from 'topcoder-react-utils';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 /**
@@ -121,6 +121,27 @@ export function removeTrailingSlash(url) {
   return url.charAt(url.length - 1) === '/'
     ? url.slice(0, -1)
     : url;
+}
+
+/**
+ * Get Payment page url from header menu.
+ *
+ * @return {String}
+ */
+export function getPaymentPageUrl() {
+  const headerMenu = config.HEADER_MENU || [];
+  const communityMenu = headerMenu.filter(item => item.id === 'community');
+
+  if (communityMenu && communityMenu.length) {
+    const { secondaryMenu = [] } = communityMenu[0];
+    const paymentLink = secondaryMenu.filter(item => item.title === 'Payments');
+
+    if (paymentLink && paymentLink.length) {
+      return paymentLink[0].href;
+    }
+  }
+
+  return '';
 }
 
 export function isImage(url) {
