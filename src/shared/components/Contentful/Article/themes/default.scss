@@ -569,24 +569,6 @@
           position: absolute;
           width: 0;
           height: 0;
-
-          /* stylelint-disable */
-          > clippath {
-            transform: translate(445px, 0) scaleX(-1);
-
-            @media screen and (max-width: 425px) and (min-width: 375px) {
-              transform: translate(380px, 0) scaleX(-1);
-            }
-
-            @media screen and (max-width: 375px) and (min-width: 320px) {
-              transform: translate(330px, 0) scaleX(-1);
-            }
-
-            @media screen and (max-width: 320px) {
-              transform: translate(275px, 0) scaleX(-1);
-            }
-          }
-          /* stylelint-enable */
         }
 
         .bannerClippedImageHolder {
