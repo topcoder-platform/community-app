@@ -20,6 +20,7 @@ function ErrorMessageContainer({ error, clearError }) {
           <ErrorMessage
             title={error.title}
             details={error.details}
+            support={error.support}
             onOk={() => clearError()}
           />
         ) : undefined }
@@ -42,6 +43,7 @@ ErrorMessageContainer.propTypes = {
   error: PT.shape({
     title: PT.string.isRequired,
     details: PT.string.isRequired,
+    support: PT.string.isRequired,
   }),
 };
 

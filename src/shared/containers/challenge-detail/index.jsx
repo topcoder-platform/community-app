@@ -192,6 +192,8 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       getAllCountries,
       getReviewTypes,
+      setCommunityId,
+      communityId,
     } = this.props;
 
     if (
@@ -218,6 +220,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     ) {
       loadChallengeDetails(auth, challengeId);
+    }
+
+    if (communityId) {
+      setCommunityId(communityId);
     }
 
     fetchChallengeStatistics(auth, challengeId);
@@ -747,6 +753,7 @@ ChallengeDetailPageContainer.propTypes = {
   loadChallengeDetails: PT.func.isRequired,
   fetchChallengeStatistics: PT.func.isRequired,
   getAllCountries: PT.func.isRequired,
+  setCommunityId: PT.func.isRequired,
   getReviewTypes: PT.func.isRequired,
   // loadResults: PT.func.isRequired,
   // loadingCheckpointResults: PT.bool,
@@ -919,6 +926,10 @@ const mapDispatchToProps = (dispatch) => {
       const uuid = shortId();
       dispatch(ca.getListInit(uuid));
       dispatch(ca.getListDone(uuid, auth));
+    },
+    setCommunityId: (communityId) => {
+      const a = actions.challenge;
+      dispatch(a.setCommunityId(communityId));
     },
     getAllCountries: (tokenV3) => {
       dispatch(lookupActions.getAllCountriesInit());
