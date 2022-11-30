@@ -399,31 +399,7 @@ export default class Skills extends ConsentComponent {
                   disabled={!canModifyTrait}
                   theme={{ button: styles['button-add'] }}
                 >
-                  <AddItemIcon styleName="icon" /> Add Design / UX Skills
-                </PrimaryButton>
-
-                <PrimaryButton
-                  onClick={() => this.setState({ showAddSkillsModal: 'develop' })}
-                  disabled={!canModifyTrait}
-                  theme={{ button: styles['button-add'] }}
-                >
-                  <AddItemIcon styleName="icon" /> Add Developer Skills
-                </PrimaryButton>
-
-                <PrimaryButton
-                  onClick={() => this.setState({ showAddSkillsModal: 'data_science' })}
-                  disabled={!canModifyTrait}
-                  theme={{ button: styles['button-add'] }}
-                >
-                  <AddItemIcon styleName="icon" /> Add Data Science Skills
-                </PrimaryButton>
-
-                <PrimaryButton
-                  onClick={() => this.setState({ showAddSkillsModal: 'qa' })}
-                  disabled={!canModifyTrait}
-                  theme={{ button: styles['button-add'] }}
-                >
-                  <AddItemIcon styleName="icon" /> Add QA Skills
+                  <AddItemIcon styleName="icon" /> Add Skills
                 </PrimaryButton>
               </div>
             </div>
