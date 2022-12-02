@@ -55,6 +55,7 @@
   border-bottom-left-radius: 8px;
   padding: 10px 0;
   position: sticky;
+  margin-bottom: 80px;
   top: 0;
   max-height: 70%;
   overflow: scroll;
@@ -73,6 +74,7 @@
     border-radius: 0;
     width: calc(100% - 10px);
     position: relative;
+    margin-bottom: unset;
   }
 
   span {
