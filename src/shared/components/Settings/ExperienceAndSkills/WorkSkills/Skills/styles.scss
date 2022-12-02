@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import "~styles/mixins";
 
 .skillList {
@@ -92,6 +93,8 @@
 
 .form-body {
   flex: 0 0 calc(50% + 13px);
+  display: flex;
+  flex-direction: column;
 }
 
 .form-footer {
@@ -128,6 +131,30 @@
     .icon {
       margin-right: $margin-xs;
     }
+  }
+}
+
+.skill-note {
+  display: flex;
+  background-color: $color-black-5;
+  padding: $pad-md $pad-lg;
+  border-radius: 4px;
+  margin-bottom: $pad-lg;
+
+  svg {
+    margin-right: $margin-md;
+    min-width: 24px;
+  }
+
+  p,
+  span {
+    @include roboto-medium;
+
+    line-height: 24px;
+  }
+
+  span {
+    color: $color-turq-160;
   }
 }
 
@@ -176,6 +203,16 @@
 
     .button-add {
       padding: $pad-sm 0;
+    }
+  }
+}
+
+@include xs-to-sm {
+  .skill-note {
+    flex-direction: column;
+
+    svg {
+      margin-bottom: $margin-md;
     }
   }
 }

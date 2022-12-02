@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * Child component of Settings/Profile renders "Skills" section of profile setting page.
  */
@@ -375,12 +376,7 @@ export default class Skills extends ConsentComponent {
             <div styleName="title-wrap" style={{ alignItems: userSkills.length >= MIN_SKILLS_TO_REMIND ? 'center' : 'flex-start' }}>
               <h2 styleName="form-title">Skills</h2>
               {
-                userSkills.length < MIN_SKILLS_TO_REMIND ? (
-                  // eslint-disable-next-line max-len
-                  <p>To be able to match you with the best opportunities at Topcoder,<br />please be sure you have at least {MIN_SKILLS_TO_REMIND} skills listed in your profile.</p>
-                ) : (
-                  <YouGotSkillsBadge />
-                )
+                userSkills.length >= MIN_SKILLS_TO_REMIND && <YouGotSkillsBadge />
               }
             </div>
 
@@ -390,6 +386,27 @@ export default class Skills extends ConsentComponent {
               </div>
 
               <div styleName="form-body">
+                {
+                  userSkills.length < MIN_SKILLS_TO_REMIND && (
+                    <div styleName="skill-note">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#137D60"
+                          fillRule="evenodd"
+                          d="M12 4a8 8 0 100 16 8 8 0 000-16zM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12zm9-4a1 1 0 011-1h.01a1 1 0 110 2H12a1 1 0 01-1-1zm-1 4a1 1 0 011-1h1a1 1 0 011 1v3a1 1 0 110 2h-1a1 1 0 01-1-1v-3a1 1 0 01-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <p>To be able to match you with the best opportunities at Topcoder, please be sure you have at least <span>{MIN_SKILLS_TO_REMIND} skills</span> listed in your profile.</p>
+                    </div>
+                  )
+                }
                 {skillList}
               </div>
 
