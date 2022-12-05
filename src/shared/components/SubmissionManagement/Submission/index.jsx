@@ -28,7 +28,7 @@ import './styles.scss';
 
 export const Sprig = sprig.configure({
   environmentId: 'bUcousVQ0-yF',
-})
+});
 
 export default function Submission(props) {
   const {

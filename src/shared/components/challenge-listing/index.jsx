@@ -13,11 +13,11 @@ import Sidebar from 'containers/challenge-listing/Sidebar';
 // import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 // import { config } from 'topcoder-react-utils';
 import { useMediaQuery } from 'react-responsive';
+import { sprig } from '@sprig-technologies/sprig-browser';
 
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 import ChallengeTab from './ChallengeTab';
-import { sprig } from '@sprig-technologies/sprig-browser';
 
 import './style.scss';
 
