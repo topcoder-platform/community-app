@@ -363,6 +363,7 @@ workflows:
           filters:
             branches:
               only:
+                - universal_nav
                 - feat/badges-box
       # This is beta env for production soft releases
       - "build-prod-beta":
@@ -378,7 +379,6 @@ workflows:
             branches:
               only:
                 - develop
-                - universal_nav
                 - old-mm-fix
                 - reskin-profile-settings
       # Production builds are exectuted
