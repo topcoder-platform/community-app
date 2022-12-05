@@ -25,6 +25,7 @@ const TopcoderHeader = ({ auth }) => {
       tcUniNav('init', 'headerNav', {
         type: 'tool',
         toolName: 'Topcoder',
+        toolRoot: '/',
         user: isAuthenticated ? navigationUserInfo : null,
         signOut: () => {
           window.location = `${config.URL.BASE}/logout?ref=nav`;
