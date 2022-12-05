@@ -378,7 +378,7 @@ workflows:
             branches:
               only:
                 - develop
-                - universal-nav
+                - universal_nav
                 - old-mm-fix
                 - reskin-profile-settings
       # Production builds are exectuted
