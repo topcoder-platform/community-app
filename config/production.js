@@ -234,4 +234,5 @@ module.exports = {
   PLATFORM_SITE_URL: 'https://platform.topcoder.com',
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder.com',
   DICE_VERIFY_URL: 'https://accounts-auth0.topcoder.com',
+  UNIVERSAL_NAV_URL: '//uni-nav.topcoder.com/v1/tc-universal-nav.js',
 };

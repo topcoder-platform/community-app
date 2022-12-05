@@ -470,4 +470,5 @@ module.exports = {
     FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL: 5 * 60 * 1000, // 5 minutes
     FORUM_LINK: 'https://discussions.topcoder.com/discussion/24281/add-your-memory-to-the-topcoder-timeline-wall',
   },
+  UNIVERSAL_NAV_URL: '//uni-nav.topcoder-dev.com/v1/tc-universal-nav.js',
 };
