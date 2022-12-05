@@ -17,10 +17,15 @@ import { useMediaQuery } from 'react-responsive';
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 import ChallengeTab from './ChallengeTab';
+import { sprig } from '@sprig-technologies/sprig-browser';
 
 import './style.scss';
 
 // const Filter = challengeUtils.filter;
+
+export const Sprig = sprig.configure({
+  environmentId: 'bUcousVQ0-yF',
+});
 
 // Number of challenge placeholder card to display
 // const CHALLENGE_PLACEHOLDER_COUNT = 8;

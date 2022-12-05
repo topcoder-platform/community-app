@@ -15,6 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { COMPETITION_TRACKS, CHALLENGE_STATUS, safeForDownload } from 'utils/tc';
+import { sprig } from '@sprig-technologies/sprig-browser';
 
 import PT from 'prop-types';
 
@@ -24,6 +25,10 @@ import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
 
 import './styles.scss';
+
+export const Sprig = sprig.configure({
+  environmentId: 'bUcousVQ0-yF',
+})
 
 export default function Submission(props) {
   const {
