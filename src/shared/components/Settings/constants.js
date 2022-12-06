@@ -7,7 +7,7 @@ export const SCREEN_SIZE = {
 
 export const SETTINGS_TABS = [
   { title: 'Profile', link: TABS.PROFILE },
-  { title: 'Experience & Skills', link: TABS.SKILLS },
+  { title: 'Skills & Experience', link: TABS.SKILLS },
   { title: 'Topcoder & You', link: TABS.TRACKS },
   { title: 'Tools', link: TABS.TOOLS },
   { title: 'Account', link: TABS.ACCOUNT },

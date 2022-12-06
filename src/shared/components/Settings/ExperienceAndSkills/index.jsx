@@ -94,13 +94,13 @@ export default class ExperienceAndSkills extends React.Component {
     return (
       <ErrorWrapper>
         <div styleName="experience-and-skills">
-          <WorkExperience
-            {...this.props}
-            ref={this.workExperienceRef}
-          />
           <WorkSkills
             {...this.props}
             ref={this.workSkillsRef}
+          />
+          <WorkExperience
+            {...this.props}
+            ref={this.workExperienceRef}
           />
           <div styleName="footer">{saveBtn}</div>
         </div>
@@ -111,7 +111,7 @@ export default class ExperienceAndSkills extends React.Component {
 
 ExperienceAndSkills.defaultProps = {
   isSaving: false,
-  setIsSaving: () => {},
+  setIsSaving: () => { },
 };
 
 ExperienceAndSkills.propTypes = {
