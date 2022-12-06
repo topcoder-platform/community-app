@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * Child component of Settings/Profile renders "Skills" section of profile setting page.
  */
@@ -13,10 +14,11 @@ import ConfirmationModal from 'components/Settings/ConfirmationModal';
 import AddItemIcon from 'assets/images/settings-add-item.svg';
 import RemoveTagIcon from 'assets/images/icon-x-cancel.svg';
 import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
+import { MIN_SKILLS_TO_REMIND } from 'containers/Gamification';
+import YouGotSkillsBadge from 'components/Gamification/YouGotSkillsModal/YouGotSkillsBadge';
+
 import AddSkillsModal from './AddSkillsModal';
-
 import styles from './styles.scss';
-
 
 export default class Skills extends ConsentComponent {
   constructor(props) {
@@ -317,7 +319,7 @@ export default class Skills extends ConsentComponent {
         {
           _.map(list, skill => (
             <li key={skill.id} styleName="skillListItem">
-              {_.includes(skill.sources, 'CHALLENGE') && <VerifiedBadgeIcon styleName="verified-badge" /> }
+              {_.includes(skill.sources, 'CHALLENGE') && <VerifiedBadgeIcon styleName="verified-badge" />}
               {_.truncate(skill.name, { length: 18, separator: ' ' })}
               <a
                 id={`skill-a-${skill.id}`}
@@ -328,7 +330,7 @@ export default class Skills extends ConsentComponent {
                 }}
                 styleName="close"
                 tabIndex={0}
-                onKeyDown={() => {}}
+                onKeyDown={() => { }}
               >
                 <RemoveTagIcon />
               </a>
@@ -356,9 +358,8 @@ export default class Skills extends ConsentComponent {
             />
           )
         }
-        { showAddSkillsModal && (
+        {showAddSkillsModal && (
           <AddSkillsModal
-            allSkills={allSkills}
             lookupSkills={lookupSkills}
             userSkills={userSkills}
             disabled={!canModifyTrait}
@@ -372,9 +373,12 @@ export default class Skills extends ConsentComponent {
 
         <div styleName="form-container">
           <Collapse>
-            <h2 styleName="form-title">
-              Add your skills
-            </h2>
+            <div styleName="title-wrap" style={{ alignItems: userSkills.length >= MIN_SKILLS_TO_REMIND ? 'center' : 'flex-start' }}>
+              <h2 styleName="form-title">Skills</h2>
+              {
+                userSkills.length >= MIN_SKILLS_TO_REMIND && <YouGotSkillsBadge />
+              }
+            </div>
 
             <div styleName="form-content">
               <div styleName="form-label">
@@ -382,6 +386,27 @@ export default class Skills extends ConsentComponent {
               </div>
 
               <div styleName="form-body">
+                {
+                  userSkills.length < MIN_SKILLS_TO_REMIND && (
+                    <div styleName="skill-note">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#137D60"
+                          fillRule="evenodd"
+                          d="M12 4a8 8 0 100 16 8 8 0 000-16zM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12zm9-4a1 1 0 011-1h.01a1 1 0 110 2H12a1 1 0 01-1-1zm-1 4a1 1 0 011-1h1a1 1 0 011 1v3a1 1 0 110 2h-1a1 1 0 01-1-1v-3a1 1 0 01-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <p>To be able to match you with the best opportunities at Topcoder, please be sure you have at least <span>{MIN_SKILLS_TO_REMIND} skills</span> listed in your profile.</p>
+                    </div>
+                  )
+                }
                 {skillList}
               </div>
 
@@ -391,31 +416,7 @@ export default class Skills extends ConsentComponent {
                   disabled={!canModifyTrait}
                   theme={{ button: styles['button-add'] }}
                 >
-                  <AddItemIcon styleName="icon" /> Add Design / UX Skills
-                </PrimaryButton>
-
-                <PrimaryButton
-                  onClick={() => this.setState({ showAddSkillsModal: 'develop' })}
-                  disabled={!canModifyTrait}
-                  theme={{ button: styles['button-add'] }}
-                >
-                  <AddItemIcon styleName="icon" /> Add Developer Skills
-                </PrimaryButton>
-
-                <PrimaryButton
-                  onClick={() => this.setState({ showAddSkillsModal: 'data_science' })}
-                  disabled={!canModifyTrait}
-                  theme={{ button: styles['button-add'] }}
-                >
-                  <AddItemIcon styleName="icon" /> Add Data Science Skills
-                </PrimaryButton>
-
-                <PrimaryButton
-                  onClick={() => this.setState({ showAddSkillsModal: 'qa' })}
-                  disabled={!canModifyTrait}
-                  theme={{ button: styles['button-add'] }}
-                >
-                  <AddItemIcon styleName="icon" /> Add QA Skills
+                  <AddItemIcon styleName="icon" /> Add Skills
                 </PrimaryButton>
               </div>
             </div>

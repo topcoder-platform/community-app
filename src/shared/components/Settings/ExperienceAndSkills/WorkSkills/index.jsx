@@ -16,7 +16,11 @@ export default class WorkSkills extends React.Component {
   render() {
     return (
       <div styleName="workSkills">
-        <h2 styleName="title">Skills</h2>
+        <h2 styleName="title">About You</h2>
+        <Skills
+          {...this.props}
+          ref={this.skillsRef}
+        />
         <Languages
           {...this.props}
           ref={this.languagesRef}
@@ -24,10 +28,6 @@ export default class WorkSkills extends React.Component {
         <Interests
           {...this.props}
           ref={this.interestsRef}
-        />
-        <Skills
-          {...this.props}
-          ref={this.skillsRef}
         />
       </div>
     );

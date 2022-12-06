@@ -201,7 +201,7 @@ export default class Interests extends ConsentComponent {
       <div styleName="form-container">
         <Collapse>
           <div styleName="form-title">
-            Select Your Interests at Topcoder
+            Interests at Topcoder
           </div>
           <div styleName="form-content">
             <div styleName="form-label">

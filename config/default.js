@@ -461,6 +461,7 @@ module.exports = {
   GAMIFICATION: {
     ORG_ID: '6052dd9b-ea80-494b-b258-edd1331e27a3',
     ENABLE_BADGE_UI: true,
+    ENABLE_SKILLS_REMIND_MODAL: true,
   },
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
   DICE_VERIFY_URL: 'https://accounts-auth0.topcoder-dev.com',

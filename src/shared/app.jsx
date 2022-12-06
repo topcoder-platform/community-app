@@ -14,6 +14,7 @@ import ErrorIcons from 'containers/ErrorIcons';
 import { DevTools, isomorphy, config } from 'topcoder-react-utils';
 
 import ExtendedReduxToastr from 'containers/Toastr';
+import Gamification from 'containers/Gamification';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
@@ -51,7 +52,12 @@ export default function App() {
         progressBar={false}
         showCloseButton
       />
-      { isomorphy.isDevBuild() ? <DevTools /> : undefined }
+      {isomorphy.isDevBuild() ? <DevTools /> : undefined}
+      {
+        config.GAMIFICATION.ENABLE_SKILLS_REMIND_MODAL
+          && isomorphy.isClientSide()
+          ? <Gamification /> : undefined
+      }
     </div>
   );
 }

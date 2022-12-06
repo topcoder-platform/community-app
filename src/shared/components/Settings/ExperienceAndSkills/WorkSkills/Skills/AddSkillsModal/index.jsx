@@ -16,7 +16,6 @@ const CATEGORIES = {
 };
 
 export default function AddSkillsModal({
-  allSkills,
   disabled,
   category: intialCategory,
   editingSkills,
@@ -40,12 +39,6 @@ export default function AddSkillsModal({
   const find = (arr, i) => arr && _.findIndex(arr, e => e.toLowerCase() === i.toLowerCase()) !== -1;
   const findSkill = (arr, skill) => arr && arr.find(a => a.id === skill.id);
 
-  const popularSkills = React.useMemo(() => allSkills
-    .filter(skill => find(skill.categories, category))
-    .slice(0, 10)
-    .map(skill => _.cloneDeep(({ ...skill, isPopularSkill: true }))),
-  [allSkills, category]);
-
   const handleSkillSelect = (skill) => {
     setEditingSkills([...editingSkills, skill]);
   };
@@ -66,15 +59,15 @@ export default function AddSkillsModal({
   };
 
   const allDisplayingSkills = displayingSkills;
-  popularSkills.forEach((skill) => {
-    if (!findSkill(displayingSkills, skill)) {
-      allDisplayingSkills.push(skill);
-    }
-  });
 
   const lookupSkillsOptions = lookupSkills
     .filter(skill => !findSkill(allDisplayingSkills, skill))
-    .filter(skill => find(skill.categories, category));
+    .filter(skill => find(skill.categories, category))
+    .sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+      return 0;
+    });
 
   const skillList = allDisplayingSkills.map((skill) => {
     const isOtherCategorySkill = s => !find(s.categories, category);
@@ -89,7 +82,7 @@ export default function AddSkillsModal({
           role="button"
           onClick={() => !selected && toggleSkillSelection(skill)}
           tabIndex={0}
-          onKeyDown={() => {}}
+          onKeyDown={() => { }}
         >
           {_.truncate(skill.name, { length: 18, separator: ' ' })}
         </span>
@@ -98,7 +91,7 @@ export default function AddSkillsModal({
           onClick={() => selected && toggleSkillSelection(skill)}
           styleName="close"
           tabIndex={0}
-          onKeyDown={() => {}}
+          onKeyDown={() => { }}
         >
           <RemoveTagIcon />
         </span>
@@ -131,33 +124,33 @@ export default function AddSkillsModal({
                   styleName={tab === CATEGORIES.design ? 'active' : ''}
                   role="presentation"
                   onClick={() => setTab(CATEGORIES.design)}
-                  onKeyDown={() => {}}
+                  onKeyDown={() => { }}
                 >
-                  { getTabName(CATEGORIES.design) }
+                  {getTabName(CATEGORIES.design)}
                 </li>
                 <li
                   styleName={tab === CATEGORIES.develop ? 'active' : ''}
                   role="presentation"
                   onClick={() => setTab(CATEGORIES.develop)}
-                  onKeyDown={() => {}}
+                  onKeyDown={() => { }}
                 >
-                  { getTabName(CATEGORIES.develop) }
+                  {getTabName(CATEGORIES.develop)}
                 </li>
                 <li
                   styleName={tab === CATEGORIES.data_science ? 'active' : ''}
                   role="presentation"
                   onClick={() => setTab(CATEGORIES.data_science)}
-                  onKeyDown={() => {}}
+                  onKeyDown={() => { }}
                 >
-                  { getTabName(CATEGORIES.data_science) }
+                  {getTabName(CATEGORIES.data_science)}
                 </li>
                 <li
                   styleName={tab === CATEGORIES.qa ? 'active' : ''}
                   role="presentation"
                   onClick={() => setTab(CATEGORIES.qa)}
-                  onKeyDown={() => {}}
+                  onKeyDown={() => { }}
                 >
-                  { getTabName(CATEGORIES.qa) }
+                  {getTabName(CATEGORIES.qa)}
                 </li>
               </ul>
             </nav>
@@ -200,7 +193,6 @@ export default function AddSkillsModal({
 }
 
 AddSkillsModal.propTypes = {
-  allSkills: PT.arrayOf(PT.shape()).isRequired,
   disabled: PT.bool.isRequired,
   category: PT.string.isRequired,
   editingSkills: PT.arrayOf(PT.shape()).isRequired,
