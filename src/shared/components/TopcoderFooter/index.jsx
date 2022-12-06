@@ -3,19 +3,18 @@ import React, { useEffect, useRef } from 'react';
 
 export default function TopcoderFooter() {
   const footerRef = useRef();
+  const footerInitialized = useRef(false);
 
   useEffect(() => {
-    if (!window.footerInitialized) {
-      tcUniNav('init', 'footerNav', {
-        type: 'footer',
-        onReady: () => {
-          window.footerInitialized = true;
-          window.footerContent = footerRef.current;
-        },
-      });
-    } else {
-      document.getElementById('footerNav').innerHTML = window.footerContent.innerHTML;
+    if (footerInitialized.current) {
+      return;
     }
+
+    footerInitialized.current = true;
+
+    tcUniNav('init', 'footerNav', {
+      type: 'footer',
+    });
   }, []);
 
   return <div id="footerNav" ref={footerRef} />;
