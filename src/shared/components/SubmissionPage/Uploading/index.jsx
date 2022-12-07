@@ -13,7 +13,12 @@ import UploadLoading from 'assets/images/upload-loading.svg';
 import UploadFail from 'assets/images/upload-fail.svg';
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import { COMPETITION_TRACKS } from 'utils/tc';
+import { sprig } from '@sprig-technologies/sprig-browser';
 import style from './styles.scss';
+
+export const Sprig = sprig.configure({
+  environmentId: 'bUcousVQ0-yF',
+});
 
 const Uploading = ({
   challengeId,
