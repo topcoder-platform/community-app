@@ -18,6 +18,11 @@ import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { sprig } from '@sprig-technologies/sprig-browser';
+
+export const Sprig = sprig.configure({
+  environmentId: 'bUcousVQ0-yF',
+});
 
 /**
  * SubmissionsPage Container
@@ -64,7 +69,8 @@ class SubmissionsPageContainer extends React.Component {
       challenge,
       track,
     } = this.props;
-
+    // When the user is waiting for their submission to upload, the survey should appear
+    Sprig('track', 'onUploadSubmission');
     submit(tokenV3, tokenV2, challengeId, body, isMM(challenge) ? 'DEVELOP' : track);
   }
 
