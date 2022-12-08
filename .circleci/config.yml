@@ -349,7 +349,7 @@ workflows:
           filters:
             branches:
               only:
-                - TCA-539_tca-certifications-update-badges
+                - PROD_3279_sprig_challenge_submission
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
