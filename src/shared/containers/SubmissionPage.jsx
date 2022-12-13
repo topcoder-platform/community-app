@@ -72,7 +72,7 @@ class SubmissionsPageContainer extends React.Component {
     } = this.props;
 
     // On final upload, the survey should appear
-    Sprig('track', 'onUploadSubmission'); 
+    Sprig('track', 'onUploadSubmission');
     submit(tokenV3, tokenV2, challengeId, body, isMM(challenge) ? 'DEVELOP' : track);
   }
 
