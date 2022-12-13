@@ -8,6 +8,7 @@
  */
 import actions from 'actions/page/submission';
 import { actions as api } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
 import { isMM } from 'utils/challenge';
 import communityActions from 'actions/tc-communities';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
@@ -18,6 +19,11 @@ import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { sprig } from '@sprig-technologies/sprig-browser';
+
+export const Sprig = sprig.configure({
+  environmentId: config.SPRIG_ENVIRONMENT_ID,
+});
 
 /**
  * SubmissionsPage Container
@@ -65,6 +71,8 @@ class SubmissionsPageContainer extends React.Component {
       track,
     } = this.props;
 
+    // On final upload, the survey should appear
+    Sprig('track', 'onUploadSubmission'); 
     submit(tokenV3, tokenV2, challengeId, body, isMM(challenge) ? 'DEVELOP' : track);
   }
 
