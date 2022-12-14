@@ -12,7 +12,7 @@ parameters:
 
 defaults: &defaults
     docker:
-      - image: docker:17.11.0-ce-git
+      - image: docker:20.10.21-git
         environment:
           ENV: $BASH_ENV
 
@@ -207,7 +207,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
+            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar -l prod_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
