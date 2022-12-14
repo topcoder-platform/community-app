@@ -12,7 +12,7 @@ parameters:
 
 defaults: &defaults
     docker:
-      - image: docker:17.11.0-ce-git
+      - image: docker:20.10.21-git
         environment:
           ENV: $BASH_ENV
 
