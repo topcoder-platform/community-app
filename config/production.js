@@ -234,4 +234,6 @@ module.exports = {
   PLATFORM_SITE_URL: 'https://platform.topcoder.com',
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder.com',
   DICE_VERIFY_URL: 'https://accounts-auth0.topcoder.com',
+  /* development id - makes surveys have warning about environment */
+  SPRIG_ENVIRONMENT_ID: 'a-IZBZ6-r7bU',
 };
