@@ -90,7 +90,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar
+            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar -l dev_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -118,7 +118,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar
+            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar -l dev_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -146,7 +146,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar
+            ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar -l prod_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -174,7 +174,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar
+            ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar -l prod_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
