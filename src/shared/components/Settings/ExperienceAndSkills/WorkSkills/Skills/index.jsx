@@ -365,7 +365,6 @@ export default class Skills extends ConsentComponent {
             disabled={!canModifyTrait}
             setEditingSkills={this.setEditingSkills}
             editingSkills={editingSkills}
-            category={showAddSkillsModal}
             onClose={this.onModalClose}
             onSave={this.onModalSave}
           />
