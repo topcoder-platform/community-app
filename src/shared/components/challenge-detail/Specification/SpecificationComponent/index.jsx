@@ -1,13 +1,25 @@
 import PT from 'prop-types';
 import React from 'react';
-import Markdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'katex/dist/katex.min.css';
 
 export default function SpecificationComponent({
   bodyText,
   format,
 }) {
   if (format === 'markdown') {
-    return (<Markdown source={bodyText} />);
+    return (
+      <ReactMarkdown
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+      >
+        {bodyText}
+      </ReactMarkdown>
+    );
   }
   return (
     <div
