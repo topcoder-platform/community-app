@@ -12,6 +12,7 @@
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import challengeDetailsActions from 'actions/page/challenge-details';
+import { config } from 'topcoder-react-utils';
 import headerActions from 'actions/topcoder_header';
 import { logger, challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
@@ -30,9 +31,14 @@ import {
 import MetaTags from 'components/MetaTags';
 import { USER_GROUP_MAXAGE } from 'config';
 import { updateChallengeType } from 'utils/challenge';
+import { sprig } from '@sprig-technologies/sprig-browser';
 
 import ogImage from '../../../../assets/images/social.png';
 import style from './styles.scss';
+
+export const Sprig = sprig.configure({
+  environmentId: config.SPRIG_ENVIRONMENT_ID,
+});
 
 // const { combine, mapToBackend } = challengeUtils.filter;
 const { mapToBackend } = challengeUtils.filter;
@@ -623,6 +629,9 @@ export class ListingContainer extends React.Component {
         />
       );
     }
+
+    // render show survey
+    Sprig('track', 'onRenderChallengeListings');
 
     return (
       <div styleName="container" role="main">
