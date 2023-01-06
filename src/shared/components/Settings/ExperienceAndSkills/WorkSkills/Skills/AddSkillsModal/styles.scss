@@ -46,6 +46,7 @@
   margin: 32px;
   width: calc(100% - 64px);
   min-height: 700px;
+  min-width: 40vw;
 }
 
 .modal-header {
@@ -64,6 +65,7 @@
   flex: auto;
   display: flex;
   padding: 0 $pad-xxxxl;
+  flex-direction: column;
 }
 
 .modal-footer {

@@ -8,7 +8,7 @@ import PT from 'prop-types';
 import { toastr } from 'react-redux-toastr';
 import ToggleableItem from 'components/Settings/ToggleableItem';
 import Item from '../List/Item';
-import subscribe from './data';
+import { subscribe, unsubscribe } from './data';
 
 import './styles.scss';
 
@@ -128,16 +128,31 @@ export default class EmailPreferences extends React.Component {
         {
           status !== 'subscribed' ? (
             <Item
-              isSubscribeForm
+              status={status}
               email={email}
               key={subscribe.id}
-              id={subscribe.id}
+              icon={subscribe.icon}
               title={subscribe.name}
               description={subscribe.description}
               linkTitle={subscribe.linkTitle}
+              formLink={subscribe.formLink}
+              value={subscribe.value}
+              isForm
             />
           ) : (
             <React.Fragment>
+              <Item
+                status={status}
+                email={email}
+                key={unsubscribe.id}
+                icon={unsubscribe.icon}
+                title={unsubscribe.name}
+                description={unsubscribe.description}
+                linkTitle={unsubscribe.linkTitle}
+                formLink={unsubscribe.formLink}
+                value={unsubscribe.value}
+                isForm
+              />
               {
                   map(newsletters, (newsletter) => {
                     const checked = emailPreferences[newsletter.id];
