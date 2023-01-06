@@ -31,7 +31,7 @@ const TopcoderHeader = ({ auth }) => {
 
     tcUniNav('init', 'headerNav', {
       type: 'tool',
-      toolName: 'Topcoder',
+      toolName: 'Activity Feed',
       toolRoot: '/',
       user: isAuthenticated ? navigationUserInfo : null,
       signOut: () => {
