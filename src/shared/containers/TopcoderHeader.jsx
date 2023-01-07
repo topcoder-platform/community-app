@@ -1,10 +1,12 @@
 /* global tcUniNav */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
 import { getInitials } from '../utils/url';
+
+let uniqueId = 0;
 
 const TopcoderHeader = ({ auth }) => {
   const uniNavInitialized = useRef(false);
@@ -13,6 +15,7 @@ const TopcoderHeader = ({ auth }) => {
   const isAuthenticated = !!authToken;
   const authURLs = config.HEADER_AUTH_URLS;
   const headerRef = useRef();
+  const [headerId, setHeaderId] = useState(0);
 
   const navigationUserInfo = {
     ...user,
@@ -20,7 +23,12 @@ const TopcoderHeader = ({ auth }) => {
   };
 
   useEffect(() => {
-    if (uniNavInitialized.current) {
+    uniqueId += 1;
+    setHeaderId(uniqueId);
+  }, []);
+
+  useEffect(() => {
+    if (uniNavInitialized.current || !headerId) {
       return;
     }
 
@@ -28,8 +36,7 @@ const TopcoderHeader = ({ auth }) => {
 
     const regSource = window.location.pathname.split('/')[1];
     const retUrl = encodeURIComponent(window.location.href);
-
-    tcUniNav('init', 'headerNav', {
+    tcUniNav('init', `headerNav-${headerId}`, {
       type: 'tool',
       toolName: 'Activity Feed',
       toolRoot: '/',
@@ -44,9 +51,9 @@ const TopcoderHeader = ({ auth }) => {
         window.location = `${authURLs.location.replace('%S', retUrl).replace('member?', '#!/member?')}&mode=signUp&regSource=${regSource}`;
       },
     });
-  }, []);
+  }, [headerId]);
 
-  return <div id="headerNav" ref={headerRef} />;
+  return <div id={`headerNav-${headerId}`} ref={headerRef} />;
 };
 
 TopcoderHeader.defaultProps = {
