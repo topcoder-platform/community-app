@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - develop
+                - latex_support
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
