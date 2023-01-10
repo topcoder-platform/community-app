@@ -87,10 +87,6 @@ const EXTRA_SCRIPTS = [
     ga('create', 'UA-6340959-1', 'auto');
     ga('send', 'pageview');
   </script>`,
-  `<!-- Start of topcoder Zendesk Widget script -->
-  <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="topcoder.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
-  /*]]>*/</script>
-  <!-- End of topcoder Zendesk Widget script -->`,
   `<!-- Start of topcoder Topcoder Universal Navigation script -->
   <script>
   !function(n,t,e,a,c,i,o){n['TcUnivNavConfig']=c,n[c]=n[c]||function(){
@@ -156,7 +152,6 @@ async function onExpressJsSetup(server) {
           + ' https://www.google-analytics.com'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
           + ' https://assets.ubembed.com'
-          + ' https://assets.zendesk.com'
           + ' https://browser.sentry-cdn.com'
           + ' https://cdn.heapanalytics.com'
           + ' https://cdn.segment.com'
@@ -186,7 +181,6 @@ async function onExpressJsSetup(server) {
           + ' https://cdn.segment.com'
           + ' https://ekr.zdassets.com'
           + ' https://fast.trychameleon.com'
-          + ' https://topcoder.zendesk.com'
           + ' https://stats.g.doubleclick.net'
           + ' https://www.google-analytics.com;'
         + " font-src 'self'"
