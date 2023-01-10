@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - develop
+                - PROD_3521_sprig_challenge_listings
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
