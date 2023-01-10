@@ -630,9 +630,6 @@ export class ListingContainer extends React.Component {
       );
     }
 
-    // render show survey
-    Sprig('track', 'onRenderChallengeListings');
-
     return (
       <div styleName="container" role="main">
         <MetaTags
