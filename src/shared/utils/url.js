@@ -164,4 +164,42 @@ export function getInitials(firstName = '', lastName = '') {
 
 export const DEFAULT_AVATAR_URL = 'https://images.ctfassets.net/b5f1djy59z3a/4PTwZVSf3W7qgs9WssqbVa/4c51312671a4b9acbdfd7f5e22320b62/default_avatar.svg';
 
+export const getSubPageConfiguration = () => {
+  let toolName = 'Activity Feed';
+  let toolRoot = '/';
+  let loginRedirect = '/';
+
+  const url = window.location.pathname;
+
+  if (url.includes('/gigs')) {
+    toolName = 'Gigs';
+    toolRoot = '/gigs';
+    loginRedirect = '/gigs';
+  }
+
+  if (url.includes('/thrive')) {
+    toolName = 'Articles';
+    toolRoot = '/thrive';
+    loginRedirect = '/thrive';
+  }
+
+  if (url.includes('/community/arena')) {
+    toolName = 'SRM (Arena)';
+    toolRoot = '/community/arena';
+    loginRedirect = '/community/arena';
+  }
+
+  if (url.includes('/challenges')) {
+    toolName = 'Activity Feed';
+    toolRoot = '/challenges';
+    loginRedirect = '/challenges';
+  }
+
+  return {
+    toolName,
+    toolRoot,
+    loginRedirect,
+  };
+};
+
 export default undefined;

@@ -4,7 +4,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
-import { getInitials } from '../utils/url';
+import { getInitials, getSubPageConfiguration } from '../utils/url';
 
 let uniqueId = 0;
 
@@ -38,8 +38,8 @@ const TopcoderHeader = ({ auth }) => {
     const retUrl = encodeURIComponent(window.location.href);
     tcUniNav('init', `headerNav-${headerId}`, {
       type: 'tool',
-      toolName: 'Activity Feed',
-      toolRoot: '/',
+      toolName: getSubPageConfiguration().toolName,
+      toolRoot: getSubPageConfiguration().toolRoot,
       user: isAuthenticated ? navigationUserInfo : null,
       signOut: () => {
         window.location = `${config.URL.BASE}/logout?ref=nav`;
