@@ -176,7 +176,7 @@ function Listing({
             challengesUrl={challengesUrl}
             communityName={communityName}
             expand={() => {
-              selectBucket(bucket, true);
+              selectBucket(bucket);
               loadMore();
             }}
             expanded={newExpanded}
