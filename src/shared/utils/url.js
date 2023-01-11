@@ -184,7 +184,7 @@ export const getSubPageConfiguration = () => {
   }
 
   if (url.includes('/community/arena')) {
-    toolName = 'SRM (Arena)';
+    toolName = 'SRMs (Arena)';
     toolRoot = '/community/arena';
     loginRedirect = '/community/arena';
   }
