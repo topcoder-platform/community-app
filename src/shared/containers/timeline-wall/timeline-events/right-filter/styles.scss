@@ -3,6 +3,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   @media (max-width: 768px) {
     position: fixed;
@@ -53,16 +54,16 @@
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   padding: 10px 0;
-  position: fixed;
-  right: 0;
-  left: 1374px;
+  position: sticky;
+  margin-bottom: 80px;
+  top: 0;
   max-height: 70%;
   overflow: scroll;
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 
   &::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
+    display: none; /* Safari and Chrome */
   }
 
   @media (max-width: 1500px) {
@@ -72,6 +73,8 @@
   @media (max-width: 768px) {
     border-radius: 0;
     width: calc(100% - 10px);
+    position: relative;
+    margin-bottom: unset;
   }
 
   span {
