@@ -213,6 +213,36 @@ export const getSubPageConfiguration = () => {
     loginRedirect = '/policy';
   }
 
+  if (url.includes('/community/programs-and-events')) {
+    toolName = 'Announcements';
+    toolRoot = '/community/programs-and-events';
+    loginRedirect = '/community/programs-and-events';
+  }
+
+  if (url.includes('/community/gig-resources')) {
+    toolName = 'Gigs';
+    toolRoot = '/community/gig-resources';
+    loginRedirect = '/community/gig-resources';
+  }
+
+  if (url.includes('/community/practice')) {
+    toolName = 'Challenge Practice';
+    toolRoot = '/community/practice';
+    loginRedirect = '/community/practice';
+  }
+
+  if (url.includes('/community/events')) {
+    toolName = 'Events';
+    toolRoot = '/community/events';
+    loginRedirect = '/community/events';
+  }
+
+  if (url.includes('/community/member-programs/topcoder-open')) {
+    toolName = 'Topcoder Open';
+    toolRoot = '/community/member-programs/topcoder-open';
+    loginRedirect = '/community/member-programs/topcoder-open';
+  }
+
   return {
     toolName,
     toolRoot,
