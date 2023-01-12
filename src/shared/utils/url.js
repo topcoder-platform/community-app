@@ -195,6 +195,12 @@ export const getSubPageConfiguration = () => {
     loginRedirect = '/challenges';
   }
 
+  if (url.includes('/members')) {
+    toolName = 'My Profile';
+    toolRoot = url;
+    loginRedirect = url;
+  }
+
   return {
     toolName,
     toolRoot,
