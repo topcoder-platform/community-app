@@ -200,7 +200,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = url;
     loginRedirect = url;
   }
-  
+
   if (url.includes('/privacy')) {
     toolName = 'Privacy Policy';
     toolRoot = '/privacy';
