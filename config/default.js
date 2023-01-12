@@ -446,7 +446,7 @@ module.exports = {
   TC_EDU_ARTICLES_PATH: '/articles',
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
-  POLICY_PAGES_PATH: '/policy',
+  POLICY_PAGES_PATH: '/privacy',
   GIGS_PAGES_PATH: '/gigs',
   GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',

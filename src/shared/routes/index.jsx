@@ -115,6 +115,12 @@ function Routes({ communityId }) {
           path={`${config.POLICY_PAGES_PATH}/:slug?`}
         />
         <Route
+          component={PolicyPages}
+          exact
+          path={"/policy"}
+        />
+
+        <Route
           render={() => (
             <div styleName="container">
               <Header />
