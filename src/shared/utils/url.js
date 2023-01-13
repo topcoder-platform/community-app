@@ -168,6 +168,7 @@ export const getSubPageConfiguration = () => {
   let toolName = 'Activity Feed';
   let toolRoot = '/';
   let loginRedirect = '/';
+  let type = 'tool';
 
   const url = window.location.pathname;
 
