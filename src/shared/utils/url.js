@@ -287,6 +287,7 @@ export const getSubPageConfiguration = () => {
     toolName,
     toolRoot,
     loginRedirect,
+    type,
   };
 };
 
