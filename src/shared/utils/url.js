@@ -243,6 +243,12 @@ export const getSubPageConfiguration = () => {
     loginRedirect = '/community/member-programs/topcoder-open';
   }
 
+  if (url.includes('/settings')) {
+    toolName = 'Account Settings';
+    toolRoot = '/settings/profile';
+    loginRedirect = '/settings/profile';
+  }
+
   return {
     toolName,
     toolRoot,
