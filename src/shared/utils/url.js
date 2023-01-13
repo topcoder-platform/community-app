@@ -169,6 +169,7 @@ export const getSubPageConfiguration = () => {
   let toolRoot = '/';
   let loginRedirect = '/';
   let type = 'tool';
+  let fullFooter = false;
 
   const url = window.location.pathname;
 
@@ -177,6 +178,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/gigs';
     loginRedirect = '/gigs';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/thrive')) {
@@ -184,6 +186,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/thrive';
     loginRedirect = '/thrive';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/arena')) {
@@ -191,6 +194,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/arena';
     loginRedirect = '/community/arena';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/challenges')) {
@@ -198,6 +202,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/challenges';
     loginRedirect = '/challenges';
     type = 'tool';
+    fullFooter = false;
   }
 
   if (url.includes('/members')) {
@@ -205,6 +210,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = url;
     loginRedirect = url;
     type = 'tool';
+    fullFooter = false;
   }
 
   if (url.includes('/privacy')) {
@@ -212,6 +218,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/privacy';
     loginRedirect = '/privacy';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/programs-and-events')) {
@@ -219,6 +226,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/programs-and-events';
     loginRedirect = '/community/programs-and-events';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/gig-resources')) {
@@ -226,6 +234,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/gig-resources';
     loginRedirect = '/community/gig-resources';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/practice')) {
@@ -233,6 +242,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/practice';
     loginRedirect = '/community/practice';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/events')) {
@@ -240,6 +250,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/events';
     loginRedirect = '/community/events';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/member-programs/topcoder-open')) {
@@ -247,6 +258,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/member-programs/topcoder-open';
     loginRedirect = '/community/member-programs/topcoder-open';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/settings')) {
@@ -254,6 +266,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/settings/profile';
     loginRedirect = '/settings/profile';
     type = 'tool';
+    fullFooter = false;
   }
 
   if (url.includes('/community/statistics')) {
@@ -261,6 +274,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/statistics';
     loginRedirect = '/community/statistics';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/safetywing')) {
@@ -268,6 +282,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/safetywing';
     loginRedirect = '/community/safetywing';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/community/timeline-wall')) {
@@ -275,6 +290,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/community/timeline-wall';
     loginRedirect = '/community/timeline-wall';
     type = 'marketing';
+    fullFooter = true;
   }
 
   if (url.includes('/home')) {
@@ -282,12 +298,14 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/home';
     loginRedirect = '/home';
     type = 'marketing';
+    fullFooter = true;
   }
   return {
     toolName,
     toolRoot,
     loginRedirect,
     type,
+    fullFooter,
   };
 };
 

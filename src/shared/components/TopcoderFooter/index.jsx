@@ -1,5 +1,6 @@
 /* global tcUniNav */
 import React, { useEffect, useRef, useState } from 'react';
+import {getSubPageConfiguration } from '../utils/url';
 
 let uniqueId = 0;
 
@@ -22,6 +23,7 @@ export default function TopcoderFooter() {
 
     tcUniNav('init', `footerNav-${footerId}`, {
       type: 'footer',
+      fullFooter: getSubPageConfiguration().fullFooter,
     });
   }, [footerId]);
 
