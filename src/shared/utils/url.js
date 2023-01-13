@@ -270,10 +270,10 @@ export const getSubPageConfiguration = () => {
     type = 'marketing';
   }
 
-  if (url.includes('/community/timeline')) {
+  if (url.includes('/community/timeline-wall')) {
     toolName = 'Timeline';
-    toolRoot = '/community/timeline';
-    loginRedirect = '/community/timeline';
+    toolRoot = '/community/timeline-wall';
+    loginRedirect = '/community/timeline-wall';
     type = 'marketing';
   }
 
