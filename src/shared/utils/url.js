@@ -165,11 +165,11 @@ export function getInitials(firstName = '', lastName = '') {
 export const DEFAULT_AVATAR_URL = 'https://images.ctfassets.net/b5f1djy59z3a/4PTwZVSf3W7qgs9WssqbVa/4c51312671a4b9acbdfd7f5e22320b62/default_avatar.svg';
 
 export const getSubPageConfiguration = () => {
-  let toolName = 'Activity Feed';
+  let toolName = 'Community';
   let toolRoot = '/';
   let loginRedirect = '/';
-  let type = 'tool';
-  let fullFooter = false;
+  let type = 'marketing';
+  let fullFooter = true;
 
   const url = window.location.pathname;
 
