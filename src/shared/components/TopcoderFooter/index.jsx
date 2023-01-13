@@ -1,6 +1,6 @@
 /* global tcUniNav */
 import React, { useEffect, useRef, useState } from 'react';
-import {getSubPageConfiguration } from '../utils/url';
+import { getSubPageConfiguration } from '../../utils/url';
 
 let uniqueId = 0;
 
