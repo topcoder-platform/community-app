@@ -37,7 +37,7 @@ const TopcoderHeader = ({ auth }) => {
     const regSource = window.location.pathname.split('/')[1];
     const retUrl = encodeURIComponent(window.location.href);
     tcUniNav('init', `headerNav-${headerId}`, {
-      type: 'tool',
+      type: getSubPageConfiguration().type,
       toolName: getSubPageConfiguration().toolName,
       toolRoot: getSubPageConfiguration().toolRoot,
       user: isAuthenticated ? navigationUserInfo : null,

@@ -175,80 +175,113 @@ export const getSubPageConfiguration = () => {
     toolName = 'Gigs';
     toolRoot = '/gigs';
     loginRedirect = '/gigs';
+    type = 'marketing';
   }
 
   if (url.includes('/thrive')) {
     toolName = 'Articles';
     toolRoot = '/thrive';
     loginRedirect = '/thrive';
+    type = 'marketing';
   }
 
   if (url.includes('/community/arena')) {
     toolName = 'SRMs (Arena)';
     toolRoot = '/community/arena';
     loginRedirect = '/community/arena';
+    type = 'marketing';
   }
 
   if (url.includes('/challenges')) {
     toolName = 'Activity Feed';
     toolRoot = '/challenges';
     loginRedirect = '/challenges';
+    type = 'tool';
   }
 
   if (url.includes('/members')) {
     toolName = 'My Profile';
     toolRoot = url;
     loginRedirect = url;
+    type = 'tool';
   }
 
   if (url.includes('/privacy')) {
     toolName = 'Privacy Policy';
     toolRoot = '/privacy';
     loginRedirect = '/privacy';
-  }
-
-  if (url.includes('/policy')) {
-    toolName = 'Privacy Policy';
-    toolRoot = '/policy';
-    loginRedirect = '/policy';
+    type = 'marketing';
   }
 
   if (url.includes('/community/programs-and-events')) {
     toolName = 'Announcements';
     toolRoot = '/community/programs-and-events';
     loginRedirect = '/community/programs-and-events';
+    type = 'marketing';
   }
 
   if (url.includes('/community/gig-resources')) {
     toolName = 'Gigs';
     toolRoot = '/community/gig-resources';
     loginRedirect = '/community/gig-resources';
+    type = 'marketing';
   }
 
   if (url.includes('/community/practice')) {
     toolName = 'Challenge Practice';
     toolRoot = '/community/practice';
     loginRedirect = '/community/practice';
+    type = 'marketing';
   }
 
   if (url.includes('/community/events')) {
     toolName = 'Events';
     toolRoot = '/community/events';
     loginRedirect = '/community/events';
+    type = 'marketing';
   }
 
   if (url.includes('/community/member-programs/topcoder-open')) {
     toolName = 'Topcoder Open';
     toolRoot = '/community/member-programs/topcoder-open';
     loginRedirect = '/community/member-programs/topcoder-open';
+    type = 'marketing';
   }
 
   if (url.includes('/settings')) {
     toolName = 'Account Settings';
     toolRoot = '/settings/profile';
     loginRedirect = '/settings/profile';
+    type = 'tool';
   }
 
+  if (url.includes('/community/statistics')) {
+    toolName = 'Statistics';
+    toolRoot = '/community/statistics';
+    loginRedirect = '/community/statistics';
+    type = 'marketing';
+  }
+
+  if (url.includes('/community/safetywing')) {
+    toolName = 'Healthcare';
+    toolRoot = '/community/safetywing';
+    loginRedirect = '/community/safetywing';
+    type = 'marketing';
+  }
+
+  if (url.includes('/community/timeline')) {
+    toolName = 'Timeline';
+    toolRoot = '/community/timeline';
+    loginRedirect = '/community/timeline';
+    type = 'marketing';
+  }
+
+  if (url.includes('/home')) {
+    toolName = 'Home';
+    toolRoot = '/home';
+    loginRedirect = '/home';
+    type = 'marketing';
+  }
   return {
     toolName,
     toolRoot,
