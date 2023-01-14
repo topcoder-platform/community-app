@@ -349,6 +349,7 @@ workflows:
           filters:
             branches:
               only:
+                - universal_nav
                 - develop
                 - latex_support
       # This is alternate dev env for parallel testing
@@ -364,7 +365,6 @@ workflows:
           filters:
             branches:
               only:
-                - universal_nav
                 - feat/badges-box
       # This is beta env for production soft releases
       - "build-prod-beta":
