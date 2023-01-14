@@ -36,8 +36,17 @@ const TopcoderHeader = ({ auth }) => {
 
     const regSource = window.location.pathname.split('/')[1];
     const retUrl = encodeURIComponent(window.location.href);
+    const urlParams = new URLSearchParams(window.location.href);
+
+    let { type } = getSubPageConfiguration();
+
+    // If url contains navTool url parameter. Overwrite settings with parameter.
+    if (urlParams.get('navTool')) {
+      type = urlParams.get('navTool');
+    }
+
     tcUniNav('init', `headerNav-${headerId}`, {
-      type: getSubPageConfiguration().type,
+      type,
       toolName: getSubPageConfiguration().toolName,
       toolRoot: getSubPageConfiguration().toolRoot,
       user: isAuthenticated ? navigationUserInfo : null,
