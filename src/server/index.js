@@ -90,6 +90,17 @@ const EXTRA_SCRIPTS = [
   <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="topcoder.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
   /*]]>*/</script>
   <!-- End of topcoder Zendesk Widget script -->`,
+  `<script type="text/javascript">
+  (function(l,e,a,p) {
+    if (window.Sprig) return;
+    window.Sprig = function(){S._queue.push(arguments)}
+    var S = window.Sprig;S.appId = a;S._queue = [];window.UserLeap=S;
+    a=l.createElement('script');
+    a.async=1;a.src=e+'?id='+S.appId;
+    p=l.getElementsByTagName('script')[0];
+    p.parentNode.insertBefore(a, p);
+  })(document, 'https://cdn.sprig.com/shim.js', "${config.SPRIG_ENVIRONMENT_ID}");
+  </script>`,
 ];
 
 const MODE = process.env.BABEL_ENV;
