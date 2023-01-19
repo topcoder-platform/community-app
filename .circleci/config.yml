@@ -349,7 +349,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - sprig-lib
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
