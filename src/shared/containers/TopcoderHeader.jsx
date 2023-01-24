@@ -36,11 +36,12 @@ const TopcoderHeader = ({ auth }) => {
 
     const regSource = window.location.pathname.split('/')[1];
     const retUrl = encodeURIComponent(window.location.href);
-    const urlParams = new URLSearchParams(window.location.href);
 
     let { type } = getSubPageConfiguration();
 
     // If url contains navTool url parameter. Overwrite settings with parameter.
+    const url = new URL(window.location.href);
+    const urlParams = new URLSearchParams(url.search);
     if (urlParams.get('navTool')) {
       type = urlParams.get('navTool');
     }
