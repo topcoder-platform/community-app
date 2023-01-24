@@ -21,9 +21,21 @@ export default function TopcoderFooter() {
 
     footerInitialized.current = true;
 
+    // If url contains navTool url parameter. Overwrite settings with parameter.
+    let isFullFooter = false;
+    const url = new URL(window.location.href);
+    const urlParams = new URLSearchParams(url.search);
+    if (urlParams.get('navTool') === 'tool') {
+      isFullFooter = false;
+    } else if (urlParams.get('navTool') === 'marketing') {
+      isFullFooter = true;
+    } else {
+      isFullFooter = getSubPageConfiguration().fullFooter;
+    }
+
     tcUniNav('init', `footerNav-${footerId}`, {
       type: 'footer',
-      fullFooter: getSubPageConfiguration().fullFooter,
+      fullFooter: isFullFooter,
     });
   }, [footerId]);
 
