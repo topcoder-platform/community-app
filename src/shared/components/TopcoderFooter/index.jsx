@@ -8,7 +8,8 @@ export default function TopcoderFooter() {
   const footerRef = useRef();
   const footerInitialized = useRef(false);
   const [footerId, setFooterId] = useState(0);
-  const urlParams = new URLSearchParams(window.location.href);
+  const url = new URL(window.location.href);
+  const urlParams = new URLSearchParams(url.search);
 
   useEffect(() => {
     uniqueId += 1;
