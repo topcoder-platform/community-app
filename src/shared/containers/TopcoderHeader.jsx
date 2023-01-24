@@ -41,7 +41,7 @@ const TopcoderHeader = ({ auth }) => {
 
     // If url contains navTool url parameter. Overwrite settings with parameter.
     const url = new URL(window.location.href);
-    const urlParams = new URLSearchParams(url);
+    const urlParams = new URLSearchParams(url.search);
     if (urlParams.get('navTool')) {
       type = urlParams.get('navTool');
     }
