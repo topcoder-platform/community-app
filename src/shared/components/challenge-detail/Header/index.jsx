@@ -191,7 +191,6 @@ export default function ChallengeHeader(props) {
       // condition for 2 round challenge for now
       let finalStartDate;
       if (relevantPhases.length === 8 || challenge.timelineTemplateId === 'd4201ca4-8437-4d63-9957-3f7708184b07') {
-        relevantPhases = _.filter(relevantPhases, p => !(p.name.toLowerCase().includes('checkpoint screening') || p.name.toLowerCase().includes('screening')));
         _.map(relevantPhases, (phase) => {
           if (phase.name === 'Checkpoint Review') {
             finalStartDate = phase.scheduledEndDate;
