@@ -1,32 +1,12 @@
 /* global tcUniNav */
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { getSubPageConfiguration } from '../../utils/url';
 
-let counter = 0;
-const footerElIdTmpl = 'uninav-footerNav';
+const footerElId = 'uninav-footerNav';
 
 export default function TopcoderFooter() {
   const footerRef = useRef();
   const footerInitialized = useRef(false);
-  const footerElId = useRef(`${footerElIdTmpl}-${counter}`);
-
-  const navType = useMemo(() => {
-    let { type } = getSubPageConfiguration();
-
-    // If url contains navTool url parameter. Overwrite settings with parameter.
-    const url = new URL(window.location.href);
-    const urlParams = new URLSearchParams(url.search);
-    if (urlParams.get('navTool')) {
-      type = urlParams.get('navTool');
-    }
-
-    const sessionNavType = sessionStorage.getItem('uni-nav[navType]');
-    if (sessionNavType && (sessionNavType === 'tool' || sessionNavType === 'marketing')) {
-      type = sessionNavType;
-    }
-
-    return type;
-  }, []);
 
   useEffect(() => {
     if (footerInitialized.current) {
@@ -34,13 +14,22 @@ export default function TopcoderFooter() {
     }
 
     footerInitialized.current = true;
-    counter += 1;
 
-    tcUniNav('init', footerElId.current, {
-      fullFooter: navType !== 'tool',
+    let { fullFooter } = getSubPageConfiguration();
+
+    // If url contains navTool url parameter. Overwrite settings with parameter.
+    const url = new URL(window.location.href);
+    const urlParams = new URLSearchParams(url.search);
+    const navToolParam = urlParams.get('navTool');
+    if (navToolParam) {
+      fullFooter = navToolParam !== 'tool';
+    }
+
+    tcUniNav('init', footerElId, {
+      fullFooter,
       type: 'footer',
     });
   }, []);
 
-  return <div id={footerElId.current} ref={footerRef} />;
+  return <div id={footerElId} ref={footerRef} />;
 }
