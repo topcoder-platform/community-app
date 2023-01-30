@@ -1,11 +1,14 @@
 /* global tcUniNav */
 import React, { useEffect, useMemo, useRef } from 'react';
+import LoadingIndicator from 'components/LoadingIndicator';
+import { SSRPlaceholder } from '../../utils/SSR';
 import { getSubPageConfiguration } from '../../utils/url';
+import './style.scss';
 
 let counter = 0;
 const footerElIdTmpl = 'uninav-footerNav';
 
-export default function TopcoderFooter() {
+function TopcoderFooter() {
   const footerRef = useRef();
   const footerInitialized = useRef(false);
   const footerElId = useRef(`${footerElIdTmpl}-${counter}`);
@@ -48,3 +51,14 @@ export default function TopcoderFooter() {
 
   return <div id={footerElId.current} ref={footerRef} />;
 }
+
+const TopcoderFooterPlaceholder = () => (
+  <div styleName="footer-container-placeholder">
+    <LoadingIndicator />
+  </div>
+);
+
+export default SSRPlaceholder()(
+  TopcoderFooter,
+  TopcoderFooterPlaceholder,
+);

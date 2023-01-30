@@ -3,8 +3,11 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
+import LoadingIndicator from 'components/LoadingIndicator';
 import _ from 'lodash';
-import { getInitials, getSubPageConfiguration } from '../utils/url';
+import { getInitials, getSubPageConfiguration } from '../../utils/url';
+import { SSRPlaceholder } from '../../utils/SSR';
+import './styles.scss';
 
 let counter = 0;
 const headerElIdTmpl = 'uninav-headerNav';
@@ -81,9 +84,10 @@ const TopcoderHeader = ({ auth }) => {
     });
   }, [isAuthenticated, navigationUserInfo]);
 
-  return <div id={headerElId.current} ref={headerRef} />;
+  return (
+    <div styleName="header-container" id={headerElId.current} ref={headerRef} />
+  );
 };
-
 TopcoderHeader.defaultProps = {
   auth: {},
 };
@@ -96,4 +100,15 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(TopcoderHeader);
+const TopcoderHeaderConnect = connect(mapStateToProps, null)(TopcoderHeader);
+
+const TopcoderHeaderPlaceholder = () => (
+  <div styleName="header-container header-container-placeholder">
+    <LoadingIndicator />
+  </div>
+);
+
+export default SSRPlaceholder()(
+  TopcoderHeaderConnect,
+  TopcoderHeaderPlaceholder,
+);
