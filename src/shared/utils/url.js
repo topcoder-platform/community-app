@@ -178,7 +178,7 @@ export const getSubPageConfiguration = () => {
     toolRoot = '/gigs';
     loginRedirect = '/gigs';
     type = 'tool';
-    fullFooter = true;
+    fullFooter = false;
   }
 
   if (url.includes('/thrive')) {
