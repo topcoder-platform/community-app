@@ -81,6 +81,9 @@ ARG OPTIMIZELY_SDK_KEY
 # Gamification
 ARG GAMIFICATION_ORG_ID
 
+# Universal Nav
+ARG UNIVERSAL_NAV_URL
+
 ################################################################################
 # Setting of environment variables in the Docker image.
 
@@ -147,6 +150,9 @@ ENV GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
 ENV OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY
 
 ENV GAMIFICATION_ORG_ID=$GAMIFICATION_ORG_ID
+
+# Universal nav
+ENV UNIVERSAL_NAV_URL=$UNIVERSAL_NAV_URL
 
 ################################################################################
 # Testing and build of the application inside the container.

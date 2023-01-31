@@ -71,3 +71,14 @@ export default function SSR(checkStore, updateStore) {
     return <Wrapper />;
   };
 }
+
+/**
+ * Creates a decorator function for a component that benefits from server-side
+ * rendering.
+ */
+export function SSRPlaceholder() {
+  return (Component, ComponentPlaceholder) => (props) => {
+    if (isomorphy.isClientSide()) return <Component {...props} />;
+    return <ComponentPlaceholder {...props} />;
+  };
+}

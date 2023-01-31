@@ -114,6 +114,11 @@ function Routes({ communityId }) {
           exact
           path={`${config.POLICY_PAGES_PATH}/:slug?`}
         />
+        <Redirect
+          exact
+          from="/policy"
+          to="/privacy"
+        />
         <Route
           render={() => (
             <div styleName="container">

@@ -1,47 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow snapshot 1`] = `
-<Header
-  auth={
-    Object {
-      "profile": Object {},
-    }
-  }
-  closeMenu={[Function]}
-  closeMobileMenu={[Function]}
-  closeSearch={[Function]}
-  dismissChallengeNotifications={[Function]}
-  headerMenu={null}
-  loadNotifications={[Function]}
-  markAllNotificationAsRead={[Function]}
-  markAllNotificationAsSeen={[Function]}
-  markNotificationAsRead={[Function]}
-  notifications={Array []}
-  openMenu={[Function]}
-  openMobileMenu={[Function]}
-  openSearch={[Function]}
-  profile={Object {}}
-  setCurrentNav={[Function]}
+<TopcoderHeaderPlaceholder
   store={
     Object {
       "dispatch": [Function],
       "getState": [Function],
       "subscribe": [Function],
-    }
-  }
-  storeSubscription={
-    Subscription {
-      "listeners": Object {
-        "notify": [Function],
-      },
-      "onStateChange": [Function],
-      "parentSub": undefined,
-      "store": Object {
-        "dispatch": [Function],
-        "getState": [Function],
-        "subscribe": [Function],
-      },
-      "unsubscribe": null,
     }
   }
 />

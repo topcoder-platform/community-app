@@ -235,5 +235,6 @@ module.exports = {
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder.com',
   DICE_VERIFY_URL: 'https://accounts-auth0.topcoder.com',
   /* development id - makes surveys have warning about environment */
+  UNIVERSAL_NAV_URL: '//uni-nav.topcoder.com/v1/tc-universal-nav.js',
   SPRIG_ENVIRONMENT_ID: 'a-IZBZ6-r7bU',
 };
