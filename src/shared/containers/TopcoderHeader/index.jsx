@@ -30,15 +30,15 @@ const TopcoderHeader = ({ auth }) => {
 
     // if there's a stored nav type in session storage, retrieve it and overwrite type
     const sessionNavType = sessionStorage.getItem('uni-nav[navType]');
-    const url = window.location.pathname;
+    const url = new URL(window.location.href);
 
-    //Only use the set sessionStorage value for navType on the /thrive paths, for now.  Probably will change in the future...
+    // Only use the set sessionStorage value for navType on the /thrive paths, for now.
+    // Probably will change in the future...
     if (url.includes('/thrive') && sessionNavType && (sessionNavType === 'tool' || sessionNavType === 'marketing')) {
       type = sessionNavType;
     }
 
     // If url contains navTool url parameter. Overwrite settings with parameter.
-    const url = new URL(window.location.href);
     const urlParams = new URLSearchParams(url.search);
     if (urlParams.get('navTool')) {
       type = urlParams.get('navTool');
