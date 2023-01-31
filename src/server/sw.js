@@ -120,7 +120,7 @@ workbox.routing.registerRoute(/http(s)?:\/\/.*\/contentful\/(.*)/, workbox.strat
 workbox.routing.registerRoute(/http(s)?:\/\/.*community-app-assets\/api\/tc-communities(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(200)] }), 'GET');
 
 // Cache third part
-workbox.routing.registerRoute(/http(s)?:\/\/.*(?:google-analytics\.com|addthis\.com|addthisedge\.com|hotjar\.com|ravenjs\.com|trychameleon\.com|googletagmanager\.com|zendesk\.com|zdassets\.com|hotjar\.com|facebook\.net|hs-scripts\.com|hs-analytics\.net|hsadspixel\.net)\/.*\.(?:js|html|config_resp)(\?.*)?$/, workbox.strategies.staleWhileRevalidate({ cacheName: thirdpartCacheName, plugins: [expirationPlugin(100)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/.*(?:google-analytics\.com|addthis\.com|addthisedge\.com|hotjar\.com|ravenjs\.com|trychameleon\.com|googletagmanager\.com|hotjar\.com|facebook\.net|hs-scripts\.com|hs-analytics\.net|hsadspixel\.net)\/.*\.(?:js|html|config_resp)(\?.*)?$/, workbox.strategies.staleWhileRevalidate({ cacheName: thirdpartCacheName, plugins: [expirationPlugin(100)] }), 'GET');
 
 workbox.skipWaiting();
 workbox.clientsClaim();

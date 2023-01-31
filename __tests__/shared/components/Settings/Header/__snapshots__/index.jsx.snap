@@ -4,13 +4,6 @@ exports[`renders setting page header correctly 1`] = `
 <div
   className="src-shared-components-Settings-Header-___styles__Header___2G763"
 >
-  <div
-    className="src-shared-components-Settings-Header-___styles__title___2Pmjv"
-  >
-    <h1>
-      Profile Settings
-    </h1>
-  </div>
   <ThemedButton
     active={false}
     composeAdhocTheme="deeply"
