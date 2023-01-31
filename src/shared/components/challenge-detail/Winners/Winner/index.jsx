@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import { formatOrdinals, numberWithCommas } from 'utils/challenge-detail/helper';
+import { getMMSubmissionId } from 'utils/submissions';
 
 import style from './style.scss';
 
@@ -12,13 +13,6 @@ const { getService } = services.submissions;
 
 function getId(submissions, placement) {
   return submissions.find(s => s.placement === placement).submissionId;
-}
-
-function getMMId(submissions, handle) {
-  const filterSubmissions = submissions.filter(s => s.createdBy === handle);
-  const sortedSubmissions = filterSubmissions.sort((a, b) => (a.created < b.created ? 1 : -1));
-
-  return sortedSubmissions.length > 0 ? sortedSubmissions[0].id : null;
 }
 
 export default function Winner({
@@ -37,7 +31,7 @@ export default function Winner({
   }, []);
 
   const submissionId = viewable && getId(submissions, winner.placement);
-  const mmSubmissionId = isMM && getMMId(submissions, winner.handle);
+  const mmSubmissionId = isMM && getMMSubmissionId(submissions, winner.handle);
 
   let avatarUrl = winner.photoURL;
   if (avatarUrl) {

@@ -21,3 +21,35 @@
   text-align: center;
   width: 100%;
 }
+
+.block-download-all {
+  display: flex;
+  justify-content: flex-end;
+  height: 50px;
+
+  :global {
+    svg {
+      height: 100%;
+      margin: 0;
+    }
+  }
+}
+
+.download {
+  font-size: 15px;
+  line-height: 22px;
+  color: $tc-dark-blue;
+
+  &:disabled {
+    color: #767676;
+    pointer-events: none;
+  }
+
+  &.MM {
+    cursor: pointer;
+  }
+
+  @include xs-to-sm {
+    font-size: 13px;
+  }
+}

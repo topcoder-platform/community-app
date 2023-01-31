@@ -232,6 +232,25 @@
       width: auto;
     }
   }
+
+  .download {
+    font-size: 15px;
+    line-height: 22px;
+    color: $tc-dark-blue;
+
+    &:disabled {
+      color: #767676;
+      pointer-events: none;
+    }
+
+    &.MM {
+      cursor: pointer;
+    }
+
+    @include xs-to-sm {
+      font-size: 13px;
+    }
+  }
 }
 
 .container.dev {
@@ -464,6 +483,19 @@
   font-size: 14px;
   margin: 10px 10px 0 10px;
   padding-top: 5px;
+}
+
+.block-download-all {
+  display: flex;
+  justify-content: flex-end;
+  height: 50px;
+
+  :global {
+    svg {
+      height: 100%;
+      margin: 0;
+    }
+  }
 }
 
 .col-arrow {

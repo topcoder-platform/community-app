@@ -10,17 +10,19 @@ import { isMM as checkIsMM } from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
-import { submission as submissionUtils } from 'topcoder-react-lib';
+import { submission as submissionUtils, services } from 'topcoder-react-lib';
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import cn from 'classnames';
 import { Button } from 'topcoder-react-ui-kit';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
 import SortIcon from 'assets/images/icon-sort.svg';
+import { getSubmissionId } from 'utils/submissions';
+import { compressFiles } from 'utils/files';
 
 import sortList from 'utils/challenge-detail/sort';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { goToLogin, getRatingLevel } from 'utils/tc';
+import { goToLogin, getRatingLevel, CHALLENGE_STATUS } from 'utils/tc';
 import Lock from '../icons/lock.svg';
 import ViewAsListActive from '../icons/view-as-list-active.svg';
 import ViewAsListInactive from '../icons/view-as-list-inactive.svg';
@@ -31,6 +33,8 @@ import SubmissionInformationModal from './SubmissionInformationModal';
 import style from './style.scss';
 
 const { getProvisionalScore, getFinalScore } = submissionUtils;
+
+const { getService } = services.submissions;
 
 class SubmissionsComponent extends React.Component {
   constructor(props) {
@@ -47,6 +51,7 @@ class SubmissionsComponent extends React.Component {
       finalRankClicked: false,
       provisionalRankClicked: false,
       provisionalScoreClicked: false,
+      downloadingAll: false,
     };
     this.onHandleInformationPopup = this.onHandleInformationPopup.bind(this);
     this.getSubmissionsSortParam = this.getSubmissionsSortParam.bind(this);
@@ -321,6 +326,7 @@ class SubmissionsComponent extends React.Component {
       finalRankClicked,
       provisionalRankClicked,
       provisionalScoreClicked,
+      downloadingAll,
     } = this.state;
 
     const sortOptionClicked = {
@@ -591,6 +597,59 @@ class SubmissionsComponent extends React.Component {
                     )}
                   >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
+                </button>
+              </div>
+            )
+          }
+          {
+            ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
+            && isMM) && (
+              <div styleName="block-download-all">
+                {downloadingAll ? (<LoadingIndicator />) : null}
+                <button
+                  disabled={downloadingAll}
+                  styleName="download MM"
+                  onClick={() => {
+                    // download submission
+                    this.setState({
+                      downloadingAll: true,
+                    });
+                    const submissionsService = getService(auth.m2mToken);
+                    const allFiles = [];
+                    let downloadedFile = 0;
+                    const checkToCompressFiles = () => {
+                      if (downloadedFile === sortedSubmissions.length) {
+                        if (downloadedFile > 0) {
+                          compressFiles(allFiles, 'all-winners-submissions.zip', () => {
+                            this.setState({
+                              downloadingAll: false,
+                            });
+                          });
+                        } else {
+                          this.setState({
+                            downloadingAll: false,
+                          });
+                        }
+                      }
+                    };
+                    checkToCompressFiles();
+                    _.forEach(sortedSubmissions, (submission) => {
+                      const mmSubmissionId = isMM && getSubmissionId(submission.submissions);
+                      submissionsService.downloadSubmission(mmSubmissionId)
+                        .then((blob) => {
+                          const file = new File([blob], `submission-${mmSubmissionId}.zip`);
+                          allFiles.push(file);
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        }).catch(() => {
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        });
+                    });
+                  }}
+                  type="button"
+                >
+                  Download All
                 </button>
               </div>
             )

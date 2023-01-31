@@ -62,6 +62,7 @@
     "draft-js-markdown-shortcuts-plugin": "^0.3.0",
     "draft-js-plugins-editor": "^2.0.3",
     "express": "^4.16.3",
+    "fflate": "^0.7.4",
     "filestack-js": "^1.7.7",
     "filestack-react": "^2.0.0",
     "flag-icon-css": "^3.3.0",
