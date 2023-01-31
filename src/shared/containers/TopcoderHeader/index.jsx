@@ -34,7 +34,7 @@ const TopcoderHeader = ({ auth }) => {
 
     // Only use the set sessionStorage value for navType on the /thrive paths, for now.
     // Probably will change in the future...
-    if (url.includes('/thrive') && sessionNavType && (sessionNavType === 'tool' || sessionNavType === 'marketing')) {
+    if (window.location.href.indexOf('/thrive') > -1 && sessionNavType && (sessionNavType === 'tool' || sessionNavType === 'marketing')) {
       type = sessionNavType;
     }
 
