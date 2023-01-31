@@ -177,8 +177,8 @@ export const getSubPageConfiguration = () => {
     toolName = 'Gigs';
     toolRoot = '/gigs';
     loginRedirect = '/gigs';
-    type = 'marketing';
-    fullFooter = true;
+    type = 'tool';
+    fullFooter = false;
   }
 
   if (url.includes('/thrive')) {
@@ -193,8 +193,8 @@ export const getSubPageConfiguration = () => {
     toolName = 'SRMs (Arena)';
     toolRoot = '/community/arena';
     loginRedirect = '/community/arena';
-    type = 'marketing';
-    fullFooter = true;
+    type = 'tool';
+    fullFooter = false;
   }
 
   if (url.includes('/challenges')) {
