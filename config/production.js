@@ -62,6 +62,7 @@ module.exports = {
     },
     EMAIL_VERIFY_URL: 'http://www.topcoder.com/settings/account/changeEmail',
     THRIVE_FEED: 'https://topcoder.com/api/feeds/thrive',
+    TIMELINE_WALL_API: 'https://api.topcoder.com/v5/timeline-wall',
   },
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */
@@ -233,4 +234,7 @@ module.exports = {
   PLATFORM_SITE_URL: 'https://platform.topcoder.com',
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder.com',
   DICE_VERIFY_URL: 'https://accounts-auth0.topcoder.com',
+  /* development id - makes surveys have warning about environment */
+  UNIVERSAL_NAV_URL: '//uni-nav.topcoder.com/v1/tc-universal-nav.js',
+  SPRIG_ENVIRONMENT_ID: 'a-IZBZ6-r7bU',
 };

@@ -1,0 +1,108 @@
+@import "~styles/mixins";
+@import '~components/buttons/themed/tc.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 32px 24px 32px;
+  border-radius: 8px;
+}
+
+.overlay {
+  background-color: $tc-black;
+  opacity: 0.85;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 26px;
+  margin-bottom: 34px;
+
+  .text-title {
+    @include barlow-semi-bold;
+
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: uppercase;
+  }
+
+  .btn-close {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+  }
+}
+
+.text-description {
+  @include roboto-regular;
+
+  font-size: 16px;
+  line-height: 24px;
+
+  strong {
+    @include roboto-bold;
+  }
+}
+
+.separator {
+  height: 2px;
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 26px;
+  background-color: $color-black-10;
+}
+
+@mixin modal-lg {
+  font-size: 16px !important;
+  line-height: 48px !important;
+  border-radius: 50px !important;
+  min-height: auto !important;
+  padding: 0 24px !important;
+  letter-spacing: 0.8px !important;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .btn-cancel {
+    margin-right: 16px !important;
+  }
+}
+
+.btn-outline {
+  @include primary-white;
+  @include modal-lg;
+
+  outline: none !important;
+
+  &.btn-cancel {
+    margin-right: 16px !important;
+  }
+
+  &:hover {
+    @include modal-lg;
+
+    outline: none !important;
+
+    &.btn-cancel {
+      margin-right: 16px !important;
+    }
+  }
+}
+
+.btn-primary {
+  @include primary-green;
+  @include modal-lg;
+
+  outline: none !important;
+
+  &:hover:not(:disabled) {
+    @include modal-lg;
+
+    outline: none !important;
+  }
+}

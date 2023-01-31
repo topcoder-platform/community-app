@@ -98,7 +98,7 @@ export default function Bucket({
   //   filter: filterState,
   // }, { encodeValuesOnly: true });
 
-  const expandable = activeBucket === BUCKETS.ALL || activeBucket === BUCKETS.ALL_PAST;
+  const expandable = true;
   // const filteredChallenges = [];
   // for (let i = 0; i < sortedChallenges.length; i += 1) {
   // if (filter(sortedChallenges[i])) {

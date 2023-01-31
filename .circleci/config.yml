@@ -12,7 +12,7 @@ parameters:
 
 defaults: &defaults
     docker:
-      - image: docker:17.11.0-ce-git
+      - image: docker:20.10.21-git
         environment:
           ENV: $BASH_ENV
 
@@ -28,7 +28,7 @@ install_dependency: &install_dependency
 install_deploysuite: &install_deploysuite
           name: Installation of install_deploysuite.
           command: |
-            git clone --branch dev_comm https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            git clone --branch v1.4.14 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
             cp ./../buildscript/master_deploy.sh .
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
@@ -63,7 +63,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar
+            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar -l dev_communityapp_buildvar_ps
       - run: *build_docker_image
       # Caching node modules.
       - save_cache: *save_cache_settings
@@ -90,7 +90,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar
+            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar -l dev_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -118,7 +118,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar
+            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar -l dev_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -146,7 +146,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar
+            ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar -l prod_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -174,7 +174,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar
+            ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar -l prod_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -207,7 +207,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
+            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar -l prod_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -349,30 +349,30 @@ workflows:
           filters:
             branches:
               only:
-                - enable_dashboard_on_data_science
-                - free
+                - sprig-lib
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
           filters:
             branches:
               only:
-                - free
+                - PROD-3199
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
           filters:
             branches:
               only:
-                - feature/dice-setup
+                - universal_nav
                 - marathon_match_submission_download
+                - feat/badges-box
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - beta-demo
+                - feat/GAME-224
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
@@ -380,8 +380,6 @@ workflows:
             branches:
               only:
                 - develop
-                - old-mm-fix
-                - reskin-profile-settings
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
@@ -402,7 +400,6 @@ workflows:
               ignore:
                 - develop
                 - submission_delete_button
-                - marathon_match_submission_download
 
   Smoke Testing:
     when: << pipeline.parameters.run_smoketesting >>

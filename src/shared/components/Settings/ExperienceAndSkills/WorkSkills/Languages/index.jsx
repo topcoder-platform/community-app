@@ -357,7 +357,7 @@ export default class Languages extends ConsentComponent {
         <div styleName="form-container">
           <Collapse>
             <h2 styleName="form-title">
-              Language Skills
+              Spoken Languages
             </h2>
             {
               languageItems.length > 0
@@ -387,7 +387,7 @@ export default class Languages extends ConsentComponent {
                       valueKey="name"
                       clearable={false}
                     />
-                    { isSubmit && formInvalid && (
+                    {isSubmit && formInvalid && (
                       <ErrorMessage
                         invalid={languageNameInvalid}
                         message={languageNameInvalidMsg}
@@ -446,7 +446,7 @@ export default class Languages extends ConsentComponent {
                   </PrimaryButton>
                 )}
 
-                { isEdit && (
+                {isEdit && (
                   <React.Fragment>
                     <PrimaryButton
                       theme={{ button: styles.button }}

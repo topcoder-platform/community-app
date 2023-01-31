@@ -10,9 +10,6 @@ import style from './styles.scss';
 export default function Header({ saveSettings, isSaving }) {
   return (
     <div styleName="Header">
-      <div styleName="title">
-        <h1>Profile Settings</h1>
-      </div>
       <Button
         onClick={saveSettings}
         theme={{ button: style.saveButton }}
