@@ -177,7 +177,7 @@ export const getSubPageConfiguration = () => {
     toolName = 'Gigs';
     toolRoot = '/gigs';
     loginRedirect = '/gigs';
-    type = 'marketing';
+    type = 'tool';
     fullFooter = true;
   }
 
