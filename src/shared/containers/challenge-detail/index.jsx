@@ -155,7 +155,7 @@ class ChallengeDetailPageContainer extends React.Component {
     this.apiService = getService({ spaceName: 'EDU' });
     this.state = {
       thriveArticles: [],
-      showDeadlineDetail: true,
+      showDeadlineDetail: false,
       registrantsSort: {
         field: '',
         sort: '',

@@ -644,13 +644,14 @@
         height: 60px;
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
+        display: flex;
+        padding-right: 16px;
 
         &.opened {
           border-radius: 0 !important;
         }
 
         @include xs-to-md {
-          display: flex;
           padding: 0 16px;
         }
 
