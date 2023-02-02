@@ -39,6 +39,7 @@ function TopcoderFooter() {
     if (footerInitialized.current) {
       return;
     }
+    footerRef.current.id = footerElId.current;
 
     footerInitialized.current = true;
     counter += 1;
