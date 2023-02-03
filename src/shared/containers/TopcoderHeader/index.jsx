@@ -58,6 +58,7 @@ const TopcoderHeader = ({ auth }) => {
     if (uniNavInitialized.current) {
       return;
     }
+    headerRef.current.id = headerElId.current;
 
     uniNavInitialized.current = true;
     counter += 1;

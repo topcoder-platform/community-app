@@ -177,8 +177,8 @@ export const getSubPageConfiguration = () => {
     toolName = 'Gigs';
     toolRoot = '/gigs';
     loginRedirect = '/gigs';
-    type = 'marketing';
-    fullFooter = true;
+    type = 'tool';
+    fullFooter = false;
   }
 
   if (url.includes('/thrive')) {
@@ -190,11 +190,11 @@ export const getSubPageConfiguration = () => {
   }
 
   if (url.includes('/community/arena')) {
-    toolName = 'SRMs (Arena)';
+    toolName = 'Single Round Matches (Arena)';
     toolRoot = '/community/arena';
     loginRedirect = '/community/arena';
-    type = 'marketing';
-    fullFooter = true;
+    type = 'tool';
+    fullFooter = false;
   }
 
   if (url.includes('/challenges')) {
