@@ -3,7 +3,6 @@
 .avatar-prize {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
 
   @include xs-to-sm {
     margin-bottom: 10px;
@@ -66,7 +65,7 @@
   display: flex;
   justify-content: space-between;
   border-top: 1px solid $tc-gray-10;
-  padding: 17px 17px 0 17px;
+  padding: 17px;
 
   @include xs-to-sm {
     padding: 16px 0;
@@ -183,20 +182,6 @@
     }
   }
 
-  .download {
-    font-size: 15px;
-    line-height: 22px;
-    color: $tc-dark-blue;
-
-    &.MM {
-      cursor: pointer;
-    }
-
-    @include xs-to-sm {
-      font-size: 13px;
-    }
-  }
-
   .date {
     font-size: 15px;
     line-height: 22px;
@@ -225,6 +210,7 @@
 
 .left {
   display: flex;
+  flex: 1;
 }
 
 .right {
@@ -241,5 +227,15 @@
       margin-right: 12px;
       margin-top: 6px;
     }
+  }
+}
+
+.download-container {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+
+  .download {
+    text-decoration: none;
   }
 }

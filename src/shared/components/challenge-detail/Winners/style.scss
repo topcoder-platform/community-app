@@ -25,24 +25,27 @@
 .block-download-all {
   display: flex;
   justify-content: flex-end;
-  height: 50px;
-
-  :global {
-    svg {
-      height: 100%;
-      margin: 0;
-    }
-  }
+  margin-bottom: 20px;
 }
 
 .download {
+  @include roboto-bold;
+
   font-size: 15px;
-  line-height: 22px;
-  color: $tc-dark-blue;
+  line-height: 16px;
+  color: #137d60;
+
+  &:hover {
+    color: #0ab88a;
+  }
 
   &:disabled {
     color: #767676;
     pointer-events: none;
+
+    &:hover {
+      color: #767676;
+    }
   }
 
   &.MM {

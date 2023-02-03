@@ -10,7 +10,6 @@ import { services } from 'topcoder-react-lib';
 import { CHALLENGE_STATUS } from 'utils/tc';
 import { getMMSubmissionId } from 'utils/submissions';
 import { compressFiles } from 'utils/files';
-import LoadingIndicator from 'components/LoadingIndicator';
 import Winner from './Winner';
 import './style.scss';
 
@@ -34,7 +33,6 @@ export default function Winners({
         ((winners.length > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED)
         && isMM && isLoggedIn) && (
           <div styleName="block-download-all">
-            {downloadingAll ? (<LoadingIndicator />) : null}
             <button
               disabled={downloadingAll}
               styleName="download MM"

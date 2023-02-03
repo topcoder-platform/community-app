@@ -605,7 +605,6 @@ class SubmissionsComponent extends React.Component {
             ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
             && isMM) && (
               <div styleName="block-download-all">
-                {downloadingAll ? (<LoadingIndicator />) : null}
                 <button
                   disabled={downloadingAll}
                   styleName="download MM"

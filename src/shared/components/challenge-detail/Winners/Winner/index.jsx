@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import { formatOrdinals, numberWithCommas } from 'utils/challenge-detail/helper';
 import { getMMSubmissionId } from 'utils/submissions';
+import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 
 import style from './style.scss';
 
@@ -77,52 +78,6 @@ export default function Winner({
             </div>
             )
           }
-          {
-            ((!winner.submissionDownloadLink || !viewable) && isMM && isLoggedIn) && (
-              <button
-                styleName="download MM"
-                onClick={() => {
-                  // download submission
-                  const submissionsService = getService(auth.m2mToken);
-                  submissionsService.downloadSubmission(mmSubmissionId)
-                    .then((blob) => {
-                      const url = window.URL.createObjectURL(new Blob([blob]));
-                      const link = document.createElement('a');
-                      link.href = url;
-                      link.setAttribute('download', `submission-${mmSubmissionId}.zip`);
-                      document.body.appendChild(link);
-                      link.click();
-                      link.parentNode.removeChild(link);
-                    });
-                }}
-                type="button"
-              >
-                Download
-              </button>
-            )
-          }
-          {
-            (winner.submissionDownloadLink && viewable)
-            && (
-            <a
-              href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
-              styleName="download"
-              target="_blank"
-              challenge
-              rel="noopener noreferrer"
-            >
-              Download
-            </a>
-            )
-          }
-          {
-            /*
-            <div styleName="date">
-              <span>Submitted&nbsp;on:</span>&zwnj;
-              &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')}</span>
-            </div>
-            */
-          }
         </div>
       </div>
 
@@ -131,6 +86,53 @@ export default function Winner({
           $
           {numberWithCommas(prize)}
         </div>
+      </div>
+      <div styleName="download-container">
+        {
+        ((!winner.submissionDownloadLink || !viewable) && isMM && isLoggedIn) && (
+          <button
+            onClick={() => {
+              // download submission
+              const submissionsService = getService(auth.m2mToken);
+              submissionsService.downloadSubmission(mmSubmissionId)
+                .then((blob) => {
+                  const url = window.URL.createObjectURL(new Blob([blob]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', `submission-${mmSubmissionId}.zip`);
+                  document.body.appendChild(link);
+                  link.click();
+                  link.parentNode.removeChild(link);
+                });
+            }}
+            type="button"
+          >
+            <DownloadIcon />
+          </button>
+        )
+        }
+        {
+          (winner.submissionDownloadLink && viewable)
+          && (
+          <a
+            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
+            styleName="download"
+            target="_blank"
+            challenge
+            rel="noopener noreferrer"
+          >
+            <DownloadIcon />
+          </a>
+          )
+        }
+        {
+          /*
+          <div styleName="date">
+            <span>Submitted&nbsp;on:</span>&zwnj;
+            &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')}</span>
+          </div>
+          */
+        }
       </div>
     </div>
   );

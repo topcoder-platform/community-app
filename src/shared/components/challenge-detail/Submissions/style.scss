@@ -232,25 +232,6 @@
       width: auto;
     }
   }
-
-  .download {
-    font-size: 15px;
-    line-height: 22px;
-    color: $tc-dark-blue;
-
-    &:disabled {
-      color: #767676;
-      pointer-events: none;
-    }
-
-    &.MM {
-      cursor: pointer;
-    }
-
-    @include xs-to-sm {
-      font-size: 13px;
-    }
-  }
 }
 
 .container.dev {
@@ -488,12 +469,34 @@
 .block-download-all {
   display: flex;
   justify-content: flex-end;
-  height: 50px;
+  margin-bottom: 10px;
 
-  :global {
-    svg {
-      height: 100%;
-      margin: 0;
+  .download {
+    @include roboto-bold;
+
+    font-size: 15px;
+    line-height: 16px;
+    color: #137d60;
+
+    &:hover {
+      color: #0ab88a;
+    }
+
+    &:disabled {
+      color: #767676;
+      pointer-events: none;
+
+      &:hover {
+        color: #767676;
+      }
+    }
+
+    &.MM {
+      cursor: pointer;
+    }
+
+    @include xs-to-sm {
+      font-size: 13px;
     }
   }
 }
