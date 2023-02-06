@@ -145,7 +145,7 @@ export default function ChallengeHeader(props) {
   const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
   const currentTime = moment();
 
-  const timeDiff = getTimeLeft(currentPhases, 'to go');
+  const timeDiff = getTimeLeft(currentPhases, 'to go', true);
 
   if (!timeDiff.late) {
     timeDiff.text = timeDiff.text.replace('to go', '');
@@ -447,7 +447,7 @@ export default function ChallengeHeader(props) {
                   (status || '').toLowerCase() === 'active'
                   && (
                   <div styleName="current-phase">
-                    {currentPhases && `${currentPhases.name} Ends: `}
+                    {currentPhases && `${currentPhases.name} Ends In: `}
                     <span styleName="deadline-highlighted">
                       {timeDiff.text}
                     </span>
