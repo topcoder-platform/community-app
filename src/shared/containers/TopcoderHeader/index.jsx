@@ -14,9 +14,6 @@ const headerElIdTmpl = 'uninav-headerNav';
 
 const TopcoderHeader = ({ auth }) => {
   const uniNavInitialized = useRef(false);
-  const user = _.get(auth, 'profile') || {};
-  const authToken = _.get(auth, 'tokenV3');
-  const isAuthenticated = !!authToken;
   const authURLs = config.HEADER_AUTH_URLS;
   const headerRef = useRef();
   const headerElId = useRef(`${headerElIdTmpl}-${counter}`);
@@ -49,11 +46,6 @@ const TopcoderHeader = ({ auth }) => {
     return type;
   }, []);
 
-  const navigationUserInfo = {
-    ...user,
-    initials: getInitials(user.firstName, user.lastName),
-  };
-
   useEffect(() => {
     if (uniNavInitialized.current) {
       return;
@@ -70,6 +62,7 @@ const TopcoderHeader = ({ auth }) => {
       type: navType,
       toolName: getSubPageConfiguration().toolName,
       toolRoot: getSubPageConfiguration().toolRoot,
+      user:'auto',
       signOut: () => {
         window.location = `${config.URL.BASE}/logout?ref=nav`;
       },
@@ -81,12 +74,6 @@ const TopcoderHeader = ({ auth }) => {
       },
     });
   }, [navType]);
-
-  useEffect(() => {
-    tcUniNav('update', headerElId.current, {
-      user: isAuthenticated ? navigationUserInfo : null,
-    });
-  }, [isAuthenticated, navigationUserInfo]);
 
   return (
     <div styleName="header-container" id={headerElId.current} ref={headerRef} />
