@@ -1,6 +1,5 @@
 /* global tcUniNav */
 import React, { useEffect, useMemo, useRef } from 'react';
-import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
