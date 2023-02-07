@@ -7,6 +7,9 @@ import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import rehypeStringify from 'rehype-stringify';
 import remarkFrontmatter from 'remark-frontmatter';
+import rehypeRaw from 'rehype-raw';
+import remarkBreaks from 'remark-breaks';
+import style from './styles.scss';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'katex/dist/katex.min.css';
@@ -23,8 +26,10 @@ export default function SpecificationComponent({
           remarkFrontmatter,
           remarkParse,
           [remarkGfm, { singleTilde: false }],
+          remarkBreaks,
         ]}
-        rehypePlugins={[rehypeKatex, rehypeStringify]}
+        rehypePlugins={[rehypeKatex, rehypeStringify, rehypeRaw]}
+        className={style.container}
       >
         {bodyText}
       </ReactMarkdown>
