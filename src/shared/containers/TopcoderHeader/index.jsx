@@ -4,15 +4,14 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
-import _ from 'lodash';
-import { getInitials, getSubPageConfiguration } from '../../utils/url';
+import { getSubPageConfiguration } from '../../utils/url';
 import { SSRPlaceholder } from '../../utils/SSR';
 import './styles.scss';
 
 let counter = 0;
 const headerElIdTmpl = 'uninav-headerNav';
 
-const TopcoderHeader = ({ auth }) => {
+const TopcoderHeader = () => {
   const uniNavInitialized = useRef(false);
   const authURLs = config.HEADER_AUTH_URLS;
   const headerRef = useRef();
@@ -62,7 +61,7 @@ const TopcoderHeader = ({ auth }) => {
       type: navType,
       toolName: getSubPageConfiguration().toolName,
       toolRoot: getSubPageConfiguration().toolRoot,
-      user:'auto',
+      user: 'auto',
       signOut: () => {
         window.location = `${config.URL.BASE}/logout?ref=nav`;
       },
@@ -78,13 +77,6 @@ const TopcoderHeader = ({ auth }) => {
   return (
     <div styleName="header-container" id={headerElId.current} ref={headerRef} />
   );
-};
-TopcoderHeader.defaultProps = {
-  auth: {},
-};
-
-TopcoderHeader.propTypes = {
-  auth: PT.shape(),
 };
 
 const mapStateToProps = state => ({
