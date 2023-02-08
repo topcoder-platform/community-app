@@ -118,7 +118,7 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh QA
-            ./buildenv.sh -e QA -b qa_communityapp_buildvar,qa_communityapp_deployvar -l dev_communityapp_buildvar_ps
+            ./buildenv.sh -e QA -b qa_communityapp_buildvar,qa_communityapp_deployvar -l qa_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
