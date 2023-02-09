@@ -18,6 +18,7 @@ const mockData = {
     tokenV3: 'tokenV3',
   },
   submissionId: '1',
+  isLoggedIn: true,
 };
 
 describe('Matches shallow shapshot', () => {

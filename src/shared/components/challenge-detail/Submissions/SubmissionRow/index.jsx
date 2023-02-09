@@ -21,7 +21,7 @@ import style from './style.scss';
 export default function SubmissionRow({
   isMM, openHistory, member, submissions, score, toggleHistory, challengeStatus,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
-  numWinners, auth,
+  numWinners, auth, isLoggedIn,
 }) {
   const {
     submissionTime, provisionalScore, status, submissionId,
@@ -173,7 +173,7 @@ export default function SubmissionRow({
                   )
                 }
                 {
-                  isMM && (
+                  isMM && isLoggedIn && (
                     <div styleName="col">&nbsp;</div>
                   )
                 }
@@ -193,6 +193,7 @@ export default function SubmissionRow({
                     member={member}
                     numWinners={numWinners}
                     auth={auth}
+                    isLoggedIn={isLoggedIn}
                     submissionId={submissionHistory.submissionId}
                   />
                 ))
@@ -218,6 +219,7 @@ SubmissionRow.defaultProps = {
   finalRank: null,
   provisionalRank: null,
   rating: null,
+  isLoggedIn: false,
 };
 
 SubmissionRow.propTypes = {
@@ -259,6 +261,7 @@ SubmissionRow.propTypes = {
   provisionalRank: PT.number,
   onShowPopup: PT.func.isRequired,
   viewAsTable: PT.bool.isRequired,
+  isLoggedIn: PT.bool,
   numWinners: PT.number.isRequired,
   auth: PT.shape().isRequired,
 };

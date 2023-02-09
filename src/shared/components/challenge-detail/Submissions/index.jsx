@@ -309,6 +309,7 @@ class SubmissionsComponent extends React.Component {
     } = challenge;
 
     const isMM = this.isMM();
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
@@ -603,7 +604,7 @@ class SubmissionsComponent extends React.Component {
           }
           {
             ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
-            && isMM) && (
+            && isMM && isLoggedIn) && (
               <div styleName="block-download-all">
                 <button
                   disabled={downloadingAll}
@@ -858,6 +859,7 @@ class SubmissionsComponent extends React.Component {
                   viewAsTable={viewAsTable}
                   numWinners={numWinners}
                   auth={auth}
+                  isLoggedIn={isLoggedIn}
                 />
               ))
             )

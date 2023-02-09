@@ -31,6 +31,7 @@ export default function SubmissionHistoryRow({
   auth,
   numWinners,
   submissionId,
+  isLoggedIn,
 }) {
   const getInitialReviewResult = () => {
     if (provisionalScore && provisionalScore < 0) return <FailedSubmissionTooltip />;
@@ -80,7 +81,8 @@ export default function SubmissionHistoryRow({
           </div>
         </div>
         {
-          isMM && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
+          isLoggedIn && isMM
+          && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
             <div styleName="col-2 col center">
               <div styleName="mobile-header">Action</div>
               <button
@@ -114,6 +116,7 @@ SubmissionHistoryRow.defaultProps = {
   finalScore: null,
   provisionalScore: null,
   isReviewPhaseComplete: false,
+  isLoggedIn: false,
 };
 
 SubmissionHistoryRow.propTypes = {
@@ -134,4 +137,5 @@ SubmissionHistoryRow.propTypes = {
   auth: PT.shape().isRequired,
   numWinners: PT.number.isRequired,
   submissionId: PT.string.isRequired,
+  isLoggedIn: PT.bool,
 };

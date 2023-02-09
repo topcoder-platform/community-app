@@ -477,18 +477,16 @@
     font-size: 15px;
     line-height: 16px;
     color: #137d60;
+    background-color: transparent;
 
     &:hover {
       color: #0ab88a;
     }
 
     &:disabled {
-      color: #767676;
       pointer-events: none;
-
-      &:hover {
-        color: #767676;
-      }
+      background-color: transparent;
+      color: #137d60;
     }
 
     &.MM {
