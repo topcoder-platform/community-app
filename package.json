@@ -99,7 +99,7 @@
     "nuka-carousel": "^4.5.3",
     "postcss": "^6.0.23",
     "prop-types": "^15.6.2",
-    "qs": "^6.5.2",
+    "qs": "^6.9.7",
     "query-string": "^6.4.0",
     "raf": "^3.4.0",
     "rc-tooltip": "^3.4.9",
