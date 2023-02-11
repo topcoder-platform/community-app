@@ -77,7 +77,7 @@
     }
 
     &.col-3 {
-      flex: 30;
+      flex: 32;
 
       @include roboto-medium;
 
@@ -100,7 +100,15 @@
       text-align: left;
 
       &.mm {
-        flex: 30;
+        flex: 28;
+      }
+    }
+
+    &.center {
+      text-align: center;
+
+      @include xs-to-sm {
+        text-align: left;
       }
     }
   }
@@ -121,4 +129,15 @@
     color: #767676;
     text-align: left;
   }
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  background: transparent;
+  text-transform: uppercase;
 }

@@ -21,3 +21,36 @@
   text-align: center;
   width: 100%;
 }
+
+.block-download-all {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.download {
+  @include roboto-bold;
+
+  font-size: 15px;
+  line-height: 16px;
+  color: #137d60;
+  background-color: transparent;
+
+  &:hover {
+    color: #0ab88a;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    background-color: transparent;
+    color: #137d60;
+  }
+
+  &.MM {
+    cursor: pointer;
+  }
+
+  @include xs-to-sm {
+    font-size: 13px;
+  }
+}

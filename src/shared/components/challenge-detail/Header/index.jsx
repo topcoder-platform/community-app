@@ -12,7 +12,6 @@ import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
@@ -81,9 +80,7 @@ export default function ChallengeHeader(props) {
     type,
     track,
   } = challenge;
-
-  const desktop = useMediaQuery({ minWidth: 1024 });
-  const showDeadlineDetail = desktop || showDeadlineDetailProp;
+  const showDeadlineDetail = showDeadlineDetailProp;
 
   const tags = challenge.tags || [];
 
@@ -148,7 +145,7 @@ export default function ChallengeHeader(props) {
   const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
   const currentTime = moment();
 
-  const timeDiff = getTimeLeft(currentPhases, 'to go');
+  const timeDiff = getTimeLeft(currentPhases, 'to go', true);
 
   if (!timeDiff.late) {
     timeDiff.text = timeDiff.text.replace('to go', '');
@@ -171,6 +168,12 @@ export default function ChallengeHeader(props) {
       if (phase.name === 'Iterative Review') {
         const end = phaseEndDate(phase);
         return moment(end).isAfter();
+      }
+      // do not show [Specification Submission, Specification Review, Approval]
+      // phases for design challenges
+      if (trackLower === 'design'
+        && ['Specification Submission', 'Specification Review', 'Approval'].indexOf(phase.name) >= 0) {
+        return false;
       }
       return true;
     });
@@ -444,7 +447,7 @@ export default function ChallengeHeader(props) {
                   (status || '').toLowerCase() === 'active'
                   && (
                   <div styleName="current-phase">
-                    {currentPhases && `${currentPhases.name} Ends: `}
+                    {currentPhases && `${currentPhases.name} Ends In: `}
                     <span styleName="deadline-highlighted">
                       {timeDiff.text}
                     </span>

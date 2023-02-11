@@ -55,6 +55,7 @@ export function getEndDate(challenge) {
 export function getTimeLeft(
   phase,
   toGoText = 'to go',
+  fullText = false,
 ) {
   const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
   const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
@@ -71,9 +72,9 @@ export function getTimeLeft(
   if (late) time = -time;
 
   let format;
-  if (time > DAY_MS) format = 'D[d] H[h]';
-  else if (time > HOUR_MS) format = 'H[h] m[min]';
-  else format = 'm[min] s[s]';
+  if (time > DAY_MS) format = fullText ? 'D [day] H [hour]' : 'D[d] H[h]';
+  else if (time > HOUR_MS) format = fullText ? 'H [hour] m [minute]' : 'H[h] m[min]';
+  else format = fullText ? 'm [minute] s [second]' : 'm[min] s[s]';
 
   time = moment.duration(time).format(format);
   time = late ? `${time} Past Due` : `${time} ${toGoText}`;

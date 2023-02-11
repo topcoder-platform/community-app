@@ -10,17 +10,19 @@ import { isMM as checkIsMM } from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
-import { submission as submissionUtils } from 'topcoder-react-lib';
+import { submission as submissionUtils, services } from 'topcoder-react-lib';
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import cn from 'classnames';
 import { Button } from 'topcoder-react-ui-kit';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
 import SortIcon from 'assets/images/icon-sort.svg';
+import { getSubmissionId } from 'utils/submissions';
+import { compressFiles } from 'utils/files';
 
 import sortList from 'utils/challenge-detail/sort';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { goToLogin, getRatingLevel } from 'utils/tc';
+import { goToLogin, getRatingLevel, CHALLENGE_STATUS } from 'utils/tc';
 import Lock from '../icons/lock.svg';
 import ViewAsListActive from '../icons/view-as-list-active.svg';
 import ViewAsListInactive from '../icons/view-as-list-inactive.svg';
@@ -31,6 +33,8 @@ import SubmissionInformationModal from './SubmissionInformationModal';
 import style from './style.scss';
 
 const { getProvisionalScore, getFinalScore } = submissionUtils;
+
+const { getService } = services.submissions;
 
 class SubmissionsComponent extends React.Component {
   constructor(props) {
@@ -47,6 +51,7 @@ class SubmissionsComponent extends React.Component {
       finalRankClicked: false,
       provisionalRankClicked: false,
       provisionalScoreClicked: false,
+      downloadingAll: false,
     };
     this.onHandleInformationPopup = this.onHandleInformationPopup.bind(this);
     this.getSubmissionsSortParam = this.getSubmissionsSortParam.bind(this);
@@ -292,6 +297,8 @@ class SubmissionsComponent extends React.Component {
       challengesUrl,
       viewAsTable,
       setViewAsTable,
+      numWinners,
+      auth,
     } = this.props;
     const {
       checkpoints,
@@ -302,6 +309,7 @@ class SubmissionsComponent extends React.Component {
     } = challenge;
 
     const isMM = this.isMM();
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
@@ -319,6 +327,7 @@ class SubmissionsComponent extends React.Component {
       finalRankClicked,
       provisionalRankClicked,
       provisionalScoreClicked,
+      downloadingAll,
     } = this.state;
 
     const sortOptionClicked = {
@@ -594,6 +603,58 @@ class SubmissionsComponent extends React.Component {
             )
           }
           {
+            ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
+            && isMM && isLoggedIn) && (
+              <div styleName="block-download-all">
+                <button
+                  disabled={downloadingAll}
+                  styleName="download MM"
+                  onClick={() => {
+                    // download submission
+                    this.setState({
+                      downloadingAll: true,
+                    });
+                    const submissionsService = getService(auth.m2mToken);
+                    const allFiles = [];
+                    let downloadedFile = 0;
+                    const checkToCompressFiles = () => {
+                      if (downloadedFile === sortedSubmissions.length) {
+                        if (downloadedFile > 0) {
+                          compressFiles(allFiles, 'all-winners-submissions.zip', () => {
+                            this.setState({
+                              downloadingAll: false,
+                            });
+                          });
+                        } else {
+                          this.setState({
+                            downloadingAll: false,
+                          });
+                        }
+                      }
+                    };
+                    checkToCompressFiles();
+                    _.forEach(sortedSubmissions, (submission) => {
+                      const mmSubmissionId = isMM && getSubmissionId(submission.submissions);
+                      submissionsService.downloadSubmission(mmSubmissionId)
+                        .then((blob) => {
+                          const file = new File([blob], `submission-${mmSubmissionId}.zip`);
+                          allFiles.push(file);
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        }).catch(() => {
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        });
+                    });
+                  }}
+                  type="button"
+                >
+                  Download All
+                </button>
+              </div>
+            )
+          }
+          {
             isMM && (
               <div styleName={`sub-head ${viewAsTable ? 'sub-head-table' : ''}`}>
                 <div styleName="col-1 col">
@@ -786,6 +847,7 @@ class SubmissionsComponent extends React.Component {
                   isMM={isMM}
                   key={submission.member}
                   {...submission}
+                  challengeStatus={challenge.status}
                   toggleHistory={() => { toggleSubmissionHistory(index); }}
                   openHistory={(submissionHistoryOpen[index.toString()] || false)}
                   isLoadingSubmissionInformation={isLoadingSubmissionInformation}
@@ -795,6 +857,9 @@ class SubmissionsComponent extends React.Component {
                   onGetFlagImageFail={onGetFlagImageFail}
                   submissionDetail={submission}
                   viewAsTable={viewAsTable}
+                  numWinners={numWinners}
+                  auth={auth}
+                  isLoggedIn={isLoggedIn}
                 />
               ))
             )
@@ -908,6 +973,7 @@ SubmissionsComponent.propTypes = {
     type: PT.string.isRequired,
     tags: PT.arrayOf(PT.string),
     registrants: PT.any,
+    status: PT.string.isRequired,
     phases: PT.any,
   }).isRequired,
   toggleSubmissionHistory: PT.func.isRequired,
@@ -936,6 +1002,7 @@ SubmissionsComponent.propTypes = {
   challengesUrl: PT.string.isRequired,
   viewAsTable: PT.bool.isRequired,
   setViewAsTable: PT.func.isRequired,
+  numWinners: PT.number.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

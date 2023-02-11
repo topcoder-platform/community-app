@@ -364,6 +364,7 @@ workflows:
             branches:
               only:
                 - universal_nav
+                - marathon_match_submission_download
                 - feat/badges-box
       # This is beta env for production soft releases
       - "build-prod-beta":

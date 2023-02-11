@@ -9,7 +9,8 @@ import _ from 'lodash';
  */
 export function isMM(challenge) {
   const tags = _.get(challenge, 'tags') || [];
-  return tags.includes('Marathon Match');
+  const isMMType = challenge ? challenge.type === 'Marathon Match' : false;
+  return tags.includes('Marathon Match') || isMMType;
 }
 
 /**
