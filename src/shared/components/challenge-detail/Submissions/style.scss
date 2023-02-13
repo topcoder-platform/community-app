@@ -471,6 +471,7 @@
   justify-content: flex-end;
   margin-bottom: 10px;
 
+  button.download,
   .download {
     @include roboto-bold;
 
@@ -483,10 +484,14 @@
       color: #0ab88a;
     }
 
+    &:focus,
     &:disabled {
-      pointer-events: none;
       background-color: transparent;
       color: #137d60;
+    }
+
+    &:disabled {
+      pointer-events: none;
     }
 
     &.MM {
