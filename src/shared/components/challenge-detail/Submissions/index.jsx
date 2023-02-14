@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { isMM as checkIsMM, isMMByType as checkIsMMByType} from 'utils/challenge';
+import { isMM as checkIsMM, isMMByType as checkIsMMByType } from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -604,7 +604,7 @@ class SubmissionsComponent extends React.Component {
           }
           {
             ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
-            && isMMByType(challenge) && isLoggedIn) && (
+            && checkIsMMByType(challenge) && isLoggedIn) && (
               <div styleName="block-download-all">
                 <button
                   disabled={downloadingAll}
