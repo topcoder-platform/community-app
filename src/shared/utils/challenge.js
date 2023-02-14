@@ -14,14 +14,6 @@ export function isMM(challenge) {
 }
 
 /**
- * check if is marathon match challenge by type only (ignore MM tags)
- * @param {Object} challenge challenge object
- */
-export function isMMByType(challenge) {
-  const isMMType = challenge ? challenge.type === 'Marathon Match' : false;
-  return isMMType;
-}
-/**
  * Set challenge type to challenge
  * @param {Object} challenges challenge object
  * @param {Object} challengeTypeMap all challenge type object
@@ -37,6 +29,5 @@ export function updateChallengeType(challenges, challengeTypeMap) {
 
 export default {
   isMM,
-  isMMByType,
   updateChallengeType,
 };
