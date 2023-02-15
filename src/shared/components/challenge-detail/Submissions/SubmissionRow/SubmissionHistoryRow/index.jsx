@@ -6,13 +6,18 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { services } from 'topcoder-react-lib';
 import moment from 'moment';
+import { CHALLENGE_STATUS } from 'utils/tc';
 import FailedSubmissionTooltip from '../../FailedSubmissionTooltip';
 // import Completed from '../../../icons/completed.svg';
 import InReview from '../../../icons/in-review.svg';
 import Queued from '../../../icons/queued.svg';
+import DownloadIcon from '../../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 
 import './style.scss';
+
+const { getService } = services.submissions;
 
 export default function SubmissionHistoryRow({
   isMM,
@@ -22,6 +27,11 @@ export default function SubmissionHistoryRow({
   submissionTime,
   isReviewPhaseComplete,
   status,
+  challengeStatus,
+  auth,
+  numWinners,
+  submissionId,
+  isLoggedIn,
 }) {
   const getInitialReviewResult = () => {
     if (provisionalScore && provisionalScore < 0) return <FailedSubmissionTooltip />;
@@ -70,6 +80,33 @@ export default function SubmissionHistoryRow({
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
+        {
+          isLoggedIn && isMM
+          && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
+            <div styleName="col-2 col center">
+              <div styleName="mobile-header">Action</div>
+              <button
+                onClick={() => {
+                  // download submission
+                  const submissionsService = getService(auth.m2mToken);
+                  submissionsService.downloadSubmission(submissionId)
+                    .then((blob) => {
+                      const url = window.URL.createObjectURL(new Blob([blob]));
+                      const link = document.createElement('a');
+                      link.href = url;
+                      link.setAttribute('download', `submission-${submissionId}.zip`);
+                      document.body.appendChild(link);
+                      link.click();
+                      link.parentNode.removeChild(link);
+                    });
+                }}
+                type="button"
+              >
+                <DownloadIcon />
+              </button>
+            </div>
+          )
+        }
       </div>
     </div>
   );
@@ -79,6 +116,7 @@ SubmissionHistoryRow.defaultProps = {
   finalScore: null,
   provisionalScore: null,
   isReviewPhaseComplete: false,
+  isLoggedIn: false,
 };
 
 SubmissionHistoryRow.propTypes = {
@@ -94,5 +132,10 @@ SubmissionHistoryRow.propTypes = {
     PT.string,
   ]),
   submissionTime: PT.string.isRequired,
+  challengeStatus: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
+  auth: PT.shape().isRequired,
+  numWinners: PT.number.isRequired,
+  submissionId: PT.string.isRequired,
+  isLoggedIn: PT.bool,
 };

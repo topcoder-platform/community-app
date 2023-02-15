@@ -1,22 +1,17 @@
 /* global tcUniNav */
 import React, { useEffect, useMemo, useRef } from 'react';
-import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
-import _ from 'lodash';
-import { getInitials, getSubPageConfiguration } from '../../utils/url';
+import { getSubPageConfiguration } from '../../utils/url';
 import { SSRPlaceholder } from '../../utils/SSR';
 import './styles.scss';
 
 let counter = 0;
 const headerElIdTmpl = 'uninav-headerNav';
 
-const TopcoderHeader = ({ auth }) => {
+const TopcoderHeader = () => {
   const uniNavInitialized = useRef(false);
-  const user = _.get(auth, 'profile') || {};
-  const authToken = _.get(auth, 'tokenV3');
-  const isAuthenticated = !!authToken;
   const authURLs = config.HEADER_AUTH_URLS;
   const headerRef = useRef();
   const headerElId = useRef(`${headerElIdTmpl}-${counter}`);
@@ -49,15 +44,11 @@ const TopcoderHeader = ({ auth }) => {
     return type;
   }, []);
 
-  const navigationUserInfo = {
-    ...user,
-    initials: getInitials(user.firstName, user.lastName),
-  };
-
   useEffect(() => {
     if (uniNavInitialized.current) {
       return;
     }
+    headerRef.current.id = headerElId.current;
 
     uniNavInitialized.current = true;
     counter += 1;
@@ -69,6 +60,7 @@ const TopcoderHeader = ({ auth }) => {
       type: navType,
       toolName: getSubPageConfiguration().toolName,
       toolRoot: getSubPageConfiguration().toolRoot,
+      user: 'auto',
       signOut: () => {
         window.location = `${config.URL.BASE}/logout?ref=nav`;
       },
@@ -81,22 +73,9 @@ const TopcoderHeader = ({ auth }) => {
     });
   }, [navType]);
 
-  useEffect(() => {
-    tcUniNav('update', headerElId.current, {
-      user: isAuthenticated ? navigationUserInfo : null,
-    });
-  }, [isAuthenticated, navigationUserInfo]);
-
   return (
     <div styleName="header-container" id={headerElId.current} ref={headerRef} />
   );
-};
-TopcoderHeader.defaultProps = {
-  auth: {},
-};
-
-TopcoderHeader.propTypes = {
-  auth: PT.shape(),
 };
 
 const mapStateToProps = state => ({
