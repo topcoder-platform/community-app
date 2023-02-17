@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
+import _ from 'lodash';
 import { getSubPageConfiguration } from '../../utils/url';
 import { SSRPlaceholder } from '../../utils/SSR';
 import './styles.scss';
@@ -10,7 +11,7 @@ import './styles.scss';
 let counter = 0;
 const headerElIdTmpl = 'uninav-headerNav';
 
-const TopcoderHeader = () => {
+const TopcoderHeader = ({ auth }) => {
   const uniNavInitialized = useRef(false);
   const authURLs = config.HEADER_AUTH_URLS;
   const headerRef = useRef();
@@ -51,6 +52,8 @@ const TopcoderHeader = () => {
     headerRef.current.id = headerElId.current;
 
     uniNavInitialized.current = true;
+    const user = _.get(auth, 'profile') || {};
+
     counter += 1;
 
     const regSource = window.location.pathname.split('/')[1];
