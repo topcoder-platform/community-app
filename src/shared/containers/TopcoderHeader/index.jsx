@@ -14,6 +14,9 @@ const headerElIdTmpl = 'uninav-headerNav';
 
 const TopcoderHeader = ({ auth }) => {
   const uniNavInitialized = useRef(false);
+  const user = _.get(auth, 'profile') || {};
+  const authToken = _.get(auth, 'tokenV3');
+  const isAuthenticated = !!authToken;
   const authURLs = config.HEADER_AUTH_URLS;
   const headerRef = useRef();
   const headerElId = useRef(`${headerElIdTmpl}-${counter}`);
@@ -58,9 +61,6 @@ const TopcoderHeader = ({ auth }) => {
     headerRef.current.id = headerElId.current;
 
     uniNavInitialized.current = true;
-    const user = _.get(auth, 'profile') || {};
-    const authToken = _.get(auth, 'tokenV3');
-    const isAuthenticated = !!authToken;
 
     counter += 1;
 
