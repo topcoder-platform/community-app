@@ -150,7 +150,7 @@
     "remark-frontmatter": "^3.0.0",
     "remark-gfm": "^1.0.0",
     "remark-math": "^4.0.0",
-    "remark-parse": "^9.0.0",
+    "remark-parse": "^10.0.1",
     "request-ip": "^2.0.2",
     "require-context": "^1.1.0",
     "rss": "^1.2.2",
