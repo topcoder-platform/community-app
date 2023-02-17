@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
 import _ from 'lodash';
-import { getSubPageConfiguration } from '../../utils/url';
+import { getInitials, getSubPageConfiguration } from '../../utils/url';
 import { SSRPlaceholder } from '../../utils/SSR';
 import './styles.scss';
 
