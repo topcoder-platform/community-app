@@ -1,5 +1,6 @@
 /* global tcUniNav */
 import React, { useEffect, useMemo, useRef } from 'react';
+import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -45,6 +46,11 @@ const TopcoderHeader = ({ auth }) => {
     return type;
   }, []);
 
+  const navigationUserInfo = {
+    ...user,
+    initials: getInitials(user.firstName, user.lastName),
+  };
+
   useEffect(() => {
     if (uniNavInitialized.current) {
       return;
@@ -53,6 +59,8 @@ const TopcoderHeader = ({ auth }) => {
 
     uniNavInitialized.current = true;
     const user = _.get(auth, 'profile') || {};
+    const authToken = _.get(auth, 'tokenV3');
+    const isAuthenticated = !!authToken;
 
     counter += 1;
 
@@ -86,6 +94,13 @@ const TopcoderHeader = ({ auth }) => {
   return (
     <div styleName="header-container" id={headerElId.current} ref={headerRef} />
   );
+};
+TopcoderHeader.defaultProps = {
+  auth: {},
+};
+
+TopcoderHeader.propTypes = {
+  auth: PT.shape(),
 };
 
 const mapStateToProps = state => ({
