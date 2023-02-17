@@ -24,6 +24,8 @@ import './styles.scss';
 const FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL = _.get(config, 'TIMELINE.FETCHING_PENDING_APPROVAL_EVENTS_INTERVAL', 0);
 const FORUM_LINK = _.get(config, 'TIMELINE.FORUM_LINK', '');
 function TimelineWallContainer(props) {
+  const currentTime = new Date();
+  const thisYear = currentTime.getFullYear();
   const [tab, setTab] = useState(0);
   const fetchingApprovalsInterval = useRef(null);
   const [showRightFilterMobile, setShowRightFilterMobile] = useState(false);
@@ -223,7 +225,7 @@ function TimelineWallContainer(props) {
           type="button"
           styleName="filter-dropdown hide-desktop show-mobile"
         >
-          <span>{selectedFilterValue.year ? selectedFilterValue.year : ''}</span>
+          <span>{selectedFilterValue.year ? selectedFilterValue.year : thisYear}</span>
           <IconCheveronDownBlue />
         </button>
       </div>

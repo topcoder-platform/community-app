@@ -169,10 +169,10 @@ $tc-link-visited: #0c4e98;
 
     li::before {
       display: table-cell;
-      font-weight: 700;
       text-align: right;
       content: counter(item) ".";
       padding: 0 10px 0 0;
+      white-space: nowrap;
     }
   }
 
@@ -352,10 +352,10 @@ $tc-link-visited: #0c4e98;
 
         &::before {
           display: table-cell;
-          font-weight: 700;
           text-align: right;
           content: counter(item) ".";
           padding: 0 10px 0 0;
+          white-space: nowrap;
         }
       }
     }

@@ -3,6 +3,7 @@ import PT from 'prop-types';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconCloseGreen from 'assets/images/icon-close-green.svg';
 import LoadingIndicator from 'components/LoadingIndicator';
+import cn from 'classnames';
 
 import style from './styles.scss';
 
@@ -17,14 +18,17 @@ function ModalEventAdd({
       onCancel={onClose}
     >
       <div styleName="header">
-        <span styleName="text-title">Confirmation</span>
+        <span styleName="text-title">{uploadResult ? 'Error' : 'Confirmation'}</span>
         <button styleName="btn-close" onClick={onClose} type="button"><IconCloseGreen /></button>
       </div>
       {
         uploading ? (
           <LoadingIndicator />
         ) : (
-          <span styleName="text-description">
+          <span styleName={cn('text-description', {
+            error: !!uploadResult,
+          })}
+          >
             {
               uploadResult || successMessage
             }

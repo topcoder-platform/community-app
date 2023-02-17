@@ -3,6 +3,13 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+import remarkParse from 'remark-parse';
+import rehypeStringify from 'rehype-stringify';
+import remarkFrontmatter from 'remark-frontmatter';
+import rehypeRaw from 'rehype-raw';
+import remarkBreaks from 'remark-breaks';
+import style from './styles.scss';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'katex/dist/katex.min.css';
@@ -14,8 +21,15 @@ export default function SpecificationComponent({
   if (format === 'markdown') {
     return (
       <ReactMarkdown
-        remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeKatex]}
+        remarkPlugins={[
+          remarkMath,
+          remarkFrontmatter,
+          remarkParse,
+          [remarkGfm, { singleTilde: false }],
+          remarkBreaks,
+        ]}
+        rehypePlugins={[rehypeKatex, rehypeStringify, rehypeRaw]}
+        className={style.container}
       >
         {bodyText}
       </ReactMarkdown>

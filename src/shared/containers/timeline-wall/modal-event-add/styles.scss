@@ -44,6 +44,10 @@
   strong {
     @include roboto-bold;
   }
+
+  &.error {
+    color: #ef476f;
+  }
 }
 
 .separator {
