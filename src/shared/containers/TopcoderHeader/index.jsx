@@ -58,8 +58,8 @@ const TopcoderHeader = () => {
 
     tcUniNav('init', headerElId.current, {
       type: navType,
-      toolName: getSubPageConfiguration().toolName,
-      toolRoot: getSubPageConfiguration().toolRoot,
+      toolName: getSubPageConfiguration(user.handle).toolName,
+      toolRoot: getSubPageConfiguration(user.handle).toolRoot,
       user: 'auto',
       signOut: () => {
         window.location = `${config.URL.BASE}/logout?ref=nav`;
@@ -72,6 +72,13 @@ const TopcoderHeader = () => {
       },
     });
   }, [navType]);
+
+  useEffect(() => {
+    tcUniNav('update', headerElId.current, {
+      toolName: getSubPageConfiguration(user.handle).toolName,
+      user: isAuthenticated ? navigationUserInfo : null,
+    });
+  }, [isAuthenticated, navigationUserInfo]);
 
   return (
     <div styleName="header-container" id={headerElId.current} ref={headerRef} />
