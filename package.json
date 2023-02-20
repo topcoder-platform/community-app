@@ -7,6 +7,7 @@
     "conventional-changelog": "conventional-changelog",
     "build": "npm run clean && ./node_modules/.bin/webpack --env=production --progress --profile --colors --display-optimization-bailout",
     "build:dev": "npm run clean && ./node_modules/.bin/webpack --env=development --progress --profile --colors --display-optimization-bailout",
+    "build:qa": "npm run clean && ./node_modules/.bin/webpack --env=qa --progress --profile --colors --display-optimization-bailout",
     "clean": "rimraf build",
     "dev": "cross-env BABEL_ENV=development NODE_ENV=development node ./bin/www",
     "jest": "cross-env NODE_CONFIG_ENV=test BABEL_ENV=test jest --no-cache --maxWorkers=4 --config config/jest/default.js",
