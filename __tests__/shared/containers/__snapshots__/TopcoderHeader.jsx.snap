@@ -1,12 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow snapshot 1`] = `
-<TopcoderHeaderPlaceholder
+<withRouter(TopcoderHeader)
+  auth={
+    Object {
+      "profile": Object {},
+    }
+  }
+  dispatch={[Function]}
   store={
     Object {
       "dispatch": [Function],
       "getState": [Function],
       "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
     }
   }
 />
