@@ -3,7 +3,8 @@
   "rules": {
     "jsx-a11y/anchor-is-valid": false,
     "import/no-cycle": [2, { "maxDepth": 1 }],
-    "react/forbid-prop-types": false
+    "react/forbid-prop-types": false,
+    "react/no-unknown-property": false
   },
   "env": {
     "browser": true
