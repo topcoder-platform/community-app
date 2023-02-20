@@ -168,6 +168,7 @@
     "topcoder-react-ui-kit": "2.0.1",
     "topcoder-react-utils": "0.7.8",
     "turndown": "^4.0.2",
+    "uninav-react": "git+https://github.com/topcoder-platform/uninav-react.git#0.0.1",
     "url-parse": "^1.4.1",
     "uuid": "^3.3.2",
     "valid-url": "^1.0.9",
