@@ -349,7 +349,7 @@ workflows:
           filters:
             branches:
               only:
-                - sprig-lib
+                - TCA-768_member-profile-tca-certs
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
