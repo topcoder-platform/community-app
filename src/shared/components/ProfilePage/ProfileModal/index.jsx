@@ -25,7 +25,7 @@ const ProfileModal = ({
         <h2 styleName="title">
           {title}
         </h2>
-        <div styleName="icon" role="presentation" onClick={onCancel}>
+        <div className="close-icon" styleName="icon" role="presentation" onClick={onCancel}>
           <IconClose />
         </div>
       </div>

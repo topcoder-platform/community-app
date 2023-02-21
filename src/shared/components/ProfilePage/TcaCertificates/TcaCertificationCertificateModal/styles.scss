@@ -1,0 +1,39 @@
+@import "~styles/mixins";
+
+.tca-modal {
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  padding: 36px;
+  width: 980px;
+  max-width: 96vw;
+
+  :global(.close-icon) {
+    color: #fff;
+
+    svg > path {
+      fill: currentColor;
+    }
+  }
+
+  @include xs-to-sm {
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    width: 100%;
+  }
+}
+
+.iframe {
+  display: block;
+  height: 788px;
+  max-height: 100%;
+  width: calc(100% + 37px + 37px);
+
+  margin: -101px -37px -36px;
+
+  @include xs-to-sm {
+    height: auto;
+    flex: 1;
+  }
+}

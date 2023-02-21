@@ -1,0 +1,95 @@
+.tca-badge-wrap {
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 300px 283.6363px;
+  background-image: url('../../../../../assets/images/profile/tca-certificates/tca-certifications-badges-sprite.png');
+
+  &.size-md {
+    width: 48px;
+    height: 48px;
+  }
+
+  &:global(.badge-interview--beginner) {
+    background-position: -6px -6px;
+  }
+
+  &:global(.badge-interview--intermediate) {
+    background-position: -66px -6px;
+  }
+
+  &:global(.badge-interview--expert) {
+    background-position: -6px -63px;
+  }
+
+  &:global(.badge-datascience--beginner) {
+    background-position: -66px -63px;
+  }
+
+  &:global(.badge-datascience--intermediate) {
+    background-position: -126px -6px;
+  }
+
+  &:global(.badge-datascience--expert) {
+    background-position: -126px -63px;
+  }
+
+  &:global(.badge-database--intermediate) {
+    background-position: -6px -119px;
+  }
+
+  &:global(.badge-database--beginner) {
+    background-position: -66px -119px;
+  }
+
+  &:global(.badge-database--expert) {
+    background-position: -126px -119px;
+  }
+
+  &:global(.badge-design--beginner) {
+    background-position: -186px -6px;
+  }
+
+  &:global(.badge-design--intermediate) {
+    background-position: -186px -63px;
+  }
+
+  &:global(.badge-design--expert) {
+    background-position: -186px -119px;
+  }
+
+  &:global(.badge-dev--beginner) {
+    background-position: -6px -176px;
+  }
+
+  &:global(.badge-dev--intermediate) {
+    background-position: -66px -176px;
+  }
+
+  &:global(.badge-dev--expert) {
+    background-position: -126px -176px;
+  }
+
+  &:global(.badge-qa--expert) {
+    background-position: -186px -176px;
+  }
+
+  &:global(.badge-qa--beginner) {
+    background-position: -246px -6px;
+  }
+
+  &:global(.badge-qa--intermediate) {
+    background-position: -246px -63px;
+  }
+
+  &:global(.badge-security--beginner) {
+    background-position: -246px -119px;
+  }
+
+  &:global(.badge-security--expert) {
+    background-position: -246px -176px;
+  }
+
+  &:global(.badge-security--intermediate) {
+    background-position: -6px -233px;
+  }
+}

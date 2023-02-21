@@ -209,7 +209,8 @@ const mapStateToProps = (state, ownProps) => ({
   lookupData: state.lookup,
   badges: state.page.profile[ownProps.match.params.handle]
     ? state.page.profile[ownProps.match.params.handle].badges : {},
-  tcAcademyCertifications: state.tcAcademy.certifications,
+  tcAcademyCertifications: _.get(state.tcAcademy, 'certifications.enrollments', []),
+  tcAcademyCourses: _.get(state.tcAcademy, 'certifications.courses', []),
   auth: {
     ...state.auth,
   },
