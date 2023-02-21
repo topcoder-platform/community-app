@@ -7,5 +7,6 @@
 /* eslint-disable import/no-dynamic-require */
 
 module.exports = function buildConfig(env) {
+  console.log('Building config for environment:', env)
   return require(`./config/webpack/${env}.js`);
 };

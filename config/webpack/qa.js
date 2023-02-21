@@ -30,7 +30,7 @@ jsxRule.exclude = [
 ];
 
 standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
-  PUBLIC_PATH: JSON.stringify(publicPath),
+  PUBLIC_PATH: JSON.stringify('/api/cdn/public/static-assets'),
 }));
 
 module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);
