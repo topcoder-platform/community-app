@@ -22,27 +22,27 @@
   }
 
   &:global(.badge-datascience--beginner) {
-    background-position: -66px -63px;
-  }
-
-  &:global(.badge-datascience--intermediate) {
     background-position: -126px -6px;
   }
 
-  &:global(.badge-datascience--expert) {
-    background-position: -126px -63px;
+  &:global(.badge-datascience--intermediate) {
+    background-position: -66px -63px;
   }
 
-  &:global(.badge-database--intermediate) {
+  &:global(.badge-datascience--expert) {
     background-position: -6px -119px;
   }
 
   &:global(.badge-database--beginner) {
-    background-position: -66px -119px;
+    background-position: -126px -63px;
+  }
+
+  &:global(.badge-database--intermediate) {
+    background-position: -126px -119px;
   }
 
   &:global(.badge-database--expert) {
-    background-position: -126px -119px;
+    background-position: -66px -119px;
   }
 
   &:global(.badge-design--beginner) {
@@ -69,15 +69,15 @@
     background-position: -126px -176px;
   }
 
-  &:global(.badge-qa--expert) {
+  &:global(.badge-qa--beginner) {
     background-position: -186px -176px;
   }
 
-  &:global(.badge-qa--beginner) {
+  &:global(.badge-qa--intermediate) {
     background-position: -246px -6px;
   }
 
-  &:global(.badge-qa--intermediate) {
+  &:global(.badge-qa--expert) {
     background-position: -246px -63px;
   }
 
@@ -85,11 +85,11 @@
     background-position: -246px -119px;
   }
 
-  &:global(.badge-security--expert) {
+  &:global(.badge-security--intermediate) {
     background-position: -246px -176px;
   }
 
-  &:global(.badge-security--intermediate) {
+  &:global(.badge-security--expert) {
     background-position: -6px -233px;
   }
 }
