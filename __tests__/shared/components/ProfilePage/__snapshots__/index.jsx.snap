@@ -715,6 +715,7 @@ exports[`renders a full Profile correctly 1`] = `
     }
   }
   tcAcademyCertifications={Array []}
+  tcAcademyCourses={Array []}
 />
 `;
 
@@ -866,5 +867,6 @@ exports[`renders an empty Profile correctly 1`] = `
     }
   }
   tcAcademyCertifications={Array []}
+  tcAcademyCourses={Array []}
 />
 `;
