@@ -46,7 +46,7 @@ test('render properly', () => {
   TU.renderIntoDocument((
     <Wrapper
       title="How Does An IOS 10 LCD Work"
-      text={'<p>There are advances being made in science and technology everyday</p>'}
+      text="<p>There are advances being made in science and technology everyday</p>"
       imageSrc="/themes/wipro/home/news-01.jpg"
       link={{
         title: 'Read More',
@@ -67,7 +67,7 @@ test('render properly', () => {
   TU.renderIntoDocument((
     <Wrapper
       title="How Does An IOS 10 LCD Work"
-      text={'<p>There are advances being made in science and technology everyday</p>'}
+      text="<p>There are advances being made in science and technology everyday</p>"
       imageSrc="/themes/wipro/home/news-01.jpg"
       link={{
         title: 'Read More',

@@ -14,6 +14,7 @@ import {
 } from '@topcoder-platform/tc-auth-lib';
 import { actions, logger, errors } from 'topcoder-react-lib';
 import { client, redux, config } from 'topcoder-react-utils';
+// eslint-disable-next-line import/no-unresolved
 import { sprig } from '@sprig-technologies/sprig-browser';
 
 import './styles.scss';

@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import LoadingIndicator from 'components/LoadingIndicator';
+// eslint-disable-next-line import/no-unresolved
 import { sprig } from '@sprig-technologies/sprig-browser';
 
 export const Sprig = sprig.configure({

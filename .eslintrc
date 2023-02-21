@@ -4,9 +4,12 @@
     "jsx-a11y/anchor-is-valid": false,
     "import/no-cycle": [2, { "maxDepth": 1 }],
     "react/forbid-prop-types": false,
-    "react/no-unknown-property": false
+    "react/no-unknown-property": false,
+    "react/jsx-no-bind": false,
+    "react/destructuring-assignment": false,
+    "react/no-array-index-key": false
   },
   "env": {
     "browser": true
-  }  
+  }
 }

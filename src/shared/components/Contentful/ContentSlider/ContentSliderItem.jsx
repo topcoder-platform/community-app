@@ -41,6 +41,11 @@ function ContentSliderItem(props) {
   );
 }
 
+ContentSliderItem.defaultProps = {
+  spaceName: '',
+  environment: '',
+};
+
 ContentSliderItem.propTypes = {
   itemId: PT.string.isRequired,
   type: PT.string.isRequired,
