@@ -14,6 +14,11 @@ else publicPath = '/api/cdn/public/static-assets';
 
 const standardDevelopmentConfig = configFactory({
   context: path.resolve(__dirname, '../..'),
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('qa'),
+    }),
+  ],
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
