@@ -67,7 +67,7 @@ const TopcoderHeader = ({ auth, location }) => {
         signOut={signOut}
         signUp={signUp}
         currentLocation={location.pathname}
-      >
+      />
     </div>
   );
 };
