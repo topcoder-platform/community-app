@@ -183,7 +183,7 @@ $tc-link-visited: #0c4e98;
     font-size: 15px;
     color: $tc-gray-90;
     line-height: 25px;
-    list-style: disc outside none;
+    list-style: revert;
 
     li {
       font-weight: 400;
@@ -313,7 +313,7 @@ $tc-link-visited: #0c4e98;
       font-size: 15px;
       color: $tc-gray-90;
       line-height: 25px;
-      list-style: disc outside none;
+      list-style: revert;
 
       li {
         font-weight: 400;
