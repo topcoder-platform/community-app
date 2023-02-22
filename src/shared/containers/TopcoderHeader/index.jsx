@@ -69,9 +69,6 @@ const TopcoderHeader = ({ auth, location }) => {
         signUp={signUp}
         currentLocation={location.pathname}
       >
-        <div styleName="loader">
-          <LoadingIndicator />
-        </div>
       </NavComponent>
     </div>
   );
