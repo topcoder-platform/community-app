@@ -68,7 +68,6 @@ const TopcoderHeader = ({ auth, location }) => {
         signUp={signUp}
         currentLocation={location.pathname}
       >
-      </NavComponent>
     </div>
   );
 };
