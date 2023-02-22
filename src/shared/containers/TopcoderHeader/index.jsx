@@ -3,7 +3,6 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
-import LoadingIndicator from 'components/LoadingIndicator';
 import _ from 'lodash';
 import { MarketingNavigation, ToolNavigation } from 'uninav-react';
 import { getSubPageConfiguration } from '../../utils/url';
