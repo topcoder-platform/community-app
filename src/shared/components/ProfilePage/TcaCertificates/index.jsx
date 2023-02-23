@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PT from 'prop-types';
 
 import './styles.scss';
@@ -20,25 +20,33 @@ const TcaCertificates = ({ certifications, courses, memberHandle }) => {
         Topcoder Academy
       </h3>
 
-      <h4 styleName="category-title">Certifications</h4>
-      <List
-        certificates={certifications}
-        isVerified
-        onClick={certificate => setShowCertificationCertificate(certificate)}
-        renderIcon={enrollment => (
-          <CertificationBadge
-            type={enrollment.topcoderCertification.certificationCategory.track || 'DEV'}
-            level={enrollment.topcoderCertification.learnerLevel || 'Beginner'}
+      {certifications.length > 0 && (
+        <Fragment>
+          <h4 styleName="category-title">Certifications</h4>
+          <List
+            certificates={certifications}
+            isVerified
+            onClick={certificate => setShowCertificationCertificate(certificate)}
+            renderIcon={enrollment => (
+              <CertificationBadge
+                type={enrollment.topcoderCertification.certificationCategory.track || 'DEV'}
+                level={enrollment.topcoderCertification.learnerLevel || 'Beginner'}
+              />
+            )}
           />
-        )}
-      />
-      <h4 styleName="category-title">Courses</h4>
-      <List
-        certificates={courses}
-        isVerified
-        onClick={certificate => setShowCourseCertificate(certificate)}
-        renderIcon={certificate => <CourseBadge type={certificate.certificationTrackType || 'DEV'} />}
-      />
+        </Fragment>
+      )}
+      {courses.length > 0 && (
+        <Fragment>
+          <h4 styleName="category-title">Courses</h4>
+          <List
+            certificates={courses}
+            isVerified
+            onClick={certificate => setShowCourseCertificate(certificate)}
+            renderIcon={certificate => <CourseBadge type={certificate.certificationTrackType || 'DEV'} />}
+          />
+        </Fragment>
+      )}
 
       { showCertificationCertificate && (
         <TcaCertificationCertificateModal
