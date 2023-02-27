@@ -83,7 +83,7 @@
     "le_node": "^1.7.0",
     "localStorage": "^1.0.4",
     "lodash": "^4.17.10",
-    "markdown-it": "^8.4.1",
+    "markdown-it": "^12.3.2",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "moment": "^2.22.2",
