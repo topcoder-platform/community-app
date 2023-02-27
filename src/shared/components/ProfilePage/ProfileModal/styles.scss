@@ -30,6 +30,8 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 24px;
+    z-index: 1;
+    position: relative;
 
     .title {
       @include barlow-medium;
