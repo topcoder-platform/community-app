@@ -19,6 +19,7 @@ function getId(submissions, placement) {
 export default function Winner({
   isDesign,
   isMM,
+  isRDM,
   prizes,
   submissions,
   viewable,
@@ -89,7 +90,7 @@ export default function Winner({
       </div>
       <div styleName="download-container">
         {
-        ((!winner.submissionDownloadLink || !viewable) && isMM && isLoggedIn) && (
+        ((!winner.submissionDownloadLink || !viewable) && (isMM || isRDM) && isLoggedIn) && (
           <button
             onClick={() => {
               // download submission
@@ -145,6 +146,7 @@ Winner.defaultProps = {
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
   isMM: PT.bool.isRequired,
+  isRDM: PT.bool.isRequired,
   prizes: PT.arrayOf(PT.shape()),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,

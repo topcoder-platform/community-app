@@ -155,6 +155,7 @@ export default function ChallengeStatus(props) {
         onClick={() => false}
         styleName="register-button"
         target={openChallengesInNewTabs ? '_blank' : undefined}
+        rel="noreferrer"
       >
         { timeDiff.late
           ? (
