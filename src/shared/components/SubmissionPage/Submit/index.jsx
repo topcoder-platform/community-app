@@ -339,6 +339,7 @@ const filestackDataProp = PT.shape({
   container: PT.string.isRequired,
   challengeId: PT.string.isRequired,
   fileUrl: PT.string.isRequired,
+  fileType: PT.string,
 });
 
 /**

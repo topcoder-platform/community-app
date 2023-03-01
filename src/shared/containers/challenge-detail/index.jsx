@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
-import { isMM as checkIsMM } from 'utils/challenge';
+import { isMM as checkIsMM, isRDM as checkIsRDM } from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -439,6 +439,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isEmpty = _.isEmpty(challenge);
     const isMM = checkIsMM(challenge);
+    const isRDM = checkIsRDM(challenge);
     const isLegacyMM = isMM && Boolean(challenge.roundId);
 
     if (isLoadingChallenge || isLoadingTerms) {
@@ -661,6 +662,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 submissions={challenge.submissions}
                 isDesign={track.toLowerCase() === 'design'}
                 isMM={isMM}
+                isRDM={isRDM}
                 isLoggedIn={isLoggedIn}
                 auth={auth}
               />

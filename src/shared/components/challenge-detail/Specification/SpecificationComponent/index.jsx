@@ -4,11 +4,12 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
-import remarkParse from 'remark-parse';
 import rehypeStringify from 'rehype-stringify';
 import remarkFrontmatter from 'remark-frontmatter';
 import rehypeRaw from 'rehype-raw';
 import remarkBreaks from 'remark-breaks';
+import LoadingIndicator from 'components/LoadingIndicator';
+import { isomorphy } from 'topcoder-react-utils';
 import style from './styles.scss';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -19,12 +20,19 @@ export default function SpecificationComponent({
   format,
 }) {
   if (format === 'markdown') {
+    if (!isomorphy.isClientSide()) {
+      return (
+        <LoadingIndicator />
+      );
+    }
+    // eslint-disable-next-line global-require
+    const remarkParse = require('remark-parse');
     return (
       <ReactMarkdown
         remarkPlugins={[
           remarkMath,
           remarkFrontmatter,
-          remarkParse,
+          remarkParse.default,
           [remarkGfm, { singleTilde: false }],
           remarkBreaks,
         ]}

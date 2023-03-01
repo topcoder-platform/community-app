@@ -164,14 +164,14 @@ export function getInitials(firstName = '', lastName = '') {
 
 export const DEFAULT_AVATAR_URL = 'https://images.ctfassets.net/b5f1djy59z3a/4PTwZVSf3W7qgs9WssqbVa/4c51312671a4b9acbdfd7f5e22320b62/default_avatar.svg';
 
-export const getSubPageConfiguration = () => {
+export const getSubPageConfiguration = (location, loginUserHandle) => {
   let toolName = 'Community';
   let toolRoot = '/';
   let loginRedirect = '/';
   let type = 'marketing';
   let fullFooter = true;
 
-  const url = window.location.pathname;
+  const url = (location || window.location).pathname;
 
   if (url.includes('/gigs')) {
     toolName = 'Gigs';
@@ -206,7 +206,8 @@ export const getSubPageConfiguration = () => {
   }
 
   if (url.includes('/members')) {
-    toolName = 'My Profile';
+    const handle = url.substring(url.lastIndexOf('/') + 1);
+    toolName = loginUserHandle && handle && loginUserHandle.toLowerCase() === handle.toLocaleLowerCase() ? 'My Profile' : 'Profiles';
     toolRoot = url;
     loginRedirect = url;
     type = 'tool';
