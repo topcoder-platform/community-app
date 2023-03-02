@@ -349,14 +349,14 @@ workflows:
           filters:
             branches:
               only:
-                - PROD-4120
+                - free
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
           filters:
             branches:
               only:
-                - PROD-3199
+                - PROD-4120
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
