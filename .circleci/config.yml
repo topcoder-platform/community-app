@@ -372,7 +372,7 @@ workflows:
           filters:
             branches:
               only:
-                - feat/GAME-224
+                - PROD-4120
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
