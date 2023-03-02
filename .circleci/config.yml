@@ -372,7 +372,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - PROD-4120
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
@@ -380,7 +380,6 @@ workflows:
             branches:
               only:
                 - develop
-                - PROD-4120
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
