@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { isMM as checkIsMM, isRDM as checkIsRDM } from 'utils/challenge';
+import { isMM as checkIsMM } from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -309,7 +309,6 @@ class SubmissionsComponent extends React.Component {
     } = challenge;
 
     const isMM = this.isMM();
-    const isRDM = checkIsRDM(challenge);
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
@@ -605,7 +604,7 @@ class SubmissionsComponent extends React.Component {
           }
           {
             ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
-            && (isMM || isRDM) && isLoggedIn) && (
+            && isMM && isLoggedIn) && (
               <div styleName="block-download-all">
                 <button
                   disabled={downloadingAll}
@@ -846,7 +845,6 @@ class SubmissionsComponent extends React.Component {
                   submissions={sortedSubmissions}
                   isReviewPhaseComplete={isReviewPhaseComplete}
                   isMM={isMM}
-                  isRDM={isRDM}
                   key={submission.member}
                   {...submission}
                   challengeStatus={challenge.status}
