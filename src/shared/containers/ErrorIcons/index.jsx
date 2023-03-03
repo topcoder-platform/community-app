@@ -25,8 +25,8 @@ function Tip({ errors, clear }) {
         &#10799;
       </a>
       {
-        errors.map(({ title, message }, i) => (
-          <div key={i.toString()} styleName="item">
+        errors.map(({ title, message }) => (
+          <div key={`${title}-${message}`} styleName="item">
             <div styleName="title" title={title}>
               {title}
             </div>
