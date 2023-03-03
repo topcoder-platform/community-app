@@ -56,7 +56,7 @@ export default function Winners({
                 };
                 checkToCompressFiles();
                 _.forEach(winners, (winner) => {
-                  const mmSubmissionId = isMM && getMMSubmissionId(submissions, winner.handle);
+                  const mmSubmissionId = getMMSubmissionId(submissions, winner.handle);
                   submissionsService.downloadSubmission(mmSubmissionId)
                     .then((blob) => {
                       const file = new File([blob], `submission-${mmSubmissionId}.zip`);
