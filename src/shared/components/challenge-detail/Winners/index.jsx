@@ -22,6 +22,7 @@ export default function Winners({
   viewable,
   isDesign,
   isMM,
+  isRDM,
   isLoggedIn,
   auth,
   challengeStatus,
@@ -31,7 +32,7 @@ export default function Winners({
     <div styleName="container">
       {
         ((winners.length > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED)
-        && isMM && isLoggedIn) && (
+        && (isMM || isRDM) && isLoggedIn) && (
           <div styleName="block-download-all">
             <button
               disabled={downloadingAll}
@@ -80,6 +81,7 @@ export default function Winners({
           <Winner
             isDesign={isDesign}
             isMM={isMM}
+            isRDM={isRDM}
             key={`${w.handle}-${w.placement}`}
             prizes={prizes}
             submissions={submissions}
@@ -101,6 +103,7 @@ Winners.defaultProps = {
   viewable: false,
   isDesign: false,
   isMM: false,
+  isRDM: false,
   isLoggedIn: false,
   challengeStatus: '',
 };
@@ -112,6 +115,7 @@ Winners.propTypes = {
   viewable: PT.bool,
   isDesign: PT.bool,
   isMM: PT.bool,
+  isRDM: PT.bool,
   isLoggedIn: PT.bool,
   challengeStatus: PT.string,
   auth: PT.shape().isRequired,
