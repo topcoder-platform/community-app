@@ -14,16 +14,6 @@ export function isMM(challenge) {
 }
 
 /**
- * check if is rapid development match challenge
- * @param {Object} challenge challenge object
- */
-export function isRDM(challenge) {
-  const tags = _.get(challenge, 'tags') || [];
-  const isMMType = challenge ? challenge.type === 'Rapid Development Match' : false;
-  return tags.includes('Rapid Development Match') || isMMType;
-}
-
-/**
  * Set challenge type to challenge
  * @param {Object} challenges challenge object
  * @param {Object} challengeTypeMap all challenge type object
