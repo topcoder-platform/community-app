@@ -25,7 +25,7 @@ function ReferralCode(props) {
   const [growSurfState, setGrowSurfState] = useState(growSurf);
   const [copyBtnText, setCopyBtnText] = useState('COPY');
   useEffect(() => {
-    setGrowSurfState(props.growSurf);
+    setGrowSurfState(growSurf);
   }, [growSurf]);
 
   return (
