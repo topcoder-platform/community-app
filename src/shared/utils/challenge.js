@@ -20,7 +20,7 @@ export function isMM(challenge) {
 export function isRDM(challenge) {
   const tags = _.get(challenge, 'tags') || [];
   const isMMType = challenge ? challenge.type === 'Rapid Development Match' : false;
-  return tags.includes('Rapid Development Match') || isMMType;
+  return tags.includes('Rapid Development Match') || tags.includes('RDM') || isMMType;
 }
 
 /**
