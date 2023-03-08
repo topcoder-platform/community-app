@@ -175,7 +175,7 @@ Tip.defaultProps = {
 };
 
 Tip.propTypes = {
-  challenge: PT.shape({}).isRequired,
+  challenge: PT.object.isRequired,
   isLoaded: PT.bool,
 };
 

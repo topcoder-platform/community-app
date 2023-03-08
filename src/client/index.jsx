@@ -14,7 +14,7 @@ import {
 } from '@topcoder-platform/tc-auth-lib';
 import { actions, logger, errors } from 'topcoder-react-lib';
 import { client, redux, config } from 'topcoder-react-utils';
-import { sprig } from '@sprig-technologies/sprig-browser';
+import { sprig } from '@sprig-technologies/sprig-browser/dist';
 
 import './styles.scss';
 

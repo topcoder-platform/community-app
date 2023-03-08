@@ -1,7 +1,8 @@
 @import "~styles/mixins";
 
 .tca-certificates {
-  margin-top: 32px;
+  margin-top: 68px;
+  margin-bottom: -36px;
   background: $listing-filter-bg;
   padding: 32px;
   border-radius: 8px;
@@ -35,6 +36,21 @@
         width: 31px;
         height: 33px;
       }
+    }
+  }
+
+  .category-title {
+    @include barlow-semi-bold;
+
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 24px;
+
+    @include xs-to-md {
+      font-size: 16px;
+      line-height: 18px;
+      margin-top: 16px;
     }
   }
 }

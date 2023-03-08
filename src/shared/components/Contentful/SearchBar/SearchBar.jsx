@@ -203,6 +203,7 @@ export class SearchBarInner extends Component {
                       className={theme.articleLink}
                       href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                      rel="noreferrer"
                       onClick={(e) => {
                         e.nativeEvent.stopImmediatePropagation();
                         e.stopPropagation();
@@ -254,6 +255,7 @@ export class SearchBarInner extends Component {
                       className={theme.articleLink}
                       href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                      rel="noreferrer"
                       onClick={(e) => {
                         e.nativeEvent.stopImmediatePropagation();
                         e.stopPropagation();
@@ -300,6 +302,7 @@ export class SearchBarInner extends Component {
                       className={theme.forumLink}
                       href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                      rel="noreferrer"
                     >
                       <span className={theme['cell-text']}>
                         {item.title}
