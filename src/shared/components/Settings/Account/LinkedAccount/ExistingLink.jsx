@@ -64,15 +64,7 @@ export default function ExistingLink(props) {
   return (
     <div role="link" styleName={`external-link-tile ${pending ? 'external-link-tile--pending' : ''}`} onClick={e => openLink(e, link)}>
       <div styleName="ext-link-tile_edit-header">
-        <div
-          role="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onConfirmDeleteLink(e, link);
-          }}
-          styleName={`ext-link-tile_edit-header_delete ${link.deleting ? 'ext-link-tile_edit-header_delete--disabled' : ''}`}
-        />
+        <div role="button" onClick={e => onConfirmDeleteLink(e, link)} styleName={`ext-link-tile_edit-header_delete ${link.deleting ? 'ext-link-tile_edit-header_delete--disabled' : ''}`} prevent-event-propagation="true" />
       </div>
       <div styleName="top">
         <div styleName="logo">
@@ -102,7 +94,7 @@ export default function ExistingLink(props) {
               <p className={!pending ? 'hidden' : ''} styleName="link-title">
                 Loading data. This will take a few minutes.
               </p>
-              <a styleName="link-url" id="link-url" href={prependProtocol(link.URL)} target="_blank" rel="noopener noreferrer">
+              <a styleName="link-url" id="link-url" href={prependProtocol(link.URL)} target="_blank" rel="noopener noreferrer" prevent-event-propagation="true">
                 {prependProtocol(link.URL)}
               </a>
             </div>

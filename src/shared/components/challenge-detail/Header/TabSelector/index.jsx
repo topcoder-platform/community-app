@@ -404,9 +404,9 @@ export default function ChallengeViewSelector(props) {
                   </div>
                   <div styleName="sort-body">
                     {
-                      sortOptions.map(option => (
+                      sortOptions.map((option, index) => (
                         <div
-                          key={`sort-option-${option.name}`}
+                          map={`sort-option-${index}`}
                           styleName="sort-item"
                           onClick={() => {
                             setSelectedSortOption(option.name);
