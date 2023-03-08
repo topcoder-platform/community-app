@@ -24,7 +24,6 @@ export default function AccessDenied(props) {
     spaceName,
     environment,
     viewportId,
-    children,
   } = props;
 
   if (viewportId) {
@@ -68,7 +67,7 @@ export default function AccessDenied(props) {
           <div styleName="msg">
             You are not authorized to access this page.
           </div>
-          {children}
+          {props.children}
         </div>
       );
     case CAUSE.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE:

@@ -21,6 +21,7 @@ const { getService } = services.submissions;
 
 export default function SubmissionHistoryRow({
   isMM,
+  isRDM,
   submission,
   finalScore,
   provisionalScore,
@@ -81,7 +82,7 @@ export default function SubmissionHistoryRow({
           </div>
         </div>
         {
-          isLoggedIn && isMM
+          isLoggedIn && (isMM || isRDM)
           && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
             <div styleName="col-2 col center">
               <div styleName="mobile-header">Action</div>
@@ -121,6 +122,7 @@ SubmissionHistoryRow.defaultProps = {
 
 SubmissionHistoryRow.propTypes = {
   isMM: PT.bool.isRequired,
+  isRDM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.oneOfType([
     PT.number,

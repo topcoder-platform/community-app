@@ -123,7 +123,6 @@ const settings = {
 export default function Home(props) {
   const {
     userId,
-    resetChallengeListing,
   } = props;
 
   return (
@@ -200,7 +199,7 @@ export default function Home(props) {
       >
         <div styleName="ImageTextStyles.linkWrap style.linkWrap">
           <Link
-            onClick={() => resetChallengeListing()}
+            onClick={() => props.resetChallengeListing()}
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
           >

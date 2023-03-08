@@ -6,7 +6,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import Tooltip from '../../../Tooltip';
+import Tooltip from 'components/Tooltip';
 import Tip from './Tip';
 import './style.scss';
 
@@ -35,6 +35,11 @@ export default function Prize({
     </div>
   );
 
+  function placeArrow(TooltipNode) {
+    const arrow = TooltipNode.querySelector('.rc-tooltip-arrow');
+    arrow.style.left = '33%';
+  }
+
   const component = (
     <div
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
@@ -43,13 +48,7 @@ export default function Prize({
     >
       {((onlyShowTooltipForPrize && !withoutTooltip)
         ? (
-          <Tooltip
-            content={tip}
-            placeArrow={(TooltipNode) => {
-              const arrow = TooltipNode.querySelector('.rc-tooltip-arrow');
-              arrow.style.left = '33%';
-            }}
-          >
+          <Tooltip content={tip} placeArrow={placeArrow}>
             {prizeUI}
           </Tooltip>
         )

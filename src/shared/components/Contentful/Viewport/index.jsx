@@ -272,7 +272,7 @@ export function ViewportLoader(props) {
   }
 
   if (query) {
-    queries.push({ ...query, content_type: 'viewport' });
+    queries.push({ ...props.query, content_type: 'viewport' });
   }
 
   return (
