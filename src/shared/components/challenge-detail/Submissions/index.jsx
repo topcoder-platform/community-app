@@ -496,7 +496,7 @@ class SubmissionsComponent extends React.Component {
                     const checkToCompressFiles = () => {
                       if (downloadedFile === sortedSubmissions.length) {
                         if (downloadedFile > 0) {
-                          compressFiles(allFiles, 'all-winners-submissions.zip', () => {
+                          compressFiles(allFiles, 'all-submissions.zip', () => {
                             this.setState({
                               downloadingAll: false,
                             });
@@ -510,7 +510,8 @@ class SubmissionsComponent extends React.Component {
                     };
                     checkToCompressFiles();
                     _.forEach(sortedSubmissions, (submission) => {
-                      const mmSubmissionId = getSubmissionId(submission.submissions);
+                      const mmSubmissionId = submission.submissions
+                        ? getSubmissionId(submission.submissions) : submission.id;
                       submissionsService.downloadSubmission(mmSubmissionId)
                         .then((blob) => {
                           const file = new File([blob], `submission-${mmSubmissionId}.zip`);
