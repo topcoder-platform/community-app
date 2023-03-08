@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - TCA-768_member-profile-tca-certs
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
@@ -372,7 +372,7 @@ workflows:
           filters:
             branches:
               only:
-                - feat/GAME-224
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
