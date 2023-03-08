@@ -32,7 +32,7 @@ export function AppComponentSwitch(appComponent) {
         tcoPointsApiUrl,
         memberLimit,
         isAlgo,
-      },
+      } = {},
     },
     sys: { id },
   } = appComponent;
