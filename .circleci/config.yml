@@ -349,14 +349,14 @@ workflows:
           filters:
             branches:
               only:
-                - sprig-lib
+                - free
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
           filters:
             branches:
               only:
-                - PROD-3199
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
@@ -372,7 +372,7 @@ workflows:
           filters:
             branches:
               only:
-                - feat/GAME-224
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global

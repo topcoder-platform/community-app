@@ -8,38 +8,30 @@ import styles from './styles.scss';
 
 const tcAcademyPath = `${config.PLATFORMUI_SITE_URL}${config.TC_ACADEMY_BASE_PATH}`;
 
-const TcaCertificateModal = ({
+const TcaCertificationCertificateModal = ({
   certificate,
   onCancel,
-  memberHandle,
 }) => (
   <ProfileModal
-    title="Topcoder Academy"
+    title=""
     onCancel={onCancel}
-    containerClassName={styles['tca-certificate-modal']}
+    containerClassName={styles['tca-modal']}
   >
     <iframe
       styleName="iframe"
-      src={[
-        tcAcademyPath,
-        certificate.provider,
-        certificate.certification,
-        memberHandle,
-        'certificate',
-      ].join('/')}
+      src={`${tcAcademyPath}/${certificate.completionUuid}?view-style=modal`}
       title={certificate.certificationTitle}
     />
   </ProfileModal>
 );
 
-TcaCertificateModal.defaultProps = {
+TcaCertificationCertificateModal.defaultProps = {
   onCancel: noop,
 };
 
-TcaCertificateModal.propTypes = {
+TcaCertificationCertificateModal.propTypes = {
   certificate: PT.shape().isRequired,
   onCancel: PT.func,
-  memberHandle: PT.string.isRequired,
 };
 
-export default TcaCertificateModal;
+export default TcaCertificationCertificateModal;

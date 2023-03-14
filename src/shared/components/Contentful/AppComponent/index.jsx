@@ -39,38 +39,38 @@ export function AppComponentSwitch(appComponent) {
   if (type === 'TCO-Leaderboard') {
     return (
       <Leaderboard
-        id={id}
-        apiUrl={leaderboardApiUrl}
-        title={title}
-        podiumSpots={podiumSpots}
-        isCopilot={isCopilot}
-        hasChallengeHistory={hasChallengeHistory}
-        tcoPointsApiUrl={tcoPointsApiUrl}
-        memberLimit={memberLimit}
-        isAlgo={isAlgo}
-        key={id}
-        themeName={theme}
+        id={appComponent.sys.id}
+        apiUrl={appComponent.fields.props.leaderboardApiUrl}
+        title={appComponent.fields.props.title}
+        podiumSpots={appComponent.fields.props.podiumSpots}
+        isCopilot={appComponent.fields.props.isCopilot}
+        hasChallengeHistory={appComponent.fields.props.hasChallengeHistory}
+        tcoPointsApiUrl={appComponent.fields.props.tcoPointsApiUrl}
+        memberLimit={appComponent.fields.props.memberLimit}
+        isAlgo={appComponent.fields.props.isAlgo}
+        key={appComponent.sys.id}
+        themeName={appComponent.fields.theme}
       />
     );
   }
-  if (type === 'RecruitCRM-Jobs') {
-    return <RecruitCRMJobs {...props} key={id} />;
+  if (appComponent.fields.type === 'RecruitCRM-Jobs') {
+    return <RecruitCRMJobs {...appComponent.fields.props} key={appComponent.sys.id} />;
   }
-  if (type === 'EmailSubscribeForm') {
-    return <EmailSubscribeForm {...props} key={id} />;
+  if (appComponent.fields.type === 'EmailSubscribeForm') {
+    return <EmailSubscribeForm {...appComponent.fields.props} key={appComponent.sys.id} />;
   }
-  if (type === 'GSheet') {
-    return <GSheet {...props} key={id} />;
+  if (appComponent.fields.type === 'GSheet') {
+    return <GSheet {...appComponent.fields.props} key={appComponent.sys.id} />;
   }
-  if (type === 'MemberPath') {
+  if (appComponent.fields.type === 'MemberPath') {
     return (
       <PathSelector
-        {...props}
-        key={id}
+        {...appComponent.fields.props}
+        key={appComponent.sys.id}
       />
     );
   }
-  fireErrorMessage(`Unsupported app component type ${type}`, '');
+  fireErrorMessage(`Unsupported app component type ${appComponent.fields.type}`, '');
   return null;
 }
 

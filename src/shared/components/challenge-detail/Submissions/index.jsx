@@ -657,6 +657,58 @@ class SubmissionsComponent extends React.Component {
             )
           }
           {
+            ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
+            && (isMM || isRDM) && isLoggedIn) && (
+              <div styleName="block-download-all">
+                <button
+                  disabled={downloadingAll}
+                  styleName="download MM"
+                  onClick={() => {
+                    // download submission
+                    this.setState({
+                      downloadingAll: true,
+                    });
+                    const submissionsService = getService(auth.m2mToken);
+                    const allFiles = [];
+                    let downloadedFile = 0;
+                    const checkToCompressFiles = () => {
+                      if (downloadedFile === sortedSubmissions.length) {
+                        if (downloadedFile > 0) {
+                          compressFiles(allFiles, 'all-winners-submissions.zip', () => {
+                            this.setState({
+                              downloadingAll: false,
+                            });
+                          });
+                        } else {
+                          this.setState({
+                            downloadingAll: false,
+                          });
+                        }
+                      }
+                    };
+                    checkToCompressFiles();
+                    _.forEach(sortedSubmissions, (submission) => {
+                      const mmSubmissionId = isMM && getSubmissionId(submission.submissions);
+                      submissionsService.downloadSubmission(mmSubmissionId)
+                        .then((blob) => {
+                          const file = new File([blob], `submission-${mmSubmissionId}.zip`);
+                          allFiles.push(file);
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        }).catch(() => {
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        });
+                    });
+                  }}
+                  type="button"
+                >
+                  Download All
+                </button>
+              </div>
+            )
+          }
+          {
             isMM && (
               <div styleName={`sub-head ${viewAsTable ? 'sub-head-table' : ''}`}>
                 <div styleName="col-1 col">
