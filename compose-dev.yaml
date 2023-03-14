@@ -1,0 +1,12 @@
+services:
+  app:
+    entrypoint:
+    - sleep
+    - infinity
+    image: node:8.11.2
+    init: true
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+
