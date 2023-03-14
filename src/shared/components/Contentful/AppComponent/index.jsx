@@ -18,7 +18,25 @@ import PathSelector from 'components/MemberPath/PathSelector';
 const { fireErrorMessage } = errors;
 
 export function AppComponentSwitch(appComponent) {
-  if (appComponent.fields.type === 'TCO-Leaderboard') {
+  const {
+    fields: {
+      type,
+      theme,
+      props,
+      props: {
+        leaderboardApiUrl,
+        title,
+        podiumSpots,
+        isCopilot,
+        hasChallengeHistory,
+        tcoPointsApiUrl,
+        memberLimit,
+        isAlgo,
+      } = {},
+    },
+    sys: { id },
+  } = appComponent;
+  if (type === 'TCO-Leaderboard') {
     return (
       <Leaderboard
         id={appComponent.sys.id}
