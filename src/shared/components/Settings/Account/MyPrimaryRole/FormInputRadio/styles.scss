@@ -9,7 +9,7 @@
   padding-left: 16px;
   width: calc(50% - 32px); // Subtract half the gap size from each button width
   height: 72px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #d4d4d4;
   border-radius: 8px;
   margin-right: 32px; // Add the other half of the gap size as margin
@@ -17,7 +17,6 @@
     margin-right: 0; // Remove margin from the last button
   }
 }
-
 
 .input-option {
   display: flex;
@@ -29,7 +28,7 @@
 
 .input-text-wrapper {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .input-text {
@@ -76,7 +75,7 @@
 }
 
 .input-radio:checked ~ .custom-radio {
-  border-color: #137D60;
+  border-color: #137d60;
 }
 
 .input-radio:checked ~ .custom-radio::after {
@@ -84,10 +83,9 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #137D60;
+  background-color: #137d60;
   border-radius: 50%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-
