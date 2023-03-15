@@ -30,7 +30,7 @@ const MyPrimaryRole = ({
 
   const AUTH_URL = config.URL.AUTH;
   const handleSignoutClick = () => {
-    history.push(`${AUTH_URL}?logout=true`);
+    window.location.href = `${AUTH_URL}?logout=true`;
   };
 
   return (
