@@ -33,6 +33,10 @@ if (process.env.NODE_ENV === 'production') {
 /* eslint-enable global-require */
 
 export default function App() {
+  if (!isomorphy.isClientSide()) {
+    return null;
+  }
+
   return (
     <div>
       <Helmet htmlAttributes={{ lang: 'en' }}>
@@ -54,9 +58,7 @@ export default function App() {
       />
       {isomorphy.isDevBuild() ? <DevTools /> : undefined}
       {
-        config.GAMIFICATION.ENABLE_SKILLS_REMIND_MODAL
-          && isomorphy.isClientSide()
-          ? <Gamification /> : undefined
+        config.GAMIFICATION.ENABLE_SKILLS_REMIND_MODAL ? <Gamification /> : undefined
       }
     </div>
   );
