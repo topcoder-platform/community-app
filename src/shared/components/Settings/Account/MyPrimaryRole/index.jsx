@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
 import { Modal } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 import PT from 'prop-types';
 import FormInputRadio from './FormInputRadio';
 
@@ -27,8 +28,9 @@ const MyPrimaryRole = ({
     setShowModal(true);
   };
 
+  const AUTH_URL = config.URL.AUTH;
   const handleSignoutClick = () => {
-    history.push('/logout');
+    history.push(`${AUTH_URL}?logout=true`);
   };
 
   return (
