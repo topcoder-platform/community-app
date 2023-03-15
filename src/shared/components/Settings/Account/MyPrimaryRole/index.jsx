@@ -9,7 +9,7 @@ import FormInputRadio from './FormInputRadio';
 import style from './styles.scss';
 
 const MyPrimaryRole = ({
-  user, tokenV3, updatePrimaryRole, history,
+  user, tokenV3, updatePrimaryRole,
 }) => {
   const [primaryRole, setPrimaryRole] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -97,7 +97,6 @@ MyPrimaryRole.propTypes = {
   user: PT.shape().isRequired,
   tokenV3: PT.string.isRequired,
   updatePrimaryRole: PT.func.isRequired,
-  history: PT.shape().isRequired,
 };
 
 
