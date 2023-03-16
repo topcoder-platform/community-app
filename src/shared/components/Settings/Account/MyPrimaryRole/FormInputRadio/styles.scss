@@ -13,16 +13,20 @@
   border-radius: 8px;
 
   &:last-child {
-    margin-right: 0; // Remove margin from the last button
+    margin-right: 0;
+    margin-bottom: 0;
   }
 
   @media (min-width: 768px) {
     width: calc(50% - 32px); // Subtract half the gap size from each button width
     margin-right: 32px; // Add the other half of the gap size as margin
+  }
+
+  @media (max-width: 768px) {
     margin-bottom: 24px;
 
     &:last-child {
-      margin-right: 0; // Remove margin from the last button
+      margin-bottom: 0;
     }
   }
 }
