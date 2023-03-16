@@ -479,6 +479,59 @@ class SubmissionsComponent extends React.Component {
         }
         <div styleName={`${viewAsTable ? 'view-as-table' : ''}`}>
           {
+            ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
+            && (isMM || isRDM) && isLoggedIn) && (
+              <div styleName="block-download-all">
+                <button
+                  disabled={downloadingAll}
+                  styleName="download MM"
+                  onClick={() => {
+                    // download submission
+                    this.setState({
+                      downloadingAll: true,
+                    });
+                    const submissionsService = getService(auth.m2mToken);
+                    const allFiles = [];
+                    let downloadedFile = 0;
+                    const checkToCompressFiles = () => {
+                      if (downloadedFile === sortedSubmissions.length) {
+                        if (downloadedFile > 0) {
+                          compressFiles(allFiles, 'all-submissions.zip', () => {
+                            this.setState({
+                              downloadingAll: false,
+                            });
+                          });
+                        } else {
+                          this.setState({
+                            downloadingAll: false,
+                          });
+                        }
+                      }
+                    };
+                    checkToCompressFiles();
+                    _.forEach(sortedSubmissions, (submission) => {
+                      const mmSubmissionId = submission.submissions
+                        ? getSubmissionId(submission.submissions) : submission.id;
+                      submissionsService.downloadSubmission(mmSubmissionId)
+                        .then((blob) => {
+                          const file = new File([blob], `submission-${mmSubmissionId}.zip`);
+                          allFiles.push(file);
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        }).catch(() => {
+                          downloadedFile += 1;
+                          checkToCompressFiles();
+                        });
+                    });
+                  }}
+                  type="button"
+                >
+                  Download All
+                </button>
+              </div>
+            )
+          }
+          {
             !isMM && (
               <div styleName="head">
                 {
@@ -599,58 +652,6 @@ class SubmissionsComponent extends React.Component {
                     )}
                   >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
-                </button>
-              </div>
-            )
-          }
-          {
-            ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
-            && (isMM || isRDM) && isLoggedIn) && (
-              <div styleName="block-download-all">
-                <button
-                  disabled={downloadingAll}
-                  styleName="download MM"
-                  onClick={() => {
-                    // download submission
-                    this.setState({
-                      downloadingAll: true,
-                    });
-                    const submissionsService = getService(auth.m2mToken);
-                    const allFiles = [];
-                    let downloadedFile = 0;
-                    const checkToCompressFiles = () => {
-                      if (downloadedFile === sortedSubmissions.length) {
-                        if (downloadedFile > 0) {
-                          compressFiles(allFiles, 'all-winners-submissions.zip', () => {
-                            this.setState({
-                              downloadingAll: false,
-                            });
-                          });
-                        } else {
-                          this.setState({
-                            downloadingAll: false,
-                          });
-                        }
-                      }
-                    };
-                    checkToCompressFiles();
-                    _.forEach(sortedSubmissions, (submission) => {
-                      const mmSubmissionId = isMM && getSubmissionId(submission.submissions);
-                      submissionsService.downloadSubmission(mmSubmissionId)
-                        .then((blob) => {
-                          const file = new File([blob], `submission-${mmSubmissionId}.zip`);
-                          allFiles.push(file);
-                          downloadedFile += 1;
-                          checkToCompressFiles();
-                        }).catch(() => {
-                          downloadedFile += 1;
-                          checkToCompressFiles();
-                        });
-                    });
-                  }}
-                  type="button"
-                >
-                  Download All
                 </button>
               </div>
             )
