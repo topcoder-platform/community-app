@@ -7,14 +7,21 @@
   align-items: center;
   justify-content: space-between;
   padding-left: 16px;
-  width: calc(50% - 32px); // Subtract half the gap size from each button width
   height: 72px;
   background: #fff;
   border: 1px solid #d4d4d4;
   border-radius: 8px;
-  margin-right: 32px; // Add the other half of the gap size as margin
   &:last-child {
     margin-right: 0; // Remove margin from the last button
+  }
+  @media (min-width: 768px) {
+    width: calc(50% - 32px); // Subtract half the gap size from each button width
+    margin-right: 32px; // Add the other half of the gap size as margin
+
+    margin-bottom: 24px;
+    &:last-child {
+      margin-right: 0; // Remove margin from the last button
+    }
   }
 }
 
