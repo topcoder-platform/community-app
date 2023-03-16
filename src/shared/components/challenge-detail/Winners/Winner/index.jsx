@@ -33,7 +33,7 @@ export default function Winner({
   }, []);
 
   const submissionId = viewable && getId(submissions, winner.placement);
-  const mmSubmissionId = isMM && getMMSubmissionId(submissions, winner.handle);
+  const mmSubmissionId = (isMM || isRDM) && getMMSubmissionId(submissions, winner.handle);
 
   let avatarUrl = winner.photoURL;
   if (avatarUrl) {
