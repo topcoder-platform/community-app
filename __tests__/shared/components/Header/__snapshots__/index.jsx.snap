@@ -59,7 +59,7 @@ exports[`Default render 1`] = `
               "subMenu": Array [
                 Object {
                   "href": "/challenges",
-                  "title": "All Competitions",
+                  "title": "All Challenges",
                 },
                 Object {
                   "href": "/community/arena",
