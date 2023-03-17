@@ -22,7 +22,7 @@ const mockData = {
 };
 
 describe('Matches shallow shapshot', () => {
-  test.skip('shapshot 1', () => {
+  test('shapshot 1', () => {
     const renderer = new Renderer();
 
     renderer.render((

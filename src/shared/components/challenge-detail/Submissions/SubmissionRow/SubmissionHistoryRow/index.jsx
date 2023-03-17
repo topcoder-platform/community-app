@@ -20,8 +20,8 @@ import './style.scss';
 const { getService } = services.submissions;
 
 export default function SubmissionHistoryRow({
-  isRDM,
   isMM,
+  isRDM,
   submission,
   finalScore,
   provisionalScore,
