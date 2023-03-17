@@ -42,6 +42,16 @@
   padding-right: 5px;
 }
 
+.char-count-bottom {
+  @include roboto-regular;
+
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+  font-size: 11px;
+  padding-right: 0;
+}
+
 .grey {
   color: $tc-gray-40;
 }

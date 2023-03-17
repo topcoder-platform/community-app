@@ -14,6 +14,7 @@ import ErrorIcons from 'containers/ErrorIcons';
 import { DevTools, isomorphy, config } from 'topcoder-react-utils';
 
 import ExtendedReduxToastr from 'containers/Toastr';
+import Gamification from 'containers/Gamification';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
@@ -38,6 +39,7 @@ export default function App() {
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="manifest" href="/challenges/manifest.json" />
         <script src={config.URL.ABANDONMENT_EMBED} async />
+        <script type="text/javascript" src="//cdn-3.convertexperiments.com/js/10005965-10006774.js" />
       </Helmet>
       <Routes />
       <ErrorMessage />
@@ -50,7 +52,12 @@ export default function App() {
         progressBar={false}
         showCloseButton
       />
-      { isomorphy.isDevBuild() ? <DevTools /> : undefined }
+      {isomorphy.isDevBuild() ? <DevTools /> : undefined}
+      {
+        config.GAMIFICATION.ENABLE_SKILLS_REMIND_MODAL
+          && isomorphy.isClientSide()
+          ? <Gamification /> : undefined
+      }
     </div>
   );
 }

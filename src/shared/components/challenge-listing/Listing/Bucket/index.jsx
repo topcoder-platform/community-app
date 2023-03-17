@@ -24,6 +24,7 @@ import './style.scss';
 // const COLLAPSED_SIZE = 10;
 
 // const Filter = challengeUtils.filter;
+const LOADING_MESSAGE = 'Loading Challenges';
 
 export default function Bucket({
   bucket,
@@ -36,6 +37,7 @@ export default function Bucket({
   expand,
   filterState,
   // keepPlaceholders,
+  needLoad,
   loading,
   loadMore,
   newChallengeDetails,
@@ -96,7 +98,7 @@ export default function Bucket({
   //   filter: filterState,
   // }, { encodeValuesOnly: true });
 
-  const expandable = activeBucket === BUCKETS.ALL || activeBucket === BUCKETS.ALL_PAST;
+  const expandable = true;
   // const filteredChallenges = [];
   // for (let i = 0; i < sortedChallenges.length; i += 1) {
   // if (filter(sortedChallenges[i])) {
@@ -150,7 +152,12 @@ export default function Bucket({
             isSRMSelected && (SRMComment)
           }
           <h1 styleName="no-results">
-            {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+            {
+              needLoad ? LOADING_MESSAGE
+                : (
+                  `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`
+                )
+            }
           </h1>
         </div>
       </div>
@@ -278,6 +285,7 @@ Bucket.defaultProps = {
   expand: _.noop,
   challengeTypes: [],
   // keepPlaceholders: false,
+  needLoad: false,
   loading: false,
   loadMore: null,
   newChallengeDetails: false,
@@ -302,6 +310,7 @@ Bucket.propTypes = {
   challengesUrl: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   // keepPlaceholders: PT.bool,
+  needLoad: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,
   newChallengeDetails: PT.bool,

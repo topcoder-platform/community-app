@@ -12,11 +12,13 @@ import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
+import {
+  getTimeLeft,
+} from 'utils/challenge-detail/helper';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
 
@@ -29,6 +31,10 @@ import DeadlinesPanel from './DeadlinesPanel';
 import TabSelector from './TabSelector';
 
 import style from './style.scss';
+
+/* Holds day and hour range in ms. */
+const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
 
 export default function ChallengeHeader(props) {
   const {
@@ -74,9 +80,7 @@ export default function ChallengeHeader(props) {
     type,
     track,
   } = challenge;
-
-  const desktop = useMediaQuery({ minWidth: 1024 });
-  const showDeadlineDetail = desktop || showDeadlineDetailProp;
+  const showDeadlineDetail = showDeadlineDetailProp;
 
   const tags = challenge.tags || [];
 
@@ -108,6 +112,10 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isOpen;
   }
 
+  const currentPhases = challenge.phases
+    .filter(p => p.name !== 'Registration' && p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+
   const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -128,6 +136,31 @@ export default function ChallengeHeader(props) {
     */
   const hasSubmissions = !_.isEmpty(mySubmissions);
 
+  const openPhases = sortedAllPhases.filter(p => p.isOpen);
+  let nextPhase = openPhases[0];
+  if (hasRegistered && openPhases[0] && openPhases[0].name === 'Registration') {
+    nextPhase = openPhases[1] || {};
+  }
+
+  const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
+  const currentTime = moment();
+
+  const timeDiff = getTimeLeft(currentPhases, 'to go', true);
+
+  if (!timeDiff.late) {
+    timeDiff.text = timeDiff.text.replace('to go', '');
+  }
+
+  let timeLeft = deadlineEnd.isAfter(currentTime)
+    ? deadlineEnd.diff(currentTime) : 0;
+
+  let format;
+  if (timeLeft > DAY_MS) format = 'D[d] H[h]';
+  else if (timeLeft > HOUR_MS) format = 'H[h] m[min]';
+  else format = 'm[min] s[s]';
+
+  timeLeft = moment.duration(timeLeft).format(format);
+
   let relevantPhases = [];
 
   if (showDeadlineDetail) {
@@ -135,6 +168,12 @@ export default function ChallengeHeader(props) {
       if (phase.name === 'Iterative Review') {
         const end = phaseEndDate(phase);
         return moment(end).isAfter();
+      }
+      // do not show [Specification Submission, Specification Review, Approval]
+      // phases for design challenges
+      if (trackLower === 'design'
+        && ['Specification Submission', 'Specification Review', 'Approval'].indexOf(phase.name) >= 0) {
+        return false;
       }
       return true;
     });
@@ -177,30 +216,51 @@ export default function ChallengeHeader(props) {
           || phaseEndDate(p).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
-        name: 'Winners',
+        name: 'Winners Announced',
         isOpen: false,
         actualEndDate: endPhaseDate,
         scheduledEndDate: endPhaseDate,
       });
     } else if (relevantPhases.length > 1) {
-      const lastPhase = relevantPhases[relevantPhases.length - 1];
-      const lastPhaseTime = phaseEndDate(lastPhase).getTime();
-
+      // const lastPhase = relevantPhases[relevantPhases.length - 1];
+      // const lastPhaseTime = phaseEndDate(lastPhase).getTime();
       const appealsEndDate = phaseEndDate(sortedAllPhases[sortedAllPhases.length - 1]);
-      const appealsEnd = appealsEndDate.getTime();
-      if (lastPhaseTime < appealsEnd) {
-        relevantPhases.push({
-          id: -1,
-          name: 'Winners',
-          isOpen: false,
-          actualEndDate: appealsEndDate,
-          scheduledEndDate: appealsEndDate,
-        });
-      }
+      // const appealsEnd = appealsEndDate.getTime();
+      relevantPhases.push({
+        id: -1,
+        name: 'Winners Announced',
+        isOpen: false,
+        actualEndDate: appealsEndDate,
+        scheduledEndDate: appealsEndDate,
+      });
     }
   }
 
   const checkpointCount = checkpoints && checkpoints.numberOfPassedScreeningSubmissions;
+
+  let nextDeadlineMsg;
+  switch ((status || '').toLowerCase()) {
+    case 'completed':
+      nextDeadlineMsg = (
+        <div styleName="completed">
+          The challenge is finished.
+        </div>
+      );
+      break;
+    case 'active':
+      break;
+    default:
+      nextDeadlineMsg = (
+        <div>
+          Status:
+          &zwnj;
+          <span styleName="deadline-highlighted">
+            {_.upperFirst(_.lowerCase(status))}
+          </span>
+        </div>
+      );
+      break;
+  }
 
   // Legacy MMs have a roundId field, but new MMs do not.
   // This is used to disable registration/submission for legacy MMs.
@@ -340,7 +400,7 @@ export default function ChallengeHeader(props) {
                   onClick={unregisterFromChallenge}
                   theme={{
                     button: unregisterButtonDisabled
-                      ? style.submitButtonDisabled
+                      ? style.unregisterButtonDisabled
                       : style.unregisterButton,
                   }}
                 >
@@ -366,23 +426,34 @@ export default function ChallengeHeader(props) {
                 Submit
               </PrimaryButton>
               {
-                  track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+                track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
                   && hasSubmissions && (
-                    <PrimaryButton
-                      theme={{ button: style.submitButton }}
-                      to={`${challengesUrl}/${challengeId}/my-submissions`}
-                    >
-                      View Submissions
-                    </PrimaryButton>
-                  )
-                }
+                  <PrimaryButton
+                    theme={{ button: style.submitButton }}
+                    to={`${challengesUrl}/${challengeId}/my-submissions`}
+                  >
+                    View Submissions
+                  </PrimaryButton>
+                )
+              }
             </div>
           </div>
         </div>
         <div styleName="deadlines-view">
           <div styleName={`deadlines-overview ${showDeadlineDetail ? 'opened' : ''}`}>
             <div styleName="deadlines-overview-text">
-              Competition Timeline
+              {nextDeadlineMsg}
+              {
+                  (status || '').toLowerCase() === 'active'
+                  && (
+                  <div styleName="current-phase">
+                    {currentPhases && `${currentPhases.name} Ends In: `}
+                    <span styleName="deadline-highlighted">
+                      {timeDiff.text}
+                    </span>
+                  </div>
+                  )
+                }
             </div>
             <a
               onClick={onToggleDeadlines}
@@ -462,7 +533,6 @@ ChallengeHeader.propTypes = {
     timelineTemplateId: PT.string,
     reliabilityBonus: PT.any,
     userDetails: PT.any,
-    currentPhases: PT.any,
     numOfRegistrants: PT.any,
     numOfCheckpointSubmissions: PT.any,
     numOfSubmissions: PT.any,

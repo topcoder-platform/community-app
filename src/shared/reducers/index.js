@@ -20,7 +20,7 @@ import { getCommunityId } from 'server/services/communities';
 import { redux, config, isomorphy } from 'topcoder-react-utils';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 import { reducerFactory } from 'topcoder-react-lib';
-import { getAuthTokens } from 'utils/tc';
+import { getAuthTokens, getM2mToken } from 'utils/tc';
 
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
@@ -36,11 +36,13 @@ import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
+import { factory as mfaFactory } from './mfa';
 import newsletterPreferences from './newsletterPreferences';
 import mmLeaderboard from './mmLeaderboard';
 import tcoLeaderboards from './tco/leaderboards';
 import recruitCRM from './recruitCRM';
 import gSheet from './gSheet';
+import timelineWall from './timelineWall';
 import growSurf from './growSurf';
 import thrive from './contentful/thrive';
 import dashboard from './dashboard';
@@ -143,6 +145,7 @@ export function factory(req) {
     leaderboard: leaderboardFactory(req),
     scoreboard: scoreboardFactory(req),
     terms: termsFactory(req),
+    usermfa: mfaFactory(req),
     page: pageFactory(req),
   }).then(resolvedReducers => redux.combineReducers((state) => {
     const res = { ...state };
@@ -150,6 +153,10 @@ export function factory(req) {
     const user = _.get(res, 'auth.user');
     if (user && isomorphy.isServerSide()) {
       res.auth.userIdHash = generateUserIdHash(user);
+      getM2mToken()
+        .then(((token) => {
+          res.auth.m2mToken = token;
+        }));
     }
 
     if (req) {
@@ -178,6 +185,7 @@ export function factory(req) {
     tcoLeaderboards,
     dashboard,
     blog,
+    timelineWall,
   }));
 }
 

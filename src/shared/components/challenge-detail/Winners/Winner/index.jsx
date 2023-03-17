@@ -1,11 +1,16 @@
 import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
+import { services } from 'topcoder-react-lib';
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import { formatOrdinals, numberWithCommas } from 'utils/challenge-detail/helper';
+import { getMMSubmissionId } from 'utils/submissions';
+import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 
 import style from './style.scss';
+
+const { getService } = services.submissions;
 
 function getId(submissions, placement) {
   return submissions.find(s => s.placement === placement).submissionId;
@@ -13,10 +18,14 @@ function getId(submissions, placement) {
 
 export default function Winner({
   isDesign,
+  isMM,
+  isRDM,
   prizes,
   submissions,
   viewable,
   winner,
+  isLoggedIn,
+  auth,
 }) {
   const [windowOrigin, setWindowOrigin] = useState();
   useEffect(() => {
@@ -24,6 +33,7 @@ export default function Winner({
   }, []);
 
   const submissionId = viewable && getId(submissions, winner.placement);
+  const mmSubmissionId = (isMM || isRDM) && getMMSubmissionId(submissions, winner.handle);
 
   let avatarUrl = winner.photoURL;
   if (avatarUrl) {
@@ -69,28 +79,6 @@ export default function Winner({
             </div>
             )
           }
-          {
-            (winner.submissionDownloadLink && viewable)
-            && (
-            <a
-              href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
-              styleName="download"
-              target="_blank"
-              challenge
-              rel="noopener noreferrer"
-            >
-              Download
-            </a>
-            )
-          }
-          {
-            /*
-            <div styleName="date">
-              <span>Submitted&nbsp;on:</span>&zwnj;
-              &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')}</span>
-            </div>
-            */
-          }
         </div>
       </div>
 
@@ -99,6 +87,53 @@ export default function Winner({
           $
           {numberWithCommas(prize)}
         </div>
+      </div>
+      <div styleName="download-container">
+        {
+        ((!winner.submissionDownloadLink || !viewable) && (isMM || isRDM) && isLoggedIn) && (
+          <button
+            onClick={() => {
+              // download submission
+              const submissionsService = getService(auth.m2mToken);
+              submissionsService.downloadSubmission(mmSubmissionId)
+                .then((blob) => {
+                  const url = window.URL.createObjectURL(new Blob([blob]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', `submission-${mmSubmissionId}.zip`);
+                  document.body.appendChild(link);
+                  link.click();
+                  link.parentNode.removeChild(link);
+                });
+            }}
+            type="button"
+          >
+            <DownloadIcon />
+          </button>
+        )
+        }
+        {
+          (winner.submissionDownloadLink && viewable)
+          && (
+          <a
+            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
+            styleName="download"
+            target="_blank"
+            challenge
+            rel="noopener noreferrer"
+          >
+            <DownloadIcon />
+          </a>
+          )
+        }
+        {
+          /*
+          <div styleName="date">
+            <span>Submitted&nbsp;on:</span>&zwnj;
+            &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')}</span>
+          </div>
+          */
+        }
       </div>
     </div>
   );
@@ -110,7 +145,9 @@ Winner.defaultProps = {
 
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
-  prizes: PT.arrayOf(PT.number),
+  isMM: PT.bool.isRequired,
+  isRDM: PT.bool.isRequired,
+  prizes: PT.arrayOf(PT.shape()),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,
   winner: PT.shape({
@@ -119,4 +156,6 @@ Winner.propTypes = {
     photoURL: PT.any,
     submissionDownloadLink: PT.any,
   }).isRequired,
+  isLoggedIn: PT.bool.isRequired,
+  auth: PT.shape().isRequired,
 };

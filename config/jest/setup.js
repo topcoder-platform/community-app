@@ -26,5 +26,15 @@ global.window.resizeTo = (width, height) => {
   global.window.innerHeight = height || global.window.innerHeight;
   global.window.dispatchEvent(new Event('resize'));
 };
+/* eslint-disable lines-between-class-members */
+/* eslint-disable no-empty-function */
+/* eslint-disable no-unused-vars */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-useless-constructor */
+global.MutationObserver = class {
+  constructor(callback) {}
+  disconnect() {}
+  observe(element, initObject) {}
+};
 
 jest.mock('services/money');

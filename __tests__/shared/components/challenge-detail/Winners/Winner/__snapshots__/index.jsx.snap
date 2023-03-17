@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot shapshot 1 1`] = `
+<div
+  className="src-shared-components-challenge-detail-Winners-Winner-___style__winner___GzUxl"
+>
+  <div
+    className="src-shared-components-challenge-detail-Winners-Winner-___style__left___3hdSd"
+  >
+    <div
+      className="src-shared-components-challenge-detail-Winners-Winner-___style__placement___Qyy47 src-shared-components-challenge-detail-Winners-Winner-___style__placement-1___1LrAQ"
+    >
+      <span>
+        1th
+      </span>
+    </div>
+    <div
+      className="src-shared-components-challenge-detail-Winners-Winner-___style__info___37iL7"
+    >
+      <div
+        className="src-shared-components-challenge-detail-Winners-Winner-___style__avatar-prize___1LtwD"
+      >
+        <ThemedAvatar
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
+          mapThemrProps={[Function]}
+          theme={
+            Object {
+              "avatar": "src-shared-components-challenge-detail-Winners-Winner-style___avatar___18tFlU",
+            }
+          }
+          themePriority="adhoc-context-default"
+        />
+        <div>
+          <a
+            className="src-shared-components-challenge-detail-Winners-Winner-___style__handle___2klay"
+            href="undefined/members/test"
+            target="_blank"
+          >
+            test
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-detail-Winners-Winner-___style__right___1SPxZ"
+  >
+    <div
+      className="src-shared-components-challenge-detail-Winners-Winner-___style__prize___1snZ8"
+    >
+      $
+      200
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-detail-Winners-Winner-___style__download-container___OXVza"
+  >
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <DownloadIcon
+        fill="none"
+        height="18"
+        viewBox="0 0 18 18"
+        width="18"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </button>
+  </div>
+</div>
+`;

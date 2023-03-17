@@ -16,7 +16,8 @@ import './style.scss';
 
 const Filter = challengeUtils.filter;
 
-const NO_RESULTS_MESSAGE = 'No competitions found';
+const NO_RESULTS_MESSAGE = 'No challenges found';
+const LOADING_MESSAGE = 'Loading Challenges';
 
 // Functional implementation of ReviewOpportunityBucket component
 export default function ReviewOpportunityBucket({
@@ -26,6 +27,7 @@ export default function ReviewOpportunityBucket({
   expandTag,
   filterState,
   keepPlaceholders,
+  needLoad,
   loading,
   loadMore,
   opportunities,
@@ -82,7 +84,7 @@ export default function ReviewOpportunityBucket({
         filteredOpportunities
           ? filteredOpportunities.length > 0 && (
             <SortingSelectBar
-              title="Review Opportunities"
+              title="Open for review"
               options={
                 BUCKET_DATA[bucket].sorts.map(item => ({
                   label: Sort[item].name,
@@ -98,7 +100,7 @@ export default function ReviewOpportunityBucket({
           )
           : (
             <SortingSelectBar
-              title="Review Opportunities"
+              title="Open for review"
               onSelect={setSort}
               options={
                 BUCKET_DATA[bucket].sorts.map(item => ({
@@ -133,7 +135,7 @@ export default function ReviewOpportunityBucket({
                 onSelect={setSort}
               />
               <h1 styleName="no-results">
-                {NO_RESULTS_MESSAGE}
+                {needLoad ? LOADING_MESSAGE : NO_RESULTS_MESSAGE}
               </h1>
             </div>
           </div>
@@ -154,6 +156,7 @@ ReviewOpportunityBucket.defaultProps = {
   expandedTags: [],
   expandTag: null,
   keepPlaceholders: false,
+  needLoad: false,
   loading: false,
   loadMore: null,
   sort: null,
@@ -169,6 +172,7 @@ ReviewOpportunityBucket.propTypes = {
   filterState: PT.shape().isRequired,
   opportunities: PT.arrayOf(PT.shape()).isRequired,
   keepPlaceholders: PT.bool,
+  needLoad: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,
   setFilterState: PT.func.isRequired,

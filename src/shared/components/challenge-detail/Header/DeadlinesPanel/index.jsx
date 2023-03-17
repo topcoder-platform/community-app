@@ -35,7 +35,6 @@ export default function DeadlinesPanel({ deadlines }) {
       }
     }
     if (index === deadlines.length - 1) {
-      name = 'Winners Announced';
       showRange = false;
     }
 

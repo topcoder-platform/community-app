@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import { getRatingLevel } from 'utils/tc';
+import { CHALLENGE_STATUS, getRatingLevel } from 'utils/tc';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/icon-close-green.svg';
 import moment from 'moment';
@@ -19,8 +19,9 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import style from './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory,
+  isMM, isRDM, openHistory, member, submissions, score, toggleHistory, challengeStatus,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
+  numWinners, auth, isLoggedIn,
 }) {
   const {
     submissionTime, provisionalScore, status, submissionId,
@@ -129,7 +130,10 @@ export default function SubmissionRow({
         </div>
       </div>
       { openHistory && (
-        <Modal onCancel={toggleHistory} theme={style}>
+        <Modal
+          onCancel={toggleHistory}
+          theme={{ container: `${style.modal} ${isMM && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) ? style.download : ''}` }}
+        >
           <div styleName="history">
             <div styleName="header">
               <h2 styleName="title">Submission History</h2>
@@ -162,7 +166,15 @@ export default function SubmissionRow({
                   Time
                 </div>
                 {
-                  isMM && (
+                  (isMM || isRDM)
+                  && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
+                    <div styleName="col-2 col center">
+                      Action
+                    </div>
+                  )
+                }
+                {
+                  isMM && isLoggedIn && (
                     <div styleName="col">&nbsp;</div>
                   )
                 }
@@ -174,17 +186,25 @@ export default function SubmissionRow({
                   <SubmissionHistoryRow
                     isReviewPhaseComplete={isReviewPhaseComplete}
                     isMM={isMM}
+                    isRDM={isRDM}
+                    challengeStatus={challengeStatus}
                     submission={submissions.length - index}
                     {...submissionHistory}
                     key={submissionHistory.submissionId}
                     onShowPopup={onShowPopup}
                     member={member}
+                    numWinners={numWinners}
+                    auth={auth}
+                    isLoggedIn={isLoggedIn}
+                    submissionId={submissionHistory.submissionId}
                   />
                 ))
               }
             </div>
-            <div styleName="close-btn" onClick={toggleHistory} role="presentation">
-              <span>CLOSE</span>
+            <div styleName="close-wrapper">
+              <div styleName="close-btn" onClick={toggleHistory} role="presentation">
+                <span>CLOSE</span>
+              </div>
             </div>
           </div>
         </Modal>
@@ -201,12 +221,15 @@ SubmissionRow.defaultProps = {
   finalRank: null,
   provisionalRank: null,
   rating: null,
+  isLoggedIn: false,
 };
 
 SubmissionRow.propTypes = {
   isMM: PT.bool.isRequired,
+  isRDM: PT.bool.isRequired,
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
+  challengeStatus: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
     provisionalScore: PT.oneOfType([
       PT.number,
@@ -241,4 +264,7 @@ SubmissionRow.propTypes = {
   provisionalRank: PT.number,
   onShowPopup: PT.func.isRequired,
   viewAsTable: PT.bool.isRequired,
+  isLoggedIn: PT.bool,
+  numWinners: PT.number.isRequired,
+  auth: PT.shape().isRequired,
 };

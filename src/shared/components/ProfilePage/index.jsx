@@ -151,6 +151,7 @@ class ProfilePage extends React.Component {
       handleParam,
       meta,
       tcAcademyCertifications,
+      tcAcademyCourses,
     } = this.props;
 
     const {
@@ -229,12 +230,13 @@ class ProfilePage extends React.Component {
         </div>
         {
           (config.GAMIFICATION.ENABLE_BADGE_UI && badges && (badges.rows || [])).length ? (
-            <Awards badges={badges.rows} />
+            <Awards badges={badges.rows} info={info} />
           ) : null
         }
-        {tcAcademyCertifications.length > 0 && (
+        {(tcAcademyCertifications.length + tcAcademyCourses.length) > 0 && (
           <TcaCertificates
-            certificates={tcAcademyCertifications}
+            certifications={tcAcademyCertifications}
+            courses={tcAcademyCourses}
             memberHandle={handleParam}
           />
         )}
@@ -300,6 +302,7 @@ ProfilePage.defaultProps = {
   stats: null,
   badges: {},
   tcAcademyCertifications: [],
+  tcAcademyCourses: [],
 };
 
 ProfilePage.propTypes = {
@@ -316,6 +319,7 @@ ProfilePage.propTypes = {
   meta: PT.shape().isRequired,
   clearSubtrackChallenges: PT.func.isRequired,
   tcAcademyCertifications: PT.arrayOf(PT.shape()),
+  tcAcademyCourses: PT.arrayOf(PT.shape()),
 };
 
 function mapDispatchToProps(dispatch) {

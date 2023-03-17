@@ -7,11 +7,14 @@ exports[`renders email preferences setting page correctly 1`] = `
   <Item
     description="If this was a mistake or if you would like to resubscribe, please click the “Subscribe” button."
     email="test@test.com"
-    id="email"
-    isSubscribeForm={true}
+    formLink="https://topcoder.us13.list-manage.com/subscribe/post?u=65bd5a1857b73643aad556093&id=28bfd3c062"
+    icon="email"
+    isForm={true}
     link=""
     linkTitle="SUBSCRIBE"
+    status={null}
     title="You are not subscribed to receive topcoder emails"
+    value="subscribe"
   />
 </div>
 `;

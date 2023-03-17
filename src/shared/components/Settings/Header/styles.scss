@@ -3,23 +3,11 @@
 .Header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: flex-start;
   background: $tc-white;
   border-bottom: 2px solid $color-black-10;
   padding: 0 0 $pad-xxl 0;
-
-  .title {
-    h1 {
-      @include barlow-condensed-semi-bold;
-
-      color: $tco-black;
-      font-weight: 600;
-      font-size: 32px;
-      line-height: 32px;
-      text-transform: uppercase;
-    }
-  }
 
   .saveButton {
     @include roboto-bold;

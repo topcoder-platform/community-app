@@ -1,0 +1,156 @@
+@import '~styles/mixins';
+@import '~components/buttons/themed/tc.scss';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.dot-left {
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background-color: $color-orange-120;
+  position: absolute;
+  top: 22px;
+  z-index: 1;
+  left: -20px;
+}
+
+.tooltip-indicator {
+  margin-top: 8px;
+}
+
+.content {
+  display: flex;
+  background-color: $tc-white;
+  padding: 12px 12px 12px 16px;
+  flex: 1;
+  border-radius: 8px;
+}
+
+.block-left {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin-right: 24px;
+
+  .block-left-top {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    margin-bottom: 8px;
+    justify-content: space-between;
+
+    .text-date {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: $color-black-80;
+    }
+
+    .block-left-top-left {
+      display: flex;
+      align-items: center;
+
+      img {
+        object-fit: cover;
+        border-radius: 100%;
+        margin-right: 8px;
+      }
+
+      .text-handle {
+        @include roboto-medium;
+
+        font-size: 14px;
+        line-height: 22px;
+        color: $color-link-blue-dark;
+      }
+
+      .separator {
+        display: flex;
+        height: 24px;
+        width: 1px;
+        background-color: $listing-light-gray;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .text-title {
+    @include barlow-semi-bold;
+
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .text-description {
+    @include roboto-regular;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .block-left-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 55px;
+
+    .btn-trash {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+      margin-left: 7px;
+    }
+
+    .btn-reject {
+      margin-right: 8px !important;
+    }
+  }
+}
+
+.photo-container {
+  height: 176px;
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  flex: 1;
+  width: 0;
+
+  .photo-item {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}
+
+.btn-outline {
+  @include primary-white;
+  @include sm;
+
+  outline: none !important;
+
+  &:hover {
+    @include sm;
+
+    outline: none !important;
+  }
+}
+
+.btn-primary {
+  @include primary-green;
+  @include sm;
+
+  outline: none !important;
+
+  &:hover:not(:disabled) {
+    @include sm;
+
+    outline: none !important;
+  }
+}

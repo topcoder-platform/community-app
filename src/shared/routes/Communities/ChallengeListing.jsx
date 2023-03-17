@@ -31,7 +31,8 @@ export default function ChallengeListingRoute({
 
           let { communityId } = query;
           if (!communityId
-          && !_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')) {
+          && (!_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')
+          || meta.communityId === 'wipro')) {
             ({ communityId } = meta);
           }
 
@@ -46,11 +47,9 @@ export default function ChallengeListingRoute({
               extraBucket={extraBucket}
               groupIds={meta.groupIds}
               hideSrm={hideSrm}
-
               /* TODO: This is hacky! A better, generic way to achieve it
                * should be adopted. */
               hideTcLinksInSidebarFooter={meta.communityId === 'wipro'}
-
               listingOnly={listingOnly}
               newChallengeDetails={newChallengeDetails}
               openChallengesInNewTabs={

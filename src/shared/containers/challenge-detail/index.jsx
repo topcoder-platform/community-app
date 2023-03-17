@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
-import { isMM as checkIsMM } from 'utils/challenge';
+import { isMM as checkIsMM, isRDM as checkIsRDM } from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -155,7 +155,7 @@ class ChallengeDetailPageContainer extends React.Component {
     this.apiService = getService({ spaceName: 'EDU' });
     this.state = {
       thriveArticles: [],
-      showDeadlineDetail: true,
+      showDeadlineDetail: false,
       registrantsSort: {
         field: '',
         sort: '',
@@ -439,6 +439,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isEmpty = _.isEmpty(challenge);
     const isMM = checkIsMM(challenge);
+    const isRDM = checkIsRDM(challenge);
     const isLegacyMM = isMM && Boolean(challenge.roundId);
 
     if (isLoadingChallenge || isLoadingTerms) {
@@ -604,6 +605,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 challengesUrl={challengesUrl}
                 viewAsTable={viewAsTable && isMM}
                 setViewAsTable={value => this.setState({ viewAsTable: value })}
+                numWinners={isLegacyMM ? 0 : winners.length}
               />
             )
           }
@@ -659,6 +661,10 @@ class ChallengeDetailPageContainer extends React.Component {
                 viewable={submissionsViewable ? submissionsViewable.value === 'true' : false}
                 submissions={challenge.submissions}
                 isDesign={track.toLowerCase() === 'design'}
+                isMM={isMM}
+                isRDM={isRDM}
+                isLoggedIn={isLoggedIn}
+                auth={auth}
               />
             )
           }

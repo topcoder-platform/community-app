@@ -26,6 +26,7 @@ import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
 import TrackHomePages from './TrackHomePages';
+import TimelineWall from './TimelineWall';
 import PolicyPages from './PolicyPages';
 import GigsPages from './GigsPages';
 
@@ -96,6 +97,10 @@ function Routes({ communityId }) {
           to="/community/competitive-programming/tutorials/*"
         />
         <Route
+          component={() => <TimelineWall />}
+          path="/community/timeline-wall"
+        />
+        <Route
           component={() => <TrackHomePages base="/community" />}
           path="/community/(competitive-programming|data-science|design|development|qa)/how-to-compete"
         />
@@ -108,6 +113,11 @@ function Routes({ communityId }) {
           component={PolicyPages}
           exact
           path={`${config.POLICY_PAGES_PATH}/:slug?`}
+        />
+        <Redirect
+          exact
+          from="/policy"
+          to="/privacy"
         />
         <Route
           render={() => (

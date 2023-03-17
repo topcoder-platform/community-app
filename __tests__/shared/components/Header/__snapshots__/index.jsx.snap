@@ -136,6 +136,11 @@ exports[`Default render 1`] = `
               "openNewTab": true,
               "title": "Discord",
             },
+            Object {
+              "href": "https://platform-ui.topcoder-dev.com/learn",
+              "openNewTab": true,
+              "title": "Learn",
+            },
           ],
           "title": "COMMUNITY",
         },
