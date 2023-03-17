@@ -4,5 +4,6 @@
     "paths": {
       "*": ["src/shared/*", "src/*", "node_modules/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "build"]
 }

@@ -47,6 +47,7 @@ import growSurf from './growSurf';
 import thrive from './contentful/thrive';
 import dashboard from './dashboard';
 import blog from './blog';
+import identity from './identity';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -186,6 +187,7 @@ export function factory(req) {
     dashboard,
     blog,
     timelineWall,
+    identity,
   }));
 }
 

@@ -3,6 +3,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import MyAccount from './MyAccount';
+import MyPrimaryRole from './MyPrimaryRole';
 import Security from './Security';
 import ErrorWrapper from '../ErrorWrapper';
 
@@ -75,6 +76,7 @@ export default class Account extends React.Component {
           <div styleName="header">
             <h3>Account information & Security</h3>
           </div>
+          <MyPrimaryRole {...this.props} />
           <MyAccount
             {...this.props}
             ref={this.myAccountRef}

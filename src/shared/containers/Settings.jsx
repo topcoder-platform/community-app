@@ -13,6 +13,7 @@ import { actions } from 'topcoder-react-lib';
 import settingsActions, { TABS } from 'actions/page/settings';
 import settingsUIActions from 'actions/page/ui';
 import mfaActions from 'actions/mfa';
+import identityActions from 'actions/identity';
 
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -312,6 +313,10 @@ function mapDispatchToProps(dispatch) {
     getDiceConnection: (userId, connectionId, tokenV3) => {
       dispatch(mfaActions.usermfa.getDiceConnectionInit());
       dispatch(mfaActions.usermfa.getDiceConnectionDone(userId, connectionId, tokenV3));
+    },
+    updatePrimaryRole: (role, tokenV3) => {
+      dispatch(identityActions.identity.updatePrimaryRoleInit());
+      dispatch(identityActions.identity.updatePrimaryRoleDone(role, tokenV3));
     },
   };
 }
