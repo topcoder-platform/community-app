@@ -366,6 +366,7 @@ workflows:
                 - universal_nav
                 - marathon_match_submission_download
                 - feat/badges-box
+                - multi_faceted_filters
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
