@@ -30,7 +30,7 @@ const MyPrimaryRole = ({
 
   const AUTH_URL = config.URL.AUTH;
   const handleSignoutClick = () => {
-    window.location.href = `${AUTH_URL}?logout=true&retUrl=${encodeURIComponent(config.URL.COMMUNITY_APP)}`;
+    window.location.href = `${AUTH_URL}?logout=true&retUrl=${encodeURIComponent(config.URL.BASE)}`;
   };
 
   return (
