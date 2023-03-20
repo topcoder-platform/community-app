@@ -34,7 +34,6 @@ import BlogFeedExample from 'components/examples/BlogFeed';
 import GUIKit from 'components/examples/GUIKit';
 import ThriveArticlesFeedExample from 'components/examples/ThriveArticlesFeed';
 import GigsFeedExample from 'components/examples/GigsFeed';
-import TCOLeaderboardsExample from 'components/examples/TCOLeaderboards';
 import ChallengesFeed from 'components/examples/ChallengesFeed';
 import MemberPathSelectorExample from 'components/examples/MemberPathSelector';
 
@@ -104,7 +103,6 @@ export default function Examples({
       <Route path={`${base}/search-page-filter`} component={SearchPageFilterExample} />
       <Route path={`${base}/thrive-articles-feed`} component={ThriveArticlesFeedExample} />
       <Route path={`${base}/gigs-feed`} component={GigsFeedExample} />
-      <Route path={`${base}/tco-leaderboards`} component={TCOLeaderboardsExample} />
       <Route path={`${base}/challenges`} component={ChallengesFeed} />
       <Route path={`${base}/blog-feed`} component={BlogFeedExample} />
       <Route path={`${base}/member-path-selector`} component={MemberPathSelectorExample} />
