@@ -223,7 +223,7 @@ export default function FiltersPanel({
   };
 
   const communityOps = communityFilters.filter(community => (
-    (!community.hidden && !community.hideFilter) || community.communityName === 'All'
+    ((!community.hidden && !community.hideFilter) || community.communityName === 'All') && !community.communityName.includes('TCO')
   ))
     .map(community => ({
       label: community.communityName,
