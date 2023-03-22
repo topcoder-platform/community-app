@@ -118,7 +118,7 @@ exports[`Matches shallow shapshot 2`] = `
             Domain
           </span>
           <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__domain___3rCeT"
           >
             <span
               className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -159,7 +159,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -190,7 +190,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -221,7 +221,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -252,7 +252,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -284,7 +284,7 @@ exports[`Matches shallow shapshot 2`] = `
             Earn
           </span>
           <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
           >
             <span
               className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -325,7 +325,7 @@ exports[`Matches shallow shapshot 2`] = `
             Learn
           </span>
           <div
-            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__section___37mIN"
           >
             <span
               className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -365,7 +365,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
@@ -395,7 +395,7 @@ exports[`Matches shallow shapshot 2`] = `
               />
             </span>
             <div
-              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control-hide___3pEiw"
+              className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hover-control___2Fiz4"
             >
               <span
                 className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__control-item___38TW2"
