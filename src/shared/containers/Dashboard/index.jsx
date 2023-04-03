@@ -15,9 +15,6 @@ import Viewport from 'components/Contentful/Viewport';
 import TopcoderTime from 'components/Dashboard/TCTime';
 import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
 import GigsFeed from 'containers/Dashboard/GigsFeed';
-import TCOLeaderboardsContainer from 'containers/Dashboard/TCOLeaderboards';
-import ContentfulLoader from 'containers/ContentfulLoader';
-import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
 import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
 import MetaTags from 'components/MetaTags';
@@ -55,22 +52,6 @@ function SlashTCContainer(props) {
               <ChallengesFeed theme="dark" />
               <GigsFeed itemCount={5} theme="dark" />
               <NewsFeed />
-              <ContentfulLoader
-                entryIds={['5HmoppBlc79RfxOwb8JAls']}
-                render={(data) => {
-                  const confTCO = data.entries.items['5HmoppBlc79RfxOwb8JAls'];
-                  if (confTCO) {
-                    return (
-                      <TCOLeaderboardsContainer
-                        trackConfig={confTCO.fields.props}
-                        itemCount={5}
-                      />
-                    );
-                  }
-                  return null;
-                }}
-                renderPlaceholder={LoadingIndicator}
-              />
               <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
               <ThriveArticlesFeedContainer itemCount={4} theme="dark" />
               <BlogFeedContainer itemCount={4} theme="dark" />
@@ -95,22 +76,6 @@ function SlashTCContainer(props) {
             </div>
             {/* Right column */}
             <div className={theme.column}>
-              <ContentfulLoader
-                entryIds={['5HmoppBlc79RfxOwb8JAls']}
-                render={(data) => {
-                  const confTCO = data.entries.items['5HmoppBlc79RfxOwb8JAls'];
-                  if (confTCO) {
-                    return (
-                      <TCOLeaderboardsContainer
-                        trackConfig={confTCO.fields.props}
-                        itemCount={5}
-                      />
-                    );
-                  }
-                  return null;
-                }}
-                renderPlaceholder={LoadingIndicator}
-              />
               <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
             </div>
           </div>
