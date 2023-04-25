@@ -18,6 +18,7 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
 import {
   getTimeLeft,
+  isRegistrationPhase,
 } from 'utils/challenge-detail/helper';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
@@ -112,9 +113,12 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isOpen;
   }
 
-  const currentPhases = challenge.phases
-    .filter(p => p.name !== 'Registration' && p.isOpen)
-    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  const allOpenPhases = challenge.phases
+    .filter(p => p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate));
+
+  const currentPhases = allOpenPhases
+    .filter(p => !isRegistrationPhase(p))[0];
 
   const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
 
@@ -138,14 +142,14 @@ export default function ChallengeHeader(props) {
 
   const openPhases = sortedAllPhases.filter(p => p.isOpen);
   let nextPhase = openPhases[0];
-  if (hasRegistered && openPhases[0] && openPhases[0].name === 'Registration') {
+  if (hasRegistered && openPhases[0] && isRegistrationPhase(openPhases[0])) {
     nextPhase = openPhases[1] || {};
   }
 
   const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
   const currentTime = moment();
 
-  const timeDiff = getTimeLeft(currentPhases, 'to go', true);
+  const timeDiff = getTimeLeft(currentPhases || allOpenPhases[0], 'to go', true);
 
   if (!timeDiff.late) {
     timeDiff.text = timeDiff.text.replace('to go', '');

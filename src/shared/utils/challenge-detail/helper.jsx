@@ -47,6 +47,10 @@ export function getEndDate(challenge) {
   return moment(endPhaseDate).format('MMM DD');
 }
 
+export function isRegistrationPhase(phase) {
+  return phase.name === 'Registration';
+}
+
 /**
  * Generates human-readable string containing time till the phase end.
  * @param {Object} phase phase need to check
@@ -58,11 +62,13 @@ export function getTimeLeft(
   fullText = false,
 ) {
   const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
+  const REGISTRATION_PHASE_MESSAGE = 'Open For Registration';
   const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
   const HOUR_MS = 60 * 60 * 1000;
   const DAY_MS = 24 * HOUR_MS;
 
   if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG };
+  if (isRegistrationPhase(phase)) return { late: false, text: REGISTRATION_PHASE_MESSAGE };
   if (phase.phaseType === 'Final Fix') {
     return { late: false, text: FF_TIME_LEFT_MSG };
   }
