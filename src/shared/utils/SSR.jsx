@@ -56,7 +56,9 @@ export default function SSR(checkStore, updateStore) {
       const { request, ssrPromises, store } = staticContext;
       if (checkStore(store, props, request)) return <Component {...props} />;
       const promise = updateStore(store, props, request);
-      ssrPromises.push(promise);
+      if (ssrPromises) {
+        ssrPromises.push(promise);
+      }
       promise.then(() => {
         ReactDOM.renderToString((
           <Provider store={store}>

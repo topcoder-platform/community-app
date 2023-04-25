@@ -51,7 +51,7 @@ function create(init) {
     const { data, target } = action.payload;
     const res = { ...state, [target]: content(state[target], action) };
 
-    if (action.type === actions.contentful.queryContentDone.toString() && data.includes) {
+    if (action.type === actions.contentful.queryContentDone.toString() && data && data.includes) {
       const { Asset, Entry } = data.includes;
       if (Asset && Asset.length) res.assets = addItems(res.assets, Asset);
       if (Entry && Entry.length) res.entries = addItems(res.entries, Entry);
