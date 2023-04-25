@@ -116,6 +116,9 @@ function onQueryContentDone(state, action) {
   } = action.payload;
 
   const res = _.clone(state);
+  if (!data) {
+    return state;
+  }
 
 
   /* Adds matched items to items collection. */
