@@ -20,7 +20,7 @@ import { getCommunityId } from 'server/services/communities';
 import { redux, config, isomorphy } from 'topcoder-react-utils';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 import { reducerFactory } from 'topcoder-react-lib';
-import { getAuthTokens, getM2mToken } from 'utils/tc';
+import { getAuthTokens } from 'utils/tc';
 
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
