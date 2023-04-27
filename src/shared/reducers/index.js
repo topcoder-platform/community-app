@@ -154,10 +154,10 @@ export function factory(req) {
     const user = _.get(res, 'auth.user');
     if (user && isomorphy.isServerSide()) {
       res.auth.userIdHash = generateUserIdHash(user);
-      getM2mToken()
-        .then(((token) => {
-          res.auth.m2mToken = token;
-        }));
+      // getM2mToken()
+      //   .then(((token) => {
+      //     res.auth.m2mToken = token;
+      //   }));
     }
 
     if (req) {
