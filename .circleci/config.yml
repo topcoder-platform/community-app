@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - PROD-4183
+                - M2MHotfix
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
