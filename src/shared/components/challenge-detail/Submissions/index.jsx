@@ -307,6 +307,8 @@ class SubmissionsComponent extends React.Component {
       type,
       tags,
     } = challenge;
+    // todo: hide download button until update submissions API
+    const hideDownloadForMMRDM = true;
 
     const isMM = this.isMM();
     const isRDM = checkIsRDM(challenge);
@@ -479,7 +481,8 @@ class SubmissionsComponent extends React.Component {
         }
         <div styleName={`${viewAsTable ? 'view-as-table' : ''}`}>
           {
-            ((numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
+            (!hideDownloadForMMRDM
+            && (numWinners > 0 || challenge.status === CHALLENGE_STATUS.COMPLETED)
             && (isMM || isRDM) && isLoggedIn) && (
               <div styleName="block-download-all">
                 <button

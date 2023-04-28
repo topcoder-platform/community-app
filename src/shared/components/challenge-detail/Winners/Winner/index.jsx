@@ -27,6 +27,8 @@ export default function Winner({
   isLoggedIn,
   auth,
 }) {
+  // todo: hide download button until update submissions API
+  const hideDownloadForMMRDM = true;
   const [windowOrigin, setWindowOrigin] = useState();
   useEffect(() => {
     setWindowOrigin(window.origin);
@@ -90,7 +92,9 @@ export default function Winner({
       </div>
       <div styleName="download-container">
         {
-        ((!winner.submissionDownloadLink || !viewable) && (isMM || isRDM) && isLoggedIn) && (
+        (!hideDownloadForMMRDM
+        && (!winner.submissionDownloadLink || !viewable)
+        && (isMM || isRDM) && isLoggedIn) && (
           <button
             onClick={() => {
               // download submission

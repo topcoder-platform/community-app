@@ -27,11 +27,14 @@ export default function Winners({
   auth,
   challengeStatus,
 }) {
+  // todo: hide download button until update submissions API
+  const hideDownloadForMMRDM = true;
   const [downloadingAll, setDownloadingAll] = useState(false);
   return (
     <div styleName="container">
       {
-        ((winners.length > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED)
+        !hideDownloadForMMRDM
+        && ((winners.length > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED)
         && (isMM || isRDM) && isLoggedIn) && (
           <div styleName="block-download-all">
             <button
