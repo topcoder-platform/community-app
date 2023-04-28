@@ -34,6 +34,8 @@ export default function SubmissionHistoryRow({
   submissionId,
   isLoggedIn,
 }) {
+  // todo: hide download button until update submissions API
+  const hideDownloadForMMRDM = true;
   const getInitialReviewResult = () => {
     if (provisionalScore && provisionalScore < 0) return <FailedSubmissionTooltip />;
     switch (status) {
@@ -82,7 +84,7 @@ export default function SubmissionHistoryRow({
           </div>
         </div>
         {
-          isLoggedIn && (isMM || isRDM)
+          !hideDownloadForMMRDM && isLoggedIn && (isMM || isRDM)
           && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) && (
             <div styleName="col-2 col center">
               <div styleName="mobile-header">Action</div>
