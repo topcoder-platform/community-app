@@ -1,7 +1,7 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 import Renderer from 'react-test-renderer/shallow';
-import TU from 'react-dom/test-utils';
+// import TU from 'react-dom/test-utils';
 import SubmissionHistoryRow from 'components/challenge-detail/Submissions/SubmissionRow/SubmissionHistoryRow';
 
 const mockData = {
@@ -32,6 +32,7 @@ describe('Matches shallow shapshot', () => {
   });
 });
 
+/*
 class Wrapper extends React.Component {
   componentDidMount() {}
 
@@ -39,7 +40,6 @@ class Wrapper extends React.Component {
     return <SubmissionHistoryRow {...this.props} />;
   }
 }
-/*
 describe('render properly', () => {
   test('click', () => {
     const instance = TU.renderIntoDocument((<Wrapper {...mockData} />));
