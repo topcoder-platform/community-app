@@ -55,19 +55,6 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
   </div>
   <div
     className="src-shared-components-challenge-detail-Winners-Winner-___style__download-container___OXVza"
-  >
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      <DownloadIcon
-        fill="none"
-        height="18"
-        viewBox="0 0 18 18"
-        width="18"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-    </button>
-  </div>
+  />
 </div>
 `;

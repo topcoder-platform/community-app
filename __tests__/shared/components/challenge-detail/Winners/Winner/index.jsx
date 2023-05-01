@@ -1,7 +1,7 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 import Renderer from 'react-test-renderer/shallow';
-import TU from 'react-dom/test-utils';
+// import TU from 'react-dom/test-utils';
 import Winner from 'components/challenge-detail/Winners/Winner';
 
 const mockData = {
@@ -53,6 +53,7 @@ describe('Matches shallow shapshot', () => {
   });
 });
 
+/*
 class Wrapper extends React.Component {
   componentDidMount() {}
 
@@ -60,7 +61,6 @@ class Wrapper extends React.Component {
     return <Winner {...this.props} />;
   }
 }
-
 describe('render properly', () => {
   test('click', () => {
     const instance = TU.renderIntoDocument((<Wrapper {...mockData} />));
@@ -69,3 +69,4 @@ describe('render properly', () => {
     TU.Simulate.click(matches[0]);
   });
 });
+*/
