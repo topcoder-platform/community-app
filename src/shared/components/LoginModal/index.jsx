@@ -45,7 +45,7 @@ function LoginModal({
           >
             LOGIN
           </PrimaryButton>
-          <Link to={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp${utmSource ? `&utm_source=${utmSource}` : ''}`} className={buttonThemes.tc['primary-white-md']}>REGISTER</Link>
+          <Link to={`${config.URL.AUTH}/?retUrl=${encodeURIComponent(retUrl)}&mode=signUp${utmSource ? `&utm_source=${utmSource}` : ''}`} className={buttonThemes.tc['primary-white-md']}>REGISTER</Link>
         </div>
         {infoNode}
       </div>

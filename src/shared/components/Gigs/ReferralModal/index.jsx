@@ -110,7 +110,7 @@ function ReferralModal({
             >
               LOGIN
             </PrimaryButton>
-            <Link to={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing&regSource=gigs`} className={buttonThemes.tc['primary-white-md']} openNewTab="true">REGISTER</Link>
+            <Link to={`${config.URL.AUTH}/?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing&regSource=gigs`} className={buttonThemes.tc['primary-white-md']} openNewTab="true">REGISTER</Link>
           </div>
           <p className={modalStyle.regTxt}>Find out how the referral program works <a href={HELP_INFO_LINK} target="_blank" rel="noreferrer">here</a>.</p>
         </div>
