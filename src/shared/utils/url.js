@@ -33,6 +33,7 @@ export function getQuery() {
   return qs.parse(window.location.search.slice(1));
 }
 
+
 /**
  * If executed client-side (determined in this case by the presence of global
  * window object), this function updates query section of URL; otherwise does
@@ -43,8 +44,8 @@ export function getQuery() {
  *  field of the query, that field should be explicitely mentioned inside
  *  'update' as undefined.
  */
-export function updateQuery(update) {
-  if (isomorphy.isServerSide()) return;
+export function getUpdateQuery(update) {
+  if (isomorphy.isServerSide()) return '';
 
   let filterObj = {};
   // check if bucket is selected
@@ -108,6 +109,22 @@ export function updateQuery(update) {
   if (hash) {
     query += hash;
   }
+  return query;
+}
+
+/**
+ * If executed client-side (determined in this case by the presence of global
+ * window object), this function updates query section of URL; otherwise does
+ * nothing.
+ * @param {Object} update Specifies the update to make. Current query will be
+ *  parsed into JS object, then update will be merged into that object, and the
+ *  result will be pushed back to the query section of URL. I.e. to unset some
+ *  field of the query, that field should be explicitely mentioned inside
+ *  'update' as undefined.
+ */
+export function updateQuery(update) {
+  if (isomorphy.isServerSide()) return;
+  const query = getUpdateQuery(update);
   window.history.replaceState(window.history.state, '', query);
 }
 

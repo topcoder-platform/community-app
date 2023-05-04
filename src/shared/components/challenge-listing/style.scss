@@ -22,32 +22,6 @@ $challenge-radius-4: $corner-radius * 2;
   flex: 1;
   margin: 0;
 
-  .tc-title {
-    @include barlow-condensed;
-
-    color: $tco-black;
-    font-size: 32px;
-    margin: 32px 0 24px 0;
-    line-height: 32px;
-    font-weight: 600;
-    text-transform: uppercase;
-
-    @include xs-to-md {
-      margin: 16px;
-    }
-  }
-
-  .tc-seperator {
-    background-color: $listing-gray;
-    height: 2px;
-    opacity: 0.5;
-    margin: 0;
-
-    @include xs-to-md {
-      margin: 0 16px;
-    }
-  }
-
   .tc-content-wrapper {
     display: flex;
     padding: 0;

@@ -21,11 +21,13 @@ const mockData1 = {
   setSort,
   sorts: {},
   auth: {},
+  location: {},
 };
 
 const mockData2 = _.extend({}, mockData1, {
   communityFilter: {},
   loadingChallenges: true,
+  location: {},
 });
 
 describe('Matches shallow shapshot 1', () => {
