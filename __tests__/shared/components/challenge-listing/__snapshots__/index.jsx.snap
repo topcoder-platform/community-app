@@ -5,16 +5,9 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
   id="challengeFilterContainer"
 >
-  <h1
-    className="src-shared-components-challenge-listing-___style__tc-title____Rpik"
-  >
-    CHALLENGES
-  </h1>
-  <hr
-    className="src-shared-components-challenge-listing-___style__tc-seperator___2AnJv"
-  />
   <ChallengeTab
     activeBucket="abc"
+    location={Object {}}
     previousBucketOfActiveTab={null}
     previousBucketOfPastChallengesTab={null}
     selectBucket={[MockFunction]}
@@ -75,16 +68,9 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
   id="challengeFilterContainer"
 >
-  <h1
-    className="src-shared-components-challenge-listing-___style__tc-title____Rpik"
-  >
-    CHALLENGES
-  </h1>
-  <hr
-    className="src-shared-components-challenge-listing-___style__tc-seperator___2AnJv"
-  />
   <ChallengeTab
     activeBucket="abc"
+    location={Object {}}
     previousBucketOfActiveTab={null}
     previousBucketOfPastChallengesTab={null}
     selectBucket={[MockFunction]}
