@@ -21,3 +21,41 @@
   text-align: center;
   width: 100%;
 }
+
+.block-download-all {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+button.download,
+.download {
+  @include roboto-bold;
+
+  font-size: 15px;
+  line-height: 16px;
+  color: #137d60;
+  background-color: transparent;
+
+  &:hover {
+    color: #0ab88a;
+  }
+
+  &:focus,
+  &:disabled {
+    background-color: transparent;
+    color: #137d60;
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &.MM {
+    cursor: pointer;
+  }
+
+  @include xs-to-sm {
+    font-size: 13px;
+  }
+}

@@ -12,13 +12,13 @@ import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
 import {
   getTimeLeft,
+  isRegistrationPhase,
 } from 'utils/challenge-detail/helper';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
@@ -81,9 +81,7 @@ export default function ChallengeHeader(props) {
     type,
     track,
   } = challenge;
-
-  const desktop = useMediaQuery({ minWidth: 1024 });
-  const showDeadlineDetail = desktop || showDeadlineDetailProp;
+  const showDeadlineDetail = showDeadlineDetailProp;
 
   const tags = challenge.tags || [];
 
@@ -115,9 +113,12 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isOpen;
   }
 
-  const currentPhases = challenge.phases
-    .filter(p => p.name !== 'Registration' && p.isOpen)
-    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  const allOpenPhases = challenge.phases
+    .filter(p => p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate));
+
+  const currentPhases = allOpenPhases
+    .filter(p => !isRegistrationPhase(p))[0];
 
   const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
 
@@ -141,14 +142,14 @@ export default function ChallengeHeader(props) {
 
   const openPhases = sortedAllPhases.filter(p => p.isOpen);
   let nextPhase = openPhases[0];
-  if (hasRegistered && openPhases[0] && openPhases[0].name === 'Registration') {
+  if (hasRegistered && openPhases[0] && isRegistrationPhase(openPhases[0])) {
     nextPhase = openPhases[1] || {};
   }
 
   const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
   const currentTime = moment();
 
-  const timeDiff = getTimeLeft(currentPhases, 'to go');
+  const timeDiff = getTimeLeft(currentPhases || allOpenPhases[0], 'to go', true);
 
   if (!timeDiff.late) {
     timeDiff.text = timeDiff.text.replace('to go', '');
@@ -171,6 +172,12 @@ export default function ChallengeHeader(props) {
       if (phase.name === 'Iterative Review') {
         const end = phaseEndDate(phase);
         return moment(end).isAfter();
+      }
+      // do not show [Specification Submission, Specification Review, Approval]
+      // phases for design challenges
+      if (trackLower === 'design'
+        && ['Specification Submission', 'Specification Review', 'Approval'].indexOf(phase.name) >= 0) {
+        return false;
       }
       return true;
     });
@@ -444,7 +451,7 @@ export default function ChallengeHeader(props) {
                   (status || '').toLowerCase() === 'active'
                   && (
                   <div styleName="current-phase">
-                    {currentPhases && `${currentPhases.name} Ends: `}
+                    {currentPhases && `${currentPhases.name} Ends In: `}
                     <span styleName="deadline-highlighted">
                       {timeDiff.text}
                     </span>

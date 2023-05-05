@@ -47,6 +47,10 @@ export function getEndDate(challenge) {
   return moment(endPhaseDate).format('MMM DD');
 }
 
+export function isRegistrationPhase(phase) {
+  return phase.name === 'Registration';
+}
+
 /**
  * Generates human-readable string containing time till the phase end.
  * @param {Object} phase phase need to check
@@ -55,13 +59,16 @@ export function getEndDate(challenge) {
 export function getTimeLeft(
   phase,
   toGoText = 'to go',
+  fullText = false,
 ) {
   const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
+  const REGISTRATION_PHASE_MESSAGE = 'Open For Registration';
   const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
   const HOUR_MS = 60 * 60 * 1000;
   const DAY_MS = 24 * HOUR_MS;
 
   if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG };
+  if (isRegistrationPhase(phase)) return { late: false, text: REGISTRATION_PHASE_MESSAGE };
   if (phase.phaseType === 'Final Fix') {
     return { late: false, text: FF_TIME_LEFT_MSG };
   }
@@ -71,9 +78,9 @@ export function getTimeLeft(
   if (late) time = -time;
 
   let format;
-  if (time > DAY_MS) format = 'D[d] H[h]';
-  else if (time > HOUR_MS) format = 'H[h] m[min]';
-  else format = 'm[min] s[s]';
+  if (time > DAY_MS) format = fullText ? 'D [day] H [hour]' : 'D[d] H[h]';
+  else if (time > HOUR_MS) format = fullText ? 'H [hour] m [minute]' : 'H[h] m[min]';
+  else format = fullText ? 'm [minute] s [second]' : 'm[min] s[s]';
 
   time = moment.duration(time).format(format);
   time = late ? `${time} Past Due` : `${time} ${toGoText}`;

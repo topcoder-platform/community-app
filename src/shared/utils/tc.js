@@ -7,8 +7,9 @@ import _ from 'lodash';
 import moment from 'moment-timezone';
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import { config, isomorphy } from 'topcoder-react-utils';
+import { services, tc } from 'topcoder-react-lib';
 
-import { tc } from 'topcoder-react-lib';
+const { api } = services;
 
 export const {
   OLD_COMPETITION_TRACKS,
@@ -194,6 +195,14 @@ export function getAuthTokens(req = {}) {
     tokenV3 = '';
   }
   return { tokenV2, tokenV3 };
+}
+
+/**
+  * Get M2M Token
+  * @return {Promise}
+  */
+export async function getM2mToken() {
+  return api.getTcM2mToken().then((m2mToken => m2mToken));
 }
 
 /**

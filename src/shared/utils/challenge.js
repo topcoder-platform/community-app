@@ -9,7 +9,18 @@ import _ from 'lodash';
  */
 export function isMM(challenge) {
   const tags = _.get(challenge, 'tags') || [];
-  return tags.includes('Marathon Match');
+  const isMMType = challenge ? challenge.type === 'Marathon Match' : false;
+  return tags.includes('Marathon Match') || isMMType;
+}
+
+/**
+ * check if is rapid development match challenge
+ * @param {Object} challenge challenge object
+ */
+export function isRDM(challenge) {
+  const tags = _.get(challenge, 'tags') || [];
+  const isMMType = challenge ? challenge.type === 'Rapid Development Match' : false;
+  return tags.includes('Rapid Development Match') || tags.includes('RDM') || isMMType;
 }
 
 /**

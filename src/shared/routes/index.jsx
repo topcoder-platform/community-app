@@ -117,7 +117,12 @@ function Routes({ communityId }) {
         <Redirect
           exact
           from="/policy"
-          to="/privacy"
+          to={config.POLICY_PAGES_PATH}
+        />
+        <Redirect
+          exact
+          from="/policy/:slug?"
+          to={`${config.POLICY_PAGES_PATH}/:slug?`}
         />
         <Route
           render={() => (

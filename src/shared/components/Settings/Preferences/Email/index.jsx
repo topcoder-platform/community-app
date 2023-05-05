@@ -48,11 +48,6 @@ const newsletters = [
     desc: 'Attention Competitive Programmers! If there is any newsletter you are subscribing too, it better be this one. Receive updates when a new SRM event is scheduled.',
   },
   {
-    id: '603c900c32',
-    name: 'TCO Newsletter',
-    desc: 'For all the latest updates surrounding the <a href="https://www.topcoder.com/community/member-programs/topcoder-open" style="color:#0d61bf;text-decoration:none;font-weight:700;">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!',
-  },
-  {
     id: '3460574ddd',
     name: 'Rapid Development Match (RDM) Reminders',
     desc: 'Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!',

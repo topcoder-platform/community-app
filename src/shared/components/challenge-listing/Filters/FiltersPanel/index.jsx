@@ -223,7 +223,7 @@ export default function FiltersPanel({
   };
 
   const communityOps = communityFilters.filter(community => (
-    (!community.hidden && !community.hideFilter) || community.communityName === 'All'
+    ((!community.hidden && !community.hideFilter) || community.communityName === 'All') && !community.communityName.includes('TCO')
   ))
     .map(community => ({
       label: community.communityName,
@@ -257,9 +257,7 @@ export default function FiltersPanel({
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
   const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER);
-  const isTcoChallengesVisible = activeBucket !== BUCKETS.REVIEW_OPPORTUNITIES;
   const [recommendedToggle, setRecommendedToggle] = useState(false);
-  const [tcoToggle, setTcoToggle] = useState(false);
 
   useEffect(() => {
     if (!isFilterEmpty(filterState, past ? 'past' : '', activeBucket)
@@ -271,19 +269,10 @@ export default function FiltersPanel({
         types: _.uniq(filterState.types),
       });
     }
-
-    if (filterState.tco) {
-      setTcoToggle(true);
-    }
     if (filterState.recommended) {
       setRecommendedToggle(true);
     }
   }, [filterState]);
-
-  const onSwitchTcoChallenge = (on) => {
-    setFilterState({ ..._.clone(filterState), tco: on ? on.toString() : on });
-    setTcoToggle(on);
-  };
 
   const onSwitchRecommendedChallenge = (on) => {
     setFilterState({ ..._.clone(filterState), recommended: on });
@@ -321,14 +310,6 @@ export default function FiltersPanel({
   const recommendedCheckboxTip = (
     <div styleName="tctooltiptext">
       <p>Show the best challenges for you.</p>
-    </div>
-  );
-
-  const tcoCheckboxTip = (
-    <div styleName="tctooltiptext">
-      <p>Earn TCO points by participating in these <br />
-        challenges. <a href={config.URL.TCO_OPEN_URL} target="_blank" rel="noreferrer noopener">Learn more about TCO</a>
-      </p>
     </div>
   );
 
@@ -666,42 +647,10 @@ export default function FiltersPanel({
             </React.Fragment>
           )
         }
-        {
-          isTcoChallengesVisible
-          && (
-            <React.Fragment>
-              <div styleName="filter-row tco-challenges-filter">
-                <span
-                  styleName="tco-select-label"
-                  aria-label={`Tco eligible challenge toggle button pressed ${tcoToggle ? 'On' : 'Off'}`}
-                  role="switch"
-                  aria-checked={tcoToggle}
-                >
-                  <SwitchWithLabel
-                    enabled={tcoToggle}
-                    labelAfter="Only Show TCO Eligible Challenges"
-                    onSwitch={onSwitchTcoChallenge}
-                  />
-                </span>
-
-                <div styleName="tco-challenge-tooltip">
-                  <Tooltip
-                    id="tco-tip"
-                    content={tcoCheckboxTip}
-                    className={style['tooltip-overlay']}
-                    trigger={['hover', 'focus']}
-                  >
-                    <CircleIcon />
-                  </Tooltip>
-                </div>
-              </div>
-            </React.Fragment>
-          )
-        }
       </div>
 
       {
-        ((isRecommendedChallengesVisible && _.get(auth, 'user.userId')) || isTcoChallengesVisible)
+        ((isRecommendedChallengesVisible && _.get(auth, 'user.userId')))
           && (<hr styleName="hr" />)
       }
 
@@ -711,7 +660,6 @@ export default function FiltersPanel({
           disabled={disableClearFilterButtons}
           onClick={() => {
             setRecommendedToggle(false);
-            setTcoToggle(false);
             setSort('openForRegistration', 'startDate');
             setFilterState({
               tracks: {
