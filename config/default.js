@@ -15,6 +15,14 @@ module.exports = {
     MAXAGE: 7,
     SECURE: true,
   },
+  GUIKIT: {
+    DEBOUNCE_ON_CHANGE_TIME: 150,
+  },
+  GAMIFICATION: {
+    ORG_ID: '6052dd9b-ea80-494b-b258-edd1331e27a3',
+    ENABLE_BADGE_UI: true,
+    ENABLE_SKILLS_REMIND_MODAL: true,
+  },
   LOG_ENTRIES_TOKEN: '',
   URL: {
     ARENA: 'https://arena.topcoder-qa.com',

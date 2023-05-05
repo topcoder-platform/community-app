@@ -15,7 +15,7 @@ exports[`renders srm 1`] = `
       />
       <header>
         <a
-          href="https://community.topcoder-dev.com/stat?c=round_overview&rd=16856"
+          href="https://community.topcoder-qa.com/stat?c=round_overview&rd=16856"
         >
           Single Round Match 705 Sponsored by Blizzard
         </a>
@@ -45,7 +45,7 @@ exports[`renders srm 1`] = `
         >
           <a
             className="src-shared-components-SRMTile-___style__division___3ztiS"
-            href="https://community.topcoder-dev.com/stat?c=round_stats&rd=16856&dn=1"
+            href="https://community.topcoder-qa.com/stat?c=round_stats&rd=16856&dn=1"
           >
             <p>
               1
@@ -61,7 +61,7 @@ exports[`renders srm 1`] = `
           </a>
           <a
             className="src-shared-components-SRMTile-___style__room___33Kt7"
-            href="https://community.topcoder-dev.com/stat?c=coder_room_stats&cr=1234567&rd=16856"
+            href="https://community.topcoder-qa.com/stat?c=coder_room_stats&cr=1234567&rd=16856"
           >
             <p>
               1

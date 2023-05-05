@@ -18,7 +18,7 @@ exports[`Default render 1`] = `
     menu={
       Array [
         Object {
-          "href": "https://www.topcoder-dev.com",
+          "href": "https://www.topcoder-qa.com?ref=nav",
           "id": "business",
           "title": "BUSINESS",
         },
@@ -26,30 +26,30 @@ exports[`Default render 1`] = `
           "id": "community",
           "secondaryMenu": Array [
             Object {
-              "href": "/home",
+              "href": "/home?ref=nav",
               "id": "home",
               "logged": true,
               "title": "Home",
             },
             Object {
-              "href": "/members/willFilledByUserName",
+              "href": "/members/willFilledByUserName?ref=nav",
               "id": "myprofile",
               "logged": true,
               "title": "My Profile",
             },
             Object {
-              "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+              "href": "https://community.topcoder-qa.com/PactsMemberServlet?module=PaymentHistory&full_list=false&ref=nav",
               "logged": true,
               "openNewTab": true,
               "title": "Payments",
             },
             Object {
-              "href": "/community/learn",
+              "href": "/community/learn?ref=nav",
               "logged": false,
               "title": "Overview",
             },
             Object {
-              "href": "/thrive/tracks?track=Topcoder",
+              "href": "/thrive/tracks?track=Topcoder&ref=nav",
               "logged": false,
               "title": "How It Works",
             },
@@ -58,19 +58,19 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "/challenges",
+                  "href": "/challenges?ref=nav",
                   "title": "All Challenges",
                 },
                 Object {
-                  "href": "/community/arena",
+                  "href": "/community/arena?ref=nav",
                   "title": "Competitive Programming",
                 },
                 Object {
-                  "href": "/gigs",
+                  "href": "/gigs?ref=nav",
                   "title": "Gig Work",
                 },
                 Object {
-                  "href": "/community/practice",
+                  "href": "/community/practice?ref=nav",
                   "title": "Practice",
                 },
               ],
@@ -79,23 +79,23 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "/thrive/tracks?track=Competitive%20Programming",
+                  "href": "/thrive/tracks?track=Competitive%20Programming&ref=nav",
                   "title": "Competitive Programming",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=Data%20Science",
+                  "href": "/thrive/tracks?track=Data%20Science&ref=nav",
                   "title": "Data Science",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=Design",
+                  "href": "/thrive/tracks?track=Design&ref=nav",
                   "title": "Design",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=Development",
+                  "href": "/thrive/tracks?track=Development&ref=nav",
                   "title": "Development",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=QA",
+                  "href": "/thrive/tracks?track=QA&ref=nav",
                   "title": "QA",
                 },
               ],
@@ -104,40 +104,40 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "/community/member-programs/topcoder-open",
+                  "href": "/community/member-programs/topcoder-open?ref=nav",
                   "title": "TCO",
                 },
                 Object {
-                  "href": "/community/member-programs",
+                  "href": "/community/member-programs?ref=nav",
                   "title": "Programs",
                 },
                 Object {
-                  "href": "https://vanilla.topcoder-dev.com",
+                  "href": "https://discussions.topcoder-qa.com?ref=nav",
                   "title": "Forums",
                 },
                 Object {
-                  "href": "/community/statistics",
+                  "href": "/community/statistics?ref=nav",
                   "title": "Statistics",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/blog",
+                  "href": "https://www.topcoder-qa.com/blog?ref=nav",
                   "openNewTab": true,
                   "title": "Blog",
                 },
                 Object {
-                  "href": "/thrive",
+                  "href": "/thrive?ref=nav",
                   "title": "Thrive",
                 },
               ],
               "title": "Explore",
             },
             Object {
-              "href": "https://discord.gg/topcoder",
+              "href": "https://discord.gg/topcoder?ref=nav",
               "openNewTab": true,
               "title": "Discord",
             },
             Object {
-              "href": "https://platform-ui.topcoder-dev.com/learn",
+              "href": "https://platform-ui.topcoder-qa.com/learn",
               "openNewTab": true,
               "title": "Learn",
             },
@@ -154,21 +154,21 @@ exports[`Default render 1`] = `
         accountMenu={
           Array [
             Object {
-              "href": "/settings/profile",
+              "href": "/settings/profile?ref=nav",
               "title": "Settings",
             },
             Object {
               "separator": true,
             },
             Object {
-              "href": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+              "href": "https://www.topcoder-qa.com/thrive/tracks?track=Topcoder&tax=Help%20Articles&ref=nav",
               "title": "Help",
             },
             Object {
               "separator": true,
             },
             Object {
-              "href": "https://www.topcoder-dev.com/logout",
+              "href": "https://www.topcoder-qa.com/logout?ref=nav",
               "title": "Log Out",
             },
           ]
@@ -176,8 +176,8 @@ exports[`Default render 1`] = `
         auth={null}
         authURLs={
           Object {
-            "href": "https://accounts-auth0.topcoder-dev.com?utm_source=community-app-main",
-            "location": "https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main",
+            "href": "https://accounts-auth0.topcoder-qa.com?utm_source=community-app-main",
+            "location": "https://accounts-auth0.topcoder-qa.com?retUrl=%S&utm_source=community-app-main",
           }
         }
         loggedIn={true}
@@ -196,7 +196,7 @@ exports[`Default render 1`] = `
         showNotification={true}
         switchText={
           Object {
-            "href": "https://connect.topcoder-dev.com",
+            "href": "https://connect.topcoder-qa.com?ref=nav",
             "title": "Switch to BUSINESS",
           }
         }
