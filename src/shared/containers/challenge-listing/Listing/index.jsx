@@ -518,6 +518,8 @@ export class ListingContainer extends React.Component {
       meta,
       setSearchText,
       filterState,
+      location,
+      history,
     } = this.props;
 
     const {
@@ -634,6 +636,8 @@ export class ListingContainer extends React.Component {
         />
         {banner}
         <ChallengeListing
+          location={location}
+          history={history}
           activeBucket={activeBucket}
           challenges={challenges}
           openForRegistrationChallenges={openForRegistrationChallenges}
@@ -740,6 +744,10 @@ ListingContainer.defaultProps = {
 };
 
 ListingContainer.propTypes = {
+  location: PT.shape({
+    search: PT.string,
+  }).isRequired,
+  history: PT.shape().isRequired,
   auth: PT.shape({
     profile: PT.shape(),
     tokenV3: PT.string,

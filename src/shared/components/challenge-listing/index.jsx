@@ -54,6 +54,8 @@ export default function ChallengeListing(props) {
     setPreviousBucketOfPastChallengesTab,
     previousBucketOfPastChallengesTab,
     previousBucketOfActiveTab,
+    location,
+    history,
   } = props;
 
   // const { challenges } = props;
@@ -157,17 +159,15 @@ export default function ChallengeListing(props) {
 
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
-
-      <h1 styleName="tc-title">CHALLENGES</h1>
-      <hr styleName="tc-seperator" />
-
       <ChallengeTab
         activeBucket={activeBucket}
+        history={history}
         setPreviousBucketOfActiveTab={setPreviousBucketOfActiveTab}
         setPreviousBucketOfPastChallengesTab={setPreviousBucketOfPastChallengesTab}
         previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
         previousBucketOfActiveTab={previousBucketOfActiveTab}
         selectBucket={selectBucket}
+        location={location}
       />
 
       <div styleName="tc-content-wrapper">
@@ -221,6 +221,10 @@ ChallengeListing.defaultProps = {
 };
 
 ChallengeListing.propTypes = {
+  location: PT.shape({
+    search: PT.string,
+  }).isRequired,
+  history: PT.shape().isRequired,
   activeBucket: PT.string.isRequired,
   expanding: PT.bool,
   challenges: PT.arrayOf(PT.shape()).isRequired,

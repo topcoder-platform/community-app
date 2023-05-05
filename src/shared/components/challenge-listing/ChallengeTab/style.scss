@@ -59,6 +59,7 @@
   .active {
     color: $tc-black;
     font-weight: 700;
+    position: relative;
 
     &::after {
       content: "";
@@ -70,7 +71,7 @@
       z-index: 100;
       display: block;
       position: absolute;
-      top: 145px;
+      top: 31px;
     }
   }
 }
@@ -112,6 +113,32 @@
     transform: scale(1.5) rotate(180deg);
     margin-right: 20px !important;
   }
+
+  @include xs-to-md {
+    margin: 0 16px;
+  }
+}
+
+.tc-title {
+  @include barlow-condensed;
+
+  color: $tco-black;
+  font-size: 32px;
+  margin: 32px 0 24px 0;
+  line-height: 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    margin: 16px;
+  }
+}
+
+.tc-seperator {
+  background-color: $listing-gray;
+  height: 2px;
+  opacity: 0.5;
+  margin: 0;
 
   @include xs-to-md {
     margin: 0 16px;

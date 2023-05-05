@@ -107,7 +107,7 @@ function Routes({ communityId }) {
         <Redirect
           exact
           from="/community/gigs"
-          to="/gigs"
+          to={config.GIGS_PAGES_PATH}
         />
         <Route
           component={PolicyPages}
