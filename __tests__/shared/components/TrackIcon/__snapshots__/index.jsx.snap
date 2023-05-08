@@ -10,7 +10,7 @@ exports[`Matches shallow shapshot 1`] = `
     CH
   </div>
   <a
-    href="https://www.topcoder-qa.com/tco"
+    href="https://www.topcoder-dev.com/tco"
   >
     <div
       className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__tco-icon___18ZV7 src-shared-components-TrackIcon-___style__hidden___JXTEt"
@@ -31,7 +31,7 @@ exports[`Matches shallow shapshot 2`] = `
     CH
   </div>
   <a
-    href="https://www.topcoder-qa.com/tco"
+    href="https://www.topcoder-dev.com/tco"
   >
     <div
       className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
@@ -52,7 +52,7 @@ exports[`Matches shallow shapshot 3`] = `
     CH
   </div>
   <a
-    href="https://www.topcoder-qa.com/tco"
+    href="https://www.topcoder-dev.com/tco"
   >
     <div
       className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
