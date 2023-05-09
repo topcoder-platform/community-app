@@ -84,7 +84,7 @@ const ChallengeTab = ({
     if (typeof window === 'undefined') {
       return;
     }
-    history.push(`${config.GIGS_PAGES_PATH}${window.location.search || ''}`);
+    history.push(config.GIGS_PAGES_PATH);
   };
 
   const desktop = useMediaQuery({ minWidth: 1024 });
