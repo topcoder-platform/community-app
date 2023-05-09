@@ -115,6 +115,10 @@ window._chatlio = window._chatlio||[];
         !id && !type ? (
           <React.Fragment>
             <ReferralCode profile={profile} growSurf={growSurf} />
+            <Viewport
+              id="3X6GfJZl3eDU0m4joSJZpN"
+              baseUrl={config.GIGS_PAGES_PATH}
+            />
           </React.Fragment>
         ) : null
       }
