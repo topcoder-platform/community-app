@@ -5,6 +5,7 @@ import React from 'react';
 import PT from 'prop-types';
 import Header from 'containers/TopcoderHeader';
 import Footer from 'components/TopcoderFooter';
+import Viewport from 'components/Contentful/Viewport';
 import { config, isomorphy } from 'topcoder-react-utils';
 import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 import { Helmet } from 'react-helmet';
