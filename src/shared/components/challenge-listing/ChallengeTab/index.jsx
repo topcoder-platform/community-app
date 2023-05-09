@@ -23,13 +23,13 @@ const ChallengeTab = ({
   const [currentSelected, setCurrentSelected] = useState(past);
   const [isTabClosed, setIsTabClosed] = useState(true);
   const currentTabName = useMemo(() => {
-    if (location.pathname === config.GIGS_PAGES_PATH) {
+    if (location.pathname && location.pathname.indexOf(config.GIGS_PAGES_PATH) >= 0) {
       return 'GIGS';
     }
     return currentSelected ? 'PAST CHALLENGES' : 'ACTIVE CHALLENGES';
   }, [location, currentSelected]);
   const pageTitle = useMemo(() => {
-    if (location.pathname === config.GIGS_PAGES_PATH) {
+    if (location.pathname && location.pathname.indexOf(config.GIGS_PAGES_PATH) >= 0) {
       return 'GIG WORK OPPORTUNITIES';
     }
     return 'CHALLENGES';
