@@ -16,7 +16,10 @@ import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { getQuery } from 'utils/url';
 import ReferralCode from 'components/Gigs/ReferralCode';
+import ChallengeTab from 'components/challenge-listing/ChallengeTab';
 import actions from 'actions/growSurf';
+
+import './style.scss';
 
 const optimizelyClient = createInstance({
   sdkKey: config.OPTIMIZELY.SDK_KEY,
@@ -27,7 +30,13 @@ const GIGS_SOCIAL_SHARE_IMAGE = 'https://images.ctfassets.net/b5f1djy59z3a/4XlYN
 
 function GigsPagesContainer(props) {
   const {
-    match, profile, growSurf, getReferralId, tokenV3,
+    match,
+    profile,
+    growSurf,
+    getReferralId,
+    tokenV3,
+    history,
+    location,
   } = props;
   const optProfile = {
     attributes: {},
@@ -89,6 +98,12 @@ window._chatlio = window._chatlio||[];
         image={GIGS_SOCIAL_SHARE_IMAGE}
       />
       <Header />
+      <div styleName="ChallengeFiltersExample">
+        <ChallengeTab
+          history={history}
+          location={location}
+        />
+      </div>
       {
         id ? (
           <RecruitCRMJobDetails
@@ -131,6 +146,11 @@ GigsPagesContainer.defaultProps = {
 };
 
 GigsPagesContainer.propTypes = {
+  location: PT.shape({
+    search: PT.string,
+    pathname: PT.string,
+  }).isRequired,
+  history: PT.shape().isRequired,
   match: PT.shape().isRequired,
   profile: PT.shape(),
   growSurf: PT.shape(),

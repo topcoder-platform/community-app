@@ -10,16 +10,16 @@ export default function GigsPagesRoute(props) {
   return (
     <AppChunk
       chunkName="gigsPages/chunk"
-      renderClientAsync={() => import(/* webpackChunkName: "gigsPages/chunk" */ 'containers/GigsPages')
+      renderClientAsync={renderProps => import(/* webpackChunkName: "gigsPages/chunk" */ 'containers/GigsPages')
         .then(({ default: GigsPagesContainer }) => (
-          <GigsPagesContainer {...props} />
+          <GigsPagesContainer {...props} {...renderProps} />
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
-      renderServer={() => {
+      renderServer={(renderProps) => {
         const p = webpack.resolveWeak('containers/GigsPages');
         const GigsPagesContainer = webpack.requireWeak(path.resolve(__dirname, p));
-        return <GigsPagesContainer {...props} />;
+        return <GigsPagesContainer {...props} {...renderProps} />;
       }}
     />
   );
