@@ -27,7 +27,6 @@ import LoadingIndicator from 'components/LoadingIndicator';
 // eslint-disable-next-line max-len
 // import RecommendedActiveChallenges from 'components/challenge-detail/RecommendedActiveChallenges';
 import Terms from 'containers/Terms';
-import SecurityReminder from 'components/SecurityReminder';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
@@ -171,7 +170,6 @@ class ChallengeDetailPageContainer extends React.Component {
       },
       notFoundCountryFlagUrl: {},
       viewAsTable: false,
-      showSecurityReminder: false,
     };
 
     this.instanceId = shortId();
@@ -325,18 +323,17 @@ class ChallengeDetailPageContainer extends React.Component {
       auth,
       challengeId,
       communityId,
+      openTermsModal,
       registerForChallenge,
       terms,
     } = this.props;
     if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
       window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}&regSource=challenges`;
-    } else if (terms && terms.length > 0) {
-      this.setState({
-        showSecurityReminder: true,
-      });
-    } else {
+    } else if (_.every(terms, 'agreed')) {
       registerForChallenge(auth, challengeId);
+    } else {
+      openTermsModal();
     }
   }
 
@@ -385,7 +382,6 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       openForRegistrationChallenges,
       statisticsData,
-      openTermsModal,
     } = this.props;
 
     // const displayRecommendedChallenges = getDisplayRecommendedChallenges(
@@ -402,7 +398,6 @@ class ChallengeDetailPageContainer extends React.Component {
       notFoundCountryFlagUrl,
       mySubmissionsSort,
       viewAsTable,
-      showSecurityReminder,
     } = this.state;
 
     const {
@@ -682,19 +677,6 @@ class ChallengeDetailPageContainer extends React.Component {
             description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
             register={() => {
               registerForChallenge(auth, challengeId);
-            }}
-          />
-        )}
-        {showSecurityReminder && (
-          <SecurityReminder
-            onCancel={() => this.setState({ showSecurityReminder: false })}
-            onOk={() => {
-              this.setState({ showSecurityReminder: false });
-              if (_.every(terms, 'agreed')) {
-                registerForChallenge(auth, challengeId);
-              } else {
-                openTermsModal();
-              }
             }}
           />
         )}
