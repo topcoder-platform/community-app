@@ -98,6 +98,12 @@ window._chatlio = window._chatlio||[];
         image={GIGS_SOCIAL_SHARE_IMAGE}
       />
       <Header />
+      <div styleName="ChallengeFiltersExample">
+        <ChallengeTab
+          history={history}
+          location={location}
+        />
+      </div>
       {
         id ? (
           <RecruitCRMJobDetails
@@ -106,12 +112,6 @@ window._chatlio = window._chatlio||[];
           />
         ) : null
       }
-      <div styleName="ChallengeFiltersExample">
-        <ChallengeTab
-          history={history}
-          location={location}
-        />
-      </div>
       {
         !id && !type ? (
           <React.Fragment>
