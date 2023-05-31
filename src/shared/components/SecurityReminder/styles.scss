@@ -1,0 +1,77 @@
+@import "~styles/mixins";
+
+.modal-container {
+  @include roboto-regular;
+
+  color: $tc-black;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 40px 0;
+  width: 800px;
+
+  @include xs-to-sm {
+    padding: 3 * $base-unit;
+    padding-bottom: 0;
+  }
+}
+
+.modal-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  ul {
+    list-style: revert;
+    margin-left: 15px;
+  }
+}
+
+.agreementList {
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 1.5 * $base-unit;
+  text-align: center;
+  color: $tc-gray-80;
+}
+
+.desc {
+  margin-top: 24px;
+  font-size: 15px;
+  line-height: 25px;
+  color: $tc-gray-80;
+
+  @include sm {
+    margin-top: 20px;
+  }
+}
+
+.buttons {
+  padding: (1.5 * $base-unit) 0 (2 * $base-unit);
+  text-align: center;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+
+  span {
+    margin-left: 15px;
+  }
+}
+
+.btn-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  padding: 5px;
+}
