@@ -10,7 +10,7 @@ exports[`Matches shallow shapshot 1`] = `
     Challenges
   </h1>
   <a
-    href="https://arena.topcoder-qa.com"
+    href="https://arena.topcoder-dev.com"
     rel="noopener noreferrer"
     target="_blank"
   >
@@ -29,7 +29,7 @@ exports[`Matches shallow shapshot 2`] = `
     Challenges
   </h1>
   <a
-    href="https://arena.topcoder-qa.com"
+    href="https://arena.topcoder-dev.com"
     rel="noopener noreferrer"
     target="_blank"
   >

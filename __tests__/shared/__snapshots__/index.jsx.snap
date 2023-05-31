@@ -21,6 +21,7 @@ exports[`Snapshot match 1`] = `
     />
     <script
       async={true}
+      src="https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com"
     />
     <script
       src="//cdn-3.convertexperiments.com/js/10005965-10006774.js"
@@ -63,6 +64,7 @@ exports[`Snapshot match 2`] = `
     />
     <script
       async={true}
+      src="https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com"
     />
     <script
       src="//cdn-3.convertexperiments.com/js/10005965-10006774.js"
