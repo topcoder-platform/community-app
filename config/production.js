@@ -239,5 +239,5 @@ module.exports = {
   SPRIG_ENVIRONMENT_ID: 'a-IZBZ6-r7bU',
 
   // Specifically for the terms ID that matches the NDA requirement.
-  TERM_NDA_ID: '05342dcb-3405-445e-95b2-8ea2a3834b0d',
+  TERM_NDA_ID: 'c41e90e5-4d0e-4811-bd09-38ff72674490',
 };
