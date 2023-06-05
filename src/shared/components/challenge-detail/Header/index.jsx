@@ -14,7 +14,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
-import { COMPETITION_TRACKS } from 'utils/tc';
+import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
 import {
   getTimeLeft,
@@ -82,6 +82,7 @@ export default function ChallengeHeader(props) {
     track,
   } = challenge;
   const showDeadlineDetail = showDeadlineDetailProp;
+  const isActivedChallenge = `${status}`.indexOf(CHALLENGE_STATUS.ACTIVE) >= 0;
 
   const tags = challenge.tags || [];
 
@@ -275,7 +276,10 @@ export default function ChallengeHeader(props) {
   }
 
   const disabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
-  const registerButtonDisabled = registering || registrationEnded || isLegacyMM;
+  const registerButtonDisabled = registering
+    || registrationEnded
+    || isLegacyMM
+    || !isActivedChallenge;
   const unregisterButtonDisabled = unregistering
     || registrationEnded || hasSubmissions || isLegacyMM;
 
