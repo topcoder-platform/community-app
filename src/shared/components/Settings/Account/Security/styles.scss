@@ -137,6 +137,9 @@
     }
 
     .dice-switch {
+      display: flex;
+      align-items: center;
+
       @media (max-width: #{$screen-md - 1px}) {
         display: none;
       }
@@ -279,4 +282,19 @@
   text-align: center;
   color: #767676;
   margin-top: auto;
+}
+
+.tctooltiptext {
+  background: $tooltip-gray;
+  color: $tc-white;
+  border-radius: 8px;
+  padding: 10px;
+
+  p {
+    @include roboto-medium;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+  }
 }

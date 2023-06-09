@@ -4,12 +4,14 @@ import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import QRCode from 'react-qr-code';
 import { SettingBannerV2 as Collapse } from 'components/Settings/SettingsBanner';
+import Tooltip from 'components/Tooltip';
 import MfaImage from 'assets/images/account/security/mfa.svg';
 import DiceLogo from 'assets/images/account/security/dicelogo.png';
 import DiceLogoBig from 'assets/images/account/security/dicelogobig.png';
 import GooglePlay from 'assets/images/account/security/google-play.png';
 import AppleStore from 'assets/images/account/security/apple-store.svg';
 import UnsuccessfulIcon from 'assets/images/account/security/unsuccessful.svg';
+import TooltipInfo from 'assets/images/tooltip-info.svg';
 import Modal from './Modal';
 import VerificationListener from './VerificationListener';
 
@@ -25,6 +27,12 @@ export default function Security({
   const [connVerifyCounter, setConnVerifyCounter] = useState(0);
   const [isVerificationProcessing, setIsVerificationProcessing] = useState(false);
   const diceVerifyUrl = config.DICE_VERIFY_URL;
+
+  const diceTip = (
+    <div styleName="tctooltiptext">
+      <p>Please reach out to support@topcoder.com for deactivating Dice ID</p>
+    </div>
+  );
   const useInterval = (callback, delay) => {
     const savedCallback = useRef();
 
@@ -359,7 +367,7 @@ export default function Security({
             </div>
             <div styleName="info">
               <div styleName="info-first-line">
-                DICE ID Authenticator App
+                <span>DICE ID Authenticator App</span>
               </div>
               <div styleName="info-second-line dice-info">
                 DICE ID authentication application
@@ -370,22 +378,31 @@ export default function Security({
             </div>
             {diceChecked
               ? (
-                <div className="onoffswitch" styleName="dice-switch">
-                  <input
-                    type="checkbox"
-                    name="pre-onoffswitch-dice"
-                    id="pre-onoffswitch-dice"
-                    value="diceEnabled"
-                    checked
-                    onChange={() => { }}
-                    className="onoffswitch-checkbox"
-                    disabled
-                  />
-                  <label htmlFor="pre-onoffswitch-dice" className="onoffswitch-label" styleName="disabled-toggle">
-                    <span className="onoffswitch-inner" />
-                    <span className="onoffswitch-switch" />
-                    <input type="hidden" />
-                  </label>
+                <div styleName="dice-switch">
+                  <div className="onoffswitch">
+                    <input
+                      type="checkbox"
+                      name="pre-onoffswitch-dice"
+                      id="pre-onoffswitch-dice"
+                      value="diceEnabled"
+                      checked
+                      onChange={() => { }}
+                      className="onoffswitch-checkbox"
+                      disabled
+                    />
+                    <label htmlFor="pre-onoffswitch-dice" className="onoffswitch-label" styleName="disabled-toggle">
+                      <span className="onoffswitch-inner" />
+                      <span className="onoffswitch-switch" />
+                      <input type="hidden" />
+                    </label>
+                  </div>
+                  <Tooltip
+                    id="DICE-ID-Authenticator-App-tip"
+                    content={diceTip}
+                    trigger={['hover', 'focus']}
+                  >
+                    <TooltipInfo />
+                  </Tooltip>
                 </div>
               )
               : (
