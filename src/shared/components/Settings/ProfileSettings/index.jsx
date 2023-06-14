@@ -428,11 +428,15 @@ class ProfileSettings extends ConsentComponent {
   onUpdateCountry(country) {
     if (country) {
       const { newBasicInfo: oldBasicInfo } = this.state;
+      const { newProfileInfo: newProfileInfoTmp } = this.state;
       const newBasicInfo = { ...oldBasicInfo };
+      const newProfileInfo = { ...newProfileInfoTmp };
       newBasicInfo.country = country.name;
       newBasicInfo.competitionCountryCode = country.key;
       newBasicInfo.homeCountryCode = country.key;
-      this.setState({ newBasicInfo, inputChanged: true });
+      newProfileInfo.competitionCountryCode = country.key;
+      newProfileInfo.homeCountryCode = country.key;
+      this.setState({ newBasicInfo, newProfileInfo, inputChanged: true });
     }
   }
 
