@@ -36,7 +36,11 @@ async function updateCache() {
   fx.rates = cache.rates;
 }
 
-updateCache();
+try {
+  updateCache();
+} catch (error) {
+  // exchange-rates failed, reason: socket hang up
+}
 
 /**
  * Converts specified amount of money to another currency.
@@ -48,7 +52,11 @@ updateCache();
  *  operations necessary to update the cached currency rates.
  */
 export async function convert(amount, to, from = 'USD') {
-  await updateCache();
+  try {
+    await updateCache();
+  } catch (error) {
+    // exchange-rates failed, reason: socket hang up
+  }
   return fx.convert(amount, { from, to });
 }
 
@@ -63,7 +71,11 @@ export async function convert(amount, to, from = 'USD') {
  * @return {Number}
  */
 export function convertNow(amount, to, from = 'USD') {
-  updateCache();
+  try {
+    updateCache();
+  } catch (error) {
+    // exchange-rates failed, reason: socket hang up
+  }
   return fx.convert(amount, { from, to });
 }
 
@@ -72,7 +84,11 @@ export function convertNow(amount, to, from = 'USD') {
  * @return {Promise}
  */
 export async function getRates() {
-  await updateCache();
+  try {
+    await updateCache();
+  } catch (error) {
+    // exchange-rates failed, reason: socket hang up
+  }
   return _.cloneDeep(cache);
 }
 
@@ -81,6 +97,10 @@ export async function getRates() {
  * @return {Promise}
  */
 export function getRatesNow() {
-  updateCache();
+  try {
+    updateCache();
+  } catch (error) {
+    // exchange-rates failed, reason: socket hang up
+  }
   return _.cloneDeep(cache);
 }

@@ -29,13 +29,13 @@ const SAVE_DELAY = 1000;
 const newsletters = [
   {
     id: 'd0c48e9da3',
-    name: 'Gig Work',
-    desc: 'This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href="https://www.topcoder.com/community/taas" style="color:#0d61bf;text-decoration:none;font-weight:500;">Gig Work page.</a>',
+    name: 'Work Opportunities',
+    desc: 'A weekly summary of available ways to earn, including gig work, challenges, and Thrive articles.',
   },
   {
     id: 'a8f858cdf1',
     name: 'Monthly Newsletter',
-    desc: 'This newsletter gets sent out at the end of every month and contains a variety of important information across all of our tracks.',
+    desc: 'A monthly newsletter with recent highlights from the Topcoder community.',
   },
   {
     id: '5e67dba327',
@@ -51,11 +51,6 @@ const newsletters = [
     id: '3460574ddd',
     name: 'Rapid Development Match (RDM) Reminders',
     desc: 'Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!',
-  },
-  {
-    id: 'ee26600945',
-    name: 'NASA Community',
-    desc: 'Receive email notifications for all the latest news and announcements of our <a href="https://www.topcoder.com/community/nasa" style="color:#0d61bf;text-decoration:none;font-weight:500;">NASA Member Program</a>.',
   },
 ];
 const programs = [
