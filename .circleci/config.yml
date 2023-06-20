@@ -117,8 +117,8 @@ jobs:
       - run:
           name: "configuring environment"
           command: |
-            ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar -l dev_communityapp_buildvar_ps
+            ./awsconfiguration.sh QA
+            ./buildenv.sh -e QA -b qa_communityapp_buildvar,qa_communityapp_deployvar -l qa_communityapp_buildvar_ps
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -129,7 +129,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e QA -t latest -s qa_communityapp_taskvar -i communityapp
 
   # Build & Deploy against prod api backend
   "build-prod-beta":
@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - PROD-4183
+                - fix_country_setting_in_profile
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
@@ -363,10 +364,7 @@ workflows:
           filters:
             branches:
               only:
-                - universal_nav
-                - marathon_match_submission_download
-                - feat/badges-box
-                - PROD-4234
+                - qaenv
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

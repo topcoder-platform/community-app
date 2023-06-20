@@ -7,5 +7,9 @@
 /* eslint-disable import/no-dynamic-require */
 
 module.exports = function buildConfig(env) {
-  return require(`./config/webpack/${env}.js`);
+  // eslint-disable-next-line no-console
+  console.log('Building config for environment:', env);
+  const config = require(`./config/webpack/${env}.js`);
+  console.log('config', JSON.stringify(config)); // eslint-disable-line no-console
+  return config;
 };

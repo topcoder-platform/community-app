@@ -7,6 +7,9 @@ set -eo pipefail
 # Builds Docker image of the app.
 TAG="communityapp:latest"
 
+echo "COMMUNITY_APP_URL $COMMUNITY_APP_URL";
+echo "NODE_ENV $NODE_CONFIG_ENV";
+
 docker build -t $TAG \
   --build-arg AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID \
   --build-arg CDN_URL=$CDN_URL \
