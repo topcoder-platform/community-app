@@ -383,7 +383,7 @@ class ContentfulLoader extends React.Component {
 
     /* Some of the required data still pending to load: render a placeholder,
      * or nothing. */
-    if (!data || _.isEmpty(Object.values(data.entries.items))) {
+    if (!data) {
       return _.isFunction(Placeholder) ? <Placeholder /> : Placeholder;
     }
 
