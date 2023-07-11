@@ -351,6 +351,7 @@ workflows:
               only:
                 - PROD-4183
                 - fix_country_setting_in_profile
+                - profiles_redirect
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
