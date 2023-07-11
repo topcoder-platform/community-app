@@ -29,6 +29,7 @@ import TrackHomePages from './TrackHomePages';
 import TimelineWall from './TimelineWall';
 import PolicyPages from './PolicyPages';
 import GigsPages from './GigsPages';
+import Profile from './Profile';
 
 import './Topcoder/styles.scss';
 
@@ -160,6 +161,11 @@ function Routes({ communityId }) {
           )}
           exact
           path={config.START_PAGE_PATH}
+        />
+        <Route
+          component={Profile}
+          exact
+          path="/members/:handle([\w\-\[\].{} ]{2,15})"
         />
         <Topcoder />
       </Switch>

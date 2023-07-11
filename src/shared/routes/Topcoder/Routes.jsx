@@ -30,7 +30,6 @@ import Dashboard from './Dashboard';
 import Notifications from './Notifications';
 import Settings from '../Settings';
 import HallOfFame from '../HallOfFame';
-import Profile from '../Profile';
 import ProfileBadges from '../ProfileBadges';
 import Scoreboard from '../tco/scoreboard';
 import MemberSearch from '../../containers/MemberSearch';
@@ -84,11 +83,6 @@ export default function Topcoder() {
                 component={Submission}
                 exact
                 path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/submit"
-              />
-              <Route
-                component={Profile}
-                exact
-                path="/members/:handle([\w\-\[\].{} ]{2,15})"
               />
               {
                 config.GAMIFICATION.ENABLE_BADGE_UI && (
