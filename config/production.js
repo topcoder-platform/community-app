@@ -238,7 +238,4 @@ module.exports = {
   UNIVERSAL_NAV_URL: '//uni-nav.topcoder.com/v1/tc-universal-nav.js',
   MEMBER_PROFILE_REDIRECT_URL: 'https://profiles.topcoder.com',
   SPRIG_ENVIRONMENT_ID: 'a-IZBZ6-r7bU',
-
-  // Specifically for the terms ID that matches the NDA requirement.
-  TERM_NDA_ID: 'c41e90e5-4d0e-4811-bd09-38ff72674490',
 };

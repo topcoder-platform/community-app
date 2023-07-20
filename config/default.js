@@ -69,9 +69,6 @@ module.exports = {
    * agreement flow. */
   MOCK_TERMS_SERVICE: false,
 
-  // Specifically for the terms ID that matches the NDA requirement.
-  TERM_NDA_ID: '',
-
   /* Holds params to signup for different newsletters. */
   NEWSLETTER_SIGNUP: {
     DEFAUL_LIST_ID: '28bfd3c062',
