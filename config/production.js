@@ -238,4 +238,5 @@ module.exports = {
   UNIVERSAL_NAV_URL: '//uni-nav.topcoder.com/v1/tc-universal-nav.js',
   MEMBER_PROFILE_REDIRECT_URL: 'https://profiles.topcoder.com',
   SPRIG_ENVIRONMENT_ID: 'a-IZBZ6-r7bU',
+  ACCOUNT_SETTINGS_REDIRECT_URL: 'https://account-settings.topcoder.com',
 };

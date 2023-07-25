@@ -1,25 +1,27 @@
 /**
  * The loader of Profile webpack chunks.
  */
-import PT from 'prop-types';
-import { config } from 'topcoder-react-utils';
+import path from 'path';
+import React from 'react';
+
+import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ProfileLoader(props) {
-  if (typeof window !== 'undefined') {
-    const {
-      match: {
-        params: { handle },
-      },
-    } = props;
-    window.location.replace(`${config.MEMBER_PROFILE_REDIRECT_URL}/${handle}`); // totest
-  }
-  return null;
+  return (
+    <AppChunk
+      chunkName="profile/chunk"
+      renderClientAsync={() => import(/* webpackChunkName: "profile/chunk" */ 'containers/Profile')
+        .then(({ default: ProfileContainer }) => (
+          <ProfileContainer {...props} />
+        ))
+      }
+      renderPlaceholder={() => <LoadingPagePlaceholder />}
+      renderServer={() => {
+        const p = webpack.resolveWeak('containers/Profile');
+        const ProfileContainer = webpack.requireWeak(path.resolve(__dirname, p));
+        return <ProfileContainer {...props} />;
+      }}
+    />
+  );
 }
-
-ProfileLoader.propTypes = {
-  match: PT.shape({
-    params: PT.shape({
-      handle: PT.string,
-    }),
-  }).isRequired,
-};

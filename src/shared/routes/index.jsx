@@ -29,7 +29,8 @@ import TrackHomePages from './TrackHomePages';
 import TimelineWall from './TimelineWall';
 import PolicyPages from './PolicyPages';
 import GigsPages from './GigsPages';
-import Profile from './Profile';
+import ProfileRedirect from './ProfileRedirect';
+import SettingRedirect from './Settings/SettingRedirect';
 
 import './Topcoder/styles.scss';
 
@@ -163,7 +164,12 @@ function Routes({ communityId }) {
           path={config.START_PAGE_PATH}
         />
         <Route
-          component={Profile}
+          component={SettingRedirect}
+          exact
+          path="/settings/:settingsTab(profile|skills|tracks|tools|account|preferences|payment)"
+        />
+        <Route
+          component={ProfileRedirect}
           exact
           path="/members/:handle([\w\-\[\].{} ]{2,15})"
         />
