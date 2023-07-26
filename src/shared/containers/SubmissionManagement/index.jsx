@@ -32,10 +32,10 @@ class SubmissionManagementPageContainer extends React.Component {
     super(props);
 
     this.state = {
-      needReload: false,
       initialState: true,
       submissions: [],
     };
+    this.shouldReloadSubmission = true;
   }
 
   componentDidMount() {
@@ -60,17 +60,24 @@ class SubmissionManagementPageContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      loadMySubmissions, authTokens, challengeId, mySubmissions,
+      loadMySubmissions,
+      authTokens,
+      challengeId,
+      mySubmissions,
+      loadingSubmissionsForChallengeId,
     } = nextProps;
-    const { needReload } = this.state;
-
-    if (needReload === false && mySubmissions) {
+    if (
+      !loadingSubmissionsForChallengeId
+      && (
+        !mySubmissions
+        || this.shouldReloadSubmission
+      )
+    ) {
       if (mySubmissions.find(item => safeForDownload(item.url) !== true)) {
-        this.setState({ needReload: true });
+        this.shouldReloadSubmission = false;
         setTimeout(() => {
           loadMySubmissions(authTokens, challengeId);
-          this.setState({ needReload: false });
-        }, 2000);
+        }, 4000);
       }
     }
   }
