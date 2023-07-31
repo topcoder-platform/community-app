@@ -6,7 +6,4 @@ module.exports = {
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
-
-  // Specifically for the terms ID that matches the NDA requirement.
-  TERM_NDA_ID: 'e5811a7b-43d1-407a-a064-69e5015b4900',
 };

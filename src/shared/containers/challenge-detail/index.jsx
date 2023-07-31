@@ -323,23 +323,16 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     const {
       auth,
-      challengeId,
       communityId,
-      registerForChallenge,
-      openTermsModal,
-      terms,
     } = this.props;
     if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
       window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}&regSource=challenges`;
-    } else if (terms && !!_.find(terms, { id: config.TERM_NDA_ID })) {
+    } else {
+      // Show security reminder to all registrants
       this.setState({
         showSecurityReminder: true,
       });
-    } else if (_.every(terms, 'agreed')) {
-      registerForChallenge(auth, challengeId);
-    } else {
-      openTermsModal();
     }
   }
 

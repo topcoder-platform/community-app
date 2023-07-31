@@ -69,9 +69,6 @@ module.exports = {
    * agreement flow. */
   MOCK_TERMS_SERVICE: false,
 
-  // Specifically for the terms ID that matches the NDA requirement.
-  TERM_NDA_ID: '',
-
   /* Holds params to signup for different newsletters. */
   NEWSLETTER_SIGNUP: {
     DEFAUL_LIST_ID: '28bfd3c062',
@@ -476,5 +473,7 @@ module.exports = {
   },
   /* development id - makes surveys have warning about environment */
   UNIVERSAL_NAV_URL: '//uni-nav.topcoder-dev.com/v1/tc-universal-nav.js',
+  MEMBER_PROFILE_REDIRECT_URL: 'https://profiles.topcoder-dev.com',
+  ACCOUNT_SETTINGS_REDIRECT_URL: 'https://account-settings.topcoder-dev.com',
   SPRIG_ENVIRONMENT_ID: 'bUcousVQ0-yF',
 };
