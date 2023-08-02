@@ -219,6 +219,12 @@ async function onExpressJsSetup(server) {
       );
     }
 
+    if (req.url.startsWith('/examples')) {
+      // eslint-disable-next-line quotes
+      res.header('Content-Security-Policy', `frame-ancestors 'self' https://app.contentful.com`);
+      res.removeHeader('X-Frame-Options');
+    }
+
     next();
   });
 
