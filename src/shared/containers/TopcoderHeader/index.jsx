@@ -62,7 +62,7 @@ const TopcoderHeader = ({ auth, location }) => {
       <NavComponent
         toolName={pageCfg.toolName}
         toolRoot={pageCfg.toolRoot}
-        user={isAuthenticated ? user : undefined}
+        user={isAuthenticated ? 'auto' : undefined}
         signIn={signIn}
         signOut={signOut}
         signUp={signUp}
