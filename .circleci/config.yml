@@ -357,7 +357,7 @@ workflows:
           filters:
             branches:
               only:
-                - MKTG-1156
+                - remove-legacy-skills-nudge
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
@@ -379,6 +379,7 @@ workflows:
             branches:
               only:
                 - develop
+                - HOTFIX_Contentful_Not_Working_June222023
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
