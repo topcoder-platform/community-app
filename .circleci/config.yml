@@ -357,7 +357,7 @@ workflows:
           filters:
             branches:
               only:
-                - MKTG-1156
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
