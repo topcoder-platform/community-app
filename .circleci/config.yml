@@ -357,7 +357,7 @@ workflows:
           filters:
             branches:
               only:
-                - remove-legacy-skills-nudge
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
