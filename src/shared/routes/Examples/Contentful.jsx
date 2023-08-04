@@ -29,8 +29,17 @@ import Image from 'components/Contentful/Image';
 import Shape from 'components/Contentful/Shape';
 import Article from 'components/Contentful/Article';
 import qs from 'qs';
+import { ContentfulLivePreview } from '@contentful/live-preview';
+import { isomorphy } from 'topcoder-react-utils';
 
 import { Route, Switch } from 'react-router-dom';
+
+import '@contentful/live-preview/style.css';
+
+ContentfulLivePreview.init({
+  locale: 'en-US',
+  debugMode: !!isomorphy.isDevBuild(),
+});
 
 export default function Contentful({ location, match }) {
   let spaceName;
@@ -38,6 +47,8 @@ export default function Contentful({ location, match }) {
     spaceName = qs.parse(location.search.slice(1)).space;
   }
   const base = match.url;
+
+
   return (
     <Switch>
       <Route

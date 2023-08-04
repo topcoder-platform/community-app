@@ -37,6 +37,7 @@
     "npm": "^5.6.0"
   },
   "dependencies": {
+    "@contentful/live-preview": "^2.6.2",
     "@hapi/joi": "^16.1.4",
     "@optimizely/react-sdk": "^2.5.0",
     "@sprig-technologies/sprig-browser": "^2.20.1",

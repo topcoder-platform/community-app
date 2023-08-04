@@ -9,6 +9,7 @@ import MarkdownRenderer from 'components/MarkdownRenderer';
 import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
 import { isomorphy } from 'topcoder-react-utils';
+import { ContentfulLivePreview } from '@contentful/live-preview';
 
 // AOS
 import AOS from 'aos';
@@ -45,6 +46,7 @@ function ContentBlock({
       <div
         className={theme.content}
         style={fixStyle(contentBlock.extraStylesForContent)}
+        {...ContentfulLivePreview.getProps({ entryId: id, fieldId: 'text' })}
       >
         <MarkdownRenderer markdown={contentBlock.text} {...contentfulConfig} />
       </div>
