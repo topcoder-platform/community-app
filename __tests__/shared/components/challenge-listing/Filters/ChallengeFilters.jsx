@@ -38,7 +38,6 @@ afterAll(() => {
 //   setSearchText,
 //   showTrackModal,
 //   trackModalShown: true,
-//   validKeywords: [''],
 //   validTypes: [''],
 // }, {
 //   challengeGroupId: '1',
@@ -60,7 +59,6 @@ afterAll(() => {
 //   setSearchText,
 //   showTrackModal,
 //   trackModalShown: true,
-//   validKeywords: [''],
 //   validTypes: [''],
 // }];
 

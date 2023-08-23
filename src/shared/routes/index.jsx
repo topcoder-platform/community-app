@@ -30,6 +30,7 @@ import TimelineWall from './TimelineWall';
 import PolicyPages from './PolicyPages';
 import GigsPages from './GigsPages';
 import ProfileRedirect from './ProfileRedirect';
+import RedirectMemberSearch from './RedirectMemberSearch';
 import SettingRedirect from './Settings/SettingRedirect';
 
 import './Topcoder/styles.scss';
@@ -43,21 +44,34 @@ function Routes({ communityId }) {
       title="Topcoder"
     />
   );
+
   if (communityId) {
     return (
-      <div>
-        {metaTags}
-        <CommunityLoader
-          communityComponent={({ member, meta }) => (
-            <Communities
-              communityId={communityId}
-              member={member}
-              meta={meta}
-            />
-          )}
-          communityId={communityId}
+      <Switch>
+        <Route
+          component={SettingRedirect}
+          exact
+          path="/settings/:settingsTab(profile|skills|tracks|tools|account|preferences|payment)"
         />
-      </div>
+        <Route
+          component={ProfileRedirect}
+          exact
+          path="/members/:handle([\w\-\[\].{} ]{2,15})"
+        />
+        <div>
+          {metaTags}
+          <CommunityLoader
+            communityComponent={({ member, meta }) => (
+              <Communities
+                communityId={communityId}
+                member={member}
+                meta={meta}
+              />
+            )}
+            communityId={communityId}
+          />
+        </div>
+      </Switch>
     );
   }
   return (
@@ -172,6 +186,11 @@ function Routes({ communityId }) {
           component={ProfileRedirect}
           exact
           path="/members/:handle([\w\-\[\].{} ]{2,15})"
+        />
+        <Route
+          component={RedirectMemberSearch}
+          exact
+          path="/search/members"
         />
         <Topcoder />
       </Switch>

@@ -31,7 +31,6 @@ const mockDatas = [{
   setFilterState,
   setSearchText,
   activeBucket: 'all',
-  validKeywords: ['key', 'word'],
   validTypes: [{ name: 'sub', subTrack: 'sub' }, { name: 'track', subTrack: 'track' }],
   onClose,
 }, {
@@ -55,7 +54,6 @@ const mockDatas = [{
   selectedCommunityId: '1',
   setFilterState,
   setSearchText,
-  validKeywords: [],
   validTypes: [],
   onClose,
 }];

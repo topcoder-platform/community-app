@@ -58,17 +58,6 @@ function getChallengeTypesDone() {
 }
 
 /**
- * Gets possible challenge tags (technologies).
- * @return {Promise}
- */
-function getChallengeTagsDone() {
-  return getService()
-    .getChallengeTags()
-    .then(res => res.map(item => item.name)
-      .sort((a, b) => a.localeCompare(b)));
-}
-
-/**
  * Notifies about reloading of all active challenges. The UUID is stored in the
  * state, and only challenges fetched by getAllActiveChallengesDone action with
  * the same UUID will be accepted into the state.
@@ -586,9 +575,6 @@ export default createActions({
 
     GET_TOTAL_CHALLENGES_COUNT_INIT: getTotalChallengesCountInit,
     GET_TOTAL_CHALLENGES_COUNT_DONE: getTotalChallengesCountDone,
-
-    GET_CHALLENGE_TAGS_INIT: _.noop,
-    GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
 
     GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
     GET_PAST_CHALLENGES_DONE: getPastChallengesDone,

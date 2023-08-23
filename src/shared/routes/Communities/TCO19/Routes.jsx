@@ -13,7 +13,6 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import Blog from 'components/Contentful/Blog';
 import { HeroImageLoader } from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
 import { config } from 'topcoder-react-utils';
 
@@ -32,11 +31,6 @@ export default function TCO19({ base, meta }) {
             logoutRedirect={config.URL.TCO19}
           />
           <Switch>
-            <Route
-              render={props => <Profile {...props} meta={meta} />}
-              exact
-              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-            />
             <Route
               render={props => <ProfileStats {...props} meta={meta} />}
               exact

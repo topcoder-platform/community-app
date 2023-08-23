@@ -466,7 +466,6 @@ export class ListingContainer extends React.Component {
       pastChallenges,
       challengeTypes,
       challengesUrl,
-      challengeTags,
       communityFilters,
       communityName,
       defaultCommunityId,
@@ -646,7 +645,6 @@ export class ListingContainer extends React.Component {
           allChallenges={allChallenges}
           pastChallenges={pastChallenges}
           challengeTypes={challengeTypes}
-          challengeTags={challengeTags}
           challengesUrl={challengesUrl}
           communityFilter={communityFilter}
           communityName={communityName}
@@ -765,7 +763,6 @@ ListingContainer.propTypes = {
   pastChallenges: PT.arrayOf(PT.shape({})),
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string,
-  challengeTags: PT.arrayOf(PT.string).isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.shape({
       challengeFilter: PT.shape(),
@@ -864,7 +861,6 @@ const mapStateToProps = (state, ownProps) => {
     allChallenges: cl.allChallenges,
     pastChallenges: cl.pastChallenges,
     challengeTypes: cl.challengeTypes,
-    challengeTags: cl.challengeTags,
     communitiesList: tc.list,
     communityFilters: tc.list.data,
     domain: state.domain,
@@ -888,7 +884,6 @@ const mapStateToProps = (state, ownProps) => {
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
     loadingChallengeTypes: cl.loadingChallengeTypes,
-    loadingChallengeTags: cl.loadingChallengeTags,
     newChallengeDetails: ownProps.newChallengeDetails,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
     preListingMsg: ownProps.preListingMsg,
