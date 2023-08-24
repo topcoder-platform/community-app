@@ -154,7 +154,7 @@ exports[`Default render 1`] = `
         accountMenu={
           Array [
             Object {
-              "href": "/settings/profile",
+              "href": "/settings/account",
               "title": "Settings",
             },
             Object {
