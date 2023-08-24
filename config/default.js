@@ -427,7 +427,7 @@ module.exports = {
   ACCOUNT_MENU: [
     {
       title: 'Settings',
-      href: '/settings/profile',
+      href: '/settings/account',
     },
     { separator: true },
     {
