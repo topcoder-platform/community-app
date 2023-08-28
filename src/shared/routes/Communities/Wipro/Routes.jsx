@@ -13,9 +13,7 @@ import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
-import Settings from 'routes/Settings';
 import Viewport from 'components/Contentful/Viewport';
 import theme from 'components/tc-communities/communities/wipro/theme';
 import { ThemeProvider } from 'react-css-super-themr';
@@ -72,32 +70,9 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
               />
               <Route
-                render={props => <Profile {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-              />
-              <Route
                 render={props => <ProfileStats {...props} meta={meta} />}
                 exact
                 path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
-              />
-              <Route
-                component={() => <Settings base={`${base}/settings`} />}
-                path={`${base}/settings`}
-              />
-              <Route
-                render={props => <Profile {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-              />
-              <Route
-                render={props => <ProfileStats {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
-              />
-              <Route
-                component={() => <Settings base={`${base}/settings`} />}
-                path={`${base}/settings`}
               />
               <Route
                 component={TermsDetail}

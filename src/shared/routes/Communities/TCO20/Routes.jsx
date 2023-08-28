@@ -8,7 +8,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ContentfulRoute from 'components/Contentful/Route';
 import Viewport from 'components/Contentful/Viewport';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
 import TCO20Header from 'containers/tc-communities/tco20/Header';
 
@@ -17,11 +16,6 @@ export default function TCO20({ base, meta }) {
     <div>
       <TCO20Header base={base} meta={meta} />
       <Switch>
-        <Route
-          render={props => <Profile {...props} meta={meta} />}
-          exact
-          path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-        />
         <Route
           render={props => <ProfileStats {...props} meta={meta} />}
           exact

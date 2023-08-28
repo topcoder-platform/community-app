@@ -8,7 +8,6 @@ import Header from 'containers/tc-communities/Header';
 import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
 
 import headerTheme from 'components/tc-communities/communities/tco/themes/header.scss';
@@ -24,11 +23,6 @@ export default function TCO17({ base, meta }) {
             theme={headerTheme}
           />
           <Switch>
-            <Route
-              render={props => <Profile {...props} meta={meta} />}
-              exact
-              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-            />
             <Route
               render={props => <ProfileStats {...props} meta={meta} />}
               exact

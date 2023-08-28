@@ -14,7 +14,6 @@ import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
@@ -76,21 +75,6 @@ export default function SRMx({ base, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
-              />
-              <Route
-                render={props => <Profile {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-              />
-              <Route
-                render={props => <ProfileStats {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
-              />
-              <Route
-                render={props => <Profile {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
               />
               <Route
                 render={props => <ProfileStats {...props} meta={meta} />}

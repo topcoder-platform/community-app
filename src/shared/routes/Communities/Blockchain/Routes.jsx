@@ -21,9 +21,7 @@ import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
-import Settings from 'routes/Settings';
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
@@ -124,18 +122,9 @@ export default function Blockchain({ base, member, meta }) {
                 path={`${base}/leaderboard`}
               />
               <Route
-                render={props => <Profile {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-              />
-              <Route
                 render={props => <ProfileStats {...props} meta={meta} />}
                 exact
                 path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
-              />
-              <Route
-                component={() => <Settings base={`${base}/settings`} />}
-                path={`${base}/settings`}
               />
               <Route
                 component={() => <Learn baseUrl={base} />}
