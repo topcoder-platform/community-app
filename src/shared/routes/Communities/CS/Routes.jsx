@@ -17,9 +17,7 @@ import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
-import Settings from 'routes/Settings';
 import theme from 'components/tc-communities/communities/cs/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
@@ -86,18 +84,9 @@ export default function CS({ base, meta }) {
                 path={`${base}/challenges/terms/detail/:termId`}
               />
               <Route
-                render={props => <Profile {...props} meta={meta} />}
-                exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-              />
-              <Route
                 render={props => <ProfileStats {...props} meta={meta} />}
                 exact
                 path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
-              />
-              <Route
-                component={() => <Settings base={`${base}/settings`} />}
-                path={`${base}/settings`}
               />
               <Route
                 component={FAQ}

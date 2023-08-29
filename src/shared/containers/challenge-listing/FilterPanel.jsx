@@ -29,9 +29,7 @@ export class Container extends React.Component {
 
   componentDidMount() {
     const {
-      getKeywords,
       getTypes,
-      loadingKeywords,
       loadingTypes,
       setFilterState,
       // filterState,
@@ -46,7 +44,6 @@ export class Container extends React.Component {
       getCommunityList(auth);
     }
     if (!loadingTypes) getTypes();
-    if (!loadingKeywords) getKeywords();
 
     const query = qs.parse(window.location.search.slice(1));
 
@@ -182,9 +179,7 @@ Container.propTypes = {
   }).isRequired,
   filterState: PT.shape().isRequired,
   selectedCommunityId: PT.string.isRequired,
-  getKeywords: PT.func.isRequired,
   getTypes: PT.func.isRequired,
-  loadingKeywords: PT.bool.isRequired,
   loadingTypes: PT.bool.isRequired,
   setFilterState: PT.func.isRequired,
   auth: PT.shape().isRequired,
@@ -214,10 +209,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(communityActions.tcCommunity.getListInit(uuid));
       dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
     },
-    getKeywords: () => {
-      dispatch(cla.getChallengeTagsInit());
-      dispatch(cla.getChallengeTagsDone());
-    },
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
     onClose: () => dispatch(a.setExpanded(false)),
@@ -237,9 +228,7 @@ function mapStateToProps(state, ownProps) {
     communityList: tc.list,
     defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
-    loadingKeywords: cl.loadingChallengeTags,
     loadingTypes: cl.loadingChallengeTypes,
-    validKeywords: cl.challengeTags,
     validTypes: cl.challengeTypes,
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,

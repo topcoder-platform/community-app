@@ -8,7 +8,6 @@ import ChallengeListing from 'routes/Communities/ChallengeListing';
 import ChallengeListingBanner from 'components/tc-communities/communities/zurich/ChallengeListingBanner';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
-import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
 import TermsDetail from 'routes/TermsDetail';
 import { connect } from 'react-redux';
@@ -112,21 +111,6 @@ function Zurich({ base, meta, userGroups }) {
                   })}
                   exact
                   path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
-                />
-                <Route
-                  render={props => <Profile {...props} meta={meta} />}
-                  exact
-                  path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-                />
-                <Route
-                  render={props => <ProfileStats {...props} meta={meta} />}
-                  exact
-                  path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
-                />
-                <Route
-                  render={props => <Profile {...props} meta={meta} />}
-                  exact
-                  path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
                 />
                 <Route
                   render={props => <ProfileStats {...props} meta={meta} />}

@@ -288,7 +288,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavSettings />,
-          link: '/settings/profile',
+          link: '/settings/account',
           title: 'Settings',
         }, {
           enforceA: true,

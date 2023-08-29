@@ -23,9 +23,7 @@ describe('shallow render connnected component', () => {
       },
       communityFilters: [],
       filter: {},
-      loadingChallengeTags: false,
       loadingChallengeTypes: false,
-      challengeTags: [],
       challengeTypes: [],
       selectedCommunityId: '1',
     },
@@ -69,14 +67,11 @@ describe('shallow render connnected component', () => {
 //   communityFilters: [],
 //   filterState: {},
 //   getAvailableFilterName: jest.fn(),
-//   loadingKeywords: false,
 //   loadingTypes: false,
-//   validKeywords: [],
 //   validTypes: [],
 //   selectedCommunityId: '1',
 //   tokenV2: 'tokenV2',
 //   getTypes: jest.fn(),
-//   getKeywords: jest.fn(),
 //   saveFilter: jest.fn(),
 //   selectBucket: jest.fn(),
 //   selectCommunity: jest.fn(),
@@ -112,7 +107,6 @@ describe('shallow render connnected component', () => {
 // test('load data if not loading', () => {
 //   instance = mount(<FilterPanel {...initialProps} challengeGroupId="1" />);
 //   expect(initialProps.getTypes).toHaveBeenCalledTimes(1);
-//   expect(initialProps.getKeywords).toHaveBeenCalledTimes(1);
 // });
 
 // test('do not load data if loading', () => {
@@ -120,11 +114,9 @@ describe('shallow render connnected component', () => {
 //     {...initialProps}
 //     challengeGroupId="1"
 //     loadingTypes
-//     loadingKeywords
 //   />);
 
 //   expect(initialProps.getTypes).toHaveBeenCalledTimes(0);
-//   expect(initialProps.getKeywords).toHaveBeenCalledTimes(0);
 // });
 
 // test.skip('saveFilter', () => {
@@ -182,9 +174,7 @@ describe('shallow render connnected component', () => {
 //       },
 //       communityFilters: [],
 //       filter: {},
-//       loadingChallengeTags: true,
 //       loadingChallengeTypes: true,
-//       challengeTags: [],
 //       challengeTypes: [],
 //       selectedCommunityId: '1',
 //     },
@@ -230,13 +220,6 @@ describe('shallow render connnected component', () => {
 //     const actions = store.getActions();
 //     expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeTypesInit.toString());
 //     expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeTypesDone.toString());
-//   });
-
-//   test('getKeywords', () => {
-//     filterPanel.prop('getKeywords')();
-//     const actions = store.getActions();
-//     expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeTagsInit.toString());
-//     expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeTagsDone.toString());
 //   });
 
 // test.skip('saveFilter', () => {

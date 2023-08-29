@@ -305,21 +305,6 @@ function onGetChallengeTypesDone(state, action) {
   };
 }
 
-/**
- * Handles CHALLENGE_LISTING/GET_CHALLENGE_TAGS_DONE action.
- * @param {Object} state
- * @param {Object} action
- * @return {Object}
- */
-function onGetChallengeTagsDone(state, action) {
-  if (action.error) logger.error(action.payload);
-  return {
-    ...state,
-    challengeTags: action.error ? [] : action.payload,
-    loadingChallengeTags: false,
-  };
-}
-
 function onGetPastChallengesInit(state, action) {
   const { frontFilter, page, uuid } = action.payload;
   const tracks = frontFilter && frontFilter.tracks;
@@ -830,12 +815,6 @@ function create(initialState) {
     }),
     [a.getChallengeTypesDone]: onGetChallengeTypesDone,
 
-    [a.getChallengeTagsInit]: state => ({
-      ...state,
-      loadingChallengeTags: true,
-    }),
-    [a.getChallengeTagsDone]: onGetChallengeTagsDone,
-
     [a.getPastChallengesInit]: onGetPastChallengesInit,
     [a.getPastChallengesDone]: onGetPastChallengesDone,
 
@@ -906,7 +885,6 @@ function create(initialState) {
     loadingReviewOpportunitiesUUID: '',
 
     loadingChallengeTypes: false,
-    loadingChallengeTags: false,
 
     reviewOpportunities: [],
     filter: {

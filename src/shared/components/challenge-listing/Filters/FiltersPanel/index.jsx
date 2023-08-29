@@ -12,7 +12,7 @@
  *
  * Challenge keywords and tracks filters allow to choose multiple keywords from
  * the predefined sets, which should be passed into the component as string arrays
- * via the 'validKeywords' and 'validTracks' properties. The whole filters panel
+ * via the 'validTracks' properties. The whole filters panel
  * can be hidden/displayed by setting the boolean 'hidden' property.
  *
  * Each time the user modifies any filter, this component triggers the callback
@@ -64,7 +64,6 @@ export default function FiltersPanel({
   // selectedCommunityId,
   setFilterState,
   setSearchText,
-  // validKeywords,
   validTypes,
   // isSavingFilter,
   expanded,
@@ -343,7 +342,6 @@ export default function FiltersPanel({
                 const tags = value ? value.split(',') : undefined;
                 setFilterState({ ..._.clone(filterState), tags });
               }}
-              options={validKeywords.map(mapOps)}
               simpleValue
               value={filterState.tags ? filterState.tags.join(',') : null}
             />
@@ -726,7 +724,6 @@ FiltersPanel.propTypes = {
   // selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
-  // validKeywords: PT.arrayOf(PT.string).isRequired,
   validTypes: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
   expanded: PT.bool.isRequired,

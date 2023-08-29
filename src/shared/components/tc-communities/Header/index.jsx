@@ -87,7 +87,7 @@ function Header(props) {
         title: 'Payments',
       }, {
         icon: <IconNavSettings />,
-        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/settings/profile`,
+        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/settings/account`,
         title: 'Settings',
       }, {
         icon: <IconNavExit />,
