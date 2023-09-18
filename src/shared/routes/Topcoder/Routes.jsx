@@ -99,12 +99,7 @@ export default function Topcoder() {
               />
               <Route
                 path="/changelog/"
-                component={(
-                  <Viewport
-                    id={`${config.CONTENTFUL.CHANGELOG_ID}`}
-                    preview
-                  />
-                )}
+                component={() => <Viewport preview id={`${config.CONTENTFUL.CHANGELOG_ID}`} />}
               />
 
               {/* EDU Portal */}
