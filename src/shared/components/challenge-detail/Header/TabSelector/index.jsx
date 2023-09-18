@@ -249,7 +249,7 @@ export default function ChallengeViewSelector(props) {
       {
         (hasRegistered && mySubmissions.length > 0) && (
           <a
-            href={`${config.URL.SUBMISSION_REVIEW}/challenges/${challenge.legacyId}`}
+            href={`${config.URL.SUBMISSION_REVIEW}/challenges/${challenge.id}`}
             styleName="challenge-selector-common challenge-unselected-view"
             target="_blank"
             rel="oopener noreferrer"
