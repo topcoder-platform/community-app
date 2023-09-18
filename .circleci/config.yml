@@ -350,9 +350,7 @@ workflows:
             branches:
               only:
                 - PROD-4183
-                - MP-327
-                - fix_country_setting_in_profile
-                - justin_redirects
+                - changelog
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
