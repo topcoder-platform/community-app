@@ -35,7 +35,6 @@ module.exports = {
     FORUMS: 'https://apps.topcoder.com/forums',
     FORUMS_VANILLA: 'https://discussions.topcoder.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
-    SUBMISSION_REVIEW: 'https://submission-review.topcoder.com',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',
