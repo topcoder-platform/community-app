@@ -21,6 +21,7 @@ import { config, isomorphy } from 'topcoder-react-utils';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Article from 'components/Contentful/Article';
+import Viewport from 'components/Contentful/Viewport';
 
 import EDUHome from '../EDUHome';
 import EDUTracks from '../EDUTracks';
@@ -96,6 +97,11 @@ export default function Topcoder() {
                 component={() => <Settings base="/settings" />}
                 path="/settings"
               />
+              <Route
+                path="/changelog/"
+                component={() => <Viewport preview id={`${config.CONTENTFUL.CHANGELOG_ID}`} />}
+              />
+
               {/* EDU Portal */}
               <Route
                 component={EDUHome}
