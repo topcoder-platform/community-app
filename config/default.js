@@ -52,6 +52,7 @@ module.exports = {
     LOCAL_MODE: false,
     DEFAULT_SPACE_NAME: 'default',
     DEFAULT_ENVIRONMENT: 'master',
+    CHANGELOG_ID: '5ULnHeUIuYAyLhNO97zAqy',
   },
 
   /**
