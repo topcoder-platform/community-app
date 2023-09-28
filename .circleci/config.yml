@@ -350,6 +350,7 @@ workflows:
             branches:
               only:
                 - PROD-4183
+                - PROD-4372
                 - changelog
       # This is alternate dev env for parallel testing
       - "build-test":

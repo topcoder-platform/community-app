@@ -10,6 +10,7 @@ module.exports = {
   },
   CDN: {
     PUBLIC: 'https://community-app-cdn.topcoder.com',
+    ACCESS_CONTROL_ALLOW_ORIGIN: '*.topcoder.com',
   },
   COOKIES: {
     MAXAGE: 7,

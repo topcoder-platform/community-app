@@ -25,6 +25,7 @@ module.exports = {
   /* CDN configuration. */
   CDN: {
     PUBLIC: 'https://d1aahxkjiobka8.cloudfront.net',
+    ACCESS_CONTROL_ALLOW_ORIGIN: '*.topcoder-dev.com',
   },
 
   /* Time in MS to wait before refreshing challenge details after register
