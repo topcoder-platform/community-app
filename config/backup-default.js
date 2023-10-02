@@ -473,5 +473,4 @@ module.exports = {
   },
   /* development id - makes surveys have warning about environment */
   UNIVERSAL_NAV_URL: '//uni-nav.topcoder-dev.com/v1/tc-universal-nav.js',
-  SPRIG_ENVIRONMENT_ID: 'bUcousVQ0-yF',
 };

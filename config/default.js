@@ -477,5 +477,4 @@ module.exports = {
   MEMBER_PROFILE_REDIRECT_URL: 'https://profiles.topcoder-dev.com',
   MEMBER_SEARCH_REDIRECT_URL: 'https://talent-search.topcoder-dev.com',
   ACCOUNT_SETTINGS_REDIRECT_URL: 'https://account-settings.topcoder-dev.com',
-  SPRIG_ENVIRONMENT_ID: 'bUcousVQ0-yF',
 };
