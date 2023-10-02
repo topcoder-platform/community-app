@@ -8,7 +8,6 @@
  */
 import actions from 'actions/page/submission';
 import { actions as api } from 'topcoder-react-lib';
-import { config } from 'topcoder-react-utils';
 import { isMM } from 'utils/challenge';
 import communityActions from 'actions/tc-communities';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
