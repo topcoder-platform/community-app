@@ -19,11 +19,6 @@ import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { sprig } from '@sprig-technologies/sprig-browser/dist';
-
-export const Sprig = sprig.configure({
-  environmentId: config.SPRIG_ENVIRONMENT_ID,
-});
 
 /**
  * SubmissionsPage Container
@@ -71,8 +66,6 @@ class SubmissionsPageContainer extends React.Component {
       track,
     } = this.props;
 
-    // On final upload, the survey should appear
-    Sprig('track', 'onUploadSubmission');
     submit(tokenV3, tokenV2, challengeId, body, isMM(challenge) ? 'DEVELOP' : track);
   }
 
