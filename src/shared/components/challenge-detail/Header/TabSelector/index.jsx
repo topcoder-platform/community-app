@@ -247,7 +247,7 @@ export default function ChallengeViewSelector(props) {
         ) : null
       }
       {
-        (hasRegistered && mySubmissions.length > 0) && (
+        (hasRegistered && !isMM && mySubmissions && mySubmissions.length > 0) && (
           <Link
             to={`/challenges/${challenge.id}/my-submissions`}
             styleName="challenge-selector-common challenge-unselected-view"
