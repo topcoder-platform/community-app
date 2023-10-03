@@ -255,7 +255,7 @@ function GigDetails(props) {
                     </li>
                   </ul>
                 </div>
-                <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</div>
+                <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a>.</div>
                 <div styleName="referral">
                   {
                     isModalOpen
