@@ -4,7 +4,7 @@
  */
 
 import _ from 'lodash';
-import React from 'react';
+import React, { useMemo } from 'react';
 import PT from 'prop-types';
 import { Link, config } from 'topcoder-react-utils';
 import TextInput from 'components/GUIKit/TextInput';
@@ -21,15 +21,42 @@ import bigCheckmark from 'assets/images/big-checkmark.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
 import BackArrowGig from 'assets/images/back-arrow-gig-apply.svg';
 import CheckmarkGreen from 'assets/images/checkmark-green.svg';
+import { getService } from 'services/skills';
 
 export default function GigApply(props) {
   const {
-    job, onFormInputChange, formData, formErrors, onApplyClick, applying, application, user,
+    job,
+    onFormInputChange,
+    formData,
+    formErrors,
+    onApplyClick,
+    applying,
+    application,
+    user,
     recruitProfile,
+    auth,
   } = props;
   const retUrl = window.location.href;
   const duration = getCustomField(job.custom_fields, 'Duration');
   const isPlaced = _.find(_.isEmpty(recruitProfile) ? [] : recruitProfile.custom_fields, { field_id: 12 });
+  const fetchSkills = useMemo(() => _.debounce((inputValue, callback) => {
+    if (!inputValue) {
+      callback(null);
+    } else {
+      getService(auth.tokenV3).getSkills(inputValue).then(
+        (response) => {
+          const skills = response || [];
+          const suggestedOptions = skills.map(skillItem => ({
+            label: skillItem.name,
+            value: skillItem.name,
+          }));
+          return callback(null, {
+            options: suggestedOptions,
+          });
+        },
+      ).catch(() => callback(null));
+    }
+  }, 150), [auth.tokenV3]);
 
   return user ? (
     <div styleName="container">
@@ -261,6 +288,9 @@ export default function GigApply(props) {
                       errorMsg={formErrors.skills}
                       addNewOptionPlaceholder="Type to add another skill..."
                       required
+                      isAsync
+                      cacheOptions
+                      loadOptions={fetchSkills}
                     />
                   </div>
                   <h4>FINAL QUESTIONS</h4>
@@ -338,6 +368,7 @@ GigApply.defaultProps = {
   applying: false,
   application: null,
   user: null,
+  auth: {},
 };
 
 GigApply.propTypes = {
@@ -350,4 +381,5 @@ GigApply.propTypes = {
   application: PT.shape(),
   user: PT.shape(),
   recruitProfile: PT.shape().isRequired,
+  auth: PT.object,
 };

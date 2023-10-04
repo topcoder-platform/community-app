@@ -351,6 +351,7 @@ workflows:
               only:
                 - PROD-4183
                 - changelog
+                - TSJR-118
                 - remove_submission_review
       # This is alternate dev env for parallel testing
       - "build-test":
