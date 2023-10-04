@@ -39,7 +39,6 @@
   "dependencies": {
     "@hapi/joi": "^16.1.4",
     "@optimizely/react-sdk": "^2.5.0",
-    "@sprig-technologies/sprig-browser": "^2.20.1",
     "@topcoder-platform/tc-auth-lib": "topcoder-platform/tc-auth-lib#1.0.4",
     "aos": "^2.3.4",
     "atob": "^2.1.1",

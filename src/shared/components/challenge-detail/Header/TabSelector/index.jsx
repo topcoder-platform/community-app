@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import PT from 'prop-types';
 import cn from 'classnames';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import { useMediaQuery } from 'react-responsive';
 import ArrowIcon from 'assets/images/ico-arrow-down.svg';
 import CloseIcon from 'assets/images/icon-close-green.svg';
@@ -247,15 +247,13 @@ export default function ChallengeViewSelector(props) {
         ) : null
       }
       {
-        (hasRegistered && mySubmissions.length > 0) && (
-          <a
-            href={`${config.URL.SUBMISSION_REVIEW}/challenges/${challenge.id}`}
+        (hasRegistered && !isMM && mySubmissions && mySubmissions.length > 0) && (
+          <Link
+            to={`/challenges/${challenge.id}/my-submissions`}
             styleName="challenge-selector-common challenge-unselected-view"
-            target="_blank"
-            rel="oopener noreferrer"
           >
-            SUBMISSION REVIEW
-          </a>
+            MY SUBMISSIONS
+          </Link>
         )
       }
       {

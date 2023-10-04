@@ -13,14 +13,9 @@ import {
   getFreshToken,
 } from '@topcoder-platform/tc-auth-lib';
 import { actions, logger, errors } from 'topcoder-react-lib';
-import { client, redux, config } from 'topcoder-react-utils';
-import { sprig } from '@sprig-technologies/sprig-browser/dist';
+import { client, redux } from 'topcoder-react-utils';
 
 import './styles.scss';
-
-const Sprig = sprig.configure({
-  environmentId: config.SPRIG_ENVIRONMENT_ID,
-});
 
 const { setErrorsStore } = errors;
 
@@ -60,7 +55,6 @@ function identify(profile, roles, userIdHash) {
       integrations: { All: false, Chameleon: true },
     },
   );
-  Sprig('setUserId', profile.handle);
 }
 
 /**

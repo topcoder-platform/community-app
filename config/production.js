@@ -35,7 +35,6 @@ module.exports = {
     FORUMS: 'https://apps.topcoder.com/forums',
     FORUMS_VANILLA: 'https://discussions.topcoder.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
-    SUBMISSION_REVIEW: 'https://submission-review.topcoder.com',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',
@@ -238,6 +237,5 @@ module.exports = {
   UNIVERSAL_NAV_URL: '//uni-nav.topcoder.com/v1/tc-universal-nav.js',
   MEMBER_PROFILE_REDIRECT_URL: 'https://profiles.topcoder.com',
   MEMBER_SEARCH_REDIRECT_URL: 'https://talent-search.topcoder.com',
-  SPRIG_ENVIRONMENT_ID: 'a-IZBZ6-r7bU',
   ACCOUNT_SETTINGS_REDIRECT_URL: 'https://account-settings.topcoder.com',
 };

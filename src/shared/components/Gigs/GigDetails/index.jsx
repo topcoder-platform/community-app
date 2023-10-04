@@ -134,7 +134,7 @@ function GigDetails(props) {
                     ** USA Visa Holders - Please consult an attorney before applying to any Topcoder Gig. Some visa statuses will or will not allow you to conduct freelance work with Topcoder.
                   </strong>
                   <strong>
-                    *** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:support@topcoder.com">support@topcoder.com</a>.
+                    *** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a>.
                   </strong>
                 </div>
                 <div styleName="cta-buttons">
@@ -255,7 +255,7 @@ function GigDetails(props) {
                     </li>
                   </ul>
                 </div>
-                <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</div>
+                <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a>.</div>
                 <div styleName="referral">
                   {
                     isModalOpen

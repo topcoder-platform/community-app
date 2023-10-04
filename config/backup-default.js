@@ -115,7 +115,6 @@ module.exports = {
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     FORUMS_VANILLA: 'https://vanilla.topcoder-dev.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
-    SUBMISSION_REVIEW: 'https://submission-review.topcoder-dev.com',
 
     THRIVE: 'https://community-app.topcoder-dev.com/thrive',
 
@@ -473,5 +472,4 @@ module.exports = {
   },
   /* development id - makes surveys have warning about environment */
   UNIVERSAL_NAV_URL: '//uni-nav.topcoder-dev.com/v1/tc-universal-nav.js',
-  SPRIG_ENVIRONMENT_ID: 'bUcousVQ0-yF',
 };
