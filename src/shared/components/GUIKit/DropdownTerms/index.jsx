@@ -2,14 +2,10 @@
 /**
  * Dropdown terms component.
  */
-import React, {
-  useState,
-  useRef,
-  useEffect,
-} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import { Creatable, Async } from 'react-select';
+import { Creatable } from 'react-select';
 import iconDown from 'assets/images/dropdown-arrow.png';
 import './style.scss';
 
@@ -20,12 +16,9 @@ function DropdownTerms({
   placeholder,
   label,
   required,
-  isAsync,
   onChange,
   errorMsg,
   addNewOptionPlaceholder,
-  cacheOptions,
-  loadOptions,
 }) {
   const [internalTerms, setInternalTerms] = useState(terms);
   const selectedOption = _.filter(internalTerms, { selected: true }).map(o => ({
@@ -33,13 +26,6 @@ function DropdownTerms({
     label: o.label,
   }));
   const [focused, setFocused] = useState(false);
-  const filterOptions = (option, inputValue) => _.filter(
-    internalTerms,
-    t => (inputValue && inputValue.length >= 2
-      ? t.label.toLowerCase().includes(inputValue.toLowerCase())
-      && !_.find(selectedOption, { label: t.label })
-      : !_.find(selectedOption, { label: t.label })),
-  );
   const delayedOnChange = useRef(
     _.debounce((q, cb) => cb(q), config.GUIKIT.DEBOUNCE_ON_CHANGE_TIME),
   ).current;
@@ -103,81 +89,63 @@ function DropdownTerms({
       } ${errorMsg ? 'haveError' : ''} ${_.every(internalTerms, { selected: true }) ? 'isEmptySelectList' : ''} ${focused ? 'isFocused' : ''}`}
     >
       <div styleName="relative">
-        {isAsync ? (
-          <Async
-            onOpen={() => setFocused(true)}
-            onClose={() => setFocused(false)}
-            autosize={false}
-            optionComponent={CustomReactSelectRow}
-            value={selectedOption}
-            onChange={(value) => {
-              const newValues = value.map(o => ({ selected: true, label: o.label }));
-              delayedOnChange(
-                _.cloneDeep(newValues),
-                onChange,
-              );
-            }}
-            placeholder={focused ? '' : `${placeholder}${placeholder && required ? ' *' : ''}`}
-            clearable={false}
-            backspaceRemoves={false}
-            multi
-            promptTextCreator={() => null}
-            cacheOptions={cacheOptions}
-            loadOptions={loadOptions}
-          />
-        ) : (
-          <Creatable
-            onOpen={() => setFocused(true)}
-            onClose={() => setFocused(false)}
-            autosize={false}
-            optionComponent={CustomReactSelectRow}
-            options={internalTerms
-              .map(o => ({ value: o.label, label: o.label }))
-            }
-            value={selectedOption}
-            onInputKeyDown={(e) => {
-              switch (e.keyCode) {
-                case 13: // ENTER
-                  if (inputField && inputField && inputField[0]) {
-                    const { value } = inputField[0];
-                    if (
-                      !value
-                      || !value.trim()
-                      || _.find(selectedOption, { label: value })
-                      || _.find(internalTerms, { label: value })
-                    ) {
-                      e.preventDefault();
-                    }
+        <Creatable
+          onOpen={() => setFocused(true)}
+          onClose={() => setFocused(false)}
+          autosize={false}
+          optionComponent={CustomReactSelectRow}
+          options={internalTerms
+            .map(o => ({ value: o.label, label: o.label }))
+          }
+          value={selectedOption}
+          onInputKeyDown={(e) => {
+            switch (e.keyCode) {
+              case 13: // ENTER
+                if (inputField && inputField && inputField[0]) {
+                  const { value } = inputField[0];
+                  if (
+                    !value
+                    || !value.trim()
+                    || _.find(selectedOption, { label: value })
+                    || _.find(internalTerms, { label: value })
+                  ) {
+                    e.preventDefault();
                   }
-                  break;
-                default:
-              }
-            }}
-            onChange={(value) => {
-              const newValues = _.filter(
-                value,
-                o => o.label && o.label.trim() && !_.find(internalTerms, { label: o.label }),
-              ).map(o => ({ selected: true, label: o.label }));
-              const newTerms = internalTerms
-                .map(o => ({
-                  selected: !!_.find(value, { label: o.label }),
-                  label: o.label,
-                }))
-                .concat(newValues);
-              setInternalTerms(newTerms);
-              delayedOnChange(
-                _.cloneDeep(newTerms),
-                onChange,
-              );
-            }}
-            placeholder={focused ? '' : `${placeholder}${placeholder && required ? ' *' : ''}`}
-            clearable={false}
-            backspaceRemoves={false}
-            multi
-            promptTextCreator={() => null}
-            filterOptions={filterOptions}
-          />
-        )}
+                }
+                break;
+              default:
+            }
+          }}
+          onChange={(value) => {
+            const newValues = _.filter(
+              value,
+              o => o.label && o.label.trim() && !_.find(internalTerms, { label: o.label }),
+            ).map(o => ({ selected: true, label: o.label }));
+            const newTerms = internalTerms
+              .map(o => ({
+                selected: !!_.find(value, { label: o.label }),
+                label: o.label,
+              }))
+              .concat(newValues);
+            setInternalTerms(newTerms);
+            delayedOnChange(
+              _.cloneDeep(newTerms),
+              onChange,
+            );
+          }}
+          placeholder={focused ? '' : `${placeholder}${placeholder && required ? ' *' : ''}`}
+          clearable={false}
+          backspaceRemoves={false}
+          multi
+          promptTextCreator={() => null}
+          filterOptions={(option, inputValue) => _.filter(
+            internalTerms,
+            t => (inputValue && inputValue.length >= 2
+              ? t.label.toLowerCase().includes(inputValue.toLowerCase())
+              && !_.find(selectedOption, { label: t.label })
+              : !_.find(selectedOption, { label: t.label })),
+          )}
+        />
         <img width="15" height="9" styleName="iconDropdown" src={iconDown} alt="dropdown-arrow-icon" />
       </div>
       {label ? (
@@ -195,12 +163,9 @@ DropdownTerms.defaultProps = {
   placeholder: '',
   label: '',
   required: false,
-  isAsync: false,
-  cacheOptions: false,
   onChange: () => {},
   errorMsg: '',
   addNewOptionPlaceholder: '',
-  loadOptions: undefined,
 };
 
 DropdownTerms.propTypes = {
@@ -213,12 +178,9 @@ DropdownTerms.propTypes = {
   placeholder: PT.string,
   label: PT.string,
   required: PT.bool,
-  isAsync: PT.bool,
-  cacheOptions: PT.bool,
   onChange: PT.func,
   errorMsg: PT.string,
   addNewOptionPlaceholder: PT.string,
-  loadOptions: PT.func,
 };
 
 export default DropdownTerms;

@@ -11,6 +11,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { isValidEmail } from 'utils/tc';
 import { withOptimizely } from '@optimizely/react-sdk';
+import techSkills from './techSkills';
 
 
 const cookies = require('browser-cookies');
@@ -24,7 +25,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
     this.state = {
       formErrors: {},
       formData: {
-        skills: [],
+        skills: _.map(techSkills, label => ({ label, selected: false })),
         durationConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
         timezoneConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
         agreedTerms: false,
@@ -57,13 +58,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
       if (!recruitProfile) searchCandidates(user.email);
       else {
         const { country, skills } = formData;
-        const recruitSkills = recruitProfile.skill.split(',');
-        let skillsValues = (skills || []).map(s => s.label);
-        skillsValues = _.uniq([
-          ...skillsValues,
-          ...recruitSkills,
-        ]);
-
+        const recruitSkills = recruitProfile.skill.split(',').map(s => s.toLowerCase());
         return this.setState({
           formData: _.merge(formData, user, {
             phone: recruitProfile.contact_number,
@@ -74,9 +69,9 @@ class RecruitCRMJobApplyContainer extends React.Component {
                 selected: c.label.toLowerCase() === recruitProfile.locality.toLowerCase(),
               }),
             ),
-            skills: skillsValues.map(s => ({
-              label: s,
-              selected: true,
+            skills: skills.map(s => ({
+              label: s.label,
+              selected: recruitSkills.includes(s.label.toLowerCase()),
             })),
             payExpectation: recruitProfile.salary_expectation,
           }),
@@ -94,14 +89,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
       // when recruit profile loaded
       const { formData } = this.state;
       const { country, skills } = formData;
-      const recruitSkills = recruitProfile.skill.split(',');
-
-      let skillsValues = (skills || []).map(s => s.label);
-      skillsValues = _.uniq([
-        ...skillsValues,
-        ...recruitSkills,
-      ]);
-
+      const recruitSkills = recruitProfile.skill.split(',').map(s => s.toLowerCase());
       const updatedForm = {
         formData: _.merge(formData, user, {
           phone: recruitProfile.contact_number,
@@ -112,9 +100,9 @@ class RecruitCRMJobApplyContainer extends React.Component {
               selected: c.label.toLowerCase() === recruitProfile.locality.toLowerCase(),
             }),
           ),
-          skills: skillsValues.map(s => ({
-            label: s,
-            selected: true,
+          skills: skills.map(s => ({
+            label: s.label,
+            selected: recruitSkills.includes(s.label.toLowerCase()),
           })),
           payExpectation: recruitProfile.salary_expectation,
         }),
