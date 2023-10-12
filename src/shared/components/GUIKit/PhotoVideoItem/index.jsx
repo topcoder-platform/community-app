@@ -98,7 +98,13 @@ function PhotoVideoItem({
       })}
       type="button"
     >
-      {imageUrl ? (<img styleName="img-container" src={imageUrl} alt="" />) : null}
+      {imageUrl && !isThisVideo ? (<img styleName="img-container" src={imageUrl} alt="" />) : null}
+      {isThisVideo && (
+        <video>
+          <source src={imageUrl} />
+          <track kind="captions" />
+        </video>
+      )}
       {isThisVideo ? (<BtnPlay styleName="btn-play" width="25" height="25" />) : null}
     </button>
   );
