@@ -100,7 +100,7 @@ function PhotoVideoItem({
     >
       {imageUrl && !isThisVideo ? (<img styleName="img-container" src={imageUrl} alt="" />) : null}
       {isThisVideo && (
-        <video>
+        <video styleName="video-container">
           <source src={imageUrl} />
           <track kind="captions" />
         </video>
