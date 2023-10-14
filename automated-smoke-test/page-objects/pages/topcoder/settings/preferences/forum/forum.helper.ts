@@ -2,6 +2,7 @@ import { BrowserHelper } from 'topcoder-testing-lib';
 import { logger } from '../../../../../../logger/logger';
 import { ForumPage } from './forum.po';
 import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class ForumPageHelper {
   /**
@@ -23,8 +24,16 @@ export class ForumPageHelper {
    * Verify forum setting page
    */
   public static async verifyForumSetting() {
-    await BrowserHelper.waitUntilUrlIs(ConfigHelper.getForumSettingUrl());
-    logger.info('redirected to forum settings page');
+    const windowHandles = await BrowserHelper.getAllWindowHandles();
+    for (let i = 0; i < windowHandles.length; i++) {
+      await BrowserHelper.switchToWindow(windowHandles[i]);
+      await BrowserHelper.sleep(2000)
+      if (await BrowserHelper.getCurrentUrl() == ConfigHelper.getForumSettingUrl()) {
+        logger.info('redirected to forum settings page');
+        return
+      }
+      await BrowserHelper.switchToWindow(windowHandles[0]);
+    }
   }
 
   private static forumPageObject: ForumPage;

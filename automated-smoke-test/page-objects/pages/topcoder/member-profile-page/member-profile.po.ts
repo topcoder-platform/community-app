@@ -60,21 +60,22 @@ export class MemberProfilePageObject {
    * @param handle handle of member
    */
   static getHandleField(handle: string) {
-    return CommonHelper.findElementByText("h1", handle);
+    return ElementHelper.getElementByXPath(
+      `//img[@alt='Member Portait']/parent::div/following-sibling::div/div[.='${handle}']`)
   }
   /**
    * Get all skills
    */
   static async getAllSkills(): Promise<SkillInfo[]> {
-    const skills = await ElementHelper.getAllElementsByClassName("_17_DJM");
+    const skills = await ElementHelper.getAllElementsByCss("div.m5cER2 > div >div div._3UDDF-");
     return await Promise.all(
       skills.map(async (card) => {
-        const name = await ElementHelper.getElementByClassName(
-          "_31cKGD",
+        const name = await ElementHelper.getElementByCss(
+          "span",
           card
         ).getText();
         const isHaveCheckMark = await CommonHelper.isPresent(
-          ElementHelper.getElementByCss("._BoiHz svg", card)
+          ElementHelper.getElementByCss(" div >svg", card)
         );
         return {
           name,
@@ -87,10 +88,10 @@ export class MemberProfilePageObject {
    * Get all tracks
    */
   static async getAllTracks(): Promise<string[]> {
-    const tracks = await ElementHelper.getAllElementsByClassName("_2lQG4o");
+    const tracks = await ElementHelper.getAllElementsByCss("div.m6_uiF > span");
     return await Promise.all(
       tracks.map(async (card) => {
-        return await card.getAttribute("id");
+        return await card.getText();
       })
     );
   }
@@ -101,23 +102,23 @@ export class MemberProfilePageObject {
   static async getAllSubtracks(
     trackId: string
   ): Promise<MemberProfileSubtrackConfig[]> {
-    const trackElement = ElementHelper.getElementById(trackId);
+    const trackElement = ElementHelper.getElementByXPath(`//div[@role="presentation"]/span[.='${trackId}']/ancestor::div[@class='_3tP91L']`);
     const subtracks = await ElementHelper.getAllElementsByClassName(
-      "_3Es9QB",
+      "_3WwG02",
       trackElement
     );
     return await Promise.all(
       subtracks.map(async (card) => {
         const name = await ElementHelper.getElementByClassName(
-          "_3LRlZS",
+          "_3oV6HS",
           card
         ).getText();
         const info = await ElementHelper.getElementByClassName(
-          "aMu8-h",
+          "aM5NnB",
           card
         ).getText();
         const infoTitle = await ElementHelper.getElementByClassName(
-          "_3_M6ux",
+          "_3pK9Xe",
           card
         ).getText();
         return {
@@ -148,19 +149,15 @@ export class MemberProfilePageObject {
    * Get member info
    */
   static async getMemberInfo(): Promise<MemberProfileInfoConfig> {
-    const handle = await ElementHelper.getElementByTag("h1").getText();
+    const handle = await ElementHelper.getElementByXPath("//img[@alt='Member Portait']/parent::div/following-sibling::div/div").getText();
     const numberOfCollapsedSkills = (await this.getAllSkills()).length;
-    const userDet = await ElementHelper.getElementByCss("h3.a6sow0").getText();
-    const country = userDet.split(" ", 1)[0];
-    console.log("country:" + country);
+    const country = await ElementHelper.getElementByCss("div._2MEhc3 > span").getText();
     const memberSince = await ElementHelper.getElementByCss(
-      "h3._3ODNva"
+      "h3._1c9pnV"
     ).getText();
     const tracks = await this.getAllTracks();
-    const quote = await ElementHelper.getElementByCss("p._1tUAew").getText();
-    const forumLink = await ElementHelper.getElementByCss(
-      "a._1S7iib"
-    ).getAttribute("href");
+    const quote = await ElementHelper.getElementByCss("p._3m4a3E").getText();
+    const forumLink = null
     return {
       handle,
       numberOfCollapsedSkills,

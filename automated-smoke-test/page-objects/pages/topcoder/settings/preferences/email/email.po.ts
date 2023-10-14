@@ -16,7 +16,7 @@ export class EmailPreferencesPage extends SettingsPage {
   }
 
   /**
-   * Gets the prefernce  label
+   * Gets the preference  label
    * @param pref
    */
   private getPrefLabel(pref: String) {

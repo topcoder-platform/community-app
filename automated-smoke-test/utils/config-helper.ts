@@ -1,4 +1,4 @@
-import * as config from '../config/config.json';
+import * as config from '../config/automation-config-prod.json';
 import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
 
 export interface ChallengeLinks {
@@ -49,7 +49,7 @@ export interface MemberHaveWebSectionInfoConfig {
 export interface MemberProfileInfoConfig {
   handle: string;
   numberOfCollapsedSkills: number;
-  verifiedSkill?: string;
+  verifiedSkill?: string[];
   noneVerifiedSkill?: string;
   country: string;
   memberSince: string;
@@ -107,7 +107,7 @@ export const ConfigHelper = {
     return this.getConfig().businessUrl;
   },
 
-    /**
+  /**
    * Gets the url on redirection after clicking the Switch To business link
    */
   getSwitchToBusinessUrl() {

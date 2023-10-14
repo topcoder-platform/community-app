@@ -24,6 +24,13 @@ describe('Topcoder Footer Tests: ', () => {
     /**
      * Verifies the links under 'COMPETE' section in footer are working correctly
      */
+    it('[TC_001] should verify that the all link text are displayed from the Footer', async () => {
+      await FooterHelper.verifyContentOfFooter(false);
+    });
+
+    /**
+     * Verifies the links under 'COMPETE' section in footer are working correctly
+     */
     it('[TC_002] should verify that the links under Compete are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('Compete', false);
     });
@@ -109,14 +116,14 @@ describe('Topcoder Footer Tests: ', () => {
     /**
      * Verifies the links under 'COMPETE' section in footer are working correctly
      */
-    it('should verify that the links under Compete are working from the Footer', async () => {
+    it('[TC_002] should verify that the links under Compete are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('Compete', true);
     });
 
     /**
      * Verifies the links under 'COMMUNITY' section in footer are working correctly
      */
-    it('should verify that the links under Community are working from the Footer', async () => {
+    it('[TC_004] should verify that the links under Community are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('Community', true);
     });
   });

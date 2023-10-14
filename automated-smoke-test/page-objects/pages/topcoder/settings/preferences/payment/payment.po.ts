@@ -9,7 +9,7 @@ export class PaymentPage extends SettingsPage {
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getPreferencesUrl());
-    await this.switchTab('payment');
+    await this.navigateToPreferences('PAYMENTS');
     logger.info('User navigated to Payment Page');
   }
 }
