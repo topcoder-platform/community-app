@@ -23,6 +23,10 @@
   object-fit: cover;
 }
 
+.video-container {
+  max-width: 100%;
+}
+
 .btn-play {
   position: absolute;
   top: calc(50% - 12px);

@@ -74,8 +74,8 @@ function ApprovalItem({
               key={photo.id}
               styleName="photo-item"
               url={photo.previewUrl || photo.url}
-              videoThumnailUrl={photo.videoThumnailUrl}
-              isUrlPhoto={!photo.videoThumnailUrl}
+              videoThumnailUrl={photo.previewUrl || photo.url}
+              isUrlPhoto={!photo.isVideo}
               onClick={() => {
                 setShowModalPhoto(true);
                 setSelectedPhoto(photo.id);

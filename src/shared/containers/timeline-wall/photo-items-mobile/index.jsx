@@ -33,10 +33,13 @@ function PhotoItemsMobile({ photos, className }) {
         role="button"
         tabIndex={0}
       >
-        {selectedPhotoObject && !selectedPhotoObject.videoThumnailUrl ? (<img src={selectedPhotoObject.previewUrl || selectedPhotoObject.url} alt="main" />) : null}
-        {selectedPhotoObject && !!selectedPhotoObject.videoThumnailUrl ? (
+        {selectedPhotoObject && !selectedPhotoObject.isVideo ? (<img src={selectedPhotoObject.previewUrl || selectedPhotoObject.url} alt="main" />) : null}
+        {selectedPhotoObject && selectedPhotoObject.isVideo ? (
           <React.Fragment>
-            <img src={selectedPhotoObject.videoThumnailUrl} alt="main" />
+            <video styleName="video-container">
+              <source src={selectedPhotoObject.url} />
+              <track kind="captions" />
+            </video>
             <BtnPlay styleName="img-play" />
           </React.Fragment>
         ) : null}
