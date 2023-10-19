@@ -1,0 +1,139 @@
+@import '../Dropdown/style.scss';
+
+.label {
+  z-index: 6;
+}
+
+.relative {
+  position: relative;
+}
+
+.errorMessage,
+.haveValue,
+.haveError {
+  font-family: Roboto, sans-serif;
+}
+
+.container {
+  font-family: Roboto, sans-serif;
+
+  :global {
+    .Select-control {
+      min-height: 52px;
+      height: auto;
+      display: flex !important;
+      overflow: visible !important;
+    }
+
+    .Select-arrow-zone {
+      flex-shrink: 0 !important;
+      display: flex !important;
+      margin: auto 0 auto 10px !important;
+      width: 30px !important;
+    }
+
+    .Select-multi-value-wrapper {
+      display: flex !important;
+      flex-wrap: wrap;
+      padding-top: 12px !important;
+      padding-left: 8px !important;
+      max-height: 104px;
+      overflow: auto;
+    }
+
+    .Select-value {
+      border: none !important;
+      background-color: $tc-gray-05 !important;
+      height: 25px !important;
+      display: flex !important;
+      flex-direction: row-reverse !important;
+      align-items: center;
+      padding: 0 !important;
+      border-radius: 5px !important;
+      font-size: 12 !important;
+      color: $gui-kit-gray-90 !important;
+      padding-left: 7px !important;
+      margin-top: 0 !important;
+      margin-bottom: 5px !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      z-index: 6;
+
+      .Select-value-icon {
+        border-right: none !important;
+        padding: 0 7px !important;
+        margin: 0 !important;
+        color: $gui-kit-gray-90 !important;
+        background: transparent !important;
+      }
+
+      .Select-value-label {
+        padding: 0 !important;
+        margin: 0 !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: $gui-kit-gray-90 !important;
+        text-decoration: none !important;
+        font-size: 12px;
+      }
+    }
+
+    .Select-input {
+      margin-left: 0 !important;
+      padding: 0 8px !important;
+      min-width: 204px;
+      margin-bottom: 5px !important;
+
+      input {
+        height: 25px !important;
+
+        &::-webkit-input-placeholder {
+          /* Edge */
+          color: $gui-kit-gray-30;
+          opacity: 1;
+          text-transform: none;
+          font-size: 16px;
+        }
+
+        &:-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: $gui-kit-gray-30;
+          opacity: 1;
+          text-transform: none;
+          font-size: 16px;
+        }
+
+        &::placeholder {
+          color: $gui-kit-gray-30;
+          opacity: 1;
+          text-transform: none;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .Select-option {
+      border-bottom-right-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
+
+  &.isEmptySelectList {
+    :global {
+      .Select-menu-outer {
+        border: none !important;
+        padding-bottom: 10px !important;
+      }
+    }
+  }
+}
+
+.addAnotherSkill {
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

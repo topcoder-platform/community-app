@@ -349,6 +349,7 @@ workflows:
           filters:
             branches:
               only:
+                - TSJR-118
                 - PROD-4183
                 - changelog
                 - remove_submission_review
