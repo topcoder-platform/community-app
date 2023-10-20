@@ -69,8 +69,8 @@ function EventItem({
               <PhotoVideoItem
                 styleName="photo-item hide-mobile"
                 url={photo.previewUrl || photo.url}
-                videoThumnailUrl={photo.videoThumnailUrl}
-                isUrlPhoto={!photo.videoThumnailUrl}
+                videoThumnailUrl={photo.url}
+                isUrlPhoto={!photo.isVideo}
                 key={photo.id}
                 onClick={() => {
                   setShowModalPhoto(true);

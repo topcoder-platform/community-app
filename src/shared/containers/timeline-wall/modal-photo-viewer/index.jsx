@@ -72,8 +72,8 @@ function ModalPhotoViewer({ onClose, selectedPhoto, photos }) {
               selected: photo.id === localSelectedPhoto,
             })}
             url={photo.previewUrl || photo.url}
-            videoThumnailUrl={photo.videoThumnailUrl}
-            isUrlPhoto={!photo.videoThumnailUrl}
+            videoThumnailUrl={photo.previewUrl || photo.url}
+            isUrlPhoto={!photo.isVideo}
             onClick={() => setLocalSelectedPhoto(photo.id)}
             key={uuidv4()}
           />

@@ -25,6 +25,10 @@
     top: calc(50% - 25px);
   }
 
+  .video-container {
+    max-width: 100%;
+  }
+
   .btn-left,
   .btn-right {
     position: absolute;
