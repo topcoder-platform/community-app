@@ -57,6 +57,7 @@ docker build -t $TAG \
   --build-arg COMMUNITY_APP_URL=$COMMUNITY_APP_URL \
   --build-arg GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY \
   --build-arg GAMIFICATION_ORG_ID=$GAMIFICATION_ORG_ID \
+  --build-arg UNIVERSAL_NAV_URL=$UNIVERSAL_NAV_URL \
   --build-arg VALID_ISSUERS=$VALID_ISSUERS .
 
 # Copies "node_modules" from the created image, if necessary for caching.
