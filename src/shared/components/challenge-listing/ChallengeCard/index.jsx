@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React from 'react';
+import React, { useMemo } from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { DevelopmentTrackTag } from 'topcoder-react-ui-kit';
@@ -51,6 +51,10 @@ function ChallengeCard({
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
   const isRecommendedChallenge = !!challenge.jaccard_index;
+  const tags = useMemo(() => _.uniq([
+    ...(challenge.tags || []),
+    ...(challenge.skills || []).map(skill => skill.name),
+  ]), [challenge.tags, challenge.skills]);
 
   return (
     <div ref={domRef} styleName="challengeCard">
@@ -94,7 +98,7 @@ function ChallengeCard({
               && challenge.match_skills.length > 0
                 && (
                 <Tags
-                  tags={challenge.tags}
+                  tags={tags}
                   onTechTagClicked={onTechTagClicked}
                   isExpanded={expandedTags.includes(challenge.id)}
                   expand={() => expandTag(challenge.id)}
@@ -114,7 +118,7 @@ function ChallengeCard({
               && challenge.tags.length > 0
               && (
               <Tags
-                tags={challenge.tags}
+                tags={tags}
                 onTechTagClicked={onTechTagClicked}
                 isExpanded={expandedTags.includes(challenge.id)}
                 expand={() => expandTag(challenge.id)}

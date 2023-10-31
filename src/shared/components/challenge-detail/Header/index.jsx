@@ -11,7 +11,7 @@ import 'moment-duration-format';
 import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
@@ -84,8 +84,6 @@ export default function ChallengeHeader(props) {
   const showDeadlineDetail = showDeadlineDetailProp;
   const isActivedChallenge = `${status}`.indexOf(CHALLENGE_STATUS.ACTIVE) >= 0;
 
-  const tags = challenge.tags || [];
-
   const allPhases = _.filter(challenge.phases || [], p => p.name !== 'Post-Mortem');
   const sortedAllPhases = _.cloneDeep(allPhases)
     .sort((a, b) => moment(phaseEndDate(a)).diff(phaseEndDate(b)));
@@ -125,7 +123,14 @@ export default function ChallengeHeader(props) {
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
 
-  const miscTags = _.uniq(_.isArray(tags) ? tags : (tags || '').split(', '));
+  const miscTags = useMemo(() => {
+    const tags = challenge.tags || [];
+    const challengeTags = _.isArray(tags) ? tags : (tags || '').split(', ');
+    return _.uniq([
+      ...challengeTags,
+      ...(challenge.skills || []).map(skill => skill.name),
+    ]);
+  }, [challenge.tags, challenge.skills]);
 
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
@@ -537,6 +542,7 @@ ChallengeHeader.propTypes = {
     technologies: PT.any,
     platforms: PT.any,
     tags: PT.any,
+    skills: PT.any,
     prizes: PT.any,
     timelineTemplateId: PT.string,
     reliabilityBonus: PT.any,
