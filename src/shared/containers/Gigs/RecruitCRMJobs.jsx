@@ -192,7 +192,7 @@ class RecruitCRMJobsContainer extends React.Component {
       locations[0].selected = location === 'All';
       // filter
       if (location === 'Anywhere' || location === 'Any' || location === 'All') return true;
-      return location.toLowerCase() === job.country.toLowerCase();
+      return location.toLowerCase() === (job.country || '').toLowerCase();
     });
     // sort location dropdown
     locations = _.sortBy(locations, ['label']);
@@ -207,7 +207,7 @@ class RecruitCRMJobsContainer extends React.Component {
         const skills = _.find(job.custom_fields, ['field_name', 'Technologies Required']);
         if (skills && skills.value && skills.value.toLowerCase().includes(_term)) return true;
         // location
-        if (job.country.toLowerCase().includes(_term)) return true;
+        if ((job.country || '').toLowerCase().includes(_term)) return true;
         // duration
         const duration = _.find(job.custom_fields, ['field_name', 'Duration']);
         if (duration && duration.value && duration.value.toLowerCase().includes(_term)) return true;
