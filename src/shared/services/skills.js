@@ -20,7 +20,7 @@ class SkillService {
    * @returns
    */
   getSkills(term) {
-    return this.private.api.get(`/emsi-skills/skills/auto-complete?${qs.stringify({
+    return this.private.api.get(`/standardized-skills/skills/autocomplete?${qs.stringify({
       term,
     })}`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
