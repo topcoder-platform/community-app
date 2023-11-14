@@ -354,6 +354,7 @@ workflows:
                 - changelog
                 - remove_submission_review
                 - standardised_skills
+                - TSJR-275
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global

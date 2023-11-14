@@ -119,15 +119,6 @@
       border-bottom-left-radius: 0 !important;
     }
   }
-
-  &.isEmptySelectList {
-    :global {
-      .Select-menu-outer {
-        border: none !important;
-        padding-bottom: 10px !important;
-      }
-    }
-  }
 }
 
 .addAnotherSkill {
