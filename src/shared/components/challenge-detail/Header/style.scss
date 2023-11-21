@@ -774,3 +774,26 @@
     color: lighten(#0ab88a, 2%);
   }
 }
+
+.skill {
+  & > a {
+    color: $color-black-100;
+    background-color: $color-black-10 !important;
+    border: none;
+
+    &:hover {
+      background-color: #d4d4d4 !important;
+    }
+  }
+}
+
+.tag {
+  & > a {
+    background-color: white !important;
+    border: 1px solid $color-black-60;
+
+    &:hover {
+      background-color: #d4d4d4 !important;
+    }
+  }
+}
