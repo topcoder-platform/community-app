@@ -5,7 +5,7 @@
 import _ from 'lodash';
 import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
-import React from 'react';
+import React, { useMemo } from 'react';
 import PT from 'prop-types';
 
 import TrackIcon from 'components/TrackIcon';
@@ -49,6 +49,9 @@ function ReviewOpportunityCard({
 }) {
   const { challenge } = opportunity;
   let tags = challenge.tags || challenge.technologies;
+  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+    challenge.skills,
+  ]);
   tags = tags.filter(tag => tag.trim().length);
   const { track } = challenge.track;
   const start = moment(opportunity.startDate);
@@ -85,10 +88,11 @@ function ReviewOpportunityCard({
               {' '}
               {start.format('MMM DD')}
             </span>
-            { tags.length > 0
+            { (tags.length + skills.length) > 0
               && (
               <Tags
                 tags={tags}
+                skills={skills}
                 isExpanded={(expandedTags || []).includes(challenge.id)}
                 expand={() => expandTag(challenge.id)}
                 onTechTagClicked={onTechTagClicked}

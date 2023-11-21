@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import _ from 'lodash';
 import PT from 'prop-types';
 import { Link } from 'topcoder-react-utils';
@@ -41,12 +41,16 @@ export default function ChallengesCard({
   const statusPhase = phases
     .filter(p => p.name !== 'Registration')
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+    challenge.skills,
+  ]);
 
   return (
     <div className={className} styleName="container">
       <div styleName="content">
         <Tags
           tags={challenge.tags}
+          skills={skills}
           isExpanded={expandedTags.includes(challenge.id)}
           expand={() => expandTag(challenge.id)}
           challengesUrl={challengesUrl}
