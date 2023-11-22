@@ -62,15 +62,17 @@ export function getTimeLeft(
   fullText = false,
 ) {
   const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
-  const REGISTRATION_PHASE_MESSAGE = 'Open For Registration';
+  const REGISTRATION_PHASE_MESSAGE = 'Register';
   const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
   const HOUR_MS = 60 * 60 * 1000;
   const DAY_MS = 24 * HOUR_MS;
 
-  if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG };
-  if (isRegistrationPhase(phase)) return { late: false, text: REGISTRATION_PHASE_MESSAGE };
+  if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG, canTrimText: false };
+  if (isRegistrationPhase(phase)) {
+    return { late: false, text: REGISTRATION_PHASE_MESSAGE, canTrimText: false };
+  }
   if (phase.phaseType === 'Final Fix') {
-    return { late: false, text: FF_TIME_LEFT_MSG };
+    return { late: false, text: FF_TIME_LEFT_MSG, canTrimText: false };
   }
 
   let time = moment(phaseEndDate(phase)).diff();
@@ -84,7 +86,7 @@ export function getTimeLeft(
 
   time = moment.duration(time).format(format);
   time = late ? `${time} Past Due` : `${time} ${toGoText}`;
-  return { late, text: time };
+  return { late, text: time, canTrimText: true };
 }
 
 /**
