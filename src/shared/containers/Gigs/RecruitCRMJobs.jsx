@@ -253,7 +253,12 @@ class RecruitCRMJobsContainer extends React.Component {
       <div styleName={hotlistJobs.length && decision.enabled ? 'container-with-hotlist' : 'container'}>
         <div styleName="gigs">
           <div styleName="filters">
-            <SearchCombo placeholder="Search Gig Listings by Name or Skills" onSearch={this.onSearch} term={term} />
+            <SearchCombo
+              placeholder="Search Gig Listings by Name or Skills"
+              onSearch={this.onSearch}
+              term={term}
+              auth={auth}
+            />
             <Dropdown label="Location" onChange={this.onLocation} options={locations} size="xs" />
             <Dropdown label="Sort by" onChange={this.onSort} options={sortByOptions} size="xs" />
           </div>

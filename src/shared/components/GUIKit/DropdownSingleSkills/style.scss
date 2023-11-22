@@ -1,0 +1,71 @@
+@import '../Dropdown/style.scss';
+
+.label {
+  z-index: 6;
+}
+
+.relative {
+  position: relative;
+}
+
+.errorMessage,
+.haveValue,
+.haveError {
+  font-family: Roboto, sans-serif;
+}
+
+.container {
+  font-family: Roboto, sans-serif;
+
+  :global {
+    .Select-control {
+      min-height: 52px;
+      height: auto;
+      display: flex !important;
+      overflow: visible !important;
+    }
+
+    .Select-clear-zone,
+    .Select-clear {
+      font-size: 21px;
+      line-height: 40px;
+
+      &:hover {
+        color: $dashboard-teal;
+      }
+    }
+
+    .Select-value {
+      font-size: 14px !important;
+      padding-right: 42px !important;
+      overflow: hidden;
+
+      .Select-value-label {
+        font-size: 14px;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    .Select-input {
+      input {
+        font-size: 14px;
+
+        &::-webkit-input-placeholder {
+          /* Edge */
+          color: $gui-kit-gray-30;
+        }
+
+        &:-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: $gui-kit-gray-30;
+        }
+
+        &::placeholder {
+          color: $gui-kit-gray-30;
+        }
+      }
+    }
+  }
+}
