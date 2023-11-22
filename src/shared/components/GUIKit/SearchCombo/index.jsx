@@ -1,43 +1,52 @@
 /**
  * SearchCombo component.
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
+import DropdownSingleSkills from 'components/GUIKit/DropdownSingleSkills';
 import PT from 'prop-types';
+import _ from 'lodash';
 import './style.scss';
-import IconClearSearch from 'assets/images/icon-clear-search.svg';
+import { getService } from 'services/skills';
 
 function SearchCombo({
   term,
   placeholder,
-  btnText,
   onSearch,
+  auth,
 }) {
-  const [inputVal, setVal] = useState(term);
-  useEffect(() => setVal(term), [term]);
-  const clearSearch = () => {
-    setVal('');
-    onSearch('');
-  };
-  const onKeyDown = (e) => {
-    if (e.which === 13) {
-      onSearch(inputVal);
+  const [skills, setSkills] = useState(term);
+
+  const fetchSkills = useMemo(() => _.debounce((inputValue, callback) => {
+    if (!inputValue) {
+      callback(null);
+    } else {
+      getService(auth.tokenV3).getSkills(inputValue).then(
+        (response) => {
+          const suggestedOptions = (response || []).map(skillItem => ({
+            label: skillItem.name,
+            value: skillItem.name,
+          }));
+          return callback(null, {
+            options: suggestedOptions,
+          });
+        },
+      ).catch(() => callback(null));
     }
-  };
+  }, 150), [auth.tokenV3]);
 
   return (
     <div styleName="container">
-      <div styleName="input-wrap">
-        {
-          !inputVal ? <span styleName="search-placeholder">{placeholder}</span> : null
-        }
-        <input type="text" styleName="input" value={inputVal} onChange={event => setVal(event.target.value)} onKeyDown={onKeyDown} />
-        {
-          inputVal ? <IconClearSearch onClick={clearSearch} styleName="clear-search" /> : null
-        }
-      </div>
-      <button type="button" styleName="primary-green-md" onClick={() => onSearch(inputVal)} disabled={!inputVal}>
-        {btnText}
-      </button>
+      <DropdownSingleSkills
+        terms={skills}
+        placeholder={placeholder}
+        onChange={(newSkill) => {
+          setSkills(newSkill);
+          onSearch(newSkill);
+        }}
+        cacheOptions
+        loadOptions={fetchSkills}
+        createText="Search"
+      />
     </div>
   );
 }
@@ -45,14 +54,14 @@ function SearchCombo({
 SearchCombo.defaultProps = {
   term: '',
   placeholder: '',
-  btnText: 'SEARCH',
+  auth: {},
 };
 
 SearchCombo.propTypes = {
   term: PT.string,
   placeholder: PT.string,
-  btnText: PT.string,
   onSearch: PT.func.isRequired,
+  auth: PT.object,
 };
 
 export default SearchCombo;
