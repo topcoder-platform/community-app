@@ -143,11 +143,13 @@ export default function ChallengeStatus(props) {
      * generates a string like "H MM to go"; here we want to render just
      * H MM part, so we cut the last 6 symbols. Not a good code. */
     let lateNote;
-    if (!timeDiff.late) {
-      timeNote = timeNote.substring(0, timeNote.length - 6);
-    } else {
-      lateNote = timeNote.substring(timeNote.length - 8);
-      timeNote = timeNote.substring(0, timeNote.length - 9);
+    if (timeDiff.canTrimText) {
+      if (!timeDiff.late) {
+        timeNote = timeNote.substring(0, timeNote.length - 6);
+      } else {
+        lateNote = timeNote.substring(timeNote.length - 8);
+        timeNote = timeNote.substring(0, timeNote.length - 9);
+      }
     }
     return (
       <a
