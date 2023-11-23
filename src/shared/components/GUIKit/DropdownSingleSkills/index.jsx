@@ -5,7 +5,10 @@
 import React, {
   useRef,
   useEffect,
+  useMemo,
 } from 'react';
+import _ from 'lodash';
+import { getService } from 'services/skills';
 import PT from 'prop-types';
 import { AsyncCreatable } from 'react-select';
 import './style.scss';
@@ -18,9 +21,28 @@ function DropdownSingleSkills({
   onChange,
   errorMsg,
   cacheOptions,
-  loadOptions,
   createText,
+  auth,
 }) {
+  const fetchSkills = useMemo(() => _.debounce((inputValue, callback) => {
+    if (!inputValue) {
+      callback(null);
+    } else {
+      getService(auth.tokenV3).getSkills(inputValue).then(
+        (response) => {
+          const skills = response || [];
+          const suggestedOptions = skills.map(skillItem => ({
+            label: skillItem.name,
+            value: skillItem.name,
+          }));
+          return callback(null, {
+            options: suggestedOptions,
+          });
+        },
+      ).catch(() => callback(null));
+    }
+  }, 150), [auth.tokenV3]);
+
   const containerRef = useRef(null);
   useEffect(() => {
     const selectInput = containerRef.current.getElementsByClassName('Select-input');
@@ -93,7 +115,7 @@ function DropdownSingleSkills({
           promptTextCreator={value => `${createText} "${value}"`}
           placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
           cacheOptions={cacheOptions}
-          loadOptions={loadOptions}
+          loadOptions={fetchSkills}
         />
       </div>
       {label ? (
@@ -116,7 +138,7 @@ DropdownSingleSkills.defaultProps = {
   onChange: () => {},
   errorMsg: '',
   createText: 'Select',
-  loadOptions: undefined,
+  auth: {},
 };
 
 DropdownSingleSkills.propTypes = {
@@ -128,7 +150,7 @@ DropdownSingleSkills.propTypes = {
   onChange: PT.func,
   errorMsg: PT.string,
   createText: PT.string,
-  loadOptions: PT.func,
+  auth: PT.object,
 };
 
 export default DropdownSingleSkills;

@@ -50,6 +50,9 @@ exports[`Matches shallow shapshot 2`] = `
       <div
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__search-bar___15MSx"
       >
+        <Connect(ChallengeSkillsSearchBar)
+          setFilterState={[MockFunction]}
+        />
         <Connect(Container)
           setFilterState={[MockFunction]}
         />

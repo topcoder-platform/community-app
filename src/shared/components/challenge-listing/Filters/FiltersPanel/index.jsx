@@ -34,6 +34,7 @@ import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
+import ChallengeSkillsSearchBar from 'containers/challenge-listing/ChallengeSkillsSearchBar';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
 import ArrowIcon from 'assets/images/ico-arrow-down.svg';
@@ -350,6 +351,7 @@ export default function FiltersPanel({
 
         <div styleName="filter-row">
           <div styleName="search-bar">
+            <ChallengeSkillsSearchBar setFilterState={setFilterState} />
             <ChallengeSearchBar setFilterState={setFilterState} />
           </div>
         </div>

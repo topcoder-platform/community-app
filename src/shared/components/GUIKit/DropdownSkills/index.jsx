@@ -6,11 +6,13 @@ import React, {
   useState,
   useRef,
   useEffect,
+  useMemo,
 } from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { Async } from 'react-select';
 import './style.scss';
+import { getService } from 'services/skills';
 
 import { config } from 'topcoder-react-utils';
 
@@ -23,8 +25,27 @@ function DropdownSkills({
   errorMsg,
   addNewOptionPlaceholder,
   cacheOptions,
-  loadOptions,
+  auth,
 }) {
+  const fetchSkills = useMemo(() => _.debounce((inputValue, callback) => {
+    if (!inputValue) {
+      callback(null);
+    } else {
+      getService(auth.tokenV3).getSkills(inputValue).then(
+        (response) => {
+          const skills = response || [];
+          const suggestedOptions = skills.map(skillItem => ({
+            label: skillItem.name,
+            value: skillItem.name,
+          }));
+          return callback(null, {
+            options: suggestedOptions,
+          });
+        },
+      ).catch(() => callback(null));
+    }
+  }, 150), [auth.tokenV3]);
+
   const [internalTerms, setInternalTerms] = useState(terms);
   const selectedOption = _.filter(internalTerms, { selected: true }).map(o => ({
     value: o.label,
@@ -90,7 +111,7 @@ function DropdownSkills({
       className="dropdownContainer"
       styleName={`container ${
         selectedOption && !!selectedOption.length ? 'haveValue' : ''
-      } ${errorMsg ? 'haveError' : ''} ${_.every(internalTerms, { selected: true }) ? 'isEmptySelectList' : ''}`}
+      } ${errorMsg ? 'haveError' : ''}`}
     >
       <div styleName="relative">
         <Async
@@ -110,7 +131,7 @@ function DropdownSkills({
           multi
           promptTextCreator={() => null}
           cacheOptions={cacheOptions}
-          loadOptions={loadOptions}
+          loadOptions={fetchSkills}
         />
       </div>
       {label ? (
@@ -132,7 +153,7 @@ DropdownSkills.defaultProps = {
   onChange: () => {},
   errorMsg: '',
   addNewOptionPlaceholder: '',
-  loadOptions: undefined,
+  auth: {},
 };
 
 DropdownSkills.propTypes = {
@@ -149,7 +170,7 @@ DropdownSkills.propTypes = {
   onChange: PT.func,
   errorMsg: PT.string,
   addNewOptionPlaceholder: PT.string,
-  loadOptions: PT.func,
+  auth: PT.object,
 };
 
 export default DropdownSkills;

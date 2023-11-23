@@ -194,6 +194,7 @@ export function filterChanged(filter, prevFilter) {
     return true;
   }
   return (!_.isEqual(filter.tracks, prevFilter.tracks))
+  || !_.isEqual(filter.searchSkills, prevFilter.searchSkills)
   || (filter.search !== prevFilter.search)
   || (filter.tco !== prevFilter.tco)
   || (filter.startDateEnd !== prevFilter.startDateEnd)

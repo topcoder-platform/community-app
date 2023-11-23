@@ -9,6 +9,7 @@ function testReducer(reducer) {
     state = reducer(undefined, {});
     expect(state).toEqual({
       expanded: false,
+      searchSkills: [],
       searchText: '',
       trackModalShown: false,
     });
@@ -18,6 +19,7 @@ function testReducer(reducer) {
     state = reducer(state, actions.challengeListing.filterPanel.setExpanded(true));
     expect(state).toEqual({
       expanded: true,
+      searchSkills: [],
       searchText: '',
       trackModalShown: false,
     });
@@ -27,6 +29,7 @@ function testReducer(reducer) {
     state = reducer(state, actions.challengeListing.filterPanel.setSearchText('test'));
     expect(state).toEqual({
       expanded: true,
+      searchSkills: [],
       searchText: 'test',
       trackModalShown: false,
     });
@@ -36,6 +39,7 @@ function testReducer(reducer) {
     state = reducer(state, actions.challengeListing.filterPanel.showTrackModal(true));
     expect(state).toEqual({
       expanded: true,
+      searchSkills: [],
       searchText: 'test',
       trackModalShown: true,
     });

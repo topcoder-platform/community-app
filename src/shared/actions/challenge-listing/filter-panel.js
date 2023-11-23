@@ -16,6 +16,11 @@ export default createActions({
        * pressed. */
       SET_SEARCH_TEXT: _.identity,
 
+      /* Updates text in the search skills, without applying it to the active
+       * challenge filter. The text will be set to the filter when Enter is
+       * pressed. */
+      SET_SEARCH_SKILLS: _.identity,
+
       /* Shows / hides the modal with track switches (for mobile view only). */
       SHOW_TRACK_MODAL: _.identity,
     },
