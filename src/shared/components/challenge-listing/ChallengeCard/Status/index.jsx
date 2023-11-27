@@ -170,9 +170,6 @@ export default function ChallengeStatus(props) {
             </span>
           )
         }
-        <span styleName={`to-register ${timeDiff.late ? 'third-line' : ''}`}>
-          to Register
-        </span>
       </a>
     );
   }
