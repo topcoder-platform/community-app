@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import _ from 'lodash';
 import { BUCKETS, isPastBucket } from 'utils/challenge-listing/buckets';
 import cn from 'classnames';
 import { useMediaQuery } from 'react-responsive';
@@ -9,6 +10,13 @@ import PT from 'prop-types';
 import './style.scss';
 import { getUpdateQuery } from 'utils/url';
 
+const TAB_NAME = {
+  INNOVATION_CHALLENGE: 'INNOVATION CHALLENGE',
+  PAST_CHALLENGES: 'PAST CHALLENGES',
+  ACTIVE_CHALLENGES: 'ACTIVE CHALLENGES',
+  GIGS: 'GIGS',
+};
+
 const ChallengeTab = ({
   activeBucket,
   setPreviousBucketOfActiveTab,
@@ -18,16 +26,21 @@ const ChallengeTab = ({
   selectBucket,
   location,
   history,
+  setFilterState,
+  filterState,
 }) => {
   const past = isPastBucket(activeBucket);
   const [currentSelected, setCurrentSelected] = useState(past);
   const [isTabClosed, setIsTabClosed] = useState(true);
   const currentTabName = useMemo(() => {
     if (location.pathname && location.pathname.indexOf(config.GIGS_PAGES_PATH) >= 0) {
-      return 'GIGS';
+      return TAB_NAME.GIGS;
     }
-    return currentSelected ? 'PAST CHALLENGES' : 'ACTIVE CHALLENGES';
-  }, [location, currentSelected]);
+    if (filterState.isInnovationChallenge === 'true') {
+      return TAB_NAME.INNOVATION_CHALLENGE;
+    }
+    return currentSelected ? TAB_NAME.PAST_CHALLENGES : TAB_NAME.ACTIVE_CHALLENGES;
+  }, [location, currentSelected, filterState]);
   const pageTitle = useMemo(() => {
     if (location.pathname && location.pathname.indexOf(config.GIGS_PAGES_PATH) >= 0) {
       return 'GIG WORK OPPORTUNITIES';
@@ -39,15 +52,19 @@ const ChallengeTab = ({
     setCurrentSelected(isPastBucket(activeBucket));
   }, [activeBucket]);
 
-  const moveToChallengesPage = (selectedBucket) => {
-    if (currentTabName === 'GIGS') {
-      const queryParams = getUpdateQuery({ bucket: selectedBucket });
+  const moveToChallengesPage = (selectedBucket, targetTabName) => {
+    if (currentTabName === TAB_NAME.GIGS) {
+      const params = { bucket: selectedBucket };
+      if (targetTabName === TAB_NAME.INNOVATION_CHALLENGE) {
+        params.isInnovationChallenge = 'true';
+      }
+      const queryParams = getUpdateQuery(params);
       history.push(`/challenges${queryParams || ''}`);
     }
   };
 
   const onActiveClick = () => {
-    if (!past && currentTabName !== 'GIGS') {
+    if (currentTabName === TAB_NAME.ACTIVE_CHALLENGES) {
       return;
     }
     setPreviousBucketOfPastChallengesTab(activeBucket);
@@ -59,12 +76,29 @@ const ChallengeTab = ({
     } else {
       selectedBucket = BUCKETS.OPEN_FOR_REGISTRATION;
     }
-    moveToChallengesPage(selectedBucket);
+    moveToChallengesPage(selectedBucket, TAB_NAME.ACTIVE_CHALLENGES);
     selectBucket(selectedBucket);
+    if (filterState.isInnovationChallenge === 'true') {
+      setFilterState({
+        ..._.cloneDeep(filterState),
+        isInnovationChallenge: undefined,
+      });
+    }
+  };
+
+  const onInnovationClick = () => {
+    if (currentTabName === TAB_NAME.INNOVATION_CHALLENGE) {
+      return;
+    }
+    setFilterState({
+      ..._.cloneDeep(filterState),
+      isInnovationChallenge: 'true',
+    });
+    moveToChallengesPage(BUCKETS.OPEN_FOR_REGISTRATION, TAB_NAME.INNOVATION_CHALLENGE);
   };
 
   const onPastChallengesClick = () => {
-    if (past && currentTabName !== 'GIGS') {
+    if (currentTabName === TAB_NAME.PAST_CHALLENGES) {
       return;
     }
     setPreviousBucketOfActiveTab(activeBucket);
@@ -76,8 +110,14 @@ const ChallengeTab = ({
     } else {
       selectedBucket = BUCKETS.ALL_PAST;
     }
-    moveToChallengesPage(selectedBucket);
+    moveToChallengesPage(selectedBucket, TAB_NAME.PAST_CHALLENGES);
     selectBucket(selectedBucket);
+    if (filterState.isInnovationChallenge === 'true') {
+      setFilterState({
+        ..._.cloneDeep(filterState),
+        isInnovationChallenge: undefined,
+      });
+    }
   };
 
   const onGigsClick = () => {
@@ -93,7 +133,7 @@ const ChallengeTab = ({
     <ul styleName="challenge-tab">
       <li
         key="tab-item-active"
-        styleName={cn('item', { active: currentTabName === 'ACTIVE CHALLENGES' })}
+        styleName={cn('item', { active: currentTabName === TAB_NAME.ACTIVE_CHALLENGES })}
         onClick={onActiveClick}
         onKeyDown={(e) => {
           if (e.key !== 'Enter') {
@@ -103,11 +143,25 @@ const ChallengeTab = ({
         }}
         role="presentation"
       >
-        ACTIVE CHALLENGES
+        {TAB_NAME.ACTIVE_CHALLENGES}
+      </li>
+      <li
+        key="tab-item-innovation"
+        styleName={cn('item', { active: currentTabName === TAB_NAME.INNOVATION_CHALLENGE })}
+        onClick={onInnovationClick}
+        onKeyDown={(e) => {
+          if (e.key !== 'Enter') {
+            return;
+          }
+          onInnovationClick();
+        }}
+        role="presentation"
+      >
+        {TAB_NAME.INNOVATION_CHALLENGE}
       </li>
       <li
         key="tab-item-past"
-        styleName={cn('item', { active: currentTabName === 'PAST CHALLENGES' })}
+        styleName={cn('item', { active: currentTabName === TAB_NAME.PAST_CHALLENGES })}
         onClick={onPastChallengesClick}
         onKeyDown={(e) => {
           if (e.key !== 'Enter') {
@@ -117,11 +171,11 @@ const ChallengeTab = ({
         }}
         role="presentation"
       >
-        PAST CHALLENGES
+        {TAB_NAME.PAST_CHALLENGES}
       </li>
       <li
         key="tab-item-gigs"
-        styleName={cn('item', { active: currentTabName === 'GIGS' })}
+        styleName={cn('item', { active: currentTabName === TAB_NAME.GIGS })}
         onClick={onGigsClick}
         onKeyDown={(e) => {
           if (e.key !== 'Enter') {
@@ -131,7 +185,7 @@ const ChallengeTab = ({
         }}
         role="presentation"
       >
-        GIGS
+        {TAB_NAME.GIGS}
       </li>
     </ul>
   );
@@ -158,23 +212,30 @@ const ChallengeTab = ({
             <div
               role="presentation"
               onClick={onActiveClick}
-              styleName={cn('item', { active: currentTabName === 'ACTIVE CHALLENGES' })}
+              styleName={cn('item', { active: currentTabName === TAB_NAME.ACTIVE_CHALLENGES })}
             >
-              <p>ACTIVE CHALLENGES</p>
+              <p>{TAB_NAME.ACTIVE_CHALLENGES}</p>
             </div>
             <div
               role="presentation"
-              styleName={cn('item', { active: currentTabName === 'PAST CHALLENGES' })}
+              onClick={onInnovationClick}
+              styleName={cn('item', { active: currentTabName === TAB_NAME.INNOVATION_CHALLENGE })}
+            >
+              <p>{TAB_NAME.INNOVATION_CHALLENGE}</p>
+            </div>
+            <div
+              role="presentation"
+              styleName={cn('item', { active: currentTabName === TAB_NAME.PAST_CHALLENGES })}
               onClick={onPastChallengesClick}
             >
-              <p>PAST CHALLENGES</p>
+              <p>{TAB_NAME.PAST_CHALLENGES}</p>
             </div>
             <div
               role="presentation"
-              styleName={cn('item', { active: currentTabName === 'GIGS' })}
+              styleName={cn('item', { active: currentTabName === TAB_NAME.GIGS })}
               onClick={onGigsClick}
             >
-              <p>GIGS</p>
+              <p>{TAB_NAME.GIGS}</p>
             </div>
           </div>
         )
@@ -194,6 +255,8 @@ const ChallengeTab = ({
 ChallengeTab.defaultProps = {
   activeBucket: null,
   selectBucket: () => {},
+  setFilterState: () => {},
+  filterState: {},
   setPreviousBucketOfActiveTab: () => {},
   setPreviousBucketOfPastChallengesTab: () => {},
   previousBucketOfActiveTab: null,
@@ -212,6 +275,8 @@ ChallengeTab.propTypes = {
   previousBucketOfActiveTab: PT.string,
   selectBucket: PT.func,
   previousBucketOfPastChallengesTab: PT.string,
+  setFilterState: PT.func,
+  filterState: PT.shape(),
 };
 
 export default ChallengeTab;

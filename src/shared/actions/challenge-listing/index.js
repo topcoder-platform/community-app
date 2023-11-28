@@ -157,6 +157,31 @@ function getMyPastChallengesInit(uuid, page, frontFilter) {
 // }
 
 /**
+ * Extract search from front filter
+ *
+ * @param {Object} frontFilter
+ * @returns
+ */
+function extractSearchFilter(frontFilter = {}) {
+  let searchs = [];
+  if (frontFilter.search) {
+    searchs.push(frontFilter.search);
+  }
+  if (frontFilter.isInnovationChallenge === 'true') {
+    searchs.push('Innovation Challenge');
+  }
+  searchs = [
+    ...searchs,
+    ...(frontFilter.searchSkills || []),
+  ];
+  return {
+    search: _.uniq(searchs).join(' '),
+    searchSkills: '', // remove searchSkills from challenges query
+    isInnovationChallenge: '', // remove isInnovationChallenge from challenges query
+  };
+}
+
+/**
  * Gets 1 page of active challenges (including marathon matches) from the backend.
  * Once this action is completed any active challenges saved to the state before
  * will be dropped, and the newly fetched ones will be stored there.
@@ -178,6 +203,7 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
     backendFilter,
     frontFilter: {
       ...frontFilter,
+      ...extractSearchFilter(frontFilter),
       status: 'Active',
       currentPhaseName: 'Submission',
       registrationEndDateEnd: new Date().toISOString(),
@@ -240,6 +266,7 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
     backendFilter,
     frontFilter: {
       ...frontFilter,
+      ...extractSearchFilter(frontFilter),
       status: 'Active',
       currentPhaseName: 'Registration',
       perPage: PAGE_SIZE,
@@ -275,6 +302,7 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
     backendFilter,
     frontFilter: {
       ...frontFilter,
+      ...extractSearchFilter(frontFilter),
       status: 'Active',
       memberId: userId,
       perPage: PAGE_SIZE,
@@ -300,6 +328,7 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     backendFilter,
     frontFilter: {
       ...frontFilter,
+      ...extractSearchFilter(frontFilter),
       status: 'Active',
       perPage: PAGE_SIZE,
       page: page + 1,
@@ -325,6 +354,7 @@ function getMyPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
     backendFilter,
     frontFilter: {
       ...frontFilter,
+      ...extractSearchFilter(frontFilter),
       status: 'Completed',
       memberId: userId,
       perPage: PAGE_SIZE,
@@ -352,6 +382,7 @@ function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
     backendFilter: {},
     frontFilter: {
       ...frontFilter,
+      ...extractSearchFilter(frontFilter),
       status: 'Active',
       isLightweight: true,
       perPage: 1,
@@ -434,6 +465,7 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
     backendFilter,
     frontFilter: {
       ...frontFilter,
+      ...extractSearchFilter(frontFilter),
       status: 'Completed',
       perPage: PAGE_SIZE,
       page: page + 1,

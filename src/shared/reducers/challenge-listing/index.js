@@ -407,7 +407,7 @@ function onSetFilter(state, { payload }) {
    * do it very carefuly (many params are not validated). */
   const filter = _.pickBy(_.pick(
     payload,
-    ['tags', 'types', 'search', 'startDateEnd', 'endDateStart', 'groups', 'events', 'tracks', 'tco'],
+    ['tags', 'types', 'search', 'startDateEnd', 'endDateStart', 'groups', 'events', 'tracks', 'tco', 'searchSkills', 'isInnovationChallenge'],
   ), value => (!_.isArray(value) && value && value !== '') || (_.isArray(value) && value.length > 0));
 
   const emptyArrayAllowedFields = ['types'];
