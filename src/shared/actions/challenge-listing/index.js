@@ -167,13 +167,17 @@ function extractSearchFilter(frontFilter = {}) {
   if (frontFilter.search) {
     searchs.push(frontFilter.search);
   }
+  if (frontFilter.isInnovationChallenge === 'true') {
+    searchs.push('Innovation Challenge');
+  }
   searchs = [
     ...searchs,
     ...(frontFilter.searchSkills || []),
   ];
   return {
-    search: searchs.join(' '),
+    search: _.uniq(searchs).join(' '),
     searchSkills: '', // remove searchSkills from challenges query
+    isInnovationChallenge: '', // remove isInnovationChallenge from challenges query
   };
 }
 
