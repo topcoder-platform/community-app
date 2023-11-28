@@ -72,13 +72,13 @@ export default function Tags({
   const renderTags = () => {
     const nonVerified = tags.filter(tag => !verifiedTags.includes(tag));
     const allTags = [
-      ...skills.map(skill => ({
-        type: 'skill',
-        value: skill,
-      })),
       ..._.union(verifiedTags, nonVerified).map(tag => ({
         type: 'tag',
         value: tag,
+      })),
+      ...skills.map(skill => ({
+        type: 'skill',
+        value: skill,
       })),
     ];
 

@@ -113,24 +113,6 @@ export default function ChallengeTags(props) {
         )
       }
       {
-        skills.map(skill => (
-          skill
-              && (
-              <span styleName="skill">
-                <Tag
-                  key={skill}
-                  onClick={() => setImmediate(() => setChallengeListingFilter({ search: skill }))
-                  }
-                  to={`${challengesUrl}?search=${
-                    encodeURIComponent(skill)}`}
-                >
-                  {skill}
-                </Tag>
-              </span>
-              )
-        ))
-      }
-      {
         tags.map(tag => (
           tag
               && (
@@ -143,6 +125,24 @@ export default function ChallengeTags(props) {
                     encodeURIComponent(tag)}`}
                 >
                   {tag}
+                </Tag>
+              </span>
+              )
+        ))
+      }
+      {
+        skills.map(skill => (
+          skill
+              && (
+              <span styleName="skill">
+                <Tag
+                  key={skill}
+                  onClick={() => setImmediate(() => setChallengeListingFilter({ search: skill }))
+                  }
+                  to={`${challengesUrl}?search=${
+                    encodeURIComponent(skill)}`}
+                >
+                  {skill}
                 </Tag>
               </span>
               )
