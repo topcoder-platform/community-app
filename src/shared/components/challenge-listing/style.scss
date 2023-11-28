@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 @import '~styles/mixins';
 $challenge-space-5: $base-unit;
 $challenge-space-10: $base-unit * 2;
@@ -101,20 +103,6 @@ $challenge-radius-4: $corner-radius * 2;
   }
 }
 
-.tag {
-  button {
-    border-radius: 2px;
-    max-width: 400px;
-    font-size: 11px;
-    color: $tco-black;
-    font-weight: 500;
-
-    &:hover {
-      background-color: #d4d4d4 !important;
-    }
-  }
-}
-
 .recommended-plus-tag {
   margin-left: 3px;
   display: inline-block;
@@ -122,6 +110,34 @@ $challenge-radius-4: $corner-radius * 2;
 
   button:hover {
     background-color: #d4d4d4 !important;
+  }
+}
+
+.tag {
+  button {
+    border-radius: 2px;
+    max-width: 400px;
+    font-size: 11px;
+    color: $color-black-80;
+    font-weight: 500;
+    background-color: white !important;
+    border: 1px solid $color-black-60;
+
+    &:hover {
+      background-color: #d4d4d4 !important;
+    }
+  }
+
+  &.skill {
+    button {
+      color: $color-black-100;
+      background-color: $color-black-10 !important;
+      border: none;
+
+      &:hover {
+        background-color: #d4d4d4 !important;
+      }
+    }
   }
 }
 
@@ -156,8 +172,25 @@ $challenge-radius-4: $corner-radius * 2;
   margin-left: 3px;
   display: inline-block;
 
-  & > button:hover {
-    background-color: #d4d4d4 !important;
+  & > button {
+    background-color: white !important;
+    border: 1px solid $color-black-60;
+
+    &:hover {
+      background-color: #d4d4d4 !important;
+    }
+  }
+
+  &.skill {
+    & > button {
+      color: $color-black-100;
+      background-color: $color-black-10 !important;
+      border: none;
+
+      &:hover {
+        background-color: #d4d4d4 !important;
+      }
+    }
   }
 }
 

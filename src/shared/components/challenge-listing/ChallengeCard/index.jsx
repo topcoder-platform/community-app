@@ -51,10 +51,9 @@ function ChallengeCard({
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
   const isRecommendedChallenge = !!challenge.jaccard_index;
-  const tags = useMemo(() => _.uniq([
-    ...(challenge.tags || []),
-    ...(challenge.skills || []).map(skill => skill.name),
-  ]), [challenge.tags, challenge.skills]);
+  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+    challenge.skills,
+  ]);
 
   return (
     <div ref={domRef} styleName="challengeCard">
@@ -98,7 +97,8 @@ function ChallengeCard({
               && challenge.match_skills.length > 0
                 && (
                 <Tags
-                  tags={tags}
+                  tags={challenge.tags || []}
+                  skills={skills}
                   onTechTagClicked={onTechTagClicked}
                   isExpanded={expandedTags.includes(challenge.id)}
                   expand={() => expandTag(challenge.id)}
@@ -115,10 +115,11 @@ function ChallengeCard({
               )
             }
             { !isRecommendedChallenge
-              && challenge.tags.length > 0
+              && (challenge.tags.length + skills.length) > 0
               && (
               <Tags
-                tags={tags}
+                tags={challenge.tags || []}
+                skills={skills}
                 onTechTagClicked={onTechTagClicked}
                 isExpanded={expandedTags.includes(challenge.id)}
                 expand={() => expandTag(challenge.id)}

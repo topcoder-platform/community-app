@@ -126,11 +126,11 @@ export default function ChallengeHeader(props) {
   const miscTags = useMemo(() => {
     const tags = challenge.tags || [];
     const challengeTags = _.isArray(tags) ? tags : (tags || '').split(', ');
-    return _.uniq([
-      ...challengeTags,
-      ...(challenge.skills || []).map(skill => skill.name),
-    ]);
-  }, [challenge.tags, challenge.skills]);
+    return _.uniq(challengeTags);
+  }, [challenge.tags]);
+  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+    challenge.skills,
+  ]);
 
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
@@ -308,6 +308,7 @@ export default function ChallengeHeader(props) {
                 challengesUrl={challengesUrl}
                 events={eventNames}
                 technPlatforms={miscTags}
+                skills={skills}
                 setChallengeListingFilter={setChallengeListingFilter}
                 openForRegistrationChallenges={openForRegistrationChallenges}
               />

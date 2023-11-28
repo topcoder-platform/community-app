@@ -31,6 +31,7 @@ export default function ChallengeTags(props) {
     challengeType,
     events,
     technPlatforms,
+    skills,
     setChallengeListingFilter,
     openForRegistrationChallenges,
   } = props;
@@ -115,7 +116,7 @@ export default function ChallengeTags(props) {
         tags.map(tag => (
           tag
               && (
-              <span>
+              <span styleName="tag">
                 <Tag
                   key={tag}
                   onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
@@ -129,6 +130,24 @@ export default function ChallengeTags(props) {
               )
         ))
       }
+      {
+        skills.map(skill => (
+          skill
+              && (
+              <span styleName="skill">
+                <Tag
+                  key={skill}
+                  onClick={() => setImmediate(() => setChallengeListingFilter({ search: skill }))
+                  }
+                  to={`${challengesUrl}?search=${
+                    encodeURIComponent(skill)}`}
+                >
+                  {skill}
+                </Tag>
+              </span>
+              )
+        ))
+      }
     </div>
   );
 }
@@ -136,6 +155,7 @@ export default function ChallengeTags(props) {
 ChallengeTags.defaultProps = {
   events: [],
   technPlatforms: [],
+  skills: [],
   isSelfService: false,
 };
 
@@ -146,6 +166,7 @@ ChallengeTags.propTypes = {
   track: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
+  skills: PT.arrayOf(PT.string),
   setChallengeListingFilter: PT.func.isRequired,
   challengeType: PT.shape().isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
