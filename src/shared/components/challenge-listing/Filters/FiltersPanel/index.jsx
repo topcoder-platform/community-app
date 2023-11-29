@@ -680,6 +680,7 @@ export default function FiltersPanel({
               reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
               customDate: false,
               recommended: false,
+              searchSkills: [],
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');

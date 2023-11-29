@@ -156,10 +156,14 @@ export default function Bucket({
       challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
-      onTechTagClicked={(tag) => {
+      onTechTagClicked={(tag, isSkill) => {
         setFilterState({
           ..._.clone(filterState),
-          search: tag,
+          ...isSkill ? {
+            searchSkills: [tag],
+          } : {
+            search: tag,
+          },
           types: challengeTypes.map(type => type.abbreviation),
         });
         setSearchText(tag);

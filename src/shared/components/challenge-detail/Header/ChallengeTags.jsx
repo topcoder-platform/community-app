@@ -137,9 +137,10 @@ export default function ChallengeTags(props) {
               <span styleName="skill">
                 <Tag
                   key={skill}
-                  onClick={() => setImmediate(() => setChallengeListingFilter({ search: skill }))
-                  }
-                  to={`${challengesUrl}?search=${
+                  onClick={() => {
+                    setImmediate(() => setChallengeListingFilter({ searchSkills: [skill] }));
+                  }}
+                  to={`${challengesUrl}?searchSkills[]=${
                     encodeURIComponent(skill)}`}
                 >
                   {skill}

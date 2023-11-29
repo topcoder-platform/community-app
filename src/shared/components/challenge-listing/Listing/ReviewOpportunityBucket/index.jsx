@@ -62,8 +62,12 @@ export default function ReviewOpportunityBucket({
       challengeType={_.find(challengeTypes, { name: item.challenge.type }) || {}}
       expandedTags={expandedTags}
       expandTag={expandTag}
-      onTechTagClicked={(tag) => {
-        setFilterState({ search: tag });
+      onTechTagClicked={(tag, isSkill) => {
+        if (isSkill) {
+          setFilterState({ searchSkills: [tag] });
+        } else {
+          setFilterState({ search: tag });
+        }
         setSearchText(tag);
       }}
       opportunity={item}

@@ -37,7 +37,6 @@ export class Container extends React.Component {
       getCommunityList,
       auth,
       setSearchText,
-      setSearchSkills,
     } = this.props;
 
     if (communityList && !communityList.loadingUuid
@@ -81,10 +80,6 @@ export class Container extends React.Component {
 
     if (query.search) {
       setSearchText(query.search);
-    }
-
-    if (query.searchSkills) {
-      setSearchSkills(query.searchSkills);
     }
 
     if (!_.isEmpty(query)) {
@@ -195,7 +190,6 @@ Container.propTypes = {
   onClose: PT.func.isRequired,
   validTypes: PT.arrayOf(PT.shape()).isRequired,
   setSearchText: PT.func.isRequired,
-  setSearchSkills: PT.func.isRequired,
   setSort: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
 };
