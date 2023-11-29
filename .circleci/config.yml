@@ -353,7 +353,7 @@ workflows:
                 - PROD-4183
                 - changelog
                 - remove_submission_review
-                - standardised_skills
+                - skills_updates
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
