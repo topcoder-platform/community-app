@@ -166,7 +166,9 @@ export default function Bucket({
           },
           types: challengeTypes.map(type => type.abbreviation),
         });
-        setSearchText(tag);
+        if (!isSkill) {
+          setSearchText(tag);
+        }
       }}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
