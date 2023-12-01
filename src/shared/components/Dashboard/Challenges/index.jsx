@@ -29,7 +29,7 @@ export default function ChallengesFeed({
       </div>
       <div styleName="challenges">
         {loading ? <div styleName="loading"><LoadingIndicator /></div>
-          : challenges.map(challenge => (
+          : (challenges || []).map(challenge => (
             <div styleName="row" key={challenge.id}>
               <a
                 href={`/challenges/${challenge.id}${challengeListingQuery ? `?${qs.stringify(challengeListingQuery)}` : ''}`}

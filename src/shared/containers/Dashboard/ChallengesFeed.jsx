@@ -11,7 +11,8 @@ import actions from '../../actions/dashboard';
 class ChallengesFeedContainer extends React.Component {
   componentDidMount() {
     const {
-      getChallenges, challenges, itemCount, tags, includeAllTags, projectId, excludeTags, title,
+      getChallenges, challenges, itemCount, tags,
+      includeAllTags, projectId, excludeTags, title, tracks,
     } = this.props;
 
     if (!challenges || challenges.length === 0) {
@@ -21,7 +22,7 @@ class ChallengesFeedContainer extends React.Component {
           page: 1,
           perPage: excludeTags && excludeTags.length ? undefined : itemCount,
           types: ['CH', 'F2F', 'MM'],
-          tracks: ['DES', 'DEV', 'DS', 'QA'],
+          tracks: tracks,
           status: 'Active',
           sortBy: 'updated',
           sortOrder: 'desc',
@@ -75,6 +76,7 @@ ChallengesFeedContainer.defaultProps = {
   excludeTags: [],
   title: 'CHALLENGES',
   challengeListingQuery: undefined,
+  tracks: ['DES', 'DEV', 'DS', 'QA'],
 };
 
 ChallengesFeedContainer.propTypes = {
@@ -89,10 +91,14 @@ ChallengesFeedContainer.propTypes = {
   excludeTags: PT.arrayOf(PT.string),
   title: PT.string,
   challengeListingQuery: PT.shape(),
+  tracks: PT.arrayOf(PT.string),
 };
 
 function mapStateToProps(state, ownProps) {
   const { dashboard } = state;
+  
+  console.log('dashboard state is', dashboard);
+  
   if (dashboard[ownProps.title]) {
     return {
       challenges: dashboard[ownProps.title].challenges,
