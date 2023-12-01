@@ -22,7 +22,7 @@ class ChallengesFeedContainer extends React.Component {
           page: 1,
           perPage: excludeTags && excludeTags.length ? undefined : itemCount,
           types: ['CH', 'F2F', 'MM'],
-          tracks: tracks,
+          tracks,
           status: 'Active',
           sortBy: 'updated',
           sortOrder: 'desc',
@@ -96,9 +96,9 @@ ChallengesFeedContainer.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   const { dashboard } = state;
-  
+
   console.log('dashboard state is', dashboard);
-  
+
   if (dashboard[ownProps.title]) {
     return {
       challenges: dashboard[ownProps.title].challenges,
