@@ -94,7 +94,7 @@ ChallengesFeedContainer.propTypes = {
   tracks: PT.arrayOf(PT.string),
 };
 
-function mapStateToProps(state, ownProps, ownProps) {
+function mapStateToProps(state, ownProps) {
   const { dashboard } = state;
   const id = ownProps.title || 'CHALLENGES';
 

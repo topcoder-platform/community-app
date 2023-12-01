@@ -21,7 +21,7 @@ export default function ChallengesFeed({
         <span styleName="title">{title}</span>
         <a
           styleName="allLink"
-          href={`${config.URL.CHALLENGES_URL}`}
+          href={`${config.URL.CHALLENGES_URL}${challengeListingQuery ? `?${qs.stringify(challengeListingQuery)}` : ''}`}
           target="_blank"
           rel="noreferrer"
         >View all <span>challenges</span>
@@ -32,7 +32,7 @@ export default function ChallengesFeed({
           : (challenges || []).map(challenge => (
             <div styleName="row" key={challenge.id}>
               <a
-                href={`/challenges/${challenge.id}${challengeListingQuery ? `?${qs.stringify(challengeListingQuery)}` : ''}`}
+                href={`/challenges/${challenge.id}`}
                 target="_blank"
                 rel="noreferrer"
               >
