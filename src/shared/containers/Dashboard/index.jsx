@@ -51,7 +51,13 @@ function SlashTCContainer(props) {
             <div className={theme.column}>
               <TopcoderTime />
               <Viewport id="1BK50OyMT29IOavUC7wSEB" />
-              <ChallengesFeed theme="dark" title="INNOVATION CHALLENGES" tags={[INNOVATION_CHALLENGES_TAG]} challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }} />
+              <ChallengesFeed
+                theme="dark"
+                title="INNOVATION CHALLENGES"
+                tags={[INNOVATION_CHALLENGES_TAG]}
+                challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }}
+                tracks={[]}
+              />
               <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
               <GigsFeed itemCount={5} theme="dark" />
               <NewsFeed />
@@ -73,7 +79,13 @@ function SlashTCContainer(props) {
             {/* Center column */}
             <div className={theme.column}>
               <Viewport id="1BK50OyMT29IOavUC7wSEB" />
-              <ChallengesFeed theme="dark" title="INNOVATION CHALLENGES" tags={[INNOVATION_CHALLENGES_TAG]} challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }} />
+              <ChallengesFeed
+                theme="dark"
+                title="INNOVATION CHALLENGES"
+                tags={[INNOVATION_CHALLENGES_TAG]}
+                challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }}
+                tracks={[]}
+              />
               <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
               <GigsFeed itemCount={5} theme="dark" />
               <NewsFeed />
