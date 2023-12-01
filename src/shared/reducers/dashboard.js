@@ -4,7 +4,6 @@
 
 import actions from 'actions/dashboard';
 import { redux } from 'topcoder-react-utils';
-import qs from 'qs';
 
 function onInit(state, { payload }) {
   return {

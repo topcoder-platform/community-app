@@ -53,7 +53,13 @@ class ChallengesFeedContainer extends React.Component {
     }
 
     return (
-      <ChallengesFeed challenges={challenges} theme={theme} loading={loading} title={title} challengeListingQuery={challengeListingQuery} />
+      <ChallengesFeed
+        challenges={challenges}
+        theme={theme}
+        loading={loading}
+        title={title}
+        challengeListingQuery={challengeListingQuery}
+      />
     );
   }
 }
