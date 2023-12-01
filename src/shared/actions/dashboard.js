@@ -8,7 +8,7 @@ function fetchChallengesInit(title) {
 }
 
 async function fetchChallenges(title, query) {
-  const challenges = service.getChallenges(query);
+  const challenges = await service.getChallenges(query);
 
   return {
     challenges,
