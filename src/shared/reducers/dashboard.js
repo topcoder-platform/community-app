@@ -4,6 +4,18 @@
 
 import actions from 'actions/dashboard';
 import { redux } from 'topcoder-react-utils';
+import qs from 'qs';
+
+function onInit(state, { payload }) {
+  return {
+    ...state,
+    [payload]: {
+      details: null,
+      failed: false,
+      loading: true,
+    },
+  };
+}
 
 /**
  * Handles done actions.
@@ -13,9 +25,11 @@ import { redux } from 'topcoder-react-utils';
 function onDone(state, action) {
   return {
     ...state,
-    challenges: action.error ? null : action.payload,
-    failed: action.error,
-    loading: false,
+    [action.payload.title]: {
+      challenges: action.error ? null : action.payload.challenges,
+      failed: action.error,
+      loading: false,
+    },
   };
 }
 
@@ -26,14 +40,7 @@ function onDone(state, action) {
  */
 function create(initialState) {
   return redux.handleActions({
-    [actions.dashboard.fetchChallengesInit](state) {
-      return {
-        ...state,
-        details: null,
-        failed: false,
-        loading: true,
-      };
-    },
+    [actions.dashboard.fetchChallengesInit]: onInit,
     [actions.dashboard.fetchChallengesDone]: onDone,
   }, initialState || {});
 }
