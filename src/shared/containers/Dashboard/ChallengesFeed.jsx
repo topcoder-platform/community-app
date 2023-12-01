@@ -94,15 +94,14 @@ ChallengesFeedContainer.propTypes = {
   tracks: PT.arrayOf(PT.string),
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps, ownProps) {
   const { dashboard } = state;
+  const id = ownProps.title || 'CHALLENGES';
 
-  console.log('dashboard state is', dashboard);
-
-  if (dashboard[ownProps.title]) {
+  if (dashboard[id]) {
     return {
-      challenges: dashboard[ownProps.title].challenges,
-      loading: dashboard[ownProps.title].loading,
+      challenges: dashboard[id].challenges,
+      loading: dashboard[id].loading,
     };
   }
 

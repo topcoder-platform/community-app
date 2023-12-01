@@ -57,6 +57,7 @@ function SlashTCContainer(props) {
                 tags={[INNOVATION_CHALLENGES_TAG]}
                 challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }}
                 tracks={[]}
+                itemCount={20}
               />
               <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
               <GigsFeed itemCount={5} theme="dark" />
@@ -85,6 +86,7 @@ function SlashTCContainer(props) {
                 tags={[INNOVATION_CHALLENGES_TAG]}
                 challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }}
                 tracks={[]}
+                itemCount={20}
               />
               <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
               <GigsFeed itemCount={5} theme="dark" />
