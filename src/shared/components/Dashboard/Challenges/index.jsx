@@ -49,7 +49,7 @@ export default function ChallengesFeed({
           ))}
       </div>
     </div>
-  ) : undefined;
+  ) : null;
 }
 
 ChallengesFeed.defaultProps = {
