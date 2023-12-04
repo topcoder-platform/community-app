@@ -15,7 +15,7 @@ export default function ChallengesFeed({
   title,
   challengeListingQuery,
 }) {
-  return (
+  return challenges && challenges.length ? (
     <div styleName={`container ${theme}`}>
       <div styleName="header">
         <span styleName="title">{title}</span>
@@ -49,7 +49,7 @@ export default function ChallengesFeed({
           ))}
       </div>
     </div>
-  );
+  ) : undefined;
 }
 
 ChallengesFeed.defaultProps = {

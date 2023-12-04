@@ -25,7 +25,7 @@ const THEMES = {
   dark: darkTheme,
 };
 
-const INNOVATION_CHALLENGES_TAG = 'TopCrowd Challenge';
+const INNOVATION_CHALLENGES_TAG = config.INNOVATION_CHALLENGES_TAG;
 
 function SlashTCContainer(props) {
   const theme = THEMES.dark; // for v1 only dark theme
