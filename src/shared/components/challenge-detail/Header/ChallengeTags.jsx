@@ -16,7 +16,6 @@ import {
   DevelopmentTrackTag,
 } from 'topcoder-react-ui-kit';
 
-import { COMPETITION_TRACKS } from 'utils/tc';
 import VerifiedTag from 'components/challenge-listing/VerifiedTag';
 import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
 import { calculateScore } from '../../../utils/challenge-listing/helper';
@@ -27,7 +26,6 @@ export default function ChallengeTags(props) {
     isSelfService,
     challengeId,
     challengesUrl,
-    track,
     challengeType,
     events,
     technPlatforms,
@@ -58,10 +56,10 @@ export default function ChallengeTags(props) {
   }
 
   return (
-    <div>
+    <div styleName="block-tags-container">
       {
         abbreviation && (
-          <div styleName={`type-tag ${abbreviation} ${track === COMPETITION_TRACKS.QA ? 'qa' : ''}`}>
+          <div styleName="tag">
             <Tag
               onClick={() => (
                 setImmediate(() => setChallengeListingFilter(
@@ -80,7 +78,7 @@ export default function ChallengeTags(props) {
         abbreviation ? events.map(event => (
           <div
             key={event}
-            styleName={`event-tag ${abbreviation}`}
+            styleName="tag"
           >
             <Tag
               to={`https://${event}.topcoder.com`}
@@ -99,17 +97,21 @@ export default function ChallengeTags(props) {
       }
       {
         matchSkills.map(item => (
-          <VerifiedTag
-            item={item}
-            challengesUrl={challengesUrl}
-          />
+          <div styleName="tag">
+            <VerifiedTag
+              item={item}
+              challengesUrl={challengesUrl}
+            />
+          </div>
         ))
       }
       {
         isSelfService && (
-          <DevelopmentTrackTag>
-            <span>On Demand</span>
-          </DevelopmentTrackTag>
+          <div styleName="tag">
+            <DevelopmentTrackTag>
+              <span>On Demand</span>
+            </DevelopmentTrackTag>
+          </div>
         )
       }
       {
@@ -163,7 +165,6 @@ ChallengeTags.propTypes = {
   isSelfService: PT.bool,
   challengeId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
-  track: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
   skills: PT.arrayOf(PT.string),
