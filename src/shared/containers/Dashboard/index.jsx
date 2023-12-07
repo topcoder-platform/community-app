@@ -24,13 +24,16 @@ import darkTheme from './themes/dark.scss';
 const THEMES = {
   dark: darkTheme,
 };
-
 const { INNOVATION_CHALLENGES_TAG } = config;
 
 function SlashTCContainer(props) {
   const theme = THEMES.dark; // for v1 only dark theme
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
   const title = 'Home | Topcoder';
+  const challengeListingQuery = {
+    search: INNOVATION_CHALLENGES_TAG,
+    isInnovationChallenge: true
+  };
 
   useEffect(() => {
     if (props.tokenV3 && !isTokenExpired(props.tokenV3)) return;
@@ -55,7 +58,7 @@ function SlashTCContainer(props) {
                 theme="dark"
                 title="INNOVATION CHALLENGES"
                 tags={[INNOVATION_CHALLENGES_TAG]}
-                challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }}
+                challengeListingQuery={challengeListingQuery}
                 tracks={[]}
                 itemCount={20}
               />
@@ -84,7 +87,7 @@ function SlashTCContainer(props) {
                 theme="dark"
                 title="INNOVATION CHALLENGES"
                 tags={[INNOVATION_CHALLENGES_TAG]}
-                challengeListingQuery={{ search: INNOVATION_CHALLENGES_TAG }}
+                challengeListingQuery={challengeListingQuery}
                 tracks={[]}
                 itemCount={20}
               />
