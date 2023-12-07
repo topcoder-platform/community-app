@@ -2,6 +2,7 @@ import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
+import qs from 'qs';
 
 import { config } from 'topcoder-react-utils';
 
@@ -11,14 +12,16 @@ export default function ChallengesFeed({
   challenges,
   loading,
   theme,
+  title,
+  challengeListingQuery,
 }) {
-  return (
+  return challenges && challenges.length ? (
     <div styleName={`container ${theme}`}>
       <div styleName="header">
-        <span styleName="title">CHALLENGES</span>
+        <span styleName="title">{title}</span>
         <a
           styleName="allLink"
-          href={`${config.URL.CHALLENGES_URL}`}
+          href={`${config.URL.CHALLENGES_URL}${challengeListingQuery ? `?${qs.stringify(challengeListingQuery)}` : ''}`}
           target="_blank"
           rel="noreferrer"
         >View all <span>challenges</span>
@@ -26,7 +29,7 @@ export default function ChallengesFeed({
       </div>
       <div styleName="challenges">
         {loading ? <div styleName="loading"><LoadingIndicator /></div>
-          : challenges.map(challenge => (
+          : (challenges || []).map(challenge => (
             <div styleName="row" key={challenge.id}>
               <a
                 href={`/challenges/${challenge.id}`}
@@ -46,16 +49,20 @@ export default function ChallengesFeed({
           ))}
       </div>
     </div>
-  );
+  ) : null;
 }
 
 ChallengesFeed.defaultProps = {
   challenges: [],
   theme: 'light',
+  title: 'CHALLENGES',
+  challengeListingQuery: undefined,
 };
 
 ChallengesFeed.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   loading: PT.bool.isRequired,
   theme: PT.oneOf(['dark', 'light']),
+  title: PT.string,
+  challengeListingQuery: PT.shape(),
 };
