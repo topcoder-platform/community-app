@@ -32,7 +32,7 @@ function SlashTCContainer(props) {
   const title = 'Home | Topcoder';
   const challengeListingQuery = {
     search: INNOVATION_CHALLENGES_TAG,
-    isInnovationChallenge: true
+    isInnovationChallenge: true,
   };
 
   useEffect(() => {
