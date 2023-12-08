@@ -163,14 +163,14 @@ function getMyPastChallengesInit(uuid, page, frontFilter) {
  * @returns
  */
 function extractSearchFilter(frontFilter = {}) {
-  let searchs = [];
+  const searchs = [];
   if (frontFilter.search) {
     searchs.push(frontFilter.search);
   }
   if (frontFilter.isInnovationChallenge === 'true') {
     searchs.push('Innovation Challenge');
   }
-  
+
   return {
     search: _.uniq(searchs).join(' '),
     isInnovationChallenge: '', // remove isInnovationChallenge from challenges query
