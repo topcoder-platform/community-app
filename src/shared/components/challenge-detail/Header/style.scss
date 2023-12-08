@@ -242,114 +242,6 @@
   }
 }
 
-.type-tag {
-  display: inline-block;
-
-  a {
-    color: $tc-white;
-
-    &:active,
-    &:focus,
-    &:hover {
-      color: $tc-white;
-    }
-  }
-
-  &.CH {
-    a {
-      background: $track-code-green;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: $track-code-green;
-      }
-    }
-  }
-
-  &.F2F {
-    a {
-      background: $track-code-blue;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: $track-code-blue;
-      }
-    }
-  }
-
-  &.TSK {
-    a {
-      background: $track-code-turquose;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: $track-code-turquose;
-      }
-    }
-  }
-}
-
-.event-tag {
-  display: inline-block;
-
-  &.CH {
-    a {
-      background-color: $track-code-green-light;
-      color: $track-code-green;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: $track-code-green-light;
-        color: $track-code-green;
-      }
-    }
-  }
-
-  &.F2F {
-    a {
-      background-color: $track-code-blue-light;
-      color: $track-code-blue;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: $track-code-blue-light;
-        color: $track-code-blue;
-      }
-    }
-  }
-
-  &.TSK {
-    a {
-      background-color: $track-code-turquose-light;
-      color: $track-code-turquose;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: $track-code-turquose-light;
-        color: $track-code-turquose;
-      }
-    }
-  }
-}
-
-.qa {
-  :global {
-    a {
-      background-color: #0ab88a !important;
-
-      &:hover {
-        background-color: darken(#0ab88a, 10%) !important;
-      }
-    }
-  }
-}
-
 .challenge-outer-container {
   background: $tc-white;
   border-radius: (3 * $corner-radius) (3 * $corner-radius) 0 0;
@@ -759,18 +651,50 @@
   padding: 0;
 }
 
-.qaTrackEventTag {
-  color: #0ab88a;
-  background: #c1f5e7;
+.block-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 5px;
+  row-gap: 2px;
+  margin-bottom: 2px;
+}
 
-  &:active,
-  &:focus,
-  &:hover {
-    color: lighten(#0ab88a, 2%);
-    background: darken(#c1f5e7, 5%);
+.skill {
+  & > a {
+    color: $color-black-100;
+    background-color: $color-black-10 !important;
+    border: none;
+    margin: 0;
+
+    &:hover {
+      background-color: #d4d4d4 !important;
+    }
+  }
+}
+
+.tag {
+  svg {
+    display: none;
   }
 
-  &:visited {
-    color: lighten(#0ab88a, 2%);
+  span {
+    margin-left: 0;
+    color: $color-black-80;
+  }
+
+  div {
+    margin: 0;
+  }
+
+  button,
+  a {
+    background-color: white !important;
+    border: 1px solid $color-black-60;
+    color: $color-black-80;
+    margin: 0;
+
+    &:hover {
+      background-color: #d4d4d4 !important;
+    }
   }
 }

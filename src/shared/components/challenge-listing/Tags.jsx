@@ -6,6 +6,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { Tag } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
+import cn from 'classnames';
 import VerifiedTag from './VerifiedTag';
 import './style.scss';
 
@@ -16,7 +17,7 @@ const VISIBLE_TAGS = 3;
   * Implements <Tags> component
   */
 export default function Tags({
-  expand, isExpanded, tags, onTechTagClicked, challengesUrl, recommended, verifiedTags,
+  expand, isExpanded, tags, skills, onTechTagClicked, challengesUrl, recommended, verifiedTags,
 }) {
   const onClick = (item) => {
     // resolved conflict with c++ tag
@@ -43,7 +44,7 @@ export default function Tags({
              return (
                <VerifiedTag
                  challengesUrl={challengesUrl}
-                 item={item}
+                 item={item.value}
                  onClick={onClick}
                  recommended={recommended}
                />
@@ -51,14 +52,14 @@ export default function Tags({
            }
            return (
              (
-               <div styleName="additionalTag">
+               <div styleName={cn('additionalTag', { skill: item.type === 'skill' })}>
                  <Tag
-                   onClick={() => onClick(item.trim())}
-                   key={item}
+                   onClick={() => onClick(item.value.trim())}
+                   key={`${item.type}_${item.value}`}
                    role="button"
-                   to={tagRedirectLink(item)}
+                   to={tagRedirectLink(item.value)}
                  >
-                   <span>{item}</span>
+                   <span>{item.value}</span>
                  </Tag>
                </div>
              )
@@ -70,7 +71,16 @@ export default function Tags({
 
   const renderTags = () => {
     const nonVerified = tags.filter(tag => !verifiedTags.includes(tag));
-    const allTags = _.union(verifiedTags, nonVerified);
+    const allTags = [
+      ..._.union(verifiedTags, nonVerified).map(tag => ({
+        type: 'tag',
+        value: tag,
+      })),
+      ...skills.map(skill => ({
+        type: 'skill',
+        value: skill,
+      })),
+    ];
 
     if (allTags.length) {
       let display = [...new Set(allTags)];
@@ -80,13 +90,16 @@ export default function Tags({
       if (allTags.length > VISIBLE_TAGS && !isExpanded) {
         const expandItem = `+${display.length - VISIBLE_TAGS}`;
         display = allTags.slice(0, VISIBLE_TAGS);
-        display.push(expandItem);
+        display.push({
+          type: 'tag',
+          value: expandItem,
+        });
       }
       return display.map((item, index) => {
-        if (item) {
-          if ((recommended && index < verifiedTags.length) || item[0] === '+') {
+        if (item.value) {
+          if ((recommended && index < verifiedTags.length) || item.value[0] === '+') {
             return (
-              item[0] === '+' ? (
+              item.value[0] === '+' ? (
                 <div styleName="recommended-plus-tag">
                   <Tooltip
                     id="recommended-tip"
@@ -95,21 +108,23 @@ export default function Tags({
                     )}
                     trigger={['hover', 'focus']}
                   >
-                    <Tag
-                      onClick={() => onClick(item.trim())}
-                      key={item}
-                      role="button"
-                      to={tagRedirectLink(item)}
-                    >
-                      <span>{item}</span>
-                    </Tag>
+                    <div styleName="tag skill">
+                      <Tag
+                        onClick={() => onClick(item.value.trim())}
+                        key={`${item.type}_${item.value}`}
+                        role="button"
+                        to={tagRedirectLink(item.value)}
+                      >
+                        <span>{item.value}</span>
+                      </Tag>
+                    </div>
                   </Tooltip>
                 </div>
               )
                 : (
                   <VerifiedTag
                     challengesUrl={challengesUrl}
-                    item={item}
+                    item={item.value}
                     onClick={onClick}
                     recommended={recommended}
                   />
@@ -118,14 +133,14 @@ export default function Tags({
           }
 
           return (
-            <div styleName="tag">
+            <div styleName={cn('tag', { skill: item.type === 'skill' })}>
               <Tag
-                onClick={() => onClick(item.trim())}
-                key={item}
+                onClick={() => onClick(item.value.trim())}
+                key={`${item.type}_${item.value}`}
                 role="button"
-                to={tagRedirectLink(item)}
+                to={tagRedirectLink(item.value)}
               >
-                <span>{item}</span>
+                <span>{item.value}</span>
               </Tag>
             </div>
           );
@@ -148,6 +163,7 @@ export default function Tags({
 Tags.defaultProps = {
   onTechTagClicked: _.noop,
   tags: [],
+  skills: [],
   isExpanded: false,
   expand: null,
   challengesUrl: null,
@@ -159,6 +175,7 @@ Tags.defaultProps = {
 Tags.propTypes = {
   onTechTagClicked: PT.func,
   tags: PT.arrayOf(PT.string),
+  skills: PT.arrayOf(PT.string),
   isExpanded: PT.bool,
   expand: PT.func,
   challengesUrl: PT.string,

@@ -355,13 +355,14 @@ workflows:
                 - remove_submission_review
                 - standardised_skills
                 - TSJR-275
+                - skills_updates
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
           filters:
             branches:
               only:
-                - PROD-4251
+                - IC-13
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
