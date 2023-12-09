@@ -95,6 +95,7 @@ const ChallengeTab = ({
       isInnovationChallenge: 'true',
     });
     moveToChallengesPage(BUCKETS.OPEN_FOR_REGISTRATION, TAB_NAME.INNOVATION_CHALLENGE);
+    selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
   };
 
   const onPastChallengesClick = () => {
