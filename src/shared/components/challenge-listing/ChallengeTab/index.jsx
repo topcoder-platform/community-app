@@ -67,7 +67,9 @@ const ChallengeTab = ({
     if (currentTabName === TAB_NAME.ACTIVE_CHALLENGES) {
       return;
     }
-    setPreviousBucketOfPastChallengesTab(activeBucket);
+    if (past) {
+      setPreviousBucketOfPastChallengesTab(activeBucket);
+    }
     setCurrentSelected(0);
     setIsTabClosed(true);
     let selectedBucket = '';
@@ -90,6 +92,11 @@ const ChallengeTab = ({
     if (currentTabName === TAB_NAME.INNOVATION_CHALLENGE) {
       return;
     }
+    if (!past) {
+      setPreviousBucketOfActiveTab(activeBucket);
+    } else {
+      setPreviousBucketOfPastChallengesTab(activeBucket);
+    }
     setFilterState({
       ..._.cloneDeep(filterState),
       isInnovationChallenge: 'true',
@@ -102,7 +109,9 @@ const ChallengeTab = ({
     if (currentTabName === TAB_NAME.PAST_CHALLENGES) {
       return;
     }
-    setPreviousBucketOfActiveTab(activeBucket);
+    if (!past) {
+      setPreviousBucketOfActiveTab(activeBucket);
+    }
     setCurrentSelected(1);
     setIsTabClosed(true);
     let selectedBucket = '';
