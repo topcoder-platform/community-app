@@ -168,6 +168,8 @@ export default function ChallengeListing(props) {
         previousBucketOfActiveTab={previousBucketOfActiveTab}
         selectBucket={selectBucket}
         location={location}
+        filterState={props.filterState}
+        setFilterState={props.setFilterState}
       />
 
       <div styleName="tc-content-wrapper">

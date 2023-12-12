@@ -7,10 +7,12 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
 >
   <ChallengeTab
     activeBucket="abc"
+    filterState={Object {}}
     location={Object {}}
     previousBucketOfActiveTab={null}
     previousBucketOfPastChallengesTab={null}
     selectBucket={[MockFunction]}
+    setFilterState={[MockFunction]}
     setPreviousBucketOfActiveTab={[Function]}
     setPreviousBucketOfPastChallengesTab={[Function]}
   />
@@ -70,10 +72,12 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
 >
   <ChallengeTab
     activeBucket="abc"
+    filterState={Object {}}
     location={Object {}}
     previousBucketOfActiveTab={null}
     previousBucketOfPastChallengesTab={null}
     selectBucket={[MockFunction]}
+    setFilterState={[MockFunction]}
     setPreviousBucketOfActiveTab={[Function]}
     setPreviousBucketOfPastChallengesTab={[Function]}
   />
