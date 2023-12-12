@@ -426,7 +426,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challengePrizes = _.filter(placementPrizes.prizes, p => p.value > 0);
     }
 
-    /* Generation of data for SEO meta-tags. Default to use $ if no prizes are accessible*/
+    /* Generation of data for SEO meta-tags. Default to use $ if no prizes are accessible */
     let prizesStr = '';
     if (!_.isEmpty(challengePrizes) && challengePrizes[0].type && challengePrizes[0].type === 'USD') {
       prizesStr = challengePrizes.map(p => `$${p.value}`).join('/');
@@ -434,8 +434,7 @@ class ChallengeDetailPageContainer extends React.Component {
     } else if (!_.isEmpty(challengePrizes) && challengePrizes[0].type && challengePrizes[0].type === 'POINT') {
       prizesStr = challengePrizes.map(p => `${p.value}pts`).join('/');
       prizesStr = `[${prizesStr}] - `;
-    }
-    else {
+    } else {
       prizesStr = challengePrizes.map(p => `$${p.value}`).join('/');
       prizesStr = `[${prizesStr}] - `;
     }
