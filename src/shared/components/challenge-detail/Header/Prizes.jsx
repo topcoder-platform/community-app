@@ -23,8 +23,21 @@ export default function Prizes({ pointPrizes, prizes }) {
           const pair = [];
           const isPrizeIndexNotUndefined = !_.isUndefined(prizes[index])
             && !_.isUndefined(prizes[index].value);
-          if (isPrizeIndexNotUndefined) pair.push(prizes[index].value.toLocaleString());
-          if (!_.isUndefined(pointPrizes[index])) pair.push(`${pointPrizes[index]}pts`);
+          
+          // Deal with point based prize displays, in addition to monetary prizes
+          if (isPrizeIndexNotUndefined && prizes[index].type === "USD") {
+            pair.push("$" + prizes[index].value.toLocaleString());
+          }
+          else if (isPrizeIndexNotUndefined && prizes[index].type === "POINT") {
+            // Handle a single prize point, so the display isn't plural
+            if(prizes[index].value == 1) {
+              pair.push(`${prizes[index].value}pt`);  
+            }
+            else {
+              pair.push(`${prizes[index].value}pts`);
+            }
+          }
+
           return (
             <div
               styleName="prize-fill"
@@ -40,13 +53,6 @@ export default function Prizes({ pointPrizes, prizes }) {
                 </p>
               </div>
               <p styleName="prize-money" aria-hidden="true">
-                {
-                  isPrizeIndexNotUndefined && (
-                  <span styleName="prize-currency">
-                    $
-                  </span>
-                  )
-                }
                 {pair.join(' + ')}
               </p>
             </div>

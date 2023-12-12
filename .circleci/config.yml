@@ -349,13 +349,8 @@ workflows:
           filters:
             branches:
               only:
-                - TSJR-118
-                - PROD-4183
-                - changelog
                 - remove_submission_review
-                - standardised_skills
-                - TSJR-275
-                - skills_updates
+                - CORE-107
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global

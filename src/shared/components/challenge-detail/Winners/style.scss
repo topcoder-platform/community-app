@@ -22,6 +22,20 @@
   width: 100%;
 }
 
+.winner-title {
+  @include roboto-regular;
+  
+  display: block;
+  padding-bottom: 15px;
+  padding-right: 60px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: right;
+  width: 100%;
+  color: black;
+}
+
 .block-download-all {
   display: flex;
   justify-content: flex-end;
