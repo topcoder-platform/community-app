@@ -30,11 +30,11 @@ export default function Tip({
       prizeUnitSymbol={prizeUnitSymbol}
     />
   ));
-  
+
   // Show a different header on the tooltip for points vs. prizes
-  let prizesHeader = "Points"
-  if(prizeUnitSymbol === "$"){
-    prizesHeader = "Prizes"
+  let prizesHeader = 'Points';
+  if (prizeUnitSymbol === '$') {
+    prizesHeader = 'Prizes';
   }
 
   return (

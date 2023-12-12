@@ -45,20 +45,19 @@ export default function Winner({
 
   let prize = 'N/A';
   // Default to USD for the prize type for now
-  let prizeType = "USD";
+  let prizeType = 'USD';
   const prizeIndex = parseInt(winner.placement, 10) - 1;
-  if (prizes[prizeIndex]){
+  if (prizes[prizeIndex]) {
     prize = prizes[prizeIndex].value;
     prizeType = prizes[prizeIndex].type;
   }
 
   // Handle point prizes on the winners display
-  let prizeText = "";
-  if (prizeType === "POINT"){
-    prizeText = numberWithCommas(prize)
-  }
-  else{
-    prizeText = "$" + numberWithCommas(prize)
+  let prizeText = '';
+  if (prizeType === 'POINT') {
+    prizeText = numberWithCommas(prize);
+  } else {
+    prizeText = `$${numberWithCommas(prize)}`;
   }
 
   return (

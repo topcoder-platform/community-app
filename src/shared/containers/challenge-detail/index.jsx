@@ -428,15 +428,14 @@ class ChallengeDetailPageContainer extends React.Component {
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr = '';
-    if (!_.isEmpty(challengePrizes && challengePrizes[0].type === "USD")) {
+    if (!_.isEmpty(challengePrizes && challengePrizes[0].type === 'USD')) {
       prizesStr = challengePrizes.map(p => `$${p.value}`).join('/');
       prizesStr = `[${prizesStr}] - `;
-    }
-    else if (!_.isEmpty(challengePrizes && challengePrizes[0].type === "POINT")) {
+    } else if (!_.isEmpty(challengePrizes && challengePrizes[0].type === 'POINT')) {
       prizesStr = challengePrizes.map(p => `${p.value}pts`).join('/');
       prizesStr = `[${prizesStr}] - `;
     }
-    
+
     const title = 'Topcoder Challenge | Topcoder Community | Topcoder';
     const description = 'Browse the challenges currently available on Topcoder. Search by type of challenge, then find those of interest to register for and compete in today.';
 

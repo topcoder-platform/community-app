@@ -30,7 +30,7 @@ export default function Winners({
   // todo: hide download button until update submissions API
   const hideDownloadForMMRDM = true;
   const [downloadingAll, setDownloadingAll] = useState(false);
-  const showWinnerHeader = prizes.length > 0 && prizes[0].type && (prizes[0].type === "POINT")
+  const showWinnerHeader = prizes.length > 0 && prizes[0].type && (prizes[0].type === 'POINT');
   return (
     <div styleName="container">
       {
@@ -80,9 +80,8 @@ export default function Winners({
           </div>
         )
       }
-      
       {
-        //Show the new "Points" header when we have a points challenge
+        // Show the new "Points" header when we have a points challenge
         showWinnerHeader && (
           <span styleName="winner-title">Points</span>
         )
