@@ -166,7 +166,7 @@ export function getPrizePointsUI(challenge) {
     let prizeUnitSymbol = '$';
     let purseLabel = 'Purse';
     // Handle a points based prize (CORE-107)
-    if (prizes[0].type === 'POINT') {
+    if (prizes.length > 0 && prizes[0].type && prizes[0].type === 'POINT') {
       prizeUnitSymbol = '';
       purseLabel = 'Points';
     }
