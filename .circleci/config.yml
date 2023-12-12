@@ -356,6 +356,7 @@ workflows:
                 - standardised_skills
                 - TSJR-275
                 - skills_updates
+                - IC-15
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
