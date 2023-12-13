@@ -90,7 +90,7 @@ function DropdownSkills({
       className="dropdownContainer"
       styleName={`container ${
         selectedOption && !!selectedOption.length ? 'haveValue' : ''
-      } ${errorMsg ? 'haveError' : ''} ${_.every(internalTerms, { selected: true }) ? 'isEmptySelectList' : ''}`}
+      } ${errorMsg ? 'haveError' : ''}`}
     >
       <div styleName="relative">
         <Async

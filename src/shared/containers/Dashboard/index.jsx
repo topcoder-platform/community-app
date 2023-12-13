@@ -24,11 +24,16 @@ import darkTheme from './themes/dark.scss';
 const THEMES = {
   dark: darkTheme,
 };
+const { INNOVATION_CHALLENGES_TAG } = config;
 
 function SlashTCContainer(props) {
   const theme = THEMES.dark; // for v1 only dark theme
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
   const title = 'Home | Topcoder';
+  const challengeListingQuery = {
+    search: INNOVATION_CHALLENGES_TAG,
+    isInnovationChallenge: true,
+  };
 
   useEffect(() => {
     if (props.tokenV3 && !isTokenExpired(props.tokenV3)) return;
@@ -49,7 +54,15 @@ function SlashTCContainer(props) {
             <div className={theme.column}>
               <TopcoderTime />
               <Viewport id="1BK50OyMT29IOavUC7wSEB" />
-              <ChallengesFeed theme="dark" />
+              <ChallengesFeed
+                theme="dark"
+                title="INNOVATION CHALLENGES"
+                tags={[INNOVATION_CHALLENGES_TAG]}
+                challengeListingQuery={challengeListingQuery}
+                tracks={[]}
+                itemCount={20}
+              />
+              <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
               <GigsFeed itemCount={5} theme="dark" />
               <NewsFeed />
               <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
@@ -70,7 +83,15 @@ function SlashTCContainer(props) {
             {/* Center column */}
             <div className={theme.column}>
               <Viewport id="1BK50OyMT29IOavUC7wSEB" />
-              <ChallengesFeed theme="dark" />
+              <ChallengesFeed
+                theme="dark"
+                title="INNOVATION CHALLENGES"
+                tags={[INNOVATION_CHALLENGES_TAG]}
+                challengeListingQuery={challengeListingQuery}
+                tracks={[]}
+                itemCount={20}
+              />
+              <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
               <GigsFeed itemCount={5} theme="dark" />
               <NewsFeed />
             </div>
