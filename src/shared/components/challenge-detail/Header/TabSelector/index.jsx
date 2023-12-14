@@ -46,7 +46,11 @@ export default function ChallengeViewSelector(props) {
   const { type, tags, metadata } = challenge;
   const dashboardMetadata = _.find(metadata, { name: 'show_data_dashboard' });
   if (dashboardMetadata) {
-    showDashboard = dashboardMetadata.value;
+    if (_.isString(dashboardMetadata.value)) {
+      showDashboard = dashboardMetadata.value === 'true';
+    } else if (_.isBoolean(dashboardMetadata.value)) {
+      showDashboard = dashboardMetadata.value;
+    }
   }
 
   const [currentSelected, setCurrentSelected] = useState('Details');
