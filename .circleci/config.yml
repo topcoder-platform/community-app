@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - IC-13
+                - metadata-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
