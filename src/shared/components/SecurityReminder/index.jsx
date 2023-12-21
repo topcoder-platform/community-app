@@ -36,7 +36,7 @@ function SecurityReminder({
                   To keep private any downloaded data (including code)
                 </li>
                 <ul>
-                  <li>Except sharing or submission as directed or authorized by Topcoder</li>
+                  <li>Except sharing a submission as directed or authorized by Topcoder</li>
                 </ul>
                 <li>To delete such data after completion of the challenge or project</li>
               </ul>
