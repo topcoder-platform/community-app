@@ -44,8 +44,21 @@ export default function Winner({
   }
 
   let prize = 'N/A';
+  // Default to USD for the prize type for now
+  let prizeType = 'USD';
   const prizeIndex = parseInt(winner.placement, 10) - 1;
-  if (prizes[prizeIndex]) prize = prizes[prizeIndex].value;
+  if (prizes[prizeIndex]) {
+    prize = prizes[prizeIndex].value;
+    prizeType = prizes[prizeIndex].type;
+  }
+
+  // Handle point prizes on the winners display
+  let prizeText = '';
+  if (prizeType === 'POINT') {
+    prizeText = numberWithCommas(prize);
+  } else {
+    prizeText = `$${numberWithCommas(prize)}`;
+  }
 
   return (
     <div styleName="winner">
@@ -86,8 +99,7 @@ export default function Winner({
 
       <div styleName="right">
         <div styleName="prize">
-          $
-          {numberWithCommas(prize)}
+          {prizeText}
         </div>
       </div>
       <div styleName="download-container">

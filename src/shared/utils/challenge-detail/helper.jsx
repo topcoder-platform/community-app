@@ -160,13 +160,21 @@ export function getPrizePurseUI(
  */
 export function getPrizePointsUI(challenge) {
   const placementPrizes = _.find(challenge.prizeSets, { type: 'placement' });
+
   if (placementPrizes) {
     const { prizes } = placementPrizes || [];
+    let prizeUnitSymbol = '$';
+    let purseLabel = 'Purse';
+    // Handle a points based prize (CORE-107)
+    if (prizes.length > 0 && prizes[0].type && prizes[0].type === 'POINT') {
+      prizeUnitSymbol = '';
+      purseLabel = 'Points';
+    }
     return (
       <Prize
-        label="Purse"
+        label={purseLabel}
         prizes={prizes}
-        prizeUnitSymbol="$"
+        prizeUnitSymbol={prizeUnitSymbol}
         totalPrize={prizes.reduce((acc, prize) => acc + prize.value, 0)}
       />
     );
