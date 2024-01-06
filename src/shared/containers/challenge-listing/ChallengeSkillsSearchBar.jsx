@@ -2,12 +2,13 @@
 /**
  * Dropdown skills component.
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import challengeListingActions from 'actions/challenge-listing';
 import PT from 'prop-types';
 import DropdownSkills from 'components/GUIKit/DropdownSkills';
+import { getSkills } from 'utils/skills';
 import './ChallengeSkillsSearchBar.scss';
 
 function ChallengeSkillsSearchBar({
@@ -15,15 +16,18 @@ function ChallengeSkillsSearchBar({
   filterState,
   auth,
 }) {
+  const skills = useMemo(() => (filterState.searchSkills || []).map(skill => ({
+    label: getSkills(skill),
+    value: skill,
+    selected: true,
+  })), [filterState.searchSkills]);
+
   return (
     <div styleName="container">
       <DropdownSkills
-        terms={(filterState.searchSkills || []).map(skill => ({
-          label: skill,
-          selected: true,
-        }))}
+        terms={skills}
         onChange={(newSkill) => {
-          const skillStrings = (newSkill || []).map(skill => skill.label);
+          const skillStrings = (newSkill || []).map(skill => skill.value);
           setFilterState({ ..._.clone(filterState), searchSkills: skillStrings });
         }}
         placeholder="Search Skills"

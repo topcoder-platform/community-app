@@ -9,6 +9,7 @@ import {
   getEndDate,
   getPrizePointsUI,
 } from 'utils/challenge-detail/helper';
+import { saveSkills } from 'utils/skills';
 
 import Tags from '../Tags';
 
@@ -51,7 +52,10 @@ function ChallengeCard({
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
   const isRecommendedChallenge = !!challenge.jaccard_index;
-  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+  const skills = useMemo(() => {
+    saveSkills(challenge.skills);
+    return _.uniq((challenge.skills || []).map(skill => skill.id));
+  }, [
     challenge.skills,
   ]);
 

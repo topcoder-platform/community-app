@@ -6,6 +6,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { Tag } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
+import { getSkills } from 'utils/skills';
 import cn from 'classnames';
 import VerifiedTag from './VerifiedTag';
 import './style.scss';
@@ -63,7 +64,7 @@ export default function Tags({
                    role="button"
                    to={tagRedirectLink(item.value, item.type === 'skill')}
                  >
-                   <span>{item.value}</span>
+                   <span>{item.type === 'skill' ? getSkills(item.value) : item.value}</span>
                  </Tag>
                </div>
              )
@@ -144,7 +145,7 @@ export default function Tags({
                 role="button"
                 to={tagRedirectLink(item.value, item.type === 'skill')}
               >
-                <span>{item.value}</span>
+                <span>{item.type === 'skill' ? getSkills(item.value) : item.value}</span>
               </Tag>
             </div>
           );

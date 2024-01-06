@@ -13,6 +13,7 @@ import Tooltip from 'components/Tooltip';
 
 import { time } from 'topcoder-react-lib';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import { saveSkills } from 'utils/skills';
 
 import Tags from '../Tags';
 
@@ -49,7 +50,10 @@ function ReviewOpportunityCard({
 }) {
   const { challenge } = opportunity;
   let tags = challenge.tags || challenge.technologies;
-  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+  const skills = useMemo(() => {
+    saveSkills(challenge.skills);
+    return _.uniq((challenge.skills || []).map(skill => skill.id));
+  }, [
     challenge.skills,
   ]);
   tags = tags.filter(tag => tag.trim().length);

@@ -15,6 +15,7 @@ import React, { useMemo } from 'react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
+import { saveSkills } from 'utils/skills';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
 import {
   getTimeLeft,
@@ -128,7 +129,10 @@ export default function ChallengeHeader(props) {
     const challengeTags = _.isArray(tags) ? tags : (tags || '').split(', ');
     return _.uniq(challengeTags);
   }, [challenge.tags]);
-  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+  const skills = useMemo(() => {
+    saveSkills(challenge.skills);
+    return _.uniq((challenge.skills || []).map(skill => skill.id));
+  }, [
     challenge.skills,
   ]);
 

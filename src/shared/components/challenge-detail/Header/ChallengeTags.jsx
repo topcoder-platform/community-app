@@ -18,6 +18,7 @@ import {
 
 import VerifiedTag from 'components/challenge-listing/VerifiedTag';
 import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
+import { getSkills } from 'utils/skills';
 import { calculateScore } from '../../../utils/challenge-listing/helper';
 import './style.scss';
 
@@ -145,7 +146,7 @@ export default function ChallengeTags(props) {
                   to={`${challengesUrl}?searchSkills[]=${
                     encodeURIComponent(skill)}`}
                 >
-                  {skill}
+                  {getSkills(skill)}
                 </Tag>
               </span>
               )

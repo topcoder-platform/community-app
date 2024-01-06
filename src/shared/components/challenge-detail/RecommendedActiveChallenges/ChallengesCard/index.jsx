@@ -10,6 +10,7 @@ import {
   getPrizePurseUI,
   getTimeLeft,
 } from 'utils/challenge-detail/helper';
+import { saveSkills } from 'utils/skills';
 
 import TrackIcon from 'components/TrackIcon';
 import Tags from '../../../challenge-listing/Tags';
@@ -41,7 +42,10 @@ export default function ChallengesCard({
   const statusPhase = phases
     .filter(p => p.name !== 'Registration')
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
-  const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
+  const skills = useMemo(() => {
+    saveSkills(challenge.skills);
+    return _.uniq((challenge.skills || []).map(skill => skill.id));
+  }, [
     challenge.skills,
   ]);
 

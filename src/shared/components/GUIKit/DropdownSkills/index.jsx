@@ -13,6 +13,7 @@ import _ from 'lodash';
 import { Async } from 'react-select';
 import './style.scss';
 import { getService } from 'services/skills';
+import { saveSkills } from 'utils/skills';
 
 import { config } from 'topcoder-react-utils';
 
@@ -36,7 +37,7 @@ function DropdownSkills({
           const skills = response || [];
           const suggestedOptions = skills.map(skillItem => ({
             label: skillItem.name,
-            value: skillItem.name,
+            value: skillItem.id,
           }));
           return callback(null, {
             options: suggestedOptions,
@@ -48,7 +49,7 @@ function DropdownSkills({
 
   const [internalTerms, setInternalTerms] = useState(terms);
   const selectedOption = _.filter(internalTerms, { selected: true }).map(o => ({
-    value: o.label,
+    value: o.value || o.label,
     label: o.label,
   }));
   const delayedOnChange = useRef(
@@ -119,7 +120,8 @@ function DropdownSkills({
           optionComponent={CustomReactSelectRow}
           value={selectedOption}
           onChange={(value) => {
-            const newValues = value.map(o => ({ selected: true, label: o.label }));
+            const newValues = value.map(o => ({ selected: true, label: o.label, value: o.value }));
+            saveSkills(newValues);
             delayedOnChange(
               _.cloneDeep(newValues),
               onChange,
