@@ -350,7 +350,7 @@ workflows:
             branches:
               only:
                 - remove_submission_review
-                - CORE-107
+                - TSJR-309
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
