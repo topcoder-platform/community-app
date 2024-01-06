@@ -4,7 +4,7 @@
  */
 
 import _ from 'lodash';
-import React, { useMemo } from 'react';
+import React from 'react';
 import PT from 'prop-types';
 import { Link, config } from 'topcoder-react-utils';
 import TextInput from 'components/GUIKit/TextInput';
@@ -21,7 +21,6 @@ import bigCheckmark from 'assets/images/big-checkmark.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
 import BackArrowGig from 'assets/images/back-arrow-gig-apply.svg';
 import CheckmarkGreen from 'assets/images/checkmark-green.svg';
-import { getService } from 'services/skills';
 
 export default function GigApply(props) {
   const {
@@ -39,24 +38,6 @@ export default function GigApply(props) {
   const retUrl = window.location.href;
   const duration = getCustomField(job.custom_fields, 'Duration');
   const isPlaced = _.find(_.isEmpty(recruitProfile) ? [] : recruitProfile.custom_fields, { field_id: 12 });
-  const fetchSkills = useMemo(() => _.debounce((inputValue, callback) => {
-    if (!inputValue) {
-      callback(null);
-    } else {
-      getService(auth.tokenV3).getSkills(inputValue).then(
-        (response) => {
-          const skills = response || [];
-          const suggestedOptions = skills.map(skillItem => ({
-            label: skillItem.name,
-            value: skillItem.name,
-          }));
-          return callback(null, {
-            options: suggestedOptions,
-          });
-        },
-      ).catch(() => callback(null));
-    }
-  }, 150), [auth.tokenV3]);
 
   return user ? (
     <div styleName="container">
@@ -289,7 +270,7 @@ export default function GigApply(props) {
                       addNewOptionPlaceholder="Type to add another skill..."
                       required
                       cacheOptions
-                      loadOptions={fetchSkills}
+                      auth={auth}
                     />
                   </div>
                   <h4>FINAL QUESTIONS</h4>

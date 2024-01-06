@@ -7,6 +7,11 @@ exports[`Matches shallow shapshot 1`] = `
   <div
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
+    <div
+      className="src-shared-components-challenge-listing-Sidebar-___style__ChallengeSkillsSearchBar___Icj6d"
+    >
+      <Connect(ChallengeSkillsSearchBar) />
+    </div>
     <Connect(Container) />
     <BucketSelector
       activeBucket="activeBucket"
@@ -30,6 +35,11 @@ exports[`Matches shallow shapshot 2`] = `
   <div
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
+    <div
+      className="src-shared-components-challenge-listing-Sidebar-___style__ChallengeSkillsSearchBar___Icj6d"
+    >
+      <Connect(ChallengeSkillsSearchBar) />
+    </div>
     <Connect(Container) />
     <BucketSelector
       activeBucket="activeBucket"

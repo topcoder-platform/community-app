@@ -19,17 +19,21 @@ const VISIBLE_TAGS = 3;
 export default function Tags({
   expand, isExpanded, tags, skills, onTechTagClicked, challengesUrl, recommended, verifiedTags,
 }) {
-  const onClick = (item) => {
+  const onClick = (item, isSkill = false) => {
     // resolved conflict with c++ tag
     if (item.indexOf('+') === 0) {
       if (expand) expand();
     } else {
-      onTechTagClicked(item);
+      onTechTagClicked(item, isSkill);
     }
   };
 
-  const tagRedirectLink = (item) => {
+  const tagRedirectLink = (item, isSkill = false) => {
     if (challengesUrl && item.indexOf('+') !== 0) {
+      if (isSkill) {
+        return `${challengesUrl}?searchSkills[]=${
+          encodeURIComponent(item)}`;
+      }
       return `${challengesUrl}?filter[tags][0]=${
         encodeURIComponent(item)}`;
     }
@@ -54,10 +58,10 @@ export default function Tags({
              (
                <div styleName={cn('additionalTag', { skill: item.type === 'skill' })}>
                  <Tag
-                   onClick={() => onClick(item.value.trim())}
+                   onClick={() => onClick(item.value.trim(), item.type === 'skill')}
                    key={`${item.type}_${item.value}`}
                    role="button"
-                   to={tagRedirectLink(item.value)}
+                   to={tagRedirectLink(item.value, item.type === 'skill')}
                  >
                    <span>{item.value}</span>
                  </Tag>
@@ -135,10 +139,10 @@ export default function Tags({
           return (
             <div styleName={cn('tag', { skill: item.type === 'skill' })}>
               <Tag
-                onClick={() => onClick(item.value.trim())}
+                onClick={() => onClick(item.value.trim(), item.type === 'skill')}
                 key={`${item.type}_${item.value}`}
                 role="button"
-                to={tagRedirectLink(item.value)}
+                to={tagRedirectLink(item.value, item.type === 'skill')}
               >
                 <span>{item.value}</span>
               </Tag>

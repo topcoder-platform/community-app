@@ -7,7 +7,6 @@ import challengeListingActions from 'actions/challenge-listing';
 import ChallengeSearchBar from 'components/challenge-listing/Filters/ChallengeSearchBar';
 import PT from 'prop-types';
 import React from 'react';
-import { isReviewOpportunitiesBucket, isPastBucket } from 'utils/challenge-listing/buckets';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -28,21 +27,16 @@ export class Container extends React.Component {
 
   render() {
     const {
-      activeBucket,
       searchText,
       setSearchText,
     } = this.props;
-
-    const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
-    const searchPlaceholderText = isPastBucket(activeBucket) ? 'Search Past Challenges' : 'Search Active Challenges';
-
     return (
       <ChallengeSearchBar
         onSearch={(text) => {
           setSearchText(text);
           this.onSearch(text);
         }}
-        placeholder={isForReviewOpportunities ? 'Search Review Opportunities' : searchPlaceholderText}
+        placeholder="Search Tags"
         query={searchText}
       />
     );
@@ -54,7 +48,6 @@ Container.defaultProps = {
 };
 
 Container.propTypes = {
-  activeBucket: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   setFilterState: PT.func.isRequired,
   searchText: PT.string,
@@ -73,7 +66,6 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   const cl = state.challengeListing;
   return {
-    activeBucket: cl.sidebar.activeBucket,
     filterState: cl.filter,
     searchText: state.challengeListing.filterPanel.searchText,
   };

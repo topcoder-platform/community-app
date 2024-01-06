@@ -20,6 +20,7 @@ import PT from 'prop-types';
 // import _ from 'lodash';
 import { isPastBucket } from 'utils/challenge-listing/buckets';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
+import ChallengeSkillsSearchBar from 'containers/challenge-listing/ChallengeSkillsSearchBar';
 import BucketSelector from './BucketSelector';
 // import FiltersEditor from './FiltersEditor';
 // import Footer from './Footer';
@@ -86,6 +87,9 @@ export default function SideBarFilters({
         </li>
       </ul> */}
       <div styleName="FilterBox">
+        <div styleName="ChallengeSkillsSearchBar">
+          <ChallengeSkillsSearchBar setFilterState={setFilterState} />
+        </div>
         <ChallengeSearchBar setFilterState={setFilterState} />
 
         {/* { editSavedFiltersMode ? (

@@ -67,9 +67,7 @@ const ChallengeTab = ({
     if (currentTabName === TAB_NAME.ACTIVE_CHALLENGES) {
       return;
     }
-    if (past) {
-      setPreviousBucketOfPastChallengesTab(activeBucket);
-    }
+    setPreviousBucketOfPastChallengesTab(activeBucket);
     setCurrentSelected(0);
     setIsTabClosed(true);
     let selectedBucket = '';
@@ -92,26 +90,18 @@ const ChallengeTab = ({
     if (currentTabName === TAB_NAME.INNOVATION_CHALLENGE) {
       return;
     }
-    if (!past) {
-      setPreviousBucketOfActiveTab(activeBucket);
-    } else {
-      setPreviousBucketOfPastChallengesTab(activeBucket);
-    }
     setFilterState({
       ..._.cloneDeep(filterState),
       isInnovationChallenge: 'true',
     });
     moveToChallengesPage(BUCKETS.OPEN_FOR_REGISTRATION, TAB_NAME.INNOVATION_CHALLENGE);
-    selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
   };
 
   const onPastChallengesClick = () => {
     if (currentTabName === TAB_NAME.PAST_CHALLENGES) {
       return;
     }
-    if (!past) {
-      setPreviousBucketOfActiveTab(activeBucket);
-    }
+    setPreviousBucketOfActiveTab(activeBucket);
     setCurrentSelected(1);
     setIsTabClosed(true);
     let selectedBucket = '';

@@ -1,0 +1,87 @@
+@import '~styles/mixins';
+@import '~components/GUIKit/Assets/Styles/default';
+
+$challenge-radius-4: $corner-radius * 2;
+
+.container {
+  @include roboto-regular;
+
+  :global {
+    .Select {
+      .Select-control {
+        min-height: 40px;
+        border: 1px solid $tc-gray-20 !important;
+        border-radius: $challenge-radius-4 !important;
+
+        .Select-multi-value-wrapper {
+          padding-top: 9px !important;
+          padding-right: 10px;
+        }
+
+        .Select-arrow-zone {
+          order: -1;
+          margin: auto 0 auto 11.4px !important;
+          width: 1.2px !important;
+          padding-right: 0 !important;
+
+          .Select-arrow {
+            opacity: 1;
+            height: 11.2px;
+            width: 11.2px;
+            background-image: url(assets/images/ui-zoom.svg);
+            background-size: 11.2px;
+            flex-shrink: 0;
+            transform: none !important;
+          }
+        }
+
+        .Select-value {
+          font-size: 14px !important;
+          margin-bottom: 5px !important;
+          margin-left: 5px !important;
+
+          .Select-value-label {
+            font-size: 14px;
+            max-width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+        }
+
+        .Select-placeholder {
+          @include roboto-regular;
+
+          color: $color-black-60;
+          font-size: 14px;
+          padding-left: 27px !important;
+        }
+
+        .Select-input {
+          input {
+            @include roboto-regular;
+
+            font-size: 14px;
+
+            &::-webkit-input-placeholder {
+              color: $color-black-60;
+              font-weight: 300 !important;
+              font-size: 14px !important;
+            }
+
+            &:-ms-input-placeholder {
+              color: $color-black-60;
+              font-weight: 300 !important;
+              font-size: 14px !important;
+            }
+
+            &::placeholder {
+              color: $color-black-60;
+              font-weight: 300 !important;
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
