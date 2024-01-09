@@ -357,7 +357,7 @@ workflows:
           filters:
             branches:
               only:
-                - metadata-fix
+                - CORE-187
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global
