@@ -34,8 +34,8 @@ function passedCheckpoint(checkpoints, handle, results) {
 }
 
 function getPlace(results, handle, places) {
-  const found = _.find(results, w => _.toString(w.memberHandle) === _.toString(handle)
-     && w.placement <= places && w.submissionStatus !== 'Failed Review');
+  const found = _.find(results, w => _.toString(w.handle) === _.toString(handle)
+     && w.placement <= places);
 
   if (found) {
     return found.placement;
