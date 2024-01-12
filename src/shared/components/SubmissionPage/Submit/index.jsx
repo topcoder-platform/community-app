@@ -163,6 +163,25 @@ class Submit extends React.Component {
       }
     }
 
+    const submissionInstruction = isChallengeBelongToTopgearGroup
+      ? `Challenge participants should upload the outcome/asset/deliverable of
+        the challenge to the repository specified by the project team/challenge creator.
+        Copy the link of the outcome/asset/deliverable that was uploaded and enter
+        this link in the text box and click on SET URL. Ensure that the submission
+        link always reflects the outcome that was delivered as part of the challenge.
+        Do not submit any irrelevant link as submission link is proof to the work done.`
+      : `Please follow the instructions on the Challenge Details page regarding
+        what your submission should contain and how it should be organized.`;
+    const troubleInstruction = isChallengeBelongToTopgearGroup
+      ? `If you are having trouble uploading your file, please raise a Service
+        Now (SNOW) ticket under the TopGear category.`
+      : (
+        <span>
+          If you are having trouble uploading your file, please send your submission
+          to <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+        </span>
+      );
+
     // Find the state for FilePicker with id of 1 or assign default values
     const fpState = filePickers.find(fp => fp.id === id) || ({
       id,
@@ -189,14 +208,14 @@ class Submit extends React.Component {
                   { isChallengeBelongToTopgearGroup ? 'URL' : 'SUBMISSION UPLOAD'}
                 </h2>
                 <p styleName="note">
-                  Please follow the instructions on the Challenge Details page regarding
-                  what your submission should contain and how it should be organized.
+                  { submissionInstruction }
                 </p>
                 {/* eslint-disable-next-line max-len */}
                 { track === COMPETITION_TRACKS.DEV || track === COMPETITION_TRACKS.DS || track === COMPETITION_TRACKS.QA ? (
                   <p styleName="additional-note">
-                    Upload your entire submission as a single zip file. If you are having
-                    trouble uploading your file, please send your submission to <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+                    { !isChallengeBelongToTopgearGroup
+                      && 'Upload your entire submission as a single zip file. ' }
+                    { troubleInstruction }
                   </p>
                 ) : null }
                 <div styleName="submission-hints">
@@ -229,7 +248,7 @@ class Submit extends React.Component {
                           Help Center.
                         </a>
                         &nbsp;
-                        If you are having trouble uploading your file, please send your submission to <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+                        { troubleInstruction }
                       </p>
                     </div>
                   ) : null }
@@ -266,13 +285,25 @@ class Submit extends React.Component {
               <p>
                 Submitting your files means you hereby agree to the
                 &zwnj;
-                <a
-                  href={config.URL.INFO.TOPCODER_TERMS}
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  Topcoder terms of use
-                </a>
+                {
+                  isChallengeBelongToTopgearGroup ? (
+                    <a
+                      href={config.URL.INFO.TOPGEAR_TERMS}
+                      rel="noreferrer noopener"
+                      target="_blank"
+                    >
+                      TopGear terms and conditions
+                    </a>
+                  ) : (
+                    <a
+                      href={config.URL.INFO.TOPCODER_TERMS}
+                      rel="noreferrer noopener"
+                      target="_blank"
+                    >
+                      Topcoder terms of use
+                    </a>
+                  )
+                }
                 &zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
                 you hereby assign, grant and transfer and agree to assign, grant and
