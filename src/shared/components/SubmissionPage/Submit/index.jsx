@@ -167,7 +167,7 @@ class Submit extends React.Component {
       ? `Challenge participants should upload the outcome/asset/deliverable of
         the challenge to the repository specified by the project team/challenge creator.
         Copy the link of the outcome/asset/deliverable that was uploaded and enter
-        this link in the text box and click on SET URL. Ensure that the submission
+        this link in the text box and click on SET URL. Note: Ensure that the submission
         link always reflects the outcome that was delivered as part of the challenge.
         Do not submit any irrelevant link as submission link is proof to the work done.`
       : `Please follow the instructions on the Challenge Details page regarding
