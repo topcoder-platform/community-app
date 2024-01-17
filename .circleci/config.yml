@@ -132,32 +132,34 @@ jobs:
             ./master_deploy.sh -d ECS -e QA -t latest -s qa_communityapp_taskvar -i communityapp
 
   # Build & Deploy against prod api backend
-  "build-prod-beta":
-    <<: *defaults
-    steps:
-      # Initialization.
-      - checkout
-      - setup_remote_docker
-      - run: *install_dependency
-      - run: *install_deploysuite
-      # Restoration of node_modules from cache.
-      - restore_cache: *restore_cache_settings_for_build
-      - run:
-          name: "configuring environment"
-          command: |
-            ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar -l prod_communityapp_buildvar_ps
-      # Build of Docker image.
-      - run: *build_docker_image
-      # Caching node modules.
-      - save_cache: *save_cache_settings
-      # Deployment.
-      - deploy:
-          name: Running MasterScript
-          command: |
-            source awsenvconf
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
+  # Deprecate this workflow due to beta env shutdown
+  # https://topcoder.atlassian.net/browse/CORE-201
+  # "build-prod-beta":
+  #   <<: *defaults
+  #   steps:
+  #     # Initialization.
+  #     - checkout
+  #     - setup_remote_docker
+  #     - run: *install_dependency
+  #     - run: *install_deploysuite
+  #     # Restoration of node_modules from cache.
+  #     - restore_cache: *restore_cache_settings_for_build
+  #     - run:
+  #         name: "configuring environment"
+  #         command: |
+  #           ./awsconfiguration.sh PROD
+  #           ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar -l prod_communityapp_buildvar_ps
+  #     # Build of Docker image.
+  #     - run: *build_docker_image
+  #     # Caching node modules.
+  #     - save_cache: *save_cache_settings
+  #     # Deployment.
+  #     - deploy:
+  #         name: Running MasterScript
+  #         command: |
+  #           source awsenvconf
+  #           source buildenvvar
+  #           ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
 
   # Build & Deploy against prod api backend
   "build-prod-staging":
@@ -366,12 +368,14 @@ workflows:
               only:
                 - qaenv
       # This is beta env for production soft releases
-      - "build-prod-beta":
-          context : org-global
-          filters:
-            branches:
-              only:
-                - develop
+      # Deprecate this workflow due to beta env shutdown
+      # https://topcoder.atlassian.net/browse/CORE-201
+      # - "build-prod-beta":
+      #     context : org-global
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
