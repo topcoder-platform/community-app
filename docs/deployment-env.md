@@ -7,7 +7,6 @@ There are total 4 deployment environments
 | 1 | Development  | Development | feature/fixes testing    | `https://community-app.topcoder-dev.com`     |
 | 2 | Test         | Development | feature/fixes testing    | `https://test-community-app.topcoder-dev.com`|
 | 3 | QA           | Development | Smoke/regression testing | `https://qa-community-app.topcoder-dev.com`  |
-| 4 | Beta         | Production  | Smoke testing only       | `https://beta-community-app.topcoder.com`    |
 | 5 | Production   | Production  | Main production          | `https://www.topcoder.com`                   |
 
 
@@ -35,13 +34,6 @@ workflows:
         # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
-          filters:
-            branches:
-              only:
-                - develop
-      # This is beta env for production soft releases
-      - "build-prod-beta":
-          context : org-global
           filters:
             branches:
               only:
