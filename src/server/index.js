@@ -213,10 +213,11 @@ async function onExpressJsSetup(server) {
           + ' https://www.googletagmanager.com'
           + ' https://i.ytimg.com'
           + ' https://images.contentful.com'
+          + ' https://member-media.topcoder-dev.com'
+          + ' https://member-media.topcoder.com'
           + ' https://d0.awsstatic.com/logos/;'
         + " manifest-src 'self';"
         + " media-src 'self';"
-        + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'
         + " worker-src 'self';",
       );
     }
