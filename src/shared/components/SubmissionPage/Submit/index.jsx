@@ -286,21 +286,21 @@ class Submit extends React.Component {
               {
                 isChallengeBelongToTopgearGroup ? (
                   <p>
-                  Submitting your link means you hereby agree to the
-                      <a
-                        href={config.URL.INFO.TOPGEAR_TERMS}
-                        rel="noreferrer noopener"
-                        target="_blank"
-                      >
-                        TopGear terms and conditions
-                      </a>
-                  and to the extent your uploaded file wins a TopGear challenge,
-                  you hereby assign, grant, and transfer to TopGear all right 
-                  and title to the Winning Submission.
-                </p>
+                    Submitting your link means you hereby agree to the
+                    <a
+                      href={config.URL.INFO.TOPGEAR_TERMS}
+                      rel="noreferrer noopener"
+                      target="_blank"
+                    >
+                      TopGear terms and conditions
+                    </a>
+                    and to the extent your uploaded file wins a TopGear challenge,
+                    you hereby assign, grant, and transfer to TopGear all right
+                    and title to the Winning Submission.
+                  </p>
                 ) : (
                   <p>
-                  Submitting your files means you hereby agree to the
+                    Submitting your files means you hereby agree to the
                     <a
                       href={config.URL.INFO.TOPCODER_TERMS}
                       rel="noreferrer noopener"
@@ -308,16 +308,15 @@ class Submit extends React.Component {
                     >
                       Topcoder terms of use
                     </a>
-                  and to the extent your uploaded file wins a topcoder Competition,
-                  you hereby assign, grant and transfer and agree to assign, grant and
-                  transfer to topcoder all right and title in and to the Winning Submission
-                  (as further described in the terms of use).
+                    and to the extent your uploaded file wins a topcoder Competition,
+                    you hereby assign, grant and transfer and agree to assign, grant and
+                    transfer to topcoder all right and title in and to the Winning Submission
+                    (as further described in the terms of use).
                   </p>
                 )
               }
               &zwnj;
-              <p>
-              </p>
+              <p />
               <div styleName="tc-checkbox">
                 <input
                   type="checkbox"
