@@ -294,8 +294,8 @@ class Submit extends React.Component {
                     >
                       TopGear terms and conditions
                     </a>
-                    &nbsp;and to the extent your uploaded file wins a TopGear challenge,
-                    you hereby assign, grant, and transfer to TopGear all right
+                    &nbsp;and to the extent your submission wins a TopGear challenge,
+                    you hereby agree to assign, grant, and transfer to TopGear all right
                     and title to the Winning Submission.
                   </p>
                 ) : (
