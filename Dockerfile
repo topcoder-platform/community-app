@@ -2,7 +2,7 @@
 # and runs it against the specified Topcoder backend (development or
 # production) when container is executed.
 
-FROM node:8.11.2
+FROM node:8.13
 LABEL app="Community App" version="1.0"
 
 WORKDIR /opt/app
