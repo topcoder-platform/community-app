@@ -163,10 +163,10 @@ async function onExpressJsSetup(server) {
           + ' https://uni-nav.topcoder.com'
           + ' https://js.hs-analytics.net'
           + ' https://cdn-3.convertexperiments.com'
-          + ' https://js-na1.hs-scripts.com' // Hubspot
-          + ' https://js.hs-banner.com' // Hubspot
-          + ' https://js.usemessages.com' // Hubspot
-          + ' https://js.hscollectedforms.net'  // Hubspot
+          + ' https://js-na1.hs-scripts.com'
+          + ' https://js.hs-banner.com'
+          + ' https://js.usemessages.com'
+          + ' https://js.hscollectedforms.net'
           + ' https://www.googletagmanager.com;'
         + " style-src 'report-sample' 'self' 'unsafe-inline'"
           + ` ${config.CDN.PUBLIC}`
