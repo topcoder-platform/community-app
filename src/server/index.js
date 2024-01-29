@@ -164,6 +164,9 @@ async function onExpressJsSetup(server) {
           + ' https://js.hs-analytics.net'
           + ' https://cdn-3.convertexperiments.com'
           + ' https://js-na1.hs-scripts.com'
+          + ' https://js.hs-banner.com'
+          + ' https://js.usemessages.com'
+          + ' https://js.hscollectedforms.net'
           + ' https://www.googletagmanager.com;'
         + " style-src 'report-sample' 'self' 'unsafe-inline'"
           + ` ${config.CDN.PUBLIC}`
