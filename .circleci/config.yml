@@ -357,8 +357,8 @@ workflows:
           filters:
             branches:
               only:
-                - remove_submission_review
-                - CORE-107
+                - develop
+                - PROD-4429
       # This is alternate dev env for parallel testing
       # Deprecate this workflow due to beta env shutdown
       # https://topcoder.atlassian.net/browse/CORE-251
