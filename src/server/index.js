@@ -163,6 +163,7 @@ async function onExpressJsSetup(server) {
           + ' https://uni-nav.topcoder.com'
           + ' https://js.hs-analytics.net'
           + ' https://cdn-3.convertexperiments.com'
+          + ' https://js-na1.hs-scripts.com'
           + ' https://www.googletagmanager.com;'
         + " style-src 'report-sample' 'self' 'unsafe-inline'"
           + ` ${config.CDN.PUBLIC}`
@@ -184,6 +185,7 @@ async function onExpressJsSetup(server) {
           + ' https://ekr.zdassets.com'
           + ' https://stats.g.doubleclick.net'
           + ' https://region1.analytics.google.com'
+          + ' https://logs.convertexperiments.com'
           + ' https://www.google-analytics.com;'
         + " font-src 'self'"
           + ' data:'
@@ -215,6 +217,7 @@ async function onExpressJsSetup(server) {
           + ' https://images.contentful.com'
           + ' https://member-media.topcoder-dev.com'
           + ' https://member-media.topcoder.com'
+          + ' https://track.hubspot.com'
           + ' https://d0.awsstatic.com/logos/;'
         + " manifest-src 'self';"
         + " media-src 'self';"
