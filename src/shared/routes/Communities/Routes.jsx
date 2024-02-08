@@ -41,7 +41,6 @@ import tco21 from './TCO21';
 import tco22 from './TCO22';
 import tco23 from './TCO23';
 import Mobile from './Mobile';
-import Zurich from './Zurich';
 
 const TCOs = {
   tco01,
@@ -76,7 +75,6 @@ export default function Communities({
     case 'blockchain': return <Blockchain base={base} member={member} meta={meta} />;
     case 'community-2': return <Community2 base={base} meta={meta} />;
     case 'cs': return <CS base={base} meta={meta} />;
-    case 'zurich': return <Zurich base={base} meta={meta} />;
     case 'demo-expert': return <DemoExpert base={base} meta={meta} />;
     case 'qa': return <QA base={base} member={member} meta={meta} />;
     case 'srmx': return <SRMx base={base} meta={meta} />;
