@@ -358,7 +358,7 @@ workflows:
             branches:
               only:
                 - develop
-                - PROD-4429
+                - CORE-187
       # This is alternate dev env for parallel testing
       # Deprecate this workflow due to beta env shutdown
       # https://topcoder.atlassian.net/browse/CORE-251
