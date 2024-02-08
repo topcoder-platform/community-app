@@ -152,15 +152,21 @@ async function onExpressJsSetup(server) {
           + ' https://www.google-analytics.com'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
           + ' https://assets.ubembed.com'
-          + ' https://browser.sentry-cdn.com'
           + ' https://cdn.heapanalytics.com'
           + ' https://cdn.segment.com'
           + ' https://connect.facebook.net'
           + ' https://d1of0acg2orgco.cloudfront.net'
           + ' https://d1mwkvp2xbqfs9.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
-          + ' https://fast.trychameleon.com'
           + ' https://static.zdassets.com'
+          + ' https://uni-nav.topcoder-dev.com'
+          + ' https://uni-nav.topcoder.com'
+          + ' https://js.hs-analytics.net'
+          + ' https://cdn-3.convertexperiments.com'
+          + ' https://js-na1.hs-scripts.com'
+          + ' https://js.hs-banner.com'
+          + ' https://js.usemessages.com'
+          + ' https://js.hscollectedforms.net'
           + ' https://www.googletagmanager.com;'
         + " style-src 'report-sample' 'self' 'unsafe-inline'"
           + ` ${config.CDN.PUBLIC}`
@@ -180,8 +186,9 @@ async function onExpressJsSetup(server) {
           + ' https://api.segment.io'
           + ' https://cdn.segment.com'
           + ' https://ekr.zdassets.com'
-          + ' https://fast.trychameleon.com'
           + ' https://stats.g.doubleclick.net'
+          + ' https://region1.analytics.google.com'
+          + ' https://logs.convertexperiments.com'
           + ' https://www.google-analytics.com;'
         + " font-src 'self'"
           + ' data:'
@@ -211,10 +218,12 @@ async function onExpressJsSetup(server) {
           + ' https://www.googletagmanager.com'
           + ' https://i.ytimg.com'
           + ' https://images.contentful.com'
+          + ' https://member-media.topcoder-dev.com'
+          + ' https://member-media.topcoder.com'
+          + ' https://track.hubspot.com'
           + ' https://d0.awsstatic.com/logos/;'
         + " manifest-src 'self';"
         + " media-src 'self';"
-        + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'
         + " worker-src 'self';",
       );
     }

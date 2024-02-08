@@ -775,7 +775,6 @@ ChallengeDetailPageContainer.propTypes = {
   fetchChallengeStatistics: PT.func.isRequired,
   getAllCountries: PT.func.isRequired,
   getReviewTypes: PT.func.isRequired,
-  // loadResults: PT.func.isRequired,
   // loadingCheckpointResults: PT.bool,
   // loadingResultsForChallengeId: PT.string.isRequired,
   openTermsModal: PT.func.isRequired,
@@ -970,8 +969,8 @@ const mapDispatchToProps = (dispatch) => {
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
           if (ch.status === CHALLENGE_STATUS.COMPLETED) {
-            dispatch(a.loadResultsInit(ch.legacyId));
-            dispatch(a.loadResultsDone(tokens, ch.legacyId, ch.track.toLowerCase()));
+            dispatch(a.loadResultsInit(ch.id));
+            dispatch(a.loadResultsDone(ch.id));
           } else dispatch(a.dropResults());
           return res;
         });
@@ -1013,11 +1012,6 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
-    },
-    loadResults: (auth, challengeId, type) => {
-      const a = actions.challenge;
-      dispatch(a.loadResultsInit(challengeId));
-      dispatch(a.loadResultsDone(auth, challengeId, type));
     },
     fetchCheckpoints: (tokens, challengeId) => {
       const a = actions.challenge;
