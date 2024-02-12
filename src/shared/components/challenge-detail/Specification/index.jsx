@@ -94,6 +94,14 @@ export default function ChallengeDetailsView(props) {
     isWipro = wiproCommunity.groupIds.some(id => groups.includes(id));
   }
 
+  // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
+  // CORE-292
+  let isTopCrowdChallenge = false;
+  const isTopCrowdChallengeData = _.find(metadata, { name: 'is_platform' });
+  if (isTopCrowdChallengeData) {
+    isTopCrowdChallenge = isTopCrowdChallengeData.value;
+  }
+
   let accentedStyle = '';
   switch (track.toLowerCase()) {
     case 'design':
@@ -396,25 +404,27 @@ export default function ChallengeDetailsView(props) {
             )}
           </div>
         </div>
-        <SideBar
-          challengesUrl={challengesUrl}
-          legacyId={legacyId}
-          forumLink={forumLink}
-          discuss={discuss}
-          documents={documents}
-          hasRegistered={hasRegistered}
-          isDesign={track.toLowerCase() === 'design'}
-          isDevelop={track.toLowerCase() === 'development'}
-          eventDetail={_.isEmpty(events) ? null : events[0]}
-          isMM={isMM(challenge)}
-          terms={terms}
-          shareable={_.isEmpty(groups)}
-          environment={environment}
-          codeRepo={codeRepo}
-          metadata={metadata}
-          reviewScorecardId={reviewScorecardId}
-          screeningScorecardId={screeningScorecardId}
-        />
+        { !isTopCrowdChallenge ? (
+          <SideBar
+            challengesUrl={challengesUrl}
+            legacyId={legacyId}
+            forumLink={forumLink}
+            discuss={discuss}
+            documents={documents}
+            hasRegistered={hasRegistered}
+            isDesign={track.toLowerCase() === 'design'}
+            isDevelop={track.toLowerCase() === 'development'}
+            eventDetail={_.isEmpty(events) ? null : events[0]}
+            isMM={isMM(challenge)}
+            terms={terms}
+            shareable={_.isEmpty(groups)}
+            environment={environment}
+            codeRepo={codeRepo}
+            metadata={metadata}
+            reviewScorecardId={reviewScorecardId}
+            screeningScorecardId={screeningScorecardId}
+          />
+        ) : (<div></div>) }
       </div>
     </div>
   );
