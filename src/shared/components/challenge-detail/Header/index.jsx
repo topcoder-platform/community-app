@@ -80,13 +80,13 @@ export default function ChallengeHeader(props) {
     status,
     type,
     track,
-    metadata
+    metadata,
   } = challenge;
 
   // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
   // CORE-292
   let isTopCrowdChallenge = false;
-  let topcrowdLink = "";
+  let topcrowdLink = '';
   const isTopCrowdChallengeData = _.find(metadata, { name: 'is_platform' });
   if (isTopCrowdChallengeData) {
     isTopCrowdChallenge = isTopCrowdChallengeData.value;
@@ -439,7 +439,9 @@ export default function ChallengeHeader(props) {
                   <PrimaryButton
                     disabled={registerButtonDisabled}
                     theme={{
-                      button: registerButtonDisabled ? style.submitButtonDisabled : style.registerBtn,
+                      button: registerButtonDisabled
+                        ? style.submitButtonDisabled
+                        : style.registerBtn,
                     }}
                     forceA
                     onClick={registerForChallenge}
@@ -581,6 +583,7 @@ ChallengeHeader.propTypes = {
     roundId: PT.any,
     prizeSets: PT.any,
     match_skills: PT.arrayOf(PT.string),
+    metadata: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,

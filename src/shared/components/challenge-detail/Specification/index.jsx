@@ -424,7 +424,7 @@ export default function ChallengeDetailsView(props) {
             reviewScorecardId={reviewScorecardId}
             screeningScorecardId={screeningScorecardId}
           />
-        ) : (<div></div>) }
+        ) : (<div />) }
       </div>
     </div>
   );
