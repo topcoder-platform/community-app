@@ -469,13 +469,18 @@ export default function ChallengeHeader(props) {
                 }
               </div>
             ) : (
-              <div styleName="challenge-ops-container">
-                <PrimaryButton
-                  theme={{ button: style.submitButton }}
-                  to={`${topcrowdLink}`}
-                >
-                  Go to Topcrowd
-                </PrimaryButton>
+              <div styleName="topcrowd-container">
+                This challenge is hosted on the <br />
+                new Topcoder Platform
+
+                <div>
+                  <Link
+                    openNewTab
+                    to={`${topcrowdLink}`}
+                  >
+                    Visit Challenge Registration
+                  </Link>
+                </div>
               </div>
             )}
           </div>

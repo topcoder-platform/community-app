@@ -10,6 +10,38 @@
   padding: 0 25px !important;
 }
 
+.topcrowd-container {
+  display: block;
+  margin-top: 32px;
+  margin-right: 50px;
+  margin-left: 50px;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.2em;
+
+  a {
+    color: $tc-dark-blue;
+    display: block;
+    padding-top: 20px;
+
+    &::after {
+      content: "\f08e";
+      display: inline;
+      align-items: center;
+      justify-content: center;
+      right: 6px;
+      top: 46%;
+      height: 34px;
+      font-family: "FontAwesome", serif;
+      font-size: 12px;
+      color: $tc-dark-blue;
+      transform: translateY(-50%);
+      pointer-events: none;
+      margin-left: 5px;
+    }
+  }
+}
+
 .challenge-ops-container .submitButton {
   margin: 5px;
   min-width: 0;
