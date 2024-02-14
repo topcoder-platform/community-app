@@ -80,7 +80,21 @@ export default function ChallengeHeader(props) {
     status,
     type,
     track,
+    metadata,
   } = challenge;
+
+  // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
+  // CORE-292
+  let isTopCrowdChallenge = false;
+  let topcrowdLink = '';
+  const isTopCrowdChallengeData = _.find(metadata, { name: 'is_platform' });
+  if (isTopCrowdChallengeData) {
+    isTopCrowdChallenge = isTopCrowdChallengeData.value;
+  }
+  const topcrowdLinkData = _.find(metadata, { name: 'platform_link' });
+  if (topcrowdLinkData) {
+    topcrowdLink = topcrowdLinkData.value;
+  }
   const showDeadlineDetail = showDeadlineDetailProp;
   const isActivedChallenge = `${status}`.indexOf(CHALLENGE_STATUS.ACTIVE) >= 0;
 
@@ -406,51 +420,69 @@ export default function ChallengeHeader(props) {
               }
           </div>
           <div styleName="challenge-ops-wrapper">
-            <div styleName="challenge-ops-container">
-              {hasRegistered ? (
-                <PrimaryButton
-                  disabled={unregisterButtonDisabled}
-                  forceA
-                  onClick={unregisterFromChallenge}
-                  theme={{
-                    button: unregisterButtonDisabled
-                      ? style.unregisterButtonDisabled
-                      : style.unregisterButton,
-                  }}
-                >
-                  Unregister
-                </PrimaryButton>
-              ) : (
-                <PrimaryButton
-                  disabled={registerButtonDisabled}
-                  theme={{
-                    button: registerButtonDisabled ? style.submitButtonDisabled : style.registerBtn,
-                  }}
-                  forceA
-                  onClick={registerForChallenge}
-                >
-                  Register
-                </PrimaryButton>
-              )}
-              <PrimaryButton
-                disabled={disabled}
-                theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
-                to={`${challengesUrl}/${challengeId}/submit`}
-              >
-                Submit
-              </PrimaryButton>
-              {
-                track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
-                  && hasSubmissions && (
+            {!isTopCrowdChallenge ? (
+              <div styleName="challenge-ops-container">
+                {hasRegistered ? (
                   <PrimaryButton
-                    theme={{ button: style.submitButton }}
-                    to={`${challengesUrl}/${challengeId}/my-submissions`}
+                    disabled={unregisterButtonDisabled}
+                    forceA
+                    onClick={unregisterFromChallenge}
+                    theme={{
+                      button: unregisterButtonDisabled
+                        ? style.unregisterButtonDisabled
+                        : style.unregisterButton,
+                    }}
                   >
-                    View Submissions
+                    Unregister
                   </PrimaryButton>
-                )
-              }
-            </div>
+                ) : (
+                  <PrimaryButton
+                    disabled={registerButtonDisabled}
+                    theme={{
+                      button: registerButtonDisabled
+                        ? style.submitButtonDisabled
+                        : style.registerBtn,
+                    }}
+                    forceA
+                    onClick={registerForChallenge}
+                  >
+                    Register
+                  </PrimaryButton>
+                )}
+                <PrimaryButton
+                  disabled={disabled}
+                  theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
+                  to={`${challengesUrl}/${challengeId}/submit`}
+                >
+                  Submit
+                </PrimaryButton>
+                {
+                  track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+                    && hasSubmissions && (
+                    <PrimaryButton
+                      theme={{ button: style.submitButton }}
+                      to={`${challengesUrl}/${challengeId}/my-submissions`}
+                    >
+                      View Submissions
+                    </PrimaryButton>
+                  )
+                }
+              </div>
+            ) : (
+              <div styleName="topcrowd-container">
+                This challenge is hosted on the <br />
+                new Topcoder Platform
+
+                <div>
+                  <Link
+                    openNewTab
+                    to={`${topcrowdLink}`}
+                  >
+                    Visit Challenge Registration
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div styleName="deadlines-view">
@@ -556,6 +588,7 @@ ChallengeHeader.propTypes = {
     roundId: PT.any,
     prizeSets: PT.any,
     match_skills: PT.arrayOf(PT.string),
+    metadata: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
