@@ -285,3 +285,23 @@
   color: #767676 !important;
   background: #f4f4f4 !important;
 }
+
+.wipro-steps-header {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.wipro-steps {
+  font-style: normal;
+  list-style-type: decimal;
+  padding-left: 25px;
+}
+
+.wipro-warning {
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.wipro-red {
+  color: red;
+}
