@@ -163,13 +163,31 @@ class Submit extends React.Component {
       }
     }
 
-    const submissionInstruction = isChallengeBelongToTopgearGroup
-      ? `Challenge participants should upload the outcome/asset/deliverable of
-        the challenge to the repository specified by the project team/challenge creator.
-        Copy the link of the outcome/asset/deliverable that was uploaded and enter
-        this link in the text box and click on SET URL. Ensure that the submission
-        link always reflects the outcome that was delivered as part of the challenge.
-        Do not submit any irrelevant link as submission link is proof to the work done.`
+    const submissionInstruction = isChallengeBelongToTopgearGroup ? (
+      <div>
+        <div>
+          <span styleName="wipro-steps-header"> Steps for Submission:</span>
+        </div>
+        <div>
+          <ol styleName="wipro-steps">
+            <li>Upload the outcome/asset/deliverable of the challenge to the repository
+              (e.g OneDrive/teams folder) as specified by the project team/challenge creator.
+            </li>
+            <li>Copy the link of the outcome/asset/deliverable that was uploaded.
+              Enter this link in the text box and click on “SET URL”.
+            </li>
+            <li>Please check the acceptance/confirmation box at the bottom left corner.</li>
+            <li>Click on the ‘Submit’ option at the bottom right.</li>
+          </ol>
+        </div>
+        <div styleName="wipro-warning">
+          Ensure that the submission link always reflects the outcome
+          that was delivered as part of the challenge.&nbsp;
+          <span styleName="wipro-red">Do not submit any irrelevant links</span>&nbsp;
+          as the submission link is proof of the work done.
+        </div>
+      </div>
+    )
       : `Please follow the instructions on the Challenge Details page regarding
         what your submission should contain and how it should be organized.`;
     const troubleInstruction = isChallengeBelongToTopgearGroup
@@ -221,6 +239,7 @@ class Submit extends React.Component {
                 <div styleName="submission-hints">
                   { track === COMPETITION_TRACKS.DEV ? (
                     <div>
+                      <br />
                       {!!isChallengeBelongToTopgearGroup
                       && (<p>Enter the URL to your submission.</p>)}
                     </div>

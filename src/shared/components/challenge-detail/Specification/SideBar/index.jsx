@@ -34,6 +34,7 @@ export default function SideBar({
   metadata,
   reviewScorecardId,
   screeningScorecardId,
+  isWipro,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
@@ -142,11 +143,20 @@ export default function SideBar({
           <h2>
             LEARN:
           </h2>
-          <p styleName="link-like-paragraph">
-            <a href="/thrive/articles/all-about-topcoder-challenges-tasks-and-gig-work-opportunities">
-              Topcoder Challenges Explained
-            </a>
-          </p>
+          {isWipro ? (
+            <p styleName="link-like-paragraph">
+              <a href={config.URL.INFO.TOPGEAR_TERMS}>
+                TopGear Challenges Explained
+              </a>
+            </p>
+          )
+            : (
+              <p styleName="link-like-paragraph">
+                <a href="/thrive/articles/all-about-topcoder-challenges-tasks-and-gig-work-opportunities">
+                  Topcoder Challenges Explained
+                </a>
+              </p>
+            )}
         </div>
         <EligibleEvents eventDetails={eventDetail} />
         {
@@ -242,27 +252,32 @@ export default function SideBar({
                 )
               }
               {
-                !isDesign && (
-                  <span styleName="link-like-paragraph tooltip-container">
-                    <a
-                      href={config.URL.INFO.USABLECODEDEV}
-                      title="Useable Code Rules"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Useable Code Rules
-                    </a>
-                    <Tooltip
-                      id="usablecode-tip"
-                      content={usableCodeArticle}
-                      className={styles['tooltip-overlay']}
-                      trigger={['hover', 'focus']}
-                    >
-                      <div styleName="tctooltip">
-                        <TooltipIcon />
-                      </div>
-                    </Tooltip>
-                  </span>
+                !isWipro && (
+                  <div>
+                    {
+                      !isDesign && (
+                        <span styleName="link-like-paragraph tooltip-container">
+                          <a
+                            href={config.URL.INFO.USABLECODEDEV}
+                            title="Useable Code Rules"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Useable Code Rules
+                          </a>
+                          <Tooltip
+                            id="usablecode-tip"
+                            content={usableCodeArticle}
+                            className={styles['tooltip-overlay']}
+                            trigger={['hover', 'focus']}
+                          >
+                            <div styleName="tctooltip">
+                              <TooltipIcon />
+                            </div>
+                          </Tooltip>
+                        </span>
+                      )}
+                  </div>
                 )
               }
             </div>
@@ -443,41 +458,45 @@ export default function SideBar({
             </div>
           )
         }
-        <div>
-          <h2>
-            TOOLBOX:
-          </h2>
-          <span styleName="link-like-paragraph tooltip-container">
-            <a
-              href={config.URL.INFO.EXTENSIONVSCODE}
-              title="Topcoder Extension for VSCode"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Topcoder Extension for VSCode
-            </a>
-            <Tooltip
-              id="vscode-tip"
-              content={vscodeTip}
-              className={styles['tooltip-overlay']}
-              trigger={['hover', 'focus']}
-            >
-              <div styleName="tctooltip">
-                <TooltipIcon />
-              </div>
-            </Tooltip>
-          </span>
-          <span styleName="link-like-paragraph tooltip-container">
-            <a
-              href={config.URL.INFO.TEMPLATES_REPO}
-              title="Topcoder Templates repository"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Topcoder Templates repository
-            </a>
-          </span>
-        </div>
+        {
+        !isWipro && (
+          <div>
+            <h2>
+              TOOLBOX:
+            </h2>
+            <span styleName="link-like-paragraph tooltip-container">
+              <a
+                href={config.URL.INFO.EXTENSIONVSCODE}
+                title="Topcoder Extension for VSCode"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Topcoder Extension for VSCode
+              </a>
+              <Tooltip
+                id="vscode-tip"
+                content={vscodeTip}
+                className={styles['tooltip-overlay']}
+                trigger={['hover', 'focus']}
+              >
+                <div styleName="tctooltip">
+                  <TooltipIcon />
+                </div>
+              </Tooltip>
+            </span>
+            <span styleName="link-like-paragraph tooltip-container">
+              <a
+                href={config.URL.INFO.TEMPLATES_REPO}
+                title="Topcoder Templates repository"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Topcoder Templates repository
+              </a>
+            </span>
+          </div>
+        )
+        }
         {shareable && (
           <div>
             <h2>
@@ -512,6 +531,7 @@ SideBar.defaultProps = {
   reviewScorecardId: '',
   screeningScorecardId: '',
   legacyId: '',
+  isWipro: false,
 };
 
 SideBar.propTypes = {
@@ -536,4 +556,5 @@ SideBar.propTypes = {
   metadata: PT.array,
   reviewScorecardId: PT.oneOfType([PT.string, PT.number]),
   screeningScorecardId: PT.string,
+  isWipro: PT.bool,
 };

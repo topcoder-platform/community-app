@@ -387,17 +387,7 @@ export default function ChallengeDetailsView(props) {
                     credited as part Sept month salary). For payment of prize
                     money, respective country currency conversion shall be
                     considered as per Wipro standard currency conversion
-                    guidelines. Please refer to policy document at
-                    &zwnj;
-                    <a
-                      href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
-                    </a>
-                    &zwnj;
-                    for details regarding the policy.
+                    guidelines.
                   </p>
                 </div>
               </article>
@@ -423,6 +413,7 @@ export default function ChallengeDetailsView(props) {
             metadata={metadata}
             reviewScorecardId={reviewScorecardId}
             screeningScorecardId={screeningScorecardId}
+            isWipro={isWipro}
           />
         ) : (<div />) }
       </div>
