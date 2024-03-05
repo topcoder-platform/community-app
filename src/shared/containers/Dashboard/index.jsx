@@ -14,7 +14,8 @@ import { config } from 'topcoder-react-utils';
 import Viewport from 'components/Contentful/Viewport';
 import TopcoderTime from 'components/Dashboard/TCTime';
 import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
-import GigsFeed from 'containers/Dashboard/GigsFeed';
+// deprecated with https://topcoder.atlassian.net/browse/CORE-346
+// import GigsFeed from 'containers/Dashboard/GigsFeed';
 import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
 import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
 import MetaTags from 'components/MetaTags';
@@ -63,7 +64,8 @@ function SlashTCContainer(props) {
                 itemCount={20}
               />
               <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
-              <GigsFeed itemCount={5} theme="dark" />
+              {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
+              {/* <GigsFeed itemCount={5} theme="dark" /> */}
               <NewsFeed />
               <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
               <ThriveArticlesFeedContainer itemCount={4} theme="dark" />
@@ -92,7 +94,8 @@ function SlashTCContainer(props) {
                 itemCount={20}
               />
               <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
-              <GigsFeed itemCount={5} theme="dark" />
+              {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
+              {/* <GigsFeed itemCount={5} theme="dark" /> */}
               <NewsFeed />
             </div>
             {/* Right column */}
