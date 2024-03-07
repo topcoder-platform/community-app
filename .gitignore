@@ -68,3 +68,5 @@ automated-smoke-test/config/config.json
 
 qa_communityapp*.json
 buildenv.sh
+start-prod.sh
+
