@@ -110,7 +110,7 @@ exports[`Matches shallow shapshot 4`] = `
   >
     Join Community
   </ThemedButton>
-  <ThemedModal
+  <ThemedBaseModal
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     mapThemrProps={[Function]}
@@ -151,7 +151,7 @@ exports[`Matches shallow shapshot 4`] = `
     >
       Return to the Community
     </ThemedButton>
-  </ThemedModal>
+  </ThemedBaseModal>
 </div>
 `;
 

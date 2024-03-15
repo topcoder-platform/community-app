@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders achievements correctly 1`] = `
-<ThemedModal
+<ThemedBaseModal
   composeAdhocTheme="deeply"
   composeContextTheme="softly"
   mapThemrProps={[Function]}
@@ -318,5 +318,5 @@ exports[`renders achievements correctly 1`] = `
       />
     </div>
   </aside>
-</ThemedModal>
+</ThemedBaseModal>
 `;
