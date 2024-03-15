@@ -13,6 +13,7 @@ const standardDevelopmentConfig = configFactory({
     main: './src/client',
   },
   publicPath: '/api/cdn/public/static-assets',
+  crossOriginLoading: 'anonymous',
 });
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule => rule.loader === 'babel-loader');
