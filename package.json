@@ -166,7 +166,7 @@
     "tc-ui": "^1.0.12",
     "topcoder-react-lib": "1.2.14",
     "topcoder-react-ui-kit": "2.0.1",
-    "topcoder-react-utils": "github:topcoder-platform/topcoder-react-utils#v0.9.3",
+    "topcoder-react-utils": "github:topcoder-platform/topcoder-react-utils#v0.9.5",
     "turndown": "^4.0.2",
     "uninav-react": "git+https://github.com/topcoder-platform/uninav-react.git#0.0.2",
     "url-parse": "^1.4.1",
