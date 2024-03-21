@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders gallery modal 1`] = `
-<ThemedModal
+<ThemedBaseModal
   composeAdhocTheme="deeply"
   composeContextTheme="softly"
   mapThemrProps={[Function]}
@@ -124,5 +124,5 @@ exports[`renders gallery modal 1`] = `
       />
     </div>
   </div>
-</ThemedModal>
+</ThemedBaseModal>
 `;

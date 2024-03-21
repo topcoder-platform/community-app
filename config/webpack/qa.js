@@ -25,6 +25,7 @@ const standardDevelopmentConfig = configFactory({
   },
   keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
   publicPath,
+  crossOriginLoading: 'anonymous',
 });
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule => rule.loader === 'babel-loader');
