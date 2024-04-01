@@ -171,6 +171,7 @@ export default function SubmissionManagement(props) {
         {!loadingSubmissions
            && (
            <SubmissionsTable
+             challenge={challenge}
              submissionObjects={submissions}
              showDetails={showDetails}
              track={track}
@@ -212,6 +213,7 @@ SubmissionManagement.defaultProps = {
 };
 
 SubmissionManagement.propTypes = {
+  challenge: PT.shape().isRequired,
   showDetails: PT.shape().isRequired,
   onDelete: PT.func,
   onlineReviewUrl: PT.string,

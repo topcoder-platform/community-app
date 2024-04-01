@@ -27,6 +27,7 @@ import './styles.scss';
 
 export default function Submission(props) {
   const {
+    challenge,
     submissionObject,
     showScreeningDetails,
     track,
@@ -39,6 +40,16 @@ export default function Submission(props) {
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
   const safeForDownloadCheck = safeForDownload(submissionObject.url);
+
+  // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
+  let isTopCrowdChallenge = false;
+  const isTopCrowdChallengeData = _.find(challenge.metadata, { name: 'is_platform' });
+  if (isTopCrowdChallengeData) {
+    isTopCrowdChallenge = isTopCrowdChallengeData.value;
+  }
+  else {
+    isTopCrowdChallenge = false;
+  }
 
   return (
     <tr styleName="submission-row">
@@ -72,12 +83,14 @@ export default function Submission(props) {
        }
       <td styleName="action-col">
         <div>
+          { !isTopCrowdChallenge ?
           <button
             onClick={() => onDownloadSubmission(submissionObject.id)}
             type="button"
           >
             { safeForDownloadCheck === true && <DownloadIcon /> }
           </button>
+          : <span /> }
           { /*
              TODO: At the moment we just fetch downloads from the legacy
                Topcoder Studio API, and we don't need any JS code to this.
@@ -121,6 +134,7 @@ Submission.defaultProps = {
 };
 
 Submission.propTypes = {
+  challenge: PT.shape().isRequired,
   submissionObject: PT.shape({
     id: PT.string,
     legacySubmissionId: PT.string,

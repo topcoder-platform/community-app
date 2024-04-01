@@ -125,13 +125,7 @@ MySubmissionsView.defaultProps = {
 
 MySubmissionsView.propTypes = {
   challengesUrl: PT.string.isRequired,
-  challenge: PT.shape({
-    id: PT.any,
-    checkpoints: PT.arrayOf(PT.object),
-    submissions: PT.arrayOf(PT.object),
-    submissionViewable: PT.string,
-    registrants: PT.any,
-  }).isRequired,
+  challenge: PT.shape().isRequired,
   hasRegistered: PT.bool.isRequired,
   unregistering: PT.bool.isRequired,
   submissionEnded: PT.bool.isRequired,
