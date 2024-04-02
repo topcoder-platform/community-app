@@ -46,8 +46,7 @@ export default function Submission(props) {
   const isTopCrowdChallengeData = _.find(challenge.metadata, { name: 'is_platform' });
   if (isTopCrowdChallengeData) {
     isTopCrowdChallenge = isTopCrowdChallengeData.value;
-  }
-  else {
+  } else {
     isTopCrowdChallenge = false;
   }
 
@@ -83,14 +82,16 @@ export default function Submission(props) {
        }
       <td styleName="action-col">
         <div>
-          { !isTopCrowdChallenge ?
-          <button
-            onClick={() => onDownloadSubmission(submissionObject.id)}
-            type="button"
-          >
-            { safeForDownloadCheck === true && <DownloadIcon /> }
-          </button>
-          : <span /> }
+          { !isTopCrowdChallenge
+            ? (
+              <button
+                onClick={() => onDownloadSubmission(submissionObject.id)}
+                type="button"
+              >
+                { safeForDownloadCheck === true && <DownloadIcon /> }
+              </button>
+            )
+            : <span /> }
           { /*
              TODO: At the moment we just fetch downloads from the legacy
                Topcoder Studio API, and we don't need any JS code to this.

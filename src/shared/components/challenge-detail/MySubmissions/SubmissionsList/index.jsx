@@ -192,8 +192,7 @@ class SubmissionsListView extends React.Component {
     const isTopCrowdChallengeData = _.find(challenge.metadata, { name: 'is_platform' });
     if (isTopCrowdChallengeData) {
       isTopCrowdChallenge = isTopCrowdChallengeData.value;
-    }
-    else {
+    } else {
       isTopCrowdChallenge = false;
     }
 
@@ -442,27 +441,29 @@ class SubmissionsListView extends React.Component {
                       <span>{moment(mySubmission.submissionTime).format('MMM DD, YYYY HH:mm:ss')}</span>
                     </div>
                     <div styleName="submission-table-column column-2-4">
-                      { !isTopCrowdChallenge ? 
-                      <button
-                        onClick={() => {
-                          // download submission
-                          const submissionsService = getService(auth.tokenV3);
-                          submissionsService.downloadSubmission(mySubmission.submissionId)
-                            .then((blob) => {
-                              const url = window.URL.createObjectURL(new Blob([blob]));
-                              const link = document.createElement('a');
-                              link.href = url;
-                              link.setAttribute('download', `submission-${mySubmission.submissionId}.zip`);
-                              document.body.appendChild(link);
-                              link.click();
-                              link.parentNode.removeChild(link);
-                            });
-                        }}
-                        type="button"
-                      >
-                        <DownloadIcon />
-                      </button> 
-                      : <span /> }
+                      { !isTopCrowdChallenge
+                        ? (
+                          <button
+                            onClick={() => {
+                              // download submission
+                              const submissionsService = getService(auth.tokenV3);
+                              submissionsService.downloadSubmission(mySubmission.submissionId)
+                                .then((blob) => {
+                                  const url = window.URL.createObjectURL(new Blob([blob]));
+                                  const link = document.createElement('a');
+                                  link.href = url;
+                                  link.setAttribute('download', `submission-${mySubmission.submissionId}.zip`);
+                                  document.body.appendChild(link);
+                                  link.click();
+                                  link.parentNode.removeChild(link);
+                                });
+                            }}
+                            type="button"
+                          >
+                            <DownloadIcon />
+                          </button>
+                        )
+                        : <span /> }
 
                       <button onClick={() => selectSubmission(mySubmission)} type="button">
                         <ZoomIcon styleName="icon-zoom" />
