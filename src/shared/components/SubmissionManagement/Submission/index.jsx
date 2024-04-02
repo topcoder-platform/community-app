@@ -43,11 +43,11 @@ export default function Submission(props) {
 
   // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
   let isTopCrowdChallenge = false;
-  const isTopCrowdChallengeData = _.find(challenge.metadata, { name: 'is_platform' });
-  if (isTopCrowdChallengeData) {
-    isTopCrowdChallenge = isTopCrowdChallengeData.value;
-  } else {
-    isTopCrowdChallenge = false;
+  if (challenge) {
+    const isTopCrowdChallengeData = _.find(challenge.metadata, { name: 'is_platform' });
+    if (isTopCrowdChallengeData) {
+      isTopCrowdChallenge = isTopCrowdChallengeData.value;
+    }
   }
 
   return (
