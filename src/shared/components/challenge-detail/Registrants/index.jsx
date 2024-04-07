@@ -129,6 +129,19 @@ export default class Registrants extends React.Component {
   }
 
   /**
+    * Get the submission date of a registrant (used when viewing the registrants tab anonymously)
+    * @param {Object} registrant the registrant to return the submission date for
+    */
+  getSubmissionDate(registrant, statisticsData) {
+    let submissionDate;
+    const statistic = (statisticsData || []).find(x => x.handle === registrant.memberHandle)
+    if(statistic && statistic.submissions && statistic.submissions.length>0){
+      submissionDate = statistic.submissions.sort()[0].created;
+    }
+    return submissionDate;
+  }
+
+  /**
     * Check if it have flag for first try
     * @param {Object} registrant registrant info
     */
@@ -244,6 +257,7 @@ export default class Registrants extends React.Component {
       checkpointResults,
       results,
       onSortChange,
+      statisticsData,
     } = this.props;
     const {
       prizeSets,
@@ -413,7 +427,10 @@ export default class Registrants extends React.Component {
                if (checkpoint) {
                  checkpoint = formatDate(checkpoint);
                }
-               const final = this.getFinal(r);
+               let final = this.getFinal(r);
+               if(!final){
+                final = this.getSubmissionDate(r, statisticsData);
+               }
 
                return (
                  <div styleName="row" key={r.memberHandle} role="row">
@@ -523,6 +540,7 @@ Registrants.propTypes = {
     type: PT.string,
     track: PT.string,
   }).isRequired,
+  statisticsData: PT.arrayOf(PT.shape()),
   results: PT.arrayOf(PT.shape()),
   checkpointResults: PT.shape(),
   registrants: PT.arrayOf(PT.shape()),
