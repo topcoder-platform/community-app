@@ -58,7 +58,6 @@ export default class Registrants extends React.Component {
 
     this.getCheckPoint = this.getCheckPoint.bind(this);
     this.getCheckPointDate = this.getCheckPointDate.bind(this);
-    this.getSubmissionDate = this.getSubmissionDate.bind(this);
     this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
     this.sortRegistrants = this.sortRegistrants.bind(this);
     this.getRegistrantsSortParam = this.getRegistrantsSortParam.bind(this);
