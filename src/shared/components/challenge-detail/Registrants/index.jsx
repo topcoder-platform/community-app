@@ -58,6 +58,7 @@ export default class Registrants extends React.Component {
 
     this.getCheckPoint = this.getCheckPoint.bind(this);
     this.getCheckPointDate = this.getCheckPointDate.bind(this);
+    this.getSubmissionDate = this.getSubmissionDate.bind(this);
     this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
     this.sortRegistrants = this.sortRegistrants.bind(this);
     this.getRegistrantsSortParam = this.getRegistrantsSortParam.bind(this);
@@ -132,9 +133,13 @@ export default class Registrants extends React.Component {
     * Get the submission date of a registrant (used when viewing the registrants tab anonymously)
     * @param {Object} registrant the registrant to return the submission date for
     */
-  static getSubmissionDate(registrant, data) {
+  getSubmissionDate(registrant) {
+    const {
+      statisticsData,
+    } = this.props;
+    console.log(JSON.stringify(statisticsData, null, 4));
     let submissionDate;
-    const statistic = (data || []).find(x => x.handle === registrant.memberHandle);
+    const statistic = (statisticsData || []).find(x => x.handle === registrant.memberHandle);
     if (statistic && statistic.submissions && statistic.submissions.length > 0) {
       submissionDate = statistic.submissions.sort()[0].created;
     }
@@ -257,7 +262,6 @@ export default class Registrants extends React.Component {
       checkpointResults,
       results,
       onSortChange,
-      statisticsData,
     } = this.props;
     const {
       prizeSets,
@@ -429,7 +433,7 @@ export default class Registrants extends React.Component {
                }
                let final = this.getFinal(r);
                if (!final) {
-                 final = this.getSubmissionDate(r, statisticsData);
+                 final = this.getSubmissionDate(r);
                }
 
                return (
