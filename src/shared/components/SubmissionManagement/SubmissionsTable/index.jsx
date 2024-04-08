@@ -26,6 +26,7 @@ import './styles.scss';
 
 export default function SubmissionsTable(props) {
   const {
+    challenge,
     submissionObjects,
     showDetails,
     track,
@@ -56,6 +57,7 @@ export default function SubmissionsTable(props) {
 
       const submission = (
         <Submission
+          challenge={challenge}
           submissionObject={subObject}
           showScreeningDetails={showDetails[subObject.id]}
           track={track}
@@ -140,6 +142,7 @@ SubmissionsTable.defaultProps = {
 };
 
 SubmissionsTable.propTypes = {
+  challenge: PT.shape().isRequired,
   submissionObjects: PT.arrayOf(SubShape),
   showDetails: PT.shape().isRequired,
   track: PT.string.isRequired,

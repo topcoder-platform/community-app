@@ -565,6 +565,7 @@ class ChallengeDetailPageContainer extends React.Component {
                   )
                 }
                 results={results2}
+                statisticsData={statisticsData}
                 registrantsSort={registrantsSort}
                 notFoundCountryFlagUrl={notFoundCountryFlagUrl}
                 onGetFlagImageFail={(countryInfo) => {

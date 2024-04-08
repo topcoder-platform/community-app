@@ -187,6 +187,15 @@ class SubmissionsListView extends React.Component {
       timeClicked: false,
     };
 
+    // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
+    let isTopCrowdChallenge = false;
+    const isTopCrowdChallengeData = _.find(challenge.metadata, { name: 'is_platform' });
+    if (isTopCrowdChallengeData) {
+      isTopCrowdChallenge = isTopCrowdChallengeData.value;
+    } else {
+      isTopCrowdChallenge = false;
+    }
+
     return (
       <div styleName="wrapper">
         <div styleName="submission-table">
@@ -432,25 +441,29 @@ class SubmissionsListView extends React.Component {
                       <span>{moment(mySubmission.submissionTime).format('MMM DD, YYYY HH:mm:ss')}</span>
                     </div>
                     <div styleName="submission-table-column column-2-4">
-                      <button
-                        onClick={() => {
-                          // download submission
-                          const submissionsService = getService(auth.tokenV3);
-                          submissionsService.downloadSubmission(mySubmission.submissionId)
-                            .then((blob) => {
-                              const url = window.URL.createObjectURL(new Blob([blob]));
-                              const link = document.createElement('a');
-                              link.href = url;
-                              link.setAttribute('download', `submission-${mySubmission.submissionId}.zip`);
-                              document.body.appendChild(link);
-                              link.click();
-                              link.parentNode.removeChild(link);
-                            });
-                        }}
-                        type="button"
-                      >
-                        <DownloadIcon />
-                      </button>
+                      { !isTopCrowdChallenge
+                        ? (
+                          <button
+                            onClick={() => {
+                              // download submission
+                              const submissionsService = getService(auth.tokenV3);
+                              submissionsService.downloadSubmission(mySubmission.submissionId)
+                                .then((blob) => {
+                                  const url = window.URL.createObjectURL(new Blob([blob]));
+                                  const link = document.createElement('a');
+                                  link.href = url;
+                                  link.setAttribute('download', `submission-${mySubmission.submissionId}.zip`);
+                                  document.body.appendChild(link);
+                                  link.click();
+                                  link.parentNode.removeChild(link);
+                                });
+                            }}
+                            type="button"
+                          >
+                            <DownloadIcon />
+                          </button>
+                        )
+                        : <span /> }
 
                       <button onClick={() => selectSubmission(mySubmission)} type="button">
                         <ZoomIcon styleName="icon-zoom" />
@@ -523,13 +536,7 @@ SubmissionsListView.defaultProps = {
 SubmissionsListView.propTypes = {
   selectSubmission: PT.func,
   challengesUrl: PT.string.isRequired,
-  challenge: PT.shape({
-    id: PT.any,
-    checkpoints: PT.arrayOf(PT.object),
-    submissions: PT.arrayOf(PT.object),
-    submissionViewable: PT.string,
-    registrants: PT.any,
-  }).isRequired,
+  challenge: PT.shape().isRequired,
   hasRegistered: PT.bool.isRequired,
   unregistering: PT.bool.isRequired,
   submissionEnded: PT.bool.isRequired,

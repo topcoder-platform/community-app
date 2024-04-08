@@ -58,6 +58,7 @@ export default class Registrants extends React.Component {
 
     this.getCheckPoint = this.getCheckPoint.bind(this);
     this.getCheckPointDate = this.getCheckPointDate.bind(this);
+    this.getSubmissionDate = this.getSubmissionDate.bind(this);
     this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
     this.sortRegistrants = this.sortRegistrants.bind(this);
     this.getRegistrantsSortParam = this.getRegistrantsSortParam.bind(this);
@@ -126,6 +127,23 @@ export default class Registrants extends React.Component {
       final = registrant.submissionDate;
     }
     return final;
+  }
+
+  /**
+    * Get the submission date of a registrant (used when viewing the registrants tab anonymously)
+    * @param {Object} registrant the registrant to return the submission date for
+    */
+  getSubmissionDate(registrant) {
+    const {
+      statisticsData,
+    } = this.props;
+    console.log(JSON.stringify(statisticsData, null, 4));
+    let submissionDate;
+    const statistic = (statisticsData || []).find(x => x.handle === registrant.memberHandle);
+    if (statistic && statistic.submissions && statistic.submissions.length > 0) {
+      submissionDate = statistic.submissions.sort()[0].created;
+    }
+    return submissionDate;
   }
 
   /**
@@ -413,7 +431,10 @@ export default class Registrants extends React.Component {
                if (checkpoint) {
                  checkpoint = formatDate(checkpoint);
                }
-               const final = this.getFinal(r);
+               let final = this.getFinal(r);
+               if (!final) {
+                 final = this.getSubmissionDate(r);
+               }
 
                return (
                  <div styleName="row" key={r.memberHandle} role="row">
@@ -523,6 +544,7 @@ Registrants.propTypes = {
     type: PT.string,
     track: PT.string,
   }).isRequired,
+  statisticsData: PT.arrayOf(PT.shape()).isRequired,
   results: PT.arrayOf(PT.shape()),
   checkpointResults: PT.shape(),
   registrants: PT.arrayOf(PT.shape()),
