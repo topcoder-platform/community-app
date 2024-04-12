@@ -137,7 +137,6 @@ export default class Registrants extends React.Component {
     const {
       statisticsData,
     } = this.props;
-    console.log(JSON.stringify(statisticsData, null, 4));
     let submissionDate;
     const statistic = (statisticsData || []).find(x => x.handle === registrant.memberHandle);
     if (statistic && statistic.submissions && statistic.submissions.length > 0) {
