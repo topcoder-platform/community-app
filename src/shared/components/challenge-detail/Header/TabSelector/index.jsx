@@ -42,7 +42,7 @@ export default function ChallengeViewSelector(props) {
     viewAsTable,
   } = props;
 
-  let showDashboard;
+  let showDashboard = false;
   const { type, tags, metadata } = challenge;
   const dashboardMetadata = _.find(metadata, { name: 'show_data_dashboard' });
   if (dashboardMetadata) {
