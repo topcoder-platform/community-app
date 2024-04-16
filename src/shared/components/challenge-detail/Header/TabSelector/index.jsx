@@ -307,7 +307,7 @@ export default function ChallengeViewSelector(props) {
         return '';
       })()}
       {
-        (challenge.track.toLowerCase() === 'data science' && showDashboard) && (
+        (showDashboard) && (
           <a
             tabIndex="0"
             role="tab"
