@@ -42,7 +42,7 @@ export default function ChallengeViewSelector(props) {
     viewAsTable,
   } = props;
 
-  let showDashboard;
+  let showDashboard = false;
   const { type, tags, metadata } = challenge;
   const dashboardMetadata = _.find(metadata, { name: 'show_data_dashboard' });
   if (dashboardMetadata) {
@@ -307,7 +307,7 @@ export default function ChallengeViewSelector(props) {
         return '';
       })()}
       {
-        (challenge.track.toLowerCase() === 'data science' && showDashboard) && (
+        (showDashboard) && (
           <a
             tabIndex="0"
             role="tab"
