@@ -311,11 +311,13 @@ module.exports = {
           id: 'myprofile',
           title: 'My Profile',
           href: '/members/willFilledByUserName',
+          wipro_href: 'https://topgear-app.wipro.com/user-details',
           logged: true,
         },
         {
           title: 'Payments',
           href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+          wipro_href: 'https://topgear-app.wipro.com/my_payments',
           logged: true,
           openNewTab: true,
         },
