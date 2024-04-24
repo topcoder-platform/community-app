@@ -74,8 +74,6 @@ function Header(props) {
   let userSubMenu;
 
   if (profile) {
-    console.log('PROFILE');
-    console.log(JSON.stringify(profile, null, 4));
     let profileLink = `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/members/${normalizedProfile.handle}`;
     let paymentsLink = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
 
