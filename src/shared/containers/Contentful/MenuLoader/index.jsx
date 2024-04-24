@@ -124,6 +124,8 @@ class MenuLoaderContainer extends React.Component {
       }
       // eslint-disable-next-line global-require
       const { TopNav, LoginNav } = require('navigation-component');
+      console.log('TopNavRef');
+      console.log(JSON.stringify(profile, 4, null));
       return (
         <TopNav
           menu={menu}
@@ -150,6 +152,7 @@ class MenuLoaderContainer extends React.Component {
           setOpenMore={this.handleChangeOpenMore}
           loggedIn={!_.isEmpty(auth.profile)}
           profileHandle={auth.profile ? auth.profile.handle : ''}
+          isWipro={(profile && profile.email && profile.email.includes('@wipro.com'))}
           logoLink={fields.logoLink}
         />
       );
