@@ -72,18 +72,30 @@ function Header(props) {
   }
 
   let userSubMenu;
+
   if (profile) {
+    console.log('PROFILE');
+    console.log(JSON.stringify(profile, null, 4));
+    let profileLink = `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/members/${normalizedProfile.handle}`;
+    let paymentsLink = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
+
+    // Handle Wipro specific links (PS-257)
+    if (profile && profile.email && profile.email.includes('@wipro.com')) {
+      profileLink = 'https://topgear-app.wipro.com/user-details';
+      paymentsLink = 'https://topgear-app.wipro.com/my_payments';
+    }
+
     userSubMenu = {
       title: 'User',
       items: [{
         enforceA: true,
         icon: <IconNavProfile />,
-        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/members/${normalizedProfile.handle}`,
+        link: profileLink,
         title: 'My Profile',
       }, {
         openNewTab: true,
         icon: <IconNavWallet />,
-        link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
+        link: paymentsLink,
         title: 'Payments',
       }, {
         icon: <IconNavSettings />,
@@ -385,6 +397,7 @@ Header.propTypes = {
     photoURL: PT.string,
     groups: PT.any,
     handle: PT.string,
+    email: PT.string,
   }),
   theme: PT.shape().isRequired,
   logoutRedirect: PT.string,
