@@ -92,7 +92,7 @@
     "money": "^0.2.0",
     "morgan": "^1.9.0",
     "multer": "^1.4.2",
-    "navigation-component": "github:topcoder-platform/navigation-component#v1000.1.7",
+    "navigation-component": "github:topcoder-platform/navigation-component#develop",
     "navigation-component-tco": "github:topcoder-platform/navigation-component-tco#new-dev",
     "node-cache": "^5.1.2",
     "node-forge": "^0.7.5",
