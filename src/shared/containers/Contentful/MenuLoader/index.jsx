@@ -152,7 +152,7 @@ class MenuLoaderContainer extends React.Component {
           setOpenMore={this.handleChangeOpenMore}
           loggedIn={!_.isEmpty(auth.profile)}
           profileHandle={auth.profile ? auth.profile.handle : ''}
-          isWipro={(profile && profile.email && profile.email.includes('@wipro.com'))}
+          isWipro={(auth.profile && auth.profile.email && auth.profile.email.includes('@wipro.com'))}
           logoLink={fields.logoLink}
         />
       );
