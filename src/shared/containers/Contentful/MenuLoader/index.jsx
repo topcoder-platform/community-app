@@ -125,7 +125,7 @@ class MenuLoaderContainer extends React.Component {
       // eslint-disable-next-line global-require
       const { TopNav, LoginNav } = require('navigation-component');
       console.log('TopNavRef');
-      console.log(JSON.stringify(profile, 4, null));
+      console.log(JSON.stringify(auth.profile, 4, null));
       return (
         <TopNav
           menu={menu}
