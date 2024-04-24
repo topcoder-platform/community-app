@@ -72,7 +72,6 @@ const Header = ({
   if (TopNavRef) {
     console.log('TopNavRef');
     console.log(JSON.stringify(profile, 4, null));
-    
     return (
       <div styleName="nav-header-wrapper">
         <TopNavRef
