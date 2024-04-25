@@ -123,6 +123,7 @@ Header.propTypes = {
   profile: PT.shape({
     photoURL: PT.string,
     handle: PT.string,
+    email: PT.string,
   }),
   auth: PT.shape(),
   notifications: PT.arrayOf(PT.object).isRequired,
