@@ -107,13 +107,6 @@ function ChallengeCard({
                 />
                 )
             }
-            {
-              _.get(challenge, 'legacy.selfService') && (
-                <DevelopmentTrackTag>
-                  <span>On Demand</span>
-                </DevelopmentTrackTag>
-              )
-            }
             { !isRecommendedChallenge
               && (challenge.tags.length + skills.length) > 0
               && (

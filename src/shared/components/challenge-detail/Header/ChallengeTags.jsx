@@ -106,15 +106,6 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        isSelfService && (
-          <div styleName="tag">
-            <DevelopmentTrackTag>
-              <span>On Demand</span>
-            </DevelopmentTrackTag>
-          </div>
-        )
-      }
-      {
         tags.map(tag => (
           tag
               && (
