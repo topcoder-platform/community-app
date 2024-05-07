@@ -5,7 +5,6 @@ exports[`Default render 1`] = `
   className="src-shared-components-Header-___style__nav-header-wrapper___3oH9J"
 >
   <TopNav
-    isWipro={false}
     loggedIn={true}
     logo={
       <Logo
@@ -37,14 +36,12 @@ exports[`Default render 1`] = `
               "id": "myprofile",
               "logged": true,
               "title": "My Profile",
-              "wipro_href": "https://topgear-app.wipro.com/user-details",
             },
             Object {
               "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
               "logged": true,
               "openNewTab": true,
               "title": "Payments",
-              "wipro_href": "https://topgear-app.wipro.com/my_payments",
             },
             Object {
               "href": "/community/learn",

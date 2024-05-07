@@ -104,7 +104,6 @@ const Header = ({
           setOpenMore={handleChangeOpenMore}
           loggedIn={!_.isEmpty(profile)}
           profileHandle={profile ? profile.handle : ''}
-          isWipro={(profile && profile.email && profile.email.includes('@wipro.com'))}
           tracking={tracking}
         />
       </div>
