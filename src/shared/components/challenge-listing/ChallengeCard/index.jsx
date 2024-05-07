@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, { useMemo } from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
-import { DevelopmentTrackTag } from 'topcoder-react-ui-kit';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { Link } from 'topcoder-react-utils';
 import {
