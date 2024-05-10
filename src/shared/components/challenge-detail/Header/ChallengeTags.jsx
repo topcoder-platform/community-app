@@ -13,7 +13,6 @@ import { config } from 'topcoder-react-utils';
 
 import {
   Tag,
-  DevelopmentTrackTag,
 } from 'topcoder-react-ui-kit';
 
 import VerifiedTag from 'components/challenge-listing/VerifiedTag';
@@ -23,7 +22,6 @@ import './style.scss';
 
 export default function ChallengeTags(props) {
   const {
-    isSelfService,
     challengeId,
     challengesUrl,
     challengeType,
@@ -106,15 +104,6 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        isSelfService && (
-          <div styleName="tag">
-            <DevelopmentTrackTag>
-              <span>On Demand</span>
-            </DevelopmentTrackTag>
-          </div>
-        )
-      }
-      {
         tags.map(tag => (
           tag
               && (
@@ -158,11 +147,9 @@ ChallengeTags.defaultProps = {
   events: [],
   technPlatforms: [],
   skills: [],
-  isSelfService: false,
 };
 
 ChallengeTags.propTypes = {
-  isSelfService: PT.bool,
   challengeId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
