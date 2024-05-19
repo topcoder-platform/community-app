@@ -3,9 +3,11 @@
 exports[`Matches shallow shapshot 1`] = `
 <Switch
   enabled={false}
+  isBlue={false}
   onSwitch={[Function]}
   theme={
     Object {
+      "blue": "src-shared-components-Switch-style___blue___UCM-_3",
       "disabled": "src-shared-components-Switch-style___disabled___EEAxIO",
       "enabled": "src-shared-components-Switch-style___enabled___7dhGcX",
       "handle": "src-shared-components-Switch-style___handle___3s_OOJ",

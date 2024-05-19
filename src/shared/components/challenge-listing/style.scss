@@ -20,13 +20,20 @@ $challenge-radius-4: $corner-radius * 2;
 // }
 
 .ChallengeFiltersExample {
-  background: $tc-white;
   flex: 1;
   margin: 0;
+  gap: 32px;
+  display: flex;
+  flex-direction: column;
+
+  @include xs-to-md {
+    gap: 0;
+  }
 
   .tc-content-wrapper {
     display: flex;
     padding: 0;
+    gap: 16px;
 
     @include xs-to-md {
       display: block;
@@ -72,26 +79,19 @@ $challenge-radius-4: $corner-radius * 2;
   // }
 
   .sidebar-container-mobile {
-    margin: $challenge-space-20 $challenge-space-10 $challenge-space-10;
     display: none;
-    background-color: $listing-filter-bg;
     border-radius: 8px;
+    background-color: #f4f4f4;
 
     @include xs-to-md {
       display: block;
-      padding: $challenge-space-10;
-      padding: 0;
-      margin-top: 24px;
-      margin-bottom: 16px;
-      margin-left: 16px;
-      margin-right: 16px;
-      padding-bottom: 16px;
+      padding: 16px;
+      margin: 16px;
     }
   }
 
   .sidebar-container-desktop {
-    margin: 35px 0 10px;
-    width: 23.5%;
+    width: 326px;
 
     @include xs-to-md {
       display: none;
@@ -196,6 +196,6 @@ $challenge-radius-4: $corner-radius * 2;
 
 .tagContainer {
   display: flex;
-  margin-top: -2px;
+  margin-top: 1px;
   flex-wrap: wrap;
 }

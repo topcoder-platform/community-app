@@ -25,10 +25,10 @@ $tc-link-visited: #0c4e98;
 @mixin linkLikeParagraph {
   @include roboto-regular;
 
-  font-size: 13px;
+  font-size: 16px;
   color: $tc-gray-90;
-  line-height: 20px;
-  margin: 0 0 20px;
+  line-height: 24px;
+  margin: 0;
 
   @include linkStyle;
 }

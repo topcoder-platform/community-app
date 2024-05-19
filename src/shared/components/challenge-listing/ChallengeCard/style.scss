@@ -17,11 +17,10 @@ $challenge-radius-4: $corner-radius * 2;
   justify-content: flex-start;
   position: relative;
   background: $tc-white;
-  padding: $challenge-space-20 0;
+  padding: 24px 0;
   border-top: 1px solid $tc-gray-10;
   color: $tc-black;
   font-size: 15px;
-  margin-left: 24px;
 
   &:last-child {
     border-bottom: 1px solid $tc-gray-10;
@@ -123,15 +122,14 @@ $challenge-radius-4: $corner-radius * 2;
     width: 100%;
     margin-top: 16px;
     display: flex;
+    gap: 8px;
 
     .date {
-      font-size: 12px;
+      font-size: 14px;
       color: $tc-gray-60;
-      margin-right: $challenge-space-10;
-      line-height: ($challenge-space-10) + 2;
+      line-height: 22px;
       font-weight: normal;
       min-width: 70px;
-      margin-top: 2px;
     }
 
     .technology {

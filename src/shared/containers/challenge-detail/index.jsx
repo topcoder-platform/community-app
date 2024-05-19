@@ -470,258 +470,260 @@ class ChallengeDetailPageContainer extends React.Component {
       && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
     return (
-      <div styleName="outer-container">
-        <div styleName="challenge-detail-container" role="main">
-          { Boolean(isEmpty) && (
-            <div styleName="page">
-              Challenge #
-              {challengeId}
-              {' '}
-              does not exist!
-            </div>
-          )}
-          {
-            !isEmpty
-            && (
-              <MetaTags
-                description={description}
-                image={getOgImage(challenge)}
-                siteName="Topcoder"
-                socialDescription={description}
-                socialTitle={`${prizesStr}${challenge.name}`}
-                title={title}
+      <div styleName="container">
+        <div styleName="outer-container">
+          <div styleName="challenge-detail-container" role="main">
+            { Boolean(isEmpty) && (
+              <div styleName="page">
+                Challenge #
+                {challengeId}
+                {' '}
+                does not exist!
+              </div>
+            )}
+            {
+              !isEmpty
+              && (
+                <MetaTags
+                  description={description}
+                  image={getOgImage(challenge)}
+                  siteName="Topcoder"
+                  socialDescription={description}
+                  socialTitle={`${prizesStr}${challenge.name}`}
+                  title={title}
+                />
+              )
+            }
+            {
+              !isEmpty
+              && (
+              <ChallengeHeader
+                isLoggedIn={isLoggedIn}
+                challenge={challenge}
+                challengeId={challengeId}
+                challengeTypes={challengeTypes}
+                challengesUrl={challengesUrl}
+                numWinners={isLegacyMM ? 0 : winners.length}
+                showDeadlineDetail={showDeadlineDetail}
+                onToggleDeadlines={this.onToggleDeadlines}
+                onSelectorClicked={onSelectorClicked}
+                registerForChallenge={this.registerForChallenge}
+                registering={registering}
+                selectedView={selectedTab}
+                // hasRecommendedChallenges={displayRecommendedChallenges.length > 0}
+                hasThriveArticles={thriveArticles.length > 0}
+                setChallengeListingFilter={setChallengeListingFilter}
+                unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
+                }
+                unregistering={unregistering}
+                checkpoints={checkpoints}
+                hasRegistered={challenge.isRegistered}
+                hasFirstPlacement={hasFirstPlacement}
+                challengeTypesMap={challengeTypesMap}
+                isMenuOpened={isMenuOpened}
+                submissionEnded={submissionEnded}
+                mySubmissions={challenge.isRegistered ? mySubmissions : []}
+                openForRegistrationChallenges={openForRegistrationChallenges}
+                viewAsTable={viewAsTable && isMM}
+                onSort={(currenctSelected, sort) => {
+                  if (currenctSelected === 'submissions') {
+                    this.setState({ submissionsSort: sort });
+                  } else {
+                    this.setState({ registrantsSort: sort });
+                  }
+                }}
               />
-            )
-          }
-          {
-            !isEmpty
-            && (
-            <ChallengeHeader
-              isLoggedIn={isLoggedIn}
-              challenge={challenge}
-              challengeId={challengeId}
-              challengeTypes={challengeTypes}
-              challengesUrl={challengesUrl}
-              numWinners={isLegacyMM ? 0 : winners.length}
-              showDeadlineDetail={showDeadlineDetail}
-              onToggleDeadlines={this.onToggleDeadlines}
-              onSelectorClicked={onSelectorClicked}
-              registerForChallenge={this.registerForChallenge}
-              registering={registering}
-              selectedView={selectedTab}
-              // hasRecommendedChallenges={displayRecommendedChallenges.length > 0}
-              hasThriveArticles={thriveArticles.length > 0}
-              setChallengeListingFilter={setChallengeListingFilter}
-              unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
-              }
-              unregistering={unregistering}
-              checkpoints={checkpoints}
-              hasRegistered={challenge.isRegistered}
-              hasFirstPlacement={hasFirstPlacement}
-              challengeTypesMap={challengeTypesMap}
-              isMenuOpened={isMenuOpened}
-              submissionEnded={submissionEnded}
-              mySubmissions={challenge.isRegistered ? mySubmissions : []}
-              openForRegistrationChallenges={openForRegistrationChallenges}
-              viewAsTable={viewAsTable && isMM}
-              onSort={(currenctSelected, sort) => {
-                if (currenctSelected === 'submissions') {
-                  this.setState({ submissionsSort: sort });
+              )
+            }
+            {
+              !isEmpty && selectedTab === DETAIL_TABS.DETAILS
+              && (
+                <ChallengeDetailsView
+                  challenge={challenge}
+                  challengesUrl={challengesUrl}
+                  communitiesList={communitiesList.data}
+                  description={challenge.name}
+                  detailedRequirements={challenge.description}
+                  terms={terms}
+                  hasRegistered={challenge.isRegistered}
+                  savingChallenge={savingChallenge}
+                  setSpecsTabState={setSpecsTabState}
+                  specsTabState={specsTabState}
+                  updateChallenge={x => updateChallenge(x, auth.tokenV3)}
+                />
+              )
+            }
+            {
+              !isEmpty && selectedTab === DETAIL_TABS.REGISTRANTS
+              && (
+                <Registrants
+                  challenge={challenge}
+                  registrants={challenge.registrants}
+                  checkpointResults={
+                    _.merge(
+                      checkpointResults,
+                      checkpointResultsUi,
+                    )
+                  }
+                  results={results2}
+                  statisticsData={statisticsData}
+                  registrantsSort={registrantsSort}
+                  notFoundCountryFlagUrl={notFoundCountryFlagUrl}
+                  onGetFlagImageFail={(countryInfo) => {
+                    notFoundCountryFlagUrl[countryInfo.countryCode] = true;
+                    this.setState({ notFoundCountryFlagUrl });
+                  }}
+                  onSortChange={sort => this.setState({ registrantsSort: sort })}
+                />
+              )
+            }
+            {
+              !isEmpty && selectedTab === DETAIL_TABS.CHECKPOINTS
+              && (
+                <ChallengeCheckpoints
+                  checkpoints={checkpoints}
+                  toggleCheckpointFeedback={toggleCheckpointFeedback}
+                />
+              )
+            }
+            {
+              !isEmpty && isLoggedIn && selectedTab === DETAIL_TABS.SUBMISSIONS
+              && (
+                <Submissions
+                  challenge={challenge}
+                  submissions={challenge.submissions}
+                  loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
+                  mmSubmissions={mmSubmissions}
+                  loadMMSubmissions={loadMMSubmissions}
+                  auth={auth}
+                  isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                  submssionInformation={submissionInformation}
+                  loadSubmissionInformation={loadSubmissionInformation}
+                  submissionsSort={submissionsSort}
+                  notFoundCountryFlagUrl={notFoundCountryFlagUrl}
+                  onGetFlagImageFail={(countryInfo) => {
+                    notFoundCountryFlagUrl[countryInfo.countryCode] = true;
+                    this.setState({ notFoundCountryFlagUrl });
+                  }}
+                  onSortChange={(sort) => {
+                    this.setState({ submissionsSort: sort });
+                  }}
+                  hasRegistered={challenge.isRegistered}
+                  unregistering={unregistering}
+                  isLegacyMM={isLegacyMM}
+                  submissionEnded={submissionEnded}
+                  challengesUrl={challengesUrl}
+                  viewAsTable={viewAsTable && isMM}
+                  setViewAsTable={value => this.setState({ viewAsTable: value })}
+                  numWinners={isLegacyMM ? 0 : winners.length}
+                />
+              )
+            }
+            {
+              isMM && !isEmpty && selectedTab === DETAIL_TABS.MY_SUBMISSIONS
+              && (
+                <MySubmissions
+                  challengesUrl={challengesUrl}
+                  challenge={challenge}
+                  hasRegistered={challenge.isRegistered}
+                  unregistering={unregistering}
+                  submissionEnded={submissionEnded}
+                  isMM={isMM}
+                  isLegacyMM={isLegacyMM}
+                  loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
+                  auth={auth}
+                  loadMMSubmissions={loadMMSubmissions}
+                  mySubmissions={challenge.isRegistered ? mySubmissions : []}
+                  reviewTypes={reviewTypes}
+                  submissionsSort={mySubmissionsSort}
+                  onSortChange={sort => this.setState({ mySubmissionsSort: sort })}
+                />
+              )
+            }
+            {
+              !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
+              && (!statisticsData || statisticsData.length === 0)
+              && (
+                <div styleName="page">
+                  {
+                    !statisticsData ? <LoadingIndicator /> : 'Dashboard data is not available!'
+                  }
+                </div>
+              )
+            }
+            {
+              !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
+              && statisticsData && statisticsData.length > 0
+              && (
+                <MMDashboardGraph
+                  statisticsData={statisticsData}
+                  baseline={_.get(_.find(_.get(challenge, 'metadata', []), meta => meta.name === 'baseline'), 'value', 0)}
+                  awardLine={_.get(_.find(_.get(challenge, 'metadata', []), meta => meta.name === 'awardLine'), 'value', 0)}
+                />
+              )
+            }
+            {
+              !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
+              && (
+                <Winners
+                  winners={winners}
+                  prizes={challengePrizes}
+                  viewable={submissionsViewable ? submissionsViewable.value === 'true' : false}
+                  submissions={challenge.submissions}
+                  isDesign={track.toLowerCase() === 'design'}
+                  isMM={isMM}
+                  isRDM={isRDM}
+                  isLoggedIn={isLoggedIn}
+                  auth={auth}
+                />
+              )
+            }
+          </div>
+          {legacyId && (
+            <Terms
+              defaultTitle="Challenge Prerequisites"
+              entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
+              instanceId={this.instanceId}
+              description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
+              register={() => {
+                registerForChallenge(auth, challengeId);
+              }}
+            />
+          )}
+          {showSecurityReminder && (
+            <SecurityReminder
+              onCancel={() => this.setState({ showSecurityReminder: false })}
+              onOk={() => {
+                this.setState({ showSecurityReminder: false });
+                if (_.every(terms, 'agreed')) {
+                  registerForChallenge(auth, challengeId);
                 } else {
-                  this.setState({ registrantsSort: sort });
+                  openTermsModal();
                 }
               }}
             />
-            )
-          }
+          )}
+          {/* {
+          !isEmpty && displayRecommendedChallenges.length ? (
+            <RecommendedActiveChallenges
+              challenges={displayRecommendedChallenges}
+              challengeTypes={challengeTypes}
+              prizeMode={prizeMode}
+              challengesUrl={challengesUrl}
+              selectChallengeDetailsTab={selectChallengeDetailsTab}
+              auth={auth}
+              expandedTags={expandedTags}
+              expandTag={expandTag}
+              isLoggedIn={isLoggedIn}
+            />
+          ) : null
+          } */}
           {
-            !isEmpty && selectedTab === DETAIL_TABS.DETAILS
-            && (
-              <ChallengeDetailsView
-                challenge={challenge}
-                challengesUrl={challengesUrl}
-                communitiesList={communitiesList.data}
-                description={challenge.name}
-                detailedRequirements={challenge.description}
-                terms={terms}
-                hasRegistered={challenge.isRegistered}
-                savingChallenge={savingChallenge}
-                setSpecsTabState={setSpecsTabState}
-                specsTabState={specsTabState}
-                updateChallenge={x => updateChallenge(x, auth.tokenV3)}
-              />
-            )
-          }
-          {
-            !isEmpty && selectedTab === DETAIL_TABS.REGISTRANTS
-            && (
-              <Registrants
-                challenge={challenge}
-                registrants={challenge.registrants}
-                checkpointResults={
-                  _.merge(
-                    checkpointResults,
-                    checkpointResultsUi,
-                  )
-                }
-                results={results2}
-                statisticsData={statisticsData}
-                registrantsSort={registrantsSort}
-                notFoundCountryFlagUrl={notFoundCountryFlagUrl}
-                onGetFlagImageFail={(countryInfo) => {
-                  notFoundCountryFlagUrl[countryInfo.countryCode] = true;
-                  this.setState({ notFoundCountryFlagUrl });
-                }}
-                onSortChange={sort => this.setState({ registrantsSort: sort })}
-              />
-            )
-          }
-          {
-            !isEmpty && selectedTab === DETAIL_TABS.CHECKPOINTS
-            && (
-              <ChallengeCheckpoints
-                checkpoints={checkpoints}
-                toggleCheckpointFeedback={toggleCheckpointFeedback}
-              />
-            )
-          }
-          {
-            !isEmpty && isLoggedIn && selectedTab === DETAIL_TABS.SUBMISSIONS
-            && (
-              <Submissions
-                challenge={challenge}
-                submissions={challenge.submissions}
-                loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
-                mmSubmissions={mmSubmissions}
-                loadMMSubmissions={loadMMSubmissions}
-                auth={auth}
-                isLoadingSubmissionInformation={isLoadingSubmissionInformation}
-                submssionInformation={submissionInformation}
-                loadSubmissionInformation={loadSubmissionInformation}
-                submissionsSort={submissionsSort}
-                notFoundCountryFlagUrl={notFoundCountryFlagUrl}
-                onGetFlagImageFail={(countryInfo) => {
-                  notFoundCountryFlagUrl[countryInfo.countryCode] = true;
-                  this.setState({ notFoundCountryFlagUrl });
-                }}
-                onSortChange={(sort) => {
-                  this.setState({ submissionsSort: sort });
-                }}
-                hasRegistered={challenge.isRegistered}
-                unregistering={unregistering}
-                isLegacyMM={isLegacyMM}
-                submissionEnded={submissionEnded}
-                challengesUrl={challengesUrl}
-                viewAsTable={viewAsTable && isMM}
-                setViewAsTable={value => this.setState({ viewAsTable: value })}
-                numWinners={isLegacyMM ? 0 : winners.length}
-              />
-            )
-          }
-          {
-            isMM && !isEmpty && selectedTab === DETAIL_TABS.MY_SUBMISSIONS
-            && (
-              <MySubmissions
-                challengesUrl={challengesUrl}
-                challenge={challenge}
-                hasRegistered={challenge.isRegistered}
-                unregistering={unregistering}
-                submissionEnded={submissionEnded}
-                isMM={isMM}
-                isLegacyMM={isLegacyMM}
-                loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
-                auth={auth}
-                loadMMSubmissions={loadMMSubmissions}
-                mySubmissions={challenge.isRegistered ? mySubmissions : []}
-                reviewTypes={reviewTypes}
-                submissionsSort={mySubmissionsSort}
-                onSortChange={sort => this.setState({ mySubmissionsSort: sort })}
-              />
-            )
-          }
-          {
-            !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
-            && (!statisticsData || statisticsData.length === 0)
-            && (
-              <div styleName="page">
-                {
-                  !statisticsData ? <LoadingIndicator /> : 'Dashboard data is not available!'
-                }
-              </div>
-            )
-          }
-          {
-            !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
-            && statisticsData && statisticsData.length > 0
-            && (
-              <MMDashboardGraph
-                statisticsData={statisticsData}
-                baseline={_.get(_.find(_.get(challenge, 'metadata', []), meta => meta.name === 'baseline'), 'value', 0)}
-                awardLine={_.get(_.find(_.get(challenge, 'metadata', []), meta => meta.name === 'awardLine'), 'value', 0)}
-              />
-            )
-          }
-          {
-            !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
-            && (
-              <Winners
-                winners={winners}
-                prizes={challengePrizes}
-                viewable={submissionsViewable ? submissionsViewable.value === 'true' : false}
-                submissions={challenge.submissions}
-                isDesign={track.toLowerCase() === 'design'}
-                isMM={isMM}
-                isRDM={isRDM}
-                isLoggedIn={isLoggedIn}
-                auth={auth}
-              />
-            )
+          !isEmpty && thriveArticles.length ? (
+            <RecommendedThriveArticles articles={thriveArticles} />
+          ) : null
           }
         </div>
-        {legacyId && (
-          <Terms
-            defaultTitle="Challenge Prerequisites"
-            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
-            instanceId={this.instanceId}
-            description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
-            register={() => {
-              registerForChallenge(auth, challengeId);
-            }}
-          />
-        )}
-        {showSecurityReminder && (
-          <SecurityReminder
-            onCancel={() => this.setState({ showSecurityReminder: false })}
-            onOk={() => {
-              this.setState({ showSecurityReminder: false });
-              if (_.every(terms, 'agreed')) {
-                registerForChallenge(auth, challengeId);
-              } else {
-                openTermsModal();
-              }
-            }}
-          />
-        )}
-        {/* {
-        !isEmpty && displayRecommendedChallenges.length ? (
-          <RecommendedActiveChallenges
-            challenges={displayRecommendedChallenges}
-            challengeTypes={challengeTypes}
-            prizeMode={prizeMode}
-            challengesUrl={challengesUrl}
-            selectChallengeDetailsTab={selectChallengeDetailsTab}
-            auth={auth}
-            expandedTags={expandedTags}
-            expandTag={expandTag}
-            isLoggedIn={isLoggedIn}
-          />
-        ) : null
-        } */}
-        {
-        !isEmpty && thriveArticles.length ? (
-          <RecommendedThriveArticles articles={thriveArticles} />
-        ) : null
-        }
       </div>
 
     );

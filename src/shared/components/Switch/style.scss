@@ -10,6 +10,12 @@
   width: 11px;
 }
 
+.blue {
+  &.enabled {
+    background: $listing-checkbox-blue;
+  }
+}
+
 .disabled {
   background: $tc-gray-30;
 

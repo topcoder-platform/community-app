@@ -1,21 +1,12 @@
-@import "mixins";
-
-.no-margin-top {
-  margin-top: -10px !important;
-}
+@import 'mixins';
 
 .challenge-spec-sidebar {
   @include roboto-regular;
 
-  background: #f4f4f4;
+  background: white;
   width: 325px;
-  padding: 23px;
-  margin-right: 30px;
-  margin-top: 34px;
-
-  @include md {
-    margin: (8 * $base-unit) 0;
-  }
+  padding: 24px;
+  border-radius: 4px;
 
   @include xs-to-sm {
     margin: 0;
@@ -39,7 +30,12 @@
 
 .tctooltip {
   margin-left: 5px;
-  margin-top: 3px;
+
+  svg {
+    path {
+      fill: #767676;
+    }
+  }
 }
 
 .tctooltiptext {
@@ -82,7 +78,7 @@
   }
 
   > div {
-    margin-top: 6 * $base-unit;
+    margin-top: 32px;
   }
 
   p {
@@ -91,12 +87,12 @@
   }
 
   h2 {
-    @include roboto-bold;
+    @include roboto-medium;
 
-    font-size: 18px;
+    font-size: 20px;
     color: $tc-gray-90;
-    line-height: 20px;
-    padding-bottom: 2px;
+    line-height: 26px;
+    margin-bottom: 8px;
   }
 
   a {
@@ -105,16 +101,16 @@
   }
 
   h3 {
-    @include roboto-bold;
+    @include roboto-medium;
 
     font-size: 16px;
+    line-height: 24px;
     color: $tc-gray-90;
-    line-height: 20px;
-    margin-top: 4 * $base-unit;
+    margin-top: 8px;
   }
 
   h3:first-of-type {
-    margin-top: 2 * $base-unit;
+    margin-top: 8px;
   }
 
   .link-like-paragraph {
@@ -123,8 +119,11 @@
 
   .legacy-challenge-id {
     h3 {
-      color: $tc-gray-10;
-      font-style: italic;
+      @include roboto-regular;
+
+      color: #767676;
+      font-size: 14px;
+      line-height: 22px;
     }
 
     text-align: left;
@@ -154,7 +153,7 @@
       display: table-cell;
       font-weight: 700;
       text-align: right;
-      content: counter(item) ".";
+      content: counter(item) '.';
       padding: 0 8px 0 0;
       width: 20px;
     }
@@ -182,7 +181,7 @@
       display: table-cell;
       font-weight: 700;
       text-align: right;
-      content: "-";
+      content: '-';
       padding: 0 10px 0 0;
     }
   }

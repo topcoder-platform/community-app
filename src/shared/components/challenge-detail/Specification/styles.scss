@@ -202,8 +202,9 @@ $tc-link-visited: #0c4e98;
   justify-content: center;
   overflow: hidden;
   position: relative;
-  align-items: baseline;
+  align-items: flex-start;
   word-break: break-word;
+  gap: 16px;
 
   @include linkStyle;
 
@@ -218,7 +219,13 @@ $tc-link-visited: #0c4e98;
     text-align: left;
     display: flex;
     flex-direction: column;
-    margin: 5px 0 50px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #d4d4d4;
+
+    @include xs-to-md {
+      width: 100%;
+    }
 
     .challenge-specs-develop {
       blockquote {
@@ -257,7 +264,7 @@ $tc-link-visited: #0c4e98;
       font-size: 24px;
       color: $tc-black;
       line-height: 28px;
-      margin: (6 * $base-unit) 0 (2 * $base-unit);
+      margin: 16px 0 16px;
     }
 
     h3 {
@@ -422,11 +429,11 @@ $tc-link-visited: #0c4e98;
   @include roboto-regular;
 
   width: 100%;
-  padding: 0 34px;
+  padding: 0 16px;
   align-self: center;
-  font-size: 15px;
+  font-size: 16px;
   color: $tc-gray-90;
-  line-height: 25px;
+  line-height: 24px;
   white-space: normal;
 
   .note {

@@ -34,7 +34,7 @@ export class Container extends React.Component {
     } = this.props;
 
     const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
-    const searchPlaceholderText = isPastBucket(activeBucket) ? 'Search Past Challenges' : 'Search Active Challenges';
+    const searchPlaceholderText = isPastBucket(activeBucket) ? 'Search Past Challenges' : 'Search active';
 
     return (
       <ChallengeSearchBar

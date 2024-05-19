@@ -415,7 +415,7 @@ export default function ChallengeDetailsView(props) {
             screeningScorecardId={screeningScorecardId}
             isWipro={isWipro}
           />
-        ) : (<div />) }
+        ) : null }
       </div>
     </div>
   );

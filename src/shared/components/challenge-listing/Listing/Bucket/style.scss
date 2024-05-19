@@ -2,7 +2,14 @@
 
 .bucket {
   background: $tc-white;
-  margin: 20px 0;
+  margin: 0;
+  padding: 0 16px 16px 16px;
+  border-radius: 4px;
+  border: 1px solid #d4d4d4;
+
+  @include xs-to-md {
+    padding: 0;
+  }
 }
 
 .view-more,

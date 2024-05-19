@@ -3,8 +3,9 @@
 .container {
   @include roboto-regular;
 
-  margin: 35px 32px 0 32px;
   padding-bottom: 48px;
+  margin: 0;
+  background-color: white;
 
   @include xs-to-sm {
     margin: 24px 16px 0 16px;

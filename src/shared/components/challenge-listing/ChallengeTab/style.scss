@@ -33,46 +33,34 @@
 
 .challenge-tab {
   display: flex;
-  height: 42px;
-  margin-top: 24px;
-  background-color: $listing-light-blue;
-  border-radius: 4px 4px 0 0;
-  border-bottom: 1px solid $listing-light-gray;
+  height: 48px;
+  background-color: white;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid $color-black-10;
+  gap: 24px;
+  padding: 0 8px;
 
   .item {
-    @include barlow;
+    @include roboto-medium;
 
-    font-weight: 600;
     font-size: 14px;
-    color: $member-gray;
-    line-height: 20px;
-    padding: 12px 16px 10px 16px;
+    color: $tc-black;
+    line-height: 24px;
+    padding: 12px 8px 12px 8px;
     cursor: pointer;
     display: flex;
     justify-content: center;
+    border-bottom: 2px solid transparent;
 
     &:not(.active):hover {
-      background-color: #bae1f9;
+      color: $color-blue-140;
+      border-bottom-color: $color-blue-140;
     }
   }
 
   .active {
-    color: $tc-black;
-    font-weight: 700;
-    position: relative;
-
-    &::after {
-      content: "";
-      background-image: url(assets/images/nav-active-item.svg);
-      height: 10px;
-      width: 40px;
-      margin-top: 10px;
-      justify-content: center;
-      z-index: 100;
-      display: block;
-      position: absolute;
-      top: 31px;
-    }
+    color: $color-blue-140;
+    border-bottom-color: $color-blue-140;
   }
 }
 
@@ -120,14 +108,13 @@
 }
 
 .tc-title {
-  @include barlow-condensed;
+  @include roboto-medium;
 
   color: $tco-black;
-  font-size: 32px;
-  margin: 32px 0 24px 0;
-  line-height: 32px;
-  font-weight: 600;
-  text-transform: uppercase;
+  font-size: 36px;
+  margin: 0;
+  line-height: 44px;
+  text-transform: capitalize;
 
   @include xs-to-md {
     margin: 16px;

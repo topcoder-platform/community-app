@@ -17,9 +17,6 @@ exports[`Matches shallow shapshot 1`] = `
       selectBucket={[MockFunction]}
     />
   </div>
-  <hr
-    className="src-shared-components-challenge-listing-Sidebar-___style__hr___2GEB7"
-  />
 </div>
 `;
 
@@ -40,8 +37,5 @@ exports[`Matches shallow shapshot 2`] = `
       selectBucket={[MockFunction]}
     />
   </div>
-  <hr
-    className="src-shared-components-challenge-listing-Sidebar-___style__hr___2GEB7"
-  />
 </div>
 `;

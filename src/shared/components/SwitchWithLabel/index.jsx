@@ -17,6 +17,7 @@ function SwitchWithLabel({
   labelBefore,
   onSwitch,
   theme,
+  isBlue,
 }) {
   return (
     <div
@@ -34,6 +35,7 @@ function SwitchWithLabel({
         theme={{
           switch: theme.switch,
         }}
+        isBlue={isBlue}
       />
       <span>{labelAfter}</span>
     </div>
@@ -42,6 +44,7 @@ function SwitchWithLabel({
 
 SwitchWithLabel.defaultProps = {
   enabled: false,
+  isBlue: false,
   labelAfter: '',
   labelBefore: '',
 };
@@ -55,6 +58,7 @@ SwitchWithLabel.propTypes = {
     wrapper: PT.string.isRequired,
   }).isRequired,
   onSwitch: PT.func.isRequired,
+  isBlue: PT.bool,
 };
 
 export default themr('SwitchWithLabel', defaultStyle)(SwitchWithLabel);

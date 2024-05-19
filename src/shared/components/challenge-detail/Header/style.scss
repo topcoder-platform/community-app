@@ -11,56 +11,47 @@
 }
 
 .topcrowd-container {
-  display: block;
-  margin-top: 32px;
-  margin-right: 50px;
-  margin-left: 50px;
-  font-size: 12px;
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.2em;
-  background-color: #efefef99;
-  padding-left: 20px;
-  padding-right: 30px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  border-radius: 4px;
+  @include roboto-medium;
 
-  a {
-    color: $tc-dark-blue;
-    display: block;
-    padding-top: 20px;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 3px;
+  background-color: $listing-checkbox-blue;
+  padding: 12px 24px 12px 20px;
+  color: white;
+  gap: 4px;
+  align-items: center;
+  display: flex;
 
-    &::after {
-      content: "\f08e";
-      display: inline;
-      align-items: center;
-      justify-content: center;
-      right: 6px;
-      top: 46%;
-      height: 34px;
-      font-family: "FontAwesome", serif;
-      font-size: 12px;
-      color: $tc-dark-blue;
-      transform: translateY(-50%);
-      pointer-events: none;
-      margin-left: 5px;
-    }
+  &:hover {
+    color: white;
   }
 }
 
-.challenge-ops-container .submitButton {
-  margin: 5px;
+.challenge-ops-container button,
+.challenge-ops-container div {
+  margin: 0 !important;
+}
+
+@mixin button-styles {
+  @include roboto-medium;
+
   min-width: 0;
-  border-radius: 50px !important;
-  height: 48px;
-  background: #137d60 !important;
-  color: #fff !important;
+  border-radius: 3px !important;
   white-space: nowrap;
-  padding: 12px 24px !important;
-  font-size: 16px;
+  padding: 12px 24px 12px 20px !important;
   line-height: 24px;
-  font-weight: 700;
-  letter-spacing: 0.008em;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.challenge-ops-container .submitButton {
+  @include button-styles;
+
+  background: $dashboard-light-link !important;
+  color: #fff !important;
 
   @include xs-to-sm {
     width: fit-content;
@@ -68,17 +59,16 @@
 }
 
 .challenge-ops-container .submitButtonDisabled {
-  margin: 5px;
-  min-width: 0;
-  border-radius: 50px !important;
-  height: 48px;
-  padding: 12px 24px !important;
+  @include button-styles;
+
   color: #767676 !important;
-  background: #f4f4f4 !important;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-  letter-spacing: 0.008em;
+  background: #d4d4d4 !important;
+
+  svg {
+    path {
+      fill: #767676;
+    }
+  }
 
   @include xs-to-sm {
     width: fit-content;
@@ -86,18 +76,11 @@
 }
 
 .challenge-ops-container .unregisterButton {
-  margin: 5px;
-  min-width: 0;
-  border-radius: 50px !important;
-  height: 48px;
-  padding: 12px 24px !important;
+  @include button-styles;
+
   color: #137d60 !important;
   border: 2px solid #137d60 !important;
   background: #fff !important;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
@@ -105,35 +88,11 @@
 }
 
 .challenge-ops-container .unregisterButtonDisabled {
-  margin: 5px;
-  min-width: 0;
-  border-radius: 50px !important;
-  height: 48px;
-  padding: 12px 24px !important;
+  @include button-styles;
+
   color: #767676 !important;
   border: 2px solid #f4f4f4;
   background: #fff !important;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-  letter-spacing: 0.008em;
-
-  @include xs-to-sm {
-    width: fit-content;
-  }
-}
-
-.challenge-ops-container .registerBtn {
-  margin: 5px;
-  min-width: 0;
-  border-radius: 50px !important;
-  height: 48px;
-  padding: 12px 24px !important;
-  background-color: #137d60 !important;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-  letter-spacing: 0.008em;
 
   @include xs-to-sm {
     width: fit-content;
@@ -194,12 +153,10 @@
 
 .challenge-ops-container {
   display: flex;
-  margin-top: 32px;
-  margin-right: 18px;
-  text-transform: uppercase;
+  gap: 8px;
 
   button {
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 
   @include xs-to-sm {
@@ -281,59 +238,32 @@
 }
 
 .challenge-outer-container {
-  background: $tc-white;
-  border-radius: (3 * $corner-radius) (3 * $corner-radius) 0 0;
-
-  @include xs-to-md {
-    padding: 4px 4px 0 0;
-  }
-
   .important-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
     @include xs-to-md {
-      padding: 15px 15px 0;
-    }
-
-    @include md {
-      padding: 20px 20px 0;
-    }
-
-    @include lg-to-xl {
-      padding: 20px 19px 0 27px;
+      gap: 16px;
     }
 
     .challenge-header {
-      @include barlow-bold;
+      @include roboto-medium;
 
-      font-weight: 600;
-      font-size: 34px;
+      font-size: 36px;
       color: $tco-black;
       line-height: 40px;
-      letter-spacing: -0.78px;
-      margin-bottom: 5px;
-      margin-left: 16px;
-      margin-top: 14px;
 
       @include xs-to-md {
         font-size: 20px;
         line-height: 25px;
-        margin-right: 43px;
-        letter-spacing: 0;
-      }
-
-      @include lg-to-xl {
-        margin-right: 60px;
-      }
-
-      @include md {
-        margin-right: -4px;
       }
     }
 
     .tag-container {
       display: flex;
       align-items: center;
-      margin-left: 15px;
-      padding-top: 4px;
+      margin-top: 8px;
 
       @include xs-to-md {
         width: 100%;
@@ -400,14 +330,10 @@
 
     .prizes-ops-container {
       background-color: $tc-white;
-      border: 2px solid $tc-gray-20;
-      border-bottom: none;
-      border-top-right-radius: 6px;
-      border-top-left-radius: 6px;
-      margin-top: 16px;
-      margin-left: 5px;
-      margin-right: 14px;
-      padding-bottom: 48px;
+      border: 1px solid #d4d4d4;
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+      padding: 16px 24px;
       display: flex;
       flex-wrap: wrap;
       align-items: stretch;
@@ -420,33 +346,19 @@
 
       .prizes-outer-container {
         flex: 4;
+        display: flex;
+        align-items: center;
 
-        .prizes-title {
-          @include barlow-bold;
-
-          font-size: 18px;
-          line-height: 22px;
-          color: $tco-black;
-          text-transform: uppercase;
-          margin-left: 22px;
-
-          @include xs-to-md {
-            font-size: 16px;
-            font-weight: 600;
-            margin-left: 10px;
-            text-align: center;
-          }
-
-          margin-top: 14px;
+        @include xs-to-md {
+          justify-content: center;
         }
 
         .prizes-container {
           display: flex;
           align-content: center;
           flex-wrap: wrap;
-          margin-left: 24px;
-          margin-top: 36px;
           width: 85%;
+          gap: 48px;
 
           @include xs-to-md {
             width: 100%;
@@ -454,14 +366,9 @@
           }
 
           .prize-fill {
-            margin: 15px 48px 0 0;
             display: flex;
-            flex: 0 1 calc(15% - 8px);
-
-            @include xs-to-md {
-              min-width: 100px;
-              margin-right: 32px;
-            }
+            align-items: center;
+            gap: 8px;
 
             .prize-card {
               display: flex;
@@ -469,7 +376,6 @@
               border-radius: 20px;
               width: 40px;
               height: 40px;
-              margin-right: 8px;
               background-color: #e0faf3;
               justify-content: center;
               flex-direction: column;
@@ -488,7 +394,6 @@
                 color: $tco-black;
                 letter-spacing: 0;
                 line-height: 20px;
-                margin-bottom: 5px;
 
                 .rank-ordinal {
                   color: $tco-black;
@@ -496,20 +401,17 @@
 
                 @include xs-to-md {
                   font-size: 12px;
-                  margin-top: 3px;
                 }
               }
             }
 
             .prize-money {
-              @include roboto-medium;
+              @include roboto-bold;
 
               font-size: 24px;
               font-weight: 500;
               color: #2a2a2a;
-              letter-spacing: -0.5px;
               line-height: 32px;
-              margin-bottom: 5px;
 
               .prize-currency {
                 color: #2a2a2a;
@@ -562,26 +464,29 @@
 
     .deadlines-view {
       border-radius: 0 0 8px 8px;
-      border: 0 hidden $tc-white;
+      border: 1px solid #d4d4d4;
       overflow: hidden;
-      margin: 0 14px 0 5px;
+      border-top: none;
 
       .deadlines-overview {
-        background-color: #555;
+        background-color: white;
         align-items: center;
         justify-content: space-between;
-        height: 60px;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
         display: flex;
-        padding-right: 16px;
+        padding: 19px 24px;
+
+        @include xs-to-md {
+          padding: 16px;
+        }
+
+        svg {
+          path {
+            fill: #2a2a2a;
+          }
+        }
 
         &.opened {
           border-radius: 0 !important;
-        }
-
-        @include xs-to-md {
-          padding: 0 16px;
         }
 
         .deadlines-overview-text {
@@ -589,9 +494,8 @@
 
           display: flex;
           justify-content: flex-start;
-          color: $tc-white;
-          line-height: 20px;
-          padding: 24px 23px;
+          color: #2a2a2a;
+          line-height: 24px;
           font-size: 15px;
 
           @include xs-to-md {
@@ -620,13 +524,11 @@
 
             @include xs-to-md {
               padding-left: 0;
-              margin-top: 4px;
             }
           }
 
           .deadline-highlighted {
-            color: $tc-white;
-            font-weight: 700;
+            font-weight: 500;
           }
         }
 
@@ -645,41 +547,30 @@
   }
 }
 
-.left-arrow {
-  fill: #137d60;
-  position: absolute;
-  left: 35%;
-  right: 35%;
-  top: 35%;
-  bottom: 25%;
-}
-
 .title-wrapper {
-  align-items: center;
   display: flex;
-  left: -25px;
   position: relative;
-  top: -5px;
-  margin: 0 32px;
+  gap: 8px;
 
   @include xs-to-md {
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 15px;
   }
 }
 
 .back-arrow {
   width: 32px;
-  height: 24px;
-  border: 1.5px solid #137d60;
-  border-radius: 24px;
-  padding: 4px 8px;
-  margin-bottom: 10px;
-  position: relative;
+  height: 32px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
 
   @include xs-to-md {
-    margin-left: 15px;
+    margin-top: 0;
   }
 }
 
@@ -691,10 +582,7 @@
 
 .block-tags-container {
   display: flex;
-  flex-wrap: wrap;
-  column-gap: 5px;
-  row-gap: 2px;
-  margin-bottom: 2px;
+  gap: 8px;
 }
 
 .skill {

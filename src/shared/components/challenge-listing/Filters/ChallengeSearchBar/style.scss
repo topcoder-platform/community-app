@@ -9,21 +9,15 @@ $challenge-radius-1: $corner-radius / 2;
 $challenge-radius-4: $corner-radius * 2;
 
 .container {
-  border-bottom: 1px solid $tc-gray-30;
-  padding-bottom: 16px;
-  margin: 2px 12px 2px 14px;
-
   @include xs-to-md {
     padding: 0;
-    margin: 0 16px;
+    margin: 0;
   }
 }
 
 .ChallengeSearchBar {
   display: block;
   position: relative;
-  top: 10px;
-  height: 60px;
 
   .input-container {
     font-size: 14px;

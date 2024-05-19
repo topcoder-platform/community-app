@@ -27,7 +27,7 @@ export const BUCKET_DATA = {
     //   status: ['Active'],
     // },
     // hideCount: false,
-    name: 'All Challenges',
+    name: 'All',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
       SORTS.PRIZE_HIGH_TO_LOW,

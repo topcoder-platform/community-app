@@ -141,7 +141,7 @@ export default function SideBar({
         }
         <div>
           <h2>
-            LEARN:
+            Learn
           </h2>
           {isWipro ? (
             <p styleName="link-like-paragraph">
@@ -163,10 +163,10 @@ export default function SideBar({
           !isDesign && !isMM && (
             <div>
               <h2>
-                REVIEW STYLE:
+                Review style
               </h2>
               <h3>
-                Final Review:
+                Final Review
               </h3>
               <span styleName="link-like-paragraph tooltip-container">
                 {reviewTypeTitle}
@@ -177,7 +177,7 @@ export default function SideBar({
                 </Tooltip>
               </span>
               <h3>
-                Approval:
+                Approval
               </h3>
               <span styleName="link-like-paragraph tooltip-container">
                 User Sign-Off
@@ -199,7 +199,7 @@ export default function SideBar({
           !isMM && (
             <div>
               <h2>
-                CHALLENGE LINKS:
+                Challenge links
               </h2>
               {
                 isDevelop && environment && environment.length > 0
@@ -286,7 +286,7 @@ export default function SideBar({
         {isMM && (
           <div>
             <h2>
-              CHALLENGE LINKS:
+              Challenge links
             </h2>
             <p styleName="link-like-paragraph">
               <a
@@ -305,7 +305,7 @@ export default function SideBar({
           && (
             <div>
               <h2>
-                SUBMISSION FORMAT:
+                Submission format
               </h2>
               <h3>
                 Your Design Files:
@@ -367,7 +367,7 @@ export default function SideBar({
                 </a>
               </p>
               <h2>
-                CHALLENGE LINKS:
+                Challenge links
               </h2>
               {(forumLink || !_.isEmpty(discuss)) && (
                 <p styleName="link-like-paragraph">
@@ -397,7 +397,7 @@ export default function SideBar({
               ))
               }
               <h2>
-                SOURCE FILES:
+                Source files
               </h2>
               {
                 fileTypes
@@ -420,7 +420,7 @@ export default function SideBar({
                 You must include all source files with your submission.
               </p>
               <h2>
-                SUBMISSION LIMIT:
+                Submission limit
               </h2>
               <p styleName="link-like-paragraph">
                 {
@@ -440,7 +440,7 @@ export default function SideBar({
           && (
             <div>
               <h2>
-                CHALLENGE TERMS:
+                Challenge terms
               </h2>
               <div styleName="link-like-paragraph">
                 {
@@ -462,7 +462,7 @@ export default function SideBar({
         !isWipro && (
           <div>
             <h2>
-              TOOLBOX:
+              Toolbox
             </h2>
             <span styleName="link-like-paragraph tooltip-container">
               <a
@@ -500,7 +500,7 @@ export default function SideBar({
         {shareable && (
           <div>
             <h2>
-              SHARE:
+              Share
             </h2>
             <ShareSocial />
           </div>

@@ -21,10 +21,12 @@ import {
   isRegistrationPhase,
 } from 'utils/challenge-detail/helper';
 
-import LeftArrow from 'assets/images/arrow-prev.svg';
+import LeftArrow from 'assets/images/arrow-prev-blue.svg';
+import IconsOpenInNew from 'assets/images/open_in_new.svg';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';
+import IconsUpload from '../../../../assets/images/icons_upload.svg';
 
 import Prizes from './Prizes';
 import ChallengeTags from './ChallengeTags';
@@ -307,7 +309,7 @@ export default function ChallengeHeader(props) {
       <div styleName="important-detail">
         <div styleName="title-wrapper" aria-hidden={isMenuOpened}>
           <Link to={challengesUrl} aria-label="Back to challenge list" styleName="back-arrow">
-            <LeftArrow styleName="left-arrow" />
+            <LeftArrow />
           </Link>
           <div>
             <h1 styleName="challenge-header">
@@ -362,169 +364,164 @@ export default function ChallengeHeader(props) {
             </div>
           </div>
         </div>
-        <div styleName="prizes-ops-container">
-          <div styleName="prizes-outer-container">
-            <h2 styleName="prizes-title">
-              Key Information
-            </h2>
-            <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
-            {
-                bonusType ? (
-                  <div id={`bonus-${trackLower}`} styleName="bonus-div">
-                    {
-                      bonusType === 'Bonus'
-                        ? (
-                          <p styleName="bonus-text">
-                            <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                              BONUS:
-                              {' '}
-                              {numberOfCheckpointsPrizes}
-                            </span>
-                            &zwnj;
-                            CHECKPOINTS AWARDED WORTH
-                            &zwnj;
-                            <span
-                              styleName={`bonus-highlight ${trackLower}-accent-color`}
-                            >
-                              $
-                              {topCheckPointPrize}
-                            </span>
-                            &zwnj;
-                            EACH
-                          </p>
-                        )
-                        : (
-                          <p styleName="bonus-text">
-                            <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                              RELIABILITY BONUS: $
-                              {reliabilityBonus.toFixed()}
-                            </span>
-                          </p>
-                        )
-                    }
-                  </div>
-                ) : null
-              }
-            {
-                drPoints ? (
-                  <div styleName="bonus-div">
-                    <p styleName="bonus-text">
-                      <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                        POINTS:
-                        {drPoints}
-                      </span>
-                    </p>
-                  </div>
-                ) : null
-              }
-          </div>
-          <div styleName="challenge-ops-wrapper">
-            {!isTopCrowdChallenge ? (
-              <div styleName="challenge-ops-container">
-                {hasRegistered ? (
-                  <PrimaryButton
-                    disabled={unregisterButtonDisabled}
-                    forceA
-                    onClick={unregisterFromChallenge}
-                    theme={{
-                      button: unregisterButtonDisabled
-                        ? style.unregisterButtonDisabled
-                        : style.unregisterButton,
-                    }}
-                  >
-                    Unregister
-                  </PrimaryButton>
-                ) : (
-                  <PrimaryButton
-                    disabled={registerButtonDisabled}
-                    theme={{
-                      button: registerButtonDisabled
-                        ? style.submitButtonDisabled
-                        : style.registerBtn,
-                    }}
-                    forceA
-                    onClick={registerForChallenge}
-                  >
-                    Register
-                  </PrimaryButton>
-                )}
-                <PrimaryButton
-                  disabled={disabled}
-                  theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
-                  to={`${challengesUrl}/${challengeId}/submit`}
-                >
-                  Submit
-                </PrimaryButton>
-                {
-                  track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
-                    && hasSubmissions && (
-                    <PrimaryButton
-                      theme={{ button: style.submitButton }}
-                      to={`${challengesUrl}/${challengeId}/my-submissions`}
-                    >
-                      View Submissions
-                    </PrimaryButton>
-                  )
-                }
-              </div>
-            ) : (
-              <div styleName="topcrowd-container">
-                This challenge is hosted on the <br />
-                new Topcoder Platform
-
-                <div>
-                  <Link
-                    openNewTab
-                    to={`${topcrowdLink}`}
-                  >
-                    Visit Challenge Registration
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div styleName="deadlines-view">
-          <div styleName={`deadlines-overview ${showDeadlineDetail ? 'opened' : ''}`}>
-            <div styleName="deadlines-overview-text">
-              {nextDeadlineMsg}
+        <div>
+          <div styleName="prizes-ops-container">
+            <div styleName="prizes-outer-container">
+              <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
               {
-                  (status || '').toLowerCase() === 'active'
-                  && (
-                  <div styleName="current-phase">
-                    {currentPhases && `${currentPhases.name} Ends In: `}
-                    <span styleName="deadline-highlighted">
-                      {timeDiff.text}
-                    </span>
-                  </div>
-                  )
+                  bonusType ? (
+                    <div id={`bonus-${trackLower}`} styleName="bonus-div">
+                      {
+                        bonusType === 'Bonus'
+                          ? (
+                            <p styleName="bonus-text">
+                              <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                                BONUS:
+                                {' '}
+                                {numberOfCheckpointsPrizes}
+                              </span>
+                              &zwnj;
+                              CHECKPOINTS AWARDED WORTH
+                              &zwnj;
+                              <span
+                                styleName={`bonus-highlight ${trackLower}-accent-color`}
+                              >
+                                $
+                                {topCheckPointPrize}
+                              </span>
+                              &zwnj;
+                              EACH
+                            </p>
+                          )
+                          : (
+                            <p styleName="bonus-text">
+                              <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                                RELIABILITY BONUS: $
+                                {reliabilityBonus.toFixed()}
+                              </span>
+                            </p>
+                          )
+                      }
+                    </div>
+                  ) : null
+                }
+              {
+                  drPoints ? (
+                    <div styleName="bonus-div">
+                      <p styleName="bonus-text">
+                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                          POINTS:
+                          {drPoints}
+                        </span>
+                      </p>
+                    </div>
+                  ) : null
                 }
             </div>
-            <a
-              onClick={onToggleDeadlines}
-              onKeyPress={onToggleDeadlines}
-              role="button"
-              styleName="deadlines-collapser"
-              tabIndex={0}
-            >
-              {showDeadlineDetail
-                ? (
-                  <span styleName="collapse-text">
-                    <ArrowDown />
-                  </span>
-                )
-                : (
-                  <span styleName="collapse-text">
-                    <ArrowUp />
-                  </span>
-                )
-                }
-            </a>
+            <div styleName="challenge-ops-wrapper">
+              {!isTopCrowdChallenge ? (
+                <div styleName="challenge-ops-container">
+                  {hasRegistered ? (
+                    <PrimaryButton
+                      disabled={unregisterButtonDisabled}
+                      forceA
+                      onClick={unregisterFromChallenge}
+                      theme={{
+                        button: unregisterButtonDisabled
+                          ? style.unregisterButtonDisabled
+                          : style.unregisterButton,
+                      }}
+                    >
+                      Unregister
+                    </PrimaryButton>
+                  ) : (
+                    <PrimaryButton
+                      disabled={registerButtonDisabled}
+                      theme={{
+                        button: registerButtonDisabled
+                          ? style.submitButtonDisabled
+                          : style.submitButton,
+                      }}
+                      forceA
+                      onClick={registerForChallenge}
+                    >
+                      Register
+                    </PrimaryButton>
+                  )}
+                  <PrimaryButton
+                    disabled={disabled}
+                    theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
+                    to={`${challengesUrl}/${challengeId}/submit`}
+                  >
+                    <IconsUpload />
+                    <span>Submit a solution</span>
+                  </PrimaryButton>
+                  {
+                    track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+                      && hasSubmissions && (
+                      <PrimaryButton
+                        theme={{ button: style.submitButton }}
+                        to={`${challengesUrl}/${challengeId}/my-submissions`}
+                      >
+                        View Submissions
+                      </PrimaryButton>
+                    )
+                  }
+                </div>
+              ) : (
+                <Link
+                  openNewTab
+                  to={`${topcrowdLink}`}
+                  styleName="topcrowd-container"
+                >
+                  <span>View details on Topcoder plaform</span>
+                  <IconsOpenInNew />
+                </Link>
+              )}
+            </div>
           </div>
-          {
-              showDeadlineDetail
-              && <DeadlinesPanel deadlines={relevantPhases} />
-            }
+          <div styleName="deadlines-view">
+            <div styleName={`deadlines-overview ${showDeadlineDetail ? 'opened' : ''}`}>
+              <div styleName="deadlines-overview-text">
+                {nextDeadlineMsg}
+                {
+                    (status || '').toLowerCase() === 'active'
+                    && (
+                    <div styleName="current-phase">
+                      {currentPhases && `${currentPhases.name} Ends In: `}
+                      <span styleName="deadline-highlighted">
+                        {timeDiff.text}
+                      </span>
+                    </div>
+                    )
+                  }
+              </div>
+              <a
+                onClick={onToggleDeadlines}
+                onKeyPress={onToggleDeadlines}
+                role="button"
+                styleName="deadlines-collapser"
+                tabIndex={0}
+              >
+                {showDeadlineDetail
+                  ? (
+                    <span styleName="collapse-text">
+                      <ArrowDown />
+                    </span>
+                  )
+                  : (
+                    <span styleName="collapse-text">
+                      <ArrowUp />
+                    </span>
+                  )
+                  }
+              </a>
+            </div>
+            {
+                showDeadlineDetail
+                && <DeadlinesPanel deadlines={relevantPhases} />
+              }
+          </div>
         </div>
         <TabSelector
           isLoggedIn={isLoggedIn}

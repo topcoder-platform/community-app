@@ -3,6 +3,7 @@
 exports[`Matches shallow shapshot 1`] = `
 <SwitchWithLabel
   enabled={false}
+  isBlue={false}
   labelAfter=""
   labelBefore=""
   onSwitch={[Function]}

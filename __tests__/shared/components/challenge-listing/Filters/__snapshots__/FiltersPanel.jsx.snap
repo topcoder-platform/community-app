@@ -45,7 +45,7 @@ exports[`Matches shallow shapshot 2`] = `
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W"
   >
     <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row-search-bar___8N6by"
     >
       <div
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__search-bar___15MSx"
@@ -56,7 +56,7 @@ exports[`Matches shallow shapshot 2`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row-bucket-selector-mobile___2jOjh"
     >
       <div
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__bucket-selector-mobile___JbE2n"
@@ -79,7 +79,7 @@ exports[`Matches shallow shapshot 2`] = `
         <span
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
         >
-          Challenge Category
+          Category
         </span>
         <div
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__switches___10Wrx"
@@ -93,6 +93,7 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
+              isBlue={true}
               labelAfter="Design"
               labelBefore=""
               mapThemrProps={[Function]}
@@ -109,6 +110,7 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
+              isBlue={true}
               labelAfter="Development"
               labelBefore=""
               mapThemrProps={[Function]}
@@ -125,6 +127,7 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
+              isBlue={true}
               labelAfter="Data Science"
               labelBefore=""
               mapThemrProps={[Function]}
@@ -141,6 +144,7 @@ exports[`Matches shallow shapshot 2`] = `
               composeAdhocTheme="deeply"
               composeContextTheme="softly"
               enabled={false}
+              isBlue={true}
               labelAfter="QA"
               labelBefore=""
               mapThemrProps={[Function]}
@@ -160,7 +164,7 @@ exports[`Matches shallow shapshot 2`] = `
         <span
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
         >
-          Challenge Type
+          Type
         </span>
         <div
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"
@@ -207,9 +211,6 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
     </div>
-    <hr
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hr___1WvP7"
-    />
   </div>
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
@@ -227,7 +228,7 @@ exports[`Matches shallow shapshot 2`] = `
       }
       themePriority="adhoc-default-context"
     >
-      RESET FILTERS
+      Reset filters
     </Button>
   </div>
 </div>
