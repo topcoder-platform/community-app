@@ -497,14 +497,14 @@ export default function SideBar({
           </div>
         )
         }
-        {shareable && (
+        {/* {shareable && (
           <div>
             <h2>
               Share
             </h2>
             <ShareSocial />
           </div>
-        )}
+        )} */}
         {legacyId && (
           <div styleName="legacy-challenge-id">
             <h3>ID: {legacyId}</h3>

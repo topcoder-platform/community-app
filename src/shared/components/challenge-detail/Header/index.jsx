@@ -424,13 +424,13 @@ export default function ChallengeHeader(props) {
                   {hasRegistered ? (
                     <PrimaryButton
                       disabled={unregisterButtonDisabled}
-                      forceA
-                      onClick={unregisterFromChallenge}
                       theme={{
                         button: unregisterButtonDisabled
-                          ? style.unregisterButtonDisabled
-                          : style.unregisterButton,
+                          ? style.submitButtonDisabled
+                          : style.submitButton,
                       }}
+                      forceA
+                      onClick={unregisterFromChallenge}
                     >
                       Unregister
                     </PrimaryButton>

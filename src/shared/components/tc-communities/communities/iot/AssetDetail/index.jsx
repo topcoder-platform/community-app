@@ -113,7 +113,7 @@ export default function AssetDetail({
                 </PrimaryButton>
               </div>
 
-              <ShareSocial />
+              {/* <ShareSocial /> */}
 
             </aside>
 
