@@ -29,7 +29,7 @@ export default function ChallengesFeed({
           target="_blank"
           rel="noreferrer"
         >
-          View all <span>challenges</span>
+          View all
         </a>
       </div>
       <div styleName="challenges">

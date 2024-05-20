@@ -5,7 +5,7 @@
 /**
  * SlashTC index container
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -38,6 +38,7 @@ function SlashTCContainer(props) {
     search: INNOVATION_CHALLENGES_TAG,
     isInnovationChallenge: true,
   };
+  const isDevEnv = useMemo(() => config.URL.BASE.includes('-dev'), []);
 
   useEffect(() => {
     if (props.tokenV3 && !isTokenExpired(props.tokenV3)) return;
@@ -55,13 +56,13 @@ function SlashTCContainer(props) {
           <div className={theme.layoutWrapper}>
             <div className={theme.column}>
               <TopcoderTime />
-              <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+              { isDevEnv ? <Viewport id="IYMEHgYwk6S0S9tx5SsHd" /> : <Viewport id="1BK50OyMT29IOavUC7wSEB" /> }
               <ChallengesFeed
-                theme="dark"
+                theme="light"
                 excludeTags={[INNOVATION_CHALLENGES_TAG]}
               />
               <ChallengesFeed
-                theme="dark"
+                theme="light"
                 title="INNOVATION CHALLENGES"
                 tags={[INNOVATION_CHALLENGES_TAG]}
                 challengeListingQuery={challengeListingQuery}
@@ -72,10 +73,10 @@ function SlashTCContainer(props) {
               {/* <GigsFeed itemCount={5} theme="dark" /> */}
               {/* deprecated with https://topcoder.atlassian.net/browse/TOP-1390 */}
               {/* <NewsFeed /> */}
-              <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
+              { isDevEnv ? <Viewport id="2qVJTorSdRVNlfRqoQocUH" /> : <Viewport id="SSwOFPT8l0WpGhqCBRISG" /> }
               <ThriveArticlesFeedContainer itemCount={4} theme="light" />
               <BlogFeedContainer itemCount={4} theme="light" />
-              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
+              { isDevEnv ? <Viewport id="2tq6jtu9GzPab7lAb7swlT" /> : <Viewport id="6sjlJHboX3aG3mFS5FnZND" /> }
             </div>
           </div>
         ) : (
@@ -85,17 +86,17 @@ function SlashTCContainer(props) {
               <TopcoderTime />
               <ThriveArticlesFeedContainer itemCount={4} theme="light" />
               <BlogFeedContainer itemCount={4} theme="light" />
-              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
+              { isDevEnv ? <Viewport id="2tq6jtu9GzPab7lAb7swlT" /> : <Viewport id="6sjlJHboX3aG3mFS5FnZND" /> }
             </div>
             {/* Center column */}
             <div className={theme.column}>
-              <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+              { isDevEnv ? <Viewport id="IYMEHgYwk6S0S9tx5SsHd" /> : <Viewport id="1BK50OyMT29IOavUC7wSEB" /> }
               <ChallengesFeed
-                theme="dark"
+                theme="light"
                 excludeTags={[INNOVATION_CHALLENGES_TAG]}
               />
               <ChallengesFeed
-                theme="dark"
+                theme="light"
                 title="INNOVATION CHALLENGES"
                 tags={[INNOVATION_CHALLENGES_TAG]}
                 challengeListingQuery={challengeListingQuery}
@@ -109,7 +110,7 @@ function SlashTCContainer(props) {
             </div>
             {/* Right column */}
             <div className={theme.column}>
-              <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
+              { isDevEnv ? <Viewport id="2qVJTorSdRVNlfRqoQocUH" /> : <Viewport id="SSwOFPT8l0WpGhqCBRISG" /> }
             </div>
           </div>
         )

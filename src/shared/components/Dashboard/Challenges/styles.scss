@@ -125,3 +125,40 @@ $dashboard-dark-bg: #2a2a2a;
     }
   }
 }
+
+.container.light {
+  color: $tc-white;
+
+  .header {
+    padding: 19px 0;
+    
+    .title {
+      color: #2a2a2a;
+    }
+
+    .allLink {
+      color: #fff;
+      border-radius: 4px;
+      background-color: #0d61bf;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 22px;
+      padding: 1px 12px;
+    }
+  }
+
+  .challenges {
+    background-color: transparent;
+    border-radius: 0;
+    color: #2a2a2a;
+
+    .row {
+      background-color: #fff;
+      border: 1px solid #d4d4d4;
+      margin: 0;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      padding: 11px 15px;
+    }
+  }
+}
