@@ -120,9 +120,9 @@ $dashboard-dark-bg: #2a2a2a;
   .challenges {
     background-color: $dashboard-dark-card-bg;
 
-    .row:not(:first-child) {
-      border-top: 1px solid $dashboard-dark-bg;
-    }
+    // .row:not(:first-child) {
+    //   border-top: 1px solid $dashboard-dark-bg;
+    // }
   }
 }
 
@@ -152,7 +152,6 @@ $dashboard-dark-bg: #2a2a2a;
     border-radius: 0;
     color: #2a2a2a;
 
-    // eslint-disable-next-line no-descending-specificity
     .row {
       background-color: #fff;
       border: 1px solid #d4d4d4;
