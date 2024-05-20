@@ -10,7 +10,7 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import JoinSection from '../JoinSection';
-//import ShareSocial from './ShareSocial';
+// import ShareSocial from './ShareSocial';
 import './styles.scss';
 
 import assetsData from '../Assets/data/predix-assets.json';
