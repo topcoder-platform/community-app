@@ -5,24 +5,24 @@
 /**
  * SlashTC index container
  */
-import React, { useEffect } from "react";
-import PT from "prop-types";
-import { connect } from "react-redux";
-import { useMediaQuery } from "react-responsive";
-import { isTokenExpired } from "@topcoder-platform/tc-auth-lib";
-import { config } from "topcoder-react-utils";
-import Viewport from "components/Contentful/Viewport";
-import TopcoderTime from "components/Dashboard/TCTime";
-import ThriveArticlesFeedContainer from "containers/Dashboard/ThriveArticlesFeed";
+import React, { useEffect } from 'react';
+import PT from 'prop-types';
+import { connect } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
+import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
+import { config } from 'topcoder-react-utils';
+import Viewport from 'components/Contentful/Viewport';
+import TopcoderTime from 'components/Dashboard/TCTime';
+import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
 // deprecated with https://topcoder.atlassian.net/browse/CORE-346
 // import GigsFeed from 'containers/Dashboard/GigsFeed';
-import ChallengesFeed from "containers/Dashboard/ChallengesFeed";
-import BlogFeedContainer from "containers/Dashboard/BlogFeed";
-import MetaTags from "components/MetaTags";
+import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
+import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
+import MetaTags from 'components/MetaTags';
 // deprecated with https://topcoder.atlassian.net/browse/TOP-1390
 // import NewsFeed from './NewsFeed';
-import darkTheme from "./themes/dark.scss";
-import lightTheme from "./themes/light.scss";
+import darkTheme from './themes/dark.scss';
+import lightTheme from './themes/light.scss';
 
 const THEMES = {
   dark: darkTheme,
@@ -33,7 +33,7 @@ const { INNOVATION_CHALLENGES_TAG } = config;
 function SlashTCContainer(props) {
   const theme = THEMES.light;
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
-  const title = "Home | Topcoder";
+  const title = 'Home | Topcoder';
   const challengeListingQuery = {
     search: INNOVATION_CHALLENGES_TAG,
     isInnovationChallenge: true,
@@ -129,8 +129,7 @@ SlashTCContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const profile =
-    state.auth && state.auth.profile ? { ...state.auth.profile } : {};
+  const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
   return {
     profile,
     tokenV3: state.auth.tokenV3,

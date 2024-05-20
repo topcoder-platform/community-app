@@ -2,11 +2,11 @@
  * Blog Feed component
  */
 
-import LoadingIndicator from "components/LoadingIndicator";
-import PT from "prop-types";
-import React from "react";
-import "./styles.scss";
-import { config } from "topcoder-react-utils";
+import LoadingIndicator from 'components/LoadingIndicator';
+import PT from 'prop-types';
+import React from 'react';
+import './styles.scss';
+import { config } from 'topcoder-react-utils';
 
 export default function BlogFeed({ blogs, loading, theme }) {
   return (
@@ -30,9 +30,16 @@ export default function BlogFeed({ blogs, loading, theme }) {
             <LoadingIndicator />
           </div>
         ) : (
-          blogs.map((blog) => (
-            <div styleName="row" key={`blog-feed-${blog.link}`}>
-              <a href={`${blog.link}`} target="_blank" rel="noreferrer">
+          blogs.map(blog => (
+            <div
+              styleName="row"
+              key={`blog-feed-${blog.link}`}
+            >
+              <a
+                href={`${blog.link}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {blog.title}
               </a>
             </div>
@@ -45,11 +52,11 @@ export default function BlogFeed({ blogs, loading, theme }) {
 
 BlogFeed.defaultProps = {
   blogs: [],
-  theme: "light",
+  theme: 'light',
 };
 
 BlogFeed.propTypes = {
   blogs: PT.arrayOf(PT.shape()),
   loading: PT.bool.isRequired,
-  theme: PT.oneOf(["dark", "light"]),
+  theme: PT.oneOf(['dark', 'light']),
 };

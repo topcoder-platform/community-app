@@ -2,10 +2,10 @@
  * Thrive Articles Feed component
  */
 
-import LoadingIndicator from "components/LoadingIndicator";
-import PT from "prop-types";
-import React from "react";
-import "./styles.scss";
+import LoadingIndicator from 'components/LoadingIndicator';
+import PT from 'prop-types';
+import React from 'react';
+import './styles.scss';
 
 export default function ThriveArticlesFeed({ articles, loading, theme }) {
   return (
@@ -24,7 +24,7 @@ export default function ThriveArticlesFeed({ articles, loading, theme }) {
             <LoadingIndicator />
           </div>
         ) : (
-          articles.map((article) => (
+          articles.map(article => (
             <div
               styleName="row"
               key={`thrive-articles-feed-${article.fields.slug}`}
@@ -48,11 +48,11 @@ export default function ThriveArticlesFeed({ articles, loading, theme }) {
 
 ThriveArticlesFeed.defaultProps = {
   articles: [],
-  theme: "light",
+  theme: 'light',
 };
 
 ThriveArticlesFeed.propTypes = {
   articles: PT.arrayOf(PT.shape()),
   loading: PT.bool.isRequired,
-  theme: PT.oneOf(["dark", "light"]),
+  theme: PT.oneOf(['dark', 'light']),
 };
