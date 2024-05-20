@@ -1,12 +1,12 @@
-import _ from 'lodash';
-import LoadingIndicator from 'components/LoadingIndicator';
-import PT from 'prop-types';
-import React from 'react';
-import qs from 'qs';
+import _ from "lodash";
+import LoadingIndicator from "components/LoadingIndicator";
+import PT from "prop-types";
+import React from "react";
+import qs from "qs";
 
-import { config } from 'topcoder-react-utils';
+import { config } from "topcoder-react-utils";
 
-import './styles.scss';
+import "./styles.scss";
 
 export default function ChallengesFeed({
   challenges,
@@ -21,15 +21,24 @@ export default function ChallengesFeed({
         <span styleName="title">{title}</span>
         <a
           styleName="allLink"
-          href={`${config.URL.CHALLENGES_URL}${challengeListingQuery ? `?${qs.stringify(challengeListingQuery)}` : ''}`}
+          href={`${config.URL.CHALLENGES_URL}${
+            challengeListingQuery
+              ? `?${qs.stringify(challengeListingQuery)}`
+              : ""
+          }`}
           target="_blank"
           rel="noreferrer"
-        >View all <span>challenges</span>
+        >
+          View all <span>challenges</span>
         </a>
       </div>
       <div styleName="challenges">
-        {loading ? <div styleName="loading"><LoadingIndicator /></div>
-          : (challenges || []).map(challenge => (
+        {loading ? (
+          <div styleName="loading">
+            <LoadingIndicator />
+          </div>
+        ) : (
+          (challenges || []).map((challenge) => (
             <div styleName="row" key={challenge.id}>
               <a
                 href={`/challenges/${challenge.id}`}
@@ -40,13 +49,18 @@ export default function ChallengesFeed({
               </a>
               <div styleName="prize">
                 <span styleName="amount">
-                  {`$${_.sum(challenge.prizeSets
-                    .filter(set => set.type === 'placement')
-                    .map(item => _.sum(item.prizes.map(prize => prize.value)))).toLocaleString()}`}
+                  {`$${_.sum(
+                    challenge.prizeSets
+                      .filter((set) => set.type === "placement")
+                      .map((item) =>
+                        _.sum(item.prizes.map((prize) => prize.value))
+                      )
+                  ).toLocaleString()}`}
                 </span>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   ) : null;
@@ -54,15 +68,15 @@ export default function ChallengesFeed({
 
 ChallengesFeed.defaultProps = {
   challenges: [],
-  theme: 'light',
-  title: 'CHALLENGES',
+  theme: "light",
+  title: "Opportunities",
   challengeListingQuery: undefined,
 };
 
 ChallengesFeed.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   loading: PT.bool.isRequired,
-  theme: PT.oneOf(['dark', 'light']),
+  theme: PT.oneOf(["dark", "light"]),
   title: PT.string,
   challengeListingQuery: PT.shape(),
 };

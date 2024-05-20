@@ -2,45 +2,42 @@
  * Blog Feed component
  */
 
-import LoadingIndicator from 'components/LoadingIndicator';
-import PT from 'prop-types';
-import React from 'react';
-import './styles.scss';
-import { config } from 'topcoder-react-utils';
-import BlogArticlesIcon from 'assets/images/icon-blog-articles.svg';
+import LoadingIndicator from "components/LoadingIndicator";
+import PT from "prop-types";
+import React from "react";
+import "./styles.scss";
+import { config } from "topcoder-react-utils";
 
-export default function BlogFeed({
-  blogs,
-  loading,
-  theme,
-}) {
+export default function BlogFeed({ blogs, loading, theme }) {
   return (
     <div styleName={`container ${theme}`}>
       <div styleName="header">
         <div styleName="title">
-          <BlogArticlesIcon styleName="icon" />
-          <span>BLOG ARTICLES</span>
+          <span>Blog Articles</span>
         </div>
         <a
           styleName="allLink"
           href={`${config.URL.BASE}/blog/category/community-stories`}
           target="_blank"
           rel="noreferrer"
-        >View all
+        >
+          View all
         </a>
       </div>
       <div styleName="blogs">
-        {loading ? <div styleName="loading"><LoadingIndicator /></div>
-          : blogs.map(blog => (
+        {loading ? (
+          <div styleName="loading">
+            <LoadingIndicator />
+          </div>
+        ) : (
+          blogs.map((blog) => (
             <div styleName="row" key={`blog-feed-${blog.link}`}>
-              <a
-                href={`${blog.link}`}
-                target="_blank"
-                rel="noreferrer"
-              >{blog.title}
+              <a href={`${blog.link}`} target="_blank" rel="noreferrer">
+                {blog.title}
               </a>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );
@@ -48,11 +45,11 @@ export default function BlogFeed({
 
 BlogFeed.defaultProps = {
   blogs: [],
-  theme: 'light',
+  theme: "light",
 };
 
 BlogFeed.propTypes = {
   blogs: PT.arrayOf(PT.shape()),
   loading: PT.bool.isRequired,
-  theme: PT.oneOf(['dark', 'light']),
+  theme: PT.oneOf(["dark", "light"]),
 };

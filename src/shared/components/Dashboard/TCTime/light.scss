@@ -1,0 +1,29 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  margin-bottom: 18px;
+
+  @media screen and (max-width: 425px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    color: #000;
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    line-height: 24px;
+  }
+
+  .time {
+    color: #000;
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    line-height: 24px;
+  }
+}

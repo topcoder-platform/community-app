@@ -5,32 +5,35 @@
 /**
  * SlashTC index container
  */
-import React, { useEffect } from 'react';
-import PT from 'prop-types';
-import { connect } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
-import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
-import { config } from 'topcoder-react-utils';
-import Viewport from 'components/Contentful/Viewport';
-import TopcoderTime from 'components/Dashboard/TCTime';
-import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
+import React, { useEffect } from "react";
+import PT from "prop-types";
+import { connect } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import { isTokenExpired } from "@topcoder-platform/tc-auth-lib";
+import { config } from "topcoder-react-utils";
+import Viewport from "components/Contentful/Viewport";
+import TopcoderTime from "components/Dashboard/TCTime";
+import ThriveArticlesFeedContainer from "containers/Dashboard/ThriveArticlesFeed";
 // deprecated with https://topcoder.atlassian.net/browse/CORE-346
 // import GigsFeed from 'containers/Dashboard/GigsFeed';
-import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
-import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
-import MetaTags from 'components/MetaTags';
-import NewsFeed from './NewsFeed';
-import darkTheme from './themes/dark.scss';
+import ChallengesFeed from "containers/Dashboard/ChallengesFeed";
+import BlogFeedContainer from "containers/Dashboard/BlogFeed";
+import MetaTags from "components/MetaTags";
+// deprecated with https://topcoder.atlassian.net/browse/TOP-1390
+// import NewsFeed from './NewsFeed';
+import darkTheme from "./themes/dark.scss";
+import lightTheme from "./themes/light.scss";
 
 const THEMES = {
   dark: darkTheme,
+  light: lightTheme,
 };
 const { INNOVATION_CHALLENGES_TAG } = config;
 
 function SlashTCContainer(props) {
-  const theme = THEMES.dark; // for v1 only dark theme
+  const theme = THEMES.light;
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
-  const title = 'Home | Topcoder';
+  const title = "Home | Topcoder";
   const challengeListingQuery = {
     search: INNOVATION_CHALLENGES_TAG,
     isInnovationChallenge: true,
@@ -45,9 +48,7 @@ function SlashTCContainer(props) {
 
   return (
     <div className={theme.container}>
-      <MetaTags
-        title={title}
-      />
+      <MetaTags title={title} />
       {
         // Render different stacking of components for tables&mobile devices
         isTabletOrMobile ? (
@@ -57,34 +58,8 @@ function SlashTCContainer(props) {
               <Viewport id="1BK50OyMT29IOavUC7wSEB" />
               <ChallengesFeed
                 theme="dark"
-                title="INNOVATION CHALLENGES"
-                tags={[INNOVATION_CHALLENGES_TAG]}
-                challengeListingQuery={challengeListingQuery}
-                tracks={[]}
-                itemCount={20}
+                excludeTags={[INNOVATION_CHALLENGES_TAG]}
               />
-              <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
-              {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
-              {/* <GigsFeed itemCount={5} theme="dark" /> */}
-              <NewsFeed />
-              <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
-              <ThriveArticlesFeedContainer itemCount={4} theme="dark" />
-              <BlogFeedContainer itemCount={4} theme="dark" />
-              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
-            </div>
-          </div>
-        ) : (
-          <div className={theme.layoutWrapper}>
-            {/* Left column */}
-            <div className={theme.column}>
-              <TopcoderTime />
-              <ThriveArticlesFeedContainer itemCount={4} theme="dark" />
-              <BlogFeedContainer itemCount={4} theme="dark" />
-              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
-            </div>
-            {/* Center column */}
-            <div className={theme.column}>
-              <Viewport id="1BK50OyMT29IOavUC7wSEB" />
               <ChallengesFeed
                 theme="dark"
                 title="INNOVATION CHALLENGES"
@@ -93,10 +68,44 @@ function SlashTCContainer(props) {
                 tracks={[]}
                 itemCount={20}
               />
-              <ChallengesFeed theme="dark" excludeTags={[INNOVATION_CHALLENGES_TAG]} />
               {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
               {/* <GigsFeed itemCount={5} theme="dark" /> */}
-              <NewsFeed />
+              {/* deprecated with https://topcoder.atlassian.net/browse/TOP-1390 */}
+              {/* <NewsFeed /> */}
+              <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
+              <ThriveArticlesFeedContainer itemCount={4} theme="light" />
+              <BlogFeedContainer itemCount={4} theme="light" />
+              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
+            </div>
+          </div>
+        ) : (
+          <div className={theme.layoutWrapper}>
+            {/* Left column */}
+            <div className={theme.column}>
+              <TopcoderTime />
+              <ThriveArticlesFeedContainer itemCount={4} theme="light" />
+              <BlogFeedContainer itemCount={4} theme="light" />
+              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
+            </div>
+            {/* Center column */}
+            <div className={theme.column}>
+              <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+              <ChallengesFeed
+                theme="dark"
+                excludeTags={[INNOVATION_CHALLENGES_TAG]}
+              />
+              <ChallengesFeed
+                theme="dark"
+                title="INNOVATION CHALLENGES"
+                tags={[INNOVATION_CHALLENGES_TAG]}
+                challengeListingQuery={challengeListingQuery}
+                tracks={[]}
+                itemCount={20}
+              />
+              {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
+              {/* <GigsFeed itemCount={5} theme="dark" /> */}
+              {/* deprecated with https://topcoder.atlassian.net/browse/TOP-1390 */}
+              {/* <NewsFeed /> */}
             </div>
             {/* Right column */}
             <div className={theme.column}>
@@ -120,13 +129,12 @@ SlashTCContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
+  const profile =
+    state.auth && state.auth.profile ? { ...state.auth.profile } : {};
   return {
     profile,
     tokenV3: state.auth.tokenV3,
   };
 }
 
-export default connect(
-  mapStateToProps,
-)(SlashTCContainer);
+export default connect(mapStateToProps)(SlashTCContainer);

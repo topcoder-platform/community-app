@@ -31,9 +31,9 @@ $dashboard-dark-bg: #2a2a2a;
   padding: 12px 0;
 
   .title {
-    @include barlow-semi-bold;
+    @include roboto-bold;
 
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .allLink {

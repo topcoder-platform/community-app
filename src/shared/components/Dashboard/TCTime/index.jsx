@@ -1,18 +1,20 @@
 /**
  * Topcoder Time Component
  */
-import React, { useState, useEffect } from 'react';
-import moment from 'moment-timezone';
-import darkTheme from './dark.scss';
+import React, { useState, useEffect } from "react";
+import moment from "moment-timezone";
+import darkTheme from "./dark.scss";
+import lightTheme from "./light.scss";
 
 const THEMES = {
   dark: darkTheme,
+  light: lightTheme,
 };
 
 function TopcoderTime() {
-  const theme = THEMES.dark; // for v1 only dark theme
-  let FORMAT = 'MMM Do, HH:mm UTC';
-  const TIMEZONE = 'America/New_York';
+  const theme = THEMES.light;
+  let FORMAT = "MMM Do, HH:mm UTC";
+  const TIMEZONE = "America/New_York";
   const now = moment.tz(new Date(), TIMEZONE);
   FORMAT += now.utcOffset() / 60;
   const [tcTime, setTCTime] = useState(`${now.format(FORMAT)}`);
