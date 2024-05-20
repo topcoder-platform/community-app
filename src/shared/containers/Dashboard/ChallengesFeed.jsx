@@ -96,7 +96,7 @@ ChallengesFeedContainer.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   const { dashboard } = state;
-  const id = ownProps.title || 'CHALLENGES';
+  const id = ownProps.title || 'Opportunities';
 
   if (dashboard[id]) {
     return {
