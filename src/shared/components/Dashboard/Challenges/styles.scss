@@ -131,7 +131,7 @@ $dashboard-dark-bg: #2a2a2a;
 
   .header {
     padding: 19px 0;
-    
+
     .title {
       color: #2a2a2a;
     }
@@ -152,6 +152,7 @@ $dashboard-dark-bg: #2a2a2a;
     border-radius: 0;
     color: #2a2a2a;
 
+    // eslint-disable-next-line no-descending-specificity
     .row {
       background-color: #fff;
       border: 1px solid #d4d4d4;
