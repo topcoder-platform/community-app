@@ -452,6 +452,7 @@ export default function ChallengeHeader(props) {
                     disabled={disabled}
                     theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
                     to={`${challengesUrl}/${challengeId}/submit`}
+                    forceA
                   >
                     <IconsUpload />
                     <span>Submit a solution</span>

@@ -11,7 +11,7 @@ import { config } from 'topcoder-react-utils';
 import TooltipIcon from 'assets/images/tooltip-info.svg';
 import EligibleEvents from './EligibleEvents';
 
-import ShareSocial from './ShareSocial';
+//import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
 
@@ -20,7 +20,7 @@ export default function SideBar({
   legacyId,
   documents,
   eventDetail,
-  shareable,
+  //shareable,
   forumLink,
   discuss,
   hasRegistered,
@@ -542,7 +542,7 @@ SideBar.propTypes = {
     description: PT.string.isRequired,
   }),
   documents: PT.arrayOf(PT.shape()),
-  shareable: PT.bool.isRequired,
+  //shareable: PT.bool.isRequired,
   forumLink: PT.string.isRequired,
   discuss: PT.arrayOf(PT.shape()),
   hasRegistered: PT.bool,
