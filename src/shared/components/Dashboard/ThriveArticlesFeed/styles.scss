@@ -28,19 +28,11 @@
   padding-bottom: 10px;
 
   .title {
-    @include barlow-semi-bold;
+    @include roboto-bold;
 
     display: flex;
     font-size: 16px;
     align-items: center;
-
-    .icon {
-      fill: $tc-gray-90;
-      width: 17px;
-      height: 17px;
-      margin-right: 9px;
-      margin-bottom: 3px;
-    }
   }
 
   .allLink {
@@ -100,6 +92,31 @@
   .articles {
     .row:not(:first-child) {
       border-top: 1px solid $dashboard-dark-bg;
+    }
+  }
+}
+
+.container.light {
+  color: #000;
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+
+  .header {
+    .icon {
+      fill: $tc-white;
+    }
+
+    .allLink {
+      color: #0d61bf;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
+
+  .articles {
+    .row:not(:first-child) {
+      border-top: 1px solid #e9e9e9;
     }
   }
 }
