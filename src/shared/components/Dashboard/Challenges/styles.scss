@@ -31,9 +31,9 @@ $dashboard-dark-bg: #2a2a2a;
   padding: 12px 0;
 
   .title {
-    @include barlow-semi-bold;
+    @include roboto-bold;
 
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .allLink {
@@ -120,8 +120,46 @@ $dashboard-dark-bg: #2a2a2a;
   .challenges {
     background-color: $dashboard-dark-card-bg;
 
-    .row:not(:first-child) {
-      border-top: 1px solid $dashboard-dark-bg;
+    // .row:not(:first-child) {
+    //   border-top: 1px solid $dashboard-dark-bg;
+    // }
+  }
+}
+
+.container.light {
+  color: $tc-white;
+  margin-bottom: 0;
+
+  .header {
+    padding: 19px 0;
+
+    .title {
+      color: #2a2a2a;
+    }
+
+    .allLink {
+      color: #fff;
+      border-radius: 4px;
+      background-color: #0d61bf;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 22px;
+      padding: 1px 12px;
+    }
+  }
+
+  .challenges {
+    background-color: transparent;
+    border-radius: 0;
+    color: #2a2a2a;
+
+    .row {
+      background-color: #fff;
+      border: 1px solid #d4d4d4;
+      margin: 0;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      padding: 11px 15px;
     }
   }
 }
