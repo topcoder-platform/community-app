@@ -97,7 +97,7 @@ function SlashTCContainer(props) {
               />
               <ChallengesFeed
                 theme="light"
-                title="INNOVATION CHALLENGES"
+                title="Innovation Challenges"
                 tags={[INNOVATION_CHALLENGES_TAG]}
                 challengeListingQuery={challengeListingQuery}
                 tracks={[]}
