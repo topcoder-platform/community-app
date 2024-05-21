@@ -1,6 +1,12 @@
 @import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
+*:not(br) + h1,
+*:not(br) + h2,
+*:not(br) + h3 {
+  margin-top: 40px;
+}
+
 .container {
   border-radius: 0 0 (3 * $corner-radius) (3 * $corner-radius);
 }
@@ -444,8 +450,8 @@ $tc-link-visited: #0c4e98;
 }
 
 article {
-  >*:first-child {
-    margin-top: 0;   
+  > *:first-child {
+    margin-top: 0;
   }
 }
 
@@ -460,11 +466,4 @@ a[href*="/talent-routes/details"] {
   &:hover {
     text-decoration: none;
   }
-}
-
-*:not(br)+h1,
-*:not(br)+h2,
-*:not(br)+h3 {
-  margin-top: 40px;
-  
 }
