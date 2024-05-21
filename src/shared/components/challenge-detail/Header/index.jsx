@@ -475,7 +475,7 @@ export default function ChallengeHeader(props) {
                   to={`${topcrowdLink}`}
                   styleName="topcrowd-container"
                 >
-                  <span>View details on Topcoder plaform</span>
+                  <span>View details on Topcoder platform</span>
                   <IconsOpenInNew />
                 </Link>
               )}
