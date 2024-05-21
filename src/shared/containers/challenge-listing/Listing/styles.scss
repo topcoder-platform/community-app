@@ -5,6 +5,18 @@ $sm-space-25: $base-unit * 5;
 $sm-space-40: $base-unit * 8;
 
 .container {
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 32px;
+
+  @include xs-to-sm {
+    padding: 0;
+  }
+}
+
+.content {
   display: flex;
   flex: 1;
   flex-direction: column;

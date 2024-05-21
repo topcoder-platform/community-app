@@ -15,23 +15,20 @@ $down-arrow-size: $base-unit;
 .sortingBar {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0 16px 0;
   position: relative;
   background-color: $tc-white;
+  padding: 20px 0;
 
   .title {
-    @include barlow-semi-bold;
+    @include roboto-bold;
 
     display: flex;
     align-items: center;
     color: $tco-black;
-    font-size: 18px;
-    line-height: 22px;
-    margin: 0;
-    padding: 4.5px 0 4.5px 10px;
+    font-size: 24px;
+    line-height: 32px;
     border: none;
-    text-transform: uppercase;
-    margin-left: 14px;
+    text-transform: capitalize;
 
     @include xs-to-md {
       margin-left: 16px;

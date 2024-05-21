@@ -1,39 +1,39 @@
 @import "~styles/mixins";
 
-.outer-container {
-  background: $tc-gray-neutral-dark;
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  align-items: center;
   width: 100%;
-  max-width: $screem-md;
-  margin: 0 auto;
+  padding: 32px;
 
-  @include xs-to-sm {
-    padding: 0;
-  }
-
-  @include md {
-    padding: 30px 14px 30px 20px;
-  }
-
-  @include lg-to-xl {
-    padding: 0;
+  @include xs-to-md {
+    padding: 16px;
   }
 }
 
+.outer-container {
+  width: 100%;
+  max-width: $screem-md;
+}
+
 .challenge-detail-container {
-  background: $tc-white;
-  border-radius: 3 * $corner-radius;
   width: 100%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @include xs-to-md {
+    gap: 16px;
+  }
 }
 
 .page {
   @include roboto-regular;
 
-  background: $tc-white;
-  border-radius: 3 * $corner-radius;
   margin: auto;
-  max-width: 1240px;
-  padding: 4 * $base-unit;
   text-align: center;
   width: 100%;
 }

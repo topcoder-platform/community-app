@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import '~styles/mixins';
 
 .SideBarFilters {
   @include roboto-regular;
@@ -6,10 +6,13 @@
   font-size: 13px;
   line-height: 30px;
   width: 100%;
-  background-color: $listing-filter-bg;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 4px 4px 0 0;
   margin-bottom: 0;
+  background-color: white;
+
+  @include xs-to-md {
+    background-color: transparent;
+  }
 
   .StatusBar {
     display: flex;
@@ -37,28 +40,15 @@
   }
 
   .FilterBox {
-    padding: 2 * $base-unit;
-    padding-bottom: 2 * $base-unit;
+    padding: 24px;
     border-radius: $corner-radius * 2;
-
-    hr {
-      color: $tc-gray-10;
-      background: $tc-gray-10;
-      border: 0;
-      height: 2px;
-      margin: 12px 12px 0;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
 
     @include xs-to-md {
       padding: 0;
+      gap: 16px;
     }
   }
-}
-
-hr.hr {
-  color: $tc-gray-10;
-  background: $tc-gray-10;
-  border: 0;
-  height: 2px;
-  margin: 0 24px;
 }

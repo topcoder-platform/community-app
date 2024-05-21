@@ -19,24 +19,27 @@ export default function TrackIcon({
     abbreviationStyle = '';
   }
   return (
-    <span styleName="trackIcon">
+    <span styleName={`trackIcon ${tcoEligible ? 'haveTco' : ''}`}>
       {challengesUrl ? (
         <a
-          href={`${challengesUrl}?filter[types][0]=${
-            encodeURIComponent(type.id)}`}
+          href={`${challengesUrl}?filter[types][0]=${encodeURIComponent(
+            type.id,
+          )}`}
           styleName={`${trackStyle} main-icon`}
         >
           {type.abbreviation}
         </a>
       ) : (
-        <div
-          styleName={`${abbreviationStyle} main-icon`}
-        >
+        <div styleName={`${abbreviationStyle} main-icon`}>
           {type.abbreviation}
         </div>
       )}
       <a href={`${TCO_URL}`}>
-        <div styleName={`${abbreviationStyle} tco-icon ${tcoEligible ? '' : 'hidden'}`}>
+        <div
+          styleName={`${abbreviationStyle} tco-icon ${
+            tcoEligible ? '' : 'hidden'
+          }`}
+        >
           TCO
         </div>
       </a>

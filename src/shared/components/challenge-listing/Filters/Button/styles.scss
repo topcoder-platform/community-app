@@ -1,18 +1,17 @@
 @import '~styles/mixins';
 
 .button {
-  @include roboto-bold;
+  @include roboto-medium;
 
-  padding: 8px 13px;
-  font-size: 12px;
-  color: $listing-checkbox-green;
-  line-height: 1;
-  letter-spacing: 0.8px;
+  padding: 2px 24px;
+  font-size: 16px;
+  color: $listing-checkbox-blue;
+  line-height: 24px;
   white-space: nowrap;
   appearance: none;
   background: $tc-white;
-  border: 1px solid $listing-checkbox-green;
-  border-radius: 15px;
+  border: 1px solid $listing-checkbox-blue;
+  border-radius: 3px;
 
   &.is-selected {
     color: $tc-gray-90;
@@ -38,17 +37,16 @@
 
 .button-primary {
   color: $tc-white;
-  background-color: $listing-checkbox-green;
+  background-color: $listing-checkbox-blue;
 
   &.button-inverted {
-    color: $listing-checkbox-green;
+    color: $listing-checkbox-blue;
     background-color: $tc-white;
   }
 }
 
 .button-text {
   padding: 0;
-  letter-spacing: 1px;
   color: inherit;
   border: none;
   background: none;

@@ -37,7 +37,7 @@ export default class ShareSocial extends React.Component {
   render() {
     return (
       <div ref={(htmlDiv) => { this.shareDiv = htmlDiv; }} styleName="tc-share-social">
-        <div className="addthis_toolbox addthis_default_style">
+        <div className="addthis_toolbox addthis_default_style" styleName="container">
           <a
             className="addthis_button_facebook"
             title="Facebook"

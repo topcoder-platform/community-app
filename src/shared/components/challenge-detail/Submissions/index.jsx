@@ -905,7 +905,7 @@ class SubmissionsComponent extends React.Component {
                     <div styleName="mobile-header">INITIAL SCORE</div>
                     <p>
                       {
-                        (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score)
+                        (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score && challenge.status === 'Completed')
                           ? Number(s.review[0].score).toFixed(2)
                           : 'N/A'
                       }
@@ -915,7 +915,7 @@ class SubmissionsComponent extends React.Component {
                     <div styleName="mobile-header">FINAL SCORE</div>
                     <p>
                       {
-                        (s.reviewSummation && s.reviewSummation[0].aggregateScore)
+                        (s.reviewSummation && s.reviewSummation[0].aggregateScore && challenge.status === 'Completed')
                           ? s.reviewSummation[0].aggregateScore.toFixed(2)
                           : 'N/A'
                       }

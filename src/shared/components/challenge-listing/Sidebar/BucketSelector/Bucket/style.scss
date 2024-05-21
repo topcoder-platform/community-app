@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import '~styles/mixins';
 
 .active {
   background: $tc-gray-10;
@@ -14,8 +14,9 @@
   color: $tc-black;
   border-radius: 2 * $corner-radius;
   cursor: pointer;
-  padding: 9px 10px 0 9px;
   display: flex;
+  align-items: center;
+  gap: 8px;
 
   // @include xs-to-sm {
   //   font-size: 15px;
@@ -25,24 +26,25 @@
   & input {
     width: 20px !important;
     height: 20px !important;
-    background-color: $tc-white;
+    background-color: $tc-white !important;
     border-radius: 50% !important;
     appearance: none;
-    border: 1.5px solid #7f7f7f;
+    border: 1.5px solid #7f7f7f !important;
     position: relative;
 
     &:checked {
-      border-color: $listing-checkbox-green !important;
+      border-color: $listing-checkbox-blue !important;
 
       &::after {
         content: '';
         position: absolute;
-        left: 23%;
-        top: 23%;
+        left: 50%;
+        top: 50%;
         width: 10px;
         height: 10px;
         border-radius: 50% !important;
-        background-color: $listing-checkbox-green !important;
+        background-color: $listing-checkbox-blue !important;
+        transform: translate(-50%, -50%);
       }
     }
   }
@@ -54,27 +56,23 @@
     font-size: 16px;
     line-height: 24px;
     color: $tco-black;
-    margin-left: 5px;
   }
 
   .count {
     align-self: center;
-    background-color: $listing-checkbox-blue;
+    background-color: #16679a;
     height: 16px;
     border-radius: 50px;
     color: $tc-white !important;
     font-size: 14px;
     line-height: 16px;
 
-    @include roboto-regular;
+    @include roboto-medium;
 
-    font-weight: 500;
     letter-spacing: 0.5px;
     text-transform: capitalize;
     text-align: center;
     padding: 0 8px;
-    margin-left: 8px;
-    margin-bottom: 5px;
   }
 }
 
@@ -87,4 +85,8 @@
 
 .active .errorMsg {
   display: block;
+}
+
+input.input-radio:not([type='checkbox']):not(.fsp-url-source__input) {
+  margin: 0;
 }

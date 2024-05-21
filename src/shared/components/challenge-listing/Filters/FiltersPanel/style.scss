@@ -12,17 +12,15 @@
 .filter-btn {
   @include roboto-bold;
 
-  height: 24px;
   cursor: pointer;
   display: none;
   font-size: 14px;
   color: #137d60;
   background-color: $tc-white;
   padding: 0 16px;
-  margin: 16px 0 16px 16px;
+  margin: 16px 0 16px 0;
   border-radius: 24px;
   border: 1.5px solid #137d60;
-  text-transform: uppercase;
 
   @include xs-to-md {
     display: block;
@@ -34,12 +32,14 @@
   @include roboto-regular;
 
   font-size: 11px;
-  padding: 16px 24px;
-  margin-top: 0;
-  background-color: $listing-filter-bg;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  background-color: white;
+  border: 0 0 4px 4px;
   position: relative;
+  padding: 24px;
+  margin-top: -16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 
   @include xs-to-md {
     position: fixed;
@@ -92,29 +92,17 @@
   }
 
   .buttons {
-    margin-top: 14px;
-
-    button {
-      height: 24px;
-      min-height: 26px;
-      line-height: 26px;
-      padding: 0 10px;
-    }
-
     @include xs-to-md {
       margin-bottom: 80px;
     }
   }
 }
 
-hr.hr {
-  color: $tc-gray-10;
-  background: $tc-gray-10;
-  border: 0;
-  height: 2px;
-}
-
 .filters {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
   .filter-row {
     display: flex;
 
@@ -162,11 +150,14 @@ hr.hr {
       }
     }
 
-    .search-bar {
+    &.filter-row-search-bar {
       display: none;
 
       @include xs-to-md {
-        display: block;
+        display: flex;
+      }
+
+      .search-bar {
         width: 100%;
         margin: 0;
         padding: 0;
@@ -177,10 +168,14 @@ hr.hr {
       }
     }
 
-    .bucket-selector-mobile {
+    &.filter-row-bucket-selector-mobile {
       display: none;
 
       @include xs-to-md {
+        display: flex;
+      }
+
+      .bucket-selector-mobile {
         display: block;
         width: 100%;
 
@@ -195,18 +190,18 @@ hr.hr {
 
   .filter {
     width: 100%;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
 
     .label {
-      @include roboto-bold;
+      @include roboto-medium;
 
       display: block;
       color: $tc-black;
-      font-size: 12px;
-      line-height: 15px;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      font-size: 14px;
+      line-height: 22px;
+      text-transform: capitalize;
     }
 
     @include xs-to-md {
@@ -239,6 +234,8 @@ hr.hr {
     &.track {
       position: relative;
       z-index: 4;
+      display: flex;
+      flex-direction: column;
 
       .label {
         display: block;
@@ -248,10 +245,10 @@ hr.hr {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        gap: 18px;
 
         .filter-switch-with-label {
           width: 45%;
-          margin-bottom: 16px;
           display: flex;
           white-space: nowrap;
           line-height: 30px;
@@ -346,7 +343,7 @@ hr.hr {
             white-space: nowrap;
             vertical-align: top;
             font-size: 14px;
-            line-height: 22px;
+            line-height: 18px;
 
             @include roboto-regular;
 
@@ -415,20 +412,16 @@ hr.hr {
         flex-wrap: wrap;
         width: 100%;
         justify-content: space-between;
+        gap: 18px;
 
         .checkbox {
           position: relative;
           display: inline-block;
           line-height: 30px;
           min-width: calc(50% - 10px);
-          margin-bottom: 8px;
 
           @include xs-to-md {
             min-width: 35% !important;
-          }
-
-          &:not(:last-child) {
-            padding-right: 10px;
           }
 
           .checkbox-label {
@@ -655,7 +648,7 @@ hr.hr {
 }
 
 .tctooltiptext::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 0;

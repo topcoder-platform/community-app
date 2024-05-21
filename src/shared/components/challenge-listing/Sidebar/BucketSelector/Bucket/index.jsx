@@ -84,6 +84,7 @@ function Bucket({
     >
       <input
         type="radio"
+        styleName="input-radio"
         checked={active}
         onClick={() => {
           onClick();

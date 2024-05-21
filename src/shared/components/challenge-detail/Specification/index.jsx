@@ -407,7 +407,7 @@ export default function ChallengeDetailsView(props) {
             eventDetail={_.isEmpty(events) ? null : events[0]}
             isMM={isMM(challenge)}
             terms={terms}
-            shareable={_.isEmpty(groups)}
+            // shareable={_.isEmpty(groups)}
             environment={environment}
             codeRepo={codeRepo}
             metadata={metadata}
@@ -415,7 +415,7 @@ export default function ChallengeDetailsView(props) {
             screeningScorecardId={screeningScorecardId}
             isWipro={isWipro}
           />
-        ) : (<div />) }
+        ) : null }
       </div>
     </div>
   );

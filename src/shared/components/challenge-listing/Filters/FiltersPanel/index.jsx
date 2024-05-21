@@ -348,13 +348,13 @@ export default function FiltersPanel({
           </div>
         </div> */}
 
-        <div styleName="filter-row">
+        <div styleName="filter-row filter-row-search-bar">
           <div styleName="search-bar">
             <ChallengeSearchBar setFilterState={setFilterState} />
           </div>
         </div>
 
-        <div styleName="filter-row">
+        <div styleName="filter-row filter-row-bucket-selector-mobile">
           <div styleName="bucket-selector-mobile">
             <BucketSelector
               activeBucket={activeBucket}
@@ -369,7 +369,7 @@ export default function FiltersPanel({
         <div styleName="filter-row">
           <div styleName="filter track">
             <span styleName="label">
-              Challenge Category
+              Category
             </span>
             <div styleName="switches">
               <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn('Des') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Des')}>
@@ -377,6 +377,7 @@ export default function FiltersPanel({
                   enabled={isTrackOn('Des')}
                   labelAfter="Design"
                   onSwitch={on => switchTrack('Des', on)}
+                  isBlue
                 />
               </span>
               <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn('Dev') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Dev')}>
@@ -384,6 +385,7 @@ export default function FiltersPanel({
                   enabled={isTrackOn('Dev')}
                   labelAfter="Development"
                   onSwitch={on => switchTrack('Dev', on)}
+                  isBlue
                 />
               </span>
               <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn('DS') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('DS')}>
@@ -391,6 +393,7 @@ export default function FiltersPanel({
                   enabled={isTrackOn('DS')}
                   labelAfter="Data Science"
                   onSwitch={on => switchTrack('DS', on)}
+                  isBlue
                 />
               </span>
               <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn('QA') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('QA')}>
@@ -398,6 +401,7 @@ export default function FiltersPanel({
                   enabled={isTrackOn('QA')}
                   labelAfter="QA"
                   onSwitch={on => switchTrack('QA', on)}
+                  isBlue
                 />
               </span>
             </div>
@@ -409,7 +413,7 @@ export default function FiltersPanel({
             <div styleName="filter-row">
               <div styleName="filter challenge-type">
                 <span styleName="label">
-                  Challenge Type
+                  Type
                 </span>
                 <div styleName="checkboxes">
                   {
@@ -420,6 +424,7 @@ export default function FiltersPanel({
                           <SwitchWithLabel
                             enabled={filterState.types.includes(option.value)}
                             labelAfter={option.label}
+                            isBlue
                             onSwitch={(e) => {
                               let { types } = filterState;
 
@@ -542,6 +547,7 @@ export default function FiltersPanel({
                           <SwitchWithLabel
                             enabled={filterState.reviewOpportunityTypes.includes(option.value)}
                             labelAfter={option.label}
+                            isBlue
                             onSwitch={(e) => {
                               let { reviewOpportunityTypes = [] } = filterState;
 
@@ -611,7 +617,6 @@ export default function FiltersPanel({
             </div>
           )
         }
-        <hr styleName="hr" />
 
         {
           isRecommendedChallengesVisible && _.get(auth, 'user.userId')
@@ -628,6 +633,7 @@ export default function FiltersPanel({
                     enabled={recommendedToggle}
                     labelAfter="Recommended Challenges"
                     onSwitch={onSwitchRecommendedChallenge}
+                    isBlue
                   />
                 </span>
 
@@ -646,11 +652,6 @@ export default function FiltersPanel({
           )
         }
       </div>
-
-      {
-        ((isRecommendedChallengesVisible && _.get(auth, 'user.userId')))
-          && (<hr styleName="hr" />)
-      }
 
       <div styleName="buttons">
         <Button
@@ -686,7 +687,7 @@ export default function FiltersPanel({
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >
-          RESET FILTERS
+          Reset filters
         </Button>
       </div>
     </div>

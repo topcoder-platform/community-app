@@ -14,10 +14,13 @@ function Switch({
   enabled,
   onSwitch,
   theme,
+  isBlue,
 }) {
   return (
     <div
-      className={`${theme.switch} ${enabled ? theme.enabled : theme.disabled}`}
+      className={`${theme.switch} ${enabled ? theme.enabled : theme.disabled} ${
+        isBlue ? theme.blue : ''
+      }`}
       onClick={() => onSwitch(!enabled)}
       onKeyPress={() => onSwitch(!enabled)}
     >
@@ -28,14 +31,17 @@ function Switch({
 
 Switch.defaultProps = {
   enabled: false,
+  isBlue: false,
 };
 
 Switch.propTypes = {
   enabled: PT.bool,
+  isBlue: PT.bool,
   theme: PT.shape({
     disabled: PT.string.isRequired,
     enabled: PT.string.isRequired,
     switch: PT.string.isRequired,
+    blue: PT.string.isRequired,
   }).isRequired,
   onSwitch: PT.func.isRequired,
 };

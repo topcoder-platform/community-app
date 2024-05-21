@@ -7,40 +7,44 @@ import PT from 'prop-types';
 import React from 'react';
 import './styles.scss';
 import { config } from 'topcoder-react-utils';
-import BlogArticlesIcon from 'assets/images/icon-blog-articles.svg';
 
-export default function BlogFeed({
-  blogs,
-  loading,
-  theme,
-}) {
+export default function BlogFeed({ blogs, loading, theme }) {
   return (
     <div styleName={`container ${theme}`}>
       <div styleName="header">
         <div styleName="title">
-          <BlogArticlesIcon styleName="icon" />
-          <span>BLOG ARTICLES</span>
+          <span>Blog Articles</span>
         </div>
         <a
           styleName="allLink"
           href={`${config.URL.BASE}/blog/category/community-stories`}
           target="_blank"
           rel="noreferrer"
-        >View all
+        >
+          View all
         </a>
       </div>
       <div styleName="blogs">
-        {loading ? <div styleName="loading"><LoadingIndicator /></div>
-          : blogs.map(blog => (
-            <div styleName="row" key={`blog-feed-${blog.link}`}>
+        {loading ? (
+          <div styleName="loading">
+            <LoadingIndicator />
+          </div>
+        ) : (
+          blogs.map(blog => (
+            <div
+              styleName="row"
+              key={`blog-feed-${blog.link}`}
+            >
               <a
                 href={`${blog.link}`}
                 target="_blank"
                 rel="noreferrer"
-              >{blog.title}
+              >
+                {blog.title}
               </a>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );

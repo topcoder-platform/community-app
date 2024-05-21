@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import '~styles/mixins';
 
 .mobile-wrapper {
   @include xs-to-sm {
@@ -36,7 +36,6 @@
       color: $tco-black;
       font-size: 14px;
       line-height: 20px;
-      text-transform: uppercase;
       padding-left: 16px;
       padding-top: 10px;
     }
@@ -111,7 +110,6 @@
     color: #555;
     font-size: 14px;
     line-height: 20px;
-    text-transform: uppercase;
     padding-left: 16px;
     padding-top: 10px;
   }
@@ -134,9 +132,9 @@
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  padding-bottom: 10px;
-  border-bottom: silver solid 1px;
-  gap: 16px;
+  border-bottom: #e9e9e9 solid 1px;
+  gap: 24px;
+  padding: 0 8px;
 
   @include xs-to-sm {
     flex-wrap: nowrap;
@@ -145,57 +143,44 @@
   }
 
   .challenge-selector-common {
-    @include barlow-bold;
+    @include roboto-medium;
 
-    font-weight: 700;
-    line-height: 20px;
-    font-size: 14px;
-    margin: 10px 10px 0;
+    display: flex;
+    align-items: center;
+    line-height: 24px;
+    font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
     position: relative;
+    padding: 12px 8px;
+    text-transform: capitalize;
   }
 
   .challenge-selected-view {
-    font-weight: 700 !important;
-    color: #2a2a2a;
-
-    &::after {
-      content: "";
-      background-image: url(assets/images/nav-active-item.svg);
-      height: 10px;
-      width: 40px;
-      justify-content: center;
-      z-index: 100;
-      display: block;
-      position: absolute;
-      top: 30px;
-      left: 20%;
-    }
+    color: #16679a;
+    border-bottom: 2px solid #16679a;
   }
 
   .challenge-unselected-view {
-    font-weight: 600;
-    color: #555;
-    position: relative;
+    color: #2a2a2a;
   }
 }
 
 .num {
-  background: #2c95d7;
-  border-radius: 50px;
-  padding: 0 8px;
+  font-weight: 400;
+  background: #16679a;
+  border-radius: 12px;
+  padding: 0.5px 5.5px;
   text-align: center;
   color: $tc-white;
   margin-left: 4px;
+  font-size: 12px;
+  line-height: 16.8px;
 }
 
 .container {
-  margin-top: 28px;
-  margin-left: 2px;
-  margin-right: 14px;
   position: relative;
-  background-color: #eaf6fd;
+  background-color: white;
 
   @include xs-to-md {
     background-color: transparent;

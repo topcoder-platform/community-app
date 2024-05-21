@@ -2,8 +2,8 @@
 
 .challengeCardContainer {
   border-radius: $corner-radius;
-  width: 76.5%;
-  margin-left: auto;
+  flex: 1;
+  width: 100px;
 
   @include xs-to-md {
     width: 100%;

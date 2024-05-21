@@ -183,7 +183,7 @@ export default function ChallengeViewSelector(props) {
         onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
         styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS)}
       >
-        DETAILS
+        Details
       </a>
       {
         numOfRegistrants ? (
@@ -199,7 +199,7 @@ export default function ChallengeViewSelector(props) {
             }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
           >
-            REGISTRANTS
+            Registrants
             <span styleName="num">{numOfRegistrants}</span>
           </a>
         ) : null
@@ -215,7 +215,7 @@ export default function ChallengeViewSelector(props) {
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
         >
-          CHECKPOINTS
+          Checkpoints
           <span styleName="num">{checkpointCount}</span>
         </a>
         )
@@ -230,7 +230,7 @@ export default function ChallengeViewSelector(props) {
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
           >
-            SUBMISSIONS
+            Submissions
             <span styleName="num">{numOfSub}</span>
           </a>
         ) : null
@@ -245,7 +245,7 @@ export default function ChallengeViewSelector(props) {
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.MY_SUBMISSIONS)}
           >
-            MY SUBMISSIONS
+            My Submissions
             <span styleName="num">{mySubmissions.length}</span>
           </a>
         ) : null
@@ -256,7 +256,7 @@ export default function ChallengeViewSelector(props) {
             to={`/challenges/${challenge.id}/my-submissions`}
             styleName="challenge-selector-common challenge-unselected-view"
           >
-            MY SUBMISSIONS
+            My Submissions
           </Link>
         )
       }
@@ -270,7 +270,7 @@ export default function ChallengeViewSelector(props) {
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS)}
           >
-            WINNERS
+            Winners
             <span styleName="num">{numWinners}</span>
           </a>
         ) : null
@@ -286,7 +286,7 @@ export default function ChallengeViewSelector(props) {
                   target="_blank"
                   rel="oopener noreferrer"
                 >
-                  CHALLENGE DISCUSSION
+                  Challenge Discussion
                 </a>
               ))
             );
@@ -299,7 +299,7 @@ export default function ChallengeViewSelector(props) {
                 target="_blank"
                 rel="oopener noreferrer"
               >
-                CHALLENGE FORUM
+                Challenge Forum
               </a>
             );
           }
@@ -316,7 +316,7 @@ export default function ChallengeViewSelector(props) {
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.MM_DASHBOARD); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.MM_DASHBOARD)}
           >
-            DASHBOARD
+            Dashboard
           </a>
         )
       }

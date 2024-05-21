@@ -1,17 +1,17 @@
 @import '~styles/mixins';
 
 .switch {
-  margin-right: 5px;
   position: relative;
-  top: 3px;
 }
 
 .wrapper {
   cursor: pointer;
-  display: inline-block;
+  display: flex;
   font-size: 14px;
   color: $tc-black;
-  line-height: 22px;
+  line-height: 18px;
+  align-items: center;
+  gap: 8px;
 
   @include roboto-regular;
 

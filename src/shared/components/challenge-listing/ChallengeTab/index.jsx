@@ -4,17 +4,14 @@ import { BUCKETS, isPastBucket } from 'utils/challenge-listing/buckets';
 import cn from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 import ArrowIcon from 'assets/images/ico-arrow-down.svg';
-import { config } from 'topcoder-react-utils';
 import PT from 'prop-types';
 
 import './style.scss';
-import { getUpdateQuery } from 'utils/url';
 
 const TAB_NAME = {
-  INNOVATION_CHALLENGE: 'INNOVATION CHALLENGES',
-  PAST_CHALLENGES: 'PAST CHALLENGES',
-  ACTIVE_CHALLENGES: 'ACTIVE CHALLENGES',
-  GIGS: 'GIGS',
+  INNOVATION_CHALLENGE: 'Innovation Challenges',
+  PAST_CHALLENGES: 'Past',
+  ACTIVE_CHALLENGES: 'Active',
 };
 
 const ChallengeTab = ({
@@ -25,7 +22,6 @@ const ChallengeTab = ({
   previousBucketOfActiveTab,
   selectBucket,
   location,
-  history,
   setFilterState,
   filterState,
 }) => {
@@ -33,35 +29,15 @@ const ChallengeTab = ({
   const [currentSelected, setCurrentSelected] = useState(past);
   const [isTabClosed, setIsTabClosed] = useState(true);
   const currentTabName = useMemo(() => {
-    if (location.pathname && location.pathname.indexOf(config.GIGS_PAGES_PATH) >= 0) {
-      return TAB_NAME.GIGS;
-    }
     if (filterState.isInnovationChallenge === 'true') {
       return TAB_NAME.INNOVATION_CHALLENGE;
     }
     return currentSelected ? TAB_NAME.PAST_CHALLENGES : TAB_NAME.ACTIVE_CHALLENGES;
   }, [location, currentSelected, filterState]);
-  const pageTitle = useMemo(() => {
-    if (location.pathname && location.pathname.indexOf(config.GIGS_PAGES_PATH) >= 0) {
-      return 'GIG WORK OPPORTUNITIES';
-    }
-    return 'CHALLENGES';
-  }, [location]);
 
   useEffect(() => {
     setCurrentSelected(isPastBucket(activeBucket));
   }, [activeBucket]);
-
-  const moveToChallengesPage = (selectedBucket, targetTabName) => {
-    if (currentTabName === TAB_NAME.GIGS) {
-      const params = { bucket: selectedBucket };
-      if (targetTabName === TAB_NAME.INNOVATION_CHALLENGE) {
-        params.isInnovationChallenge = 'true';
-      }
-      const queryParams = getUpdateQuery(params);
-      history.push(`/challenges${queryParams || ''}`);
-    }
-  };
 
   const onActiveClick = () => {
     if (currentTabName === TAB_NAME.ACTIVE_CHALLENGES) {
@@ -78,7 +54,6 @@ const ChallengeTab = ({
     } else {
       selectedBucket = BUCKETS.OPEN_FOR_REGISTRATION;
     }
-    moveToChallengesPage(selectedBucket, TAB_NAME.ACTIVE_CHALLENGES);
     selectBucket(selectedBucket);
     if (filterState.isInnovationChallenge === 'true') {
       setFilterState({
@@ -101,7 +76,6 @@ const ChallengeTab = ({
       ..._.cloneDeep(filterState),
       isInnovationChallenge: 'true',
     });
-    moveToChallengesPage(BUCKETS.OPEN_FOR_REGISTRATION, TAB_NAME.INNOVATION_CHALLENGE);
     selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
   };
 
@@ -120,7 +94,6 @@ const ChallengeTab = ({
     } else {
       selectedBucket = BUCKETS.ALL_PAST;
     }
-    moveToChallengesPage(selectedBucket, TAB_NAME.PAST_CHALLENGES);
     selectBucket(selectedBucket);
     if (filterState.isInnovationChallenge === 'true') {
       setFilterState({
@@ -128,13 +101,6 @@ const ChallengeTab = ({
         isInnovationChallenge: undefined,
       });
     }
-  };
-
-  const onGigsClick = () => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    history.push(config.GIGS_PAGES_PATH);
   };
 
   const desktop = useMediaQuery({ minWidth: 1024 });
@@ -183,20 +149,6 @@ const ChallengeTab = ({
       >
         {TAB_NAME.PAST_CHALLENGES}
       </li>
-      <li
-        key="tab-item-gigs"
-        styleName={cn('item', { active: currentTabName === TAB_NAME.GIGS })}
-        onClick={onGigsClick}
-        onKeyDown={(e) => {
-          if (e.key !== 'Enter') {
-            return;
-          }
-          onGigsClick();
-        }}
-        role="presentation"
-      >
-        {TAB_NAME.GIGS}
-      </li>
     </ul>
   );
 
@@ -240,13 +192,6 @@ const ChallengeTab = ({
             >
               <p>{TAB_NAME.PAST_CHALLENGES}</p>
             </div>
-            <div
-              role="presentation"
-              styleName={cn('item', { active: currentTabName === TAB_NAME.GIGS })}
-              onClick={onGigsClick}
-            >
-              <p>{TAB_NAME.GIGS}</p>
-            </div>
           </div>
         )
       }
@@ -255,8 +200,7 @@ const ChallengeTab = ({
 
   return (
     <React.Fragment>
-      <h1 styleName="tc-title">{pageTitle}</h1>
-      <hr styleName="tc-seperator" />
+      <h1 styleName="tc-title">Opportunities</h1>
       {desktop ? desktopTab : mobileTab}
     </React.Fragment>
   );
@@ -278,7 +222,6 @@ ChallengeTab.propTypes = {
     search: PT.string,
     pathname: PT.string,
   }).isRequired,
-  history: PT.shape().isRequired,
   activeBucket: PT.string,
   setPreviousBucketOfActiveTab: PT.func,
   setPreviousBucketOfPastChallengesTab: PT.func,

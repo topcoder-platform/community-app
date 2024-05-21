@@ -23,7 +23,7 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <span
-  className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
+  className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l src-shared-components-TrackIcon-___style__haveTco___2E6IG"
 >
   <div
     className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__main-icon___1q-1_"
@@ -44,7 +44,7 @@ exports[`Matches shallow shapshot 2`] = `
 
 exports[`Matches shallow shapshot 3`] = `
 <span
-  className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
+  className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l src-shared-components-TrackIcon-___style__haveTco___2E6IG"
 >
   <div
     className="src-shared-components-TrackIcon-___style__CH___3YWAb src-shared-components-TrackIcon-___style__main-icon___1q-1_"

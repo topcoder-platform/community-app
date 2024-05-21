@@ -627,89 +627,86 @@ export class ListingContainer extends React.Component {
 
     return (
       <div styleName="container" role="main">
-        <MetaTags
-          description={description}
-          image={ogImage}
-          siteName="Topcoder"
-          title={title}
-        />
-        {banner}
-        <ChallengeListing
-          location={location}
-          history={history}
-          activeBucket={activeBucket}
-          challenges={challenges}
-          openForRegistrationChallenges={openForRegistrationChallenges}
-          myChallenges={myChallenges}
-          myPastChallenges={myPastChallenges}
-          allChallenges={allChallenges}
-          pastChallenges={pastChallenges}
-          challengeTypes={challengeTypes}
-          challengesUrl={challengesUrl}
-          communityFilter={communityFilter}
-          communityName={communityName}
-          defaultCommunityId={defaultCommunityId}
-          expanding={expanding}
-          expandedTags={expandedTags}
-          expandTag={expandTag}
-          // extraBucket={extraBucket}
-          filterState={filter}
-          hideSrm={hideSrm}
-          // hideTcLinksInFooter={hideTcLinksInSidebarFooter}
-          keepPastPlaceholders={keepPastPlaceholders}
-          // lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
-          // eslint-disable-next-line max-len
-          needLoad={needLoad}
-          loadingMyChallenges={Boolean(loadingMyChallengesUUID)}
-          loadingMyPastChallenges={Boolean(loadingMyPastChallengesUUID)}
-          loadingAllChallenges={Boolean(loadingAllChallengesUUID)}
-          loadingOpenForRegistrationChallenges={Boolean(loadingOpenForRegistrationChallengesUUID)}
-          loadingOnGoingChallenges={Boolean(loadingActiveChallengesUUID)}
-          // eslint-disable-next-line max-len
-          // loadingChallenges={Boolean(loadingActiveChallengesUUID) && Boolean(loadingOpenForRegistrationChallengesUUID) && Boolean(loadingMyChallengesUUID)}
-          loadingPastChallenges={Boolean(loadingPastChallengesUUID)}
-          loadingReviewOpportunities={Boolean(loadingReviewOpportunitiesUUID)}
-          newChallengeDetails={newChallengeDetails}
-          openChallengesInNewTabs={openChallengesInNewTabs}
-          preListingMsg={preListingMsg}
-          prizeMode={prizeMode}
-          selectBucket={selectBucket}
-          selectChallengeDetailsTab={selectChallengeDetailsTab}
-          selectedCommunityId={selectedCommunityId}
-          loadMorePast={loadMorePast}
-          loadMoreReviewOpportunities={loadMoreReviewOpportunities}
-          loadMoreMy={loadMoreMy}
-          loadMoreMyPast={loadMoreMyPast}
-          loadMoreAll={loadMoreAll}
-          loadMoreOpenForRegistration={loadMoreOpenForRegistration}
-          loadMoreOnGoing={loadMoreOnGoing}
-          reviewOpportunities={reviewOpportunities}
-          setFilterState={(state) => {
-            setFilter(state);
-            // if (activeBucket === BUCKETS.SAVED_FILTER) {
-            //   selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
-            // } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
-            //   selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
-            // }
-          }}
-          setSort={setSort}
-          sorts={sorts}
-          groupIds={groupIds}
-          auth={auth}
-          // isBucketSwitching={isBucketSwitching}
-          // userChallenges={[]}
-          isLoggedIn={isLoggedIn}
-          meta={meta}
-          setSearchText={setSearchText}
-          previousBucketOfActiveTab={previousBucketOfActiveTab}
-          previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
-          setPreviousBucketOfActiveTab={(bucket) => {
-            this.setState({ previousBucketOfActiveTab: bucket });
-          }}
-          setPreviousBucketOfPastChallengesTab={(bucket) => {
-            this.setState({ previousBucketOfPastChallengesTab: bucket });
-          }}
-        />
+        <div styleName="content">
+          <MetaTags
+            description={description}
+            image={ogImage}
+            siteName="Topcoder"
+            title={title}
+          />
+          {banner}
+          <ChallengeListing
+            location={location}
+            history={history}
+            activeBucket={activeBucket}
+            challenges={challenges}
+            openForRegistrationChallenges={openForRegistrationChallenges}
+            myChallenges={myChallenges}
+            myPastChallenges={myPastChallenges}
+            allChallenges={allChallenges}
+            pastChallenges={pastChallenges}
+            challengeTypes={challengeTypes}
+            challengesUrl={challengesUrl}
+            communityFilter={communityFilter}
+            communityName={communityName}
+            defaultCommunityId={defaultCommunityId}
+            expanding={expanding}
+            expandedTags={expandedTags}
+            expandTag={expandTag}
+            // extraBucket={extraBucket}
+            filterState={filter}
+            hideSrm={hideSrm}
+            // hideTcLinksInFooter={hideTcLinksInSidebarFooter}
+            keepPastPlaceholders={keepPastPlaceholders}
+            // lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
+            // eslint-disable-next-line max-len
+            needLoad={needLoad}
+            loadingMyChallenges={Boolean(loadingMyChallengesUUID)}
+            loadingMyPastChallenges={Boolean(loadingMyPastChallengesUUID)}
+            loadingAllChallenges={Boolean(loadingAllChallengesUUID)}
+            loadingOpenForRegistrationChallenges={Boolean(loadingOpenForRegistrationChallengesUUID)}
+            loadingOnGoingChallenges={Boolean(loadingActiveChallengesUUID)}
+            // eslint-disable-next-line max-len
+            // loadingChallenges={Boolean(loadingActiveChallengesUUID) && Boolean(loadingOpenForRegistrationChallengesUUID) && Boolean(loadingMyChallengesUUID)}
+            loadingPastChallenges={Boolean(loadingPastChallengesUUID)}
+            loadingReviewOpportunities={Boolean(loadingReviewOpportunitiesUUID)}
+            newChallengeDetails={newChallengeDetails}
+            openChallengesInNewTabs={openChallengesInNewTabs}
+            preListingMsg={preListingMsg}
+            prizeMode={prizeMode}
+            selectBucket={selectBucket}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
+            selectedCommunityId={selectedCommunityId}
+            loadMorePast={loadMorePast}
+            loadMoreReviewOpportunities={loadMoreReviewOpportunities}
+            loadMoreMy={loadMoreMy}
+            loadMoreMyPast={loadMoreMyPast}
+            loadMoreAll={loadMoreAll}
+            loadMoreOpenForRegistration={loadMoreOpenForRegistration}
+            loadMoreOnGoing={loadMoreOnGoing}
+            reviewOpportunities={reviewOpportunities}
+            setFilterState={(state) => {
+              setFilter(state);
+            }}
+            setSort={setSort}
+            sorts={sorts}
+            groupIds={groupIds}
+            auth={auth}
+            // isBucketSwitching={isBucketSwitching}
+            // userChallenges={[]}
+            isLoggedIn={isLoggedIn}
+            meta={meta}
+            setSearchText={setSearchText}
+            previousBucketOfActiveTab={previousBucketOfActiveTab}
+            previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
+            setPreviousBucketOfActiveTab={(bucket) => {
+              this.setState({ previousBucketOfActiveTab: bucket });
+            }}
+            setPreviousBucketOfPastChallengesTab={(bucket) => {
+              this.setState({ previousBucketOfPastChallengesTab: bucket });
+            }}
+          />
+        </div>
       </div>
     );
   }

@@ -1,6 +1,12 @@
 @import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
+*:not(br) + h1,
+*:not(br) + h2,
+*:not(br) + h3 {
+  margin-top: 40px;
+}
+
 .container {
   border-radius: 0 0 (3 * $corner-radius) (3 * $corner-radius);
 }
@@ -97,7 +103,6 @@ $tc-link-visited: #0c4e98;
     color: $tc-black;
     line-height: 25px;
     margin: (5 * $base-unit) 0 0;
-    text-transform: uppercase;
   }
 
   h4 {
@@ -202,8 +207,9 @@ $tc-link-visited: #0c4e98;
   justify-content: center;
   overflow: hidden;
   position: relative;
-  align-items: baseline;
+  align-items: flex-start;
   word-break: break-word;
+  gap: 16px;
 
   @include linkStyle;
 
@@ -218,7 +224,13 @@ $tc-link-visited: #0c4e98;
     text-align: left;
     display: flex;
     flex-direction: column;
-    margin: 5px 0 50px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #d4d4d4;
+
+    @include xs-to-md {
+      width: 100%;
+    }
 
     .challenge-specs-develop {
       blockquote {
@@ -257,7 +269,7 @@ $tc-link-visited: #0c4e98;
       font-size: 24px;
       color: $tc-black;
       line-height: 28px;
-      margin: (6 * $base-unit) 0 (2 * $base-unit);
+      margin: 16px 0 16px;
     }
 
     h3 {
@@ -267,7 +279,6 @@ $tc-link-visited: #0c4e98;
       color: $tc-black;
       line-height: 25px;
       margin: (5 * $base-unit) 0 0;
-      text-transform: uppercase;
     }
 
     h4 {
@@ -422,11 +433,11 @@ $tc-link-visited: #0c4e98;
   @include roboto-regular;
 
   width: 100%;
-  padding: 0 34px;
+  padding: 0 16px;
   align-self: center;
-  font-size: 15px;
+  font-size: 16px;
   color: $tc-gray-90;
-  line-height: 25px;
+  line-height: 24px;
   white-space: normal;
 
   .note {
@@ -435,5 +446,24 @@ $tc-link-visited: #0c4e98;
 
   @include xs-to-sm {
     max-width: 95vw;
+  }
+}
+
+article {
+  > *:first-child {
+    margin-top: 0;
+  }
+}
+
+a[href*="/talent-routes/details"] {
+  width: fit-content;
+  padding: 11px 23px 11px 19px;
+  border: 1px solid $color-link-blue-dark;
+  border-radius: 3px;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
   }
 }
