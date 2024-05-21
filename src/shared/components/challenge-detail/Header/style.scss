@@ -29,6 +29,7 @@
 }
 
 .challenge-ops-container button,
+.challenge-ops-container a,
 .challenge-ops-container div {
   margin: 0 !important;
 }
@@ -129,6 +130,7 @@
     justify-content: center;
 
     div,
+    button,
     a {
       width: fit-content !important;
     }
