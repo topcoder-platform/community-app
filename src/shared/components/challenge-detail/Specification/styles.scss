@@ -462,6 +462,8 @@ a[href*="/talent-routes/details"] {
   border-radius: 3px;
   font-weight: 500;
   text-decoration: none;
+  display: flex;
+  gap: 8px;
 
   &:hover {
     text-decoration: none;
