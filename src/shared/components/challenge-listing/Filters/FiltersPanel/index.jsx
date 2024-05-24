@@ -572,52 +572,6 @@ export default function FiltersPanel({
           ) : null
         }
 
-        { !isReviewOpportunitiesBucket && !(recommendedToggle && activeBucket === 'openForRegistration')
-          && (
-            <div styleName="filter-row">
-              <div styleName="filter filter community">
-                <label htmlFor="community-select" styleName="label">
-                  Sub communities
-                  <input type="hidden" />
-                </label>
-                <Select
-                  autoBlur
-                  clearable={false}
-                  id="community-select"
-                  // onChange={selectCommunity}
-                  onChange={(value) => {
-                    if (value && value.startsWith('event_')) {
-                      const event = value.split('_')[1];
-                      setFilterState({
-                        ..._.clone(filterState),
-                        events: event === '' ? [] : [event],
-                        groups: [],
-                      });
-                    } else {
-                      const group = value;
-                      setFilterState({
-                        ..._.clone(filterState),
-                        groups: group === '' ? [] : [group],
-                        events: [],
-                      });
-                    }
-                    // setFilterState({ ..._.clone(filterState), groups: [value] });
-                  }}
-                  options={communityOps}
-                  simpleValue
-                  value={getCommunityOption()}
-                  valueRenderer={option => (
-                    <span styleName="active-community">
-                      {option.name}
-                    </span>
-                  )}
-                  arrowRenderer={ArrowIcon}
-                />
-              </div>
-            </div>
-          )
-        }
-
         {
           isRecommendedChallengesVisible && _.get(auth, 'user.userId')
           && (
