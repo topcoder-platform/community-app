@@ -56,7 +56,6 @@ export default function ChallengeDetailsView(props) {
     reviewScorecardId,
     screeningScorecardId,
     forumId,
-    selfService,
   } = legacy;
 
   let stockArtValue = '';
