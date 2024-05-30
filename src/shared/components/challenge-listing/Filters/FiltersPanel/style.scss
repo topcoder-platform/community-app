@@ -410,6 +410,7 @@
       .checkboxes {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
         width: 100%;
         justify-content: space-between;
         gap: 18px;
@@ -491,7 +492,7 @@
         @include sm-to-md {
           width: 100%;
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
           justify-content: space-between;
         }
       }

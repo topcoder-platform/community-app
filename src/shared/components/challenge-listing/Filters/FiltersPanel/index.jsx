@@ -24,11 +24,10 @@
 import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
-import Select from 'components/Select';
 import DateRangePicker from 'components/DateRangePicker';
 import moment from 'moment';
 import Tooltip from 'components/Tooltip';
-import { config, Link } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
@@ -36,18 +35,15 @@ import SwitchWithLabel from 'components/SwitchWithLabel';
 import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
-import ArrowIcon from 'assets/images/ico-arrow-down.svg';
 import CircleIcon from 'assets/images/icon-circle.svg';
 import Button from '../Button';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 import BucketSelector from '../../Sidebar/BucketSelector';
-import CheckmarkIcon from './CheckmarkIcon';
 import style from './style.scss';
 
 const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
-  communityFilters,
   defaultCommunityId,
   filterState,
   // challenges,
@@ -92,156 +88,10 @@ export default function FiltersPanel({
     );
   }
 
-  const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) => Boolean(
-    _.intersection(visitorGroupIds, communityGroupIds).length,
-  );
-
   // const isAllBucket = activeBucket === BUCKETS.ALL;
-
-  const getLabel = (community) => {
-    const { communityName } = community;
-    if (!isAuth) {
-      return (
-        <div>
-          {communityName}
-        </div>
-      );
-    }
-
-    // eslint-disable-next-line max-len
-    const visitorGroupIds = (auth.profile && auth.profile.groups) ? auth.profile.groups.map(g => g.id) : [];
-    const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
-      visitorGroupIds,
-      community.groupIds,
-    );
-
-    const registrationStatus = visitorRegisteredToCommunity
-      ? (
-        <div>
-          Registered
-        </div>
-      )
-      : (
-        <div>
-          You are
-          {' '}
-          <span styleName="bold uppercase">
-            not
-          </span>
-          {' '}
-          registered.
-          <Link
-            onMouseDown={(e) => {
-              const url = community.mainSubdomain ? (
-                config.URL.BASE.replace(/www/, community.mainSubdomain)
-              ) : `/community/${community.communityId}`;
-              window.open(url);
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            styleName="learn-more-link"
-            to=""
-            openInNewTab
-          >
-            Learn more
-          </Link>
-        </div>
-      );
-
-    // const filterFunction = Filter.getFilterFunction(community.challengeFilter);
-    // const challengesInCommunity = challenges.filter(filterFunction).length;
-
-    const selectItem = (
-      <div styleName="community-select-item">
-        <div>
-          <div styleName="community-name">
-            <div>
-              {communityName}
-            </div>
-            {visitorRegisteredToCommunity && (
-              <div styleName="checkmark-icon-container">
-                <CheckmarkIcon color="#fff" />
-              </div>
-            )}
-          </div>
-          <div styleName="registration-status">
-            {communityName === 'All'
-              ? 'Select to see all challenges'
-              : registrationStatus}
-          </div>
-        </div>
-        <div>
-          {/* {challengesInCommunity} */}
-        </div>
-      </div>
-    );
-
-    if (communityName === 'All') {
-      return selectItem;
-    }
-
-    return (
-      <div>
-        <Tooltip
-          position="bottom"
-          trigger={['hover']}
-          content={(
-            <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
-              <p>
-                You are
-                { !visitorRegisteredToCommunity && (
-                <span styleName="bold">
-                  NOT
-                </span>
-                )}
-                {' '}
-                registered for this sub community.
-              </p>
-              <p>
-                There are
-                {/* {challengesInCommunity} */}
-                {' '}
-                challenges in this sub community
-              </p>
-            </div>
-          )}
-        >
-          {selectItem}
-        </Tooltip>
-      </div>
-    );
-  };
-
-  const mapCommunityOps = (community) => {
-    if (community.challengeFilter
-      && community.challengeFilter.events && community.challengeFilter.events.length) {
-      return `event_${community.challengeFilter.events[0]}`;
-    }
-
-    return community.communityName === 'All' ? '' : community.groupIds[0];
-  };
-
-  const communityOps = communityFilters.filter(community => (
-    ((!community.hidden && !community.hideFilter) || community.communityName === 'All') && !community.communityName.includes('TCO')
-  ))
-    .map(community => ({
-      label: community.communityName,
-      value: mapCommunityOps(community),
-      name: community.communityName,
-      data: getLabel(community),
-    }));
 
   // const mapOps = item => ({ label: item, value: item });
   const mapTypes = item => ({ label: item.name, value: item.abbreviation });
-  const getCommunityOption = () => {
-    if (filterState.events && filterState.events.length) {
-      return `event_${filterState.events[0]}`;
-    }
-    if (filterState.groups && filterState.groups.length) {
-      return filterState.groups[0];
-    }
-    return '';
-  };
 
   const isTrackOn = track => filterState.tracks && filterState.tracks[track];
 
@@ -572,52 +422,6 @@ export default function FiltersPanel({
           ) : null
         }
 
-        { !isReviewOpportunitiesBucket && !(recommendedToggle && activeBucket === 'openForRegistration')
-          && (
-            <div styleName="filter-row">
-              <div styleName="filter filter community">
-                <label htmlFor="community-select" styleName="label">
-                  Sub communities
-                  <input type="hidden" />
-                </label>
-                <Select
-                  autoBlur
-                  clearable={false}
-                  id="community-select"
-                  // onChange={selectCommunity}
-                  onChange={(value) => {
-                    if (value && value.startsWith('event_')) {
-                      const event = value.split('_')[1];
-                      setFilterState({
-                        ..._.clone(filterState),
-                        events: event === '' ? [] : [event],
-                        groups: [],
-                      });
-                    } else {
-                      const group = value;
-                      setFilterState({
-                        ..._.clone(filterState),
-                        groups: group === '' ? [] : [group],
-                        events: [],
-                      });
-                    }
-                    // setFilterState({ ..._.clone(filterState), groups: [value] });
-                  }}
-                  options={communityOps}
-                  simpleValue
-                  value={getCommunityOption()}
-                  valueRenderer={option => (
-                    <span styleName="active-community">
-                      {option.name}
-                    </span>
-                  )}
-                  arrowRenderer={ArrowIcon}
-                />
-              </div>
-            </div>
-          )
-        }
-
         {
           isRecommendedChallengesVisible && _.get(auth, 'user.userId')
           && (
@@ -707,10 +511,6 @@ FiltersPanel.defaultProps = {
 };
 
 FiltersPanel.propTypes = {
-  communityFilters: PT.arrayOf(PT.shape({
-    communityId: PT.string.isRequired,
-    communityName: PT.string.isRequired,
-  })).isRequired,
   defaultCommunityId: PT.string.isRequired,
   activeBucket: PT.string.isRequired,
   filterState: PT.shape().isRequired,
