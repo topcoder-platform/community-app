@@ -83,7 +83,7 @@ export default function Bucket({
 
   let filteredChallenges = sortedChallenges;
 
-  if(!_.includes(roles, 'administrator')){
+  if (!_.includes(roles, 'administrator')) {
     filteredChallenges = sortedChallenges.filter((ch) => {
       if (ch.type === 'Task'
         && ch.task
@@ -95,7 +95,6 @@ export default function Bucket({
       return ch;
     });
   }
-  
   // sortedChallenges.sort(Sort[activeSort].func);
 
   // const bucketQuery = qs.stringify({
@@ -282,6 +281,7 @@ Bucket.defaultProps = {
   openChallengesInNewTabs: false,
   sort: null,
   userId: '',
+  auth: {},
   expandedTags: [],
   expandTag: null,
   activeBucket: '',
