@@ -49,6 +49,7 @@ export default function Bucket({
   setSort,
   sort,
   userId,
+  auth,
   expandedTags,
   expandTag,
   activeBucket,
@@ -65,6 +66,8 @@ export default function Bucket({
   };
   const activeSort = sort || 'startDate';
 
+  const roles = _.get(auth, 'user.roles');
+
   // const sortedChallenges = activeBucket === 'all' ?
   //   _.clone(challenges.slice(0, 10)) : _.clone(challenges);
   let sortedChallenges;
@@ -79,17 +82,20 @@ export default function Bucket({
   }
 
   let filteredChallenges = sortedChallenges;
-  filteredChallenges = sortedChallenges.filter((ch) => {
-    if (ch.type === 'Task'
-      && ch.task
-      && ch.task.isTask
-      && ch.task.isAssigned
-      && Number(ch.task.memberId) !== Number(userId)) {
-      return null;
-    }
-    return ch;
-  });
 
+  if(!_.includes(roles, 'administrator')){
+    filteredChallenges = sortedChallenges.filter((ch) => {
+      if (ch.type === 'Task'
+        && ch.task
+        && ch.task.isTask
+        && ch.task.isAssigned
+        && Number(ch.task.memberId) !== Number(userId)) {
+        return null;
+      }
+      return ch;
+    });
+  }
+  
   // sortedChallenges.sort(Sort[activeSort].func);
 
   // const bucketQuery = qs.stringify({
@@ -306,6 +312,7 @@ Bucket.propTypes = {
   setSort: PT.func.isRequired,
   sort: PT.string,
   userId: PT.number,
+  auth: PT.shape(),
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   activeBucket: PT.string,
