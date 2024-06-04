@@ -8,6 +8,7 @@ exports[`Matches shallow shapshot 1`] = `
 >
   <Bucket
     activeBucket=""
+    auth={Object {}}
     bucket="all"
     challengeTypes={
       Array [
