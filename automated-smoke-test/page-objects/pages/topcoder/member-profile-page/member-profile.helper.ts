@@ -82,6 +82,7 @@ export class MemberProfilePageHelper {
       'numberOfCollapsedSkills',
       'verifiedSkill',
       'noneVerifiedSkill',
+      'forumLink'
     ];
     return expect(
       _.isEqual(
@@ -101,12 +102,14 @@ export class MemberProfilePageHelper {
       expectedClientInfo.numberOfCollapsedSkills,
       'Number of skills for the user is not correct'
     );
-    expect(
-      _.some(skills, {
-        name: expectedClientInfo.verifiedSkill,
-        isHaveCheckMark: true,
-      })
-    ).toBe(true, 'Verified skill is not displayed with a check mark');
+    const values = Array.from(skills.values());
+    let skillData = [];
+    for (var i = 0; i < values.length; i++) {
+      if (values[i].isHaveCheckMark == true) {
+        skillData.push(values[i].name)
+      }
+    }
+    expect(skillData).toEqual(expectedClientInfo.verifiedSkill, 'Verified skill is not displayed with a check mark')
     expect(
       _.some(skills, {
         name: expectedClientInfo.noneVerifiedSkill,
@@ -212,13 +215,13 @@ export class MemberProfilePageHelper {
     );
     expect(trackInfo.numberOfSubtracks).toBe(
       allSubtracks.length,
-      `Number of subtracks is not correct under ${trackInfo.trackName} track`
+      `Number of sub tracks is not correct under ${trackInfo.trackName} track`
     );
   }
 
   /**
    * Verify that below details on the copilot activity
-   * card are correct fullfillment %
+   * card are correct fulfillment %
    */
   public static async verifyCopilotFullfillmentIsCorrect() {
     await this.verifySubtractkShowCorrectInfo(

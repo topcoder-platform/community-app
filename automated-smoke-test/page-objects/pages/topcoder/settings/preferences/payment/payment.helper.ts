@@ -23,10 +23,16 @@ export class PaymentPageHelper {
    * Verifies the payment setting page
    */
   public static async verifyPaymentSetting() {
-    await BrowserHelper.sleep(5000);
-    await BrowserHelper.waitUntilUrlIs(ConfigHelper.getPaymentSettingUrl());
-    logger.info('redirected to payment settings page');
+    const windowHandles = await BrowserHelper.getAllWindowHandles();
+    for (let i = 0; i < windowHandles.length; i++) {
+      await BrowserHelper.switchToWindow(windowHandles[i]);
+      await BrowserHelper.sleep(2000)
+      if (await BrowserHelper.getCurrentUrl() == ConfigHelper.getPaymentSettingUrl()) {
+        logger.info('redirected to payment settings page');
+        return
+      }
+      await BrowserHelper.switchToWindow(windowHandles[0]);
+    }
   }
-
   private static paymentPageObject: PaymentPage;
 }

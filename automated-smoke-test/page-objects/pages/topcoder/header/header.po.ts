@@ -10,7 +10,7 @@ export class HeaderPage {
    */
   public async open(isLoggedIn: boolean) {
     await BrowserHelper.open(ConfigHelper.getOverviewUrl());
-    const tabName = isLoggedIn ? 'Dashboard' : 'How It Works';
+    const tabName = isLoggedIn ? 'My Profile' : 'How It Works';
     // wait for showing page + tab name
     await CommonHelper.waitUntilVisibilityOf(
       () => CommonHelper.findElementByText('span', tabName),
@@ -24,11 +24,10 @@ export class HeaderPage {
    * Gets the user handle menu
    */
   private async getUserHandleMenu() {
-    const spans = await ElementHelper.getAllElementsByCssContainingText(
-      'span',
-      ConfigHelper.getUserName()
+    const spans = await ElementHelper.getAllElementsByXPath(
+      `//span[.='${ConfigHelper.getUserName()}']`
     );
-    return spans[3];
+    return spans[2];
   }
 
   /**
@@ -47,7 +46,11 @@ export class HeaderPage {
    * @param menu
    */
   private getMenuLink(menu) {
-    const spans = ElementHelper.getElementByCssContainingText('span', menu);
+    let spans = null;
+    if (menu !== 'Forums') {
+      spans = ElementHelper.getElementByCssContainingText('span', menu);
+    } else
+      spans = ElementHelper.getElementByXPath(`//span[.='${menu}']`);
     return spans;
   }
 
@@ -76,7 +79,7 @@ export class HeaderPage {
    */
   private async getSettingsLink() {
     const links = await ElementHelper.getAllElementsByCss(
-      "a[href='/settings/profile']"
+      "a[href='/settings/profile?ref=nav']"
     );
     return links[1];
   }

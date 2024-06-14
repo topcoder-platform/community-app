@@ -10,7 +10,7 @@ export class HeaderConstants {
         submenus: [
           {
             text: 'Overview',
-            url: ConfigHelper.getSubMenuUrl('overview', isLoggedIn),
+            url: ConfigHelper.getSubMenuUrl('overviewUrl', isLoggedIn),
           },
           {
             text: 'How It Works',
@@ -106,8 +106,8 @@ export class HeaderConstants {
       menuConfiguration['Community'] = {
         submenus: [
           {
-            text: 'Dashboard',
-            url: ConfigHelper.getSubMenuUrl('dashboard', isLoggedIn),
+            text: 'Home',
+            url: ConfigHelper.getSubMenuUrl('home', isLoggedIn) + "?ref=nav",
           },
           {
             text: 'My Profile',

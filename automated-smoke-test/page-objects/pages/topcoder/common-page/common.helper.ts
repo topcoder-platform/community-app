@@ -23,8 +23,8 @@ const waitUntil = async (
     (isPageLoad
       ? appconfig.LoggerErrors.PageLoad
       : appconfig.LoggerErrors.ElementVisibilty) +
-      '.' +
-      extraMessage
+    '.' +
+    extraMessage
   );
 };
 
@@ -276,8 +276,8 @@ export const CommonHelper = {
       (isPageLoad
         ? appconfig.LoggerErrors.PageLoad
         : appconfig.LoggerErrors.ElementPresence) +
-        '.' +
-        extraMessage
+      '.' +
+      extraMessage
     );
   },
 

@@ -1,4 +1,6 @@
+import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
 import { ElementHelper } from 'topcoder-testing-lib';
+import { CommonHelper } from '../common-page/common.helper';
 
 export class FooterPage {
   /**
@@ -33,5 +35,20 @@ export class FooterPage {
    */
   public async clickOnPoliciesLink() {
     return this.policiesLink.click();
+  }
+
+  /**
+   * Checks if the footer links are visible
+   */
+  public async footerLinkIsVisible(footerLink: TcElementImpl) {
+    return await CommonHelper.isPresent(footerLink);
+  }
+
+  /**
+   * Wait till __social icon__ is _clickable_ and _displayed_.
+   * @param socialLink 
+   */
+  public async waitTillIconDisplayedAndClickable(socialLink: TcElementImpl) {
+    await CommonHelper.waitUntil(() => socialLink.isEnabled(), 'The Social link icon is not enabled', true)
   }
 }

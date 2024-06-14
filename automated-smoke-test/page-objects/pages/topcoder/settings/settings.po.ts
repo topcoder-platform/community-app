@@ -71,7 +71,7 @@ export class SettingsPage {
       false
     );
     const delIcons = await this.getDeleteIcons();
-    for (let {} of delIcons) {
+    for (let { } of delIcons) {
       await this.deleteIcon.click();
       await this.deleteConfirmation.click();
       await this.waitForDefaultSuccessMessage();
@@ -174,5 +174,15 @@ export class SettingsPage {
       'wait for success message',
       false
     );
+  }
+
+  public async navigateToPreferences(tabName: string) {
+    // wait for showing page + tab name
+    await CommonHelper.waitUntilVisibilityOf(
+      () => ElementHelper.getElementByXPath(`//span[contains(., "GO TO ${tabName}")]`),
+      'Wait for tab ' + tabName,
+      true
+    );
+    await ElementHelper.getElementByXPath(`//span[contains(., "GO TO ${tabName}")]`).click()
   }
 }
