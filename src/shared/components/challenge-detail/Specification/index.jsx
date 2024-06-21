@@ -365,8 +365,6 @@ export default function ChallengeDetailsView(props) {
             legacyId={legacyId}
             forumLink={forumLink}
             discuss={discuss}
-            documents={documents}
-            hasRegistered={hasRegistered}
             isDesign={track.toLowerCase() === 'design'}
             isDevelop={track.toLowerCase() === 'development'}
             eventDetail={_.isEmpty(events) ? null : events[0]}
