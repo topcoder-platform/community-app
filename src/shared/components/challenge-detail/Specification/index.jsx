@@ -28,7 +28,6 @@ export default function ChallengeDetailsView(props) {
   const {
     communitiesList,
     terms,
-    hasRegistered,
     challenge,
     challengesUrl,
     savingChallenge,
@@ -44,7 +43,6 @@ export default function ChallengeDetailsView(props) {
     descriptionFormat,
     legacy,
     legacyId,
-    documents,
     userDetails,
     metadata,
     events,
@@ -404,7 +402,6 @@ ChallengeDetailsView.defaultProps = {
 
 ChallengeDetailsView.propTypes = {
   terms: PT.arrayOf(PT.shape()),
-  hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     description: PT.string,
     descriptionFormat: PT.string,
