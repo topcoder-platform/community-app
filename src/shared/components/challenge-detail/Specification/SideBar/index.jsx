@@ -116,29 +116,6 @@ export default function SideBar({
   return (
     <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
-        {
-          hasRegistered && documents && documents.length > 0 && (
-            <div>
-              <h3>
-                DOWNLOADS:
-              </h3>
-              <ul>
-                {
-                  documents.map((doc) => {
-                    const url = `${config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentId}`;
-                    return (
-                      <li key={url}>
-                        <a href={url}>
-                          {doc.documentName}
-                        </a>
-                      </li>
-                    );
-                  })
-                }
-              </ul>
-            </div>
-          )
-        }
         <div>
           <h2>
             Learn
