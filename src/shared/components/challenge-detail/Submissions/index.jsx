@@ -116,10 +116,12 @@ class SubmissionsComponent extends React.Component {
    */
   getInitialScore(submission) {
     let score = 'N/A';
+    const { challenge } = this.props;
+
     if (!_.isEmpty(submission.review)
           && !_.isEmpty(submission.review[0])
           && submission.review[0].score
-          && this.challenge.status === 'Completed') {
+          && challenge.status === 'Completed') {
       score = Number(submission.review[0].score).toFixed(2);
     } else if (!_.isEmpty(submission.score)) {
       score = Number(submission.score).toFixed(2);
