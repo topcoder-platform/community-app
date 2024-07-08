@@ -103,6 +103,31 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
+   * Returns the value of the "Initial Score" shown on the submissions tab
+   * We have to check a couple things because sometimes we're running code challenges that
+   * likely should be marathon matches (PS-295)
+   *
+   * Marathon matches place the initial score in submission.score
+   *
+   * Code challenges place the initial score in submission.review[x].score
+   *
+   * We need to check both places
+   * @param {Object} submission The submission to return the score for
+   */
+  getInitialScore(submission) {
+    let score = 'N/A';
+    if (!_.isEmpty(submission.review)
+          && !_.isEmpty(submission.review[0])
+          && submission.review[0].score
+          && this.challenge.status === 'Completed') {
+      score = Number(submission.review[0].score).toFixed(2);
+    } else if (!_.isEmpty(submission.score)) {
+      score = Number(submission.score).toFixed(2);
+    }
+    return score;
+  }
+
+  /**
      * Check if it have flag for first try
      * @param {Object} registrant registrant info
      */
@@ -209,6 +234,10 @@ class SubmissionsComponent extends React.Component {
           if (isHaveFinalScore) {
             valueA = getFinalScore(a);
             valueB = getFinalScore(b);
+          } else if (valueA.score || valueB.score) {
+            // Handle MM formatted scores in a code challenge (PS-295)
+            valueA = Number(valueA.score);
+            valueB = Number(valueB.score);
           } else {
             valueA = !_.isEmpty(a.review) && a.review[0].score;
             valueB = !_.isEmpty(b.review) && b.review[0].score;
@@ -904,11 +933,7 @@ class SubmissionsComponent extends React.Component {
                   <div styleName="col-5">
                     <div styleName="mobile-header">INITIAL SCORE</div>
                     <p>
-                      {
-                        (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score && challenge.status === 'Completed')
-                          ? Number(s.review[0].score).toFixed(2)
-                          : 'N/A'
-                      }
+                      {this.getInitialScore(s)}
                     </p>
                   </div>
                   <div styleName="col-6">

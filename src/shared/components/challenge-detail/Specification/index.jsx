@@ -28,7 +28,6 @@ export default function ChallengeDetailsView(props) {
   const {
     communitiesList,
     terms,
-    hasRegistered,
     challenge,
     challengesUrl,
     savingChallenge,
@@ -44,7 +43,6 @@ export default function ChallengeDetailsView(props) {
     descriptionFormat,
     legacy,
     legacyId,
-    documents,
     userDetails,
     metadata,
     events,
@@ -365,8 +363,6 @@ export default function ChallengeDetailsView(props) {
             legacyId={legacyId}
             forumLink={forumLink}
             discuss={discuss}
-            documents={documents}
-            hasRegistered={hasRegistered}
             isDesign={track.toLowerCase() === 'design'}
             isDevelop={track.toLowerCase() === 'development'}
             eventDetail={_.isEmpty(events) ? null : events[0]}
@@ -406,7 +402,6 @@ ChallengeDetailsView.defaultProps = {
 
 ChallengeDetailsView.propTypes = {
   terms: PT.arrayOf(PT.shape()),
-  hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     description: PT.string,
     descriptionFormat: PT.string,

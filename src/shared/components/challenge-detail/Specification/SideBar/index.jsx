@@ -18,12 +18,10 @@ import styles from './styles.scss';
 export default function SideBar({
   challengesUrl,
   legacyId,
-  documents,
   eventDetail,
   // shareable,
   forumLink,
   discuss,
-  hasRegistered,
   reviewType,
   isDesign,
   terms,
@@ -116,29 +114,6 @@ export default function SideBar({
   return (
     <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
-        {
-          hasRegistered && documents && documents.length > 0 && (
-            <div>
-              <h3>
-                DOWNLOADS:
-              </h3>
-              <ul>
-                {
-                  documents.map((doc) => {
-                    const url = `${config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentId}`;
-                    return (
-                      <li key={url}>
-                        <a href={url}>
-                          {doc.documentName}
-                        </a>
-                      </li>
-                    );
-                  })
-                }
-              </ul>
-            </div>
-          )
-        }
         <div>
           <h2>
             Learn
@@ -518,8 +493,6 @@ export default function SideBar({
 SideBar.defaultProps = {
   eventDetail: null,
   discuss: [],
-  documents: undefined,
-  hasRegistered: false,
   reviewType: 'COMMUNITY',
   isDesign: false,
   terms: [],
@@ -541,11 +514,9 @@ SideBar.propTypes = {
     eventName: PT.string.isRequired,
     description: PT.string.isRequired,
   }),
-  documents: PT.arrayOf(PT.shape()),
   // shareable: PT.bool.isRequired,
   forumLink: PT.string.isRequired,
   discuss: PT.arrayOf(PT.shape()),
-  hasRegistered: PT.bool,
   reviewType: PT.string,
   isDesign: PT.bool,
   terms: PT.arrayOf(PT.shape()),
