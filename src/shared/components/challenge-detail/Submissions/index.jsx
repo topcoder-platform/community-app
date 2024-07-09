@@ -105,26 +105,23 @@ class SubmissionsComponent extends React.Component {
   /**
    * Returns the value of the "Initial Score" shown on the submissions tab
    * We have to check a couple things because sometimes we're running code challenges that
-   * likely should be marathon matches (PS-295)
+   * likely should be marathon matches (PS-295), so the logic is a bit more complex.
    *
-   * Marathon matches place the initial score in submission.score
+   * We want to show provisional scores _during_ Innovation Challenges, even if run
+   * as a code challenge, with MM scoring, but for a normal code challenge we don't
+   * want to show provisional review scores until the challenge completes, so that
+   * competitors don't have access to scores during appeals.
    *
-   * Code challenges place the initial score in submission.review[x].score
-   *
-   * We need to check both places
    * @param {Object} submission The submission to return the score for
    */
   getInitialScore(submission) {
     let score = 'N/A';
     const { challenge } = this.props;
-
     if (!_.isEmpty(submission.review)
           && !_.isEmpty(submission.review[0])
           && submission.review[0].score
-          && challenge.status === 'Completed') {
+          && (challenge.status === 'Completed' || _.includes(challenge.tags, 'Innovation Challenge'))) {
       score = Number(submission.review[0].score).toFixed(2);
-    } else if (!_.isEmpty(submission.score)) {
-      score = Number(submission.score).toFixed(2);
     }
     return score;
   }
