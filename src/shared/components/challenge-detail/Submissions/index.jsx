@@ -120,7 +120,8 @@ class SubmissionsComponent extends React.Component {
     if (!_.isEmpty(submission.review)
           && !_.isEmpty(submission.review[0])
           && submission.review[0].score
-          && (challenge.status === 'Completed' || _.includes(challenge.tags, 'Innovation Challenge'))) {
+          && (challenge.status === 'Completed'
+          || (_.includes(challenge.tags, 'Innovation Challenge') && _.find(challenge.metadata, { name: 'show_data_dashboard' })))) {
       score = Number(submission.review[0].score).toFixed(2);
     }
     return score;
@@ -1005,6 +1006,7 @@ SubmissionsComponent.propTypes = {
     registrants: PT.any,
     status: PT.string.isRequired,
     phases: PT.any,
+    metadata: PT.arrayOf(PT.object),
   }).isRequired,
   toggleSubmissionHistory: PT.func.isRequired,
   submissionHistoryOpen: PT.shape({}).isRequired,
