@@ -5,7 +5,6 @@ import React from 'react';
 import PT from 'prop-types';
 import Header from 'containers/TopcoderHeader';
 import Footer from 'components/TopcoderFooter';
-import Viewport from 'components/Contentful/Viewport';
 import { config, isomorphy } from 'topcoder-react-utils';
 import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 import { Helmet } from 'react-helmet';
@@ -15,9 +14,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { getQuery } from 'utils/url';
-import ReferralCode from 'components/Gigs/ReferralCode';
 import ChallengeTab from 'components/challenge-listing/ChallengeTab';
-import actions from 'actions/growSurf';
 
 import './style.scss';
 
@@ -32,9 +29,6 @@ function GigsPagesContainer(props) {
   const {
     match,
     profile,
-    growSurf,
-    getReferralId,
-    tokenV3,
     history,
     location,
   } = props;
@@ -46,12 +40,6 @@ function GigsPagesContainer(props) {
     optProfile.attributes.TC_Handle = profile.handle;
     optProfile.attributes.HomeCountryCode = profile.homeCountryCode;
     optProfile.attributes.email = profile.email;
-    // trigger referral id fetching when profile is loaded
-    if (isomorphy.isClientSide()) {
-      if (_.isEmpty(growSurf) || (!growSurf.loading && !growSurf.data && !growSurf.error)) {
-        getReferralId(profile, tokenV3);
-      }
-    }
   } else if (isomorphy.isClientSide()) {
     const idCookie = cookies.get('_tc.aid');
     if (idCookie) {
@@ -76,7 +64,7 @@ function GigsPagesContainer(props) {
       }), config.GROWSURF_COOKIE_SETTINGS);
     }
   }
-  const { id, type } = match.params;
+  const { id } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   const title = 'Find Freelance Work | Gigs | Topcoder';
   const description = 'Compete and build up your profiles and skills! Topcoder members become eligible to work on Gig Work projects by first proving themselves in various skill sets through Topcoder competitions.';
@@ -112,17 +100,6 @@ window._chatlio = window._chatlio||[];
           />
         ) : null
       }
-      {
-        !id && !type ? (
-          <React.Fragment>
-            <ReferralCode profile={profile} growSurf={growSurf} />
-            <Viewport
-              id="3X6GfJZl3eDU0m4joSJZpN"
-              baseUrl={config.GIGS_PAGES_PATH}
-            />
-          </React.Fragment>
-        ) : null
-      }
       <Footer />
     </div>
   );
@@ -141,8 +118,6 @@ window._chatlio = window._chatlio||[];
 
 GigsPagesContainer.defaultProps = {
   profile: null,
-  growSurf: null,
-  tokenV3: null,
 };
 
 GigsPagesContainer.propTypes = {
@@ -153,32 +128,15 @@ GigsPagesContainer.propTypes = {
   history: PT.shape().isRequired,
   match: PT.shape().isRequired,
   profile: PT.shape(),
-  growSurf: PT.shape(),
-  getReferralId: PT.func.isRequired,
-  tokenV3: PT.string,
 };
 
 function mapStateToProps(state) {
   const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
-  const { growSurf } = state;
   return {
     profile,
-    growSurf,
-    tokenV3: state.auth ? state.auth.tokenV3 : null,
-  };
-}
-
-function mapDispatchToActions(dispatch) {
-  const a = actions.growsurf;
-  return {
-    getReferralId: (profile, tokenV3) => {
-      dispatch(a.getReferralidInit());
-      dispatch(a.getReferralidDone(profile, tokenV3));
-    },
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToActions,
 )(GigsPagesContainer);
