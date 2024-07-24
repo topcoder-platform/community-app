@@ -5,6 +5,7 @@ import React from 'react';
 import PT from 'prop-types';
 import Header from 'containers/TopcoderHeader';
 import Footer from 'components/TopcoderFooter';
+import Viewport from 'components/Contentful/Viewport';
 import { config, isomorphy } from 'topcoder-react-utils';
 import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 import { Helmet } from 'react-helmet';
@@ -64,7 +65,7 @@ function GigsPagesContainer(props) {
       }), config.GROWSURF_COOKIE_SETTINGS);
     }
   }
-  const { id } = match.params;
+  const { id, type } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   const title = 'Find Freelance Work | Gigs | Topcoder';
   const description = 'Compete and build up your profiles and skills! Topcoder members become eligible to work on Gig Work projects by first proving themselves in various skill sets through Topcoder competitions.';
@@ -98,6 +99,16 @@ window._chatlio = window._chatlio||[];
             id={id}
             isApply={isApply}
           />
+        ) : null
+      }
+      {
+        !id && !type ? (
+          <React.Fragment>
+            <Viewport
+              id="3X6GfJZl3eDU0m4joSJZpN"
+              baseUrl={config.GIGS_PAGES_PATH}
+            />
+          </React.Fragment>
         ) : null
       }
       <Footer />
