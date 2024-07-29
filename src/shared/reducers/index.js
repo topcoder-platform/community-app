@@ -43,7 +43,6 @@ import tcoLeaderboards from './tco/leaderboards';
 import recruitCRM from './recruitCRM';
 import gSheet from './gSheet';
 import timelineWall from './timelineWall';
-import growSurf from './growSurf';
 import thrive from './contentful/thrive';
 import dashboard from './dashboard';
 import blog from './blog';
@@ -181,7 +180,6 @@ export function factory(req) {
     recruitCRM,
     mmLeaderboard,
     gSheet,
-    growSurf,
     thrive,
     tcoLeaderboards,
     dashboard,
