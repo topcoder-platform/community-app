@@ -5,7 +5,6 @@ import React from 'react';
 import PT from 'prop-types';
 import Header from 'containers/TopcoderHeader';
 import Footer from 'components/TopcoderFooter';
-import Viewport from 'components/Contentful/Viewport';
 import { config, isomorphy } from 'topcoder-react-utils';
 import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 import { Helmet } from 'react-helmet';
@@ -14,7 +13,6 @@ import { OptimizelyProvider, createInstance } from '@optimizely/react-sdk';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { getQuery } from 'utils/url';
 import ChallengeTab from 'components/challenge-listing/ChallengeTab';
 
 import './style.scss';
@@ -30,8 +28,6 @@ function GigsPagesContainer(props) {
   const {
     match,
     profile,
-    getReferralId,
-    tokenV3,
     history,
     location,
   } = props;
@@ -58,7 +54,7 @@ function GigsPagesContainer(props) {
       });
     }
   }
-  const { id, type } = match.params;
+  const { id } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   const title = 'Find Freelance Work | Gigs | Topcoder';
   const description = 'Compete and build up your profiles and skills! Topcoder members become eligible to work on Gig Work projects by first proving themselves in various skill sets through Topcoder competitions.';
@@ -112,7 +108,6 @@ window._chatlio = window._chatlio||[];
 
 GigsPagesContainer.defaultProps = {
   profile: null,
-  tokenV3: null,
 };
 
 GigsPagesContainer.propTypes = {
@@ -123,8 +118,6 @@ GigsPagesContainer.propTypes = {
   history: PT.shape().isRequired,
   match: PT.shape().isRequired,
   profile: PT.shape(),
-  getReferralId: PT.func.isRequired,
-  tokenV3: PT.string,
 };
 
 function mapStateToProps(state) {

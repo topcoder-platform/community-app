@@ -9,11 +9,9 @@ import React, { useState } from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { isomorphy, Link, config } from 'topcoder-react-utils';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ReactHtmlParser from 'react-html-parser';
 import { getSalaryType, getCustomField } from 'utils/gigs';
 import SubscribeMailChimpTag from 'containers/SubscribeMailChimpTag';
-import { isValidEmail } from 'utils/tc';
 import './style.scss';
 import IconFacebook from 'assets/images/icon-facebook.svg';
 import IconTwitter from 'assets/images/icon-twitter.svg';
@@ -44,7 +42,7 @@ const ReactHtmlParserOptions = {
 
 function GigDetails(props) {
   const {
-    job, application, profile, onSendClick, isReferrSucess, isReferrError, onReferralDone, 
+    job, application, profile, isReferrSucess, isReferrError, onReferralDone,
   } = props;
   let shareUrl;
   let retUrl;
@@ -59,10 +57,7 @@ function GigDetails(props) {
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const [copyBtnText, setCopyBtnText] = useState('COPY');
-  const [referrEmail, setreferrEmail] = useState();
   const duration = getCustomField(job.custom_fields, 'Duration');
-  let refEmailInput;
 
   return (
     <div styleName="container">
@@ -156,34 +151,17 @@ function GigDetails(props) {
               <div styleName="right">
                 <div styleName="referr-area">
                   <h6>REFER THIS GIG</h6>
-                    <div styleName="shareButtons">
-                      Share this job on:&nbsp;&nbsp;
-                      <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                        <IconLinkedIn />
-                      </a>
-                      <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
-                        <IconFacebook />
-                      </a>
-                      <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                        <IconTwitter />
-                      </a>
-                    </div>
-                  <div styleName="sepWrap">
-                    <div styleName="sepLine" />
-                    <span>or</span>
-                    <div styleName="sepLine" />
-                  </div>
-                  <p>Refer someone to this gig and earn $500. Just add their email below. See <Link to="/community/gig-referral" styleName="how-it-works" openNewTab>how it works.</Link></p>
-                  <div styleName="referr-form">
-                    <input type="email" placeholder="Email" onChange={e => setreferrEmail(e.target.value)} ref={ref => refEmailInput = ref} />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setModalOpen(true);
-                      }}
-                      disabled={!referrEmail || !isValidEmail(referrEmail)}
-                    >SEND
-                    </button>
+                  <div styleName="shareButtons">
+                    Share this job on:&nbsp;&nbsp;
+                    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                      <IconLinkedIn />
+                    </a>
+                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
+                      <IconFacebook />
+                    </a>
+                    <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                      <IconTwitter />
+                    </a>
                   </div>
                 </div>
                 <div styleName="subscribe-area">
@@ -251,12 +229,9 @@ GigDetails.propTypes = {
   job: PT.shape().isRequired,
   application: PT.shape(),
   profile: PT.shape(),
-  onSendClick: PT.func.isRequired,
   isReferrSucess: PT.bool.isRequired,
   isReferrError: PT.shape(),
   onReferralDone: PT.func.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-)(GigDetails);
+export default connect()(GigDetails);

@@ -54,7 +54,7 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
    */
   async onSendClick(email) {
     const {
-      profile, tokenV3,
+      profile,
     } = this.props;
     const { formData } = this.state;
     // should not be able to send emails to themselves
@@ -160,7 +160,6 @@ RecruitCRMJobDetailsContainer.defaultProps = {
   job: {},
   application: null,
   profile: {},
-  tokenV3: null,
 };
 
 RecruitCRMJobDetailsContainer.propTypes = {
@@ -171,7 +170,6 @@ RecruitCRMJobDetailsContainer.propTypes = {
   isApply: PT.bool.isRequired,
   application: PT.shape(),
   profile: PT.shape(),
-  tokenV3: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {

@@ -209,15 +209,13 @@ class SubmissionsComponent extends React.Component {
           if (isHaveFinalScore) {
             valueA = getFinalScore(a);
             valueB = getFinalScore(b);
-          } else {
             // Handle MM formatted scores in a code challenge (PS-295)
-            if(valueA.score || valueB.score){
-              valueA = Number(valueA.score);
-              valueB = Number(valueB.score);
-            } else {
-              valueA = !_.isEmpty(a.review) && a.review[0].score;
-              valueB = !_.isEmpty(b.review) && b.review[0].score;
-            }
+          } else if (valueA.score || valueB.score) {
+            valueA = Number(valueA.score);
+            valueB = Number(valueB.score);
+          } else {
+            valueA = !_.isEmpty(a.review) && a.review[0].score;
+            valueB = !_.isEmpty(b.review) && b.review[0].score;
           }
           break;
         }
@@ -911,6 +909,7 @@ class SubmissionsComponent extends React.Component {
                     <div styleName="mobile-header">INITIAL SCORE</div>
                     <p>
                       {
+                        /* eslint-disable no-nested-ternary */
                         (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score && challenge.status === 'Completed')
                           ? Number(s.review[0].score).toFixed(2)
                           : (!_.isEmpty(s.score) ? Number(s.score) : 'N/A')
