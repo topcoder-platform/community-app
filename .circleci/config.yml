@@ -359,43 +359,7 @@ workflows:
               only:
                 - develop
                 - TOP-1390
-      # This is alternate dev env for parallel testing
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-251
-      # - "build-test":
-      #     context : org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - metadata-fix
-      # This is alternate dev env for parallel testing
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-250
-      # - "build-qa":
-      #     context : org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - qaenv
-      # This is beta env for production soft releases
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-201
-      # - "build-prod-beta":
-      #     context : org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      # This is stage env for production QA releases
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-202
-      # - "build-prod-staging":
-      #     context : org-global
-      #     filters: &filters-staging
-      #       branches:
-      #         only:
-      #           - develop
-      #           - CORE-201
+                - PM-191
       # Production builds are exectuted
       # when PR is merged to the master
       # Don't change anything in this configuration
