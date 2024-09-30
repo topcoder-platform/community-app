@@ -414,8 +414,7 @@ export default class RecruitCRMService {
     }
     let candidateSlug;
     let isNewCandidate = true;
-    let isReferred = false;
-    const tcHandle = _.findIndex(form.custom_fields, { field_id: 2 });
+    const isReferred = false;
     let growRes;
     try {
       // Check if candidate exists in the system?

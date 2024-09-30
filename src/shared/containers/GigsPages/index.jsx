@@ -14,7 +14,6 @@ import { OptimizelyProvider, createInstance } from '@optimizely/react-sdk';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { getQuery } from 'utils/url';
 import ChallengeTab from 'components/challenge-listing/ChallengeTab';
 
 import './style.scss';
