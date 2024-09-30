@@ -210,8 +210,14 @@ class SubmissionsComponent extends React.Component {
             valueA = getFinalScore(a);
             valueB = getFinalScore(b);
           } else {
-            valueA = !_.isEmpty(a.review) && a.review[0].score;
-            valueB = !_.isEmpty(b.review) && b.review[0].score;
+            // Handle MM formatted scores in a code challenge (PS-295)
+            if(valueA.score || valueB.score){
+              valueA = Number(valueA.score);
+              valueB = Number(valueB.score);
+            } else {
+              valueA = !_.isEmpty(a.review) && a.review[0].score;
+              valueB = !_.isEmpty(b.review) && b.review[0].score;
+            }
           }
           break;
         }
@@ -907,7 +913,7 @@ class SubmissionsComponent extends React.Component {
                       {
                         (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score && challenge.status === 'Completed')
                           ? Number(s.review[0].score).toFixed(2)
-                          : 'N/A'
+                          : (!_.isEmpty(s.score) ? Number(s.score) : 'N/A')
                       }
                     </p>
                   </div>
