@@ -196,6 +196,8 @@ class ChallengeDetailPageContainer extends React.Component {
       getReviewTypes,
     } = this.props;
 
+    console.log(`Challenge: ${JSON.stringify(challenge, null, 4)}`)
+    
     if (
       (challenge.id !== challengeId)
 

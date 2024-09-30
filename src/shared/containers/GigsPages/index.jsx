@@ -56,15 +56,6 @@ function GigsPagesContainer(props) {
       });
     }
   }
-  // check for referral code in the URL and set it to cookie
-  if (isomorphy.isClientSide()) {
-    const query = getQuery();
-    if (query.referralId) {
-      cookies.set(config.GROWSURF_COOKIE, JSON.stringify({
-        referralId: query.referralId,
-      }), config.GROWSURF_COOKIE_SETTINGS);
-    }
-  }
   const { id, type } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   const title = 'Find Freelance Work | Gigs | Topcoder';

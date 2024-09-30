@@ -7,7 +7,6 @@ import qs from 'qs';
 import _ from 'lodash';
 import { logger, services } from 'topcoder-react-lib';
 import Joi from 'joi';
-import GrowsurfService from './growsurf';
 import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
 
@@ -416,62 +415,10 @@ export default class RecruitCRMService {
     let candidateSlug;
     let isNewCandidate = true;
     let isReferred = false;
-    let referralCookie = req.cookies[config.GROWSURF_COOKIE];
-    if (referralCookie) referralCookie = JSON.parse(referralCookie);
     const tcHandle = _.findIndex(form.custom_fields, { field_id: 2 });
     let growRes;
     try {
-      // referral tracking via growsurf
-      if (referralCookie) {
-        const gs = new GrowsurfService();
-        // check if candidate exists in growsurf
-        const existRes = await gs.getParticipantByIdOREmail(form.email);
-        if (existRes.id) {
-          // candidate exists in growsurf
-          // update candidate to set referrer only if it is not set already
-          if (!existRes.referrer) {
-            growRes = await gs.updateParticipant(form.email, {
-              referredBy: referralCookie.referralId,
-              referralStatus: 'CREDIT_PENDING',
-              metadata: {
-                gigID: id,
-              },
-            });
-            // add referral link to candidate profile in recruitCRM
-            if (!growRes.error) {
-              isReferred = true;
-              form.custom_fields.push({
-                field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
-              });
-            } else notifyKirilAndNick(growRes);
-          }
-        } else {
-          growRes = await gs.addParticipant(JSON.stringify({
-            email: form.email,
-            referredBy: referralCookie.referralId,
-            referralStatus: 'CREDIT_PENDING',
-            firstName: form.first_name,
-            lastName: form.last_name,
-            metadata: {
-              gigId: id,
-              tcHandle: form.custom_fields[tcHandle].value,
-            },
-          }));
-          // add referral link to candidate profile in recruitCRM
-          if (!growRes.error) {
-            isReferred = true;
-            form.custom_fields.push({
-              field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
-            });
-          } else notifyKirilAndNick(growRes);
-        }
-        // finally, clear the cookie
-        res.cookie(config.GROWSURF_COOKIE, '', {
-          maxAge: 0,
-          overwrite: true,
-        });
-      }
-      // Check if candidate exsits in the system?
+      // Check if candidate exists in the system?
       const candidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/search?email=${form.email}`, {
         method: 'GET',
         headers: {
@@ -630,7 +577,6 @@ export default class RecruitCRMService {
         //   form.email,
         //   `https://app.recruitcrm.io/candidate/${candidateData.slug}`,
         //   `https://topcoder.com/members/${form.custom_fields[tcHandle].value}`,
-        //   `https://app.growsurf.com/dashboard/campaign/u9frbx/participant/${growRes.referrer.id}`,
         //   `${growRes.referrer.firstName} ${growRes.referrer.lastName}`,
         //   growRes.referrer.email,
         //   `https://topcoder.com/members/${growRes.referrer.metadata.tcHandle}`,
