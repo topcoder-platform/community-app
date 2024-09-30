@@ -215,7 +215,7 @@ export const getSubPageConfiguration = (location, loginUserHandle) => {
   }
 
   if (url.includes('/challenges')) {
-    toolName = 'Activity Feed';
+    toolName = 'Opportunities';
     toolRoot = '/challenges';
     loginRedirect = '/challenges';
     type = 'tool';

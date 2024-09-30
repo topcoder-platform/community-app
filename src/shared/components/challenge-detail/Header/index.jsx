@@ -424,13 +424,13 @@ export default function ChallengeHeader(props) {
                   {hasRegistered ? (
                     <PrimaryButton
                       disabled={unregisterButtonDisabled}
-                      forceA
-                      onClick={unregisterFromChallenge}
                       theme={{
                         button: unregisterButtonDisabled
-                          ? style.unregisterButtonDisabled
-                          : style.unregisterButton,
+                          ? style.submitButtonDisabled
+                          : style.submitButton,
                       }}
+                      forceA
+                      onClick={unregisterFromChallenge}
                     >
                       Unregister
                     </PrimaryButton>
@@ -452,6 +452,7 @@ export default function ChallengeHeader(props) {
                     disabled={disabled}
                     theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
                     to={`${challengesUrl}/${challengeId}/submit`}
+                    forceA
                   >
                     <IconsUpload />
                     <span>Submit a solution</span>
@@ -474,7 +475,7 @@ export default function ChallengeHeader(props) {
                   to={`${topcrowdLink}`}
                   styleName="topcrowd-container"
                 >
-                  <span>View details on Topcoder plaform</span>
+                  <span>View details on Topcoder platform</span>
                   <IconsOpenInNew />
                 </Link>
               )}

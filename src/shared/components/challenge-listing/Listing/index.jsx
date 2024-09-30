@@ -197,6 +197,7 @@ function Listing({
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
             userId={_.get(auth, 'user.userId')}
+            auth={auth}
             activeBucket={activeBucket}
             // searchTimestamp={searchTimestamp}
             isLoggedIn={isLoggedIn}

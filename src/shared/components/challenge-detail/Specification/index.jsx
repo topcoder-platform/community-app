@@ -28,7 +28,6 @@ export default function ChallengeDetailsView(props) {
   const {
     communitiesList,
     terms,
-    hasRegistered,
     challenge,
     challengesUrl,
     savingChallenge,
@@ -44,7 +43,6 @@ export default function ChallengeDetailsView(props) {
     descriptionFormat,
     legacy,
     legacyId,
-    documents,
     userDetails,
     metadata,
     events,
@@ -56,7 +54,6 @@ export default function ChallengeDetailsView(props) {
     reviewScorecardId,
     screeningScorecardId,
     forumId,
-    selfService,
   } = legacy;
 
   let stockArtValue = '';
@@ -231,38 +228,6 @@ export default function ChallengeDetailsView(props) {
                       description
                       && (
                       <article>
-                        {
-                          selfService && (
-                            <p styleName="note">
-                              <strong>
-                                On Demand Challenges are customer-initiated single round design challenges.
-                              </strong>
-                              <br />
-                              Please note the following important information for Topcoder competitors who participate in this challenge:
-                              <ul>
-                                <li>Any communication needed, should be done directly with the customer in the Challenge Forum.</li>
-                                <li>In order to pass challenge screening and review, all challenge requirements and requested screens must be completed as described below.</li>
-                                <li>Submission source files must be created with the application(s) listed in the requirements.</li>
-                                <li>There will be no appeals or final fixes.</li>
-                                <li>The challenge winner selections will be based upon completed requirements and associated Topcoder review scoring.</li>
-                              </ul>
-                              <br />
-                              <strong>
-                                REQUEST MARVEL PROTOTYPES HERE:
-                              </strong>
-                              <br />
-                              <a href="https://discussions.topcoder.com/discussion/15528/request-marvel-access-for-on-demand-challenges">
-                                Request Marvel for On Demand Challenges
-                              </a>
-                              <br />
-                              <strong>
-                                DO NOT request Marvel access in the challenge forum with the customer.
-                              </strong>
-                              <br />
-                              Figma or XD Prototypes are acceptable for submissions created with those applications.
-                            </p>
-                          )
-                        }
                         <h2>
                           Challenge Summary
                         </h2>
@@ -378,16 +343,14 @@ export default function ChallengeDetailsView(props) {
                 </h2>
                 <div>
                   <p>
-                    For employees of Wipro Technologies, following are the
-                    payment terms. Winner/s would be awarded the prize money on
-                    successful completion and acceptance of the submission by
-                    the stakeholder. Accumulated prize money for the month will
-                    be paid through Wipro payroll as part of subsequent month’s
-                    salary (eg. Aug month challenge winners payment will be
-                    credited as part Sept month salary). For payment of prize
-                    money, respective country currency conversion shall be
-                    considered as per Wipro standard currency conversion
-                    guidelines.
+                    For employees of Wipro Technologies, following are the payment terms.
+                    Winner(s) will be awarded the reward money/Winner Circle Points (WCPs) on
+                    successful completion and acceptance of the submission by the stakeholder.
+                    Accumulated reward money for the month will be paid through Wipro payroll as part of subsequent
+                    month’s salary (eg. Aug month challenge winners payment will be credited as part of Sept month salary).
+                    WCPs will be credited to winner’s WCP wallet in 3-4 weeks post challenge closure.
+                    For payment of reward money/WCPs, respective country currency conversion will be
+                    considered as per Wipro standard currency conversion guidelines.
                   </p>
                 </div>
               </article>
@@ -400,14 +363,12 @@ export default function ChallengeDetailsView(props) {
             legacyId={legacyId}
             forumLink={forumLink}
             discuss={discuss}
-            documents={documents}
-            hasRegistered={hasRegistered}
             isDesign={track.toLowerCase() === 'design'}
             isDevelop={track.toLowerCase() === 'development'}
             eventDetail={_.isEmpty(events) ? null : events[0]}
             isMM={isMM(challenge)}
             terms={terms}
-            shareable={_.isEmpty(groups)}
+            // shareable={_.isEmpty(groups)}
             environment={environment}
             codeRepo={codeRepo}
             metadata={metadata}
@@ -441,7 +402,6 @@ ChallengeDetailsView.defaultProps = {
 
 ChallengeDetailsView.propTypes = {
   terms: PT.arrayOf(PT.shape()),
-  hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     description: PT.string,
     descriptionFormat: PT.string,

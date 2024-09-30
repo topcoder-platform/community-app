@@ -171,46 +171,6 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
     </div>
-    <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
-    >
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
-      >
-        <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
-          htmlFor="community-select"
-        >
-          Sub communities
-          <input
-            type="hidden"
-          />
-        </label>
-        <Select
-          arrowRenderer={[Function]}
-          autoBlur={true}
-          clearable={false}
-          id="community-select"
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "data": <div>
-                  Sample community
-                </div>,
-                "label": "Sample community",
-                "name": "Sample community",
-                "value": "123",
-              },
-            ]
-          }
-          selectRef={[Function]}
-          simpleValue={true}
-          value=""
-          valueRenderer={[Function]}
-        />
-      </div>
-    </div>
   </div>
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"

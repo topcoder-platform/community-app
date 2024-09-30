@@ -76,7 +76,7 @@ ChallengesFeedContainer.defaultProps = {
   excludeTags: [],
   title: 'Opportunities',
   challengeListingQuery: undefined,
-  tracks: ['DES', 'DEV', 'DS', 'QA'],
+  tracks: [],
 };
 
 ChallengesFeedContainer.propTypes = {

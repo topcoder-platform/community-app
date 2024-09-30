@@ -127,7 +127,7 @@ export default function BucketSelector({
         */}
       </div>
     ) : (
-      <div>
+      <div styleName="bucketSelector">
         {getBucket(BUCKETS.ALL_PAST)}
         {isAuth ? getBucket(BUCKETS.MY_PAST) : null}
       </div>

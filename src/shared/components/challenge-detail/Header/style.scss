@@ -29,6 +29,7 @@
 }
 
 .challenge-ops-container button,
+.challenge-ops-container a,
 .challenge-ops-container div {
   margin: 0 !important;
 }
@@ -75,56 +76,20 @@
   }
 }
 
-.challenge-ops-container .unregisterButton {
-  @include button-styles;
-
-  color: #137d60 !important;
-  border: 2px solid #137d60 !important;
-  background: #fff !important;
-
-  @include xs-to-sm {
-    width: fit-content;
-  }
-}
-
-.challenge-ops-container .unregisterButtonDisabled {
-  @include button-styles;
-
-  color: #767676 !important;
-  border: 2px solid #f4f4f4;
-  background: #fff !important;
-
-  @include xs-to-sm {
-    width: fit-content;
-  }
-}
-
 .challenge-ops-container .submitButton:hover,
+.challenge-ops-container .unregisterButton:hover,
 .challenge-ops-container .registerBtn:hover {
   color: #fff !important;
   background: #219174 !important;
   border-color: #219174 !important;
 }
 
-.challenge-ops-container .unregisterButton:hover {
-  color: #219174 !important;
-  border-color: #219174 !important;
-  background: #fff !important;
-}
-
 .challenge-ops-container .submitButton:active,
+.challenge-ops-container .unregisterButton:active,
 .challenge-ops-container .registerBtn:active {
   color: #fff !important;
   background: #0d664e !important;
   border-color: #0d664e !important;
-}
-
-.challenge-ops-container .unregisterButton:active {
-  outline: none !important;
-  box-shadow: none !important;
-  color: #0d664e !important;
-  border-color: #0d664e !important;
-  background: #fff !important;
 }
 
 .challenge-ops-container .submitButton:focus,
@@ -165,6 +130,7 @@
     justify-content: center;
 
     div,
+    button,
     a {
       width: fit-content !important;
     }
@@ -298,14 +264,12 @@
       height: 20px;
       display: flex;
       align-items: center;
-      text-transform: uppercase;
 
       &.link {
         @include roboto-bold;
 
         cursor: pointer;
         color: #137d60;
-        text-transform: uppercase;
         font-weight: 700;
       }
 

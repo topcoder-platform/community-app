@@ -61,7 +61,6 @@ export default function ChallengeStatus(props) {
     newChallengeDetails,
     selectChallengeDetailsTab,
     openChallengesInNewTabs,
-    userId,
     isLoggedIn,
   } = props;
 
@@ -242,9 +241,13 @@ export default function ChallengeStatus(props) {
     if (statusPhase) phaseMessage = statusPhase.name;
     else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
-    const users = challenge.users || {};
+    const showRegisterInfo = false;
 
-    const showRegisterInfo = (challenge.currentPhaseNames || []).includes('Registration') && !users[userId];
+    // NOTE: the commented code below can be used to turn the "Register" button
+    // back on from the challenge listing page, if we ever want that again.
+    // This was turned off (set to always false above) via a change request in TOP-1549
+    // const showRegisterInfo = (challenge.currentPhaseNames || [])
+    // .includes('Registration') && !users[userId];
 
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
@@ -316,7 +319,6 @@ ChallengeStatus.defaultProps = {
   detailLink: '',
   openChallengesInNewTabs: false,
   className: '',
-  userId: '',
 };
 
 ChallengeStatus.propTypes = {
@@ -327,6 +329,5 @@ ChallengeStatus.propTypes = {
   openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   className: PT.string,
-  userId: PT.number,
   isLoggedIn: PT.bool.isRequired,
 };
