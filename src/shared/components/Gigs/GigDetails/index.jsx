@@ -44,15 +44,12 @@ const ReactHtmlParserOptions = {
 
 function GigDetails(props) {
   const {
-    job, application, profile, onSendClick, isReferrSucess, isReferrError, onReferralDone, growSurf,
+    job, application, profile, onSendClick, isReferrSucess, isReferrError, onReferralDone, 
   } = props;
   let shareUrl;
   let retUrl;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
-    if (growSurf && growSurf.data) {
-      shareUrl = `${window.location.origin}${window.location.pathname}?referralId=${growSurf.data.id}`;
-    }
     retUrl = `${window.location.origin}${window.location.pathname}/apply${window.location.search}`;
   }
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
@@ -159,58 +156,18 @@ function GigDetails(props) {
               <div styleName="right">
                 <div styleName="referr-area">
                   <h6>REFER THIS GIG</h6>
-                  {
-                    growSurf && growSurf.data ? (
-                      <React.Fragment>
-                        <span styleName="referralLinkTitile">Share your Referral Link:</span>
-                        <input type="text" styleName="referralLink" readOnly value={`https://topcoder.com/gigs/${job.slug}?referralId=${growSurf.data.id}`} />
-                        <div styleName="copyAndShare">
-                          <PrimaryButton
-                            onClick={() => {
-                              const copyhelper = document.createElement('input');
-                              copyhelper.className = 'copyhelper';
-                              document.body.appendChild(copyhelper);
-                              copyhelper.value = `https://www.topcoder.com/gigs/${job.slug}?referralId=${growSurf.data.id}`;
-                              copyhelper.select();
-                              document.execCommand('copy');
-                              document.body.removeChild(copyhelper);
-                              setCopyBtnText('COPIED');
-                              setTimeout(() => {
-                                setCopyBtnText('COPY');
-                              }, 3000);
-                            }}
-                          >
-                            {copyBtnText}
-                          </PrimaryButton>
-                          <div styleName="shareButtons">
-                            Share on:&nbsp;&nbsp;
-                            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                              <IconLinkedIn />
-                            </a>
-                            <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
-                              <IconFacebook />
-                            </a>
-                            <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                              <IconTwitter />
-                            </a>
-                          </div>
-                        </div>
-                      </React.Fragment>
-                    ) : (
-                      <div styleName="shareButtons">
-                        Share this job on:&nbsp;&nbsp;
-                        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                          <IconLinkedIn />
-                        </a>
-                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
-                          <IconFacebook />
-                        </a>
-                        <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                          <IconTwitter />
-                        </a>
-                      </div>
-                    )
-                  }
+                    <div styleName="shareButtons">
+                      Share this job on:&nbsp;&nbsp;
+                      <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                        <IconLinkedIn />
+                      </a>
+                      <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
+                        <IconFacebook />
+                      </a>
+                      <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                        <IconTwitter />
+                      </a>
+                    </div>
                   <div styleName="sepWrap">
                     <div styleName="sepLine" />
                     <span>or</span>
@@ -222,11 +179,6 @@ function GigDetails(props) {
                     <button
                       type="button"
                       onClick={() => {
-                        if (!isEmpty(profile) && growSurf.data) {
-                          onSendClick(referrEmail);
-                          setreferrEmail();
-                          refEmailInput.value = '';
-                        }
                         setModalOpen(true);
                       }}
                       disabled={!referrEmail || !isValidEmail(referrEmail)}
@@ -268,7 +220,7 @@ function GigDetails(props) {
                       }}
                       isReferrSucess={isReferrSucess}
                       isReferrError={isReferrError}
-                      referralId={growSurf && growSurf.data ? growSurf.data.id : null}
+                      referralId={null}
                       onReferralDone={() => {
                         onReferralDone(true);
                         setModalOpen(false);
@@ -292,7 +244,6 @@ function GigDetails(props) {
 GigDetails.defaultProps = {
   application: null,
   profile: {},
-  growSurf: {},
   isReferrError: null,
 };
 
@@ -304,15 +255,7 @@ GigDetails.propTypes = {
   isReferrSucess: PT.bool.isRequired,
   isReferrError: PT.shape(),
   onReferralDone: PT.func.isRequired,
-  growSurf: PT.shape(),
 };
-
-function mapStateToProps(state) {
-  const { growSurf } = state;
-  return {
-    growSurf,
-  };
-}
 
 export default connect(
   mapStateToProps,

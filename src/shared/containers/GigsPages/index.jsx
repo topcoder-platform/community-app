@@ -15,9 +15,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { getQuery } from 'utils/url';
-import ReferralCode from 'components/Gigs/ReferralCode';
 import ChallengeTab from 'components/challenge-listing/ChallengeTab';
-import actions from 'actions/growSurf';
 
 import './style.scss';
 
@@ -32,7 +30,6 @@ function GigsPagesContainer(props) {
   const {
     match,
     profile,
-    growSurf,
     getReferralId,
     tokenV3,
     history,
@@ -46,12 +43,6 @@ function GigsPagesContainer(props) {
     optProfile.attributes.TC_Handle = profile.handle;
     optProfile.attributes.HomeCountryCode = profile.homeCountryCode;
     optProfile.attributes.email = profile.email;
-    // trigger referral id fetching when profile is loaded
-    if (isomorphy.isClientSide()) {
-      if (_.isEmpty(growSurf) || (!growSurf.loading && !growSurf.data && !growSurf.error)) {
-        getReferralId(profile, tokenV3);
-      }
-    }
   } else if (isomorphy.isClientSide()) {
     const idCookie = cookies.get('_tc.aid');
     if (idCookie) {
@@ -65,15 +56,6 @@ function GigsPagesContainer(props) {
         domain: '',
         expires: 365, // days
       });
-    }
-  }
-  // check for referral code in the URL and set it to cookie
-  if (isomorphy.isClientSide()) {
-    const query = getQuery();
-    if (query.referralId) {
-      cookies.set(config.GROWSURF_COOKIE, JSON.stringify({
-        referralId: query.referralId,
-      }), config.GROWSURF_COOKIE_SETTINGS);
     }
   }
   const { id, type } = match.params;
@@ -112,17 +94,6 @@ window._chatlio = window._chatlio||[];
           />
         ) : null
       }
-      {
-        !id && !type ? (
-          <React.Fragment>
-            <ReferralCode profile={profile} growSurf={growSurf} />
-            <Viewport
-              id="3X6GfJZl3eDU0m4joSJZpN"
-              baseUrl={config.GIGS_PAGES_PATH}
-            />
-          </React.Fragment>
-        ) : null
-      }
       <Footer />
     </div>
   );
@@ -141,7 +112,6 @@ window._chatlio = window._chatlio||[];
 
 GigsPagesContainer.defaultProps = {
   profile: null,
-  growSurf: null,
   tokenV3: null,
 };
 
@@ -153,32 +123,18 @@ GigsPagesContainer.propTypes = {
   history: PT.shape().isRequired,
   match: PT.shape().isRequired,
   profile: PT.shape(),
-  growSurf: PT.shape(),
   getReferralId: PT.func.isRequired,
   tokenV3: PT.string,
 };
 
 function mapStateToProps(state) {
   const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
-  const { growSurf } = state;
   return {
     profile,
-    growSurf,
     tokenV3: state.auth ? state.auth.tokenV3 : null,
-  };
-}
-
-function mapDispatchToActions(dispatch) {
-  const a = actions.growsurf;
-  return {
-    getReferralId: (profile, tokenV3) => {
-      dispatch(a.getReferralidInit());
-      dispatch(a.getReferralidDone(profile, tokenV3));
-    },
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToActions,
 )(GigsPagesContainer);

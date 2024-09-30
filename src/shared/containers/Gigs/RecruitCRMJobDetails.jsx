@@ -54,7 +54,7 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
    */
   async onSendClick(email) {
     const {
-      profile, growSurf, tokenV3,
+      profile, tokenV3,
     } = this.props;
     const { formData } = this.state;
     // should not be able to send emails to themselves
@@ -68,21 +68,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       // exit no email sending
       return;
     }
-    // check if email is already referred?
-    const growCheck = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${email}`);
-    if (growCheck.status === 200) {
-      const growCheckData = await growCheck.json();
-      if (growCheckData.referrer) {
-        this.setState({
-          isReferrError: {
-            message: `${email} has already been referred.`,
-            userError: true,
-          },
-        });
-        // exit no email sending
-        return;
-      }
-    }
     // // email the invite
     const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
       method: 'POST',
@@ -95,7 +80,7 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
         ],
         from: { email: 'noreply@topcoder.com', name: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork` },
         content: [{
-          type: 'text/plain', value: `${formData.body}?referralId=${growSurf.data.id}`,
+          type: 'text/plain', value: `${formData.body}`,
         }],
       }),
       headers: {
@@ -109,52 +94,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       });
       // exit no email tracking due to the error
       return;
-    }
-    // process sent log
-    let { emailInvitesLog, emailInvitesStatus } = growSurf.data.metadata;
-    if (!emailInvitesLog) emailInvitesLog = '';
-    // check if email is in sent log alredy?
-    const foundInLog = emailInvitesLog.indexOf(email);
-    // only when email is new - put it in log, update counters and etc.
-    if (foundInLog === -1) {
-      // parse the log to array of emails
-      if (emailInvitesLog.length) {
-        emailInvitesLog = emailInvitesLog.split(',');
-      } else emailInvitesLog = [];
-      // prepare growSurf update payload
-      // we keep only 10 emails in the log to justify program rules
-      if (emailInvitesLog.length < 10) {
-        emailInvitesLog.push(email);
-      }
-      // Auto change status when 10 emails sent
-      if (emailInvitesLog.length === 10 && emailInvitesStatus !== 'Paid' && emailInvitesStatus !== 'Payment Pending') {
-        emailInvitesStatus = 'Payment Pending';
-      }
-      // put the tracking update in growsurf
-      const updateRed = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${growSurf.data.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${tokenV3}`,
-        },
-        body: JSON.stringify({
-          ...growSurf.data,
-          metadata: {
-            ...growSurf.data.metadata,
-            emailInvitesSent: Number(growSurf.data.metadata.emailInvitesSent || 0) + 1,
-            emailInvitesLog: emailInvitesLog.join(),
-            emailInvitesStatus,
-          },
-        }),
-      });
-      if (updateRed.status >= 300) {
-        this.setState({
-          isReferrError: await updateRed.json(),
-        });
-        // exit no email tracking due to the error
-        // just notify the user about it
-        return;
-      }
     }
     // finally do:
     this.setState({
@@ -186,7 +125,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       isApply,
       application,
       profile,
-      growSurf,
     } = this.props;
     const {
       formErrors,
@@ -213,7 +151,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
           formData={formData}
           isReferrError={isReferrError}
           onReferralDone={this.onReferralDone}
-          growSurf={growSurf}
         />
       );
   }
@@ -223,7 +160,6 @@ RecruitCRMJobDetailsContainer.defaultProps = {
   job: {},
   application: null,
   profile: {},
-  growSurf: {},
   tokenV3: null,
 };
 
@@ -235,20 +171,17 @@ RecruitCRMJobDetailsContainer.propTypes = {
   isApply: PT.bool.isRequired,
   application: PT.shape(),
   profile: PT.shape(),
-  growSurf: PT.shape(),
   tokenV3: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
   const data = state.recruitCRM[ownProps.id];
   const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
-  const { growSurf } = state;
   return {
     job: data ? data.job : {},
     loading: data ? data.loading : true,
     application: data ? data.application : null,
     profile,
-    growSurf,
     tokenV3: state.auth ? state.auth.tokenV3 : null,
   };
 }
