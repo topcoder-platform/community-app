@@ -239,7 +239,7 @@ export function isFilterEmpty(filter, tab, bucket) {
         QA: true,
       },
       search: '',
-      types: ['CH', 'F2F', 'TSK'],
+      types: ['CH', 'F2F', 'TSK', 'MM'],
       startDateEnd: null,
       endDateStart: null,
     };
@@ -266,7 +266,7 @@ export function isFilterEmpty(filter, tab, bucket) {
         QA: true,
       },
       search: '',
-      types: ['CH', 'F2F', 'TSK'],
+      types: ['CH', 'F2F', 'TSK', 'MM'],
       recommended: false,
     };
   }

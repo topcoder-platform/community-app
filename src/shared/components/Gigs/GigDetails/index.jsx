@@ -184,13 +184,4 @@ GigDetails.propTypes = {
   profile: PT.shape(),
 };
 
-function mapStateToProps(state) {
-  const { growSurf } = state;
-  return {
-    growSurf,
-  };
-}
-
-export default connect(
-  mapStateToProps,
-)(GigDetails);
+export default connect()(GigDetails);
