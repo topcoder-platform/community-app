@@ -49,6 +49,9 @@ export default function ChallengeTags(props) {
     case 'Task':
       abbreviation = 'TSK';
       break;
+    case 'Marathon Match':
+      abbreviation = 'MM';
+      break;
     default:
       abbreviation = null;
   }
