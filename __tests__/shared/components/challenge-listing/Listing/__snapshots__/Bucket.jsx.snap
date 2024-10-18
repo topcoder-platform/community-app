@@ -24,6 +24,10 @@ exports[`Matches shallow shapshot 1`] = `
           "abbreviation": "TSK",
           "name": "Task",
         },
+        Object {
+          "abbreviation": "MM",
+          "name": "Marathon Match",
+        },
       ]
     }
     challenges={
