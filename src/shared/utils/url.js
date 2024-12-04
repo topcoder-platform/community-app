@@ -315,7 +315,7 @@ export const getSubPageConfiguration = (location, loginUserHandle) => {
     toolName = 'Home';
     toolRoot = '/home';
     loginRedirect = '/home';
-    type = 'marketing';
+    type = 'tool';
     fullFooter = true;
   }
   return {
