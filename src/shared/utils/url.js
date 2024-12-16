@@ -15,7 +15,7 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 export function getCurrentUrl() {
   if (isomorphy.isServerSide()) return null;
   const url = window.location.href;
-  
+
   if (typeof url === 'string' && url.startsWith('http')) {
     return url;
   }
