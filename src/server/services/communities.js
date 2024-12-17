@@ -31,23 +31,50 @@ async function getGroupsService() {
 }
 
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
-const VALID_IDS = isomorphy.isServerSide()
-&& fs.readdirSync(METADATA_PATH).filter((id) => {
-  /* Here we check which ids are correct, and also popuate SUBDOMAIN_COMMUNITY
-   * map. */
-  const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
-  try {
-    const meta = JSON.parse(fs.readFileSync(uri, 'utf8'));
-    if (meta.subdomains) {
-      meta.subdomains.forEach((subdomain) => {
-        SUBDOMAIN_COMMUNITY[subdomain] = id;
-      });
+
+const VALID_IDS = isomorphy.isServerSide() &&
+  fs.readdirSync(METADATA_PATH).filter((id) => {
+    /* Validate and sanitize the ID */
+    if (!/^[a-zA-Z0-9_-]+$/.test(id)) {
+      console.warn(`Skipping invalid ID: ${id}`);
+      return false;
     }
-    return true;
-  } catch (e) {
-    return false;
-  }
-});
+
+    const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
+    try {
+      // Check if the file exists and is not too large
+      if (!fs.existsSync(uri)) {
+        console.warn(`Metadata file does not exist for ID: ${id}`);
+        return false;
+      }
+
+      const stats = fs.statSync(uri);
+      const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
+      if (stats.size > MAX_FILE_SIZE) {
+        console.warn(`Metadata file too large for ID: ${id}`);
+        return false;
+      }
+
+      // Parse and validate JSON
+      const meta = JSON.parse(fs.readFileSync(uri, 'utf8'));
+
+      // Check if "subdomains" is a valid array
+      if (Array.isArray(meta.subdomains)) {
+        meta.subdomains.forEach((subdomain) => {
+          if (typeof subdomain === 'string') {
+            SUBDOMAIN_COMMUNITY[subdomain] = id;
+          } else {
+            console.warn(`Invalid subdomain entry for ID: ${id}`);
+          }
+        });
+      }
+
+      return true; // ID is valid if all checks pass
+    } catch (e) {
+      console.error(`Error processing metadata for ID: ${id}`, e.message);
+      return false;
+    }
+  });
 
 /**
  * Given an array of group IDs, returns an array containing IDs of all those
