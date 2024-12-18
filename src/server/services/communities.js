@@ -32,7 +32,7 @@ async function getGroupsService() {
 
 const getValidIds = async (METADATA_PATH) => {
   if (!isomorphy.isServerSide()) return [];
-  const VALID_IDS = [];
+  let VALID_IDS = [];
 
   try {
     const ids = await fs.promises.readdir(METADATA_PATH);
@@ -41,7 +41,7 @@ const getValidIds = async (METADATA_PATH) => {
 
       try {
         // Check if the file exists
-        await fs.promises.access(uri); 
+        await fs.promises.access(uri);
 
         // Get file stats
         const stats = await fs.promises.stat(uri);
@@ -176,7 +176,7 @@ getMetadata.maxage = 5 * 60 * 1000; // 5 min in ms.
 export async function getList(userGroupIds) {
   const list = [];
   const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
-  const validIds = await getValidIds(METADATA_PATH); 
+  const validIds = await getValidIds(METADATA_PATH);
   return Promise.all(
     validIds.map(id => getMetadata(id).then((data) => {
       if (!data.authorizedGroupIds
