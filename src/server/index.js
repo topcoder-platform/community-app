@@ -44,13 +44,11 @@ const CMS_BASE_URL = `https://app.contentful.com/spaces/${config.SECRET.CONTENTF
 
 const getTimestamp = async () => {
   try {
-    // Step 1: Resolve and validate file path
     const filePath = path.resolve(__dirname, '../../.build-info');
     if (!filePath.startsWith(path.resolve(__dirname))) {
       throw new Error('Invalid file path detected');
     }
 
-    // Step 2: Read file asynchronously and add file size limit check
     const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
     const stats = await fs.stat(filePath);
     if (stats.size > MAX_FILE_SIZE) {
@@ -59,7 +57,6 @@ const getTimestamp = async () => {
 
     const fileContent = await fs.readFile(filePath, 'utf-8');
 
-    // Step 3: Validate and parse JSON safely
     let tsData;
     try {
       tsData = JSON.parse(fileContent);
@@ -67,12 +64,10 @@ const getTimestamp = async () => {
       throw new Error('Invalid JSON format in file');
     }
 
-    // Step 4: Validate timestamp format
     if (!tsData || !tsData.timestamp) {
       throw new Error('Timestamp is missing in the JSON file');
     }
 
-    // Step 5: Process timestamp
     return moment(tsData.timestamp).valueOf();
   } catch (err) {
     console.error('Error:', err.message);
