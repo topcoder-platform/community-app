@@ -32,8 +32,8 @@ async function getGroupsService() {
 
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
 
-const VALID_IDS = isomorphy.isServerSide() &&
-  fs.readdirSync(METADATA_PATH).filter((id) => {
+const VALID_IDS = isomorphy.isServerSide() 
+  && fs.readdirSync(METADATA_PATH).filter((id) => {
     /* Validate and sanitize the ID */
     if (!/^[a-zA-Z0-9_-]+$/.test(id)) {
       console.warn(`Skipping invalid ID: ${id}`);
