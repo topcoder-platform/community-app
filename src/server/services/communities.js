@@ -32,49 +32,57 @@ async function getGroupsService() {
 
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
 
-const VALID_IDS = isomorphy.isServerSide() 
-  && fs.readdirSync(METADATA_PATH).filter((id) => {
-    /* Validate and sanitize the ID */
-    if (!/^[a-zA-Z0-9_-]+$/.test(id)) {
-      console.warn(`Skipping invalid ID: ${id}`);
-      return false;
-    }
 
-    const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
-    try {
-      // Check if the file exists and is not too large
-      if (!fs.existsSync(uri)) {
-        console.warn(`Metadata file does not exist for ID: ${id}`);
-        return false;
-      }
 
-      const stats = fs.statSync(uri);
-      const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
-      if (stats.size > MAX_FILE_SIZE) {
-        console.warn(`Metadata file too large for ID: ${id}`);
-        return false;
-      }
+const getValidIds = async (METADATA_PATH) => {
+  if (!isomorphy.isServerSide()) return [];
 
-      // Parse and validate JSON
-      const meta = JSON.parse(fs.readFileSync(uri, 'utf8'));
+  const promise = new Promise();
+  const VALID_IDS = [];
 
-      // Check if "subdomains" is a valid array
-      if (Array.isArray(meta.subdomains)) {
-        meta.subdomains.forEach((subdomain) => {
-          if (typeof subdomain === 'string') {
-            SUBDOMAIN_COMMUNITY[subdomain] = id;
-          } else {
-            console.warn(`Invalid subdomain entry for ID: ${id}`);
+  try {
+    await fs.readdir(METADATA_PATH, async (err, ids) => {
+      for (const id of ids) {
+        const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
+  
+        try {
+          await fs.access(uri);
+  
+          const stats = await fs.stat(uri);
+          const MAX_FILE_SIZE = 1 * 1024 * 1024; 
+          if (stats.size > MAX_FILE_SIZE) {
+            console.warn(`Metadata file too large for ID: ${id}`);
+            continue;
           }
-        });
+  
+          const meta = JSON.parse(await fs.readFile(uri, 'utf8'));
+  
+          if (Array.isArray(meta.subdomains)) {
+            meta.subdomains.forEach((subdomain) => {
+              if (typeof subdomain === 'string') {
+                SUBDOMAIN_COMMUNITY[subdomain] = id;
+              } else {
+                console.warn(`Invalid subdomain entry for ID: ${id}`);
+              }
+            });
+          }
+  
+          VALID_IDS.push(id);
+        } catch (e) {
+          console.error(`Error processing metadata for ID: ${id}`, e.message);
+          promise.reject(`Error processing metadata for ID: ${id}`)
+        }
       }
 
-      return true; // ID is valid if all checks pass
-    } catch (e) {
-      console.error(`Error processing metadata for ID: ${id}`, e.message);
-      return false;
-    }
-  });
+      promise.resolve(VALID_IDS);
+    });
+
+    return VALID_IDS;
+  } catch (err) {
+    console.error(`Error reading metadata directory: ${METADATA_PATH}`, err.message);
+    return [];
+  }
+};
 
 /**
  * Given an array of group IDs, returns an array containing IDs of all those
@@ -167,10 +175,11 @@ getMetadata.maxage = 5 * 60 * 1000; // 5 min in ms.
  * @return {Promise} Resolves to the array of community data objects. Each of
  *  the objects indludes only the most important data on the community.
  */
-export function getList(userGroupIds) {
+export async function getList(userGroupIds) {
   const list = [];
+  const validIds = await getValidIds(METADATA_PATH); 
   return Promise.all(
-    VALID_IDS.map(id => getMetadata(id).then((data) => {
+    validIds.map(id => getMetadata(id).then((data) => {
       if (!data.authorizedGroupIds
           || _.intersection(data.authorizedGroupIds, userGroupIds).length) {
         list.push({
