@@ -30,10 +30,6 @@ async function getGroupsService() {
   return res;
 }
 
-const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
-
-
-
 const getValidIds = async (METADATA_PATH) => {
   if (!isomorphy.isServerSide()) return [];
 
@@ -177,6 +173,7 @@ getMetadata.maxage = 5 * 60 * 1000; // 5 min in ms.
  */
 export async function getList(userGroupIds) {
   const list = [];
+  const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
   const validIds = await getValidIds(METADATA_PATH); 
   return Promise.all(
     validIds.map(id => getMetadata(id).then((data) => {
