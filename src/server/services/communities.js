@@ -73,7 +73,7 @@ const getValidIds = async (METADATA_PATH) => {
     });
 
     const results = await Promise.all(validationPromises);
-    VALID_IDS = results.filter((id) => id !== null);
+    VALID_IDS = results.filter(id => id !== null);
   } catch (err) {
     console.error(`Error reading metadata directory: ${METADATA_PATH}`, err.message);
     return [];

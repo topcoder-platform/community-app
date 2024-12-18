@@ -83,7 +83,7 @@ const swScope = '/challenges'; // we are currently only interested in improving 
 const tcoPattern = new RegExp(/^tco\d{2}\.topcoder(?:-dev)?\.com$/i);
 const universalNavUrl = config.UNIVERSAL_NAV_URL;
 
-const getExtraScripts = (ts) => ([
+const getExtraScripts = ts => [
   `<script type="application/javascript">
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then(
@@ -125,7 +125,7 @@ const getExtraScripts = (ts) => ([
   }(window,document,"script","${universalNavUrl}","tcUniNav");
   </script>
   <!-- End of topcoder Topcoder Universal Navigation script -->`,
-]);
+];
 
 const MODE = process.env.BABEL_ENV;
 
