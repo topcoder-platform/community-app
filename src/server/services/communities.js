@@ -32,52 +32,54 @@ async function getGroupsService() {
 
 const getValidIds = async (METADATA_PATH) => {
   if (!isomorphy.isServerSide()) return [];
-
-  const promise = new Promise();
   const VALID_IDS = [];
 
   try {
-    await fs.readdir(METADATA_PATH, async (err, ids) => {
-      for (const id of ids) {
-        const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
-  
-        try {
-          await fs.access(uri);
-  
-          const stats = await fs.stat(uri);
-          const MAX_FILE_SIZE = 1 * 1024 * 1024; 
-          if (stats.size > MAX_FILE_SIZE) {
-            console.warn(`Metadata file too large for ID: ${id}`);
-            continue;
-          }
-  
-          const meta = JSON.parse(await fs.readFile(uri, 'utf8'));
-  
-          if (Array.isArray(meta.subdomains)) {
-            meta.subdomains.forEach((subdomain) => {
-              if (typeof subdomain === 'string') {
-                SUBDOMAIN_COMMUNITY[subdomain] = id;
-              } else {
-                console.warn(`Invalid subdomain entry for ID: ${id}`);
-              }
-            });
-          }
-  
-          VALID_IDS.push(id);
-        } catch (e) {
-          console.error(`Error processing metadata for ID: ${id}`, e.message);
-          promise.reject(`Error processing metadata for ID: ${id}`)
-        }
-      }
+    const ids = await fs.promises.readdir(METADATA_PATH);
+    const validationPromises = ids.map(async (id) => {
+      const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
 
-      promise.resolve(VALID_IDS);
+      try {
+        // Check if the file exists
+        await fs.promises.access(uri); 
+
+        // Get file stats
+        const stats = await fs.promises.stat(uri);
+        const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
+        if (stats.size > MAX_FILE_SIZE) {
+          console.warn(`Metadata file too large for ID: ${id}`);
+          return null; // Exclude invalid ID
+        }
+
+        // Parse and validate JSON
+        const meta = JSON.parse(await fs.promises.readFile(uri, 'utf8'));
+
+        // Check if "subdomains" is a valid array
+        if (Array.isArray(meta.subdomains)) {
+          meta.subdomains.forEach((subdomain) => {
+            if (typeof subdomain === 'string') {
+              SUBDOMAIN_COMMUNITY[subdomain] = id;
+            } else {
+              console.warn(`Invalid subdomain entry for ID: ${id}`);
+            }
+          });
+        }
+
+        return id;
+      } catch (e) {
+        console.error(`Error processing metadata for ID: ${id}`, e.message);
+        return null;
+      }
     });
 
-    return VALID_IDS;
+    const results = await Promise.all(validationPromises);
+    VALID_IDS = results.filter((id) => id !== null);
   } catch (err) {
     console.error(`Error reading metadata directory: ${METADATA_PATH}`, err.message);
     return [];
   }
+
+  return VALID_IDS;
 };
 
 /**

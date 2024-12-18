@@ -43,6 +43,7 @@ global.atob = atob;
 const CMS_BASE_URL = `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
 
 const getTimestamp = async () => {
+  let timestamp;
   try {
     const filePath = path.resolve(__dirname, '../../.build-info');
     if (!filePath.startsWith(path.resolve(__dirname))) {
@@ -50,12 +51,12 @@ const getTimestamp = async () => {
     }
 
     const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
-    const stats = await fs.stat(filePath);
+    const stats = await fs.promises.stat(filePath);
     if (stats.size > MAX_FILE_SIZE) {
       throw new Error('File is too large and may cause DoS issues');
     }
 
-    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const fileContent = await fs.promises.readFile(filePath, 'utf-8');
 
     let tsData;
     try {
@@ -68,10 +69,12 @@ const getTimestamp = async () => {
       throw new Error('Timestamp is missing in the JSON file');
     }
 
-    return moment(tsData.timestamp).valueOf();
+    timestamp = moment(tsData.timestamp).valueOf();
   } catch (err) {
     console.error('Error:', err.message);
   }
+
+  return timestamp;
 };
 
 const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
@@ -80,51 +83,49 @@ const swScope = '/challenges'; // we are currently only interested in improving 
 const tcoPattern = new RegExp(/^tco\d{2}\.topcoder(?:-dev)?\.com$/i);
 const universalNavUrl = config.UNIVERSAL_NAV_URL;
 
-const getExtraScripts = (ts) => {
-  return [
-    `<script type="application/javascript">
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then(
-      (reg)=>{
-        console.log('SW registered: ',reg);
-        reg.onupdatefound = () => {
-          const installingWorker = reg.installing;
-          installingWorker.onstatechange = () => {
-            if (installingWorker.state === 'activated') {
-              location.reload();
-            }
-          };
+const getExtraScripts = (ts) => [
+  `<script type="application/javascript">
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then(
+    (reg)=>{
+      console.log('SW registered: ',reg);
+      reg.onupdatefound = () => {
+        const installingWorker = reg.installing;
+        installingWorker.onstatechange = () => {
+          if (installingWorker.state === 'activated') {
+            location.reload();
+          }
         };
-      }).catch((err)=>{console.log('SW registration failed: ',err)})
-    }
-    </script>`,
-    `<script
-        src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
-        type="application/javascript"
-    ></script>`,
-    `<script>
-      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
-      analytics.load("${config.SEGMENT_IO_API_KEY}");
-      }}();
-    </script>`,
-    `<script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-6340959-1', 'auto');
-      ga('send', 'pageview');
-    </script>`,
-    `<!-- Start of topcoder Topcoder Universal Navigation script -->
-    <script>
-    !function(n,t,e,a,c,i,o){n['TcUnivNavConfig']=c,n[c]=n[c]||function(){
-    (n[c].q=n[c].q??[]).push(arguments)},n[c].l=1*new Date();i=t.createElement(e),
-    o=t.getElementsByTagName(e)[0];i.async=1;i.type="module";i.src=a;o.parentNode.insertBefore(i,o)
-    }(window,document,"script","${universalNavUrl}","tcUniNav");
-    </script>
-    <!-- End of topcoder Topcoder Universal Navigation script -->`,
-  ]
-}
+      };
+    }).catch((err)=>{console.log('SW registration failed: ',err)})
+  }
+  </script>`,
+  `<script
+      src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
+      type="application/javascript"
+  ></script>`,
+  `<script>
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+    analytics.load("${config.SEGMENT_IO_API_KEY}");
+    }}();
+  </script>`,
+  `<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6340959-1', 'auto');
+    ga('send', 'pageview');
+  </script>`,
+  `<!-- Start of topcoder Topcoder Universal Navigation script -->
+  <script>
+  !function(n,t,e,a,c,i,o){n['TcUnivNavConfig']=c,n[c]=n[c]||function(){
+  (n[c].q=n[c].q??[]).push(arguments)},n[c].l=1*new Date();i=t.createElement(e),
+  o=t.getElementsByTagName(e)[0];i.async=1;i.type="module";i.src=a;o.parentNode.insertBefore(i,o)
+  }(window,document,"script","${universalNavUrl}","tcUniNav");
+  </script>
+  <!-- End of topcoder Topcoder Universal Navigation script -->`,
+];
 
 const MODE = process.env.BABEL_ENV;
 
@@ -142,7 +143,7 @@ async function beforeRender(req, suggestedConfig) {
 
   await DoSSR(req, store, Application);
 
-const ts = await getTimestamp();
+  const ts = await getTimestamp();
 
   return {
     configToInject: { ...suggestedConfig, EXCHANGE_RATES: rates },
