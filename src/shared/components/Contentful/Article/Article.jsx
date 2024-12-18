@@ -139,7 +139,7 @@ class Article extends React.Component {
     } = this.state || {};
     let shareUrl;
     if (isomorphy.isClientSide()) {
-      shareUrl = encodeURIComponent(window.location.href);
+      shareUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
     }
     const description = htmlToText.fromString(
       ReactDOMServer.renderToString(markdown(fields.content)),

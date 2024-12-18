@@ -36,7 +36,7 @@ export default function GigApply(props) {
     recruitProfile,
     auth,
   } = props;
-  const retUrl = window.location.href;
+  const retUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
   const duration = getCustomField(job.custom_fields, 'Duration');
   const isPlaced = _.find(_.isEmpty(recruitProfile) ? [] : recruitProfile.custom_fields, { field_id: 12 });
   const fetchSkills = useMemo(() => _.debounce((inputValue, callback) => {
@@ -353,9 +353,9 @@ export default function GigApply(props) {
         <div styleName="error">
           <h3>You must be a Topcoder member to apply!</h3>
           <div styleName="cta-buttons">
-            <Link to={`${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`} styleName="primaryBtn">Login</Link>
+            <Link to={`${config.URL.AUTH}/member?retUrl=${retUrl}`} styleName="primaryBtn">Login</Link>
           </div>
-          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing&regSource=gigs`}>here</a>.</p>
+          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/?retUrl=${retUrl}&mode=signUp&utm_source=gig_listing&regSource=gigs`}>here</a>.</p>
         </div>
       </div>
     </div>
