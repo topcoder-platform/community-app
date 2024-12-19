@@ -7,6 +7,7 @@ import qs from 'qs';
 import _ from 'lodash';
 import { logger, services } from 'topcoder-react-lib';
 import Joi from 'joi';
+import xss from 'xss';
 import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
 
@@ -186,7 +187,8 @@ export default class RecruitCRMService {
    */
   async getJob(req, res, next) {
     try {
-      const response = await fetch(`${this.private.baseUrl}/v1/jobs/${req.params.id}`, {
+      const sanitizedId = xss(req.params.id);
+      const response = await fetch(`${this.private.baseUrl}/v1/jobs/${sanitizedId}`, {
         method: 'GET',
         headers: {
           'Content-Type': req.headers['content-type'],
@@ -201,7 +203,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: response.status,
-          url: `${this.private.baseUrl}/v1/jobs/${req.params.id}`,
+          url: `${this.private.baseUrl}/v1/jobs/${sanitizedId}`,
           errObj: await response.json(),
         };
         logger.error(error);
