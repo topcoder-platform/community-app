@@ -46,7 +46,7 @@ const getTimestamp = async () => {
   let timestamp;
   try {
     const filePath = path.resolve(__dirname, '../../.build-info');
-    if (!filePath.startsWith(path.resolve(__dirname))) {
+    if (!filePath.startsWith(path.resolve(__dirname, '../../'))) {
       throw new Error('Invalid file path detected');
     }
 
