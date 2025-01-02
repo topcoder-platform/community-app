@@ -2,7 +2,6 @@
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import MyAccount from './MyAccount';
 import MyPrimaryRole from './MyPrimaryRole';
 import Security from './Security';
 import ErrorWrapper from '../ErrorWrapper';
@@ -13,7 +12,6 @@ export default class Account extends React.Component {
   constructor(props) {
     super(props);
     this.save = this.save.bind(this);
-    this.myAccountRef = React.createRef();
   }
 
   componentWillReceiveProps() {
@@ -28,14 +26,6 @@ export default class Account extends React.Component {
     if (isSaving) {
       return;
     }
-    const {
-      newPassword,
-      currentPassword,
-      reNewPassword,
-      passwordValid,
-      rePasswordValid,
-      updatingPassword,
-    } = this.myAccountRef.current.state;
 
     const newAccountDirty = newPassword !== ''
       && currentPassword !== ''
@@ -50,7 +40,6 @@ export default class Account extends React.Component {
     }
 
     if (dirty && valid) {
-      this.myAccountRef.current.onUpdatePassword();
       setIsSaving(true);
     }
   }
@@ -77,10 +66,6 @@ export default class Account extends React.Component {
             <h3>Account information & Security</h3>
           </div>
           <MyPrimaryRole {...this.props} />
-          <MyAccount
-            {...this.props}
-            ref={this.myAccountRef}
-          />
           <Security
             {...this.props}
           />
