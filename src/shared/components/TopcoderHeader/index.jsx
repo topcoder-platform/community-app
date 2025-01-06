@@ -432,7 +432,7 @@ export default class TopcoderHeader extends React.Component {
                 }
                 const query = event.target.value.trim();
                 const url = new URL(`${BASE_URL}/search/members`);
-                url.searchParams.append('q', query);                
+                url.searchParams.append('q', query);              
                 window.location = url.href;
               }
             }}
