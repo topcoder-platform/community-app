@@ -21,6 +21,7 @@ const PREVIEW_URL = 'https://preview.contentful.com/spaces';
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
 
+export const ALLOWED_DOMAINS = ['assets.ctfassets.net', 'images.ctfassets.net'];
 const MAX_FETCH_RETRIES = 5;
 
 /**
