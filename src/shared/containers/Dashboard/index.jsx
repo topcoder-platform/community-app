@@ -42,7 +42,7 @@ function SlashTCContainer(props) {
 
   useEffect(() => {
     if (props.tokenV3 && !isTokenExpired(props.tokenV3)) return;
-    let url = `retUrl=${encodeURIComponent(location.href)}`;
+    let url = `retUrl=${encodeURIComponent(`${window.location.origin}${window.location.pathname}`)}`;
     url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-home-page`;
     location.href = url;
   }, [props.tokenV3]);
