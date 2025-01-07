@@ -1,4 +1,5 @@
 FROM node:10.17.0-stretch
+RUN useradd -m -s /bin/bash appuser
 RUN apt update
 RUN apt install sudo
 RUN sudo apt-get update; sudo apt-get install -y openjdk-8-jre openjdk-8-jre-headless openjdk-8-jdk openjdk-8-jdk-headless;
@@ -26,6 +27,8 @@ RUN printf '#!/bin/sh\nXvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /tmp/en
 
 COPY . /automated-smoke-test 
 WORKDIR /automated-smoke-test 
+RUN chown -R appuser:appuser /automated-smoke-test
+USER appuser
 RUN npm install
 RUN ./node_modules/.bin/webdriver-manager update --versions.chrome=="$(google-chrome -version)" 
 ENTRYPOINT ["/docker-entrypoint.sh"]
