@@ -188,6 +188,10 @@ export default class RecruitCRMService {
   async getJob(req, res, next) {
     try {
       const sanitizedId = xss(req.params.id);
+
+      if (!/^[a-zA-Z0-9-_]{8,20}$/.test(sanitizedId)) {
+        return res.status(400).json({ error: 'Invalid job ID format.' });
+      }
       const response = await fetch(`${this.private.baseUrl}/v1/jobs/${sanitizedId}`, {
         method: 'GET',
         headers: {
