@@ -14,7 +14,6 @@ import TopcoderAndYou from './TopcoderAndYou';
 import Tools from './Tools';
 
 import './style.scss';
-import Account from './Account';
 import Preferences from './Preferences';
 import Payment from './Payment';
 import TabSelector from './TabSelector';
@@ -113,17 +112,6 @@ export default function Settings(props) {
           && (
             <Tools
               ref={toolsRef}
-              {...newProps}
-              isSaving={isSaving}
-              setIsSaving={setIsSaving}
-            />
-          )
-        }
-        {
-          newProps.settingsTab === TABS.ACCOUNT
-          && (
-            <Account
-              ref={accountRef}
               {...newProps}
               isSaving={isSaving}
               setIsSaving={setIsSaving}
