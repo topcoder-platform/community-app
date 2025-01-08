@@ -24,13 +24,8 @@ import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
 import cdnRouter from './routes/cdn';
-import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 import recruitCRMRouter from './routes/recruitCRM';
-import mmLeaderboardRouter from './routes/mmLeaderboard';
-import gSheetsRouter from './routes/gSheet';
-import blogRouter from './routes/blog';
-import feedsRouter from './routes/feeds';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
@@ -243,12 +238,7 @@ async function onExpressJsSetup(server) {
   });
 
   server.use('/api/cdn', cdnRouter);
-  server.use('/api/mailchimp', mailChimpRouter);
   server.use('/api/recruit', recruitCRMRouter);
-  server.use('/api/mml', mmLeaderboardRouter);
-  server.use('/api/gsheets', gSheetsRouter);
-  server.use('/api/blog', blogRouter);
-  server.use('/api/feeds', feedsRouter);
 
   // serve demo api
   server.use(
