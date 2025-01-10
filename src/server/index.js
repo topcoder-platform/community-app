@@ -42,9 +42,40 @@ global.atob = atob;
 
 const CMS_BASE_URL = `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
 
-let ts = path.resolve(__dirname, '../../.build-info');
-ts = JSON.parse(fs.readFileSync(ts));
-ts = moment(ts.timestamp).valueOf();
+const getTimestamp = async () => {
+  let timestamp;
+  try {
+    const filePath = path.resolve(__dirname, '../../.build-info');
+    if (!filePath.startsWith(path.resolve(__dirname, '../../'))) {
+      throw new Error('Invalid file path detected');
+    }
+
+    const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
+    const stats = await fs.promises.stat(filePath);
+    if (stats.size > MAX_FILE_SIZE) {
+      throw new Error('File is too large and may cause DoS issues');
+    }
+
+    const fileContent = await fs.promises.readFile(filePath, 'utf-8');
+
+    let tsData;
+    try {
+      tsData = JSON.parse(fileContent);
+    } catch (parseErr) {
+      throw new Error('Invalid JSON format in file');
+    }
+
+    if (!tsData || !tsData.timestamp) {
+      throw new Error('Timestamp is missing in the JSON file');
+    }
+
+    timestamp = moment(tsData.timestamp).valueOf();
+  } catch (err) {
+    console.error('Error:', err.message);
+  }
+
+  return timestamp;
+};
 
 const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
 const swScope = '/challenges'; // we are currently only interested in improving challenges pages
@@ -52,7 +83,7 @@ const swScope = '/challenges'; // we are currently only interested in improving 
 const tcoPattern = new RegExp(/^tco\d{2}\.topcoder(?:-dev)?\.com$/i);
 const universalNavUrl = config.UNIVERSAL_NAV_URL;
 
-const EXTRA_SCRIPTS = [
+const getExtraScripts = ts => [
   `<script type="application/javascript">
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then(
@@ -112,9 +143,11 @@ async function beforeRender(req, suggestedConfig) {
 
   await DoSSR(req, store, Application);
 
+  const ts = await getTimestamp();
+
   return {
     configToInject: { ...suggestedConfig, EXCHANGE_RATES: rates },
-    extraScripts: EXTRA_SCRIPTS,
+    extraScripts: getExtraScripts(ts),
     store,
   };
 }
