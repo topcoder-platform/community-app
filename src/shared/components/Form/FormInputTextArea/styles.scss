@@ -1,0 +1,57 @@
+@import "~styles/mixins";
+
+.form-input-text-area {
+  background-color: #fff !important;
+  box-sizing: border-box !important;
+  color: #2a2a2a !important;
+  font-size: 14px !important;
+  outline: none !important;
+  border: 1px solid #aaa !important;
+  width: 100% !important;
+  min-height: 120px !important;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  resize: vertical;
+  box-shadow: none !important;
+  padding: 22px 9px 2px 9px;
+
+  &:hover {
+    box-shadow: none !important;
+  }
+
+  &::placeholder {
+    color: #767676 !important;
+    text-transform: none !important;
+    font-size: 14px !important;
+    opacity: 1 !important;
+    font-weight: 400 !important;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.char-count {
+  @include roboto-regular;
+
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-size: 11px;
+  padding-right: 5px;
+}
+
+.char-count-bottom {
+  @include roboto-regular;
+
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+  font-size: 11px;
+  padding-right: 0;
+}
+
+.grey {
+  color: $tc-gray-40;
+}
