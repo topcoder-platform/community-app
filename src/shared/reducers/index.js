@@ -25,7 +25,6 @@ import { getAuthTokens } from 'utils/tc';
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
-import newsletterArchive from './newsletterArchive';
 import menuNavigation from './contentful/menuNavigation';
 import challengesBlock from './contentful/challengesBlock';
 import policyPages from './contentful/policyPages';
@@ -171,7 +170,6 @@ export function factory(req) {
     topcoderHeader,
     rss,
     toastr: toastrReducer,
-    newsletterArchive,
     menuNavigation,
     challengesBlock,
     policyPages,

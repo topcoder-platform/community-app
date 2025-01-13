@@ -82,14 +82,6 @@ other types too.
     component works only with YouTube videos, and the URL should be similar to
     `https://www.youtube.com/embed/mD12LIqdxqk` ().
 
-- #### NewsletterArchive
-  *Example:* `<NewsletterArchive name="Design Newsletter" />`
-  
-  A list of archive links sorted by descending `sent_date` from a MailChimp's campaign folder. Sould be working under any MarkdownParser component.
-
-  The properties are:
-  - `name` - the unique name of the camplaing foler. It has to be only one name entity. If those duplicate first found will be picked up and rest ignored.
-
 ## Links
 
 - #### Link
