@@ -18,8 +18,6 @@ import sup from 'markdown-it-sup';
 import 'highlight.js/styles/github.css';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import NewsletterSignup from 'components/NewsletterSignup';
-import NewsletterSignupForMembers from 'containers/NewsletterSignupForMembers';
 import VideoModalButton from 'components/VideoModalButton';
 import Looker from 'containers/Looker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
@@ -97,8 +95,6 @@ const customComponents = {
   Link: attrs => ({ type: Link, props: attrs }),
   JoinCommunity: attrs => ({ type: JoinCommunity, props: attrs }),
   VideoModalButton: attrs => ({ type: VideoModalButton, props: attrs }),
-  NewsletterSignup: attrs => ({ type: NewsletterSignup, props: attrs }),
-  NewsletterSignupForMembers: attrs => ({ type: NewsletterSignupForMembers, props: attrs }),
   Looker: attrs => ({ type: Looker, props: attrs }),
   AnchorLink: attrs => ({ type: AnchorLink, props: attrs }),
   TCOButton: attrs => ({
