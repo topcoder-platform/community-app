@@ -12,6 +12,7 @@ import {
   getService,
   getSpaceId,
   articleVote,
+  ALLOWED_DOMAINS,
 } from '../services/contentful';
 
 const cors = require('cors');
@@ -37,7 +38,11 @@ routes.use(
       version,
     } = req.params;
     const spaceId = getSpaceId(spaceName);
-    res.redirect(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+    if (!ALLOWED_DOMAINS.includes(ASSETS_DOMAIN)) {
+      throw new Error('Invalid domain detected!');
+    }
+    const url = new URL(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+    res.redirect(url.href);
   },
 );
 
@@ -52,8 +57,12 @@ routes.use(
       spaceName,
       version,
     } = req.params;
+    if (!ALLOWED_DOMAINS.includes(IMAGES_DOMAIN)) {
+      throw new Error('Invalid domain detected!');
+    }
     const spaceId = getSpaceId(spaceName);
-    res.redirect(`https://${IMAGES_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+    const url = new URL(`https://${IMAGES_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+    res.redirect(url.href);
   },
 );
 
