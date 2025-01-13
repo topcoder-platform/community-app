@@ -37,7 +37,6 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
 import { factory as mfaFactory } from './mfa';
-import newsletterPreferences from './newsletterPreferences';
 import mmLeaderboard from './mmLeaderboard';
 import tcoLeaderboards from './tco/leaderboards';
 import recruitCRM from './recruitCRM';
@@ -176,7 +175,6 @@ export function factory(req) {
     menuNavigation,
     challengesBlock,
     policyPages,
-    newsletterPreferences,
     recruitCRM,
     mmLeaderboard,
     gSheet,
