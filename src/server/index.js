@@ -288,19 +288,6 @@ async function onExpressJsSetup(server) {
   );
   */
 
-  /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
-   * cross-origin requests). */
-  server.use('/community-app-assets/api/proxy-post', checkAuthorizationHeader, (req, res) => {
-    fetch(req.query.url, {
-      body: qs.stringify(req.body),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      method: 'POST',
-    }).then(x => x.text())
-      .then(x => res.send(x));
-  });
-
   /* Returns currency exchange rates, cached at the server-side (thus drastically
    * reducing amount of calls to openexchangerates.com). */
   server.use('/community-app-assets/api/exchange-rates', checkAuthorizationHeader, (req, res) => {
