@@ -144,7 +144,20 @@ class ProfileContainer extends React.Component {
         {
           info ? (
             <ProfilePage
-              {...this.props}
+              copilot={this.props.copilot}
+              externalAccounts={this.props.externalAccounts}
+              challenges={this.props.challenges}
+              externalLinks={this.props.externalAccounts}
+              info={this.props.info}
+              skills={this.props.skills}
+              stats={this.props.stats}
+              lookupData={this.props.lookupData}
+              badges={this.props.badges}
+              handleParam={this.props.handleParam}
+              meta={this.props.meta}
+              tcAcademyCertifications={this.props.tcAcademyCertifications}
+              tcAcademyCourses={this.props.tcAcademyCourses}
+              clearSubtrackChallenges={this.props.clearSubtrackChallenges}
             />
           ) : <LoadingIndicator />
         }

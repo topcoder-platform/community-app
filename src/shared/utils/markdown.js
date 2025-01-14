@@ -13,6 +13,7 @@ import { Button, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import hljs from 'highlight.js';
 import ReactHtmlParser from 'react-html-parser';
+import xss from 'xss';
 import sub from 'markdown-it-sub';
 import sup from 'markdown-it-sup';
 import 'highlight.js/styles/github.css';
@@ -76,6 +77,31 @@ const buttonThemes = {
   tc,
   bs,
 };
+
+const safeHtmlTags = [
+  // Content Sectioning
+  "address", "article", "aside", "footer", "header", "h1", "h2", "h3", "h4", "h5", "h6", "main", "nav", "section",
+
+  // Text Content
+  "blockquote", "dd", "div", "dl", "dt", "figcaption", "figure", "hr", "li", "ol", "p", "pre", "ul",
+
+  // Inline Text Semantics
+  "a", "abbr", "b", "bdi", "bdo", "br", "cite", "code", "data", "dfn", "em", "i", "kbd", "mark", "q", "rp", "rt",
+  "ruby", "s", "samp", "small", "span", "strong", "sub", "sup", "time", "u", "var", "wbr",
+
+  // Image and Multimedia
+  "img", "audio", "video", "source", "track", "picture",
+
+  // Table Content
+  "caption", "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr",
+
+  // Forms and Interactive Elements
+  "button", "fieldset", "form", "input", "label", "legend", "meter", "optgroup", "option", "output", "progress", 
+  "select", "textarea",
+
+  // Scripting and No-Scripting
+  "noscript"
+];
 
 /**
  * Add new Custom Components here.
@@ -166,6 +192,24 @@ function getProps(token, key) {
 }
 
 /**
+ * Check if the tag is safe to render.
+ * @param {String} tag 
+ * @returns 
+ */
+function checkForSafeTag(tag) {
+  return safeHtmlTags.includes(tag);
+}
+
+/**
+ * Sanitize content
+ * @param {String} content 
+ * @returns 
+ */
+function sanitizeContent(content) {
+  return xss(content);
+}
+
+/**
  * Renders tokens with zero nesting.
  * @param {Object} tokens
  * @param {Number} index
@@ -184,7 +228,7 @@ function renderToken(tokens, index, md) {
       return renderTokens(token.children, 0, md);
       /* eslint-enable no-use-before-define */
     case 'text':
-      return token.content;
+      return sanitizeContent(token.content);
     case 'fence':
       return Highlighter({
         codeString: token.content,
@@ -204,9 +248,9 @@ function renderToken(tokens, index, md) {
       }
     default:
       return React.createElement(
-        token.tag,
+        checkForSafeTag(token.tag) ? token.tag : 'div',
         getProps(token, index),
-        token.content || undefined,
+        sanitizeContent(token.content) || undefined,
       );
   }
 }
@@ -232,7 +276,7 @@ function renderTokens(tokens, startFrom, md) {
     } else if (level === 0) {
       if (token.nesting === 1) {
         output.push(React.createElement(
-          token.tag,
+          checkForSafeTag(token.tag) ? token.tag : "div",
           getProps(token, pos),
           renderTokens(tokens, 1 + pos, md),
         ));
@@ -252,11 +296,11 @@ function renderTokens(tokens, startFrom, md) {
           }
           props = normalizeProps(props);
           if (selfClosing) {
-            output.push(React.createElement(tag, { key: pos, ...props }));
+            output.push(React.createElement(checkForSafeTag(tag) ? tag : "div", { key: pos, ...props }));
           } else {
             level += 1;
             output.push(React.createElement(
-              tag,
+              checkForSafeTag(tag) ? tag : "div",
               { key: pos, ...props },
               renderTokens(tokens, pos + 1, md),
             ));
