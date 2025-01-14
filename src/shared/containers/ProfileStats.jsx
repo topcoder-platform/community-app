@@ -81,6 +81,13 @@ class ProfileStatsContainer extends React.Component {
       handleParam,
       track,
       subTrack,
+      stats,
+      tab,
+      setTab,
+      info,
+      statsDistribution,
+      statsHistory,
+      isAlreadyLoadChallenge,
     } = this.props;
 
     if (loadingError || !isValidTrack(track, subTrack)) {
@@ -99,16 +106,16 @@ class ProfileStatsContainer extends React.Component {
           isLoading ? <LoadingIndicator />
             : (
               <ProfileStatsPage
-                stats={this.props.stats}
-                handleParam={this.props.handleParam}
-                track={this.props.track}
-                subTrack={this.props.subTrack}
-                tab={this.props.tab}
-                setTab={this.props.setTab}
-                info={this.props.info}
-                statsDistribution={this.props.statsDistribution}
-                statsHistory={this.props.statsHistory}
-                isAlreadyLoadChallenge={this.props.isAlreadyLoadChallenge}
+                stats={stats}
+                handleParam={handleParam}
+                track={track}
+                subTrack={subTrack}
+                tab={tab}
+                setTab={setTab}
+                info={info}
+                statsDistribution={statsDistribution}
+                statsHistory={statsHistory}
+                isAlreadyLoadChallenge={isAlreadyLoadChallenge}
               />
             )
         }

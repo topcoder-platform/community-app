@@ -135,6 +135,7 @@ class ProfileContainer extends React.Component {
     const title = `${handleParam} | Community Profile | Topcoder`;
     const description = `Meet Topcoder member ${handleParam} and view their skills and development and design activity. You can also see wins and tenure with Topcoder.`;
 
+    const {copilot, externalAccounts, externalLinks, challenges, skills, stats, lookupData, badges, meta, tcAcademyCertifications, tcAcademyCourses} = this.props;
     return (
       <React.Fragment>
         <MetaTags
@@ -144,20 +145,19 @@ class ProfileContainer extends React.Component {
         {
           info ? (
             <ProfilePage
-              copilot={this.props.copilot}
-              externalAccounts={this.props.externalAccounts}
-              challenges={this.props.challenges}
-              externalLinks={this.props.externalAccounts}
-              info={this.props.info}
-              skills={this.props.skills}
-              stats={this.props.stats}
-              lookupData={this.props.lookupData}
-              badges={this.props.badges}
-              handleParam={this.props.handleParam}
-              meta={this.props.meta}
-              tcAcademyCertifications={this.props.tcAcademyCertifications}
-              tcAcademyCourses={this.props.tcAcademyCourses}
-              clearSubtrackChallenges={this.props.clearSubtrackChallenges}
+              copilot={copilot}
+              externalAccounts={externalAccounts}
+              challenges={challenges}
+              externalLinks={externalLinks}
+              info={info}
+              skills={skills}
+              stats={stats}
+              lookupData={lookupData}
+              badges={badges}
+              handleParam={handleParam}
+              meta={meta}
+              tcAcademyCertifications={tcAcademyCertifications}
+              tcAcademyCourses={tcAcademyCourses}
             />
           ) : <LoadingIndicator />
         }
@@ -183,6 +183,8 @@ ProfileContainer.defaultProps = {
 
 ProfileContainer.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
+  badges: PT.shape(),
+  challenges: PT.arrayOf(PT.shape()),
   copilot: PT.bool,
   country: PT.string,
   externalAccounts: PT.shape(),
@@ -201,6 +203,8 @@ ProfileContainer.propTypes = {
   lookupData: PT.shape().isRequired,
   meta: PT.shape(),
   auth: PT.shape(),
+  tcAcademyCertifications: PT.arrayOf(PT.shape()),
+  tcAcademyCourses: PT.arrayOf(PT.shape()),
 };
 
 const mapStateToProps = (state, ownProps) => ({

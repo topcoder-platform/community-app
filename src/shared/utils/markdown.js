@@ -80,27 +80,27 @@ const buttonThemes = {
 
 const safeHtmlTags = [
   // Content Sectioning
-  "address", "article", "aside", "footer", "header", "h1", "h2", "h3", "h4", "h5", "h6", "main", "nav", "section",
+  'address', 'article', 'aside', 'footer', 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'main', 'nav', 'section',
 
   // Text Content
-  "blockquote", "dd", "div", "dl", "dt", "figcaption", "figure", "hr", "li", "ol", "p", "pre", "ul",
+  'blockquote', 'dd', 'div', 'dl', 'dt', 'figcaption', 'figure', 'hr', 'li', 'ol', 'p', 'pre', 'ul',
 
   // Inline Text Semantics
-  "a", "abbr", "b", "bdi", "bdo", "br", "cite", "code", "data", "dfn", "em", "i", "kbd", "mark", "q", "rp", "rt",
-  "ruby", "s", "samp", "small", "span", "strong", "sub", "sup", "time", "u", "var", "wbr",
+  'a', 'abbr', 'b', 'bdi', 'bdo', 'br', 'cite', 'code', 'data', 'dfn', 'em', 'i', 'kbd', 'mark', 'q', 'rp', 'rt',
+  'ruby', 's', 'samp', 'small', 'span', 'strong', 'sub', 'sup', 'time', 'u', 'var', 'wbr',
 
   // Image and Multimedia
-  "img", "audio", "video", "source", "track", "picture",
+  'img', 'audio', 'video', 'source', 'track', 'picture',
 
   // Table Content
-  "caption", "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr",
+  'caption', 'col', 'colgroup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
 
   // Forms and Interactive Elements
-  "button", "fieldset", "form", "input", "label", "legend", "meter", "optgroup", "option", "output", "progress", 
-  "select", "textarea",
+  'button', 'fieldset', 'form', 'input', 'label', 'legend', 'meter', 'optgroup', 'option', 'output', 'progress', 
+  'select', 'textarea',
 
   // Scripting and No-Scripting
-  "noscript"
+  'noscript'
 ];
 
 /**
