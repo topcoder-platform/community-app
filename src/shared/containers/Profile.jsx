@@ -146,7 +146,7 @@ class ProfileContainer extends React.Component {
       badges,
       meta,
       tcAcademyCertifications,
-      tcAcademyCourses
+      tcAcademyCourses,
     } = this.props;
 
     return (
