@@ -96,11 +96,11 @@ const safeHtmlTags = [
   'caption', 'col', 'colgroup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
 
   // Forms and Interactive Elements
-  'button', 'fieldset', 'form', 'input', 'label', 'legend', 'meter', 'optgroup', 'option', 'output', 'progress', 
+  'button', 'fieldset', 'form', 'input', 'label', 'legend', 'meter', 'optgroup', 'option', 'output', 'progress',
   'select', 'textarea',
 
   // Scripting and No-Scripting
-  'noscript'
+  'noscript',
 ];
 
 /**
@@ -193,8 +193,8 @@ function getProps(token, key) {
 
 /**
  * Check if the tag is safe to render.
- * @param {String} tag 
- * @returns 
+ * @param {String} tag
+ * @returns
  */
 function checkForSafeTag(tag) {
   return safeHtmlTags.includes(tag);
@@ -202,8 +202,8 @@ function checkForSafeTag(tag) {
 
 /**
  * Sanitize content
- * @param {String} content 
- * @returns 
+ * @param {String} content
+ * @returns
  */
 function sanitizeContent(content) {
   return xss(content);
@@ -276,7 +276,7 @@ function renderTokens(tokens, startFrom, md) {
     } else if (level === 0) {
       if (token.nesting === 1) {
         output.push(React.createElement(
-          checkForSafeTag(token.tag) ? token.tag : "div",
+          checkForSafeTag(token.tag) ? token.tag : 'div',
           getProps(token, pos),
           renderTokens(tokens, 1 + pos, md),
         ));
@@ -296,11 +296,11 @@ function renderTokens(tokens, startFrom, md) {
           }
           props = normalizeProps(props);
           if (selfClosing) {
-            output.push(React.createElement(checkForSafeTag(tag) ? tag : "div", { key: pos, ...props }));
+            output.push(React.createElement(checkForSafeTag(tag) ? tag : 'div', { key: pos, ...props }));
           } else {
             level += 1;
             output.push(React.createElement(
-              checkForSafeTag(tag) ? tag : "div",
+              checkForSafeTag(tag) ? tag : 'div',
               { key: pos, ...props },
               renderTokens(tokens, pos + 1, md),
             ));
