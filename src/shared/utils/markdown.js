@@ -83,7 +83,7 @@ const safeHtmlTags = [
   'address', 'article', 'aside', 'footer', 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'main', 'nav', 'section',
 
   // Text Content
-  'blockquote', 'dd', 'div', 'dl', 'dt', 'figcaption', 'figure', 'hr', 'li', 'ol', 'p', 'pre', 'ul',
+  'blockquote', 'dd', 'div', 'dl', 'dt', 'figcaption', 'figure', 'hr', 'li', 'ol', 'p', 'pre', 'ul', 'big', 'tt', 'del', 'strike', 'ins',
 
   // Inline Text Semantics
   'a', 'abbr', 'b', 'bdi', 'bdo', 'br', 'cite', 'code', 'data', 'dfn', 'em', 'i', 'kbd', 'mark', 'q', 'rp', 'rt',
@@ -101,6 +101,9 @@ const safeHtmlTags = [
 
   // Scripting and No-Scripting
   'noscript',
+
+  // Custom tags
+  'ThemedButton',
 ];
 
 /**
