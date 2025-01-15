@@ -57,14 +57,14 @@ function ChildRoutesLoader(props) {
                   // eslint-disable-next-line no-nested-ternary
                   fields.viewport
                     ? (
-                    <Viewport
-                      id={fields.viewport.sys.id}
-                      preview={preview}
-                      spaceName={spaceName}
-                      environment={environment}
-                      baseUrl={url}
-                    />
-                  ) : <Error404 />
+                      <Viewport
+                        id={fields.viewport.sys.id}
+                        preview={preview}
+                        spaceName={spaceName}
+                        environment={environment}
+                        baseUrl={url}
+                      />
+                    ) : <Error404 />
                 }
               </React.Fragment>
             )}

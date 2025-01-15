@@ -103,7 +103,7 @@ const safeHtmlTags = [
   'noscript',
 
   // Custom tags
-  'ThemedButton',
+  'Button',
 ];
 
 /**
