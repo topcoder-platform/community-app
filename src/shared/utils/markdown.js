@@ -208,7 +208,7 @@ function renderToken(tokens, index, md) {
       return renderTokens(token.children, 0, md);
       /* eslint-enable no-use-before-define */
     case 'text':
-      return sanitizeContent(token.content);
+      return token.content;
     case 'fence':
       return Highlighter({
         codeString: token.content,
