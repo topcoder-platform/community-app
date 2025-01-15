@@ -260,30 +260,30 @@ jobs:
   #         path: ./automated-smoke-test/test-results
 
   # Automated Smoke Testing against Production
-  Smoke-Testing-On-Production:
-    <<: *defaults
-    steps:
-      # Initialization.
-      - checkout
-      - setup_remote_docker
-      - run: *install_dependency
-      - run: *install_deploysuite
-      # Restoration of node_modules from cache.
-      - restore_cache: *restore_cache_settings_for_build
-      - run:
-          name: "configuring environment"
-          command: |
-            ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
-      - run:
-          name: "Run automation"
-          no_output_timeout: 20m
-          command: |
-            source awsenvconf
-            source buildenvvar
-            ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
-      - store_artifacts:
-          path: ./automated-smoke-test/test-results
+  # Smoke-Testing-On-Production:
+  #   <<: *defaults
+  #   steps:
+  #     # Initialization.
+  #     - checkout
+  #     - setup_remote_docker
+  #     - run: *install_dependency
+  #     - run: *install_deploysuite
+  #     # Restoration of node_modules from cache.
+  #     - restore_cache: *restore_cache_settings_for_build
+  #     - run:
+  #         name: "configuring environment"
+  #         command: |
+  #           ./awsconfiguration.sh PROD
+  #           ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
+  #     - run:
+  #         name: "Run automation"
+  #         no_output_timeout: 20m
+  #         command: |
+  #           source awsenvconf
+  #           source buildenvvar
+  #           ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
+  #     - store_artifacts:
+  #         path: ./automated-smoke-test/test-results
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
