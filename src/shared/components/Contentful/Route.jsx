@@ -12,7 +12,6 @@ import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
-import PasswordScreen from 'components/Contentful/PasswordScreen';
 import { isomorphy, config } from 'topcoder-react-utils';
 import cookies from 'browser-cookies';
 import { removeTrailingSlash } from 'utils/url';
@@ -57,28 +56,15 @@ function ChildRoutesLoader(props) {
                 {
                   // eslint-disable-next-line no-nested-ternary
                   fields.viewport
-                    ? (!fields.password ? (
-                      <Viewport
-                        id={fields.viewport.sys.id}
-                        preview={preview}
-                        spaceName={spaceName}
-                        environment={environment}
-                        baseUrl={url}
-                      />
-                    ) : (
-                      <PasswordScreen
-                        password={fields.password}
-                        viewPortId={fields.viewport.sys.id}
-                        preview={preview}
-                        spaceName={spaceName}
-                        environment={environment}
-                        baseUrl={url}
-                        title={fields.passwordScreenTitle}
-                        btnText={fields.passwordScreenButtonText}
-                        content={fields.passwordScreenContent}
-                      />
-                    )
-                    ) : <Error404 />
+                    ? (
+                    <Viewport
+                      id={fields.viewport.sys.id}
+                      preview={preview}
+                      spaceName={spaceName}
+                      environment={environment}
+                      baseUrl={url}
+                    />
+                  ) : <Error404 />
                 }
               </React.Fragment>
             )}
