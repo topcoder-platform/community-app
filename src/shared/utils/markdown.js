@@ -78,34 +78,6 @@ const buttonThemes = {
   bs,
 };
 
-const safeHtmlTags = [
-  // Content Sectioning
-  'address', 'article', 'aside', 'footer', 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'main', 'nav', 'section',
-
-  // Text Content
-  'blockquote', 'dd', 'div', 'dl', 'dt', 'figcaption', 'figure', 'hr', 'li', 'ol', 'p', 'pre', 'ul', 'big', 'tt', 'del', 'strike', 'ins',
-
-  // Inline Text Semantics
-  'a', 'abbr', 'b', 'bdi', 'bdo', 'br', 'cite', 'code', 'data', 'dfn', 'em', 'i', 'kbd', 'mark', 'q', 'rp', 'rt',
-  'ruby', 's', 'samp', 'small', 'span', 'strong', 'sub', 'sup', 'time', 'u', 'var', 'wbr',
-
-  // Image and Multimedia
-  'img', 'audio', 'video', 'source', 'track', 'picture',
-
-  // Table Content
-  'caption', 'col', 'colgroup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
-
-  // Forms and Interactive Elements
-  'button', 'fieldset', 'form', 'input', 'label', 'legend', 'meter', 'optgroup', 'option', 'output', 'progress',
-  'select', 'textarea',
-
-  // Scripting and No-Scripting
-  'noscript',
-
-  // Custom tags
-  'Button',
-];
-
 /**
  * Add new Custom Components here.
  *
@@ -161,6 +133,34 @@ const customComponents = {
   },
   MMLeaderboard: attrs => ({ type: MMLeaderboard, props: attrs }),
 };
+
+const safeHtmlTags = [
+  // Content Sectioning
+  'address', 'article', 'aside', 'footer', 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'main', 'nav', 'section',
+
+  // Text Content
+  'blockquote', 'dd', 'div', 'dl', 'dt', 'figcaption', 'figure', 'hr', 'li', 'ol', 'p', 'pre', 'ul', 'big', 'tt', 'del', 'strike', 'ins',
+
+  // Inline Text Semantics
+  'a', 'abbr', 'b', 'bdi', 'bdo', 'br', 'cite', 'code', 'data', 'dfn', 'em', 'i', 'kbd', 'mark', 'q', 'rp', 'rt',
+  'ruby', 's', 'samp', 'small', 'span', 'strong', 'sub', 'sup', 'time', 'u', 'var', 'wbr',
+
+  // Image and Multimedia
+  'img', 'audio', 'video', 'source', 'track', 'picture',
+
+  // Table Content
+  'caption', 'col', 'colgroup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
+
+  // Forms and Interactive Elements
+  'button', 'fieldset', 'form', 'input', 'label', 'legend', 'meter', 'optgroup', 'option', 'output', 'progress',
+  'select', 'textarea',
+
+  // Scripting and No-Scripting
+  'noscript',
+
+  // Custom tags
+  ...Object.keys(customTags), 
+];
 
 /**
  * The following functions are only used internally and should not need to be
