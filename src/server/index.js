@@ -24,7 +24,6 @@ import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
 import cdnRouter from './routes/cdn';
-import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 import recruitCRMRouter from './routes/recruitCRM';
 import mmLeaderboardRouter from './routes/mmLeaderboard';
@@ -273,7 +272,6 @@ async function onExpressJsSetup(server) {
   });
 
   server.use('/api/cdn', cdnRouter);
-  server.use('/api/mailchimp', mailChimpRouter);
   server.use('/api/recruit', recruitCRMRouter);
   server.use('/api/mml', mmLeaderboardRouter);
 
@@ -320,19 +318,6 @@ async function onExpressJsSetup(server) {
     },
   );
   */
-
-  /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
-   * cross-origin requests). */
-  server.use('/community-app-assets/api/proxy-post', checkAuthorizationHeader, (req, res) => {
-    fetch(req.query.url, {
-      body: qs.stringify(req.body),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      method: 'POST',
-    }).then(x => x.text())
-      .then(x => res.send(x));
-  });
 
   /* Returns currency exchange rates, cached at the server-side (thus drastically
    * reducing amount of calls to openexchangerates.com). */

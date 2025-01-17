@@ -18,13 +18,10 @@ import sup from 'markdown-it-sup';
 import 'highlight.js/styles/github.css';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import NewsletterSignup from 'components/NewsletterSignup';
-import NewsletterSignupForMembers from 'containers/NewsletterSignupForMembers';
 import VideoModalButton from 'components/VideoModalButton';
 import Looker from 'containers/Looker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
-import NewsletterArchive from 'containers/NewsletterArchive';
 import MMLeaderboard from 'containers/MMLeaderboard';
 
 import tco19SecLg from 'components/buttons/outline/tco/tco19-sec-lg.scss';
@@ -97,8 +94,6 @@ const customComponents = {
   Link: attrs => ({ type: Link, props: attrs }),
   JoinCommunity: attrs => ({ type: JoinCommunity, props: attrs }),
   VideoModalButton: attrs => ({ type: VideoModalButton, props: attrs }),
-  NewsletterSignup: attrs => ({ type: NewsletterSignup, props: attrs }),
-  NewsletterSignupForMembers: attrs => ({ type: NewsletterSignupForMembers, props: attrs }),
   Looker: attrs => ({ type: Looker, props: attrs }),
   AnchorLink: attrs => ({ type: AnchorLink, props: attrs }),
   TCOButton: attrs => ({
@@ -116,7 +111,6 @@ const customComponents = {
     },
   }),
   Modal: attrs => ({ type: Modal, props: attrs }),
-  NewsletterArchive: attrs => ({ type: NewsletterArchive, props: attrs }),
   ThemedButton: (attrs) => {
     const t = attrs.theme.split('-');
     return {
