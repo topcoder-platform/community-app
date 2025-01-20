@@ -189,7 +189,7 @@ export default class RecruitCRMService {
     try {
       const sanitizedId = xss(req.params.id);
 
-      if (!/^[a-zA-Z0-9-_]{8,20}$/.test(sanitizedId)) {
+      if (!/^[a-zA-Z0-9-_]{8,23}$/.test(sanitizedId)) {
         return res.status(400).json({ error: 'Invalid job ID format.' });
       }
       const response = await fetch(`${this.private.baseUrl}/v1/jobs/${sanitizedId}`, {
