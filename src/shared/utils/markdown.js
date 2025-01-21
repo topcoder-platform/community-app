@@ -129,7 +129,7 @@ const customComponents = {
 };
 
 const unsafeHtmlTags = [
-  'script', 'style', 'iframe', 'object', 'embed', 'applet', 'base',
+  'script', 'iframe', 'object', 'embed', 'applet', 'base',
   'form', 'meta', 'frame', 'frameset', 'marquee', 'svg',
 ];
 
