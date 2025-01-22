@@ -171,6 +171,7 @@ function getProps(token, key) {
  * @returns
  */
 function checkForSafeTag(tag) {
+  console.log(unsafeHtmlTags, 'unsafeHtmlTags');
   return !unsafeHtmlTags.includes(tag);
 }
 
