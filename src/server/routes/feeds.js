@@ -30,7 +30,7 @@ routes.get('/thrive', async (req, res, next) => {
       'sys.firstPublishedAt[exists]': true,
     });
 
-    console.log('after initializing thrive service', data); 
+    console.log('after initializing thrive service', data);
     const feed = new RSS({
       title: 'Topcoder Thrive',
       description: 'Tutorials And Workshops That Matter | Thrive | Topcoder',
