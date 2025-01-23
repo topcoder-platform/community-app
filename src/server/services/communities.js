@@ -42,7 +42,7 @@ const getValidIds = async (METADATA_PATH) => {
 
       try {
         // Check if the file exists
-        await fs.promises.access(uri);
+        await promisify(fs.access)(uri);
 
         // Get file stats
         const stats = await promisify(fs.stat)(uri);
