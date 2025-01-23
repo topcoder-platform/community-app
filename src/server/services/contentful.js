@@ -223,6 +223,7 @@ export function getSpaceId(spaceName) {
  * @param {Boolean} preview
  */
 export function getService(spaceName, environment, preview) {
+  console.log('getService');
   if (!services) {
     services = initServiceInstances();
   }
@@ -235,6 +236,7 @@ export function getService(spaceName, environment, preview) {
   if (!services[name][env]) {
     throw new Error(`environment  : '${env}' is not configured for space : '${name}.`);
   }
+  console.log(service, 'service debug');
   const service = services[name][env];
   return preview ? service.previewService : service.cdnService;
 }
