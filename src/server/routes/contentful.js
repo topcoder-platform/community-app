@@ -131,6 +131,7 @@ routes.use(
 /* Queries published entries of a given space name and environment. */
 routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
   const { environment, spaceName } = req.params;
+  console.log("hits cdn published entries");
   getService(spaceName, environment, false)
     .queryEntries(req.query)
     .then(res.send.bind(res), next);

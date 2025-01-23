@@ -48,6 +48,7 @@ const getTimestamp = async () => {
     }
 
     const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
+    console.log(fs.promises, 'fs.promises debug');
     const stats = await fs.promises.stat(filePath);
     if (stats.size > MAX_FILE_SIZE) {
       throw new Error('File is too large and may cause DoS issues');
