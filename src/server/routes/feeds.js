@@ -21,7 +21,7 @@ routes.options('*', cors());
 
 routes.get('/thrive', async (req, res, next) => {
   try {
-    console.log('hits thrive route');
+    console.log('hits thrive route', process.version);
     const data = await getService('EDU', 'master', true).queryEntries({
       content_type: 'article',
       limit: 20,

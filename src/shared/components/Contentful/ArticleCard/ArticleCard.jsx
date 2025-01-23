@@ -64,8 +64,6 @@ class ArticleCard extends React.Component {
       themeName,
     } = this.props;
 
-    console.log(theme, 'theme debug');
-
     // determine if article cards will redirect to external link or article details page
     const articlePageUrl = article.externalArticle && article.contentUrl
       ? article.contentUrl
