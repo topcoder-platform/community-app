@@ -10,6 +10,7 @@ import fs from 'fs';
 import { logger, services } from 'topcoder-react-lib';
 import path from 'path';
 import { isomorphy } from 'topcoder-react-utils';
+import { promisify } from 'util';
 
 const { api, groups } = services;
 
@@ -35,7 +36,7 @@ const getValidIds = async (METADATA_PATH) => {
   let VALID_IDS = [];
 
   try {
-    const ids = await fs.promises.readdir(METADATA_PATH);
+    const ids = await promisify(fs.readdir)(METADATA_PATH);
     const validationPromises = ids.map(async (id) => {
       const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
 
@@ -44,7 +45,7 @@ const getValidIds = async (METADATA_PATH) => {
         await fs.promises.access(uri);
 
         // Get file stats
-        const stats = await fs.promises.stat(uri);
+        const stats = await promisify(fs.stat)(uri);
         const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
         if (stats.size > MAX_FILE_SIZE) {
           console.warn(`Metadata file too large for ID: ${id}`);
@@ -52,7 +53,7 @@ const getValidIds = async (METADATA_PATH) => {
         }
 
         // Parse and validate JSON
-        const meta = JSON.parse(await fs.promises.readFile(uri, 'utf8'));
+        const meta = JSON.parse(await promisify(fs.readFile)(uri, 'utf8'));
 
         // Check if "subdomains" is a valid array
         if (Array.isArray(meta.subdomains)) {
