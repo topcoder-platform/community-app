@@ -223,7 +223,7 @@ export function getSpaceId(spaceName) {
  * @param {Boolean} preview
  */
 export function getService(spaceName, environment, preview) {
-  console.log('getService');
+  console.log('getService', spaceName, environment, preview);
   if (!services) {
     services = initServiceInstances();
   }
@@ -238,6 +238,5 @@ export function getService(spaceName, environment, preview) {
   }
 
   const service = services[name][env];
-  console.log(service, 'service debug');
   return preview ? service.previewService : service.cdnService;
 }
