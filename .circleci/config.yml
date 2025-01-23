@@ -73,7 +73,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
 
   # Build & Deploy against testing backend
   # "build-test":
@@ -224,7 +224,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp -p FARGATE
             curl --request POST \
             --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
             --header "Circle-Token: ${CIRCLE_TOKEN}" \
