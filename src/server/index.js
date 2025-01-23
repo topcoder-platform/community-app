@@ -22,6 +22,7 @@ import { factory as reducerFactory } from 'reducers';
 import { redux, server as serverFactory } from 'topcoder-react-utils';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
+import { promisify } from 'util';
 
 import cdnRouter from './routes/cdn';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
@@ -48,13 +49,12 @@ const getTimestamp = async () => {
     }
 
     const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
-    console.log(fs.promises, 'fs.promises debug');
-    const stats = await fs.promises.stat(filePath);
+    const stats = await promisify(fs.stat)(filePath);
     if (stats.size > MAX_FILE_SIZE) {
       throw new Error('File is too large and may cause DoS issues');
     }
 
-    const fileContent = await fs.promises.readFile(filePath, 'utf-8');
+    const fileContent = await promisify(fs.readFile)(filePath, 'utf-8');
 
     let tsData;
     try {
