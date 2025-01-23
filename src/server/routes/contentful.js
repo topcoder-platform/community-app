@@ -132,7 +132,7 @@ routes.use(
 routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
   const { environment, spaceName } = req.params;
   console.log('hits cdn published entries');
-  getService(spaceName, environment, false)
+  getService(spaceName, environment, true)
     .queryEntries(req.query)
     .then(res.send.bind(res), next);
 });
