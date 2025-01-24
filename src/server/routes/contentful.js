@@ -30,7 +30,7 @@ routes.options('*', cors());
 routes.use(
   '/:spaceName/:environment/assets/:id/:version/:name',
   (req, res) => {
-    try  { 
+    try {
       const {
         environment,
         id,
@@ -46,7 +46,7 @@ routes.use(
       const url = new URL(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
       res.redirect(url.href);
     } catch (e) {
-      console.log('error in getting asset', e); 
+      console.log('error in getting asset', e);
     }
   },
 );
@@ -149,7 +149,6 @@ routes.use(
       console.log('error in getting published entry', e);
       next(e);
     }
-    
   },
 );
 
@@ -171,7 +170,7 @@ routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
 routes.use('/:spaceName/:environment/votes', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => {
   try {
     articleVote(req.body)
-    .then(res.send.bind(res), next);
+      .then(res.send.bind(res), next);
   } catch (e) {
     console.log('error in voting', e);
     next(e);
