@@ -21,7 +21,6 @@ routes.options('*', cors());
 
 routes.get('/thrive', async (req, res, next) => {
   try {
-    console.log('hits thrive route', process.version);
     const data = await getService('EDU', 'master', true).queryEntries({
       content_type: 'article',
       limit: 20,
@@ -30,7 +29,6 @@ routes.get('/thrive', async (req, res, next) => {
       'sys.firstPublishedAt[exists]': true,
     });
 
-    console.log('after initializing thrive service', data);
     const feed = new RSS({
       title: 'Topcoder Thrive',
       description: 'Tutorials And Workshops That Matter | Thrive | Topcoder',
