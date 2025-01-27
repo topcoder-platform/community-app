@@ -40,7 +40,6 @@ routes.use(
       } = req.params;
       const spaceId = getSpaceId(spaceName);
       if (!ALLOWED_DOMAINS.includes(ASSETS_DOMAIN)) {
-        console.log('Invalid domain detected!');
         throw new Error('Invalid domain detected!');
       }
       const url = new URL(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
@@ -117,7 +116,6 @@ routes.use(
         .getAsset(id)
         .then(res.send.bind(res), next);
     } catch (e) {
-      console.log('error in getting published asset', e);
       next(e);
     }
   },
@@ -131,7 +129,6 @@ routes.use(':spaceName/:environment/published/assets', (req, res, next) => {
       .queryAssets(req.query)
       .then(res.send.bind(res), next);
   } catch (e) {
-    console.log('error in getting published assets', e);
     next(e);
   }
 });
@@ -146,7 +143,6 @@ routes.use(
         .getEntry(id)
         .then(res.send.bind(res), next);
     } catch (e) {
-      console.log('error in getting published entry', e);
       next(e);
     }
   },
@@ -155,13 +151,11 @@ routes.use(
 /* Queries published entries of a given space name and environment. */
 routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
   try {
-    console.log('hits cdn published entries');
     const { environment, spaceName } = req.params;
     getService(spaceName, environment, false)
       .queryEntries(req.query)
       .then(res.send.bind(res), next);
   } catch (e) {
-    console.log('error in getting published entries', e);
     next(e);
   }
 });
@@ -172,7 +166,6 @@ routes.use('/:spaceName/:environment/votes', (req, res, next) => authenticator(a
     articleVote(req.body)
       .then(res.send.bind(res), next);
   } catch (e) {
-    console.log('error in voting', e);
     next(e);
   }
 });
