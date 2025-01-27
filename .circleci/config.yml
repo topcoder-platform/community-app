@@ -290,7 +290,7 @@ jobs:
   # Jest unit-tests).
   test:
     docker:
-      - image: circleci/node:8.11.1
+      - image: circleci/node:10.24.1
     steps:
       - checkout
       - restore_cache:
