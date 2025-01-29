@@ -10,7 +10,6 @@ import React from 'react';
 import { errors } from 'topcoder-react-lib';
 import Leaderboard from 'containers/tco/Leaderboard';
 import RecruitCRMJobs from 'containers/Gigs/RecruitCRMJobs';
-import EmailSubscribeForm from 'containers/EmailSubscribeForm';
 import GSheet from 'containers/GSheet';
 import PathSelector from 'components/MemberPath/PathSelector';
 
@@ -55,9 +54,6 @@ export function AppComponentSwitch(appComponent) {
   }
   if (type === 'RecruitCRM-Jobs') {
     return <RecruitCRMJobs {...props} key={id} />;
-  }
-  if (type === 'EmailSubscribeForm') {
-    return <EmailSubscribeForm {...props} key={id} />;
   }
   if (type === 'GSheet') {
     return <GSheet {...props} key={id} />;

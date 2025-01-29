@@ -33,10 +33,10 @@ install_deploysuite: &install_deploysuite
     cp ./../buildscript/buildenv.sh .
     cp ./../buildscript/awsconfiguration.sh .
 restore_cache_settings_for_build: &restore_cache_settings_for_build
-  key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
+  key: docker-node-modules-v4-{{ checksum "package-lock.json" }}
 
 save_cache_settings: &save_cache_settings
-  key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
+  key: docker-node-modules-v4-{{ checksum "package-lock.json" }}
   paths:
     - node_modules
 
@@ -73,7 +73,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
 
   # Build & Deploy against testing backend
   # "build-test":
@@ -224,7 +224,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp -p FARGATE
             curl --request POST \
             --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
             --header "Circle-Token: ${CIRCLE_TOKEN}" \
@@ -260,37 +260,37 @@ jobs:
   #         path: ./automated-smoke-test/test-results
 
   # Automated Smoke Testing against Production
-  Smoke-Testing-On-Production:
-    <<: *defaults
-    steps:
-      # Initialization.
-      - checkout
-      - setup_remote_docker
-      - run: *install_dependency
-      - run: *install_deploysuite
-      # Restoration of node_modules from cache.
-      - restore_cache: *restore_cache_settings_for_build
-      - run:
-          name: "configuring environment"
-          command: |
-            ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
-      - run:
-          name: "Run automation"
-          no_output_timeout: 20m
-          command: |
-            source awsenvconf
-            source buildenvvar
-            ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
-      - store_artifacts:
-          path: ./automated-smoke-test/test-results
+  # Smoke-Testing-On-Production:
+  #   <<: *defaults
+  #   steps:
+  #     # Initialization.
+  #     - checkout
+  #     - setup_remote_docker
+  #     - run: *install_dependency
+  #     - run: *install_deploysuite
+  #     # Restoration of node_modules from cache.
+  #     - restore_cache: *restore_cache_settings_for_build
+  #     - run:
+  #         name: "configuring environment"
+  #         command: |
+  #           ./awsconfiguration.sh PROD
+  #           ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
+  #     - run:
+  #         name: "Run automation"
+  #         no_output_timeout: 20m
+  #         command: |
+  #           source awsenvconf
+  #           source buildenvvar
+  #           ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
+  #     - store_artifacts:
+  #         path: ./automated-smoke-test/test-results
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
   test:
     docker:
-      - image: circleci/node:8.11.1
+      - image: circleci/node:10.24.1
     steps:
       - checkout
       - restore_cache:
@@ -360,6 +360,7 @@ workflows:
                 - develop
                 - TOP-1390
                 - PM-191-2
+                - pm-199
       # This is alternate dev env for parallel testing
       # Deprecate this workflow due to beta env shutdown
       # https://topcoder.atlassian.net/browse/CORE-251

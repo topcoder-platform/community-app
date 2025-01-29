@@ -22,14 +22,12 @@ import { factory as reducerFactory } from 'reducers';
 import { redux, server as serverFactory } from 'topcoder-react-utils';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
+import { promisify } from 'util';
 
 import cdnRouter from './routes/cdn';
-import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 import recruitCRMRouter from './routes/recruitCRM';
 import mmLeaderboardRouter from './routes/mmLeaderboard';
-import gSheetsRouter from './routes/gSheet';
-import blogRouter from './routes/blog';
 import feedsRouter from './routes/feeds';
 
 /* Dome API for topcoder communities */
@@ -42,9 +40,40 @@ global.atob = atob;
 
 const CMS_BASE_URL = `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
 
-let ts = path.resolve(__dirname, '../../.build-info');
-ts = JSON.parse(fs.readFileSync(ts));
-ts = moment(ts.timestamp).valueOf();
+const getTimestamp = async () => {
+  let timestamp;
+  try {
+    const filePath = path.resolve(__dirname, '../../.build-info');
+    if (!filePath.startsWith(path.resolve(__dirname, '../../'))) {
+      throw new Error('Invalid file path detected');
+    }
+
+    const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
+    const stats = await promisify(fs.stat)(filePath);
+    if (stats.size > MAX_FILE_SIZE) {
+      throw new Error('File is too large and may cause DoS issues');
+    }
+
+    const fileContent = await promisify(fs.readFile)(filePath, 'utf-8');
+
+    let tsData;
+    try {
+      tsData = JSON.parse(fileContent);
+    } catch (parseErr) {
+      throw new Error('Invalid JSON format in file');
+    }
+
+    if (!tsData || !tsData.timestamp) {
+      throw new Error('Timestamp is missing in the JSON file');
+    }
+
+    timestamp = moment(tsData.timestamp).valueOf();
+  } catch (err) {
+    console.error('Error:', err.message);
+  }
+
+  return timestamp;
+};
 
 const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
 const swScope = '/challenges'; // we are currently only interested in improving challenges pages
@@ -52,7 +81,7 @@ const swScope = '/challenges'; // we are currently only interested in improving 
 const tcoPattern = new RegExp(/^tco\d{2}\.topcoder(?:-dev)?\.com$/i);
 const universalNavUrl = config.UNIVERSAL_NAV_URL;
 
-const EXTRA_SCRIPTS = [
+const getExtraScripts = ts => [
   `<script type="application/javascript">
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then(
@@ -112,9 +141,11 @@ async function beforeRender(req, suggestedConfig) {
 
   await DoSSR(req, store, Application);
 
+  const ts = await getTimestamp();
+
   return {
     configToInject: { ...suggestedConfig, EXCHANGE_RATES: rates },
-    extraScripts: EXTRA_SCRIPTS,
+    extraScripts: getExtraScripts(ts),
     store,
   };
 }
@@ -243,11 +274,8 @@ async function onExpressJsSetup(server) {
   });
 
   server.use('/api/cdn', cdnRouter);
-  server.use('/api/mailchimp', mailChimpRouter);
   server.use('/api/recruit', recruitCRMRouter);
   server.use('/api/mml', mmLeaderboardRouter);
-  server.use('/api/gsheets', gSheetsRouter);
-  server.use('/api/blog', blogRouter);
   server.use('/api/feeds', feedsRouter);
 
   // serve demo api
@@ -293,19 +321,6 @@ async function onExpressJsSetup(server) {
     },
   );
   */
-
-  /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
-   * cross-origin requests). */
-  server.use('/community-app-assets/api/proxy-post', checkAuthorizationHeader, (req, res) => {
-    fetch(req.query.url, {
-      body: qs.stringify(req.body),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      method: 'POST',
-    }).then(x => x.text())
-      .then(x => res.send(x));
-  });
 
   /* Returns currency exchange rates, cached at the server-side (thus drastically
    * reducing amount of calls to openexchangerates.com). */
