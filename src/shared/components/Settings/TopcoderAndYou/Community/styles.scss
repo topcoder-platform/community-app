@@ -1,0 +1,60 @@
+@import "~styles/mixins";
+@import "../../style.scss";
+
+.hide {
+  display: none;
+}
+
+.community-container {
+  h1 {
+    margin-bottom: 20px;
+
+    @include upto-sm {
+      line-height: 70px;
+      margin-bottom: 0;
+      font-size: 20px;
+      padding: 0 20px;
+    }
+  }
+
+  // margin-bottom: 40px;
+
+  @include from-sm-to-lg {
+    margin-bottom: 0;
+  }
+
+  @include upto-sm {
+    margin-bottom: 0;
+  }
+
+  .title {
+    @include tc-heading-lg;
+
+    margin-bottom: 25px;
+
+    @include upto-sm {
+      font-size: 20px;
+      line-height: 30px;
+      margin: 20px;
+    }
+  }
+
+  .sub-title {
+    @include roboto-light;
+
+    color: #888894;
+    line-height: 35px;
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+
+    @include upto-sm {
+      display: none;
+    }
+  }
+
+  .community-list {
+    // border-top: 1px solid $tc-gray-neutral-dark;
+  }
+}

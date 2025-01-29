@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: Community APP
+  description: Community APP
+  version: 1.0.0
+servers:
+  - url: http://local.topcoder-dev.com:3000
+tags:
+  - name: Profile
+paths:
+  /api/recruit/profile:
+    get:
+      tags:
+        - Profile
+      description: |
+        Get Profile of current user
+
+        **Authorization** All topcoder members are allowed.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Profile"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+        "500":
+          description: Internal Server Error
+          content:
+            text/plain::
+              schema:
+                type: string
+    post:
+      tags:
+        - Profile
+      description: |
+        Update Profile details of current user
+        **Authorization** All topcoder members are allowed.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdate"
+      responses:
+        "204":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                 - $ref: "#/components/schemas/JoiError"
+                 - $ref: "#/components/schemas/Error"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthError"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            text/plain::
+              schema:
+                type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Profile:
+      required:
+        - availability
+      properties:
+        phone:
+          type: string
+          description: "The phone number of the user"
+          example: "+1123226666"
+        resume:
+          type: string
+          description: "The resume of the user"
+        availability:
+          type: boolean
+          description: "The availability of the user"
+          default: true
+          example: true
+        skill:
+          type: string
+          description: "The candidate's skills separated via ,"
+          example: "Java,Angular,SQL Server,JavaScript"
+        salaryExpectation:
+          type: integer
+          description: "The candidate expected salary"
+        hasProfile:
+          type: boolean
+          description: "Whether has profile for the user"
+    ProfileUpdate:
+      required:
+        - phone
+        - availability
+        - city
+        - countryName
+      properties:
+        phone:
+          type: string
+          description: "The phone number of the user"
+          example: "(123) 456-7890"
+        city:
+          type: string
+          description: "The member's city"
+        countryName:
+          type: string
+          description: "The member's country"
+        resume:
+          type: string
+          format: binary
+          description: "The resume file of the user"
+        availability:
+          type: boolean
+          description: "The availability of the user"
+          example: true
+    Error:
+      properties:
+        error:
+          type: boolean
+          example: true
+        status:
+          type: integer
+          example: 404
+        url:
+          type: string
+          format: uri
+        errObj:
+          type: object
+    JoiError:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    AuthError:
+      properties:
+        version:
+          type: string
+        result:
+          type: object
+          properties:
+            success:
+              type: boolean
+              example: false
+            status:
+              type: integer
+              example: 403
+            content:
+              type: object
+              properties:
+                message:
+                  type: string

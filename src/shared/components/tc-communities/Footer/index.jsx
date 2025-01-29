@@ -56,7 +56,7 @@ function Footer({
           <button
             className={theme.btnRegister}
             onClick={() => {
-              const url = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
+              const url = encodeURIComponent(window.location.href);
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
             type="button"
@@ -66,7 +66,7 @@ function Footer({
           <button
             className={theme.btnLogin}
             onClick={() => {
-              const url = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
+              const url = encodeURIComponent(window.location.href);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
             type="button"

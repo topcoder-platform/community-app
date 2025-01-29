@@ -132,8 +132,8 @@ module.exports = {
     INFO: {
       DESIGN_CHALLENGES: 'http://help.topcoder.com/hc/en-us/categories/202610437-DESIGN',
       DESIGN_CHALLENGE_CHECKPOINTS: 'https://help.topcoder.com/hc/en-us/articles/219240807-Multi-Round-Checkpoint-Design-Challenges',
-      DESIGN_CHALLENGE_SUBMISSION: 'https://www.topcoder.com/thrive/articles/Formatting%20Your%20Submission%20for%20Design%20Challenges',
-      DESIGN_CHALLENGE_TYPES: 'https://www.topcoder.com/thrive/articles/How%20To%20Compete%20in%20Design',
+      DESIGN_CHALLENGE_SUBMISSION: 'http://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges',
+      DESIGN_CHALLENGE_TYPES: 'http://help.topcoder.com/hc/en-us/articles/217481388-Choosing-a-Design-Challenge',
       RELIABILITY_RATINGS_AND_BONUSES: 'https://www.topcoder.com/thrive/articles/Development%20Reliability%20Ratings%20and%20Bonuses',
       STOCK_ART_POLICY: 'http://help.topcoder.com/hc/en-us/articles/217481408-Policy-for-Stock-Artwork-in-Design-Submissions',
       STUDIO_FONTS_POLICY:

@@ -50,7 +50,7 @@ export default function AccessDenied(props) {
               className="tc-btn-md tc-btn-primary"
               href={`${config.URL.AUTH}/member?utm_source=${communityId}`}
               onClick={(event) => {
-                const retUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
+                const retUrl = encodeURIComponent(window.location.href);
                 window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${communityId}`;
                 event.preventDefault();
               }}
