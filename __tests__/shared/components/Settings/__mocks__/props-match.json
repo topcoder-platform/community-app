@@ -1,0 +1,8 @@
+{
+  "isExact": true,
+  "params": {
+    "settingsTab": "profile"
+  },
+  "path": "/settings/:settingsTab(profile|tools|account|preferences)",
+  "url": "/settings/profile"
+}

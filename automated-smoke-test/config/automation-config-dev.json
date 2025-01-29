@@ -86,6 +86,7 @@
   "allNotificationsUrl": "https://community-app.topcoder-dev.com/notifications",
   "policiesUrl": "https://community-app.topcoder-dev.com/policy",
   "username": "tester1234",
+  "password": "appirio123",
   "email": "sathya.jayabal@gmail.com",
   "challangesLinks": {
     "rssFeedUrl": "http://feeds.topcoder-dev.com/challenges/feed",

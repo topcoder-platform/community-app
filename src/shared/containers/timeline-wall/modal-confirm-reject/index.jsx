@@ -3,9 +3,9 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconCloseGreen from 'assets/images/icon-close-green.svg';
-import FormField from 'components/Form/FormField';
-import FormInputTextArea from 'components/Form/FormInputTextArea';
-import FormInputSelect from 'components/Form/FormInputSelect';
+import FormField from 'components/Settings/FormField';
+import FormInputTextArea from 'components/Settings/FormInputTextArea';
+import FormInputSelect from 'components/Settings/FormInputSelect';
 import { config } from 'topcoder-react-utils';
 
 import style from './styles.scss';

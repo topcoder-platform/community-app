@@ -29,6 +29,7 @@ import EDUSearch from '../EDUSearch';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import Notifications from './Notifications';
+import Settings from '../Settings';
 import HallOfFame from '../HallOfFame';
 import ProfileBadges from '../ProfileBadges';
 import Scoreboard from '../tco/scoreboard';
@@ -92,6 +93,10 @@ export default function Topcoder() {
                   />
                 )
               }
+              <Route
+                component={() => <Settings base="/settings" />}
+                path="/settings"
+              />
               <Route
                 path="/changelog/"
                 component={() => <Viewport preview id={`${config.CONTENTFUL.CHANGELOG_ID}`} />}

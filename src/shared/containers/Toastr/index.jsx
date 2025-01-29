@@ -78,13 +78,7 @@ class ExtendedReduxToastr extends ReduxToastr {
               inMemory={this.toastrFired}
               addToMemory={() => this._addToMemory(item.id)}
               item={mergedItem}
-              toastrs={this.props.toastrs}
-              preventDuplicates={this.props.preventDuplicates}
-              position={this.props.position}
-              transitionIn={this.props.transitionIn}
-              transitionOut={this.props.transitionOut}
-              progressBar={this.props.progressBar}
-              showCloseButton={this.props.showCloseButton}
+              {...this.props}
             />
             {item.options && item.options.attention
               && (

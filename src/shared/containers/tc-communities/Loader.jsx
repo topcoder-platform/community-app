@@ -42,7 +42,7 @@ class Loader extends React.Component {
       visitorGroups,
     } = this.props;
 
-    const returnUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
+    const returnUrl = encodeURIComponent(window.location.href);
 
     if (!loadingMeta && (
       !meta /* || (Date.now() - meta.timestamp) > MAXAGE */

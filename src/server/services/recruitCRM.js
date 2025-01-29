@@ -7,7 +7,6 @@ import qs from 'qs';
 import _ from 'lodash';
 import { logger, services } from 'topcoder-react-lib';
 import Joi from 'joi';
-import xss from 'xss';
 import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
 
@@ -187,12 +186,7 @@ export default class RecruitCRMService {
    */
   async getJob(req, res, next) {
     try {
-      const sanitizedId = xss(req.params.id);
-
-      if (!/^[a-zA-Z0-9-_]{8,23}$/.test(sanitizedId)) {
-        return res.status(400).json({ error: 'Invalid job ID format.' });
-      }
-      const response = await fetch(`${this.private.baseUrl}/v1/jobs/${sanitizedId}`, {
+      const response = await fetch(`${this.private.baseUrl}/v1/jobs/${req.params.id}`, {
         method: 'GET',
         headers: {
           'Content-Type': req.headers['content-type'],
@@ -207,7 +201,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: response.status,
-          url: `${this.private.baseUrl}/v1/jobs/${sanitizedId}`,
+          url: `${this.private.baseUrl}/v1/jobs/${req.params.id}`,
           errObj: await response.json(),
         };
         logger.error(error);
