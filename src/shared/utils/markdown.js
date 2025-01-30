@@ -13,18 +13,16 @@ import { Button, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import hljs from 'highlight.js';
 import ReactHtmlParser from 'react-html-parser';
+import xss from 'xss';
 import sub from 'markdown-it-sub';
 import sup from 'markdown-it-sup';
 import 'highlight.js/styles/github.css';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import NewsletterSignup from 'components/NewsletterSignup';
-import NewsletterSignupForMembers from 'containers/NewsletterSignupForMembers';
 import VideoModalButton from 'components/VideoModalButton';
 import Looker from 'containers/Looker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
-import NewsletterArchive from 'containers/NewsletterArchive';
 import MMLeaderboard from 'containers/MMLeaderboard';
 
 import tco19SecLg from 'components/buttons/outline/tco/tco19-sec-lg.scss';
@@ -97,8 +95,6 @@ const customComponents = {
   Link: attrs => ({ type: Link, props: attrs }),
   JoinCommunity: attrs => ({ type: JoinCommunity, props: attrs }),
   VideoModalButton: attrs => ({ type: VideoModalButton, props: attrs }),
-  NewsletterSignup: attrs => ({ type: NewsletterSignup, props: attrs }),
-  NewsletterSignupForMembers: attrs => ({ type: NewsletterSignupForMembers, props: attrs }),
   Looker: attrs => ({ type: Looker, props: attrs }),
   AnchorLink: attrs => ({ type: AnchorLink, props: attrs }),
   TCOButton: attrs => ({
@@ -116,7 +112,6 @@ const customComponents = {
     },
   }),
   Modal: attrs => ({ type: Modal, props: attrs }),
-  NewsletterArchive: attrs => ({ type: NewsletterArchive, props: attrs }),
   ThemedButton: (attrs) => {
     const t = attrs.theme.split('-');
     return {
@@ -132,6 +127,11 @@ const customComponents = {
   },
   MMLeaderboard: attrs => ({ type: MMLeaderboard, props: attrs }),
 };
+
+const unsafeHtmlTags = [
+  'script', 'iframe', 'object', 'embed', 'applet', 'base',
+  'form', 'meta', 'frame', 'frameset', 'marquee', 'svg',
+];
 
 /**
  * The following functions are only used internally and should not need to be
@@ -166,6 +166,24 @@ function getProps(token, key) {
 }
 
 /**
+ * Check if the tag is safe to render.
+ * @param {String} tag
+ * @returns
+ */
+function checkForSafeTag(tag) {
+  return !unsafeHtmlTags.includes(tag);
+}
+
+/**
+ * Sanitize content
+ * @param {String} content
+ * @returns
+ */
+function sanitizeContent(content) {
+  return xss(content);
+}
+
+/**
  * Renders tokens with zero nesting.
  * @param {Object} tokens
  * @param {Number} index
@@ -184,7 +202,7 @@ function renderToken(tokens, index, md) {
       return renderTokens(token.children, 0, md);
       /* eslint-enable no-use-before-define */
     case 'text':
-      return token.content;
+      return sanitizeContent(token.content);
     case 'fence':
       return Highlighter({
         codeString: token.content,
@@ -204,9 +222,9 @@ function renderToken(tokens, index, md) {
       }
     default:
       return React.createElement(
-        token.tag,
+        checkForSafeTag(token.tag) ? token.tag : 'div',
         getProps(token, index),
-        token.content || undefined,
+        sanitizeContent(token.content) || undefined,
       );
   }
 }
@@ -232,7 +250,7 @@ function renderTokens(tokens, startFrom, md) {
     } else if (level === 0) {
       if (token.nesting === 1) {
         output.push(React.createElement(
-          token.tag,
+          checkForSafeTag(token.tag) ? token.tag : 'div',
           getProps(token, pos),
           renderTokens(tokens, 1 + pos, md),
         ));
@@ -252,11 +270,11 @@ function renderTokens(tokens, startFrom, md) {
           }
           props = normalizeProps(props);
           if (selfClosing) {
-            output.push(React.createElement(tag, { key: pos, ...props }));
+            output.push(React.createElement(checkForSafeTag(tag) ? tag : 'div', { key: pos, ...props }));
           } else {
             level += 1;
             output.push(React.createElement(
-              tag,
+              checkForSafeTag(tag) ? tag : 'div',
               { key: pos, ...props },
               renderTokens(tokens, pos + 1, md),
             ));

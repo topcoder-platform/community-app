@@ -13,7 +13,6 @@ import ImageText from 'components/tc-communities/ImageText';
 import LoadingIndicator from 'components/LoadingIndicator';
 /*
 import ResourceCard from 'components/tc-communities/ResourceCard';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 */
 
@@ -208,79 +207,6 @@ export default function Home(props) {
           </Link>
         </div>
       </Section>
-
-      {/*
-        NOTE: Commented out until we get a better content for these sections.
-
-      <Section
-        theme={{
-          container: style.resourcesContainer,
-        }}
-      >
-        <Slider {...settings}>
-          <div className={style.carouselParent}>
-            <ResourceCard
-              theme={ResourceCardStyles}
-              icon={IconNetwork}
-              title="Up Your iOS and Swift Development Skills"
-              text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut
-              tincidunt turpis. Integer ac enim pellentesque, adipiscing metus
-              id, pharetra odio."
-              link={{
-                title: 'Browse resources',
-                url: 'https://topgear-app.wipro.com',
-              }}
-            />
-          </div>
-          <div className={style.carouselParent}>
-            <ResourceCard
-              theme={ResourceCardStyles}
-              icon={IconMedal}
-              title="Take the First Steps to Stand Out in the Community"
-              text="Donec bibendum nunc sit amet tortor scelerisque luctus et
-              sit amet mauris. Suspendisse felis sem, condimentum ullamcorper
-              est sit amet, molestie"
-              link={{
-                title: 'Learn about badges',
-                url: 'leaderboard',
-              }}
-            />
-          </div>
-          <div className={style.carouselParent}>
-            <ResourceCard
-              theme={ResourceCardStyles}
-              icon={IconRocket}
-              title="Compete in Challenges and Win Cash"
-              text="Suspendisse felis sem, condimentum ullamcorper est sit amet,
-              molestie mollis nulla. Etiam lorem orci, consequat ac magna quis,
-              facilisis"
-              link={{
-                title: 'Browse challenges',
-                url: 'challenges',
-              }}
-            />
-          </div>
-        </Slider>
-      </Section>
-
-      <NewsSection
-        news={props.news}
-        theme={{
-          section: NewsSectionStyles,
-          card: ArticleCardStyles,
-          carouselContainer: style.carouselContainer,
-          carouselParent: style.carouselParent,
-          carouselDot: style.carouselDot,
-        }}
-      />
-
-      <NewsletterSignup
-        title="Sign up for our newsletter"
-        text="Don’t miss out on the latest challenges and information!"
-        imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
-        theme={NewsletterSignupStyle}
-      />
-      */}
 
     </main>
   );

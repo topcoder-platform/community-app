@@ -212,19 +212,5 @@ exports[`Match shadow snapshot 1`] = `
       }
     }
   />
-  <ThemedNewsletterSignup
-    apikey=""
-    buttonText="Sign Up"
-    composeAdhocTheme="deeply"
-    composeContextTheme="softly"
-    emailPlaceholder="Email address"
-    imageSrc="/community-app-assets/themes/taskforce/subscribe-bg.jpg"
-    mapThemrProps={[Function]}
-    text="Get the Topcoder crowdsourcing newsletter, today!"
-    theme={Object {}}
-    themePriority="adhoc-context-default"
-    title="3 key crowdsourcing stories, 1x per month"
-    url=""
-  />
 </main>
 `;
