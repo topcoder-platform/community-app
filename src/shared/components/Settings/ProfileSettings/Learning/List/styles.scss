@@ -1,0 +1,30 @@
+@import "../../../style";
+
+.container {
+  width: 100%;
+  background-color: $tc-white;
+  padding: 0 0;
+  margin-bottom: 20px;
+
+  @include upto-sm {
+    margin-top: 32px;
+  }
+
+  &.active {
+    margin-top: 0;
+
+    @include upto-sm {
+      margin-top: 0;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+
+    li {
+      margin-bottom: $margin-md;
+    }
+  }
+}

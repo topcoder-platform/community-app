@@ -172,7 +172,7 @@ function Header(props) {
         communityId === 'zurich' ? (
           <PrimaryButton
             onClick={() => {
-              const returnUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
+              const returnUrl = encodeURIComponent(window.location.href);
               window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
             }}
             size="sm"
@@ -184,7 +184,7 @@ function Header(props) {
         ) : (
           <Button
             onClick={() => {
-              const url = encodeURIComponent(`${window.location.origin}${window.location.pathname}?join=${groupIds[0]}`);
+              const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
             size="sm"
@@ -196,7 +196,7 @@ function Header(props) {
       { hideJoinNow ? null : (
         <PrimaryButton
           onClick={() => {
-            let url = encodeURIComponent(`${window.location.origin}${window.location.pathname}?join=${groupIds[0]}`);
+            let url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
             url = encodeURIComponent(`${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
             url = encodeURIComponent(url);
             window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;

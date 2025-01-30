@@ -304,7 +304,12 @@ export default function ChallengeDetailsView(props) {
                           concept (do not include multiple designs in a single submission).
                         </li>
                         <li>
-                          If your submission wins, your source files must be correct and final fixes (if applicable) must be completed before payment can be released.
+                          If your submission wins, your source files must be correct and &ldquo;
+                          <a href={config.URL.INFO.DESIGN_CHALLENGES}>
+                            Final Fixes
+                          </a>
+                          &rdquo;
+                          (if applicable) must be completed before payment can be released.
                         </li>
                         <li>
                           You may submit as many times as you&apos;d like during

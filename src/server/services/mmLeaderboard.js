@@ -3,7 +3,6 @@
  * Server-side functions necessary for effective integration with MMLeaderboard
  */
 import { services } from 'topcoder-react-lib';
-import xss from 'xss';
 
 const { api, submissions } = services;
 
@@ -18,14 +17,13 @@ export default class MMLService {
    */
   async getLeaderboard(req, res, next) {
     try {
-      const sanitizedId = xss(req.params.id);
       const m2mToken = await api.getTcM2mToken();
       const subSrv = submissions.getService(m2mToken);
       const reviewIds = await subSrv.getScanReviewIds();
       const v5api = api.getApiV5(m2mToken);
-      const subs = await v5api.get(`/submissions?challengeId=${sanitizedId}&page=1&perPage=500`);
+      const subs = await v5api.get(`/submissions?challengeId=${req.params.id}&page=1&perPage=500`);
       return res.send({
-        id: sanitizedId,
+        id: req.params.id,
         subs: await subs.json(),
         reviewIds,
       });

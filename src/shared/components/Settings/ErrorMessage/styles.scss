@@ -1,0 +1,25 @@
+@import "../style";
+
+.error-message {
+  display: none;
+
+  &.active {
+    @include roboto-medium;
+
+    display: block;
+    border-radius: 5px;
+    color: $tc-red-110;
+    font-size: 12px;
+    margin: 10px 0 0 10px;
+  }
+
+  &.active-margin {
+    @include roboto-medium;
+
+    display: inline;
+    border-radius: 5px;
+    color: $tc-red-110;
+    font-size: 12px;
+    margin: 10px auto 0 10px;
+  }
+}

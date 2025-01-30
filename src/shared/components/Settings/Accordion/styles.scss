@@ -1,0 +1,42 @@
+@import "../style";
+
+.Accordion {
+  width: 100%;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 60px;
+    border-bottom: 1px solid $tc-gray-10;
+    cursor: pointer;
+    outline: 0;
+  }
+
+  .icon-container {
+    padding: 0 20px;
+  }
+
+  .name {
+    @include tc-body-md;
+
+    flex: 1;
+    color: $tc-black;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .arrow-container {
+    padding-right: 15px;
+
+    .up {
+      transform: rotate(180deg);
+    }
+
+    &.closed {
+      svg {
+        filter: invert(100%);
+      }
+    }
+  }
+}
