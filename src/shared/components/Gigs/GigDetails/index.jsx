@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { Link, config } from 'topcoder-react-utils';
 import ReactHtmlParser from 'react-html-parser';
 import { getSalaryType, getCustomField } from 'utils/gigs';
-import SubscribeMailChimpTag from 'containers/SubscribeMailChimpTag';
 import './style.scss';
 import IconLocation from 'assets/images/icon-location.svg';
 import IconMoney from 'assets/images/icon-payment.svg';
@@ -139,10 +138,6 @@ function GigDetails(props) {
                 </div>
               </div>
               <div styleName="right">
-                <div styleName="subscribe-area">
-                  <h6>SUBSCRIBE TO WEEKLY GIG UPDATES</h6>
-                  <SubscribeMailChimpTag listId="28bfd3c062" groups={{ d0c48e9da3: true }} />
-                </div>
                 <div styleName="info-area">
                   <p>At Topcoder, we pride ourselves in bringing our customers the very best candidates to help fill their needs. Want to improve your chances? You can do a few things:</p>
                   <ul>
