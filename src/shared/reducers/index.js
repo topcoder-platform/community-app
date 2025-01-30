@@ -25,7 +25,6 @@ import { getAuthTokens } from 'utils/tc';
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
-import newsletterArchive from './newsletterArchive';
 import menuNavigation from './contentful/menuNavigation';
 import challengesBlock from './contentful/challengesBlock';
 import policyPages from './contentful/policyPages';
@@ -37,7 +36,6 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
 import { factory as mfaFactory } from './mfa';
-import newsletterPreferences from './newsletterPreferences';
 import mmLeaderboard from './mmLeaderboard';
 import tcoLeaderboards from './tco/leaderboards';
 import recruitCRM from './recruitCRM';
@@ -172,11 +170,9 @@ export function factory(req) {
     topcoderHeader,
     rss,
     toastr: toastrReducer,
-    newsletterArchive,
     menuNavigation,
     challengesBlock,
     policyPages,
-    newsletterPreferences,
     recruitCRM,
     mmLeaderboard,
     gSheet,

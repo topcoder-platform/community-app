@@ -135,6 +135,20 @@ class ProfileContainer extends React.Component {
     const title = `${handleParam} | Community Profile | Topcoder`;
     const description = `Meet Topcoder member ${handleParam} and view their skills and development and design activity. You can also see wins and tenure with Topcoder.`;
 
+    const {
+      copilot,
+      externalAccounts,
+      externalLinks,
+      challenges,
+      skills,
+      stats,
+      lookupData,
+      badges,
+      meta,
+      tcAcademyCertifications,
+      tcAcademyCourses,
+    } = this.props;
+
     return (
       <React.Fragment>
         <MetaTags
@@ -144,7 +158,19 @@ class ProfileContainer extends React.Component {
         {
           info ? (
             <ProfilePage
-              {...this.props}
+              copilot={copilot}
+              externalAccounts={externalAccounts}
+              challenges={challenges}
+              externalLinks={externalLinks}
+              info={info}
+              skills={skills}
+              stats={stats}
+              lookupData={lookupData}
+              badges={badges}
+              handleParam={handleParam}
+              meta={meta}
+              tcAcademyCertifications={tcAcademyCertifications}
+              tcAcademyCourses={tcAcademyCourses}
             />
           ) : <LoadingIndicator />
         }
@@ -154,9 +180,8 @@ class ProfileContainer extends React.Component {
 }
 
 ProfileContainer.defaultProps = {
-  achievements: null,
   copilot: false,
-  country: '',
+  challenges: null,
   externalAccounts: null,
   externalLinks: null,
   info: null,
@@ -166,12 +191,15 @@ ProfileContainer.defaultProps = {
   meta: null,
   memberGroups: null,
   auth: {},
+  badges: {},
+  tcAcademyCertifications: [],
+  tcAcademyCourses: [],
 };
 
 ProfileContainer.propTypes = {
-  achievements: PT.arrayOf(PT.shape()),
+  badges: PT.shape(),
+  challenges: PT.arrayOf(PT.shape()),
   copilot: PT.bool,
-  country: PT.string,
   externalAccounts: PT.shape(),
   externalLinks: PT.arrayOf(PT.shape()),
   handleParam: PT.string.isRequired,
@@ -188,14 +216,14 @@ ProfileContainer.propTypes = {
   lookupData: PT.shape().isRequired,
   meta: PT.shape(),
   auth: PT.shape(),
+  tcAcademyCertifications: PT.arrayOf(PT.shape()),
+  tcAcademyCourses: PT.arrayOf(PT.shape()),
 };
 
 const mapStateToProps = (state, ownProps) => ({
   challenges: state.members[ownProps.match.params.handle]
     ? state.members[ownProps.match.params.handle].userMarathons : null,
-  achievements: state.profile.achievements,
   copilot: state.profile.copilot,
-  country: state.profile.country,
   externalAccounts: state.profile.externalAccounts,
   externalLinks: state.profile.externalLinks,
   handleParam: ownProps.match.params.handle,
