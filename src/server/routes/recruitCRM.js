@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * The routes related to RecruitCRM.io integration
  */
@@ -50,7 +51,12 @@ const applyOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 routes.options('/jobs/:id/apply', cors(applyOptions));
-routes.post('/jobs/:id/apply', cors(applyOptions), (req, res, next) => authenticator(authenticatorOptions)(req, res, next), upload.single('resume'), (req, res, next) => new RecruitCRMService().applyForJob(req, res, next));
+routes.post('/jobs/:id/apply', (req, res, next) => {
+  console.log('debug: /jobs/:id/apply - req.headers', req.headers);
+  console.log('debug: /jobs/:id/apply - req.body', req.body);
+  console.log('debug: /jobs/:id/apply - req.params', req.params);
+  next();
+}, cors(applyOptions), (req, res, next) => authenticator(authenticatorOptions)(req, res, next), upload.single('resume'), (req, res, next) => new RecruitCRMService().applyForJob(req, res, next));
 
 routes.options('/candidates/search', cors());
 routes.get('/candidates/search', cors(), (req, res, next) => new RecruitCRMService().searchCandidates(req, res, next));
