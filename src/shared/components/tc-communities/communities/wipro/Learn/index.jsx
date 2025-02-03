@@ -15,6 +15,7 @@ import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
 */
 import Banner from 'components/tc-communities/Banner';
 /*
+import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import ArticleCard from 'components/tc-communities/ArticleCard';
 import LinksCard from 'components/tc-communities/LinksCard';
 import Text from 'components/tc-communities/Text';
@@ -180,6 +181,12 @@ export default function Learn() {
           }]}
         />
       </Section>
+
+      <NewsletterSignup
+        title="Sign up for our newsletter"
+        text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+        imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
+      />
       */}
     </main>
   );

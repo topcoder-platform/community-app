@@ -1,0 +1,104 @@
+@import "~styles/mixins";
+
+.rounded-input-field {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 16px;
+  height: 72px;
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+
+  &:last-child {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    width: calc(50% - 32px); // Subtract half the gap size from each button width
+    margin-right: 32px; // Add the other half of the gap size as margin
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.input-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-text-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.input-text {
+  @include roboto-medium;
+
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  color: $tco-black;
+  flex-grow: 0;
+}
+
+.input-radio-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.input-radio {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.custom-radio {
+  position: absolute;
+  right: 16px;
+  top: 55%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 2px solid #aaa;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.input-radio:checked ~ .custom-radio {
+  border-color: #137d60;
+}
+
+.input-radio:checked ~ .custom-radio::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #137d60;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

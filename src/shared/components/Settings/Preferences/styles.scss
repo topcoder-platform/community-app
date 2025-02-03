@@ -1,0 +1,83 @@
+@import '~styles/mixins';
+
+.preferences-container {
+  background-color: $listing-filter-bg;
+  padding: $pad-xxxxl;
+  border-radius: 8px;
+  margin: 32px 0 32px;
+
+  @include xs-to-sm {
+    padding: $pad-xxl $pad-lg;
+    margin: 24px 0 24px;
+  }
+
+  .header {
+    margin: 0 0 40px;
+
+    @include xs-to-sm {
+      margin: 0 0 $pad-xxl;
+    }
+
+    h3 {
+      @include barlow-bold;
+
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 22px;
+      color: $tco-black;
+      text-transform: uppercase;
+
+      @include xs-to-md {
+        @include barlow-condensed-semi-bold;
+
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  .platform-banner {
+    background-color: $tc-white;
+    border-radius: 4px;
+    width: 100%;
+    padding: 32px;
+
+    @include xs-to-sm {
+      padding: 24px 16px;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .save-changes-btn {
+    @include roboto-bold;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 50px !important;
+    background: #137d60 !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    padding: 11px 23px;
+    margin: 0;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
+  @include xs-to-md {
+    padding: $pad-xxxxl 0 $pad-sm;
+    border-top: 2px solid $color-black-10;
+
+    .save-changes-btn {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}

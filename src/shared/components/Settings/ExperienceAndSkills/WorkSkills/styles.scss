@@ -1,0 +1,33 @@
+@import "~styles/mixins";
+
+.workSkills {
+  padding: $pad-xxxxl;
+  margin: $margin-xxxxl 0;
+  background-color: $color-black-5;
+  border-radius: 8px;
+
+  .title {
+    @include barlow-semi-bold;
+
+    font-size: 20px;
+    line-height: 22px;
+    color: inherit;
+    padding-bottom: 40px;
+    text-transform: uppercase;
+  }
+}
+
+@include xs-to-md {
+  .workSkills {
+    padding: $pad-xxl $pad-lg;
+    margin: $margin-xxl 0;
+
+    .title {
+      @include barlow-condensed-medium;
+
+      font-size: 27px;
+      line-height: 28px;
+      padding: 0 0 $pad-lg;
+    }
+  }
+}

@@ -1,0 +1,113 @@
+@import "~styles/mixins";
+
+.form-container {
+  padding: $pad-xxxxl;
+  margin: $margin-sm 0 0;
+  background-color: $color-tc-white;
+}
+
+.form-title {
+  @include barlow-semi-bold;
+
+  font-size: 20px;
+  line-height: 22px;
+  color: inherit;
+  text-transform: uppercase;
+  padding-bottom: $pad-xxxxl;
+}
+
+.form-content {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $pad-xxxxl 0 0;
+  border-top: 2px solid $color-black-10;
+}
+
+.form-label {
+  flex: 0 0 calc(50% - 13px);
+  padding-right: 48px;
+
+  @include roboto-regular;
+
+  font-size: 16px;
+  line-height: 26px;
+  color: inherit;
+}
+
+.form-body {
+  flex: 0 0 calc(50% + 13px);
+}
+
+.form-footer {
+  // empty
+}
+
+.interestList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-items: flex-start;
+  gap: 16px 8px;
+
+  .interestListItem {
+    @include roboto-medium;
+
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    padding: ($pad-sm - 1px) ($pad-lg - 1px);
+    border: 1px solid $color-black-100;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &.selected {
+      color: $color-tc-white;
+      background-color: $color-turq-160;
+      border-color: $color-turq-160;
+    }
+  }
+
+  @include xs-to-md {
+    gap: 8px;
+
+    .interestListItem {
+      padding: ($pad-xs - 1px) ($pad-lg - 1px);
+    }
+  }
+}
+
+@include xs-to-md {
+  .form-container {
+    padding: $pad-xxl $pad-lg;
+  }
+
+  .form-title {
+    @include barlow-condensed-medium;
+
+    font-size: 22px;
+    line-height: 24px;
+    padding-bottom: $pad-xxl;
+  }
+
+  .form-content {
+    padding: $pad-xxl 0 0;
+  }
+
+  .form-label {
+    flex: 1 1 100%;
+    padding: 0;
+    margin-bottom: $margin-xxl;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .form-body {
+    flex: 1 1 100%;
+  }
+
+  .form-footer {
+    margin: 0;
+  }
+}

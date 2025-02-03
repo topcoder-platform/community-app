@@ -1,0 +1,24 @@
+{
+    "serviceProviderType": [
+        {
+            "key": "serviceProviderType",
+            "name": "Internet Service Provider"
+        },
+        {
+            "key": "serviceProviderType",
+            "name": "Mobile Carrier"
+        },
+        {
+            "key": "serviceProviderType",
+            "name": "Television"
+        },
+        {
+            "key": "serviceProviderType",
+            "name": "Financial Institution"
+        },
+        {
+            "key": "serviceProviderType",
+            "name": "Other"
+        }
+    ]
+}

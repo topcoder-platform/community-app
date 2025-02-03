@@ -13,9 +13,11 @@ import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import { config } from 'topcoder-react-utils';
 import Viewport from 'components/Contentful/Viewport';
 import TopcoderTime from 'components/Dashboard/TCTime';
+import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
 // deprecated with https://topcoder.atlassian.net/browse/CORE-346
 // import GigsFeed from 'containers/Dashboard/GigsFeed';
 import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
+import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
 import MetaTags from 'components/MetaTags';
 // deprecated with https://topcoder.atlassian.net/browse/TOP-1390
 // import NewsFeed from './NewsFeed';
@@ -40,7 +42,7 @@ function SlashTCContainer(props) {
 
   useEffect(() => {
     if (props.tokenV3 && !isTokenExpired(props.tokenV3)) return;
-    let url = `retUrl=${encodeURIComponent(`${window.location.origin}${window.location.pathname}`)}`;
+    let url = `retUrl=${encodeURIComponent(location.href)}`;
     url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-home-page`;
     location.href = url;
   }, [props.tokenV3]);
@@ -72,6 +74,8 @@ function SlashTCContainer(props) {
               {/* deprecated with https://topcoder.atlassian.net/browse/TOP-1390 */}
               {/* <NewsFeed /> */}
               { isDevEnv ? <Viewport id="2qVJTorSdRVNlfRqoQocUH" /> : <Viewport id="SSwOFPT8l0WpGhqCBRISG" /> }
+              <ThriveArticlesFeedContainer itemCount={4} theme="light" />
+              <BlogFeedContainer itemCount={4} theme="light" />
               { isDevEnv ? <Viewport id="2tq6jtu9GzPab7lAb7swlT" /> : <Viewport id="6sjlJHboX3aG3mFS5FnZND" /> }
             </div>
           </div>
@@ -80,6 +84,8 @@ function SlashTCContainer(props) {
             {/* Left column */}
             <div className={theme.column}>
               <TopcoderTime />
+              <ThriveArticlesFeedContainer itemCount={4} theme="light" />
+              <BlogFeedContainer itemCount={4} theme="light" />
               { isDevEnv ? <Viewport id="2tq6jtu9GzPab7lAb7swlT" /> : <Viewport id="6sjlJHboX3aG3mFS5FnZND" /> }
             </div>
             {/* Center column */}

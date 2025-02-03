@@ -81,6 +81,7 @@
   "allNotificationsUrl": "https://www.topcoder.com/notifications",
   "policiesUrl": "https://www.topcoder.com/policy",
   "username": "CustomerUser",
+  "password": "appirio123",
   "email": "topcoderconnect@gmail.com",
   "challangesLinks": {
     "rssFeedUrl": "http://feeds.topcoder.com/challenges/feed",

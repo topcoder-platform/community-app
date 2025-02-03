@@ -81,6 +81,7 @@
   "allNotificationsUrl": "http://localhost:3000/notifications",
   "policiesUrl": "http://localhost:3000/policy",
   "username": "Tonyj",
+  "password": "appirio123",
   "email": "topcoderconnect@gmail.com",
   "challangesLinks": {
     "rssFeedUrl": "http://feeds.topcoder.com/challenges/feed",

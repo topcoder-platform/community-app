@@ -11,6 +11,7 @@ import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
+import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 import Text from 'components/tc-communities/Text';
@@ -135,6 +136,12 @@ export default function Home({ news }) {
       </Section>
 
       <NewsSection news={news} />
+
+      <NewsletterSignup
+        title="3 key crowdsourcing stories, 1x per month"
+        text="Get the Topcoder crowdsourcing newsletter, today!"
+        imageSrc="/community-app-assets/themes/taskforce/subscribe-bg.jpg"
+      />
 
     </main>
   );

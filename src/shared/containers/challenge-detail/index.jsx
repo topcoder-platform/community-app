@@ -327,7 +327,7 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.props;
     if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
-      window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(`${window.location.origin}${window.location.pathname}`)}&utm_source=${utmSource}&regSource=challenges`;
+      window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}&regSource=challenges`;
     } else {
       // Show security reminder to all registrants
       this.setState({

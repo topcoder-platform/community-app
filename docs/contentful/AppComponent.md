@@ -46,6 +46,8 @@ Render top spots and list of competitors on specific TCO track.
 
 A block that fetches and renders a job listing page driven by recruitCRM.
 
+### Type = `EmailSubscribeForm`
+
 Generic subscribe for MailChimp tags component.
 
 - **listId** | **String (Required).**

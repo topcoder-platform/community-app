@@ -1,0 +1,61 @@
+@import "../../style";
+
+a.SideItem {
+  @include tc-body-md;
+
+  line-height: 25px;
+  color: $tc-black;
+  text-transform: capitalize;
+  text-decoration: none;
+  cursor: pointer;
+  height: 100%;
+  padding-left: 21px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+
+  @include from-sm-to-lg {
+    width: 60px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  img {
+    margin-right: 14px;
+    width: 34px;
+    max-height: 30px;
+
+    @include from-sm-to-lg {
+      margin-right: 0;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.active-tab {
+    background-color: #ededf2;
+    font-weight: 700;
+  }
+
+  .svg-container {
+    display: flex;
+    justify-content: center;
+    margin-right: 12px;
+
+    @include from-sm-to-lg {
+      margin-right: 0;
+    }
+
+    svg {
+      padding: 1px 0;
+    }
+  }
+
+  span.name {
+    @include from-sm-to-lg {
+      display: none;
+    }
+  }
+}

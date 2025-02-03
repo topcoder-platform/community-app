@@ -44,7 +44,6 @@ import './style.scss';
 /* global window, document */
 
 const BASE_URL = config.URL.BASE;
-const VALID_BASE_URLS = ['https://www.topcoder-dev.com', 'https://www.topcoder.com'];
 
 const MENU = [{
   title: 'Compete',
@@ -427,13 +426,9 @@ export default class TopcoderHeader extends React.Component {
             ref={(input) => { this.searchInput = input; }}
             onKeyPress={(event) => {
               if (event.key === 'Enter') {
-                if (!VALID_BASE_URLS.includes(BASE_URL)) {
-                  return;
-                }
-                const query = event.target.value.trim();
-                const url = new URL(`${BASE_URL}/search/members`);
-                url.searchParams.append('q', query);
-                window.location = url.href;
+                window.location = `${BASE_URL}/search/members?q=${
+                  encodeURIComponent(event.target.value)
+                }`;
               }
             }}
             onBlur={closeSearch}
