@@ -88,6 +88,7 @@ export default class Service {
       headers: new Headers({
         Authorization: `Bearer ${tokenV3}`,
       }),
+      credentials: 'omit',
     });
     if (!res.ok) {
       const error = new Error('Failed to apply for job');
