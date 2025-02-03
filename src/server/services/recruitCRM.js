@@ -155,6 +155,7 @@ export default class RecruitCRMService {
           'Content-Type': req.headers['content-type'],
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
       });
       if (response.status === 429) {
         await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
@@ -198,6 +199,7 @@ export default class RecruitCRMService {
           'Content-Type': req.headers['content-type'],
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
       });
       if (response.status === 429) {
         await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
@@ -243,6 +245,7 @@ export default class RecruitCRMService {
           'Content-Type': 'application/json',
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
       });
       if (response.status === 429) {
         await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
@@ -267,6 +270,7 @@ export default class RecruitCRMService {
               'Content-Type': 'application/json',
               Authorization: this.private.authorization,
             },
+            credentials: 'omit',
           })),
         )
           .then(async (allPages) => {
@@ -311,6 +315,7 @@ export default class RecruitCRMService {
           'Content-Type': req.headers['content-type'],
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
       });
       if (response.status === 429) {
         await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
@@ -336,6 +341,7 @@ export default class RecruitCRMService {
               'Content-Type': req.headers['content-type'],
               Authorization: this.private.authorization,
             },
+            credentials: 'omit',
           })),
         )
           .then(async (allPages) => {
@@ -382,6 +388,7 @@ export default class RecruitCRMService {
           'Content-Type': req.headers['content-type'],
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
       });
       if (response.status === 429) {
         await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
@@ -430,6 +437,7 @@ export default class RecruitCRMService {
           'Content-Type': req.headers['content-type'],
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
       });
       if (candidateResponse.status >= 300) {
         const error = {
@@ -480,6 +488,7 @@ export default class RecruitCRMService {
           'Content-Type': 'application/json',
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
         body: JSON.stringify(form),
       });
       if (workCandidateResponse.status >= 300) {
@@ -503,6 +512,7 @@ export default class RecruitCRMService {
             Authorization: this.private.authorization,
             ...formHeaders,
           },
+          credentials: 'omit',
           body: fileData,
         });
         if (fileCandidateResponse.status >= 300) {
@@ -528,6 +538,7 @@ export default class RecruitCRMService {
           'Content-Type': req.headers['content-type'],
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
       });
       if (applyResponse.status >= 300) {
         const errObj = await applyResponse.json();
@@ -554,6 +565,7 @@ export default class RecruitCRMService {
           'Content-Type': 'application/json',
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
         body: JSON.stringify({
           candidate_slug: candidateData.slug,
           job_slug: id,
@@ -682,6 +694,7 @@ export default class RecruitCRMService {
           'Content-Type': 'application/json',
           Authorization: this.private.authorization,
         },
+        credentials: 'omit',
         body: JSON.stringify(form),
       });
       if (response.status >= 300) {
@@ -704,6 +717,7 @@ export default class RecruitCRMService {
             Authorization: this.private.authorization,
             ...formHeaders,
           },
+          credentials: 'omit',
           body: fileData,
         });
         if (fileResponse.status >= 300) {
@@ -740,6 +754,7 @@ export default class RecruitCRMService {
       headers: {
         Authorization: this.private.authorization,
       },
+      credentials: 'omit',
     });
     if (response.status === 429) {
       await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
