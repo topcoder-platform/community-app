@@ -11,7 +11,6 @@ import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
@@ -104,12 +103,6 @@ export default function Home({ news }) {
       </Section>
 
       <NewsSection news={news} />
-
-      <NewsletterSignup
-        title="Sign up for Topcoder Product Development Updates"
-        text="Don’t miss out opportunities to work on the Topcoder Platform!"
-        imageSrc="/community-app-assets/themes/tc-prod-dev/subscribe-bg.jpg"
-      />
 
     </main>
   );
