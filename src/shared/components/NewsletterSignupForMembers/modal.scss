@@ -1,0 +1,51 @@
+@import "~styles/mixins";
+@import "~components/Contentful/default";
+
+.container {
+  padding: 90px 60px;
+  width: 629px;
+  height: 440px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.overlay {
+  background-color: #2a2a2a;
+  opacity: 0.95;
+}
+
+.modalMsg {
+  @include tc-body-md;
+  @include gui-kit-headers;
+
+  margin: 24px 0;
+  color: #2a2a2a;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #1e94a3;
+    text-align: center;
+  }
+
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    padding: 0 50px;
+  }
+}
+
+.buttons {
+  text-align: center;
+}

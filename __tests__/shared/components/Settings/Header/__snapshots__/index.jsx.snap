@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders setting page header correctly 1`] = `
+<div
+  className="src-shared-components-Settings-Header-___styles__Header___2G763"
+>
+  <ThemedButton
+    active={false}
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
+    disabled={false}
+    enforceA={false}
+    mapThemrProps={[Function]}
+    onClick={null}
+    onMouseDown={null}
+    openNewTab={false}
+    replace={false}
+    size={null}
+    theme={
+      Object {
+        "button": "src-shared-components-Settings-Header-styles___saveButton___1u3q7x",
+      }
+    }
+    themePriority="adhoc-context-default"
+    to={null}
+    type="button"
+  >
+    <span>
+      SAVE CHANGES
+    </span>
+  </ThemedButton>
+</div>
+`;

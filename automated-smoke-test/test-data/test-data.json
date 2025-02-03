@@ -1,6 +1,7 @@
 {
   "login": {
-    "invalidUsername": "gjhhvv"
+    "invalidUsername": "gjhhvv",
+    "invalidPassword": "invalidpassword"
   },
   "tools": {
     "subscription": "Sample A",

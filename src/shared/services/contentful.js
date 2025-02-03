@@ -246,9 +246,7 @@ class Service {
     url += this.private.preview ? '/preview' : '/published';
     url += '/entries';
     if (query) url += `?${qs.stringify(query)}`;
-    const res = await fetch(url, {
-      credentials: 'omit',
-    });
+    const res = await fetch(url);
     if (!res.ok) {
       const error = new Error('Failed to get entries.');
       logger.error(error);

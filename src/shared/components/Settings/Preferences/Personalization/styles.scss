@@ -1,0 +1,15 @@
+@import "../../style";
+
+.Personalization {
+  .title {
+    @include tc-heading-lg;
+
+    margin-bottom: 25px;
+
+    @include upto-sm {
+      font-size: 20px;
+      line-height: 30px;
+      margin: 20px;
+    }
+  }
+}

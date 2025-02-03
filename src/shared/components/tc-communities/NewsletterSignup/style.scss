@@ -1,0 +1,108 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  background: center no-repeat;
+  background-size: cover;
+  height: 300px;
+  position: relative;
+  align-items: center;
+  text-align: center;
+
+  &::before {
+    background-color: rgba(#394146, 0.7);
+    bottom: 0;
+    content: '';
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  @include xs-to-sm {
+    height: auto;
+  }
+}
+
+.content {
+  margin: 0 auto;
+  position: relative;
+  width: 960px;
+
+  @include md {
+    width: 720px;
+  }
+
+  @include xs-to-sm {
+    padding: 20px 15px 37px;
+    width: auto;
+  }
+}
+
+.title {
+  color: #fff;
+  font: 600 32px/134.38% 'Open Sans', sans-serif;
+
+  @include xs-to-sm {
+    font-size: 24px;
+  }
+}
+
+.text {
+  color: #fff;
+  font: 18px/133.33% 'Open Sans', sans-serif;
+  margin-top: 20px;
+
+  @include xs-to-sm {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+}
+
+.form {
+  display: inline-block;
+  border-radius: 25px;
+  margin-top: 40px;
+  overflow: hidden;
+
+  @include xs-to-sm {
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+input:not([type="checkbox"]).formEmail {
+  background-color: #fff;
+  border: 0;
+  color: #394146;
+  font: 14px/50px 'Open Sans', sans-serif;
+  height: 50px;
+  margin: 0;
+  outline: none;
+  padding: 0 25px;
+  width: 326px;
+
+  @include placeholder {
+    color: #a3a3ae;
+    font: 14px/50px 'Open Sans', sans-serif;
+    text-transform: none;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    border: 0;
+  }
+
+  @include xs-to-sm {
+    flex-grow: 1;
+    width: 100%;
+  }
+}
+
+.formButton {
+  margin: 0 !important;
+  text-transform: uppercase;
+}

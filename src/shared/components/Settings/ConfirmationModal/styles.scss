@@ -1,0 +1,191 @@
+@import "~styles/mixins";
+
+.modal-overlay {
+  background-color: rgba($color-tc-black, 0.85);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border-radius: 8px;
+  overflow-y: auto;
+  background: none;
+  top: 0;
+  left: 0;
+  transform: none;
+
+  .close {
+    padding: 0;
+    margin: 0 0 0 auto;
+    min-height: 0;
+  }
+}
+
+.modal-dialog {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.modal-content {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  color: $color-black-100;
+  max-width: 794px;
+  background-color: $color-tc-white;
+  border-radius: 8px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 32px;
+  width: 100%;
+}
+
+.modal-header {
+  @include barlow-bold;
+
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding: $pad-xxxl $pad-xxxxl $pad-xxxxl;
+  border-radius: 8px 8px 0 0;
+}
+
+.modal-body {
+  @include roboto-bold;
+
+  flex: auto;
+  display: flex;
+  padding: 0 $pad-xxxxl;
+
+  .title {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    padding: 24px 0;
+    align-items: center;
+    border-top: 2px solid $color-black-10;
+    border-bottom: 2px solid $color-black-10;
+    width: 100%;
+
+    span {
+      font-weight: 800;
+      margin-left: 5px;
+    }
+
+    @include xs-to-sm {
+      font-size: 16px;
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  padding: 24px 0;
+  border-radius: 0 0 8px 8px;
+  margin-right: 24px;
+
+  @include xs-to-md {
+    padding: $pad-lg;
+    margin: 0 $margin-lg 0;
+    width: 100%;
+    padding-right: 24px !important;
+  }
+}
+
+@include xs-to-md {
+  .modal {
+    padding: 0 20px;
+    overflow-y: auto;
+    height: 100%;
+    max-height: 100%;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    z-index: 999999;
+  }
+
+  .modal-content {
+    min-height: 120px;
+  }
+
+  .modal-header {
+    @include roboto-bold;
+
+    font-size: 16px;
+    line-height: 20px;
+    padding: $pad-lg;
+    border-radius: 0;
+  }
+
+  .modal-body {
+    padding: 0 $pad-lg;
+    flex-direction: column;
+  }
+
+  .modal-footer {
+    padding: $pad-lg;
+    margin: 0 $margin-lg 0;
+    border-radius: 0;
+  }
+}
+
+@include xs-to-sm {
+  .modal-content {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.button-save-ghost {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  color: #137d60 !important;
+  text-transform: uppercase;
+  background-color: #fff !important;
+  border: 2px solid #137d60 !important;
+
+  &:hover {
+    background-color: #fff !important;
+    background-image: none !important;
+    border-color: #137d60 !important;
+  }
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.button-save {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: $color-turq-160 !important;
+  color: $color-tc-white !important;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

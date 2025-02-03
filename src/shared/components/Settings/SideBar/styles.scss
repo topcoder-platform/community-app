@@ -1,0 +1,21 @@
+@import "../style";
+
+nav.side-tab ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include from-sm-to-lg {
+    align-items: center;
+  }
+
+  li {
+    height: 45px;
+    margin-bottom: 20px;
+
+    @include from-sm-to-lg {
+      height: 50px;
+      margin-bottom: 10px;
+    }
+  }
+}

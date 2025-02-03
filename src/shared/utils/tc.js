@@ -212,7 +212,7 @@ export async function getM2mToken() {
  */
 export function goToLogin(utmSource = '') {
   if (isomorphy.isClientSide()) {
-    const retUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
+    const retUrl = encodeURIComponent(window.location.href);
     window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${utmSource}`;
   }
 }
