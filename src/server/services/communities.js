@@ -71,7 +71,7 @@ const getValidIds = async (METADATA_PATH) => {
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(`Error processing metadata for ID: ${id}`, e.message);
-        return null;
+        return [];
       }
     });
 
