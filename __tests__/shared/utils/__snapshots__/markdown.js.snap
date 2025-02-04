@@ -1203,7 +1203,7 @@ Array [
         A list item with a code block:
       </p>
       <code>
-        &lt;code goes here&gt;
+        &lt;code&gt;
 
       </code>
     </li>
@@ -1294,7 +1294,7 @@ end tell
     ampersands and angle brackets. For example, this:
   </p>,
   <code>
-    &lt;div class="footer"&gt;
+    &lt;div&gt;
     &copy; 2004 Foo Corporation
 &lt;/div&gt;
 

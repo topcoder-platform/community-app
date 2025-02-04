@@ -21,6 +21,7 @@ const PREVIEW_URL = 'https://preview.contentful.com/spaces';
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
 
+export const ALLOWED_DOMAINS = [ASSETS_DOMAIN, IMAGES_DOMAIN];
 const MAX_FETCH_RETRIES = 5;
 
 /**
@@ -234,6 +235,7 @@ export function getService(spaceName, environment, preview) {
   if (!services[name][env]) {
     throw new Error(`environment  : '${env}' is not configured for space : '${name}.`);
   }
+
   const service = services[name][env];
   return preview ? service.previewService : service.cdnService;
 }

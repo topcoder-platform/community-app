@@ -12,6 +12,7 @@ import {
   getService,
   getSpaceId,
   articleVote,
+  ALLOWED_DOMAINS,
 } from '../services/contentful';
 
 const cors = require('cors');
@@ -29,15 +30,23 @@ routes.options('*', cors());
 routes.use(
   '/:spaceName/:environment/assets/:id/:version/:name',
   (req, res) => {
-    const {
-      environment,
-      id,
-      name,
-      spaceName,
-      version,
-    } = req.params;
-    const spaceId = getSpaceId(spaceName);
-    res.redirect(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+    try {
+      const {
+        environment,
+        id,
+        name,
+        spaceName,
+        version,
+      } = req.params;
+      const spaceId = getSpaceId(spaceName);
+      if (!ALLOWED_DOMAINS.includes(ASSETS_DOMAIN)) {
+        throw new Error('Invalid domain detected!');
+      }
+      const url = new URL(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+      res.redirect(url.href);
+    } catch (e) {
+      console.log('error in getting asset', e);
+    }
   },
 );
 
@@ -45,15 +54,23 @@ routes.use(
 routes.use(
   '/:spaceName/:environment/images/:id/:version/:name',
   (req, res) => {
-    const {
-      environment,
-      id,
-      name,
-      spaceName,
-      version,
-    } = req.params;
-    const spaceId = getSpaceId(spaceName);
-    res.redirect(`https://${IMAGES_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+    try {
+      const {
+        environment,
+        id,
+        name,
+        spaceName,
+        version,
+      } = req.params;
+      if (!ALLOWED_DOMAINS.includes(IMAGES_DOMAIN)) {
+        throw new Error('Invalid domain detected!');
+      }
+      const spaceId = getSpaceId(spaceName);
+      const url = new URL(`https://${IMAGES_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
+      res.redirect(url.href);
+    } catch (e) {
+      console.log('error in getting image', e);
+    }
   },
 );
 
@@ -93,44 +110,64 @@ routes.use('/:spaceName/:environment/preview/entries', (req, res, next) => {
 routes.use(
   '/:spaceName/:environment/published/assets/:id',
   (req, res, next) => {
-    const { environment, id, spaceName } = req.params;
-    getService(spaceName, environment, false)
-      .getAsset(id)
-      .then(res.send.bind(res), next);
+    try {
+      const { environment, id, spaceName } = req.params;
+      getService(spaceName, environment, false)
+        .getAsset(id)
+        .then(res.send.bind(res), next);
+    } catch (e) {
+      next(e);
+    }
   },
 );
 
 /* Queries published assets of a given space name & environment. */
 routes.use(':spaceName/:environment/published/assets', (req, res, next) => {
-  const { environment, spaceName } = req.params;
-  getService(spaceName, environment, false)
-    .queryAssets(req.query)
-    .then(res.send.bind(res), next);
+  try {
+    const { environment, spaceName } = req.params;
+    getService(spaceName, environment, false)
+      .queryAssets(req.query)
+      .then(res.send.bind(res), next);
+  } catch (e) {
+    next(e);
+  }
 });
 
 /* Gets the specified published entry of a given space name & environment. */
 routes.use(
   '/:spaceName/:environment/published/entries/:id',
   (req, res, next) => {
-    const { environment, id, spaceName } = req.params;
-    getService(spaceName, environment, false)
-      .getEntry(id)
-      .then(res.send.bind(res), next);
+    try {
+      const { environment, id, spaceName } = req.params;
+      getService(spaceName, environment, false)
+        .getEntry(id)
+        .then(res.send.bind(res), next);
+    } catch (e) {
+      next(e);
+    }
   },
 );
 
 /* Queries published entries of a given space name and environment. */
 routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
-  const { environment, spaceName } = req.params;
-  getService(spaceName, environment, false)
-    .queryEntries(req.query)
-    .then(res.send.bind(res), next);
+  try {
+    const { environment, spaceName } = req.params;
+    getService(spaceName, environment, false)
+      .queryEntries(req.query)
+      .then(res.send.bind(res), next);
+  } catch (e) {
+    next(e);
+  }
 });
 
 /* Update votes on article. */
 routes.use('/:spaceName/:environment/votes', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => {
-  articleVote(req.body)
-    .then(res.send.bind(res), next);
+  try {
+    articleVote(req.body)
+      .then(res.send.bind(res), next);
+  } catch (e) {
+    next(e);
+  }
 });
 
 export default routes;

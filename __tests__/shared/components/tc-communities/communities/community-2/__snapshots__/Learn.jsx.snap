@@ -255,19 +255,5 @@ exports[`Match shadow snapshot 1`] = `
       title="Useful Links"
     />
   </ThemedSection>
-  <ThemedNewsletterSignup
-    apikey=""
-    buttonText="Sign Up"
-    composeAdhocTheme="deeply"
-    composeContextTheme="softly"
-    emailPlaceholder="Email address"
-    imageSrc="/community-app-assets/themes/community-2/subscribe-bg.jpg"
-    mapThemrProps={[Function]}
-    text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-    theme={Object {}}
-    themePriority="adhoc-context-default"
-    title="Sign up for our newsletter"
-    url=""
-  />
 </main>
 `;

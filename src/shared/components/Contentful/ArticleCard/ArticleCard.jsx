@@ -64,6 +64,11 @@ class ArticleCard extends React.Component {
       themeName,
     } = this.props;
 
+    if (!theme) {
+      // eslint-disable-next-line no-console
+      console.log('ArticleCard: missing theme property');
+    }
+
     // determine if article cards will redirect to external link or article details page
     const articlePageUrl = article.externalArticle && article.contentUrl
       ? article.contentUrl
