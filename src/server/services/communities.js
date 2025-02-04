@@ -44,13 +44,13 @@ const getValidIds = async (METADATA_PATH) => {
         // Check if the file exists
         await promisify(fs.access)(uri);
 
-        // Get file stats
-        const stats = await promisify(fs.stat)(uri);
-        const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
-        if (stats.size > MAX_FILE_SIZE) {
-          console.warn(`Metadata file too large for ID: ${id}`);
-          return null; // Exclude invalid ID
-        }
+        // // Get file stats
+        // const stats = await promisify(fs.stat)(uri);
+        // const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
+        // if (stats.size > MAX_FILE_SIZE) {
+        //   console.warn(`Metadata file too large for ID: ${id}`);
+        //   return null; // Exclude invalid ID
+        // }
 
         // Parse and validate JSON
         const meta = JSON.parse(await promisify(fs.readFile)(uri, 'utf8'));
@@ -61,6 +61,7 @@ const getValidIds = async (METADATA_PATH) => {
             if (typeof subdomain === 'string') {
               SUBDOMAIN_COMMUNITY[subdomain] = id;
             } else {
+              // eslint-disable-next-line no-console
               console.warn(`Invalid subdomain entry for ID: ${id}`);
             }
           });
@@ -68,6 +69,7 @@ const getValidIds = async (METADATA_PATH) => {
 
         return id;
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error(`Error processing metadata for ID: ${id}`, e.message);
         return null;
       }
@@ -76,6 +78,7 @@ const getValidIds = async (METADATA_PATH) => {
     const results = await Promise.all(validationPromises);
     VALID_IDS = results.filter(id => id !== null);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(`Error reading metadata directory: ${METADATA_PATH}`, err.message);
     return [];
   }

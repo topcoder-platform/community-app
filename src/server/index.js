@@ -48,11 +48,11 @@ const getTimestamp = async () => {
       throw new Error('Invalid file path detected');
     }
 
-    const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
-    const stats = await promisify(fs.stat)(filePath);
-    if (stats.size > MAX_FILE_SIZE) {
-      throw new Error('File is too large and may cause DoS issues');
-    }
+    // const MAX_FILE_SIZE = 10 * 1024; // 10 KB max file size
+    // const stats = await promisify(fs.stat)(filePath);
+    // if (stats.size > MAX_FILE_SIZE) {
+    //   throw new Error('File is too large and may cause DoS issues');
+    // }
 
     const fileContent = await promisify(fs.readFile)(filePath, 'utf-8');
 
