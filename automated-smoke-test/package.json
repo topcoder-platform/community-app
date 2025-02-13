@@ -7,7 +7,7 @@
     "@types/node": "^12.7.8",
     "exceljs": "^1.13.0",
     "jasmine": "^3.4.0",
-    "jasmine-reporters": "^2.3.2",
+    "jasmine-reporters": "^2.5.1",
     "jsdom": "^15.1.1",
     "lodash": "^4.17.19",
     "mail-listener2": "^0.3.1",
