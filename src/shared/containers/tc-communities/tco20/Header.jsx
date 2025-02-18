@@ -25,8 +25,8 @@ function TCO20Header(props) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <a href={`${config.URL.AUTH}/member?utm_source=TCO20site&retUrl=${getCurrentUrl()}`} className={defaultStyle.loginLink}>LOGIN</a>
-            <a href={`${config.URL.AUTH}/member/registration?utm_source=TCO20site&retUrl=${getCurrentUrl()}`} className={defaultStyle.signUpLink}>SIGN UP</a>
+            <a href={`${config.URL.AUTH}/member?utm_source=TCO20site&retUrl=${encodeURIComponent(getCurrentUrl())}`} className={defaultStyle.loginLink}>LOGIN</a>
+            <a href={`${config.URL.AUTH}/member/registration?utm_source=TCO20site&retUrl=${encodeURIComponent(getCurrentUrl())}`} className={defaultStyle.signUpLink}>SIGN UP</a>
           </React.Fragment>
         )
       }
