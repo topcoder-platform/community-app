@@ -36,7 +36,7 @@ const ChallengeCardPlaceholder = ({ id }) => (
 );
 
 ChallengeCardPlaceholder.defaultProps = {
-  id: Math.random(),
+  id: 0,
 };
 
 ChallengeCardPlaceholder.propTypes = {
