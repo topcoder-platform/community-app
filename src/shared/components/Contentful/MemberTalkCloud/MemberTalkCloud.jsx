@@ -10,6 +10,7 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
 import defaultTheme from './themes/default.scss';
+import { getSecureRandomIndex } from 'utils/secureRandom';
 
 const MAX_MARGIN_TOP = 0;
 const MIN_MARGIN_LEFT = -20;
@@ -17,7 +18,7 @@ const MAX_MARGIN_LEFT = 30;
 
 const getRandomTranslate = () => ({
   y: MAX_MARGIN_TOP,
-  x: _.random(MIN_MARGIN_LEFT, MAX_MARGIN_LEFT, false),
+  x: getSecureRandomIndex(MIN_MARGIN_LEFT, MAX_MARGIN_LEFT),
 });
 
 export class MemberTalkCloud extends React.Component {
