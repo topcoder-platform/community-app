@@ -5,9 +5,9 @@ const getCryptoLibrary = () => {
   /* eslint-disable global-require */
   const nodeCrypto = require('crypto');
   return nodeCrypto;
-}
+};
 
-export default getSecureRandomIndex = (min, max) => {
+export default function(min, max) {  
   const crypto = getCryptoLibrary();
   const random = new Uint32Array(1);
   if (typeof crypto.getRandomValues === 'function') {
