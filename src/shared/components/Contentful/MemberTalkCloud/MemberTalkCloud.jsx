@@ -9,8 +9,8 @@ import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
+import getSecureRandomIndex from 'utils/secureRandom';
 import defaultTheme from './themes/default.scss';
-import { getSecureRandomIndex } from 'utils/secureRandom';
 
 const MAX_MARGIN_TOP = 0;
 const MIN_MARGIN_LEFT = -20;

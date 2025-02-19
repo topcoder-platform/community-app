@@ -34,7 +34,7 @@ import IconFacebook from 'assets/images/icon-facebook.svg';
 import IconTwitter from 'assets/images/icon-twitter.svg';
 import IconLinkedIn from 'assets/images/icon-linkedIn.svg';
 import DiscordIconWhite from 'assets/images/tc-edu/discord-icon-white.svg';
-import { getSecureRandomIndex } from 'utils/secureRandom';
+import getSecureRandomIndex from 'utils/secureRandom';
 
 const htmlToText = require('html-to-text');
 

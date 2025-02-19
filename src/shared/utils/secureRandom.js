@@ -1,13 +1,13 @@
 const getCryptoLibrary = () => {
   if (typeof window !== 'undefined' && window.crypto) {
     return window.crypto;
-  } else if (typeof process !== 'undefined' && process.versions && process.versions.node) {
-    const nodeCrypto = require('crypto');
-    return nodeCrypto;
   }
+  /* eslint-disable global-require */
+  const nodeCrypto = require('crypto');
+  return nodeCrypto;
 }
 
-export const getSecureRandomIndex = (min, max) => {
+export default getSecureRandomIndex = (min, max) => {
   const crypto = getCryptoLibrary();
   const random = new Uint32Array(1);
   if (typeof crypto.getRandomValues === 'function') {
@@ -18,8 +18,8 @@ export const getSecureRandomIndex = (min, max) => {
 
   if (!max) {
     return random[0] % min;
-  } else {
-    const range = max - min + 1;
-    return min + (random[0] % range);
   }
+
+  const range = max - min + 1;
+  return min + (random[0] % range);
 };
