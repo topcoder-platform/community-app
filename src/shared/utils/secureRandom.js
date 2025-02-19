@@ -7,7 +7,7 @@ const getCryptoLibrary = () => {
   return nodeCrypto;
 };
 
-export default function(min, max) {  
+export default function (min, max) {
   const crypto = getCryptoLibrary();
   const random = new Uint32Array(1);
   if (typeof crypto.getRandomValues === 'function') {
@@ -22,4 +22,4 @@ export default function(min, max) {
 
   const range = max - min + 1;
   return min + (random[0] % range);
-};
+}
