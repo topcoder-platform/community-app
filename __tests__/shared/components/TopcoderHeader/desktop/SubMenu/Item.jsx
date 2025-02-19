@@ -1,6 +1,6 @@
 import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
-import Item from 'components/TopcoderHeader/desktop/SubMenu/Item';
+import Item from 'components/SubMenu/Item';
 
 test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
