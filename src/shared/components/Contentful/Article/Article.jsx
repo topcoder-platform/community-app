@@ -34,7 +34,6 @@ import IconFacebook from 'assets/images/icon-facebook.svg';
 import IconTwitter from 'assets/images/icon-twitter.svg';
 import IconLinkedIn from 'assets/images/icon-linkedIn.svg';
 import DiscordIconWhite from 'assets/images/tc-edu/discord-icon-white.svg';
-import getSecureRandomIndex from 'utils/secureRandom';
 
 const htmlToText = require('html-to-text');
 
@@ -46,7 +45,8 @@ const LOCAL_STORAGE_KEY = 'VENBcnRpY2xlVm90ZXM=';
 const DEFAULT_BANNER_IMAGE = 'https://images.ctfassets.net/piwi0eufbb2g/7v2hlDsVep7FWufHw0lXpQ/2505e61a880e68fab4e80cd0e8ec1814/0C37CB5E-B253-4804-8935-78E64E67589E.png?w=1200&h=630';
 // random ads banner - left sidebar
 const RANDOM_BANNERS = ['6G8mjiTC1mzeSQ2YoUG1gB', '1DnDD02xX1liHfSTf5Vsn8', 'HQZ3mN0rR92CbNTkKTHJ5', '1OLoX8ZsvjAnn4TdGbZESD', '77jn01UGoQe2gqA7x0coQD'];
-const RANDOM_BANNER = RANDOM_BANNERS[getSecureRandomIndex(RANDOM_BANNERS.length)];
+// For now fixing it to first banner as using Math.random is flagged as security issue
+const RANDOM_BANNER = RANDOM_BANNERS[0];
 
 class Article extends React.Component {
   componentDidMount() {
