@@ -93,7 +93,7 @@ export class MemberTalkCloud extends React.Component {
           <img
             alt={activeBlob.handle}
             src={activeBlob.imageURL}
-            key={Math.random()}
+            key={getSecureRandomIndex(0, 1000)}
           />
           <span className={theme.activeHandle}>{activeBlob.handle}</span>
           <div className={blob}>
