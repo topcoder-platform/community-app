@@ -132,7 +132,7 @@ export async function getMetadata(communityId) {
     communityId, 'metadata.json',
   );
   try {
-    metadata = JSON.parse(fs.readFileSync(uri, 'utf8'));
+    metadata = JSON.parse(await promisify(fs.readFile)(uri, 'utf8'));
   } catch (error) {
     const msg = `Failed to get metadata for ${communityId} community`;
     logger.error(msg, error);

@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <li
-  className="src-shared-components-TopcoderHeader-desktop-SubMenu-Item-___style__item___2Q-ud src-shared-components-TopcoderHeader-desktop-SubMenu-Item-___style__current___38PHh"
+  className="src-shared-components-SubMenu-Item-___style__item___2U0li src-shared-components-SubMenu-Item-___style__current___3WfNb"
   role="button"
   tabIndex={0}
 >
@@ -21,7 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <li
-  className="src-shared-components-TopcoderHeader-desktop-SubMenu-Item-___style__item___2Q-ud"
+  className="src-shared-components-SubMenu-Item-___style__item___2U0li"
   role="button"
   tabIndex={0}
 >

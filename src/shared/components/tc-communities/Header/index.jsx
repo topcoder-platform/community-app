@@ -8,7 +8,7 @@
 /* global window */
 
 import _ from 'lodash';
-import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
+import DesktopSubMenu from 'components/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar, PrimaryButton, Button } from 'topcoder-react-ui-kit';
