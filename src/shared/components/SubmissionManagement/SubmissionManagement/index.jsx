@@ -39,6 +39,8 @@ export default function SubmissionManagement(props) {
     challengeUrl,
     onlineReviewUrl,
     submissionPhaseStartDate,
+    onDownloadArtifacts,
+    getSubmissionArtifacts,
   } = props;
 
   const { track } = challenge;
@@ -70,6 +72,8 @@ export default function SubmissionManagement(props) {
     onDownload: onDownload.bind(0, challengeType),
     onlineReviewUrl,
     onShowDetails,
+    onDownloadArtifacts,
+    getSubmissionArtifacts,
   };
   return (
     <div styleName="submission-management">

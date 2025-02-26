@@ -127,6 +127,17 @@ class SubmissionManagementPageContainer extends React.Component {
 
     if (!challenge.isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
+    const getExtensionFromMime = (mimeType) => {
+      const mimeMap = {
+        'application/zip': 'zip',
+        'application/pdf': 'pdf',
+        'image/jpeg': 'jpg',
+        'image/png': 'png',
+        'text/plain': 'txt'
+      };
+      return mimeMap[mimeType] || 'zip';
+    };
+
     const isEmpty = _.isEmpty(challenge);
     const smConfig = {
       onShowDetails,
@@ -143,6 +154,26 @@ class SubmissionManagementPageContainer extends React.Component {
             link.click();
             link.parentNode.removeChild(link);
           });
+      },
+      onDownloadArtifacts: (artifactId, submissionId) => {
+        const submissionsService = getService(authTokens.tokenV3);
+        submissionsService.downloadSubmissionArtifact(submissionId, artifactId)
+          .then((blob) => {
+            const fileBlob = new Blob([blob]);
+            const url = window.URL.createObjectURL(fileBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            const extension = getExtensionFromMime(fileBlob);
+            link.setAttribute('download', `submission-artifact-${submissionId}.${extension}`);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+          });
+      },
+      getSubmissionArtifacts: (submissionId) => {
+        console.log(authTokens, 'authTokens');
+        const submissionsService = getService(authTokens.tokenV3);
+        return submissionsService.getSubmissionArtifacts(submissionId);
       },
       onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${challengeId}`,
       challengeUrl: `${challengesUrl}/${challengeId}`,

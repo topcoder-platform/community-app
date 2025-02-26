@@ -15,16 +15,19 @@
  */
 
 import _ from 'lodash';
-import React from 'react';
+import React, { useState } from 'react';
 import PT from 'prop-types';
 import shortid from 'shortid';
 import moment from 'moment';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import Submission from '../Submission';
 import ScreeningDetails from '../ScreeningDetails';
-import './styles.scss';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
+import style from './styles.scss';
+import { DownloadArtifactsModal } from '../DownloadArtifactsModal';
 
 export default function SubmissionsTable(props) {
+  const [submissionId, setSubmissionId] = useState('');
   const {
     challenge,
     submissionObjects,
@@ -37,6 +40,8 @@ export default function SubmissionsTable(props) {
     onShowDetails,
     status,
     submissionPhaseStartDate,
+    onDownloadArtifacts,
+    getSubmissionArtifacts,
   } = props;
 
   const submissionsWithDetails = [];
@@ -76,6 +81,7 @@ export default function SubmissionsTable(props) {
           {showDetails[subObject.id]
             && (
             <td colSpan="6" styleName="dev-details">
+              <PrimaryButton theme={{button: style['upload-artifact-btn']}} onClick={() => onOpenDownloadArtifactsModal(subObject.id)}>Download Artifacts</PrimaryButton>
               <ScreeningDetails
                 screeningObject={subObject.screening}
                 helpPageUrl={helpPageUrl}
@@ -89,6 +95,10 @@ export default function SubmissionsTable(props) {
       submissionsWithDetails.push(submissionDetail);
     });
   }
+
+  const onOpenDownloadArtifactsModal = (submissionId) => {
+    setSubmissionId(submissionId);
+  };
 
   return (
     <div styleName="submissions-table">
@@ -118,6 +128,7 @@ export default function SubmissionsTable(props) {
           {submissionsWithDetails}
         </tbody>
       </table>
+      {submissionId && <DownloadArtifactsModal onCancel={() => setSubmissionId('')} getSubmissionArtifacts={getSubmissionArtifacts} submissionId={submissionId} onDownloadArtifacts={onDownloadArtifacts} />}
     </div>
   );
 }
