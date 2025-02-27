@@ -7,17 +7,21 @@ import React, { useEffect, useState } from 'react';
 
 import { Modal } from 'topcoder-react-ui-kit';
 
-import style from './style.scss';
 import LoadingIndicator from 'components/LoadingIndicator';
-
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
+import style from './style.scss';
 
 const theme = {
   container: style.modalContainer,
   overlay: style.modalOverlay,
 };
 
-export const DownloadArtifactsModal = ({submissionId, onCancel, getSubmissionArtifacts, onDownloadArtifacts}) => {
+export default function DownloadArtifactsModal({
+  submissionId,
+  onCancel,
+  getSubmissionArtifacts,
+  onDownloadArtifacts,
+}) {
   const [artifacts, setArtifacts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +36,6 @@ export const DownloadArtifactsModal = ({submissionId, onCancel, getSubmissionArt
     getArtifacts();
   }, [submissionId]);
 
-  console.log(artifacts, 'artifacts');
   return (
     <div styleName="container">
       <Modal
@@ -46,20 +49,18 @@ export const DownloadArtifactsModal = ({submissionId, onCancel, getSubmissionArt
               <div>Action</div>
             </div>
             {
-              !loading && artifacts.map((item) => {
-                return (
-                  <div styleName="list-item">
-                    <div styleName="artifact-name">{item}</div>
-                    <button
-                      onClick={() => onDownloadArtifacts(item, submissionId)}
-                      type="button"
-                      styleName="icon-download"
-                    >
-                      <DownloadIcon />
-                    </button>
-                  </div>
-                )
-              })
+              !loading && artifacts.map(item => (
+                <div styleName="list-item">
+                  <div styleName="artifact-name">{item}</div>
+                  <button
+                    onClick={() => onDownloadArtifacts(item, submissionId)}
+                    type="button"
+                    styleName="icon-download"
+                  >
+                    <DownloadIcon />
+                  </button>
+                </div>
+              ))
             }
 
             {
@@ -70,7 +71,7 @@ export const DownloadArtifactsModal = ({submissionId, onCancel, getSubmissionArt
         </div>
       </Modal>
     </div>
-  )
+  );
 }
 
 DownloadArtifactsModal.defaultProps = {

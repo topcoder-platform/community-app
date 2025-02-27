@@ -133,7 +133,7 @@ class SubmissionManagementPageContainer extends React.Component {
         'application/pdf': 'pdf',
         'image/jpeg': 'jpg',
         'image/png': 'png',
-        'text/plain': 'txt'
+        'text/plain': 'txt',
       };
       return mimeMap[mimeType] || 'zip';
     };
@@ -171,7 +171,6 @@ class SubmissionManagementPageContainer extends React.Component {
           });
       },
       getSubmissionArtifacts: (submissionId) => {
-        console.log(authTokens, 'authTokens');
         const submissionsService = getService(authTokens.tokenV3);
         return submissionsService.getSubmissionArtifacts(submissionId);
       },

@@ -20,11 +20,11 @@ import PT from 'prop-types';
 import shortid from 'shortid';
 import moment from 'moment';
 import { COMPETITION_TRACKS } from 'utils/tc';
-import Submission from '../Submission';
-import ScreeningDetails from '../ScreeningDetails';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ScreeningDetails from '../ScreeningDetails';
+import DownloadArtifactsModal from '../DownloadArtifactsModal';
+import Submission from '../Submission';
 import style from './styles.scss';
-import { DownloadArtifactsModal } from '../DownloadArtifactsModal';
 
 export default function SubmissionsTable(props) {
   const [submissionId, setSubmissionId] = useState('');
@@ -43,6 +43,10 @@ export default function SubmissionsTable(props) {
     onDownloadArtifacts,
     getSubmissionArtifacts,
   } = props;
+
+  const onOpenDownloadArtifactsModal = (id) => {
+    setSubmissionId(id);
+  };
 
   const submissionsWithDetails = [];
   if (!submissionObjects || submissionObjects.length === 0) {
@@ -81,7 +85,14 @@ export default function SubmissionsTable(props) {
           {showDetails[subObject.id]
             && (
             <td colSpan="6" styleName="dev-details">
-              <PrimaryButton theme={{button: style['upload-artifact-btn']}} onClick={() => onOpenDownloadArtifactsModal(subObject.id)}>Download Artifacts</PrimaryButton>
+              <PrimaryButton
+                theme={{
+                  button: style['upload-artifact-btn'],
+                }}
+                onClick={() => onOpenDownloadArtifactsModal(subObject.id)}
+              >
+                Download Artifacts
+              </PrimaryButton>
               <ScreeningDetails
                 screeningObject={subObject.screening}
                 helpPageUrl={helpPageUrl}
@@ -95,10 +106,6 @@ export default function SubmissionsTable(props) {
       submissionsWithDetails.push(submissionDetail);
     });
   }
-
-  const onOpenDownloadArtifactsModal = (submissionId) => {
-    setSubmissionId(submissionId);
-  };
 
   return (
     <div styleName="submissions-table">
@@ -148,6 +155,8 @@ SubmissionsTable.defaultProps = {
   onDelete: _.noop,
   onDownload: _.noop,
   onShowDetails: _.noop,
+  onDownloadArtifacts: _.noop,
+  getSubmissionArtifacts: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
 };
@@ -162,6 +171,8 @@ SubmissionsTable.propTypes = {
   helpPageUrl: PT.string,
   onDownload: PT.func,
   onShowDetails: PT.func,
+  onDownloadArtifacts: PT.func,
+  getSubmissionArtifacts: PT.func,
   status: PT.string.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
 };
