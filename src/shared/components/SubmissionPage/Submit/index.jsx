@@ -343,6 +343,7 @@ class Submit extends React.Component {
                   aria-label="I understand and agree"
                   onChange={e => setAgreed(e.target.checked)}
                 />
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <label htmlFor="agree">
                   <input type="hidden" />
                 </label>

@@ -82,6 +82,7 @@ class ApplyModal extends React.Component {
                       onChange={() => toggleRole(position.roleId)}
                       type="checkbox"
                     />
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label htmlFor={`${position.roleId}-checkbox`}>
                       <input type="hidden" />
                       <div styleName="tc-checkbox-label" />
