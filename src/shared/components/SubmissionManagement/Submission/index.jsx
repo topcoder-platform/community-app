@@ -117,7 +117,7 @@ export default function Submission(props) {
             : <span /> }
           { !isTopCrowdChallenge
             ? (
-              <Tooltip content={() => <div styleName="tooltip-content">Show Ratings</div>}> 
+              <Tooltip content={() => <div styleName="tooltip-content">Show Scores</div>}> 
                 <button
                   onClick={() => onOpenRatingsList()}
                   type="button"
