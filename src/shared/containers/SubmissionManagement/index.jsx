@@ -16,11 +16,14 @@ import { connect } from 'react-redux';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { actions, services } from 'topcoder-react-lib';
+import { getReviewTypes } from 'services/reviewTypes';
 
 import style from './styles.scss';
 import smpActions from '../../actions/page/submission_management';
 
+
 const { getService } = services.submissions;
+const { getService: getMemberService } = services.members;
 
 const theme = {
   container: style.modalContainer,
@@ -173,6 +176,18 @@ class SubmissionManagementPageContainer extends React.Component {
       getSubmissionArtifacts: (submissionId) => {
         const submissionsService = getService(authTokens.tokenV3);
         return submissionsService.getSubmissionArtifacts(submissionId);
+      },
+      getReviewTypesList: () => {
+        const reviewTypes = getReviewTypes(authTokens.tokenV3);
+        return reviewTypes;
+      },
+      getChallengeResources: (challengeId) => {
+        const membersService = getMemberService(authTokens.tokenV3);
+        return membersService.getChallengeResources(challengeId);
+      },
+      getSubmissionInformation: (submissionId) => {
+        const submissionsService = getService(authTokens.tokenV3);
+        return submissionsService.getSubmissionInformation(submissionId);
       },
       onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${challengeId}`,
       challengeUrl: `${challengesUrl}/${challengeId}`,

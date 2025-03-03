@@ -9,6 +9,26 @@ $submission-space-50: $base-unit * 10;
   padding: 0 10px;
 }
 
+.tooltip-content {
+  background: $tc-black;
+  color: $tc-white;
+  border-radius: 8px;
+  padding: 10px;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    bottom: 4px;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    left: 50%;
+    border-top-color: $tc-black;
+    z-index: 1000;
+  }
+}
 
 .submission-row {
   width: 100%;
@@ -146,65 +166,76 @@ $submission-space-50: $base-unit * 10;
   .action-col {
     text-align: center;
     min-width: 120px;
-
-    .download-button {
-      @include button;
-    
-      font-weight: bold;
-      background-color: #767676;
-      min-width: 120px;
-    }
-    @include xs-to-sm {
-      position: absolute;
-      right: 0;
-      top: 10px;
-      padding: 10px 0;
-      min-width: 100px;
-      text-align: right;
-
-      svg {
-        width: 14px;
-        height: 14px;
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      .download-artifacts-button {
+        svg {
+          width: 24px;
+        }
       }
-    }
-
-    .delete-icon {
-      margin: 0 0 0 24px;
-
+  
+      .download-button {
+        @include button;
+      
+        font-weight: bold;
+        background-color: #767676;
+        min-width: 120px;
+      }
       @include xs-to-sm {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        padding: 10px 0;
+        min-width: 100px;
+        text-align: right;
+  
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+  
+      .delete-icon {
+        margin: 0 0 0 24px;
+  
+        @include xs-to-sm {
+          margin-left: 15px;
+        }
+      }
+  
+      button {
         margin-left: 15px;
+        margin-top: 3px;
+        background: none;
+        border: 0;
+        font-size: 0;
+        padding: 0;
+        line-height: 0;
+        display: inline-block;
+  
+        &:focus {
+          outline: none;
+        }
+  
+        &:disabled {
+          opacity: 0.5;
+        }
       }
-    }
-
-    button {
-      margin-left: 15px;
-      margin-top: 3px;
-      background: none;
-      border: 0;
-      font-size: 0;
-      padding: 0;
-      line-height: 0;
-      display: inline-block;
-
-      &:focus {
-        outline: none;
-      }
-
-      &:disabled {
-        opacity: 0.5;
-      }
-    }
-
-    .expand-icon {
-      transition: all 1.5s;
-      margin-left: 24px;
-
-      @include xs-to-sm {
-        margin-left: 15px;
-      }
-
-      &.expanded {
-        transform: rotate(180deg);
+  
+      .expand-icon {
+        transition: all 1.5s;
+        margin-left: 24px;
+  
+        @include xs-to-sm {
+          margin-left: 15px;
+        }
+  
+        &.expanded {
+          transform: rotate(180deg);
+        }
       }
     }
   }

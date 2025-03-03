@@ -11,7 +11,7 @@
  * onOpenOnlineReview(submissionId); onHelp(submissionId);
  * onShowDetails(submissionId);
  * onSubmit() - to trigger when user clicks Add Submission button.
- */
+ **/
 
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -41,6 +41,9 @@ export default function SubmissionManagement(props) {
     submissionPhaseStartDate,
     onDownloadArtifacts,
     getSubmissionArtifacts,
+    getSubmissionInformation,
+    getReviewTypesList,
+    getChallengeResources,
   } = props;
 
   const { track } = challenge;
@@ -74,6 +77,9 @@ export default function SubmissionManagement(props) {
     onShowDetails,
     onDownloadArtifacts,
     getSubmissionArtifacts,
+    getSubmissionInformation,
+    getReviewTypesList,
+    getChallengeResources,
   };
   return (
     <div styleName="submission-management">
@@ -211,6 +217,9 @@ SubmissionManagement.defaultProps = {
   onDownload: _.noop,
   onDownloadArtifacts: _.noop,
   getSubmissionArtifacts: _.noop,
+  getSubmissionInformation: _.noop,
+  getReviewTypesList: _.noop,
+  getChallengeResources: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
   loadingSubmissions: false,
@@ -228,6 +237,9 @@ SubmissionManagement.propTypes = {
   onShowDetails: PT.func,
   onDownloadArtifacts: PT.func,
   getSubmissionArtifacts: PT.func,
+  getSubmissionInformation: PT.func,
+  getReviewTypesList: PT.func,
+  getChallengeResources: PT.func,
   submissions: PT.arrayOf(PT.shape()),
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,

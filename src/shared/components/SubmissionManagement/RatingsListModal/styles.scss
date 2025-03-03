@@ -5,10 +5,6 @@
   @include tc-body-md;
 
   z-index: 1000;
-}
-
-.content-wrapper {
-  min-height: 350px;
   .icon {
     cursor: pointer;
     margin-top: 5px;
@@ -20,8 +16,9 @@
   }
 }
 
-.artifacts-list {
-  margin-top: 30px;
+.list {
+  min-height: 350px;
+  padding: 30px 0;
   .header {
     border-bottom: 1px solid $tc-gray-60;
     padding-bottom: 10px;
@@ -29,20 +26,12 @@
     padding-left: 40px;
     padding-right: 40px;
     color: $tc-gray-70;
-    @include roboto-medium;
     font-weight: 500;
 
-    .header-title {
+    .header-item {
       flex: 1;
     }
   }
-
-  .no-artifacts {
-    @include roboto-regular;
-    margin-top: 40px;
-    text-align: center;
-  }
-
   .list-item {
     border-bottom: 1px solid $tc-gray-60;
     padding-bottom: 10px;
@@ -51,21 +40,9 @@
     padding-left: 40px;
     padding-right: 40px;
     color: $tc-gray-70;
-    @include roboto-regular;
-    .artifact-name {
+    .list-col-item {
       display: flex;
       flex: 1;
-    }
-    .icon-download {
-      cursor: pointer;
-      margin-left: 15px;
-      margin-top: 3px;
-      background: none;
-      border: 0;
-      font-size: 0;
-      padding: 0;
-      line-height: 0;
-      display: inline-block;
     }
   }
 }

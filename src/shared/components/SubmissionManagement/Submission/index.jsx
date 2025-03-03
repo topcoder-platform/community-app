@@ -20,10 +20,14 @@ import PT from 'prop-types';
 
 import DeleteIcon from '../Icons/IconTrashSimple.svg';
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
+import ArtifactsDownloadIcon from '../Icons/IconDownloadArtifacts.svg';
+import ReviewRatingListIcon from '../Icons/IconReviewRatingList.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
+import Tooltip from 'components/Tooltip';
 
 import './styles.scss';
+
 
 export default function Submission(props) {
   const {
@@ -34,12 +38,16 @@ export default function Submission(props) {
     onDownload,
     onDelete,
     onShowDetails,
+    onOpenDownloadArtifactsModal,
+    onOpenRatingsListModal,
     status,
     allowDelete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
   const safeForDownloadCheck = safeForDownload(submissionObject.url);
+  const onDownloadArtifacts = onOpenDownloadArtifactsModal.bind(1, submissionObject.id);
+  const onOpenRatingsList = onOpenRatingsListModal.bind(1, submissionObject.id);
 
   // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
   let isTopCrowdChallenge = false;
@@ -81,17 +89,45 @@ export default function Submission(props) {
          )
        }
       <td styleName="action-col">
-        <div>
+        <div styleName="button-wrapper">
           { !isTopCrowdChallenge
             ? (
-              <button
-                onClick={() => onDownloadSubmission(submissionObject.id)}
-                type="button"
-              >
-                { safeForDownloadCheck === true && <DownloadIcon /> }
-              </button>
+              <Tooltip content={() => <div styleName="tooltip-content">Download Submission</div>}>
+                <button
+                  onClick={() => onDownloadSubmission(submissionObject.id)}
+                  type="button"
+                >
+                  { safeForDownloadCheck === true && <DownloadIcon /> }
+                </button>
+              </Tooltip>
             )
             : <span /> }
+          { !isTopCrowdChallenge
+            ? (
+              <Tooltip content={() => <div styleName="tooltip-content">Download Submission Artifacts</div>}> 
+                <button
+                  onClick={() => onDownloadArtifacts()}
+                  type="button"
+                  styleName="download-artifacts-button"
+                >
+                  { safeForDownloadCheck === true ? <ArtifactsDownloadIcon /> :  <span /> } 
+                </button>
+              </Tooltip>
+            )
+            : <span /> }
+          { !isTopCrowdChallenge
+            ? (
+              <Tooltip content={() => <div styleName="tooltip-content">Show Ratings</div>}> 
+                <button
+                  onClick={() => onOpenRatingsList()}
+                  type="button"
+                  styleName="download-artifacts-button"
+                >
+                  { safeForDownloadCheck === true ? <ReviewRatingListIcon /> :  <span /> }
+                </button>
+              </Tooltip>
+            )
+            : <span />}
           { /*
              TODO: At the moment we just fetch downloads from the legacy
                Topcoder Studio API, and we don't need any JS code to this.
@@ -132,6 +168,8 @@ Submission.defaultProps = {
   submissionObject: {},
   showScreeningDetails: false,
   onShowDetails: _.noop,
+  onOpenDownloadArtifactsModal: _.noop,
+  onOpenRatingsListModal: _.noop,
 };
 
 Submission.propTypes = {
@@ -156,4 +194,6 @@ Submission.propTypes = {
   onShowDetails: PT.func,
   status: PT.string.isRequired,
   allowDelete: PT.bool.isRequired,
+  onOpenDownloadArtifactsModal: PT.func,
+  onOpenRatingsListModal: PT.func,
 };

@@ -12,7 +12,7 @@
  * onOpenOnlineReview(submissionId);
  * onHelp(submissionId);
  * onShowDetails(submissionId).
- */
+ **/
 
 import _ from 'lodash';
 import React, { useState } from 'react';
@@ -20,14 +20,18 @@ import PT from 'prop-types';
 import shortid from 'shortid';
 import moment from 'moment';
 import { COMPETITION_TRACKS } from 'utils/tc';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ScreeningDetails from '../ScreeningDetails';
 import DownloadArtifactsModal from '../DownloadArtifactsModal';
 import Submission from '../Submission';
-import style from './styles.scss';
+import { RatingsListModal } from '../RatingsListModal';
+
+import './styles.scss';
+
 
 export default function SubmissionsTable(props) {
   const [submissionId, setSubmissionId] = useState('');
+  const [showDownloadArtifactsModal, setShowDownloadArtifactsModal] = useState(false);
+  const [showRatingsListModal, setShowRatingsListModal] = useState(false);
   const {
     challenge,
     submissionObjects,
@@ -42,10 +46,19 @@ export default function SubmissionsTable(props) {
     submissionPhaseStartDate,
     onDownloadArtifacts,
     getSubmissionArtifacts,
+    getReviewTypesList,
+    getChallengeResources,
+    getSubmissionInformation,
   } = props;
 
   const onOpenDownloadArtifactsModal = (id) => {
     setSubmissionId(id);
+    setShowDownloadArtifactsModal(true);
+  };
+
+  const onOpenRatingsListModal = (id) => {
+    setSubmissionId(id);
+    setShowRatingsListModal(true);
   };
 
   const submissionsWithDetails = [];
@@ -76,6 +89,8 @@ export default function SubmissionsTable(props) {
           status={status}
           key={shortid.generate()}
           allowDelete={allowDelete}
+          onOpenDownloadArtifactsModal={onOpenDownloadArtifactsModal}
+          onOpenRatingsListModal={onOpenRatingsListModal}
         />
       );
       submissionsWithDetails.push(submission);
@@ -85,14 +100,6 @@ export default function SubmissionsTable(props) {
           {showDetails[subObject.id]
             && (
             <td colSpan="6" styleName="dev-details">
-              <PrimaryButton
-                theme={{
-                  button: style['upload-artifact-btn'],
-                }}
-                onClick={() => onOpenDownloadArtifactsModal(subObject.id)}
-              >
-                Download Artifacts
-              </PrimaryButton>
               <ScreeningDetails
                 screeningObject={subObject.screening}
                 helpPageUrl={helpPageUrl}
@@ -135,7 +142,29 @@ export default function SubmissionsTable(props) {
           {submissionsWithDetails}
         </tbody>
       </table>
-      {submissionId && <DownloadArtifactsModal onCancel={() => setSubmissionId('')} getSubmissionArtifacts={getSubmissionArtifacts} submissionId={submissionId} onDownloadArtifacts={onDownloadArtifacts} />}
+      {showDownloadArtifactsModal && (
+        <DownloadArtifactsModal 
+          onCancel={() => {
+            setSubmissionId('');
+            setShowDownloadArtifactsModal(false);
+          }}
+          getSubmissionArtifacts={getSubmissionArtifacts}
+          submissionId={submissionId}
+          onDownloadArtifacts={onDownloadArtifacts}
+        />
+      )}
+      {showRatingsListModal && (
+        <RatingsListModal
+          onCancel={() => {
+            setSubmissionId('');
+            setShowRatingsListModal(false);
+          }}
+          getReviewTypesList={getReviewTypesList}
+          getChallengeResources={getChallengeResources}
+          submissionId={submissionId}
+          challengeId={challenge.id}
+          getSubmissionInformation={getSubmissionInformation}
+        />)}
     </div>
   );
 }
@@ -159,6 +188,9 @@ SubmissionsTable.defaultProps = {
   getSubmissionArtifacts: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
+  getReviewTypesList: _.noop,
+  getChallengeResources: _.noop,
+  getSubmissionInformation: _.noop,
 };
 
 SubmissionsTable.propTypes = {
@@ -175,4 +207,7 @@ SubmissionsTable.propTypes = {
   getSubmissionArtifacts: PT.func,
   status: PT.string.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
+  getReviewTypesList: PT.func,
+  getChallengeResources: PT.func,
+  getSubmissionInformation: PT.func,
 };

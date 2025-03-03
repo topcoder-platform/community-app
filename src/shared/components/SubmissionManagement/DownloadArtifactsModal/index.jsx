@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from 'topcoder-react-ui-kit';
 
 import LoadingIndicator from 'components/LoadingIndicator';
+import IconClose from 'assets/images/icon-close-green.svg';
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
 import style from './style.scss';
 
@@ -43,6 +44,9 @@ export default function DownloadArtifactsModal({
         theme={theme}
       >
         <div styleName="content-wrapper">
+          <div styleName="icon" role="presentation" onClick={() => onCancel()}>
+            <IconClose />
+          </div>
           <div styleName="artifacts-list">
             <div styleName="header">
               <div styleName="header-title">Artifact ID</div>
