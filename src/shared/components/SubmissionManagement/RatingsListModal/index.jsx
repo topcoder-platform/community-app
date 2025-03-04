@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import _ from 'lodash'
+import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import { Modal } from 'topcoder-react-ui-kit';
 import LoadingIndicator from 'components/LoadingIndicator';
 import IconClose from 'assets/images/icon-close-green.svg';
 
 
-import styles from './styles.scss'
+import styles from './styles.scss';
 
 const theme = {
   container: styles.modalContainer,
@@ -15,46 +15,53 @@ const theme = {
 };
 
 const SystemReviewers = {
-  Default: 'TC System'
+  Default: 'TC System',
 };
 
-export const RatingsListModal = ({ onCancel, submissionId, challengeId, getReviewTypesList, getChallengeResources, getSubmissionInformation }) => {
-  const [reviews, setReviews] = useState([])
-  const [loading, setLoading] = useState(false)
+const RatingsListModal = ({
+  onCancel,
+  submissionId,
+  challengeId,
+  getReviewTypesList,
+  getChallengeResources,
+  getSubmissionInformation,
+}) => {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const enrichSources = useCallback(async (submissionReviews, reviewSummation) => {
-    
-    const reviewTypes = await getReviewTypesList()
-    const resources = await getChallengeResources(challengeId)
+    const reviewTypes = await getReviewTypesList();
+    const resources = await getChallengeResources(challengeId);
 
     const finalReview = {
       reviewType: 'Final score',
       reviewer: '',
       score: reviewSummation ? reviewSummation.aggregateScore : 'N/A',
-      isPassing: reviewSummation ? reviewSummation.isPassing : undefined
-    }
+      isPassing: reviewSummation ? reviewSummation.isPassing : undefined,
+    };
 
-    return [...submissionReviews.map(review => {
-      const reviewType = reviewTypes.find(rt => rt.id === review.typeId)
-      const reviewer = resources.find(resource => resource.memberHandle === review.reviewerId) || SystemReviewers.Default
+    return [...submissionReviews.map((review) => {
+      const reviewType = reviewTypes.find(rt => rt.id === review.typeId);
+      const reviewer = resources
+        .find(resource => resource.memberHandle === review.reviewerId) || SystemReviewers.Default;
       return {
         ...review,
         reviewType: reviewType ? reviewType.name : '',
-        reviewer
-      }
-    }), finalReview]
-  }, [challengeId, getReviewTypesList, getChallengeResources])
+        reviewer,
+      };
+    }), finalReview];
+  }, [challengeId, getReviewTypesList, getChallengeResources]);
 
   const getSubmission = useCallback(async () => {
-    const submissionInfo = await getSubmissionInformation(submissionId)
-    setReviews(await enrichSources(submissionInfo.review, submissionInfo.reviewSummation[0]))
-    setLoading(false)
-  }, [submissionId, getSubmissionInformation, enrichSources])
+    const submissionInfo = await getSubmissionInformation(submissionId);
+    setReviews(await enrichSources(submissionInfo.review, submissionInfo.reviewSummation[0]));
+    setLoading(false);
+  }, [submissionId, getSubmissionInformation, enrichSources]);
 
   useEffect(() => {
-    setLoading(true)
-    getSubmission()
-  }, [submissionId, getSubmission])
+    setLoading(true);
+    getSubmission();
+  }, [submissionId, getSubmission]);
 
   return (
     <Modal onCancel={() => onCancel()} theme={theme}>
@@ -69,12 +76,12 @@ export const RatingsListModal = ({ onCancel, submissionId, challengeId, getRevie
             <div styleName="header-item">Score</div>
             <div styleName="header-item">Status</div>
           </div>
-          {reviews.map(review => {
-            const { isPassing } = review
-            const isFailed = isPassing === false
-            const isPassed = isPassing === true
-            const statusIsDefined = isPassed || isFailed
-            const status = isPassing ? 'Passed' : 'Failed'
+          {reviews.map((review) => {
+            const { isPassing } = review;
+            const isFailed = isPassing === false;
+            const isPassed = isPassing === true;
+            const statusIsDefined = isPassed || isFailed;
+            const status = isPassing ? 'Passed' : 'Failed';
 
             return (
               <div styleName="list-item">
@@ -91,7 +98,7 @@ export const RatingsListModal = ({ onCancel, submissionId, challengeId, getRevie
                   {statusIsDefined ? status : 'N/A'}
                 </div>
               </div>
-            )
+            );
           })}
         </div>
 
@@ -100,8 +107,8 @@ export const RatingsListModal = ({ onCancel, submissionId, challengeId, getRevie
         }
       </div>
     </Modal>
-  )
-}
+  );
+};
 
 RatingsListModal.defaultProps = {
   onCancel: () => {},
@@ -109,15 +116,16 @@ RatingsListModal.defaultProps = {
   challengeId: '',
   getReviewTypesList: _.noop,
   getChallengeResources: _.noop,
-  getSubmissionInformation: _.noop
-}
+  getSubmissionInformation: _.noop,
+};
 
 RatingsListModal.propTypes = {
   onCancel: PropTypes.func,
-  token: PropTypes.string,
   submissionId: PropTypes.string,
   challengeId: PropTypes.string,
   getReviewTypesList: PropTypes.func,
   getChallengeResources: PropTypes.func,
-  getSubmissionInformation: PropTypes.func
-}
+  getSubmissionInformation: PropTypes.func,
+};
+
+export default RatingsListModal;

@@ -11,7 +11,7 @@
  * onOpenOnlineReview(submissionId); onHelp(submissionId);
  * onShowDetails(submissionId);
  * onSubmit() - to trigger when user clicks Add Submission button.
- **/
+ */
 
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';

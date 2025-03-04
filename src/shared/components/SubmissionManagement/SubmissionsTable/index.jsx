@@ -12,7 +12,7 @@
  * onOpenOnlineReview(submissionId);
  * onHelp(submissionId);
  * onShowDetails(submissionId).
- **/
+ */
 
 import _ from 'lodash';
 import React, { useState } from 'react';
@@ -23,7 +23,7 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 import ScreeningDetails from '../ScreeningDetails';
 import DownloadArtifactsModal from '../DownloadArtifactsModal';
 import Submission from '../Submission';
-import { RatingsListModal } from '../RatingsListModal';
+import RatingsListModal from '../RatingsListModal';
 
 import './styles.scss';
 
@@ -143,7 +143,7 @@ export default function SubmissionsTable(props) {
         </tbody>
       </table>
       {showDownloadArtifactsModal && (
-        <DownloadArtifactsModal 
+        <DownloadArtifactsModal
           onCancel={() => {
             setSubmissionId('');
             setShowDownloadArtifactsModal(false);
@@ -164,7 +164,8 @@ export default function SubmissionsTable(props) {
           submissionId={submissionId}
           challengeId={challenge.id}
           getSubmissionInformation={getSubmissionInformation}
-        />)}
+        />
+      )}
     </div>
   );
 }

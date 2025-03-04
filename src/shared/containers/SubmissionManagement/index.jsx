@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { actions, services } from 'topcoder-react-lib';
-import { getReviewTypes } from 'services/reviewTypes';
+import getReviewTypes from 'services/reviewTypes';
 
 import style from './styles.scss';
 import smpActions from '../../actions/page/submission_management';
@@ -181,9 +181,9 @@ class SubmissionManagementPageContainer extends React.Component {
         const reviewTypes = getReviewTypes(authTokens.tokenV3);
         return reviewTypes;
       },
-      getChallengeResources: (challengeId) => {
+      getChallengeResources: (cId) => {
         const membersService = getMemberService(authTokens.tokenV3);
-        return membersService.getChallengeResources(challengeId);
+        return membersService.getChallengeResources(cId);
       },
       getSubmissionInformation: (submissionId) => {
         const submissionsService = getService(authTokens.tokenV3);

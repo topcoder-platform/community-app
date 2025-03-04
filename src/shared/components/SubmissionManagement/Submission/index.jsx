@@ -18,13 +18,13 @@ import { COMPETITION_TRACKS, CHALLENGE_STATUS, safeForDownload } from 'utils/tc'
 
 import PT from 'prop-types';
 
+import Tooltip from 'components/Tooltip';
 import DeleteIcon from '../Icons/IconTrashSimple.svg';
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
 import ArtifactsDownloadIcon from '../Icons/IconDownloadArtifacts.svg';
 import ReviewRatingListIcon from '../Icons/IconReviewRatingList.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
-import Tooltip from 'components/Tooltip';
 
 import './styles.scss';
 
@@ -104,26 +104,26 @@ export default function Submission(props) {
             : <span /> }
           { !isTopCrowdChallenge
             ? (
-              <Tooltip content={() => <div styleName="tooltip-content">Download Submission Artifacts</div>}> 
+              <Tooltip content={() => <div styleName="tooltip-content">Download Submission Artifacts</div>}>
                 <button
                   onClick={() => onDownloadArtifacts()}
                   type="button"
                   styleName="download-artifacts-button"
                 >
-                  { safeForDownloadCheck === true ? <ArtifactsDownloadIcon /> :  <span /> } 
+                  {safeForDownloadCheck === true && <ArtifactsDownloadIcon />}
                 </button>
               </Tooltip>
             )
             : <span /> }
           { !isTopCrowdChallenge
             ? (
-              <Tooltip content={() => <div styleName="tooltip-content">Show Scores</div>}> 
+              <Tooltip content={() => <div styleName="tooltip-content">Show Scores</div>}>
                 <button
                   onClick={() => onOpenRatingsList()}
                   type="button"
                   styleName="download-artifacts-button"
                 >
-                  { safeForDownloadCheck === true ? <ReviewRatingListIcon /> :  <span /> }
+                  {safeForDownloadCheck === true && <ReviewRatingListIcon />}
                 </button>
               </Tooltip>
             )
