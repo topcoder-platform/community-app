@@ -20,6 +20,7 @@ import getReviewTypes from 'services/reviewTypes';
 
 import style from './styles.scss';
 import smpActions from '../../actions/page/submission_management';
+import downloadSubmissions, { getSubmissionArtifacts } from 'services/submissions';
 
 
 const { getService } = services.submissions;
@@ -159,8 +160,7 @@ class SubmissionManagementPageContainer extends React.Component {
           });
       },
       onDownloadArtifacts: (artifactId, submissionId) => {
-        const submissionsService = getService(authTokens.tokenV3);
-        submissionsService.downloadSubmissionArtifact(submissionId, artifactId)
+        downloadSubmissions(authTokens.tokenV3, submissionId, artifactId)
           .then((blob) => {
             const fileBlob = new Blob([blob]);
             const url = window.URL.createObjectURL(fileBlob);
@@ -174,8 +174,7 @@ class SubmissionManagementPageContainer extends React.Component {
           });
       },
       getSubmissionArtifacts: (submissionId) => {
-        const submissionsService = getService(authTokens.tokenV3);
-        return submissionsService.getSubmissionArtifacts(submissionId);
+        return getSubmissionArtifacts(authTokens.tokenV3, submissionId);
       },
       getReviewTypesList: () => {
         const reviewTypes = getReviewTypes(authTokens.tokenV3);

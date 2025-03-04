@@ -100,11 +100,10 @@ const RatingsListModal = ({
               </div>
             );
           })}
+          {
+            loading && <LoadingIndicator />
+          }
         </div>
-
-        {
-          loading && <LoadingIndicator />
-        }
       </div>
     </Modal>
   );
