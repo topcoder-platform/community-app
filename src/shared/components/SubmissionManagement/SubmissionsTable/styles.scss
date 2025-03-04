@@ -90,20 +90,23 @@ $submission-space-50: $base-unit * 10;
       padding-right: 60px;
       border-top: 0;
       padding-top: 0;
+
       .upload-artifact-btn {
-        @include roboto-medium; 
+        @include roboto-medium;
+
         line-height: 24px;
         border-radius: 50px;
         border-color: #137d60;
         background-color: transparent;
         color: #137d60;
         text-transform: uppercase;
+
         &:hover {
           background-color: #137d60;
           color: #fff;
           background-image: none;
         }
-      
+
         @include xs-to-md {
           font-size: 14px;
           line-height: 20px;

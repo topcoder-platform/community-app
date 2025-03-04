@@ -14,6 +14,7 @@ $submission-space-50: $base-unit * 10;
   color: $tc-white;
   border-radius: 8px;
   padding: 10px;
+
   &::after {
     content: '';
     position: absolute;
@@ -166,24 +167,26 @@ $submission-space-50: $base-unit * 10;
   .action-col {
     text-align: center;
     min-width: 120px;
+
     .button-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
-      
+
       .download-artifacts-button {
         svg {
           width: 24px;
         }
       }
-  
+
       .download-button {
         @include button;
-      
+
         font-weight: bold;
         background-color: #767676;
         min-width: 120px;
       }
+
       @include xs-to-sm {
         position: absolute;
         right: 0;
@@ -191,21 +194,21 @@ $submission-space-50: $base-unit * 10;
         padding: 10px 0;
         min-width: 100px;
         text-align: right;
-  
+
         svg {
           width: 14px;
           height: 14px;
         }
       }
-  
+
       .delete-icon {
         margin: 0 0 0 24px;
-  
+
         @include xs-to-sm {
           margin-left: 15px;
         }
       }
-  
+
       button {
         margin-left: 15px;
         margin-top: 3px;
@@ -215,24 +218,24 @@ $submission-space-50: $base-unit * 10;
         padding: 0;
         line-height: 0;
         display: inline-block;
-  
+
         &:focus {
           outline: none;
         }
-  
+
         &:disabled {
           opacity: 0.5;
         }
       }
-  
+
       .expand-icon {
         transition: all 1.5s;
         margin-left: 24px;
-  
+
         @include xs-to-sm {
           margin-left: 15px;
         }
-  
+
         &.expanded {
           transform: rotate(180deg);
         }
@@ -240,6 +243,7 @@ $submission-space-50: $base-unit * 10;
     }
   }
 
+  /* stylelint-disable no-descending-specificity */
   .status-col button:focus {
     outline: none;
   }
