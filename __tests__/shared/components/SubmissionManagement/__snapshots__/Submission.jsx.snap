@@ -38,11 +38,74 @@ exports[`Snapshot match 1`] = `
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
   >
-    <div>
-      <button
-        onClick={[Function]}
-        type="button"
-      />
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__button-wrapper___3T2jH"
+    >
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        />
+      </Tooltip>
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          className="src-shared-components-SubmissionManagement-Submission-___styles__download-artifacts-button___2lSi_"
+          onClick={[Function]}
+          type="button"
+        />
+      </Tooltip>
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          className="src-shared-components-SubmissionManagement-Submission-___styles__download-artifacts-button___2lSi_"
+          onClick={[Function]}
+          type="button"
+        />
+      </Tooltip>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
         onClick={[Function]}
@@ -101,11 +164,74 @@ exports[`Snapshot match 2`] = `
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
   >
-    <div>
-      <button
-        onClick={[Function]}
-        type="button"
-      />
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__button-wrapper___3T2jH"
+    >
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        />
+      </Tooltip>
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          className="src-shared-components-SubmissionManagement-Submission-___styles__download-artifacts-button___2lSi_"
+          onClick={[Function]}
+          type="button"
+        />
+      </Tooltip>
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          className="src-shared-components-SubmissionManagement-Submission-___styles__download-artifacts-button___2lSi_"
+          onClick={[Function]}
+          type="button"
+        />
+      </Tooltip>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
         onClick={[Function]}
