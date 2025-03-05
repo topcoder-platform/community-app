@@ -17,10 +17,10 @@ import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { actions, services } from 'topcoder-react-lib';
 import getReviewTypes from 'services/reviewTypes';
+import downloadSubmissions, { getSubmissionArtifacts } from 'services/submissions';
 
 import style from './styles.scss';
 import smpActions from '../../actions/page/submission_management';
-import downloadSubmissions, { getSubmissionArtifacts } from 'services/submissions';
 
 
 const { getService } = services.submissions;
@@ -173,9 +173,7 @@ class SubmissionManagementPageContainer extends React.Component {
             link.parentNode.removeChild(link);
           });
       },
-      getSubmissionArtifacts: (submissionId) => {
-        return getSubmissionArtifacts(authTokens.tokenV3, submissionId);
-      },
+      getSubmissionArtifacts: submissionId => getSubmissionArtifacts(authTokens.tokenV3, submissionId),
       getReviewTypesList: () => {
         const reviewTypes = getReviewTypes(authTokens.tokenV3);
         return reviewTypes;
