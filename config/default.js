@@ -169,6 +169,7 @@ module.exports = {
       groupId: '20000000', communityId: 'wipro', communityName: 'topgear', userProfile: 'https://topgear-app.wipro.com/user-details',
     }],
     TIMELINE_WALL_API: 'https://api.topcoder-dev.com/v5/timeline-wall',
+    REVIEW_API_URL: '/reviewTypes',
   },
 
   /* Information about Topcoder user groups can be cached in various places.

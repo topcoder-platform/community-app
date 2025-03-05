@@ -3,6 +3,7 @@ module.exports = {
   SERVER_API_KEY: '79b2d5eb-c1fd-42c4-9391-6b2c9780d591',
   URL: {
     USER_SETTINGS: '', /* No dev server is available for saved searches */
+    REVIEW_API_URL: '/reviewTypes',
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
   PLATFORMUI_SITE_URL: 'https://platform-ui.topcoder-dev.com',
