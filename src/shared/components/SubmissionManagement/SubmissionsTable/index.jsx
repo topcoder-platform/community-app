@@ -15,7 +15,7 @@
  */
 
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PT from 'prop-types';
 import shortid from 'shortid';
 import moment from 'moment';
@@ -51,15 +51,15 @@ export default function SubmissionsTable(props) {
     getSubmissionInformation,
   } = props;
 
-  const onOpenDownloadArtifactsModal = (id) => {
+  const onOpenDownloadArtifactsModal = useCallback((id) => {
     setSubmissionId(id);
     setShowDownloadArtifactsModal(true);
-  };
+  }, []);
 
-  const onOpenRatingsListModal = (id) => {
+  const onOpenRatingsListModal = useCallback((id) => {
     setSubmissionId(id);
     setShowRatingsListModal(true);
-  };
+  }, []);
 
   const submissionsWithDetails = [];
   if (!submissionObjects || submissionObjects.length === 0) {
