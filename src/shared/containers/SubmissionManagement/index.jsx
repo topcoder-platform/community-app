@@ -173,8 +173,8 @@ class SubmissionManagementPageContainer extends React.Component {
             link.parentNode.removeChild(link);
           });
       },
-      getSubmissionArtifacts: submissionId => 
-        getSubmissionArtifacts(authTokens.tokenV3, submissionId),
+      getSubmissionArtifacts:
+        submissionId => getSubmissionArtifacts(authTokens.tokenV3, submissionId),
       getReviewTypesList: () => {
         const reviewTypes = getReviewTypes(authTokens.tokenV3);
         return reviewTypes;
