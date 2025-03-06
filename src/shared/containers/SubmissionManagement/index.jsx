@@ -17,7 +17,7 @@ import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { actions, services } from 'topcoder-react-lib';
 import getReviewTypes from 'services/reviewTypes';
-import downloadSubmissions, { getSubmissionArtifacts } from 'services/submissions';
+import { getSubmissionArtifacts, downloadSubmissions } from 'services/submissions';
 
 import style from './styles.scss';
 import smpActions from '../../actions/page/submission_management';
