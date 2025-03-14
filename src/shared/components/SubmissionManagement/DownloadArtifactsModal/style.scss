@@ -44,6 +44,7 @@
     padding-right: 25px;
     color: $color-black-60;
     font-size: 11px;
+    text-transform: uppercase;
 
     @include roboto-medium;
 
@@ -70,6 +71,7 @@
     padding-right: 25px;
     color: $color-tc-black;
     font-size: 14px;
+    font-weight: 500;
 
     @include roboto-regular;
 
@@ -98,8 +100,8 @@
   transform: translate(-50%);
   height: auto;
   width: 720px;
-  padding-top: 36px;
-  padding-bottom: 36px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   padding-left: 0;
   padding-right: 0;
   border-radius: 8px;

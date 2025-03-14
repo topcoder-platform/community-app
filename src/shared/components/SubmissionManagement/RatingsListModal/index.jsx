@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import tc from 'components/buttons/themed/tc.scss';
 
-import { Modal } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import LoadingIndicator from 'components/LoadingIndicator';
 import IconClose from 'assets/images/icon-close-green.svg';
 
@@ -12,6 +13,10 @@ import styles from './styles.scss';
 const theme = {
   container: styles.modalContainer,
   overlay: styles.modalOverlay,
+};
+
+const buttonThemes = {
+  tc,
 };
 
 const SystemReviewers = {
@@ -65,16 +70,19 @@ const RatingsListModal = ({
 
   return (
     <Modal onCancel={() => onCancel()} theme={theme}>
-      <div styleName="container">
-        <div styleName="icon" role="presentation" onClick={() => onCancel()}>
-          <IconClose />
+      <div className={styles.container}>
+        <div className={styles["modal-header"]}>
+          <h2 className={styles["modal-title"]}>Submission Details</h2>
+          <div className={styles["icon"]}role="presentation" onClick={() => onCancel()}>
+            <IconClose />
+          </div>
         </div>
-        <div styleName="list">
-          <div styleName="header">
-            <div styleName="header-item">Review Type</div>
-            <div styleName="header-item">Reviewer</div>
-            <div styleName="header-item">Score</div>
-            <div styleName="header-item">Status</div>
+        <div className={styles["list"]}>
+          <div className={styles["header"]}>
+            <div className={styles["header-item"]}>Review Type</div>
+            <div className={styles["header-item"]}>Reviewer</div>
+            <div className={styles["header-item"]}>Score</div>
+            <div className={styles["header-item"]}>Status</div>
           </div>
           {reviews.map((review) => {
             const { isPassing } = review;
@@ -84,17 +92,17 @@ const RatingsListModal = ({
             const status = isPassing ? 'Passed' : 'Failed';
 
             return (
-              <div styleName="list-item">
-                <div styleName="list-col-item">
+              <div className={styles["list-item"]}>
+                <div className={styles["list-col-item"]}>
                   {review.reviewType}
                 </div>
-                <div styleName="list-col-item">
+                <div className={styles["list-col-item"]}>
                   <strong>{review.reviewer}</strong>
                 </div>
-                <div styleName="list-col-item">
+                <div className={styles["list-col-item"]}>
                   {review.score}
                 </div>
-                <div styleName="list-col-item">
+                <div className={styles["list-col-item"]}>
                   {statusIsDefined ? status : 'N/A'}
                 </div>
               </div>
@@ -104,6 +112,16 @@ const RatingsListModal = ({
             loading && <LoadingIndicator />
           }
         </div>
+      </div>
+      <div className={styles["buttons-container"]}>
+        <PrimaryButton
+          onClick={() => onCancel()}
+          theme={{
+            button: buttonThemes.tc['primary-green-md'],
+          }}
+        >
+          Close
+        </PrimaryButton>
       </div>
     </Modal>
   );
