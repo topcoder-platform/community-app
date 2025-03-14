@@ -66,7 +66,7 @@ export default function DownloadArtifactsModal({
                 <div className={style['list-item']}>
                   <div className={style['artifact-name']}>{item}</div>
                   <button
-                    onClick={() => onDownloadArtifacts(item, submissionId)}
+                    onClick={() => onDownloadArtifacts(submissionId, item)}
                     type="button"
                     className={style['icon-download']}
                   >
