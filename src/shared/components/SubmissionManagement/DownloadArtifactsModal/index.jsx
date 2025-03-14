@@ -48,27 +48,27 @@ export default function DownloadArtifactsModal({
         onCancel={() => onCancel()}
         theme={theme}
       >
-        <div className={style["content-wrapper"]}>
-          <div className={style["modal-header"]}>
-            <h2 className={style["modal-title"]}>Artifacts</h2>
-            <div className={style["icon"]}role="presentation" onClick={() => onCancel()}>
+        <div className={style['content-wrapper']}>
+          <div className={style['modal-header']}>
+            <h2 className={style['modal-title']}>Artifacts</h2>
+            <div className={style.icon} role="presentation" onClick={() => onCancel()}>
               <IconClose />
             </div>
           </div>
-          <hr className={style["hr"]} />
-          <div className={style["artifacts-list"]}>
-            <div className={style["header"]}>
-              <div className={style["header-title"]}>Artifact ID</div>
+          <hr className={style.hr} />
+          <div className={style['artifacts-list']}>
+            <div className={style.header}>
+              <div className={style['header-title']}>Artifact ID</div>
               <div>Action</div>
             </div>
             {
               !loading && artifacts.map(item => (
-                <div className={style["list-item"]}>
-                  <div className={style["artifact-name"]}>{item}</div>
+                <div className={style['list-item']}>
+                  <div className={style['artifact-name']}>{item}</div>
                   <button
                     onClick={() => onDownloadArtifacts(item, submissionId)}
                     type="button"
-                    className={style["icon-download"]}
+                    className={style['icon-download']}
                   >
                     <DownloadIcon />
                   </button>
@@ -77,12 +77,12 @@ export default function DownloadArtifactsModal({
             }
 
             {
-              !loading && artifacts.length === 0 && <div className={style["no-artifacts"]}>No artifacts found</div>
+              !loading && artifacts.length === 0 && <div className={style['no-artifacts']}>No artifacts found</div>
             }
           </div>
           {loading && <LoadingIndicator />}
         </div>
-        <div className={style["buttons-container"]}>
+        <div className={style['buttons-container']}>
           <PrimaryButton
             onClick={() => onCancel()}
             theme={{

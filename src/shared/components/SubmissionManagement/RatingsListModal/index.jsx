@@ -71,18 +71,18 @@ const RatingsListModal = ({
   return (
     <Modal onCancel={() => onCancel()} theme={theme}>
       <div className={styles.container}>
-        <div className={styles["modal-header"]}>
-          <h2 className={styles["modal-title"]}>Submission Details</h2>
-          <div className={styles["icon"]}role="presentation" onClick={() => onCancel()}>
+        <div className={styles['modal-header']}>
+          <h2 className={styles['modal-title']}>Submission Details</h2>
+          <div className={styles.icon} role="presentation" onClick={() => onCancel()}>
             <IconClose />
           </div>
         </div>
-        <div className={styles["list"]}>
-          <div className={styles["header"]}>
-            <div className={styles["header-item"]}>Review Type</div>
-            <div className={styles["header-item"]}>Reviewer</div>
-            <div className={styles["header-item"]}>Score</div>
-            <div className={styles["header-item"]}>Status</div>
+        <div className={styles.list}>
+          <div className={styles.header}>
+            <div className={styles['header-item']}>Review Type</div>
+            <div className={styles['header-item']}>Reviewer</div>
+            <div className={styles['header-item']}>Score</div>
+            <div className={styles['header-item']}>Status</div>
           </div>
           {reviews.map((review) => {
             const { isPassing } = review;
@@ -92,17 +92,17 @@ const RatingsListModal = ({
             const status = isPassing ? 'Passed' : 'Failed';
 
             return (
-              <div className={styles["list-item"]}>
-                <div className={styles["list-col-item"]}>
+              <div className={styles['list-item']}>
+                <div className={styles['list-col-item']}>
                   {review.reviewType}
                 </div>
-                <div className={styles["list-col-item"]}>
+                <div className={styles['list-col-item']}>
                   <strong>{review.reviewer}</strong>
                 </div>
-                <div className={styles["list-col-item"]}>
+                <div className={styles['list-col-item']}>
                   {review.score}
                 </div>
-                <div className={styles["list-col-item"]}>
+                <div className={styles['list-col-item']}>
                   {statusIsDefined ? status : 'N/A'}
                 </div>
               </div>
@@ -113,7 +113,7 @@ const RatingsListModal = ({
           }
         </div>
       </div>
-      <div className={styles["buttons-container"]}>
+      <div className={styles['buttons-container']}>
         <PrimaryButton
           onClick={() => onCancel()}
           theme={{

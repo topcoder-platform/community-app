@@ -149,7 +149,8 @@ class SubmissionsListView extends React.Component {
   }
 
   showDetailsModal(submission) {
-    this.props.onShowDetailsModal(submission);
+    const { onShowDetailsModal } = this.props;
+    onShowDetailsModal(submission);
   }
 
   render() {
@@ -162,6 +163,7 @@ class SubmissionsListView extends React.Component {
       isLegacyMM,
       auth,
       onSortChange,
+      onShowDownloadArtifactsModal,
     } = this.props;
 
     const isButtonDisabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
@@ -474,7 +476,7 @@ class SubmissionsListView extends React.Component {
                         ? (
                           <Tooltip content={() => <div styleName="tooltip-content">Download Submission Artifacts</div>}>
                             <button
-                              onClick={() => this.props.onShowDownloadArtifactsModal(mySubmission)}
+                              onClick={() => onShowDownloadArtifactsModal(mySubmission)}
                               type="button"
                               styleName="download-artifacts-button"
                             >
@@ -550,13 +552,12 @@ class SubmissionsListView extends React.Component {
 }
 
 SubmissionsListView.defaultProps = {
-  selectSubmission: () => {},
   onSortChange: () => {},
   onShowDownloadArtifactsModal: () => {},
+  onShowDetailsModal: () => {},
 };
 
 SubmissionsListView.propTypes = {
-  selectSubmission: PT.func,
   challengesUrl: PT.string.isRequired,
   challenge: PT.shape().isRequired,
   hasRegistered: PT.bool.isRequired,
@@ -571,6 +572,7 @@ SubmissionsListView.propTypes = {
   }).isRequired,
   onSortChange: PT.func,
   onShowDownloadArtifactsModal: PT.func,
+  onShowDetailsModal: PT.func,
 };
 
 export default SubmissionsListView;

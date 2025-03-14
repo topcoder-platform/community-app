@@ -47,6 +47,7 @@ import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
 import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
+import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
 // import {
 // getDisplayRecommendedChallenges,
 // getRecommendedTags,
@@ -82,7 +83,6 @@ import ogImage from
   '../../../assets/images/social.png';
 
 import './styles.scss';
-import { getSubmissionArtifacts } from 'services/submissions';
 
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
@@ -195,7 +195,6 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       getAllCountries,
       getReviewTypes,
-      getSubmissionArtifacts,
     } = this.props;
 
     if (
@@ -755,6 +754,7 @@ ChallengeDetailPageContainer.defaultProps = {
   submissionInformation: null,
   // prizeMode: 'money-usd',
   statisticsData: null,
+  getSubmissionArtifacts: () => {},
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -820,6 +820,7 @@ ChallengeDetailPageContainer.propTypes = {
   history: PT.shape().isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
   statisticsData: PT.arrayOf(PT.shape()),
+  getSubmissionArtifacts: PT.func,
 };
 
 function mapStateToProps(state, props) {
@@ -1057,7 +1058,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getMmSubmissionsDone(challengeId, tokenV3));
     },
     getSubmissionArtifacts:
-            (submissionId, tokenV3) => getSubmissionArtifacts(tokenV3, submissionId), 
+            (submissionId, tokenV3) => getSubmissionArtifactsService(tokenV3, submissionId),
     loadSubmissionInformation: (challengeId, submissionId, tokenV3) => {
       const a = actions.challenge;
       dispatch(a.getSubmissionInformationInit(challengeId, submissionId));
