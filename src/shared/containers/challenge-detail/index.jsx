@@ -47,6 +47,7 @@ import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
 import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
+import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
 // import {
 // getDisplayRecommendedChallenges,
 // getRecommendedTags,
@@ -382,6 +383,7 @@ class ChallengeDetailPageContainer extends React.Component {
       openForRegistrationChallenges,
       statisticsData,
       openTermsModal,
+      getSubmissionArtifacts,
     } = this.props;
 
     // const displayRecommendedChallenges = getDisplayRecommendedChallenges(
@@ -637,6 +639,7 @@ class ChallengeDetailPageContainer extends React.Component {
                   reviewTypes={reviewTypes}
                   submissionsSort={mySubmissionsSort}
                   onSortChange={sort => this.setState({ mySubmissionsSort: sort })}
+                  getSubmissionArtifacts={getSubmissionArtifacts}
                 />
               )
             }
@@ -751,6 +754,7 @@ ChallengeDetailPageContainer.defaultProps = {
   submissionInformation: null,
   // prizeMode: 'money-usd',
   statisticsData: null,
+  getSubmissionArtifacts: () => {},
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -816,6 +820,7 @@ ChallengeDetailPageContainer.propTypes = {
   history: PT.shape().isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
   statisticsData: PT.arrayOf(PT.shape()),
+  getSubmissionArtifacts: PT.func,
 };
 
 function mapStateToProps(state, props) {
@@ -1052,6 +1057,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getMmSubmissionsInit(challengeId));
       dispatch(a.getMmSubmissionsDone(challengeId, tokenV3));
     },
+    getSubmissionArtifacts:
+            (submissionId, tokenV3) => getSubmissionArtifactsService(tokenV3, submissionId),
     loadSubmissionInformation: (challengeId, submissionId, tokenV3) => {
       const a = actions.challenge;
       dispatch(a.getSubmissionInformationInit(challengeId, submissionId));

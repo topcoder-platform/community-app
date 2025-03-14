@@ -65,3 +65,14 @@ export const compressFiles = (files, fileName, finish) => {
     processFile(i);
   }
 };
+
+export const getExtensionFromMime = (mimeType) => {
+  const mimeMap = {
+    'application/zip': 'zip',
+    'application/pdf': 'pdf',
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'text/plain': 'txt',
+  };
+  return mimeMap[mimeType] || 'zip';
+};
