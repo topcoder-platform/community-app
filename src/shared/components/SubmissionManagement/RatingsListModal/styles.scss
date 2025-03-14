@@ -12,17 +12,17 @@
     padding-bottom: 25px;
     padding-left: 25px;
     padding-right: 25px;
-  
+
     .modal-title {
       @include barlow-medium;
-  
+
       font-weight: 600;
       color: #2a2a2a;
       font-size: 18px;
       line-height: 22px;
       text-transform: uppercase;
     }
-  
+
     .icon {
       cursor: pointer;
       margin-top: 5px;
