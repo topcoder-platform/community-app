@@ -82,6 +82,7 @@ import ogImage from
   '../../../assets/images/social.png';
 
 import './styles.scss';
+import { getSubmissionArtifacts } from 'services/submissions';
 
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
@@ -194,6 +195,7 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       getAllCountries,
       getReviewTypes,
+      getSubmissionArtifacts,
     } = this.props;
 
     if (
@@ -382,6 +384,7 @@ class ChallengeDetailPageContainer extends React.Component {
       openForRegistrationChallenges,
       statisticsData,
       openTermsModal,
+      getSubmissionArtifacts,
     } = this.props;
 
     // const displayRecommendedChallenges = getDisplayRecommendedChallenges(
@@ -637,6 +640,7 @@ class ChallengeDetailPageContainer extends React.Component {
                   reviewTypes={reviewTypes}
                   submissionsSort={mySubmissionsSort}
                   onSortChange={sort => this.setState({ mySubmissionsSort: sort })}
+                  getSubmissionArtifacts={getSubmissionArtifacts}
                 />
               )
             }
@@ -1052,6 +1056,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getMmSubmissionsInit(challengeId));
       dispatch(a.getMmSubmissionsDone(challengeId, tokenV3));
     },
+    getSubmissionArtifacts:
+            (submissionId, tokenV3) => getSubmissionArtifacts(tokenV3, submissionId), 
     loadSubmissionInformation: (challengeId, submissionId, tokenV3) => {
       const a = actions.challenge;
       dispatch(a.getSubmissionInformationInit(challengeId, submissionId));

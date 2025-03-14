@@ -5,7 +5,8 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { Modal } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
+import tc from 'components/buttons/themed/tc.scss';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import IconClose from 'assets/images/icon-close-green.svg';
@@ -15,6 +16,10 @@ import style from './style.scss';
 const theme = {
   container: style.modalContainer,
   overlay: style.modalOverlay,
+};
+
+const buttonThemes = {
+  tc,
 };
 
 export default function DownloadArtifactsModal({
@@ -38,28 +43,32 @@ export default function DownloadArtifactsModal({
   }, [submissionId]);
 
   return (
-    <div styleName="container">
+    <div className={style.container}>
       <Modal
         onCancel={() => onCancel()}
         theme={theme}
       >
-        <div styleName="content-wrapper">
-          <div styleName="icon" role="presentation" onClick={() => onCancel()}>
-            <IconClose />
+        <div className={style["content-wrapper"]}>
+          <div className={style["modal-header"]}>
+            <h2 className={style["modal-title"]}>Artifacts</h2>
+            <div className={style["icon"]}role="presentation" onClick={() => onCancel()}>
+              <IconClose />
+            </div>
           </div>
-          <div styleName="artifacts-list">
-            <div styleName="header">
-              <div styleName="header-title">Artifact ID</div>
+          <hr className={style["hr"]} />
+          <div className={style["artifacts-list"]}>
+            <div className={style["header"]}>
+              <div className={style["header-title"]}>Artifact ID</div>
               <div>Action</div>
             </div>
             {
               !loading && artifacts.map(item => (
-                <div styleName="list-item">
-                  <div styleName="artifact-name">{item}</div>
+                <div className={style["list-item"]}>
+                  <div className={style["artifact-name"]}>{item}</div>
                   <button
                     onClick={() => onDownloadArtifacts(item, submissionId)}
                     type="button"
-                    styleName="icon-download"
+                    className={style["icon-download"]}
                   >
                     <DownloadIcon />
                   </button>
@@ -68,10 +77,20 @@ export default function DownloadArtifactsModal({
             }
 
             {
-              !loading && artifacts.length === 0 && <div styleName="no-artifacts">No artifacts found</div>
+              !loading && artifacts.length === 0 && <div className={style["no-artifacts"]}>No artifacts found</div>
             }
           </div>
           {loading && <LoadingIndicator />}
+        </div>
+        <div className={style["buttons-container"]}>
+          <PrimaryButton
+            onClick={() => onCancel()}
+            theme={{
+              button: buttonThemes.tc['primary-green-md'],
+            }}
+          >
+            Close
+          </PrimaryButton>
         </div>
       </Modal>
     </div>
