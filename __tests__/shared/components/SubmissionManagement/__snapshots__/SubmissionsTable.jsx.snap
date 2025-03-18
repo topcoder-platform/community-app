@@ -32,6 +32,8 @@ exports[`Matches shallow shapshot 1`] = `
       <Submission
         onDelete={[Function]}
         onDownload={[Function]}
+        onOpenDownloadArtifactsModal={[Function]}
+        onOpenRatingsListModal={[Function]}
         onShowDetails={[Function]}
         showScreeningDetails={true}
         submissionObject={

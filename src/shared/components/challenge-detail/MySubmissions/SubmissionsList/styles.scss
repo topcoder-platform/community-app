@@ -167,6 +167,13 @@ button.column-1-1,
   align-items: center;
   height: 56px;
 
+  .download-artifacts-button {
+    svg {
+      width: 24px;
+      margin-left: 20px;
+    }
+  }
+
   @include xs-to-sm {
     display: flex;
     flex-direction: column;
@@ -492,5 +499,27 @@ button.is-highlight {
     span {
       color: black;
     }
+  }
+}
+
+.tooltip-content {
+  background: $tc-black;
+  color: $tc-white;
+  border-radius: 8px;
+  padding: 10px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    bottom: 4px;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    left: 50%;
+    border-top-color: $tc-black;
+    z-index: 1000;
   }
 }

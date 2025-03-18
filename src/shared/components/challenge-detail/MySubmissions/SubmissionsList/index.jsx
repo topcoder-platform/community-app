@@ -18,6 +18,7 @@ import Tooltip from 'components/Tooltip';
 import IconFail from '../../icons/failed.svg';
 import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 import ZoomIcon from '../../../SubmissionManagement/Icons/IconZoom.svg';
+import ArtifactsDownloadIcon from '../../../SubmissionManagement/Icons/IconDownloadArtifacts.svg';
 
 // import SearchIcon from '../../../SubmissionManagement/Icons/IconSearch.svg';
 import style from './styles.scss';
@@ -147,9 +148,13 @@ class SubmissionsListView extends React.Component {
     this.setState({ openModal: !openModal, selectedSubmission });
   }
 
+  showDetailsModal(submission) {
+    const { onShowDetailsModal } = this.props;
+    onShowDetailsModal(submission);
+  }
+
   render() {
     const {
-      selectSubmission,
       challengesUrl,
       challenge,
       hasRegistered,
@@ -158,6 +163,7 @@ class SubmissionsListView extends React.Component {
       isLegacyMM,
       auth,
       onSortChange,
+      onShowDownloadArtifactsModal,
     } = this.props;
 
     const isButtonDisabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
@@ -443,31 +449,48 @@ class SubmissionsListView extends React.Component {
                     <div styleName="submission-table-column column-2-4">
                       { !isTopCrowdChallenge
                         ? (
-                          <button
-                            onClick={() => {
-                              // download submission
-                              const submissionsService = getService(auth.tokenV3);
-                              submissionsService.downloadSubmission(mySubmission.submissionId)
-                                .then((blob) => {
-                                  const url = window.URL.createObjectURL(new Blob([blob]));
-                                  const link = document.createElement('a');
-                                  link.href = url;
-                                  link.setAttribute('download', `submission-${mySubmission.submissionId}.zip`);
-                                  document.body.appendChild(link);
-                                  link.click();
-                                  link.parentNode.removeChild(link);
-                                });
-                            }}
-                            type="button"
-                          >
-                            <DownloadIcon />
-                          </button>
+                          <Tooltip content={() => <div styleName="tooltip-content">Download Submission</div>}>
+                            <button
+                              onClick={() => {
+                                // download submission
+                                const submissionsService = getService(auth.tokenV3);
+                                submissionsService.downloadSubmission(mySubmission.submissionId)
+                                  .then((blob) => {
+                                    const url = window.URL.createObjectURL(new Blob([blob]));
+                                    const link = document.createElement('a');
+                                    link.href = url;
+                                    link.setAttribute('download', `submission-${mySubmission.submissionId}.zip`);
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    link.parentNode.removeChild(link);
+                                  });
+                              }}
+                              type="button"
+                            >
+                              <DownloadIcon />
+                            </button>
+                          </Tooltip>
+                        )
+                        : <span /> }
+                      { !isTopCrowdChallenge
+                        ? (
+                          <Tooltip content={() => <div styleName="tooltip-content">Download Submission Artifacts</div>}>
+                            <button
+                              onClick={() => onShowDownloadArtifactsModal(mySubmission)}
+                              type="button"
+                              styleName="download-artifacts-button"
+                            >
+                              <ArtifactsDownloadIcon />
+                            </button>
+                          </Tooltip>
                         )
                         : <span /> }
 
-                      <button onClick={() => selectSubmission(mySubmission)} type="button">
-                        <ZoomIcon styleName="icon-zoom" />
-                      </button>
+                      <Tooltip content={() => <div styleName="tooltip-content">Show Submission Details</div>}>
+                        <button onClick={() => this.showDetailsModal(mySubmission)} type="button">
+                          <ZoomIcon styleName="icon-zoom" />
+                        </button>
+                      </Tooltip>
 
                       {/* <button onClick={() => this.toggleModal(mySubmission)} type="button">
                         <SearchIcon styleName="icon-search" />
@@ -529,12 +552,12 @@ class SubmissionsListView extends React.Component {
 }
 
 SubmissionsListView.defaultProps = {
-  selectSubmission: () => {},
   onSortChange: () => {},
+  onShowDownloadArtifactsModal: () => {},
+  onShowDetailsModal: () => {},
 };
 
 SubmissionsListView.propTypes = {
-  selectSubmission: PT.func,
   challengesUrl: PT.string.isRequired,
   challenge: PT.shape().isRequired,
   hasRegistered: PT.bool.isRequired,
@@ -548,6 +571,8 @@ SubmissionsListView.propTypes = {
     sort: PT.string,
   }).isRequired,
   onSortChange: PT.func,
+  onShowDownloadArtifactsModal: PT.func,
+  onShowDetailsModal: PT.func,
 };
 
 export default SubmissionsListView;

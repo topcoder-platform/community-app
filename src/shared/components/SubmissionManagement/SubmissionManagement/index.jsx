@@ -39,6 +39,11 @@ export default function SubmissionManagement(props) {
     challengeUrl,
     onlineReviewUrl,
     submissionPhaseStartDate,
+    onDownloadArtifacts,
+    getSubmissionArtifacts,
+    getSubmissionInformation,
+    getReviewTypesList,
+    getChallengeResources,
   } = props;
 
   const { track } = challenge;
@@ -70,6 +75,11 @@ export default function SubmissionManagement(props) {
     onDownload: onDownload.bind(0, challengeType),
     onlineReviewUrl,
     onShowDetails,
+    onDownloadArtifacts,
+    getSubmissionArtifacts,
+    getSubmissionInformation,
+    getReviewTypesList,
+    getChallengeResources,
   };
   return (
     <div styleName="submission-management">
@@ -205,6 +215,11 @@ SubmissionManagement.defaultProps = {
   onDelete: _.noop,
   onShowDetails: _.noop,
   onDownload: _.noop,
+  onDownloadArtifacts: _.noop,
+  getSubmissionArtifacts: _.noop,
+  getSubmissionInformation: _.noop,
+  getReviewTypesList: _.noop,
+  getChallengeResources: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
   loadingSubmissions: false,
@@ -220,6 +235,11 @@ SubmissionManagement.propTypes = {
   helpPageUrl: PT.string,
   onDownload: PT.func,
   onShowDetails: PT.func,
+  onDownloadArtifacts: PT.func,
+  getSubmissionArtifacts: PT.func,
+  getSubmissionInformation: PT.func,
+  getReviewTypesList: PT.func,
+  getChallengeResources: PT.func,
   submissions: PT.arrayOf(PT.shape()),
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,

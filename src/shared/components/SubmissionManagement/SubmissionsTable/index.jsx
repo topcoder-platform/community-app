@@ -15,16 +15,23 @@
  */
 
 import _ from 'lodash';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PT from 'prop-types';
 import shortid from 'shortid';
 import moment from 'moment';
 import { COMPETITION_TRACKS } from 'utils/tc';
-import Submission from '../Submission';
 import ScreeningDetails from '../ScreeningDetails';
+import DownloadArtifactsModal from '../DownloadArtifactsModal';
+import Submission from '../Submission';
+import RatingsListModal from '../RatingsListModal';
+
 import './styles.scss';
 
+
 export default function SubmissionsTable(props) {
+  const [submissionId, setSubmissionId] = useState('');
+  const [showDownloadArtifactsModal, setShowDownloadArtifactsModal] = useState(false);
+  const [showRatingsListModal, setShowRatingsListModal] = useState(false);
   const {
     challenge,
     submissionObjects,
@@ -37,7 +44,22 @@ export default function SubmissionsTable(props) {
     onShowDetails,
     status,
     submissionPhaseStartDate,
+    onDownloadArtifacts,
+    getSubmissionArtifacts,
+    getReviewTypesList,
+    getChallengeResources,
+    getSubmissionInformation,
   } = props;
+
+  const onOpenDownloadArtifactsModal = useCallback((id) => {
+    setSubmissionId(id);
+    setShowDownloadArtifactsModal(true);
+  }, []);
+
+  const onOpenRatingsListModal = useCallback((id) => {
+    setSubmissionId(id);
+    setShowRatingsListModal(true);
+  }, []);
 
   const submissionsWithDetails = [];
   if (!submissionObjects || submissionObjects.length === 0) {
@@ -67,6 +89,8 @@ export default function SubmissionsTable(props) {
           status={status}
           key={shortid.generate()}
           allowDelete={allowDelete}
+          onOpenDownloadArtifactsModal={onOpenDownloadArtifactsModal}
+          onOpenRatingsListModal={onOpenRatingsListModal}
         />
       );
       submissionsWithDetails.push(submission);
@@ -118,6 +142,30 @@ export default function SubmissionsTable(props) {
           {submissionsWithDetails}
         </tbody>
       </table>
+      {showDownloadArtifactsModal && (
+        <DownloadArtifactsModal
+          onCancel={() => {
+            setSubmissionId('');
+            setShowDownloadArtifactsModal(false);
+          }}
+          getSubmissionArtifacts={getSubmissionArtifacts}
+          submissionId={submissionId}
+          onDownloadArtifacts={onDownloadArtifacts}
+        />
+      )}
+      {showRatingsListModal && (
+        <RatingsListModal
+          onCancel={() => {
+            setSubmissionId('');
+            setShowRatingsListModal(false);
+          }}
+          getReviewTypesList={getReviewTypesList}
+          getChallengeResources={getChallengeResources}
+          submissionId={submissionId}
+          challengeId={challenge.id}
+          getSubmissionInformation={getSubmissionInformation}
+        />
+      )}
     </div>
   );
 }
@@ -137,8 +185,13 @@ SubmissionsTable.defaultProps = {
   onDelete: _.noop,
   onDownload: _.noop,
   onShowDetails: _.noop,
+  onDownloadArtifacts: _.noop,
+  getSubmissionArtifacts: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
+  getReviewTypesList: _.noop,
+  getChallengeResources: _.noop,
+  getSubmissionInformation: _.noop,
 };
 
 SubmissionsTable.propTypes = {
@@ -151,6 +204,11 @@ SubmissionsTable.propTypes = {
   helpPageUrl: PT.string,
   onDownload: PT.func,
   onShowDetails: PT.func,
+  onDownloadArtifacts: PT.func,
+  getSubmissionArtifacts: PT.func,
   status: PT.string.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
+  getReviewTypesList: PT.func,
+  getChallengeResources: PT.func,
+  getSubmissionInformation: PT.func,
 };

@@ -8,6 +8,9 @@ import _ from 'lodash';
 import { goToLogin } from 'utils/tc';
 import LoadingIndicator from 'components/LoadingIndicator';
 import tc from 'components/buttons/themed/tc.scss';
+import DownloadArtifactsModal from 'components/SubmissionManagement/DownloadArtifactsModal';
+import { downloadSubmissions } from 'services/submissions';
+import { getExtensionFromMime } from 'utils/files';
 
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
@@ -26,11 +29,17 @@ class MySubmissionsView extends React.Component {
     super(props);
     this.state = {
       selectedSubmission: null,
+      showDownloadArtifactsModal: false,
+      showDetailsModal: false,
       submissionsSortDetail: {
         field: '',
         sort: '',
       },
     };
+    this.onShowDownloadArtifactsModal = this.onShowDownloadArtifactsModal.bind(this);
+    this.onDownloadArtifacts = this.onDownloadArtifacts.bind(this);
+    this.loadSubmissionArtifacts = this.loadSubmissionArtifacts.bind(this);
+    this.onShowDetailsModal = this.onShowDetailsModal.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +61,43 @@ class MySubmissionsView extends React.Component {
     }
   }
 
+  onShowDownloadArtifactsModal(submission) {
+    this.setState({
+      selectedSubmission: submission,
+      showDownloadArtifactsModal: true,
+      showDetailsModal: false,
+    });
+  }
+
+  onDownloadArtifacts(submissionId, artifactId) {
+    const { auth } = this.props;
+    downloadSubmissions(auth.tokenV3, submissionId, artifactId)
+      .then((blob) => {
+        const fileBlob = new Blob([blob]);
+        const url = window.URL.createObjectURL(fileBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        const extension = getExtensionFromMime(fileBlob);
+        link.setAttribute('download', `submission-artifact-${submissionId}.${extension}`);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      });
+  }
+
+  onShowDetailsModal(submission) {
+    this.setState({
+      selectedSubmission: submission,
+      showDetailsModal: true,
+      showDownloadArtifactsModal: false,
+    });
+  }
+
+  loadSubmissionArtifacts(submissionId, tokenV3) {
+    const { getSubmissionArtifacts } = this.props;
+    return getSubmissionArtifacts(submissionId, tokenV3);
+  }
+
   render() {
     const {
       challengesUrl,
@@ -68,7 +114,12 @@ class MySubmissionsView extends React.Component {
       submissionsSort,
       onSortChange,
     } = this.props;
-    const { selectedSubmission, submissionsSortDetail } = this.state;
+    const {
+      selectedSubmission,
+      submissionsSortDetail,
+      showDetailsModal,
+      showDownloadArtifactsModal,
+    } = this.state;
 
     if (!_.isEmpty(loadingMMSubmissionsForChallengeId)) {
       return <div className={style.loading}><LoadingIndicator /></div>;
@@ -77,10 +128,10 @@ class MySubmissionsView extends React.Component {
     return (
       <div className={style.wrapper}>
         <div className={style.content}>
-          { selectedSubmission && (
+          {showDetailsModal && selectedSubmission && (
           <Modal onCancel={() => this.setState({ selectedSubmission: null })} theme={style}>
             <SubmissionsDetail
-              onCancel={() => this.setState({ selectedSubmission: null })}
+              onCancel={() => this.setState({ selectedSubmission: null, showDetailsModal: false })}
               submission={selectedSubmission}
               reviewTypes={reviewTypes}
               submissionsSort={submissionsSortDetail}
@@ -99,6 +150,18 @@ class MySubmissionsView extends React.Component {
             </div>
           </Modal>
           )}
+          {showDownloadArtifactsModal && (
+            <DownloadArtifactsModal
+              onCancel={() => {
+                this.setState({ showDownloadArtifactsModal: false, selectedSubmission: null });
+              }}
+              getSubmissionArtifacts={
+                submissionId => this.loadSubmissionArtifacts(submissionId, auth.tokenV3)
+              }
+              submissionId={selectedSubmission.submissionId}
+              onDownloadArtifacts={this.onDownloadArtifacts}
+            />
+          )}
           <SubmissionsList
             selectSubmission={submission => this.setState({ selectedSubmission: submission })}
             challengesUrl={challengesUrl}
@@ -112,6 +175,8 @@ class MySubmissionsView extends React.Component {
             auth={auth}
             submissionsSort={submissionsSort}
             onSortChange={onSortChange}
+            onShowDownloadArtifactsModal={this.onShowDownloadArtifactsModal}
+            onShowDetailsModal={this.onShowDetailsModal}
           />
         </div>
       </div>
@@ -121,6 +186,7 @@ class MySubmissionsView extends React.Component {
 
 MySubmissionsView.defaultProps = {
   onSortChange: () => {},
+  getSubmissionArtifacts: () => {},
 };
 
 MySubmissionsView.propTypes = {
@@ -141,6 +207,7 @@ MySubmissionsView.propTypes = {
     sort: PT.string,
   }).isRequired,
   onSortChange: PT.func,
+  getSubmissionArtifacts: PT.func,
 };
 
 export default MySubmissionsView;
