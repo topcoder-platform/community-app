@@ -159,7 +159,7 @@ class SubmissionManagementPageContainer extends React.Component {
             link.parentNode.removeChild(link);
           });
       },
-      onDownloadArtifacts: (artifactId, submissionId) => {
+      onDownloadArtifacts: (submissionId, artifactId) => {
         downloadSubmissions(authTokens.tokenV3, submissionId, artifactId)
           .then((blob) => {
             const fileBlob = new Blob([blob]);
