@@ -35,6 +35,7 @@ class FilestackFilePicker extends React.Component {
     this.state = {
       inputUrl: '',
       invalidUrl: false,
+      invalidDomain: false,
     };
   }
 
@@ -105,8 +106,10 @@ class FilestackFilePicker extends React.Component {
     if (!isChallengeBelongToTopgearGroup) {
       return;
     }
-    if (this.isValidUrl(inputUrl)) {
-      this.setState({ invalidUrl: false });
+    const validUrl = this.isValidUrl(inputUrl);
+    const validDomain = this.isDomainAllowed(inputUrl);
+    if (validUrl && validDomain) {
+      this.setState({ invalidUrl: false, invalidDomain: false });
       const path = this.generateFilePath();
       const filename = inputUrl.substring(inputUrl.lastIndexOf('/') + 1);
       setDragged(false);
@@ -119,7 +122,7 @@ class FilestackFilePicker extends React.Component {
         originalPath: inputUrl,
       }, path);
     } else {
-      this.setState({ invalidUrl: true });
+      this.setState({ invalidUrl: true, invalidDomain: !validDomain });
     }
   }
 
@@ -130,6 +133,11 @@ class FilestackFilePicker extends React.Component {
   /* eslint-disable class-methods-use-this */
   isValidUrl(url) {
     return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url); /* eslint-disable-line no-useless-escape */
+  }
+
+  isDomainAllowed(url) {
+    const domainReg = new RegExp(`^https?://(${config.TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS.join('|')})/.+`);
+    return !!url.match(domainReg);
   }
 
   /**
@@ -157,6 +165,7 @@ class FilestackFilePicker extends React.Component {
 
     const {
       invalidUrl,
+      invalidDomain,
       inputUrl,
     } = this.state;
 
@@ -207,6 +216,14 @@ class FilestackFilePicker extends React.Component {
             isChallengeBelongToTopgearGroup && (
               <div styleName="url-input-container">
                 {invalidUrl && (<div styleName="invalid-url-message">* Invalid URL</div>)}
+                {invalidDomain && (
+                  <div styleName="invalid-url-message">
+                    Ensure that you submit a valid Wipro SharePoint link only.
+                    The link should point to the outcome/deliverable of the
+                    challenge and should reflect the work done.
+                    Please check the challenge submission guidelines.
+                  </div>
+                )}
                 <input styleName={(invalidUrl ? 'invalid' : '')} id="name" name="name" type="text" placeholder="URL" onChange={this.onUpdateInputUrl} value={inputUrl} required />
               </div>
             )
