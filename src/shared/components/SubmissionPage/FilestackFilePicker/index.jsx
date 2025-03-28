@@ -136,7 +136,7 @@ class FilestackFilePicker extends React.Component {
   }
 
   isDomainAllowed(url) {
-    const domainReg = new RegExp(`^https?://(${config.TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS.join('|')})/`);
+    const domainReg = new RegExp(`^https?://(${config.TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS.join('|')})/.+`);
     return !!url.match(domainReg);
   }
 
