@@ -25,6 +25,10 @@
     position: relative;
     justify-content: space-around;
 
+    &.topgear {
+      justify-content: flex-start;
+    }
+
     @include xs-to-sm {
       min-height: 150px;
       justify-content: space-between;

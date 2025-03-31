@@ -200,8 +200,8 @@ class Submit extends React.Component {
       : `Please follow the instructions on the Challenge Details page regarding
         what your submission should contain and how it should be organized.`;
     const troubleInstruction = isChallengeBelongToTopgearGroup
-      ? `If you are having trouble uploading your file, please raise a Service
-        Now (SNOW) ticket under the TopGear category.`
+      ? `If you are having trouble with the submission or have any queries, please raise a Service 
+      Now (SNOW) ticket under the TopGear category.`
       : (
         <span>
           If you are having trouble uploading your file, please send your submission
