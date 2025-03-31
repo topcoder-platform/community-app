@@ -170,7 +170,7 @@ class Submit extends React.Component {
         </div>
         <div>
           <ol styleName="wipro-steps">
-            <li>Upload the outcome/asset/deliverable of the challenge to the repository 
+            <li>Upload the outcome/asset/deliverable of the challenge to the repository
               (Wipro SharePoint folder) as specified by the project team/challenge creator.
             </li>
             <li>Copy the link of the outcome/asset/deliverable that was uploaded.
