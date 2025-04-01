@@ -171,7 +171,7 @@ class Submit extends React.Component {
         <div>
           <ol styleName="wipro-steps">
             <li>Upload the outcome/asset/deliverable of the challenge to the repository
-              (Wipro SharePoint folder) as specified by the project team/challenge creator.
+              (<strong styleName="wipro-bold">Wipro SharePoint folder</strong>) as specified by the project team/challenge creator.
             </li>
             <li>Copy the link of the outcome/asset/deliverable that was uploaded.
               Enter this link in the text box and click on “SET URL”.
@@ -188,7 +188,7 @@ class Submit extends React.Component {
         </div>
         <p styleName="wipro-paragraph">
           Note: All deliverables/outcomes should be uploaded to the Wipro SharePoint
-          directory <strong>ONLY</strong>. For work done directly on customer environment and
+          directory <strong styleName="wipro-bold">ONLY</strong>. For work done directly on customer environment and
           involving a customer SharePoint/drive/folder link, create a word document and include a
           brief summary of the work done and list the deliverables/assets created along
           with the link to the customer SharePoint/drive/folder link and upload the word
