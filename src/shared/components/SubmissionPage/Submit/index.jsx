@@ -171,7 +171,7 @@ class Submit extends React.Component {
         <div>
           <ol styleName="wipro-steps">
             <li>Upload the outcome/asset/deliverable of the challenge to the repository
-              (e.g OneDrive/teams folder) as specified by the project team/challenge creator.
+              (<strong styleName="wipro-bold">Wipro SharePoint folder</strong>) as specified by the project team/challenge creator.
             </li>
             <li>Copy the link of the outcome/asset/deliverable that was uploaded.
               Enter this link in the text box and click on “SET URL”.
@@ -186,13 +186,22 @@ class Submit extends React.Component {
           <span styleName="wipro-red">Do not submit any irrelevant links</span>&nbsp;
           as the submission link is proof of the work done.
         </div>
+        <p styleName="wipro-paragraph">
+          Note: All deliverables/outcomes should be uploaded to the Wipro SharePoint
+          directory <strong styleName="wipro-bold">ONLY</strong>. For work done directly on customer environment and
+          involving a customer SharePoint/drive/folder link, create a word document and include a
+          brief summary of the work done and list the deliverables/assets created along
+          with the link to the customer SharePoint/drive/folder link and upload the word
+          document to a Wipro SharePoint folder. And submit the link to this Word document
+          as the submission link.
+        </p>
       </div>
     )
       : `Please follow the instructions on the Challenge Details page regarding
         what your submission should contain and how it should be organized.`;
     const troubleInstruction = isChallengeBelongToTopgearGroup
-      ? `If you are having trouble uploading your file, please raise a Service
-        Now (SNOW) ticket under the TopGear category.`
+      ? `If you are having trouble with the submission or have any queries, please raise a Service 
+      Now (SNOW) ticket under the TopGear category.`
       : (
         <span>
           If you are having trouble uploading your file, please send your submission

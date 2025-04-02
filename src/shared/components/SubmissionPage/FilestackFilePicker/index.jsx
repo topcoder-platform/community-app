@@ -177,7 +177,7 @@ class FilestackFilePicker extends React.Component {
           </p>
         </div>
         <div
-          styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
+          styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''} ${isChallengeBelongToTopgearGroup ? 'topgear' : ''}`}
         >
           {
             !fileName && !isChallengeBelongToTopgearGroup && (
