@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Server-side functions necessary for effective integration with recruitCRM
  */
@@ -413,6 +414,7 @@ export default class RecruitCRMService {
   async applyForJob(req, res, next) {
     const { id } = req.params;
     const { body, file } = req;
+    console.log('debug: applyForJob', id, body, file);
     const form = JSON.parse(body.form);
     const fileData = new FormData();
     if (file) {
@@ -605,6 +607,7 @@ export default class RecruitCRMService {
       const data = await applyResponse.json();
       return res.send(data);
     } catch (err) {
+      console.log('applyForJob error', err);
       return next(err);
     }
   }
