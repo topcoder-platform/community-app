@@ -54,7 +54,7 @@ export default function ChallengeDetailsView(props) {
     const phase = phases.find(item => item.name === phaseName);
     const scoreCardConstraint = phase && phase.constraints && phase.constraints.find(item => item.name === 'Scorecard');
     return scoreCardConstraint ? scoreCardConstraint.value : '';
-  }
+  };
 
   const roles = (userDetails || {}).roles || [];
   const {
@@ -429,6 +429,7 @@ ChallengeDetailsView.propTypes = {
     }),
     metadata: PT.array,
     events: PT.arrayOf(PT.string),
+    phases: PT.arrayOf(PT.any),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({
