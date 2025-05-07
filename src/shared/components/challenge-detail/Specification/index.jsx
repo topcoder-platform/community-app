@@ -52,7 +52,7 @@ export default function ChallengeDetailsView(props) {
 
   const getScoreCardByPhase = (phaseName) => {
     const phase = phases.find(item => item.name === phaseName);
-    const scoreCardConstraint = phase && phase.constraints.find(item => item.name === 'Scorecard');
+    const scoreCardConstraint = phase && phase.constraints && phase.constraints.find(item => item.name === 'Scorecard');
     return scoreCardConstraint ? scoreCardConstraint.value : '';
   }
 
