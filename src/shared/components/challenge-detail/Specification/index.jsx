@@ -47,14 +47,22 @@ export default function ChallengeDetailsView(props) {
     metadata,
     events,
     track,
+    phases,
   } = challenge;
+
+  const getScoreCardByPhase = (phase) => {
+    const screeningPhase = phases.find(item => item.name === phase);
+    const scoreCardConstraint = screeningPhase.constraints.find(item => item.name === 'Scorecard');
+    return scoreCardConstraint ? scoreCardConstraint.value : '';
+  }
 
   const roles = (userDetails || {}).roles || [];
   const {
-    reviewScorecardId,
-    screeningScorecardId,
     forumId,
   } = legacy;
+
+  const reviewScorecardId = getScoreCardByPhase('Review');
+  const screeningScorecardId = getScoreCardByPhase('Screening');
 
   let stockArtValue = '';
   const allowStockArt = _.find(metadata, { name: 'allowStockArt' });
