@@ -234,8 +234,8 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Submitted Date': {
-          const checkpointA = this.getFinal(a);
-          const checkpointB = this.getFinal(b);
+          const checkpointA = this.getFinal(a) || this.getSubmissionDate(a);
+          const checkpointB = this.getFinal(b) || this.getSubmissionDate(b);
           if (checkpointA) {
             valueA = new Date(checkpointA);
           }
