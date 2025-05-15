@@ -7,12 +7,13 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  BUCKETS, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
+  BUCKETS, isReviewOpportunitiesBucket, isCopilotOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
   // BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
 } from 'utils/challenge-listing/buckets';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
+import CopilotOpportunityBucket from './CopilotOpportunityBucket';
 import CardPlaceholder from '../placeholders/ChallengeCard';
 import './style.scss';
 
@@ -29,6 +30,7 @@ function Listing({
   allPastChallengesLoaded,
   allOpenForRegistrationChallengesLoaded,
   challenges,
+  copilotOpportunities,
   openForRegistrationChallenges,
   myChallenges,
   myPastChallenges,
@@ -42,6 +44,8 @@ function Listing({
   filterState,
   keepPastPlaceholders,
   needLoad,
+  loadingCopilotOpportunities,
+  loadMoreCopilotOpportunities,
   loadingPastChallenges,
   loadingReviewOpportunities,
   loadingMyChallenges,
@@ -141,70 +145,91 @@ function Listing({
       default:
         break;
     }
-    return (
-      /* Review Opportunities use a different Bucket, Card and data source than normal challenges
+
+    /* Review Opportunities use a different Bucket, Card and data source than normal challenges
        * and are only shown when explicitly chosen from the sidebar */
-      isReviewOpportunitiesBucket(bucket)
-        ? (
-          <ReviewOpportunityBucket
-            // bucket={buckets[bucket]}
-            bucket={bucket}
-            challengesUrl={challengesUrl}
-            expandedTags={expandedTags}
-            expandTag={expandTag}
-            filterState={filterState}
-            keepPlaceholders={keepPastPlaceholders}
-            needLoad={needLoad}
-            loading={loadingReviewOpportunities}
-            loadMore={loadMoreReviewOpportunities}
-            opportunities={reviewOpportunities}
-            setFilterState={setFilterState}
-            setSort={sort => setSort(bucket, sort)}
-            sort={sorts[bucket]}
-            challengeTypes={challengeTypes}
-            isLoggedIn={isLoggedIn}
-            setSearchText={setSearchText}
-          />
-        )
-        : (
-          <Bucket
-            // bucket={buckets[bucket]}
-            bucket={bucket}
-            // bucketId={bucket}
-            challenges={bucketChallenges}
-            challengeTypes={challengeTypes}
-            challengesUrl={challengesUrl}
-            communityName={communityName}
-            expand={() => {
-              selectBucket(bucket);
-              loadMore();
-            }}
-            expanded={newExpanded}
-            expanding={expanding}
-            expandedTags={expandedTags}
-            expandTag={expandTag}
-            filterState={filterState}
-            // keepPlaceholders={keepPlaceholders}
-            needLoad={needLoad}
-            loading={loading}
-            loadMore={loadMore}
-            newChallengeDetails={newChallengeDetails}
-            openChallengesInNewTabs={openChallengesInNewTabs}
-            prizeMode={prizeMode}
-            selectChallengeDetailsTab={selectChallengeDetailsTab}
-            selectedCommunityId={selectedCommunityId}
-            setFilterState={setFilterState}
-            setSort={sort => setSort(bucket, sort)}
-            sort={sorts[bucket]}
-            userId={_.get(auth, 'user.userId')}
-            auth={auth}
-            activeBucket={activeBucket}
-            // searchTimestamp={searchTimestamp}
-            isLoggedIn={isLoggedIn}
-            setSearchText={setSearchText}
-          />
-        )
-    );
+    let content;
+
+    if (isReviewOpportunitiesBucket(bucket)) {
+      content = (
+        <ReviewOpportunityBucket
+          bucket={bucket}
+          challengesUrl={challengesUrl}
+          expandedTags={expandedTags}
+          expandTag={expandTag}
+          filterState={filterState}
+          keepPlaceholders={keepPastPlaceholders}
+          needLoad={needLoad}
+          loading={loadingReviewOpportunities}
+          loadMore={loadMoreReviewOpportunities}
+          opportunities={reviewOpportunities}
+          setFilterState={setFilterState}
+          setSort={sort => setSort(bucket, sort)}
+          sort={sorts[bucket]}
+          challengeTypes={challengeTypes}
+          isLoggedIn={isLoggedIn}
+          setSearchText={setSearchText}
+        />
+      );
+    } else if (isCopilotOpportunitiesBucket(bucket)) {
+      content = (
+        <CopilotOpportunityBucket
+          bucket={bucket}
+          challengesUrl={challengesUrl}
+          expandedTags={expandedTags}
+          expandTag={expandTag}
+          filterState={filterState}
+          keepPlaceholders={keepPastPlaceholders}
+          needLoad={needLoad}
+          loading={loadingCopilotOpportunities}
+          loadMore={loadMoreCopilotOpportunities}
+          opportunities={copilotOpportunities}
+          setFilterState={setFilterState}
+          setSort={sort => setSort(bucket, sort)}
+          sort={sorts[bucket]}
+          challengeTypes={challengeTypes}
+          isLoggedIn={isLoggedIn}
+          setSearchText={setSearchText}
+        />
+      );
+    } else {
+      content = (
+        <Bucket
+          bucket={bucket}
+          challenges={bucketChallenges}
+          challengeTypes={challengeTypes}
+          challengesUrl={challengesUrl}
+          communityName={communityName}
+          expand={() => {
+            selectBucket(bucket);
+            loadMore();
+          }}
+          expanded={newExpanded}
+          expanding={expanding}
+          expandedTags={expandedTags}
+          expandTag={expandTag}
+          filterState={filterState}
+          needLoad={needLoad}
+          loading={loading}
+          loadMore={loadMore}
+          newChallengeDetails={newChallengeDetails}
+          openChallengesInNewTabs={openChallengesInNewTabs}
+          prizeMode={prizeMode}
+          selectChallengeDetailsTab={selectChallengeDetailsTab}
+          selectedCommunityId={selectedCommunityId}
+          setFilterState={setFilterState}
+          setSort={sort => setSort(bucket, sort)}
+          sort={sorts[bucket]}
+          userId={_.get(auth, 'user.userId')}
+          auth={auth}
+          activeBucket={activeBucket}
+          isLoggedIn={isLoggedIn}
+          setSearchText={setSearchText}
+        />
+      );
+    }
+
+    return content;
   };
 
   if ((activeBucket !== BUCKETS.SAVED_FILTER)) {
@@ -276,6 +301,7 @@ function Listing({
 
 Listing.defaultProps = {
   challenges: [],
+  copilotOpportunities: [],
   openForRegistrationChallenges: [],
   myChallenges: [],
   myPastChallenges: [],
@@ -290,6 +316,7 @@ Listing.defaultProps = {
   // extraBucket: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
+  loadMoreCopilotOpportunities: null,
   loadMoreMy: null,
   loadMoreMyPast: null,
   loadMoreAll: null,
@@ -335,6 +362,9 @@ Listing.propTypes = {
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   needLoad: PT.bool.isRequired,
+  loadingCopilotOpportunities: PT.bool.isRequired,
+  loadMoreCopilotOpportunities: PT.func,
+  copilotOpportunities: PT.arrayOf(PT.shape()),
   loadingPastChallenges: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
   loadingMyPastChallenges: PT.bool.isRequired,
@@ -377,6 +407,7 @@ const mapStateToProps = (state) => {
     allChallengesLoaded: cl.allChallengesLoaded,
     allPastChallengesLoaded: cl.allPastChallengesLoaded,
     allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
+    // allCopilotOpportunitiesLoaded: cl.allCopilotOpportunitiesLoaded,
     // pastSearchTimestamp: cl.pastSearchTimestamp,
     challengeTypes: cl.challengeTypes,
   };

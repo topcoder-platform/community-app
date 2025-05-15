@@ -496,6 +496,48 @@ function onGetReviewOpportunitiesDone(state, { payload, error }) {
 }
 
 /**
+ * Handles CHALLENGE_LISTING/GET_COPILOT_OPPORTUNITIES_INIT action.
+ * @param {Object} state
+ * @param {Object} action Payload will be page, uuid
+ * @return {Object} New state
+ */
+function onGetCopilotOpportunitiesInit(state, { payload }) {
+  return {
+    ...state,
+    lastRequestedPageOfCopilotOpportunities: payload.page,
+    loadingCopilotOpportunitiesUUID: payload.uuid,
+  };
+}
+
+/**
+ * Handles CHALLENGE_LISTING/GET_COPILOT_OPPORTUNITIES_DONE action.
+ * @param {Object} state
+ * @param {Object} action Payload will be JSON from API call and UUID
+ * @return {Object} New state
+ */
+function onGetCopilotOpportunitiesDone(state, { payload, error }) {
+  if (error) return state;
+
+  const { uuid, loaded } = payload;
+
+  if (uuid !== state.loadingCopilotOpportunitiesUUID) return state;
+
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+  const copilotOpportunities = state.copilotOpportunities
+    .filter(item => !ids.has(item.id))
+    .concat(loaded);
+
+  return {
+    ...state,
+    copilotOpportunities,
+    loadingCopilotOpportunitiesUUID: '',
+    allCopilotOpportunitiesLoaded: loaded.length === 0,
+  };
+}
+
+
+/**
  * Inits the loading of SRMs.
  * @param {Object} state
  * @param {String} payload Operation UUID.
@@ -689,6 +731,7 @@ function create(initialState) {
       myPastChallenges: [],
       openForRegistrationChallenges: [],
       pastChallenges: [],
+      copilotOpportunities: [],
       lastRequestedPageOfActiveChallenges: -1,
       lastRequestedPageOfOpenForRegistrationChallenges: -1,
       lastRequestedPageOfMyChallenges: -1,
@@ -821,6 +864,9 @@ function create(initialState) {
     [a.getReviewOpportunitiesInit]: onGetReviewOpportunitiesInit,
     [a.getReviewOpportunitiesDone]: onGetReviewOpportunitiesDone,
 
+    [a.getCopilotOpportunitiesInit]: onGetCopilotOpportunitiesInit,
+    [a.getCopilotOpportunitiesDone]: onGetCopilotOpportunitiesDone,
+
     [a.getSrmsInit]: onGetSrmsInit,
     [a.getSrmsDone]: onGetSrmsDone,
 
@@ -846,6 +892,7 @@ function create(initialState) {
     allRecommendedChallengesLoaded: false,
     allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
+    allCopilotOpportunitiesLoaded: false,
 
     challenges: [],
     allChallenges: [],
@@ -857,6 +904,7 @@ function create(initialState) {
     challengeTypes: [],
     challengeTypesMap: {},
     challengeTags: [],
+    copilotOpportunities: [],
 
     expandedTags: [],
 
@@ -870,6 +918,7 @@ function create(initialState) {
     lastRequestedPageOfMyPastChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
+    lastRequestedPageOfCopilotOpportunities: -1,
     // lastUpdateOfActiveChallenges: 0,
 
     loadingActiveChallengesUUID: '',
@@ -913,6 +962,7 @@ function create(initialState) {
       all: 'startDate',
       // past: 'updated',
       reviewOpportunities: 'review-opportunities-start-date',
+      copilotOpportunities: 'copilot-opportunities-start-date',
       allPast: 'startDate',
       myPast: 'startDate',
     },

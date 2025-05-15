@@ -1,0 +1,93 @@
+@import '~styles/mixins';
+
+$challenge-space-20: $base-unit * 4;
+$challenge-space-30: $base-unit * 6;
+
+.copilotOpportunityHeader {
+  @include roboto-medium;
+
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  background: $tc-white;
+  padding: $challenge-space-20 0;
+  color: $tc-gray-60;
+  font-size: 12px;
+  margin-left: 24px;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    flex-wrap: wrap;
+    padding: $base-unit * 3 0;
+    margin-left: 0;
+    flex-direction: column;
+  }
+
+  @include xs-to-sm {
+    position: relative;
+  }
+
+  .left-panel {
+    display: flex;
+    justify-content: flex-start;
+    width: 45.5%;
+
+    @include xs-to-md {
+      width: 100%;
+      padding: 0 16px;
+    }
+  }
+
+  .right-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+
+    @include xs-to-md {
+      width: 100%;
+      display: flex;
+    }
+
+    @include xs-to-sm {
+      display: flex;
+    }
+  }
+
+  .challenge-details {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 82%;
+    margin-right: $challenge-space-30;
+
+    @include md {
+      margin-right: 180px;
+    }
+
+    @include xs-to-sm {
+      margin-right: 0;
+    }
+
+    a {
+      line-height: $challenge-space-20;
+
+      @include xs-to-sm {
+        display: inline-block;
+      }
+    }
+  }
+
+  .type {
+    width: 40%;
+  }
+
+  .status {
+    width: 30%;
+  }
+
+  .numHours {
+    width: 30%;
+  }
+
+ 
+}
+
