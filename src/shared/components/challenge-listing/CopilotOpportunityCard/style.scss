@@ -134,7 +134,7 @@ $status-radius-4: $corner-radius * 2;
     width: 30%;
 
     &.completed {
-        color: $tc-orange;
+      color: $tc-orange;
     }
 
     @include xs-to-md {
@@ -173,68 +173,64 @@ $status-radius-4: $corner-radius * 2;
     width: 40%;
 
     @include xs-to-md {
-        position: absolute;
-        right: 0;
-        top: 20px;
-        margin-right: $challenge-space-20;
-        margin-bottom: $challenge-space-20;
-      }
-  
-      @include xs-to-sm {
-        position: relative;
-        display: block;
-        margin-top: $challenge-space-30;
-        margin-bottom: $challenge-space-45;
-        margin-left: $challenge-space-15;
-        top: 0;
-      }
-  
-      @include md {
-        right: 108px;
-      }
-  
+      position: absolute;
+      right: 0;
+      top: 20px;
+      margin-right: $challenge-space-20;
+      margin-bottom: $challenge-space-20;
+    }
+
+    @include xs-to-sm {
+      position: relative;
+      display: block;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-left: $challenge-space-15;
+      top: 0;
+    }
+
+    @include md {
+      right: 108px;
+    }
+
     span {
-        color: $tc-black;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 16px;
-        text-transform: capitalize;
-      }
+      color: $tc-black;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      text-transform: capitalize;
+    }
   }
 
   .numHours {
-
     width: 30%;
 
     @include xs-to-md {
-        position: absolute;
-        right: 0;
-        top: 20px;
-        margin-right: $challenge-space-20;
-        margin-bottom: $challenge-space-20;
-      }
-  
-      @include xs-to-sm {
-        position: relative;
-        display: block;
-        margin-top: $challenge-space-30;
-        margin-bottom: $challenge-space-45;
-        margin-left: $challenge-space-15;
-        top: 0;
-      }
-  
-      @include md {
-        right: 108px;
-      }
-  
+      position: absolute;
+      right: 0;
+      top: 20px;
+      margin-right: $challenge-space-20;
+      margin-bottom: $challenge-space-20;
+    }
+
+    @include xs-to-sm {
+      position: relative;
+      display: block;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-left: $challenge-space-15;
+      top: 0;
+    }
+
+    @include md {
+      right: 108px;
+    }
+
     span {
-        color: $tc-black;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 16px;
-      }
+      color: $tc-black;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+    }
   }
-
- 
 }
-
