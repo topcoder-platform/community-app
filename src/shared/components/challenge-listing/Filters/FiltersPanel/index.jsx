@@ -53,6 +53,7 @@ export default function FiltersPanel({
   isAuth,
   auth,
   isReviewOpportunitiesBucket,
+  isCopilotOpportunitiesBucket,
   activeBucket,
   onClose,
   // onSaveFilter,
@@ -216,6 +217,7 @@ export default function FiltersPanel({
             />
           </div>
         </div>
+        { !isCopilotOpportunitiesBucket && (
         <div styleName="filter-row">
           <div styleName="filter track">
             <span styleName="label">
@@ -257,8 +259,9 @@ export default function FiltersPanel({
             </div>
           </div>
         </div>
+        )}
 
-        { !isReviewOpportunitiesBucket
+        { !isReviewOpportunitiesBucket && !isCopilotOpportunitiesBucket
           && (
             <div styleName="filter-row">
               <div styleName="filter challenge-type">
@@ -456,7 +459,7 @@ export default function FiltersPanel({
           )
         }
       </div>
-
+      { !isCopilotOpportunitiesBucket && (
       <div styleName="buttons">
         <Button
           composeContextTheme={COMPOSE.SOFT}
@@ -494,6 +497,7 @@ export default function FiltersPanel({
           Reset filters
         </Button>
       </div>
+      )}
     </div>
   );
 }
@@ -504,6 +508,7 @@ FiltersPanel.defaultProps = {
   isAuth: false,
   // isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
+  isCopilotOpportunitiesBucket: false,
   // onSaveFilter: _.noop,
   onClose: _.noop,
   expanding: false,
@@ -520,6 +525,7 @@ FiltersPanel.propTypes = {
   auth: PT.shape().isRequired,
   // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
+  isCopilotOpportunitiesBucket: PT.bool,
   // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   // selectedCommunityId: PT.string.isRequired,
