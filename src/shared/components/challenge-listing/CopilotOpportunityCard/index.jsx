@@ -1,6 +1,5 @@
 /**
- * Component for rendering a Copilot Opportunity and associated Challenge
- * information. Will be contained within a Bucket.
+ * Component for rendering a Copilot Opportunity Card which will serve as a row in the list.
  */
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';

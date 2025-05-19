@@ -6,19 +6,16 @@ import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 
-// import { challenge as challengeUtils } from 'topcoder-react-lib';
 import CopilotOpportunityHeader from 'components/challenge-listing/CopilotOpportunityHeader';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
-import CopilotOpportunityCard from '../../CopilotOpportunityCard'; // <== Replace with your actual Copilot Card component
+import CopilotOpportunityCard from '../../CopilotOpportunityCard';
 
 import './style.scss';
 
-// const Filter = challengeUtils.filter;
 
 const NO_RESULTS_MESSAGE = 'No copilot opportunities found';
 const LOADING_MESSAGE = 'Loading Copilot Opportunities';
 
-// Functional implementation of CopilotOpportunityBucket component
 export default function CopilotOpportunityBucket({
   bucket,
   challengesUrl,
@@ -40,13 +37,6 @@ export default function CopilotOpportunityBucket({
 
   const sortedOpportunities = _.clone(opportunities);
   sortedOpportunities.sort(Sort[activeSort].func);
-
-  //   const filteredOpportunities = sortedOpportunities.filter(
-  //     Filter.getReviewOpportunitiesFilterFunction({
-  //       ...BUCKET_DATA[bucket].filter,
-  //       ...filterState,
-  //     }, challengeTypes),
-  //   );
 
   const filteredOpportunities = sortedOpportunities;
 
@@ -142,6 +132,5 @@ CopilotOpportunityBucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
-  //   challengeTypes: PT.arrayOf(PT.shape()).isRequired,
   setSearchText: PT.func.isRequired,
 };
