@@ -108,6 +108,7 @@ export default function ChallengeListing(props) {
       activeBucket={activeBucket}
       auth={props.auth}
       challenges={challenges}
+      copilotOpportunities={props.copilotOpportunities}
       openForRegistrationChallenges={openForRegistrationChallenges}
       myChallenges={myChallenges}
       myPastChallenges={myPastChallenges}
@@ -125,12 +126,14 @@ export default function ChallengeListing(props) {
       loadingMyChallenges={props.loadingMyChallenges}
       loadingMyPastChallenges={props.loadingMyPastChallenges}
       loadingAllChallenges={props.loadingAllChallenges}
+      loadingCopilotOpportunities={props.loadingCopilotOpportunities}
       loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
       loadingOnGoingChallenges={props.loadingOnGoingChallenges}
       loadingReviewOpportunities={props.loadingReviewOpportunities}
       loadMoreMy={props.loadMoreMy}
       loadMoreMyPast={props.loadMoreMyPast}
       loadMoreAll={props.loadMoreAll}
+      loadMoreCopilotOpportunities={props.loadMoreCopilotOpportunities}
       loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
       loadMoreOnGoing={props.loadMoreOnGoing}
       loadMorePast={props.loadMorePast}
@@ -200,11 +203,13 @@ ChallengeListing.defaultProps = {
   auth: null,
   // communityFilter: null,
   communityName: null,
+  copilotOpportunities: [],
   // extraBucket: null,
   // hideTcLinksInFooter: false,
   loadMoreMy: null,
   loadMoreMyPast: null,
   loadMoreAll: null,
+  loadMoreCopilotOpportunities: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
   loadMorePast: null,
@@ -230,6 +235,7 @@ ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
   expanding: PT.bool,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  copilotOpportunities: PT.arrayOf(PT.shape()),
   openForRegistrationChallenges: PT.arrayOf(PT.shape()).isRequired,
   myChallenges: PT.arrayOf(PT.shape()).isRequired,
   myPastChallenges: PT.arrayOf(PT.shape()).isRequired,
@@ -252,6 +258,7 @@ ChallengeListing.propTypes = {
   loadingMyChallenges: PT.bool.isRequired,
   loadingMyPastChallenges: PT.bool.isRequired,
   loadingAllChallenges: PT.bool.isRequired,
+  loadingCopilotOpportunities: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
@@ -259,6 +266,7 @@ ChallengeListing.propTypes = {
   loadMoreMy: PT.func,
   loadMoreMyPast: PT.func,
   loadMoreAll: PT.func,
+  loadMoreCopilotOpportunities: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMoreOnGoing: PT.func,
   loadMorePast: PT.func,
