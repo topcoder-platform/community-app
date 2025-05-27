@@ -15,7 +15,7 @@ const PROJECT_TYPE_LABELS = {
   dev: 'Development',
   ai: 'AI (Artificial Intelligence)',
   design: 'Design',
-  datascience: 'DataScience',
+  datascience: 'Data Science',
   qa: 'Quality Assurance',
 };
 
