@@ -472,5 +472,5 @@ module.exports = {
   ACCOUNT_SETTINGS_REDIRECT_URL: 'https://account-settings.topcoder-dev.com',
   INNOVATION_CHALLENGES_TAG: 'Innovation Challenge',
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
-  TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS: ['wipro365.sharepoint.com', 'wipro365-my.sharepoint.com', 'wipro365-my.sharepoint.com.mcas.ms'],
+  TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS: 'wipro365.sharepoint.com|wipro365-my.sharepoint.com|wipro365-my.sharepoint.com.mcas.ms',
 };
