@@ -154,6 +154,9 @@ ENV GAMIFICATION_ORG_ID=$GAMIFICATION_ORG_ID
 # Universal nav
 ENV UNIVERSAL_NAV_URL=$UNIVERSAL_NAV_URL
 
+# Topgear submissions allowed domains
+ENV TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS=$TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS
+
 ################################################################################
 # Testing and build of the application inside the container.
 
