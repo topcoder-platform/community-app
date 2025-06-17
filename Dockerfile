@@ -86,6 +86,9 @@ ARG GAMIFICATION_ORG_ID
 # Universal Nav
 ARG UNIVERSAL_NAV_URL
 
+# Topgear submissions allowed domains
+ARG TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS
+
 ################################################################################
 # Setting of environment variables in the Docker image.
 
