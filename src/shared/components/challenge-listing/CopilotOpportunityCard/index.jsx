@@ -58,7 +58,7 @@ function CopilotOpportunityCard({
         <div styleName="type">
           <span>{PROJECT_TYPE_LABELS[opportunity.type]}</span>
         </div>
-        <div styleName={`status ${opportunity.status === 'completed' ? 'completed' : ''}`}>
+        <div styleName={`status ${(['completed', 'canceled'].includes(opportunity.status)) ? 'completed' : ''}`}>
           <span>{opportunity.status}</span>
         </div>
         <div styleName="numHours">
