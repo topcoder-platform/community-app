@@ -11,7 +11,7 @@ import FilterPanel from 'components/challenge-listing/Filters/FiltersPanel';
 import PT from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+import { BUCKETS, isReviewOpportunitiesBucket, isCopilotOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import qs from 'qs';
@@ -132,6 +132,7 @@ export class Container extends React.Component {
     ];
 
     const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
+    const isForCopilotOpportunities = isCopilotOpportunitiesBucket(activeBucket);
 
     const filterPanel = (
       <FilterPanel
@@ -141,6 +142,7 @@ export class Container extends React.Component {
           setFilterState(state);
         }}
         isReviewOpportunitiesBucket={isForReviewOpportunities}
+        isCopilotOpportunitiesBucket={isForCopilotOpportunities}
         activeBucket={activeBucket}
         expanded={expanded}
         setExpanded={setExpanded}

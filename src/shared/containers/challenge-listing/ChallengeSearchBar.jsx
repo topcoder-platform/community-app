@@ -7,7 +7,7 @@ import challengeListingActions from 'actions/challenge-listing';
 import ChallengeSearchBar from 'components/challenge-listing/Filters/ChallengeSearchBar';
 import PT from 'prop-types';
 import React from 'react';
-import { isReviewOpportunitiesBucket, isPastBucket } from 'utils/challenge-listing/buckets';
+import { isReviewOpportunitiesBucket, isPastBucket, isCopilotOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -34,17 +34,21 @@ export class Container extends React.Component {
     } = this.props;
 
     const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
+    const isForCopilotOpportunities = isCopilotOpportunitiesBucket(activeBucket);
     const searchPlaceholderText = isPastBucket(activeBucket) ? 'Search Past Challenges' : 'Search active';
 
     return (
-      <ChallengeSearchBar
-        onSearch={(text) => {
-          setSearchText(text);
-          this.onSearch(text);
-        }}
-        placeholder={isForReviewOpportunities ? 'Search Review Opportunities' : searchPlaceholderText}
-        query={searchText}
-      />
+      !isForCopilotOpportunities
+        ? (
+          <ChallengeSearchBar
+            onSearch={(text) => {
+              setSearchText(text);
+              this.onSearch(text);
+            }}
+            placeholder={isForReviewOpportunities ? 'Search Review Opportunities' : searchPlaceholderText}
+            query={searchText}
+          />
+        ) : null
     );
   }
 }
