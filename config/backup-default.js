@@ -8,6 +8,7 @@ module.exports = {
     V3: 'https://api.topcoder-dev.com/v3',
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
+    V6: 'https://api.topcoder-dev.com/v6',
     MM_BROKER: '/api',
   },
 

@@ -1,7 +1,7 @@
 import { config } from 'topcoder-react-utils';
 
 const baseUrl = config.URL.REVIEW_API_URL;
-const v5ApiUrl = config.API.V5;
+const v5ApiUrl = config.API.V6;
 
 export default function getReviewTypes(tokenV3) {
   return fetch(`${v5ApiUrl}${baseUrl}?perPage=500&page=1`, {
