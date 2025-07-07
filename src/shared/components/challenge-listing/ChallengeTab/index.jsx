@@ -27,9 +27,12 @@ const ChallengeTab = ({
   const past = isPastBucket(activeBucket);
   const [currentSelected, setCurrentSelected] = useState(past);
   const [isTabClosed, setIsTabClosed] = useState(true);
-  const currentTabName = useMemo(() => {
-    return currentSelected ? TAB_NAME.PAST_CHALLENGES : TAB_NAME.ACTIVE_CHALLENGES;
-  }, [location, currentSelected, filterState]);
+  const currentTabName = useMemo(
+    () => (
+      currentSelected ? TAB_NAME.PAST_CHALLENGES : TAB_NAME.ACTIVE_CHALLENGES
+    ),
+    [location, currentSelected, filterState],
+  );
 
   useEffect(() => {
     setCurrentSelected(isPastBucket(activeBucket));
@@ -57,19 +60,6 @@ const ChallengeTab = ({
         isInnovationChallenge: undefined,
       });
     }
-  };
-
-  const onInnovationClick = () => {
-    if (!past) {
-      setPreviousBucketOfActiveTab(activeBucket);
-    } else {
-      setPreviousBucketOfPastChallengesTab(activeBucket);
-    }
-    setFilterState({
-      ..._.cloneDeep(filterState),
-      isInnovationChallenge: 'true',
-    });
-    selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
   };
 
   const onPastChallengesClick = () => {
