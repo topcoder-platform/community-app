@@ -32,10 +32,6 @@ function SlashTCContainer(props) {
   const theme = THEMES.light;
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
   const title = 'Home | Topcoder';
-  const challengeListingQuery = {
-    search: INNOVATION_CHALLENGES_TAG,
-    isInnovationChallenge: true,
-  };
   const isDevEnv = useMemo(() => config.URL.BASE.includes('-dev'), []);
 
   useEffect(() => {
@@ -59,14 +55,6 @@ function SlashTCContainer(props) {
                 theme="light"
                 excludeTags={[INNOVATION_CHALLENGES_TAG]}
               />
-              <ChallengesFeed
-                theme="light"
-                title="INNOVATION CHALLENGES"
-                tags={[INNOVATION_CHALLENGES_TAG]}
-                challengeListingQuery={challengeListingQuery}
-                tracks={[]}
-                itemCount={20}
-              />
               {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
               {/* <GigsFeed itemCount={5} theme="dark" /> */}
               {/* deprecated with https://topcoder.atlassian.net/browse/TOP-1390 */}
@@ -88,14 +76,6 @@ function SlashTCContainer(props) {
               <ChallengesFeed
                 theme="light"
                 excludeTags={[INNOVATION_CHALLENGES_TAG]}
-              />
-              <ChallengesFeed
-                theme="light"
-                title="Innovation Challenges"
-                tags={[INNOVATION_CHALLENGES_TAG]}
-                challengeListingQuery={challengeListingQuery}
-                tracks={[]}
-                itemCount={20}
               />
               {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
               {/* <GigsFeed itemCount={5} theme="dark" /> */}

@@ -9,7 +9,6 @@ import PT from 'prop-types';
 import './style.scss';
 
 const TAB_NAME = {
-  INNOVATION_CHALLENGE: 'Innovation Challenges',
   PAST_CHALLENGES: 'Past',
   ACTIVE_CHALLENGES: 'Active',
 };
@@ -29,9 +28,6 @@ const ChallengeTab = ({
   const [currentSelected, setCurrentSelected] = useState(past);
   const [isTabClosed, setIsTabClosed] = useState(true);
   const currentTabName = useMemo(() => {
-    if (filterState.isInnovationChallenge === 'true') {
-      return TAB_NAME.INNOVATION_CHALLENGE;
-    }
     return currentSelected ? TAB_NAME.PAST_CHALLENGES : TAB_NAME.ACTIVE_CHALLENGES;
   }, [location, currentSelected, filterState]);
 
@@ -64,9 +60,6 @@ const ChallengeTab = ({
   };
 
   const onInnovationClick = () => {
-    if (currentTabName === TAB_NAME.INNOVATION_CHALLENGE) {
-      return;
-    }
     if (!past) {
       setPreviousBucketOfActiveTab(activeBucket);
     } else {
@@ -122,20 +115,6 @@ const ChallengeTab = ({
         {TAB_NAME.ACTIVE_CHALLENGES}
       </li>
       <li
-        key="tab-item-innovation"
-        styleName={cn('item', { active: currentTabName === TAB_NAME.INNOVATION_CHALLENGE })}
-        onClick={onInnovationClick}
-        onKeyDown={(e) => {
-          if (e.key !== 'Enter') {
-            return;
-          }
-          onInnovationClick();
-        }}
-        role="presentation"
-      >
-        {TAB_NAME.INNOVATION_CHALLENGE}
-      </li>
-      <li
         key="tab-item-past"
         styleName={cn('item', { active: currentTabName === TAB_NAME.PAST_CHALLENGES })}
         onClick={onPastChallengesClick}
@@ -177,13 +156,6 @@ const ChallengeTab = ({
               styleName={cn('item', { active: currentTabName === TAB_NAME.ACTIVE_CHALLENGES })}
             >
               <p>{TAB_NAME.ACTIVE_CHALLENGES}</p>
-            </div>
-            <div
-              role="presentation"
-              onClick={onInnovationClick}
-              styleName={cn('item', { active: currentTabName === TAB_NAME.INNOVATION_CHALLENGE })}
-            >
-              <p>{TAB_NAME.INNOVATION_CHALLENGE}</p>
             </div>
             <div
               role="presentation"
