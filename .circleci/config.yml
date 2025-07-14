@@ -197,6 +197,7 @@ workflows:
               ignore:
                 - develop
                 - submission_delete_button
+                - v6
 
   Smoke Testing:
     when: << pipeline.parameters.run_smoketesting >>
