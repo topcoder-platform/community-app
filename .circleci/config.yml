@@ -28,10 +28,11 @@ install_dependency: &install_dependency
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |
-    git clone --branch v1.4.14 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+    git clone --branch v1.4.17 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
     cp ./../buildscript/master_deploy.sh .
     cp ./../buildscript/buildenv.sh .
     cp ./../buildscript/awsconfiguration.sh .
+    cp ./../buildscript/psvar-processor.sh .
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-node-modules-v4-{{ checksum "package-lock.json" }}
 
@@ -43,165 +44,11 @@ save_cache_settings: &save_cache_settings
 build_docker_image: &build_docker_image
   name: Build of Docker image
   command: |
-    source buildenvvar
+    source buildvar_env
     ./build.sh
   no_output_timeout: 20m
-jobs:
-  # Build & Deploy against development backend
-  "build-dev":
-    <<: *defaults
-    steps:
-      # Initialization.
-      - checkout
-      - setup_remote_docker
-      - run: *install_dependency
-      - run: *install_deploysuite
-      # Restoration of node_modules from cache.
-      # - restore_cache: *restore_cache_settings_for_build
-      # Build of Docker image.
-      - run:
-          name: "configuring environment"
-          command: |
-            ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar -l dev_communityapp_buildvar_ps
-      - run: *build_docker_image
-      # Caching node modules.
-      # - save_cache: *save_cache_settings
-      # Deployment.
-      - deploy:
-          name: Running MasterScript
-          command: |
-            source awsenvconf
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
 
-  # Build & Deploy against testing backend
-  # "build-test":
-  #   <<: *defaults
-  #   steps:
-  #     # Initialization.
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run: *install_dependency
-  #     - run: *install_deploysuite
-  #     # Restoration of node_modules from cache.
-  #     - restore_cache: *restore_cache_settings_for_build
-  #     - run:
-  #         name: "configuring environment"
-  #         command: |
-  #           ./awsconfiguration.sh DEV
-  #           ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar -l dev_communityapp_buildvar_ps
-  #     # Build of Docker image.
-  #     - run: *build_docker_image
-  #     # Caching node modules.
-  #     - save_cache: *save_cache_settings
-  #     # Deployment.
-  #     - deploy:
-  #         name: Running MasterScript
-  #         command: |
-  #           source awsenvconf
-  #           source buildenvvar
-  #           ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-
-  # Build & Deploy against testing backend
-  # Deprecate this workflow due to beta env shutdown
-  # https://topcoder.atlassian.net/browse/CORE-250
-  # "build-qa":
-  #   <<: *defaults
-  #   steps:
-  #     # Initialization.
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run: *install_dependency
-  #     - run: *install_deploysuite
-  #     # Restoration of node_modules from cache.
-  #     - restore_cache: *restore_cache_settings_for_build
-  #     - run:
-  #         name: "configuring environment"
-  #         command: |
-  #           ./awsconfiguration.sh QA
-  #           ./buildenv.sh -e QA -b qa_communityapp_buildvar,qa_communityapp_deployvar -l qa_communityapp_buildvar_ps
-  #     # Build of Docker image.
-  #     - run: *build_docker_image
-  #     # Caching node modules.
-  #     - save_cache: *save_cache_settings
-  #     # Deployment.
-  #     - deploy:
-  #         name: Running MasterScript
-  #         command: |
-  #           source awsenvconf
-  #           source buildenvvar
-  #           ./master_deploy.sh -d ECS -e QA -t latest -s qa_communityapp_taskvar -i communityapp
-
-  # Build & Deploy against prod api backend
-  # Deprecate this workflow due to beta env shutdown
-  # https://topcoder.atlassian.net/browse/CORE-201
-  # "build-prod-beta":
-  #   <<: *defaults
-  #   steps:
-  #     # Initialization.
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run: *install_dependency
-  #     - run: *install_deploysuite
-  #     # Restoration of node_modules from cache.
-  #     - restore_cache: *restore_cache_settings_for_build
-  #     - run:
-  #         name: "configuring environment"
-  #         command: |
-  #           ./awsconfiguration.sh PROD
-  #           ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar -l prod_communityapp_buildvar_ps
-  #     # Build of Docker image.
-  #     - run: *build_docker_image
-  #     # Caching node modules.
-  #     - save_cache: *save_cache_settings
-  #     # Deployment.
-  #     - deploy:
-  #         name: Running MasterScript
-  #         command: |
-  #           source awsenvconf
-  #           source buildenvvar
-  #           ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
-
-  # Build & Deploy against prod api backend
-  # Deprecate this workflow due to beta env shutdown
-  # https://topcoder.atlassian.net/browse/CORE-202
-  # "build-prod-staging":
-  #   <<: *defaults
-  #   steps:
-  #     # Initialization.
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run: *install_dependency
-  #     - run: *install_deploysuite
-  #     # Restoration of node_modules from cache.
-  #     - restore_cache: *restore_cache_settings_for_build
-  #     - run:
-  #         name: "configuring environment"
-  #         command: |
-  #           ./awsconfiguration.sh PROD
-  #           ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar -l prod_communityapp_buildvar_ps
-  #     # Build of Docker image.
-  #     - run: *build_docker_image
-  #     # Caching node modules.
-  #     - save_cache: *save_cache_settings
-  #     # Deployment.
-  #     - deploy:
-  #         name: Running MasterScript
-  #         command: |
-  #           source awsenvconf
-  #           source buildenvvar
-  #           ./master_deploy.sh -d ECS -e PROD -t latest -s staging_communityapp_taskvar, -i communityapp
-  #           curl --request POST \
-  #           --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-  #           --header "Circle-Token: ${CIRCLE_TOKEN}" \
-  #           --header 'content-type: application/json' \
-  #           --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
-
-  # Build & Deploy against production backend
-  "build-prod":
-    <<: *defaults
-    steps:
+build_steps: &build_steps
       # Initialization.
       - checkout
       - setup_remote_docker
@@ -209,12 +56,15 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
+      # Build of Docker image.
       - run:
           name: "configuring environment"
           command: |
-            ./awsconfiguration.sh PROD
-            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar -l prod_communityapp_buildvar_ps
-      # Build of Docker image.
+            ./awsconfiguration.sh ${DEPLOY_ENV}
+            source awsenvconf
+            ./psvar-processor.sh -t appenv -p /config/${APPNAME}/buildvar
+            source buildvar_env
+            # ./buildenv.sh -e ${DEPLOY_ENV} -b dev_communityapp_buildvar,dev_communityapp_deployvar -l dev_communityapp_buildvar_ps
       - run: *build_docker_image
       # Caching node modules.
       - save_cache: *save_cache_settings
@@ -223,67 +73,40 @@ jobs:
           name: Running MasterScript
           command: |
             source awsenvconf
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp -p FARGATE
-            curl --request POST \
-            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-            --header "Circle-Token: ${CIRCLE_TOKEN}" \
-            --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
+            # source buildenvvar
+            ./psvar-processor.sh -t appenv -p /config/${APPNAME}/deployvar
+            source deployvar_env
+            ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -j /config/${APPNAME}/appvar -i ${APPNAME} -p FARGATE
+            # ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
+            if [ "${DEPLOY_ENV}" = "PROD" ]; 
+            then
+                # Executing plan
+                curl --request POST \
+                --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
+                --header "Circle-Token: ${CIRCLE_TOKEN}" \
+                --header 'content-type: application/json' \
+                --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
+            fi              
 
-  # Automated Smoke Testing against Staging
-  # Deprecate this workflow due to beta env shutdown
-  # https://topcoder.atlassian.net/browse/CORE-202
-  # Smoke-Testing-On-Staging:
-  #   <<: *defaults
-  #   steps:
-  #     # Initialization.
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run: *install_dependency
-  #     - run: *install_deploysuite
-  #     # Restoration of node_modules from cache.
-  #     - restore_cache: *restore_cache_settings_for_build
-  #     - run:
-  #         name: "configuring environment"
-  #         command: |
-  #           ./awsconfiguration.sh PROD
-  #           ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar
-  #     - run:
-  #         name: "Run automation"
-  #         no_output_timeout: 20m
-  #         command: |
-  #           source awsenvconf
-  #           source buildenvvar
-  #           ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
-  #     - store_artifacts:
-  #         path: ./automated-smoke-test/test-results
+jobs:
+  # Build & Deploy against development backend
+  "build-dev":
+    <<: *defaults
+    environment:
+      DEPLOY_ENV: "DEV"
+      LOGICAL_ENV: "dev"
+      APPNAME: "community-app-v6"    
+    steps: *build_steps
 
-  # Automated Smoke Testing against Production
-  # Smoke-Testing-On-Production:
-  #   <<: *defaults
-  #   steps:
-  #     # Initialization.
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run: *install_dependency
-  #     - run: *install_deploysuite
-  #     # Restoration of node_modules from cache.
-  #     - restore_cache: *restore_cache_settings_for_build
-  #     - run:
-  #         name: "configuring environment"
-  #         command: |
-  #           ./awsconfiguration.sh PROD
-  #           ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
-  #     - run:
-  #         name: "Run automation"
-  #         no_output_timeout: 20m
-  #         command: |
-  #           source awsenvconf
-  #           source buildenvvar
-  #           ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
-  #     - store_artifacts:
-  #         path: ./automated-smoke-test/test-results
+  # Build & Deploy against production backend
+  "build-prod":
+    <<: *defaults
+    environment:
+      DEPLOY_ENV: "PROD"
+      LOGICAL_ENV: "prod"
+      APPNAME: "community-app-v6"
+    steps: *build_steps
+
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
@@ -358,49 +181,8 @@ workflows:
             branches:
               only:
                 - develop
-      # This is alternate dev env for parallel testing
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-251
-      # - "build-test":
-      #     context : org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - metadata-fix
-      # This is alternate dev env for parallel testing
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-250
-      # - "build-qa":
-      #     context : org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - qaenv
-      # This is beta env for production soft releases
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-201
-      # - "build-prod-beta":
-      #     context : org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      # This is stage env for production QA releases
-      # Deprecate this workflow due to beta env shutdown
-      # https://topcoder.atlassian.net/browse/CORE-202
-      # - "build-prod-staging":
-      #     context : org-global
-      #     filters: &filters-staging
-      #       branches:
-      #         only:
-      #           - develop
-      #           - CORE-201
-      # Production builds are exectuted
-      # when PR is merged to the master
-      # Don't change anything in this configuration
-      # That might trigger wrong branch to be
-      # deployed on the production
-      # master branch.
+                - v6
+
       - "build-prod":
           context: org-global
           filters: &filters-prod
@@ -415,6 +197,7 @@ workflows:
               ignore:
                 - develop
                 - submission_delete_button
+                - v6
 
   Smoke Testing:
     when: << pipeline.parameters.run_smoketesting >>
