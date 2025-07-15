@@ -55,7 +55,7 @@ build_steps: &build_steps
       - run: *install_dependency
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
-      - restore_cache: *restore_cache_settings_for_build
+      # - restore_cache: *restore_cache_settings_for_build
       # Build of Docker image.
       - run:
           name: "configuring environment"
@@ -67,7 +67,7 @@ build_steps: &build_steps
             # ./buildenv.sh -e ${DEPLOY_ENV} -b dev_communityapp_buildvar,dev_communityapp_deployvar -l dev_communityapp_buildvar_ps
       - run: *build_docker_image
       # Caching node modules.
-      - save_cache: *save_cache_settings
+      # - save_cache: *save_cache_settings
       # Deployment.
       - deploy:
           name: Running MasterScript
