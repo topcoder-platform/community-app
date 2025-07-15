@@ -84,7 +84,7 @@ function ChallengeCard({
           </div>
           <div styleName="details-footer">
             <span styleName="date">
-              {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
+              {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge)}
             </span>
             {

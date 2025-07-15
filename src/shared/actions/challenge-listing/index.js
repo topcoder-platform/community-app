@@ -200,7 +200,7 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       currentPhaseName: 'Submission',
       registrationEndDateEnd: new Date().toISOString(),
       perPage: PAGE_SIZE,
@@ -263,7 +263,7 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       currentPhaseName: 'Registration',
       perPage: PAGE_SIZE,
       page: page + 1,
@@ -299,7 +299,7 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       memberId: userId,
       perPage: PAGE_SIZE,
       page: page + 1,
@@ -325,7 +325,7 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ALL],
@@ -351,7 +351,7 @@ function getMyPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Completed',
+      status: 'COMPLETED',
       memberId: userId,
       perPage: PAGE_SIZE,
       page: page + 1,
@@ -379,7 +379,7 @@ function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       isLightweight: true,
       perPage: 1,
     },
@@ -462,7 +462,7 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Completed',
+      status: 'COMPLETED',
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ALL_PAST],

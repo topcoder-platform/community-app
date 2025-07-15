@@ -31,7 +31,7 @@ export default function Veterans({ base, member, meta }) {
     registerBucket(ID, {
       filter: {
         ...meta.challengeFilter,
-        status: 'Active',
+        status: 'ACTIVE',
       },
       hideCount: false,
       name: 'Active Veterans Challenges',

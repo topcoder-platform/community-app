@@ -479,7 +479,7 @@ export default function FiltersPanel({
               events: [],
               endDateStart: null,
               startDateEnd: null,
-              status: 'Active',
+              status: 'ACTIVE',
               reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
               customDate: false,
               recommended: false,

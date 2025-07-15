@@ -40,7 +40,7 @@ export function getChallengeTypeAbbr(track, challengeTypes) {
 export function getEndDate(challenge) {
   const { type } = challenge;
   let phases = challenge.phases || [];
-  if (type === 'First2Finish' && challenge.status === 'Completed') {
+  if (type === 'First2Finish' && challenge.status === 'COMPLETED') {
     phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
   }
   const endPhaseDate = Math.max(...phases.map(d => phaseEndDate(d)));

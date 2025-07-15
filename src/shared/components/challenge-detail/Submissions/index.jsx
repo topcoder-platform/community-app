@@ -120,7 +120,7 @@ class SubmissionsComponent extends React.Component {
     if (!_.isEmpty(submission.review)
           && !_.isEmpty(submission.review[0])
           && submission.review[0].score
-          && (challenge.status === 'Completed'
+          && (challenge.status === 'COMPLETED'
           || (_.includes(challenge.tags, 'Innovation Challenge') && _.find(challenge.metadata, { name: 'show_data_dashboard' })))) {
       score = Number(submission.review[0].score).toFixed(2);
     }
@@ -940,7 +940,7 @@ class SubmissionsComponent extends React.Component {
                     <div styleName="mobile-header">FINAL SCORE</div>
                     <p>
                       {
-                        (s.reviewSummation && s.reviewSummation[0].aggregateScore && challenge.status === 'Completed')
+                        (s.reviewSummation && s.reviewSummation[0].aggregateScore && challenge.status === 'COMPLETED')
                           ? s.reviewSummation[0].aggregateScore.toFixed(2)
                           : 'N/A'
                       }

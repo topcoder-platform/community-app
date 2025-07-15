@@ -124,7 +124,7 @@ export default function ChallengeHeader(props) {
 
   let registrationEnded = true;
   const regPhase = phases && phases.registration;
-  if (status !== 'Completed' && regPhase) {
+  if (status !== 'COMPLETED' && regPhase) {
     registrationEnded = !regPhase.isOpen;
   }
 
@@ -235,7 +235,7 @@ export default function ChallengeHeader(props) {
     if (trackLower === 'quality-assurance') {
       relevantPhases = _.filter(relevantPhases, p => !(p.name.toLowerCase().includes('specification submission') || p.name.toLowerCase().includes('specification review')));
     }
-    if (type === 'First2Finish' && status === 'Completed') {
+    if (type === 'First2Finish' && status === 'COMPLETED') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
       const endPhaseDate = Math.max(...phases2.map(d => phaseEndDate(d)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')

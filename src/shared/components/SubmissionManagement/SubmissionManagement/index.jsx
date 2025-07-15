@@ -129,7 +129,7 @@ export default function SubmissionManagement(props) {
            }
           <span styleName="seperator" />
           {
-             challenge.status !== 'Completed' ? (
+             challenge.status !== 'COMPLETED' ? (
                <div>
                  <p styleName="round">
                    Current Deadline Ends: {' '}

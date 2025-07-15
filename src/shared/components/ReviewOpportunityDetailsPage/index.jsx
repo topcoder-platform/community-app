@@ -71,7 +71,7 @@ const ReviewOpportunityDetailsPage = ({
             >
               REVIEW APPLICATIONS
               {' '}
-              {`(${details.applications ? details.applications.filter(app => app.status !== 'Cancelled').length : 0})`}
+              {`(${details.applications ? details.applications.filter(app => app.status !== 'CANCELLED').length : 0})`}
             </a>
           </div>
           <div styleName={`tab ${selectedTab === TABS.CHALLENGE_SPEC ? 'selected-tab' : ''}`}>

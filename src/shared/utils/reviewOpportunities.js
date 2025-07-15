@@ -45,7 +45,7 @@ export const openPositionsByRole = (details) => {
 export const activeRoleIds = (details, handle) => {
   const positions = openPositionsByRole(details);
   const apps = details.applications
-    ? details.applications.filter(app => _.toString(app.handle) === _.toString(handle) && app.status !== 'Cancelled') : [];
+    ? details.applications.filter(app => _.toString(app.handle) === _.toString(handle) && app.status !== 'CANCELLED') : [];
   return apps.map(app => positions.find(p => p.role === app.role).roleId);
 };
 

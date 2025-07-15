@@ -239,7 +239,7 @@ export default function ChallengeStatus(props) {
 
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.name;
-    else if (status === 'Draft') phaseMessage = DRAFT_MSG;
+    else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
 
     const showRegisterInfo = false;
 
@@ -287,7 +287,7 @@ export default function ChallengeStatus(props) {
         </span>
         <ProgressBarTooltip challenge={challenge}>
           {
-            status === 'Active' && statusPhase ? (
+            status === 'ACTIVE' && statusPhase ? (
               <div>
                 <ChallengeProgressBar
                   color="green"
@@ -305,7 +305,7 @@ export default function ChallengeStatus(props) {
   }
 
   const { challenge, className } = props;
-  const completed = challenge.status === 'Completed';
+  const completed = challenge.status === 'COMPLETED';
   const status = completed ? 'completed' : '';
   return (
     <div className={className} styleName={`challenge-status ${status}`}>
