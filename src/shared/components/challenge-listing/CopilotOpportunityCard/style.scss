@@ -137,6 +137,10 @@ $status-radius-4: $corner-radius * 2;
       color: $tc-orange;
     }
 
+    &.canceled {
+      color: red;
+    }
+
     @include xs-to-md {
       position: absolute;
       right: 0;

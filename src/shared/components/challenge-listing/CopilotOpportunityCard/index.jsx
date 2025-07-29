@@ -27,6 +27,14 @@ function CopilotOpportunityCard({
   ]);
   const start = moment(opportunity.startDate);
 
+  let statusClass = '';
+  if (opportunity.status === 'completed') {
+    statusClass = 'completed';
+  } else if (opportunity.status === 'canceled') {
+    statusClass = 'canceled';
+  }
+
+
   return (
     <div styleName="copilotOpportunityCard">
       <div styleName="left-panel">
@@ -37,7 +45,7 @@ function CopilotOpportunityCard({
             target="_blank"
             rel="noopener noreferrer"
           >
-            {opportunity.project.name}
+            {opportunity.opportunityTitle}
           </a>
 
           <div styleName="details-footer">
@@ -58,7 +66,7 @@ function CopilotOpportunityCard({
         <div styleName="type">
           <span>{PROJECT_TYPE_LABELS[opportunity.type]}</span>
         </div>
-        <div styleName={`status ${(['completed', 'canceled'].includes(opportunity.status)) ? 'completed' : ''}`}>
+        <div styleName={`status ${statusClass}`}>
           <span>{opportunity.status}</span>
         </div>
         <div styleName="numHours">
