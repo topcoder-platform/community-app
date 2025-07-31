@@ -113,7 +113,7 @@ export default {
     name: 'Status',
   },
   [SORTS.COPILOT_OPPORTUNITIES_TITLE_A_TO_Z]: {
-    func: (a, b) => a.project.name.localeCompare(b.project.name),
+    func: (a, b) => a.opportunityTitle.localeCompare(b.opportunityTitle),
     name: 'Title A-Z',
   },
   [SORTS.COPILOT_OPPORTUNITIES_TYPE]: {
