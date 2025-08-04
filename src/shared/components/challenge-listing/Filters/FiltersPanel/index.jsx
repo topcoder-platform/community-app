@@ -68,6 +68,9 @@ export default function FiltersPanel({
   setSort,
   selectBucket,
 }) {
+  if (isCopilotOpportunitiesBucket) {
+    return null;
+  }
   if (hidden && !expanded) {
     return (
       <Button

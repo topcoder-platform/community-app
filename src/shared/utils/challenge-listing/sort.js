@@ -113,7 +113,16 @@ export default {
     name: 'Status',
   },
   [SORTS.COPILOT_OPPORTUNITIES_TITLE_A_TO_Z]: {
-    func: (a, b) => a.project.name.localeCompare(b.project.name),
+    func(a, b) {
+      const titleA = (a.opportunityTitle || '').toLowerCase();
+      const titleB = (b.opportunityTitle || '').toLowerCase();
+
+      if (!titleA && !titleB) return 0;
+      if (!titleA) return 1;
+      if (!titleB) return -1;
+
+      return titleA.localeCompare(titleB);
+    },
     name: 'Title A-Z',
   },
   [SORTS.COPILOT_OPPORTUNITIES_TYPE]: {
@@ -121,13 +130,23 @@ export default {
     name: 'Type',
   },
   [SORTS.COPILOT_OPPORTUNITIES_START_DATE]: {
-    func: (a, b) => {
-      const statusPriority = status => (status === 'active' ? 1 : 0);
-      // First: prioritize active over non-active
-      const statusDiff = statusPriority(b.status) - statusPriority(a.status);
-      if (statusDiff !== 0) return statusDiff;
-      // Then: sort by createdAt descending
-      return moment(b.createdAt) - moment(a.createdAt);
+    func(a, b) {
+      const statusOrder = {
+        active: 3,
+        completed: 2,
+        cancelled: 1,
+      };
+
+      const aPriority = statusOrder[a.status] || 0;
+      const bPriority = statusOrder[b.status] || 0;
+
+      // Higher priority first
+      if (bPriority !== aPriority) {
+        return bPriority - aPriority;
+      }
+
+      // Fallback: sort by createdAt descending
+      return moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf();
     },
     name: 'Most recent opportunities',
   },

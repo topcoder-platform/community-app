@@ -164,7 +164,7 @@
     "supertest": "^3.1.0",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3.1",
     "tc-ui": "^1.0.12",
-    "topcoder-react-lib": "1.2.14",
+    "topcoder-react-lib": "git+https://github.com/topcoder-platform/topcoder-react-lib#v1.2.21",
     "topcoder-react-ui-kit": "2.0.1",
     "topcoder-react-utils": "github:topcoder-platform/topcoder-react-utils#v0.9.5",
     "turndown": "^4.0.2",
