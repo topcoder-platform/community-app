@@ -14,7 +14,7 @@ const getGroupService = services.groups.getService;
 /* TODO: Should be updated to add member to all groups related to the community.
  */
 function joinDone(token, groupId, memberId) {
-  const service = getGroupService(token); 
+  const service = getGroupService(token);
   return service.addMember(groupId, memberId, 'user');
 }
 
