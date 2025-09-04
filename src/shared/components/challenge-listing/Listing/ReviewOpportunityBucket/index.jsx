@@ -1,16 +1,18 @@
 /**
  * The bucket for review opportunities.
  */
+import React from 'react';
 import _ from 'lodash';
 import PT from 'prop-types';
-import React from 'react';
-import Sort from 'utils/challenge-listing/sort';
-import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
-import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
-import CardPlaceholder from '../../placeholders/ChallengeCard';
+
+import SortingSelectBar from 'components/SortingSelectBar';
+import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
+import Sort from 'utils/challenge-listing/sort';
+
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
+import CardPlaceholder from '../../placeholders/ChallengeCard';
 
 import './style.scss';
 
@@ -44,6 +46,8 @@ export default function ReviewOpportunityBucket({
   const sortedOpportunities = _.clone(opportunities);
   sortedOpportunities.sort(Sort[activeSort].func);
 
+  console.log('sorted opportunities', sortedOpportunities);
+
   /* Filtering for Review Opportunities will be done entirely in the front-end
    * which means it can be done at render, rather than in the reducer,
    * which avoids reloading the review opportunities from server every time
@@ -55,6 +59,8 @@ export default function ReviewOpportunityBucket({
     }, challengeTypes),
     // }),
   );
+
+  console.log('filtered opportunities', filteredOpportunities);
 
   const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
@@ -142,7 +148,7 @@ export default function ReviewOpportunityBucket({
         )
       }
       {
-        loadMore && !loading && filterState.reviewOpportunityTypes.length ? (
+        loadMore && !loading ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }
