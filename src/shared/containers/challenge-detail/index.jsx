@@ -837,7 +837,12 @@ function mapStateToProps(state, props) {
     }));
 
     if (challenge.submissions) {
-      challenge.submissions = challenge.submissions.map(submission => ({
+      // Normalize submissions shape: API may return { data, meta } now.
+      const normalizedSubmissions = Array.isArray(challenge.submissions)
+        ? challenge.submissions
+        : (_.get(challenge, 'submissions.data') || []);
+
+      challenge.submissions = normalizedSubmissions.map(submission => ({
         ...submission,
         registrant: _.find(challenge.registrants, r => (`${r.memberId}` === `${submission.memberId}`)),
       }));
