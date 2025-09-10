@@ -7,7 +7,6 @@ const v6ApiUrl = config.API.V6;
  *
  * @param {number} page - Page number (1-based).
  * @param {number} pageSize - Number of items per page.
- * @param {string} sort - Sort order (e.g., 'createdAt desc').
  * @returns {Promise<Object>} The fetched data.
  */
 export default function getReviewOpportunities(page, pageSize) {
