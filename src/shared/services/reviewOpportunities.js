@@ -10,19 +10,14 @@ const v6ApiUrl = config.API.V6;
  * @param {string} sort - Sort order (e.g., 'createdAt desc').
  * @returns {Promise<Object>} The fetched data.
  */
-export default async function getReviewOpportunities(page, pageSize) {
+export default function getReviewOpportunities(page, pageSize) {
   const offset = page * pageSize;
 
   const url = new URL(`${v6ApiUrl}/review-opportunities`);
   url.searchParams.append('limit', pageSize);
   url.searchParams.append('offset', offset);
 
-  const res = await fetch(url.toString(), { method: 'GET' });
-  const data = await res.json();
-
-  return data.map(item => ({
-    ...item,
-    challengeData: item.challengeData || item.challenge || {},
-    type: item.type || '',
-  }));
+  return fetch(url.toString(), {
+    method: 'GET',
+  }).then(res => res.json());
 }

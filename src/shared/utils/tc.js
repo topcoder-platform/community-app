@@ -15,8 +15,15 @@ export const {
   OLD_COMPETITION_TRACKS,
   COMPETITION_TRACKS,
   CHALLENGE_STATUS,
-  REVIEW_OPPORTUNITY_TYPES,
 } = tc;
+
+export const REVIEW_OPPORTUNITY_TYPES = {
+  REGULAR_REVIEW: 'Review',
+  COMPONENT_DEV_REVIEW: 'Component Dev Review',
+  SPEC_REVIEW: 'Specification Review',
+  ITERATIVE_REVIEW: 'Iterative Review',
+  SCENARIOS_REVIEW: 'Scenarios Review',
+};
 
 /**
  * Possible phase types (at the moment, this map does not cover all
