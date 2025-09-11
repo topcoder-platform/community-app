@@ -10,10 +10,10 @@ import { processSRM } from 'utils/tc';
 import { errors, services } from 'topcoder-react-lib';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import SORT from 'utils/challenge-listing/sort';
+import getReviewOpportunities from 'services/reviewOpportunities';
 
 const { fireErrorMessage } = errors;
 const { getService } = services.challenge;
-const { getReviewOpportunitiesService } = services.reviewOpportunities;
 
 /**
  * The maximum number of challenges to fetch in a single API call.
@@ -486,9 +486,8 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
  * @return {Object} Action object
  */
-function getReviewOpportunitiesDone(uuid, page, tokenV3) {
-  return getReviewOpportunitiesService(tokenV3)
-    .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE)
+function getReviewOpportunitiesDone(uuid, page) {
+  return getReviewOpportunities(page, REVIEW_OPPORTUNITY_PAGE_SIZE)
     .then(loaded => ({ uuid, loaded }))
     .catch((error) => {
       fireErrorMessage('Error Getting Review Opportunities', error.content || error);

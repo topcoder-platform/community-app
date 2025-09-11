@@ -56,6 +56,7 @@ function Listing({
   loadMoreOnGoing,
   loadMorePast,
   loadMoreReviewOpportunities,
+  allReviewOpportunitiesLoaded,
   newChallengeDetails,
   openChallengesInNewTabs,
   preListingMsg,
@@ -164,6 +165,7 @@ function Listing({
             challengeTypes={challengeTypes}
             isLoggedIn={isLoggedIn}
             setSearchText={setSearchText}
+            allReviewOpportunitiesLoaded={allReviewOpportunitiesLoaded}
           />
         )
         : (
@@ -365,6 +367,7 @@ Listing.propTypes = {
   isLoggedIn: PT.bool.isRequired,
   meta: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
+  allReviewOpportunitiesLoaded: PT.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
