@@ -226,8 +226,8 @@ class SubmissionsComponent extends React.Component {
           valueB = new Date(b.submissions && b.submissions[0].submissionTime);
           break;
         case 'Submission Date': {
-          valueA = new Date(a.created);
-          valueB = new Date(b.created);
+          valueA = new Date(a.created || a.createdAt);
+          valueB = new Date(b.created || b.createdAt);
           break;
         }
         case 'Initial Score': {
@@ -902,7 +902,7 @@ class SubmissionsComponent extends React.Component {
           {
             !isMM && (
               sortedSubmissions.map(s => (
-                <div key={_.get(s.registrant, 'memberHandle', '') + s.created} styleName="row">
+                <div key={_.get(s.registrant, 'memberHandle', '') + (s.created || s.createdAt)} styleName="row">
                   {
                     !isF2F && !isBugHunt && (
                       <React.Fragment>
@@ -927,7 +927,7 @@ class SubmissionsComponent extends React.Component {
                   <div styleName="col-4">
                     <div styleName="mobile-header">SUBMISSION DATE</div>
                     <p>
-                      {moment(s.created).format('MMM DD, YYYY HH:mm')}
+                      {moment(s.created || s.createdAt).format('MMM DD, YYYY HH:mm')}
                     </p>
                   </div>
                   <div styleName="col-5">

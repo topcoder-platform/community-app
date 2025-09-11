@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+# Local certs
+*.pem
+
 # Runtime data
 pids
 *.pid

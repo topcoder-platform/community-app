@@ -17,7 +17,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
   const dates = [];
   _.each(statisticsData, (entry) => {
     _.each(entry.submissions, (sub) => {
-      dates.push(sub.created || null);
+      dates.push(sub.created || sub.createdAt || null);
       flatData.push({
         ..._.omit(entry, ['submissions']),
         submissionCount: _.get(entry, 'submissions.length', 0),
@@ -40,7 +40,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
       color = data.ratingColor || getRatingColor(data.rating || 0);
     }
     return {
-      x: moment(data.created).valueOf(),
+      x: moment(data.created || data.createdAt).valueOf(),
       y: _.max([0, data.score ? (parseFloat(data.score)) : 0]),
       name: data.handle,
       color,
@@ -160,7 +160,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
               <br />
               <p style="margin-left: 50px;">${currentPointer.customData.submissionCount} submissions</p>
               <p style="margin-left: 50px;">Score: ${this.y}</p>
-              <p style="margin-left: 50px;">Submitted: ${moment(currentPointer.customData.created).format('MM/DD/YYYY')} </p>
+              <p style="margin-left: 50px;">Submitted: ${moment(currentPointer.customData.created || currentPointer.customData.createdAt).format('MM/DD/YYYY')} </p>
             </div>
           `;
           return str;

@@ -26,7 +26,8 @@ export default class MMLService {
       const subs = await v5api.get(`/submissions?challengeId=${sanitizedId}&page=1&perPage=500`);
       return res.send({
         id: sanitizedId,
-        subs: await subs.json(),
+        // API now returns { data: [...], meta: {...} }
+        subs: (await subs.json()).data,
         reviewIds,
       });
     } catch (err) {

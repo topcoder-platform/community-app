@@ -842,10 +842,21 @@ function mapStateToProps(state, props) {
         ? challenge.submissions
         : (_.get(challenge, 'submissions.data') || []);
 
-      challenge.submissions = normalizedSubmissions.map(submission => ({
-        ...submission,
-        registrant: _.find(challenge.registrants, r => (`${r.memberId}` === `${submission.memberId}`)),
-      }));
+      challenge.submissions = normalizedSubmissions.map((submission) => {
+        const registrant = _.find(
+          challenge.registrants,
+          r => (`${r.memberId}` === `${submission.memberId}`),
+        );
+        // Ensure legacy fields used in UI exist
+        const created = submission.created || submission.createdAt || null;
+        const updated = submission.updated || submission.updatedAt || null;
+        return ({
+          ...submission,
+          created,
+          updated,
+          registrant,
+        });
+      });
     }
 
     if (!_.isEmpty(mmSubmissions)) {

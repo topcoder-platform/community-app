@@ -212,7 +212,6 @@
     "eslint-plugin-react": "^7.32.2",
     "file-loader": "^1.1.11",
     "happypack": "^5.0.1",
-    
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.2.0",
     "jsdoc-to-markdown": "^4.0.1",
