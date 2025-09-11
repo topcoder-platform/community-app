@@ -482,9 +482,9 @@ function onGetReviewOpportunitiesDone(state, { payload, error }) {
   if (uuid !== state.loadingReviewOpportunitiesUUID) return state;
 
   const ids = new Set();
-  loaded.forEach(item => ids.add(item.id));
+  loaded.forEach(item => ids.add(item.challengeId));
   const reviewOpportunities = state.reviewOpportunities
-    .filter(item => !ids.has(item.id))
+    .filter(item => !ids.has(item.challengeId))
     .concat(loaded);
 
   return {

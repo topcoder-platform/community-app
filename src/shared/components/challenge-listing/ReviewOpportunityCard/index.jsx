@@ -3,13 +3,13 @@
  * information.  Will be contained within a Bucket.
  */
 import _ from 'lodash';
-import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
-import React, { useMemo } from 'react';
 import PT from 'prop-types';
+import React, { useMemo } from 'react';
+import { Link } from 'topcoder-react-utils';
 
-import TrackIcon from 'components/TrackIcon';
 import Tooltip from 'components/Tooltip';
+import TrackIcon from 'components/TrackIcon';
 
 import { time } from 'topcoder-react-lib';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
@@ -18,8 +18,8 @@ import Tags from '../Tags';
 
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 
-import SubmissionsIcon from '../Icons/SubmissionsIcon';
 import OpenPositionsIcon from '../Icons/RegistrantsIcon';
+import SubmissionsIcon from '../Icons/SubmissionsIcon';
 
 import './style.scss';
 
@@ -47,13 +47,13 @@ function ReviewOpportunityCard({
   opportunity,
   challengeType,
 }) {
-  const { challenge } = opportunity;
+  const { challengeData: challenge } = opportunity;
   let tags = challenge.tags || challenge.technologies;
   const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
     challenge.skills,
   ]);
   tags = tags.filter(tag => tag.trim().length);
-  const { track } = challenge.track;
+  const { track } = challenge;
   const start = moment(opportunity.startDate);
   return (
     <div styleName="reviewOpportunityCard">
