@@ -9,14 +9,18 @@ const v6ApiUrl = config.API.V6;
  * @param {number} pageSize - Number of items per page.
  * @returns {Promise<Object>} The fetched data.
  */
-export default function getReviewOpportunities(page, pageSize) {
+export default async function getReviewOpportunities(page, pageSize) {
   const offset = page * pageSize;
 
   const url = new URL(`${v6ApiUrl}/review-opportunities`);
   url.searchParams.append('limit', pageSize);
   url.searchParams.append('offset', offset);
 
-  return fetch(url.toString(), {
-    method: 'GET',
-  }).then(res => res.json());
+  const res = await fetch(url.toString(), { method: 'GET' });
+
+  if (!res.ok) {
+    throw new Error(res.statusText);
+  }
+
+  return res.json();
 }
