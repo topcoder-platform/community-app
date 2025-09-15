@@ -78,7 +78,7 @@ function ReviewOpportunityCard({
         ) /* END - DISABLED UNTIL REVIEW OPPORTUNITY RECEIVE UPDATE TO API V5 */ }
         <div styleName="challenge-details">
           <Link
-            to={`${challengesUrl}/${challenge.id}`}
+            to={`${challengesUrl}/${opportunity.challengeId}`}
           >
             {challenge.title}
           </Link>
@@ -156,7 +156,7 @@ function ReviewOpportunityCard({
           </Tooltip>
         </div>
         <Link
-          to={`/challenges/${challenge.legacyId || challenge.id}/review-opportunities`}
+          to={`/challenges/${opportunity.challengeId}/review-opportunities?opportunityId=${opportunity.id}`}
           styleName="register-button"
         >
           <span>

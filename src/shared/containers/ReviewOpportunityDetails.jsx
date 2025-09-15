@@ -8,13 +8,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import { actions, errors } from 'topcoder-react-lib';
+import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
 import FailedToLoad from 'components/ReviewOpportunityDetailsPage/FailedToLoad';
 import termsActions from 'actions/terms';
+import { goToLogin } from 'utils/tc';
 
 const { fireErrorMessage } = errors;
 
@@ -25,6 +26,7 @@ class ReviewOpportunityDetailsContainer extends React.Component {
   componentDidMount() {
     const {
       challengeId,
+      opportunityId,
       details,
       isLoadingDetails,
       loadDetails,
@@ -32,19 +34,40 @@ class ReviewOpportunityDetailsContainer extends React.Component {
     } = this.props;
 
     if (!isLoadingDetails && !details) {
-      loadDetails(challengeId, tokenV3);
+      loadDetails(challengeId, opportunityId, tokenV3);
     } else if (details.challenge.id !== challengeId) {
-      loadDetails(challengeId, tokenV3);
+      loadDetails(challengeId, opportunityId, tokenV3);
     }
   }
 
   handleOnHeaderApply() {
     const {
+      isLoggedIn,
+      isReviewer,
       openTermsModal,
       terms,
       termsFailure,
       toggleApplyModal,
     } = this.props;
+
+    if (!isLoggedIn) {
+      goToLogin('community-app-main');
+      return;
+    }
+
+    if (!isReviewer) {
+      fireErrorMessage(
+        'Permission Required',
+        <span>
+          You must have a reviewer role to apply for this review opportunity.{' '}
+          <a href="https://www.topcoder.com/community/member/reviewer-become" target="_blank" rel="noopener noreferrer">
+            Learn how to become a reviewer
+          </a>.
+        </span>,
+      );
+      return;
+    }
+
     if (termsFailure) {
       fireErrorMessage('Error Getting Terms Details', '');
       return;
@@ -130,6 +153,8 @@ ReviewOpportunityDetailsContainer.defaultProps = {
   termsFailure: false,
   phasesExpanded: false,
   tokenV3: null,
+  isLoggedIn: false,
+  isReviewer: false,
 };
 
 /**
@@ -140,6 +165,7 @@ ReviewOpportunityDetailsContainer.propTypes = {
   authError: PT.bool,
   cancelApplications: PT.func.isRequired,
   challengeId: PT.string.isRequired,
+  opportunityId: PT.string.isRequired,
   details: PT.shape(),
   handle: PT.string.isRequired,
   isLoadingDetails: PT.bool,
@@ -157,6 +183,8 @@ ReviewOpportunityDetailsContainer.propTypes = {
   toggleRole: PT.func.isRequired,
   onPhaseExpand: PT.func.isRequired,
   tokenV3: PT.string,
+  isLoggedIn: PT.bool,
+  isReviewer: PT.bool,
 };
 
 /**
@@ -169,12 +197,14 @@ ReviewOpportunityDetailsContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const api = state.reviewOpportunity;
   const page = state.page.reviewOpportunityDetails;
+  const queryParams = new URLSearchParams(ownProps.location.search);
   const { terms } = state;
   return {
     authError: api.authError,
     applyModalOpened: page.applyModalOpened,
     challengeId: String(ownProps.match.params.challengeId),
-    details: api.details,
+    opportunityId: queryParams.get('opportunityId'),
+    details: page.details,
     handle: state.auth.user ? state.auth.user.handle : '',
     isLoadingDetails: api.isLoadingDetails,
     phasesExpanded: page.phasesExpanded,
@@ -184,6 +214,8 @@ const mapStateToProps = (state, ownProps) => {
     terms: terms.terms,
     termsFailure: terms.getTermsFailure,
     tokenV3: state.auth.tokenV3,
+    isLoggedIn: Boolean(state.auth.user),
+    isReviewer: _.includes(state.auth.userRoles || [], 'REVIEWER'),
   };
 };
 
@@ -194,16 +226,16 @@ const mapStateToProps = (state, ownProps) => {
  * @return {Object}
  */
 function mapDispatchToProps(dispatch) {
-  const api = actions.reviewOpportunity;
+  const api = pageActions.page.reviewOpportunityDetails;
   const page = pageActions.page.reviewOpportunityDetails;
   return {
     cancelApplications: (challengeId, roleIds, tokenV3) => {
       dispatch(api.cancelApplicationsInit());
       dispatch(api.cancelApplicationsDone(challengeId, roleIds, tokenV3));
     },
-    loadDetails: (challengeId, tokenV3) => {
+    loadDetails: (challengeId, opportunityId, tokenV3) => {
       dispatch(api.getDetailsInit());
-      dispatch(api.getDetailsDone(challengeId, tokenV3));
+      dispatch(api.getDetailsDone(challengeId, opportunityId, tokenV3));
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {

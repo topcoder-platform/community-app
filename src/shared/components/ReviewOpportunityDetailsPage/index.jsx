@@ -42,7 +42,7 @@ const ReviewOpportunityDetailsPage = ({
 
       <div styleName="header">
         <h1 styleName="challenge-title">
-          {details.challenge.title}
+          {details.challenge.name}
         </h1>
         <div styleName="tags">
           <div styleName="review-opportunity-tag">

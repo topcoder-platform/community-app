@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.scss';
 
 const FailedToLoad = () => (
-  <div styleName="comtainer">
+  <div styleName="container">
     <div styleName="failed-to-load">
       <h2>
         <span />
