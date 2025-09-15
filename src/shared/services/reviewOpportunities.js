@@ -46,7 +46,7 @@ function normalizeChallengePhases(challenge) {
 /**
    * Gets the details of the review opportunity for the corresponding challenge
    * @param {Number} challengeId The ID of the challenge (not the opportunity id)
-   * @return {Promise} Resolves to the api response in JSON.
+   * @return {Object} The combined data of the review opportunity and challenge details
    */
 export async function getDetails(challengeId, opportunityId) {
   const getReviewOpportunityUrl = new URL(`${v6ApiUrl}/review-opportunities/${opportunityId}`);

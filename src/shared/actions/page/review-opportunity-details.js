@@ -3,6 +3,7 @@
  */
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
+import { logger } from 'topcoder-react-lib';
 
 import { getDetails } from '../../services/reviewOpportunities';
 
@@ -26,16 +27,16 @@ function getDetailsInit() {}
  * @desc Creates an action that gets details of a review opportunity for
  *  the specified challenge.
  * @param {Number} challengeId The ID of the challenge (not the opportunity id)
+ * @param {Number} opportunityId The ID of the review opportunity
  * @param {String} tokenV3=null Optional. Topcoder auth token v3.
- * @default test
  * @return {Action}
  */
-function getDetailsDone(challengeId, opportunityId, tokenV3) {
-  return getDetails(challengeId, opportunityId, tokenV3)
+function getDetailsDone(challengeId, opportunityId) {
+  return getDetails(challengeId, opportunityId)
     .then(details => ({ details }))
     .catch((error) => {
       if (error.status !== 401) {
-        console.log('Error Getting Review Opportunity Details', error.content || error);
+        logger.error('Error Getting Review Opportunity Details', error.content || error);
       }
       return Promise.reject(error.status);
     });
