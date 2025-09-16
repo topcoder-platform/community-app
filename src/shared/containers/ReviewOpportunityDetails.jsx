@@ -59,10 +59,7 @@ class ReviewOpportunityDetailsContainer extends React.Component {
       fireErrorMessage(
         'Permission Required',
         <span>
-          You must have a reviewer role to apply for this review opportunity.{' '}
-          <a href="https://www.topcoder.com/community/member/reviewer-become" target="_blank" rel="noopener noreferrer">
-            Learn how to become a reviewer
-          </a>.
+          You must have a reviewer role to apply for this review opportunity.
         </span>,
       );
       return;
