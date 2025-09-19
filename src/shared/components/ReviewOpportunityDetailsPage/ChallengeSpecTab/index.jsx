@@ -12,7 +12,7 @@ import './styles.scss';
 const ChallengeSpecTab = ({ challenge }) => (
   <div styleName="container">
     {
-      challenge.detailedRequirements
+      challenge.description
       && (
       <article>
         <h2 styleName="h2">
@@ -21,7 +21,7 @@ const ChallengeSpecTab = ({ challenge }) => (
         <div
           /* eslint-disable react/no-danger */
           dangerouslySetInnerHTML={{
-            __html: challenge.detailedRequirements,
+            __html: challenge.description,
           }}
           /* eslint-enable react/no-danger */
           styleName="rawHtml"

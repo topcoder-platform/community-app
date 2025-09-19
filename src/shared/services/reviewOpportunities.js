@@ -1,6 +1,4 @@
 import { config } from 'topcoder-react-utils';
-import _ from 'lodash';
-
 
 const v6ApiUrl = config.API.V6;
 
@@ -26,22 +24,6 @@ export default async function getReviewOpportunities(page, pageSize) {
 
   return res.json();
 }
-
-/**
- * Sync the fields of V3 and V5 for front-end to process successfully
- * @param challenge - challenge to normalize
- */
-function normalizeChallengePhases(challenge) {
-  return {
-    ...challenge,
-    phases: _.map(challenge.phases, phase => ({
-      ...phase,
-      scheduledStartDate: phase.scheduledStartTime,
-      scheduledEndDate: phase.scheduledEndTime,
-    })),
-  };
-}
-
 
 /**
    * Gets the details of the review opportunity for the corresponding challenge
@@ -70,7 +52,7 @@ export async function getDetails(challengeId, opportunityId) {
 
     return {
       ...opportunityData.result.content,
-      challenge: normalizeChallengePhases(challengeData),
+      challenge: challengeData,
     };
   } catch (err) {
     return Promise.reject(err);
