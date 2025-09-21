@@ -212,7 +212,7 @@ const mapStateToProps = (state, ownProps) => {
     termsFailure: terms.getTermsFailure,
     tokenV3: state.auth.tokenV3,
     isLoggedIn: Boolean(state.auth.user),
-    isReviewer: _.includes(state.auth.userRoles || [], 'REVIEWER'),
+    isReviewer: _.includes(state.auth.user.roles || [], 'reviewer'),
   };
 };
 
