@@ -119,7 +119,7 @@ class SubmissionsComponent extends React.Component {
     const { challenge } = this.props;
     if (!_.isEmpty(submission.review)
           && !_.isEmpty(submission.review[0])
-          && submission.review[0].score
+          && submission.review[0].initialScore
           && (challenge.status === 'COMPLETED'
           || (_.includes(challenge.tags, 'Innovation Challenge') && _.find(challenge.metadata, { name: 'show_data_dashboard' })))) {
       score = Number(submission.review[0].score).toFixed(2);
@@ -191,7 +191,7 @@ class SubmissionsComponent extends React.Component {
     let isHaveFinalScore = false;
     if (field === 'Initial Score' || 'Final Score') {
       isHaveFinalScore = _.some(submissions, s => !_.isNil(
-        s.reviewSummation && s.reviewSummation[0].aggregateScore,
+        s.review && s.review[0].finalScore,
       ));
     }
     return sortList(submissions, field, sort, (a, b) => {
@@ -232,15 +232,15 @@ class SubmissionsComponent extends React.Component {
         }
         case 'Initial Score': {
           if (isHaveFinalScore) {
-            valueA = getFinalScore(a);
-            valueB = getFinalScore(b);
+            valueA = !_.isEmpty(a.review) && a.review[0].finalScore;
+            valueB = !_.isEmpty(b.review) && b.review[0].finalScore;
           } else if (valueA.score || valueB.score) {
             // Handle MM formatted scores in a code challenge (PS-295)
             valueA = Number(valueA.score);
             valueB = Number(valueB.score);
           } else {
-            valueA = !_.isEmpty(a.review) && a.review[0].score;
-            valueB = !_.isEmpty(b.review) && b.review[0].score;
+            valueA = !_.isEmpty(a.review) && a.review[0].initialScore;
+            valueB = !_.isEmpty(b.review) && b.review[0].initialScore;
           }
           break;
         }
@@ -940,8 +940,8 @@ class SubmissionsComponent extends React.Component {
                     <div styleName="mobile-header">FINAL SCORE</div>
                     <p>
                       {
-                        (s.reviewSummation && s.reviewSummation[0].aggregateScore && challenge.status === 'COMPLETED')
-                          ? s.reviewSummation[0].aggregateScore.toFixed(2)
+                        (s.review && s.review[0].finalScore && challenge.status === 'COMPLETED')
+                          ? s.review[0].finalScore.toFixed(2)
                           : 'N/A'
                       }
                     </p>
