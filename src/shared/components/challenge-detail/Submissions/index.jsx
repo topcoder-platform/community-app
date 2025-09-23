@@ -118,11 +118,11 @@ class SubmissionsComponent extends React.Component {
     let score = 'N/A';
     const { challenge } = this.props;
     if (!_.isEmpty(submission.review)
-          && !_.isEmpty(submission.review[0])
-          && submission.review[0].initialScore
+          && !_.isEmpty(submission)
+          && submission.initialScore
           && (challenge.status === 'COMPLETED'
           || (_.includes(challenge.tags, 'Innovation Challenge') && _.find(challenge.metadata, { name: 'show_data_dashboard' })))) {
-      score = Number(submission.review[0].score).toFixed(2);
+      score = Number(submission.initialScore).toFixed(2);
     }
     return score;
   }
@@ -191,7 +191,7 @@ class SubmissionsComponent extends React.Component {
     let isHaveFinalScore = false;
     if (field === 'Initial Score' || 'Final Score') {
       isHaveFinalScore = _.some(submissions, s => !_.isNil(
-        s.review && s.review[0].finalScore,
+        s.review && s.finalScore,
       ));
     }
     return sortList(submissions, field, sort, (a, b) => {
@@ -232,15 +232,15 @@ class SubmissionsComponent extends React.Component {
         }
         case 'Initial Score': {
           if (isHaveFinalScore) {
-            valueA = !_.isEmpty(a.review) && a.review[0].finalScore;
-            valueB = !_.isEmpty(b.review) && b.review[0].finalScore;
+            valueA = !_.isEmpty(a.review) && a.finalScore;
+            valueB = !_.isEmpty(b.review) && b.finalScore;
           } else if (valueA.score || valueB.score) {
             // Handle MM formatted scores in a code challenge (PS-295)
             valueA = Number(valueA.score);
             valueB = Number(valueB.score);
           } else {
-            valueA = !_.isEmpty(a.review) && a.review[0].initialScore;
-            valueB = !_.isEmpty(b.review) && b.review[0].initialScore;
+            valueA = !_.isEmpty(a.review) && a.initialScore;
+            valueB = !_.isEmpty(b.review) && b.initialScore;
           }
           break;
         }
@@ -940,8 +940,8 @@ class SubmissionsComponent extends React.Component {
                     <div styleName="mobile-header">FINAL SCORE</div>
                     <p>
                       {
-                        (s.review && s.review[0].finalScore && challenge.status === 'COMPLETED')
-                          ? s.review[0].finalScore.toFixed(2)
+                        (s.review && s.finalScore && challenge.status === 'COMPLETED')
+                          ? s.finalScore.toFixed(2)
                           : 'N/A'
                       }
                     </p>
