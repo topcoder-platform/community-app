@@ -360,6 +360,7 @@ workflows:
                 - develop
                 - pm-1346
                 - pm-1358_1
+                - ps-411-css-issue
       # This is alternate dev env for parallel testing
       # Deprecate this workflow due to beta env shutdown
       # https://topcoder.atlassian.net/browse/CORE-251
