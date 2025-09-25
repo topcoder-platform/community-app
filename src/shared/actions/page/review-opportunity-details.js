@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { logger } from 'topcoder-react-lib';
 
-import { getDetails } from '../../services/reviewOpportunities';
+import { getDetails, submitApplications } from '../../services/reviewOpportunities';
 
 
 /* Holds valid values for the tab state. */
@@ -42,11 +42,32 @@ function getDetailsDone(challengeId, opportunityId) {
     });
 }
 
+/**
+ * @static
+ * @desc Creates an action that signals beginning of review application process.
+ * @return {Action}
+ */
+function submitAppliationInit() {}
+
+/**
+ * @static
+ * @desc Creates an action that submits application for a review opportunity.
+ * @param {Number} challengeId The ID of the challenge (not the opportunity id)
+ * @param {Array} roleIds Array of roleId Numbers to cancel applications for
+ * @param {String} tokenV3 Required. Topcoder auth token v3.
+ * @return {Action}
+ */
+function submitApplicationsDone(challengeId, tokenV3) {
+  return submitApplications(challengeId, tokenV3);
+}
+
 export default createActions({
   PAGE: {
     REVIEW_OPPORTUNITY_DETAILS: {
       GET_DETAILS_INIT: getDetailsInit,
       GET_DETAILS_DONE: getDetailsDone,
+      SUBMIT_APPLICATIONS_INIT: submitAppliationInit,
+      SUBMIT_APPLICATIONS_DONE: submitApplicationsDone,
       SELECT_TAB: _.identity,
       SET_ROLES: _.identity,
       TOGGLE_APPLY_MODAL: _.identity,
