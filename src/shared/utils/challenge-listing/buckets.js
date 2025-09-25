@@ -10,6 +10,7 @@ export const BUCKETS = {
   ALL: 'all',
   MY: 'my',
   OPEN_FOR_REGISTRATION: 'openForRegistration',
+  COPILOT_OPPORTUNITIES: 'copilotOpportunities',
   ONGOING: 'ongoing',
   PAST: 'past',
   // SAVED_FILTER: 'saved-filter',
@@ -70,6 +71,15 @@ export const BUCKET_DATA = {
       SORTS.PRIZE_HIGH_TO_LOW,
       SORTS.PRIZE_LOW_TO_HIGH,
       SORTS.TITLE_A_TO_Z,
+    ],
+  },
+  [BUCKETS.COPILOT_OPPORTUNITIES]: {
+    name: 'Copilot Opportunities',
+    sorts: [
+      SORTS.COPILOT_OPPORTUNITIES_START_DATE,
+      SORTS.COPILOT_OPPORTUNITIES_STATUS,
+      SORTS.COPILOT_OPPORTUNITIES_TYPE,
+      SORTS.COPILOT_OPPORTUNITIES_TITLE_A_TO_Z,
     ],
   },
   [BUCKETS.ONGOING]: {
@@ -149,6 +159,7 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
   [BUCKETS.ALL]: 'No Live Challenges found',
   [BUCKETS.MY]: 'No challenges found',
   [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found',
+  [BUCKETS.COPILOT_OPPORTUNITIES]: 'No Copilot Opportunities found',
   [BUCKETS.ONGOING]: 'No challenges found',
   // [BUCKETS.PAST]: 'No challenges found in Past Challenges',
   // [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
@@ -176,6 +187,10 @@ export function getBuckets(userChallenges) {
 export const isReviewOpportunitiesBucket = bucket => (
 // bucket === BUCKETS.REVIEW_OPPORTUNITIES || bucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER);
   bucket === BUCKETS.REVIEW_OPPORTUNITIES);
+
+export const isCopilotOpportunitiesBucket = bucket => (
+  bucket === BUCKETS.COPILOT_OPPORTUNITIES
+);
 
 /**
  * Registers a new bucket.

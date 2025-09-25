@@ -11,6 +11,7 @@ import { errors, services } from 'topcoder-react-lib';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import SORT from 'utils/challenge-listing/sort';
 import getReviewOpportunities from 'services/reviewOpportunities';
+import getCopilotOpportunities from '../../services/copilotOpportunities';
 
 const { fireErrorMessage } = errors;
 const { getService } = services.challenge;
@@ -24,6 +25,8 @@ const PAGE_SIZE = 10;
  * The maximum number of review opportunities to fetch in a single API call.
  */
 const REVIEW_OPPORTUNITY_PAGE_SIZE = 1000;
+
+const COPILOT_OPPORTUNITY_PAGE_SIZE = 20;
 
 /**
  * Private. Loads from the backend all challenges matching some conditions.
@@ -496,6 +499,21 @@ function getReviewOpportunitiesDone(uuid, page) {
 }
 
 /**
+ * Action to get a list of currently open Copilot Opportunities using V5 API
+ * @param {String} uuid Unique identifier for init/done instance from shortid module
+ * @param {Number} page Page of copilot opportunities to fetch (1-based)
+ * @return {Promise<{uuid: string, loaded: object}>} Action result
+ */
+function getCopilotOpportunitiesDone(uuid, page) {
+  return getCopilotOpportunities(page, COPILOT_OPPORTUNITY_PAGE_SIZE)
+    .then(loaded => ({ uuid, loaded }))
+    .catch((error) => {
+      fireErrorMessage('Error Getting Copilot Opportunities', error.content || error);
+      return Promise.reject(error);
+    });
+}
+
+/**
  * Payload creator for the action that inits the loading of SRMs.
  * @param {String} uuid
  * @return {String}
@@ -608,6 +626,9 @@ export default createActions({
 
     GET_REVIEW_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
     GET_REVIEW_OPPORTUNITIES_DONE: getReviewOpportunitiesDone,
+
+    GET_COPILOT_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
+    GET_COPILOT_OPPORTUNITIES_DONE: getCopilotOpportunitiesDone,
 
     GET_SRMS_INIT: getSrmsInit,
     GET_SRMS_DONE: getSrmsDone,

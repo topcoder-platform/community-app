@@ -455,6 +455,7 @@ export class ListingContainer extends React.Component {
     const {
       auth,
       // allPastChallengesLoaded,
+      allCopilotOpportunitiesLoaded,
       allReviewOpportunitiesLoaded,
       activeBucket,
       ChallengeListingBanner,
@@ -468,6 +469,7 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       communityFilters,
       communityName,
+      copilotOpportunities,
       defaultCommunityId,
       expanding,
       expandTag,
@@ -482,6 +484,7 @@ export class ListingContainer extends React.Component {
       getOpenForRegistrationChallenges,
       getPastChallenges,
       getReviewOpportunities,
+      getCopilotOpportunities,
       hideSrm,
       keepPastPlaceholders,
       lastRequestedPageOfMyChallenges,
@@ -491,6 +494,7 @@ export class ListingContainer extends React.Component {
       lastRequestedPageOfOpenForRegistrationChallenges,
       lastRequestedPageOfPastChallenges,
       lastRequestedPageOfReviewOpportunities,
+      lastRequestedPageOfCopilotOpportunities,
       // lastUpdateOfActiveChallenges,
       loadingActiveChallengesUUID,
       loadingOpenForRegistrationChallengesUUID,
@@ -499,6 +503,7 @@ export class ListingContainer extends React.Component {
       loadingAllChallengesUUID,
       loadingPastChallengesUUID,
       loadingReviewOpportunitiesUUID,
+      loadingCopilotOpportunitiesUUID,
       listingOnly,
       newChallengeDetails,
       openChallengesInNewTabs,
@@ -601,6 +606,13 @@ export class ListingContainer extends React.Component {
       );
     }
 
+    let loadMoreCopilotOpportunities;
+    if (!allCopilotOpportunitiesLoaded) {
+      loadMoreCopilotOpportunities = () => getCopilotOpportunities(
+        1 + lastRequestedPageOfCopilotOpportunities,
+      );
+    }
+
     let communityFilter = communityFilters.find(item => item.communityId === selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
@@ -649,6 +661,7 @@ export class ListingContainer extends React.Component {
             challengesUrl={challengesUrl}
             communityFilter={communityFilter}
             communityName={communityName}
+            copilotOpportunities={copilotOpportunities}
             defaultCommunityId={defaultCommunityId}
             expanding={expanding}
             expandedTags={expandedTags}
@@ -661,6 +674,7 @@ export class ListingContainer extends React.Component {
             // lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
             // eslint-disable-next-line max-len
             needLoad={needLoad}
+            loadingCopilotOpportunities={Boolean(loadingCopilotOpportunitiesUUID)}
             loadingMyChallenges={Boolean(loadingMyChallengesUUID)}
             loadingMyPastChallenges={Boolean(loadingMyPastChallengesUUID)}
             loadingAllChallenges={Boolean(loadingAllChallengesUUID)}
@@ -679,6 +693,7 @@ export class ListingContainer extends React.Component {
             selectedCommunityId={selectedCommunityId}
             loadMorePast={loadMorePast}
             loadMoreReviewOpportunities={loadMoreReviewOpportunities}
+            loadMoreCopilotOpportunities={loadMoreCopilotOpportunities}
             loadMoreMy={loadMoreMy}
             loadMoreMyPast={loadMoreMyPast}
             loadMoreAll={loadMoreAll}
@@ -750,6 +765,7 @@ ListingContainer.propTypes = {
   }).isRequired,
   // allActiveChallengesLoaded: PT.bool.isRequired,
   // allPastChallengesLoaded: PT.bool.isRequired,
+  allCopilotOpportunitiesLoaded: PT.bool.isRequired,
   allReviewOpportunitiesLoaded: PT.bool.isRequired,
   ChallengeListingBanner: PT.node,
   challenges: PT.arrayOf(PT.shape({})).isRequired, // active challenges.
@@ -768,6 +784,7 @@ ListingContainer.propTypes = {
     loadingUuid: PT.string.isRequired,
     timestamp: PT.number.isRequired,
   }).isRequired,
+  copilotOpportunities: PT.arrayOf(PT.shape()).isRequired,
   defaultCommunityId: PT.string,
   dropChallenges: PT.func.isRequired,
   dropMyChallenges: PT.func.isRequired,
@@ -792,6 +809,7 @@ ListingContainer.propTypes = {
   getCommunitiesList: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
   getReviewOpportunities: PT.func.isRequired,
+  getCopilotOpportunities: PT.func.isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   lastRequestedPageOfActiveChallenges: PT.number.isRequired,
   lastRequestedPageOfOpenForRegistrationChallenges: PT.number.isRequired,
@@ -800,8 +818,10 @@ ListingContainer.propTypes = {
   lastRequestedPageOfAllChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
   lastRequestedPageOfReviewOpportunities: PT.number.isRequired,
+  lastRequestedPageOfCopilotOpportunities: PT.number.isRequired,
   // lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
+  loadingCopilotOpportunitiesUUID: PT.string.isRequired,
   loadingOpenForRegistrationChallengesUUID: PT.string.isRequired,
   loadingMyChallengesUUID: PT.string.isRequired,
   loadingMyPastChallengesUUID: PT.string.isRequired,
@@ -848,10 +868,12 @@ const mapStateToProps = (state, ownProps) => {
   return {
     auth: state.auth,
     // allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    allCopilotOpportunitiesLoaded: cl.allCopilotOpportunitiesLoaded,
     allPastChallengesLoaded: cl.allPastChallengesLoaded,
     allReviewOpportunitiesLoaded: cl.allReviewOpportunitiesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
+    copilotOpportunities: cl.copilotOpportunities,
     openForRegistrationChallenges: cl.openForRegistrationChallenges,
     myChallenges: cl.myChallenges,
     myPastChallenges: cl.myPastChallenges,
@@ -872,8 +894,10 @@ const mapStateToProps = (state, ownProps) => {
     lastRequestedPageOfAllChallenges: cl.lastRequestedPageOfAllChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastRequestedPageOfReviewOpportunities: cl.lastRequestedPageOfReviewOpportunities,
+    lastRequestedPageOfCopilotOpportunities: cl.lastRequestedPageOfCopilotOpportunities,
     // lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
+    loadingCopilotOpportunitiesUUID: cl.loadingCopilotOpportunitiesUUID,
     loadingOpenForRegistrationChallengesUUID: cl.loadingOpenForRegistrationChallengesUUID,
     loadingMyChallengesUUID: cl.loadingMyChallengesUUID,
     loadingMyPastChallengesUUID: cl.loadingMyPastChallengesUUID,
@@ -898,7 +922,8 @@ const mapStateToProps = (state, ownProps) => {
     loading: Boolean(cl.loadingActiveChallengesUUID)
       || Boolean(cl.loadingOpenForRegistrationChallengesUUID)
       || Boolean(cl.loadingMyChallengesUUID) || Boolean(cl.loadingAllChallengesUUID)
-      || Boolean(cl.loadingPastChallengesUUID) || cl.loadingReviewOpportunitiesUUID,
+      || Boolean(cl.loadingPastChallengesUUID) || cl.loadingReviewOpportunitiesUUID
+      || cl.loadingCopilotOpportunitiesUUID,
   };
 };
 
@@ -980,6 +1005,11 @@ function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(a.getReviewOpportunitiesInit(uuid, page));
       dispatch(a.getReviewOpportunitiesDone(uuid, page));
+    },
+    getCopilotOpportunities: (page) => {
+      const uuid = shortId();
+      dispatch(a.getCopilotOpportunitiesInit(uuid, page));
+      dispatch(a.getCopilotOpportunitiesDone(uuid, page));
     },
     selectBucket: (bucket, expanding) => dispatch(sa.selectBucket(bucket, expanding)),
     selectBucketDone: () => dispatch(sa.selectBucketDone()),

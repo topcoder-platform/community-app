@@ -105,6 +105,7 @@ module.exports = {
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
     CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
+    COPILOTS_URL: 'https://copilots.topcoder-dev.com',
     TCO_OPEN_URL: 'https://www.topcoder-dev.com/community/member-programs/topcoder-open',
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',
@@ -473,5 +474,5 @@ module.exports = {
   ACCOUNT_SETTINGS_REDIRECT_URL: 'https://account-settings.topcoder-dev.com',
   INNOVATION_CHALLENGES_TAG: 'Innovation Challenge',
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
-  TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS: ['wipro365.sharepoint.com', 'wipro365-my.sharepoint.com', 'wipro365-my.sharepoint.com.mcas.ms'],
+  TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS: 'wipro365.sharepoint.com|wipro365-my.sharepoint.com|wipro365-my.sharepoint.com.mcas.ms',
 };
