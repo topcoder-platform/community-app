@@ -58,3 +58,33 @@ export async function getDetails(challengeId, opportunityId) {
     return Promise.reject(err);
   }
 }
+
+/**
+   * Submits review opportunity application for the specified challenge
+   * @param {Number} challengeId The ID of the challenge (not the opportunity id)
+   * @param {Array} roleIds List of review role IDs to apply for
+   * @return {Promise} Resolves to the api response in JSON.
+   */
+export async function submitApplications(opportunityId, tokenV3) {
+  const payload = {
+    opportunityId,
+    role: 'REVIEWER',
+  };
+  try {
+    const res = await fetch(`${v6ApiUrl}/review-applications`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenV3}`,
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      throw new Error(`Request failed: ${res.status}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    return 'There was an error while submitting the application.';
+  }
+}

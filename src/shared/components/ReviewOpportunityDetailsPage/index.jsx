@@ -85,7 +85,7 @@ const ReviewOpportunityDetailsPage = ({
             </a>
           </div>
           <div styleName="tab">
-            <a href="https://help.topcoder.com/hc/en-us/articles/222503827-Development-Reviewer-Role-Responsibilities" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.topcoder.com/thrive/articles/Development%20Review%20-%20Role%20&%20Responsibilities" target="_blank" rel="noopener noreferrer">
               REVIEW PROCESS AND RULES
             </a>
           </div>

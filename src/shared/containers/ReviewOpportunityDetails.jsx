@@ -8,14 +8,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import { errors } from 'topcoder-react-lib';
+import { actions, errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
 import FailedToLoad from 'components/ReviewOpportunityDetailsPage/FailedToLoad';
 import termsActions from 'actions/terms';
 import { goToLogin } from 'utils/tc';
+import { logger } from 'tc-core-library-js';
 
 const { fireErrorMessage } = errors;
 
@@ -76,45 +76,28 @@ class ReviewOpportunityDetailsContainer extends React.Component {
     }
   }
 
-  handleOnModalApply() {
+  async handleOnModalApply() {
     const {
-      cancelApplications,
       challengeId,
-      details,
-      handle,
+      opportunityId,
       loadDetails,
-      selectedRoles,
       submitApplications,
       toggleApplyModal,
       tokenV3,
     } = this.props;
 
-    const rolesToApply = [];
-    const rolesToCancel = [];
+    try {
+    // Wait for the submit to finish (and succeed)
+      await submitApplications(opportunityId, tokenV3);
 
-    const previousRoles = activeRoleIds(details, handle);
+      toggleApplyModal();
 
-    previousRoles.forEach((id) => {
-      if (!_.includes(selectedRoles, id)) {
-        rolesToCancel.push(id);
-      }
-    });
-
-    selectedRoles.forEach((id) => {
-      if (!_.includes(previousRoles, id)) {
-        rolesToApply.push(id);
-      }
-    });
-
-    if (rolesToApply.length) {
-      submitApplications(challengeId, rolesToApply, tokenV3);
+      await loadDetails(challengeId, opportunityId, tokenV3);
+    } catch (err) {
+      logger.error('submitApplications failed', err);
+      toggleApplyModal();
     }
-    if (rolesToCancel.length) {
-      cancelApplications(challengeId, rolesToCancel, tokenV3);
-    }
-
-    toggleApplyModal();
-    loadDetails(challengeId, tokenV3);
+    loadDetails(challengeId, opportunityId, tokenV3);
   }
 
   render() {
@@ -212,7 +195,7 @@ const mapStateToProps = (state, ownProps) => {
     termsFailure: terms.getTermsFailure,
     tokenV3: state.auth.tokenV3,
     isLoggedIn: Boolean(state.auth.user),
-    isReviewer: _.includes(state.auth.user.roles || [], 'reviewer'),
+    isReviewer: _.includes((state.auth.user && state.auth.user.roles) || [], 'reviewer'),
   };
 };
 
@@ -223,7 +206,7 @@ const mapStateToProps = (state, ownProps) => {
  * @return {Object}
  */
 function mapDispatchToProps(dispatch) {
-  const api = pageActions.page.reviewOpportunityDetails;
+  const api = actions.reviewOpportunity;
   const page = pageActions.page.reviewOpportunityDetails;
   return {
     cancelApplications: (challengeId, roleIds, tokenV3) => {
@@ -231,8 +214,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(api.cancelApplicationsDone(challengeId, roleIds, tokenV3));
     },
     loadDetails: (challengeId, opportunityId, tokenV3) => {
-      dispatch(api.getDetailsInit());
-      dispatch(api.getDetailsDone(challengeId, opportunityId, tokenV3));
+      dispatch(page.getDetailsInit());
+      return dispatch(page.getDetailsDone(challengeId, opportunityId, tokenV3));
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {
@@ -240,9 +223,9 @@ function mapDispatchToProps(dispatch) {
     },
     selectTab: tab => dispatch(page.selectTab(tab)),
     setRoles: roles => dispatch(page.setRoles(roles)),
-    submitApplications: (challengeId, roleIds, tokenV3) => {
-      dispatch(api.submitApplicationsInit());
-      dispatch(api.submitApplicationsDone(challengeId, roleIds, tokenV3));
+    submitApplications: (challengeId, tokenV3) => {
+      dispatch(page.submitApplicationsInit());
+      return dispatch(page.submitApplicationsDone(challengeId, tokenV3));
     },
     toggleApplyModal: () => {
       dispatch(page.toggleApplyModal());

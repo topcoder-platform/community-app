@@ -51,7 +51,7 @@ const ApplyTime = ({
           disabled={!timeLeft || !openPositions}
           onClick={() => onApply()}
         >
-          {hasApplied ? 'Manage Applications' : 'Apply for review'}
+          {hasApplied ? 'View Application' : 'Apply for review'}
         </PrimaryButton>
       </div>
     </div>

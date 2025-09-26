@@ -90,6 +90,7 @@ export default function BucketSelector({
         {/* DISABLED: Until api receive fix community-app#5073 */}
         {/* {getBucket(BUCKETS.ONGOING)} */}
         {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
+        {getBucket(BUCKETS.COPILOT_OPPORTUNITIES)}
         {/* {getBucket(BUCKETS.PAST)} */}
         {/* NOTE: We do not show upcoming challenges for now, for various reasons,
           * more political than technical ;)

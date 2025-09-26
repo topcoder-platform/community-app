@@ -24,6 +24,10 @@ export const SORTS = {
   REVIEW_OPPORTUNITIES_PAYMENT: 'review-opportunities-payment',
   REVIEW_OPPORTUNITIES_START_DATE: 'review-opportunities-start-date',
   BEST_MATCH: 'bestMatch',
+  COPILOT_OPPORTUNITIES_START_DATE: 'copilot-opportunities-start-date',
+  COPILOT_OPPORTUNITIES_TITLE_A_TO_Z: 'copilot-opportunities-title-a-to-z',
+  COPILOT_OPPORTUNITIES_STATUS: 'copilot-opportunities-status',
+  COPILOT_OPPORTUNITIES_TYPE: 'copilot-opportunities-type',
 };
 
 export default {
@@ -103,6 +107,48 @@ export default {
     // This will implicitly use moment#valueOf
     func: (a, b) => moment(a.startDate) - moment(b.startDate),
     name: 'Review start date',
+  },
+  [SORTS.COPILOT_OPPORTUNITIES_STATUS]: {
+    func: (a, b) => a.status.localeCompare(b.status),
+    name: 'Status',
+  },
+  [SORTS.COPILOT_OPPORTUNITIES_TITLE_A_TO_Z]: {
+    func(a, b) {
+      const titleA = (a.opportunityTitle || '').toLowerCase();
+      const titleB = (b.opportunityTitle || '').toLowerCase();
+
+      if (!titleA && !titleB) return 0;
+      if (!titleA) return 1;
+      if (!titleB) return -1;
+
+      return titleA.localeCompare(titleB);
+    },
+    name: 'Title A-Z',
+  },
+  [SORTS.COPILOT_OPPORTUNITIES_TYPE]: {
+    func: (a, b) => a.type.localeCompare(b.type),
+    name: 'Type',
+  },
+  [SORTS.COPILOT_OPPORTUNITIES_START_DATE]: {
+    func(a, b) {
+      const statusOrder = {
+        active: 3,
+        completed: 2,
+        cancelled: 1,
+      };
+
+      const aPriority = statusOrder[a.status] || 0;
+      const bPriority = statusOrder[b.status] || 0;
+
+      // Higher priority first
+      if (bPriority !== aPriority) {
+        return bPriority - aPriority;
+      }
+
+      // Fallback: sort by createdAt descending
+      return moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf();
+    },
+    name: 'Most recent opportunities',
   },
   [SORTS.BEST_MATCH]: {
     func: (a, b) => calculateScore(b.jaccard_index) - calculateScore(a.jaccard_index),

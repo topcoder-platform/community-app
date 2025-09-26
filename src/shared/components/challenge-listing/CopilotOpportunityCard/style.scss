@@ -1,0 +1,240 @@
+@import '~styles/mixins';
+
+$challenge-space-10: $base-unit * 2;
+$challenge-space-15: $base-unit * 3;
+$challenge-space-20: $base-unit * 4;
+$challenge-space-30: $base-unit * 6;
+$challenge-space-40: $base-unit * 8;
+$challenge-space-45: $base-unit * 9;
+$challenge-space-50: $base-unit * 10;
+$challenge-space-90: $base-unit * 18;
+$status-space-10: $base-unit * 2;
+$status-space-15: $base-unit * 3;
+$status-space-20: $base-unit * 4;
+$status-space-25: $base-unit * 5;
+$status-space-30: $base-unit * 6;
+$status-space-40: $base-unit * 8;
+$status-space-50: $base-unit * 10;
+$status-radius-1: $corner-radius / 2;
+$status-radius-4: $corner-radius * 2;
+
+.copilotOpportunityCard {
+  @include roboto-medium;
+
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  background: $tc-white;
+  padding: $challenge-space-20 0;
+  border-top: 1px solid $tc-gray-10;
+  color: $tc-black;
+  font-size: 15px;
+  margin-left: 24px;
+
+  &:last-child {
+    border-bottom: 1px solid $tc-gray-10;
+  }
+
+  @include xs-to-md {
+    flex-wrap: wrap;
+    padding: $base-unit * 3 0;
+    margin-left: 0;
+    flex-direction: column;
+  }
+
+  @include xs-to-sm {
+    position: relative;
+  }
+
+  a,
+  a:visited {
+    color: $tc-black;
+  }
+
+  a:hover {
+    color: $tc-dark-blue-110;
+  }
+
+  .left-panel {
+    display: flex;
+    justify-content: flex-start;
+    width: 45.5%;
+
+    @include xs-to-md {
+      width: 100%;
+      padding: 0 16px;
+    }
+  }
+
+  .right-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+
+    @include xs-to-md {
+      width: 100%;
+      display: flex;
+    }
+
+    @include xs-to-sm {
+      display: flex;
+    }
+  }
+
+  // Challenge title, end date & technologies
+  .challenge-details {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 82%;
+    margin-right: $challenge-space-30;
+
+    @include md {
+      margin-right: 180px;
+    }
+
+    @include xs-to-sm {
+      margin-right: 0;
+    }
+
+    a {
+      line-height: $challenge-space-20;
+
+      @include xs-to-sm {
+        display: inline-block;
+      }
+    }
+  }
+
+  .details-footer {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+
+    .date {
+      font-size: 12px;
+      color: $tc-gray-60;
+      margin-right: $challenge-space-10;
+      line-height: ($challenge-space-10) + 2;
+      font-weight: normal;
+      margin-top: 2px;
+    }
+  }
+
+  // Review payment
+  .status {
+    @include roboto-medium;
+
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    color: green;
+    line-height: $challenge-space-20;
+    margin-right: $challenge-space-20;
+    min-width: $challenge-space-50 + 2;
+    width: 30%;
+
+    &.completed {
+      color: $tc-orange;
+    }
+
+    &.canceled {
+      color: red;
+    }
+
+    @include xs-to-md {
+      position: absolute;
+      right: 0;
+      top: 20px;
+      margin-right: $challenge-space-20;
+      margin-bottom: $challenge-space-20;
+    }
+
+    @include xs-to-sm {
+      position: relative;
+      display: block;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-left: $challenge-space-15;
+      top: 0;
+    }
+
+    @include md {
+      right: 108px;
+    }
+
+    // $ Symbol
+    span {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      text-transform: capitalize;
+    }
+  }
+
+  .type {
+    @include roboto-medium;
+
+    width: 40%;
+
+    @include xs-to-md {
+      position: absolute;
+      right: 0;
+      top: 20px;
+      margin-right: $challenge-space-20;
+      margin-bottom: $challenge-space-20;
+    }
+
+    @include xs-to-sm {
+      position: relative;
+      display: block;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-left: $challenge-space-15;
+      top: 0;
+    }
+
+    @include md {
+      right: 108px;
+    }
+
+    span {
+      color: $tc-black;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      text-transform: capitalize;
+    }
+  }
+
+  .numHours {
+    width: 30%;
+
+    @include xs-to-md {
+      position: absolute;
+      right: 0;
+      top: 20px;
+      margin-right: $challenge-space-20;
+      margin-bottom: $challenge-space-20;
+    }
+
+    @include xs-to-sm {
+      position: relative;
+      display: block;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-left: $challenge-space-15;
+      top: 0;
+    }
+
+    @include md {
+      right: 108px;
+    }
+
+    span {
+      color: $tc-black;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+}
