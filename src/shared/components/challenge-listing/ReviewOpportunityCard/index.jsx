@@ -55,6 +55,8 @@ function ReviewOpportunityCard({
   tags = tags.filter(tag => tag.trim().length);
   const { track } = challenge;
   const start = moment(opportunity.startDate);
+  const now = moment();
+  const isLate = now.isAfter(start);
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
@@ -160,8 +162,11 @@ function ReviewOpportunityCard({
           styleName="register-button"
         >
           <span>
-            Late by<br />
-            { start.isAfter() ? formatDuration(start.diff()) : ` ${formatDuration(-start.diff())}` }
+            {isLate ? 'Late by' : 'Time left'}<br />
+            {isLate
+              ? formatDuration(now.diff(start))
+              : formatDuration(start.diff(now))
+            }
           </span>
           <span styleName="to-register">
             to Apply
