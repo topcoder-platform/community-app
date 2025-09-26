@@ -104,10 +104,16 @@ export default function ChallengeHeader(props) {
   const sortedAllPhases = _.cloneDeep(allPhases)
     .sort((a, b) => moment(phaseEndDate(a)).diff(phaseEndDate(b)));
 
-  const placementPrizes = _.find(prizeSets, { type: 'placement' });
+  const placementPrizes = _.find(
+    prizeSets,
+    prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',
+  );
   const { prizes } = placementPrizes || [];
 
-  const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
+  const checkpointPrizes = _.find(
+    prizeSets,
+    prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'checkpoint',
+  );
   let numberOfCheckpointsPrizes = 0;
   let topCheckPointPrize = 0;
   if (!_.isEmpty(checkpointPrizes)) {

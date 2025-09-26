@@ -57,6 +57,7 @@ export default function SubmissionManagement(props) {
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
   const submissionPhase = challenge.phases.filter(p => p.name === 'Submission')[0];
   const submissionEndDate = submissionPhase && phaseEndDate(submissionPhase);
+  const isSubmissionPhaseOpen = Boolean(submissionPhase && submissionPhase.isOpen);
 
   const now = moment();
   const end = moment(currentPhase && currentPhase.scheduledEndDate);
@@ -192,7 +193,7 @@ export default function SubmissionManagement(props) {
            )
          }
       </div>
-      {now.isBefore(submissionEndDate) && (
+      {isSubmissionPhaseOpen && now.isBefore(submissionEndDate) && (
       <div styleName="btn-wrap">
         <PrimaryButton
           theme={{

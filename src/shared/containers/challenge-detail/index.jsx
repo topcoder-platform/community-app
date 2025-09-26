@@ -423,7 +423,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const { prizeSets } = challenge;
     let challengePrizes = [];
-    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    const placementPrizes = _.find(
+      prizeSets,
+      prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',
+    );
     if (placementPrizes) {
       challengePrizes = _.filter(placementPrizes.prizes, p => p.value > 0);
     }

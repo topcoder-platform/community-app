@@ -288,7 +288,10 @@ export default class Registrants extends React.Component {
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
 
-    const placementPrizes = _.find(prizeSets, { type: 'PLACEMENT' });
+    const placementPrizes = _.find(
+      prizeSets,
+      prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',
+    );
     const { prizes } = placementPrizes || [];
 
     const checkpoints = challenge.checkpoints || [];
