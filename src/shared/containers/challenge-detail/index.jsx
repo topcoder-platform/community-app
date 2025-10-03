@@ -45,7 +45,8 @@ import {
 } from 'utils/tc';
 import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
-import { actions } from 'topcoder-react-lib';
+import { decodeToken } from '@topcoder-platform/tc-auth-lib';
+import { actions, services } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
 // import {
@@ -87,6 +88,7 @@ import './styles.scss';
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
 const DAY = 24 * 60 * MIN;
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
  * Given challenge details object, it returns the URL of the image to be used in
@@ -1005,7 +1007,59 @@ const mapDispatchToProps = (dispatch) => {
     registerForChallenge: (auth, challengeId) => {
       const a = actions.challenge;
       dispatch(a.registerInit());
-      dispatch(a.registerDone(auth, challengeId));
+
+      const challengeService = services.challenge.getService(auth.tokenV3, auth.tokenV2);
+      const apiV6 = services.api.getApi('V6', auth.tokenV3);
+      const actionType = a.registerDone.toString();
+
+      const payload = (async () => {
+        try {
+          if (!auth.tokenV3) {
+            throw new Error('Authentication token is required to register.');
+          }
+
+          const roleId = await challengeService.getRoleId('Submitter');
+          const user = decodeToken(auth.tokenV3);
+          const requestBody = {
+            challengeId,
+            memberHandle: encodeURIComponent(user.handle),
+            roleId,
+          };
+
+          const response = await apiV6.postJson('/resources', requestBody);
+          let responseData = null;
+
+          if (!response.ok) {
+            try {
+              responseData = await response.json();
+            } catch (parseError) {
+              responseData = null;
+            }
+            const error = new Error((responseData && responseData.message)
+              || response.statusText
+              || 'Failed to register for the challenge.');
+            error.status = response.status;
+            if (responseData && responseData.metadata && responseData.metadata.missingTerms) {
+              error.missingTerms = responseData.metadata.missingTerms;
+            }
+            throw error;
+          }
+
+          await response.json().catch(() => null);
+          await wait(config.CHALLENGE_DETAILS_REFRESH_DELAY);
+          return challengeService.getChallengeDetails(challengeId);
+        } catch (err) {
+          if (err.status === 403 && err.missingTerms) {
+            dispatch(termsActions.terms.openTermsModal('ANY'));
+          }
+          throw err;
+        }
+      })();
+
+      return dispatch({
+        type: actionType,
+        payload,
+      });
     },
     reloadChallengeDetails: (tokens, challengeId) => {
       const a = actions.challenge;
