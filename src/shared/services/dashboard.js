@@ -5,12 +5,12 @@ const { getApi } = services.api;
 
 class DashboardService {
   /**
-   * @param {String} tokenV5 Optional. Auth token for Topcoder API v5.
+   * @param {String} tokenV6 Optional. Auth token for Topcoder API v6.
    */
-  constructor(tokenV5) {
+  constructor(tokenV6) {
     this.private = {
-      api: getApi('V5', tokenV5),
-      tokenV5,
+      api: getApi('V6', tokenV6),
+      tokenV6,
     };
   }
 
@@ -27,13 +27,13 @@ class DashboardService {
 
 /**
  * Returns a new or existing challenges service.
- * @param {String} tokenV5 Optional. Auth token for Topcoder API v5.
+ * @param {String} tokenV6 Optional. Auth token for Topcoder API v6.
  * @return {DashboardService} Dashboard service object
  */
 let lastInstance = null;
-export function getService(tokenV5) {
-  if (!lastInstance || tokenV5 !== lastInstance.private.tokenV5) {
-    lastInstance = new DashboardService(tokenV5);
+export function getService(tokenV6) {
+  if (!lastInstance || tokenV6 !== lastInstance.private.tokenV6) {
+    lastInstance = new DashboardService(tokenV6);
   }
   return lastInstance;
 }
