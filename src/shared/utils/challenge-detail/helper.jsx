@@ -8,6 +8,7 @@ import { convertNow as convertMoney } from 'services/money';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
 import Prize from 'components/challenge-listing/ChallengeCard/Prize';
+import { getTypeName } from 'utils/challenge';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
 
@@ -38,7 +39,7 @@ export function getChallengeTypeAbbr(track, challengeTypes) {
  * @param {Object} challenge challenge info
  */
 export function getEndDate(challenge) {
-  const { type } = challenge;
+  const type = getTypeName(challenge);
   let phases = challenge.phases || [];
   if (type === 'First2Finish' && challenge.status === 'COMPLETED') {
     phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');

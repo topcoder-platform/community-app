@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
-import { isMM as checkIsMM, isRDM as checkIsRDM } from 'utils/challenge';
+import { isMM as checkIsMM, isRDM as checkIsRDM, getTrackName, getTypeName } from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -99,6 +99,8 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 function getOgImage(challenge) {
   const { legacy } = challenge;
   const { subTrack } = legacy;
+  const trackName = getTrackName(challenge);
+  const typeName = getTypeName(challenge);
   if (challenge.name.startsWith('LUX -')) return ogBigPrizesChallenge;
   if (challenge.name.startsWith('RUX -')) return ogBigPrizesChallenge;
   if (challenge.prizes) {
@@ -108,15 +110,15 @@ function getOgImage(challenge) {
 
   switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH:
-      switch (challenge.track) {
-        case COMPETITION_TRACKS_V3.DEVELOP: return challenge.type === 'Task' ? ogDEVTask : ogFirst2FinishDEV;
-        case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogFirst2FinishQA;
+      switch (trackName) {
+        case COMPETITION_TRACKS_V3.DEVELOP: return typeName === 'Task' ? ogDEVTask : ogFirst2FinishDEV;
+        case COMPETITION_TRACKS_V3.QA: return typeName === 'Task' ? ogQATask : ogFirst2FinishQA;
         default: return ogFirst2FinishDEV;
       }
 
     case SUBTRACKS.DESIGN_FIRST_2_FINISH:
-      switch (challenge.track) {
-        case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
+      switch (trackName) {
+        case COMPETITION_TRACKS_V3.DESIGN: return typeName === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
         default: return ogUiDesign;
       }
 
@@ -141,11 +143,11 @@ function getOgImage(challenge) {
     default:
   }
 
-  switch (challenge.track) {
+  switch (trackName) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
-    case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogUiDesign;
+    case COMPETITION_TRACKS_V3.DESIGN: return typeName === 'Task' ? ogDESIGNTask : ogUiDesign;
     case COMPETITION_TRACKS_V3.DS: return ogDSChallenge;
-    case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogQAChallenge;
+    case COMPETITION_TRACKS_V3.QA: return typeName === 'Task' ? ogQATask : ogQAChallenge;
     default: return ogImage;
   }
 }
@@ -261,7 +263,7 @@ class ChallengeDetailPageContainer extends React.Component {
       history.push(history.location.pathname, history.state);
     }
 
-    if (!checkIsMM(challenge) && COMPETITION_TRACKS_V3.DS !== challenge.track
+    if (!checkIsMM(challenge) && COMPETITION_TRACKS_V3.DS !== getTrackName(challenge)
       && selectedTab === DETAIL_TABS.MM_DASHBOARD) {
       onSelectorClicked(DETAIL_TABS.DETAILS);
     }
@@ -414,11 +416,12 @@ class ChallengeDetailPageContainer extends React.Component {
     } = challenge;
 
     let { track } = legacy || {};
-
     if (!track) {
       /* eslint-disable prefer-destructuring */
       track = challenge.track || '';
     }
+    // Normalize track to a string if needed
+    track = getTrackName(track);
     const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
 
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
@@ -462,7 +465,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
     let winners = challenge.winners || [];
-    if (challenge.type !== 'Task') {
+    if (getTypeName(challenge) !== 'Task') {
       winners = winners.filter(w => !w.type || w.type === 'final');
     }
 
@@ -989,7 +992,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.track === COMPETITION_TRACKS.DES) {
+          const chTrack = (ch && ch.track && ch.track.name) ? ch.track.name : ch.track;
+          if (chTrack === COMPETITION_TRACKS.DES) {
             const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -1065,7 +1069,9 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.track === COMPETITION_TRACKS.DES) {
+          const trackName = (challengeDetails && challengeDetails.track && challengeDetails.track.name)
+            ? challengeDetails.track.name : challengeDetails.track;
+          if (trackName === COMPETITION_TRACKS.DES) {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {

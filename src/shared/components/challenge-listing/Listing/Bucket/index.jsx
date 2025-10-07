@@ -20,6 +20,7 @@ import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import NoRecommenderChallengeCard from '../../NoRecommenderChallengeCard';
 import './style.scss';
+import { getTypeName } from 'utils/challenge';
 
 // const COLLAPSED_SIZE = 10;
 
@@ -85,7 +86,8 @@ export default function Bucket({
 
   if (!_.includes(roles, 'administrator')) {
     filteredChallenges = sortedChallenges.filter((ch) => {
-      if (ch.type === 'Task'
+      const typeName = getTypeName(ch);
+      if (typeName === 'Task'
         && ch.task
         && ch.task.isTask
         && ch.task.isAssigned
@@ -158,7 +160,7 @@ export default function Bucket({
   const cards = filteredChallenges.map(challenge => (
     <ChallengeCard
       challenge={challenge}
-      challengeType={_.find(challengeTypes, { name: challenge.type })}
+      challengeType={_.find(challengeTypes, { name: getTypeName(challenge) })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
       onTechTagClicked={(tag) => {

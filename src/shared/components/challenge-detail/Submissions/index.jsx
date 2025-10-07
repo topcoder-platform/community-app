@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { isMM as checkIsMM, isRDM as checkIsRDM } from 'utils/challenge';
+import { isMM as checkIsMM, isRDM as checkIsRDM, getTrackName, getTypeName } from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -284,7 +284,8 @@ class SubmissionsComponent extends React.Component {
 
   isMM() {
     const { challenge } = this.props;
-    return challenge.track.toLowerCase() === 'data science' || checkIsMM(challenge);
+    const trackName = getTrackName(challenge);
+    return (trackName || '').toLowerCase() === 'data science' || checkIsMM(challenge);
   }
 
   /**
@@ -336,6 +337,8 @@ class SubmissionsComponent extends React.Component {
       type,
       tags,
     } = challenge;
+    const trackName = getTrackName(track);
+    const typeName = getTypeName(type);
     // todo: hide download button until update submissions API
     const hideDownloadForMMRDM = true;
 
@@ -414,7 +417,7 @@ class SubmissionsComponent extends React.Component {
       </div>
     );
 
-    const isF2F = type === 'First2Finish';
+    const isF2F = typeName === 'First2Finish';
     const isBugHunt = _.includes(tags, 'Bug Hunt');
 
     // copy colorStyle from registrants to submissions
@@ -434,7 +437,7 @@ class SubmissionsComponent extends React.Component {
       }
     });
 
-    if (track.toLowerCase() === 'design') {
+    if ((trackName || '').toLowerCase() === 'design') {
       return challenge.submissionViewable === 'true' ? (
         <div styleName="container view">
           <div styleName="title">

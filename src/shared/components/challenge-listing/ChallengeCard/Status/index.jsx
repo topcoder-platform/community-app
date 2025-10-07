@@ -16,6 +16,7 @@ import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
 import UserAvatarTooltip from '../../Tooltips/UserAvatarTooltip';
 import ForumIcon from '../../Icons/forum.svg';
 import './style.scss';
+import { getTypeName } from 'utils/challenge';
 
 import NumRegistrants from '../NumRegistrants';
 import NumSubmissions from '../NumSubmissions';
@@ -232,7 +233,7 @@ export default function ChallengeStatus(props) {
       .filter(p => p.name !== 'Registration' && p.isOpen)
       .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-    if (!statusPhase && type === 'First2Finish' && allPhases.length) {
+    if (!statusPhase && getTypeName({ type }) === 'First2Finish' && allPhases.length) {
       statusPhase = _.clone(allPhases[0]);
       statusPhase.name = 'Submission';
     }

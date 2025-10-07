@@ -8,7 +8,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import 'moment-duration-format';
-import { isMM } from 'utils/challenge';
+import { isMM, getTrackName, getTypeName } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React, { useMemo } from 'react';
@@ -141,7 +141,9 @@ export default function ChallengeHeader(props) {
   const currentPhases = allOpenPhases
     .filter(p => !isRegistrationPhase(p))[0];
 
-  const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
+  const trackName = getTrackName(track);
+  const typeName = getTypeName(type);
+  const trackLower = trackName ? trackName.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
 
@@ -241,7 +243,7 @@ export default function ChallengeHeader(props) {
     if (trackLower === 'quality-assurance') {
       relevantPhases = _.filter(relevantPhases, p => !(p.name.toLowerCase().includes('specification submission') || p.name.toLowerCase().includes('specification review')));
     }
-    if (type === 'First2Finish' && status === 'COMPLETED') {
+    if (typeName === 'First2Finish' && status === 'COMPLETED') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
       const endPhaseDate = Math.max(...phases2.map(d => phaseEndDate(d)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')
@@ -325,7 +327,7 @@ export default function ChallengeHeader(props) {
               <ChallengeTags
                 challengeId={challengeId}
                 track={track}
-                challengeType={_.find(challengeTypesMap, { name: type }) || {}}
+                challengeType={_.find(challengeTypesMap, { name: typeName }) || {}}
                 challengesUrl={challengesUrl}
                 events={eventNames}
                 technPlatforms={miscTags}

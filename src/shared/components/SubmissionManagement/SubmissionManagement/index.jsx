@@ -22,6 +22,7 @@ import { Link } from 'topcoder-react-utils';
 import LeftArrow from 'assets/images/arrow-prev-green.svg';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
+import { getTrackName } from 'utils/challenge';
 import SubmissionsTable from '../SubmissionsTable';
 
 import style from './styles.scss';
@@ -47,8 +48,9 @@ export default function SubmissionManagement(props) {
   } = props;
 
   const { track } = challenge;
+  const trackName = getTrackName(track);
 
-  const challengeType = track.toLowerCase();
+  const challengeType = (trackName || '').toLowerCase();
 
   const isDesign = challengeType === 'design';
   const isDevelop = challengeType === 'development';
@@ -185,7 +187,7 @@ export default function SubmissionManagement(props) {
              challenge={challenge}
              submissionObjects={submissions}
              showDetails={showDetails}
-             track={track}
+             track={trackName}
              status={challenge.status}
              submissionPhaseStartDate={submissionPhaseStartDate}
              {...componentConfig}
