@@ -16,11 +16,11 @@ import {
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { getTypeName } from 'utils/challenge';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import NoRecommenderChallengeCard from '../../NoRecommenderChallengeCard';
 import './style.scss';
-import { getTypeName } from 'utils/challenge';
 
 // const COLLAPSED_SIZE = 10;
 

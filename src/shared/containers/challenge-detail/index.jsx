@@ -8,7 +8,12 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
-import { isMM as checkIsMM, isRDM as checkIsRDM, getTrackName, getTypeName } from 'utils/challenge';
+import {
+  isMM as checkIsMM,
+  isRDM as checkIsRDM,
+  getTrackName,
+  getTypeName,
+} from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -1069,8 +1074,7 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          const trackName = (challengeDetails && challengeDetails.track && challengeDetails.track.name)
-            ? challengeDetails.track.name : challengeDetails.track;
+          const trackName = _.get(challengeDetails, 'track.name', challengeDetails.track);
           if (trackName === COMPETITION_TRACKS.DES) {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');

@@ -16,8 +16,8 @@ import ArrowIcon from 'assets/images/ico-arrow-down.svg';
 import CloseIcon from 'assets/images/icon-close-green.svg';
 import SortIcon from 'assets/images/icon-sort-mobile.svg';
 
-import style from './style.scss';
 import { getTypeName } from 'utils/challenge';
+import style from './style.scss';
 
 function getSelectorStyle(selectedView, currentView) {
   return `challenge-selector-common ${(selectedView === currentView

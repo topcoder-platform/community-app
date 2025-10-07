@@ -6,7 +6,12 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { isMM as checkIsMM, isRDM as checkIsRDM, getTrackName, getTypeName } from 'utils/challenge';
+import {
+  isMM as checkIsMM,
+  isRDM as checkIsRDM,
+  getTrackName,
+  getTypeName,
+} from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';

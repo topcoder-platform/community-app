@@ -11,12 +11,12 @@ import {
   getTimeLeft,
 } from 'utils/challenge-detail/helper';
 
+import { getTypeName } from 'utils/challenge';
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
 import UserAvatarTooltip from '../../Tooltips/UserAvatarTooltip';
 import ForumIcon from '../../Icons/forum.svg';
 import './style.scss';
-import { getTypeName } from 'utils/challenge';
 
 import NumRegistrants from '../NumRegistrants';
 import NumSubmissions from '../NumSubmissions';
