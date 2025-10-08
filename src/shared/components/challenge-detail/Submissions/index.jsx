@@ -949,7 +949,7 @@ class SubmissionsComponent extends React.Component {
                     <p>
                       {
                         (s.review && s.finalScore && challenge.status === 'COMPLETED')
-                          ? s.finalScore.toFixed(2)
+                          ? Number(s.finalScore).toFixed(2)
                           : 'N/A'
                       }
                     </p>
