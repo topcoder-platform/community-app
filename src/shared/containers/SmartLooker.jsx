@@ -10,6 +10,7 @@ import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
 import Looker from 'components/Looker';
 import OriginalLookerContainer from 'containers/Looker';
+import { getCountryObjFromAlpha3 } from 'utils/countries';
 
 // Safely parse a possible JSON string table definition into an array of columns.
 function parseTableDef(table) {
@@ -24,6 +25,14 @@ function parseTableDef(table) {
   } catch (e) {
     return null;
   }
+}
+
+// Convert a 3-letter country code to its English full name.
+// Falls back to the original code if unknown.
+function countryNameFromCode(code) {
+  if (!code) return code;
+  const obj = getCountryObjFromAlpha3(String(code).toUpperCase());
+  return (obj && obj.name) ? obj.name : code;
 }
 
 // Direct mappings from known Looker IDs to reports-api-v6 endpoints.
@@ -49,7 +58,7 @@ const LOOKER_TO_REPORTS_MAP = {
     return {
       path: '/statistics/general/countries-represented',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [countryProp]: r.country_code,
+        [countryProp]: countryNameFromCode(r.country_code),
         [countProp]: Number(r.members_count) || 0,
       })),
     };
@@ -68,7 +77,7 @@ const LOOKER_TO_REPORTS_MAP = {
     return {
       path: '/statistics/general/first-place-by-country',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [countryProp]: r.country_code,
+        [countryProp]: countryNameFromCode(r.country_code),
         [valueProp]: Number(r.first_place_count) || 0,
       })),
     };
@@ -116,7 +125,7 @@ const LOOKER_TO_REPORTS_MAP = {
       path: '/statistics/design/ui-design-wins',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
         [nameProp]: r.handle,
-        [valueProp]: Number(r.wins_count) || 0,
+        [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
       })),
     };
   },
@@ -132,7 +141,7 @@ const LOOKER_TO_REPORTS_MAP = {
       path: '/statistics/design/f2f-wins',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
         [nameProp]: r.handle,
-        [valueProp]: Number(r.wins_count) || 0,
+        [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
       })),
     };
   },
@@ -147,7 +156,7 @@ const LOOKER_TO_REPORTS_MAP = {
     return {
       path: '/statistics/design/first-place-by-country',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [nameProp]: r.country_code,
+        [nameProp]: countryNameFromCode(r.country_code),
         [valueProp]: Number(r.first_place_count) || 0,
       })),
     };
@@ -176,7 +185,7 @@ const LOOKER_TO_REPORTS_MAP = {
       path: '/statistics/design/countries-represented',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
         [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
-          r.country_code,
+          countryNameFromCode(r.country_code),
         [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
           Number(r.members_count) || 0,
       })),
@@ -275,7 +284,7 @@ function inferFromProps(props) {
         path: '/statistics/design/ui-design-wins',
         transform: rows => rows.map(r => ({
           [nameProp]: r.handle,
-          [valueProp]: Number(r.wins_count) || 0,
+          [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
         })),
       };
     }
@@ -303,7 +312,7 @@ function inferFromProps(props) {
         path: '/statistics/design/f2f-wins',
         transform: rows => rows.map(r => ({
           [nameProp]: r.handle,
-          [valueProp]: Number(r.wins_count) || 0,
+          [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
         })),
       };
     }
@@ -340,7 +349,7 @@ function inferFromProps(props) {
         path: '/statistics/design/countries-represented',
         transform: rows => rows.map(r => ({
           [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
-            r.country_code,
+            countryNameFromCode(r.country_code),
           [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
             Number(r.members_count) || 0,
         })),
@@ -362,7 +371,7 @@ function inferFromProps(props) {
       return {
         path: '/statistics/design/first-place-by-country',
         transform: rows => rows.map(r => ({
-          [nameProp]: r.country_code,
+          [nameProp]: countryNameFromCode(r.country_code),
           [valueProp]: Number(r.first_place_count) || 0,
         })),
       };
@@ -375,7 +384,7 @@ function inferFromProps(props) {
         transform: rows => rows.map(r => ({
           // Use whatever property the table asked for to label country
           [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
-            r.country_code,
+            countryNameFromCode(r.country_code),
           [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
             Number(r.members_count) || 0,
         })),
@@ -410,7 +419,7 @@ function inferFromProps(props) {
         return {
           path: '/statistics/general/first-place-by-country',
           transform: rows => rows.map(r => ({
-            [nameProp]: r.country_code,
+            [nameProp]: countryNameFromCode(r.country_code),
             [valueProp]: Number(r.first_place_count) || 0,
           })),
         };

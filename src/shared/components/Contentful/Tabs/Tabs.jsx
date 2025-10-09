@@ -93,27 +93,51 @@ export default class TabsItemsLoader extends Component {
     } = this.props;
     const { tabIndex, mobileTabsShow } = this.state;
 
+    // Helper to hide deprecated/unsupported statistics options
+    const shouldHideTab = (label) => {
+      if (!label) return false;
+      const t = String(label).toLowerCase();
+      return (
+        t.includes('wireframe')
+        || t.includes(' lux') || t.startsWith('lux') || t.includes('lux ')
+        || t.includes(' rux') || t.startsWith('rux') || t.includes('rux ')
+      );
+    };
+
     return (
       <ContentfulLoader
         entryIds={ids}
         preview={preview}
         spaceName={spaceName}
         environment={environment}
-        render={data => (
-          <Tabs
+        render={(data) => {
+          // Convert to array to safely filter/map in a stable order
+          const allTabItems = _.toArray(data.entries.items);
+          const tabItems = allTabItems.filter(ti => !shouldHideTab(_.get(ti, 'fields.tab', '')));
+          // Ensure selected index is within bounds after filtering
+          const safeTabIndex = Math.min(tabIndex, Math.max(0, tabItems.length - 1));
+
+          if (!tabItems.length) return null;
+
+          return (
+            <Tabs
             className={theme.container}
-            selectedIndex={tabIndex}
+            selectedIndex={safeTabIndex}
             selectedTabClassName={theme.selected}
-            onSelect={tIndx => this.setState({ tabIndex: tIndx, mobileTabsShow: false })}
+            onSelect={(tIndx) => this.setState({ tabIndex: tIndx, mobileTabsShow: false })}
             forceRenderTabPanel={forceRenderTabPanel}
           >
             <div className={theme.tabListWrap}>
               {
                 themeName === 'Underline box' ? (
                   <button type="button" className={theme.tabListMobileTrigger} onClick={() => this.setState({ mobileTabsShow: !mobileTabsShow })}>
-                    <MarkdownRenderer
-                      markdown={_.toArray(data.entries.items)[tabIndex].fields.tab}
-                    />
+                    {
+                      tabItems[safeTabIndex] && (
+                        <MarkdownRenderer
+                          markdown={tabItems[safeTabIndex].fields.tab}
+                        />
+                      )
+                    }
                     <svg className={mobileTabsShow ? theme.tabListMobileTriggerSVGOpen : theme.tabListMobileTriggerSVG} width="16px" height="10px" viewBox="0 0 16 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
                       <defs>
                         <polygon id="path-1" points="7.7 9.2 0 1.5 1.4 0 7.7 6.3 14 0 15.4 1.5" />
@@ -138,7 +162,7 @@ export default class TabsItemsLoader extends Component {
               }
               <TabList className={[theme.tablist, mobileTabsShow ? theme.visible : null]}>
                 {
-                  _.map(data.entries.items, tabItem => (
+                  _.map(tabItems, tabItem => (
                     <Tab
                       className={theme.tab}
                       style={fixStyle(tabItem.fields.extraStyles)}
@@ -151,7 +175,7 @@ export default class TabsItemsLoader extends Component {
               </TabList>
             </div>
             {
-              _.map(data.entries.items, tabItem => (
+              _.map(tabItems, tabItem => (
                 <TabPanel
                   className={theme.tabpannel}
                   key={tabItem.sys.id}
@@ -222,7 +246,8 @@ export default class TabsItemsLoader extends Component {
               ))
             }
           </Tabs>
-        )}
+          );
+        }}
         renderPlaceholder={LoadingIndicator}
       />
     );
