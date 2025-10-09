@@ -232,10 +232,44 @@ const LOOKER_TO_REPORTS_MAP = {
     const valueProp = propList.find(p => p.toLowerCase().includes('review')) || 'review.count';
     return {
       path: '/statistics/general/reviews-by-member',
-      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [handleProp]: r.handle,
-        [valueProp]: Number(r.review_count) || 0,
-      })),
+      transform: (rows) => {
+        const list = Array.isArray(rows) ? rows : [rows];
+        return list.map((r) => {
+          const handleValue = pickDefined(
+            r && r.handle,
+            r && r.member_handle,
+            r && r.copilot_handle,
+            r && r['user.handle'],
+            null,
+          );
+          const reviewCountValue = Number(pickDefined(
+            r && r.review_count,
+            r && r['review.count'],
+            r && r.count,
+            0,
+          )) || 0;
+          const mapped = {
+            handle: handleValue,
+            'review.count': reviewCountValue,
+            review_count: reviewCountValue,
+            count: reviewCountValue,
+          };
+          if (handleProp && handleProp !== 'handle') mapped[handleProp] = handleValue;
+          if (
+            valueProp
+            && valueProp !== 'review.count'
+            && valueProp !== 'review_count'
+            && valueProp !== 'count'
+          ) {
+            mapped[valueProp] = reviewCountValue;
+          }
+          if (r && r.rank !== undefined && r.rank !== null) {
+            mapped.rank = Number(r.rank) || 0;
+          }
+          if (r && r.member_id !== undefined) mapped.member_id = r.member_id;
+          return mapped;
+        });
+      },
     };
   },
   // DEVELOPMENT tab datasets (fetched from DB via reports-api-v6)
@@ -818,10 +852,44 @@ function inferFromProps(props) {
       const valueProp = propList.find(p => p.toLowerCase().includes('review')) || 'review.count';
       return {
         path: '/statistics/general/reviews-by-member',
-        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-          [nameProp]: r.handle,
-          [valueProp]: Number(r.review_count) || 0,
-        })),
+        transform: (rows) => {
+          const list = Array.isArray(rows) ? rows : [rows];
+          return list.map((r) => {
+            const handleValue = pickDefined(
+              r && r.handle,
+              r && r.member_handle,
+              r && r.copilot_handle,
+              r && r['user.handle'],
+              null,
+            );
+            const reviewCountValue = Number(pickDefined(
+              r && r.review_count,
+              r && r['review.count'],
+              r && r.count,
+              0,
+            )) || 0;
+            const mapped = {
+              handle: handleValue,
+              'review.count': reviewCountValue,
+              review_count: reviewCountValue,
+              count: reviewCountValue,
+            };
+            if (nameProp && nameProp !== 'handle') mapped[nameProp] = handleValue;
+            if (
+              valueProp
+              && valueProp !== 'review.count'
+              && valueProp !== 'review_count'
+              && valueProp !== 'count'
+            ) {
+              mapped[valueProp] = reviewCountValue;
+            }
+            if (r && r.rank !== undefined && r.rank !== null) {
+              mapped.rank = Number(r.rank) || 0;
+            }
+            if (r && r.member_id !== undefined) mapped.member_id = r.member_id;
+            return mapped;
+          });
+        },
       };
     }
   }
