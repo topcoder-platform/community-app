@@ -57,14 +57,86 @@ const LOOKER_TO_REPORTS_MAP = {
   1656: '/statistics/mm/top-10-finishes',
   1655: '/statistics/mm/competitions-count',
   // General tab datasets (fetched from DB via reports-api-v6)
-  // Countries Represented
+  // Development Challenges by Technology (fallback to countries represented)
   1127: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const lowerProps = propList.map(p => p.toLowerCase());
+    const looksLikeCountries = lowerProps.some(p => p.includes('country'));
+    const looksLikeTechnologyBreakdown = lowerProps.some(p => p.includes('challenge_technology'))
+      || lowerProps.some(p => p.includes('technology'))
+      || (!propList.length && !looksLikeCountries);
+
+    if (looksLikeTechnologyBreakdown) {
+      const technologyProp = propList.find(p => p.toLowerCase().includes('challenge_technology'))
+        || propList.find(p => p.toLowerCase().includes('technology'))
+        || 'challenge_technology.name';
+      const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+        || propList.find(p => (p && p.toLowerCase().includes('challenge') && p.toLowerCase().includes('count')))
+        || propList.find(p => (p && p.toLowerCase().endsWith('.count')))
+        || 'challenge_stats.count';
+      const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
+
+      return {
+        path: '/statistics/development/challenges-technology',
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+          const technologyName = pickDefined(
+            r && r['challenge_technology.name'],
+            r && r.challenge_technology_name,
+            r && r.challenge_technology,
+            r && r.technology,
+            r && r.skill_name,
+            null,
+          );
+          const challengeCount = Number(pickDefined(
+            r && r['challenge_stats.count'],
+            r && r.challenge_stats_count,
+            r && r.challenge_count,
+            r && r.count,
+            r && r.challenge_stats && r.challenge_stats.count,
+            0,
+          )) || 0;
+          const technologyNameValue = (
+            technologyName === undefined || technologyName === null
+          ) ? technologyName : String(technologyName);
+          const rankValue = Number(pickDefined(
+            r && r.rank,
+            r && rankProp && r[rankProp],
+            0,
+          )) || 0;
+
+          const mapped = {
+            [technologyProp]: technologyNameValue,
+            [challengeCountProp]: challengeCount,
+          };
+
+          if (rankProp && rankProp !== technologyProp && rankProp !== challengeCountProp) {
+            mapped[rankProp] = rankValue;
+          }
+
+          return mapped;
+        }),
+      };
+    }
+
+    const countryProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
+    const countProp = propList.find(p => p.toLowerCase() === 'user.count') || 'user.count';
+    return {
+      path: '/statistics/general/countries-represented',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [countryProp]: countryNameFromCode(r.country_code),
+        [countProp]: Number(r.members_count) || 0,
+      })),
+    };
+  },
+  // Countries Represented (Development)
+  1129: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
     const countryProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
     const countProp = propList.find(p => p.toLowerCase() === 'user.count') || 'user.count';
     return {
-      path: '/statistics/general/countries-represented',
+      path: '/statistics/development/countries-represented',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
         [countryProp]: countryNameFromCode(r.country_code),
         [countProp]: Number(r.members_count) || 0,
@@ -166,6 +238,204 @@ const LOOKER_TO_REPORTS_MAP = {
       })),
     };
   },
+  // DEVELOPMENT tab datasets (fetched from DB via reports-api-v6)
+  // Development First Place Wins (by member)
+  1130: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const registrantHandleProp = propList.find(p => p.toLowerCase().includes('registrant_handle'))
+      || propList.find(p => p.toLowerCase().includes('winner_handle'))
+      || propList.find(p => p.toLowerCase().includes('handle'))
+      || 'challenge_stats.registrant_handle';
+    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || null;
+    const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+      || propList.find(p => p.toLowerCase().includes('win'))
+      || 'challenge_stats.count';
+    const countProp = propList.find(p => p.toLowerCase() === 'count') || null;
+    const maxRatingProp = propList.find(p => p.toLowerCase().includes('max_rating'))
+      || 'member_profile_advanced.max_rating';
+    const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
+    return {
+      path: '/statistics/development/first-place-wins',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const wins = Number(pickDefined(
+          r && r['challenge_stats.count'],
+          r && r.count,
+          r && r.wins,
+          0,
+        )) || 0;
+        const registrantHandle = pickDefined(
+          r && r['challenge_stats.registrant_handle'],
+          r && r['challenge_stats.winner_handle'],
+          r && r.handle,
+          null,
+        );
+        const maxRating = pickDefined(
+          r && r['member_profile_advanced.max_rating'],
+          r && r.max_rating,
+          null,
+        );
+        const rankValue = Number(pickDefined(r && r.rank, 0)) || 0;
+
+        const mapped = {
+          [registrantHandleProp]: registrantHandle,
+          [challengeCountProp]: wins,
+          [maxRatingProp]: maxRating,
+          [rankProp]: rankValue,
+        };
+
+        if (handleProp && handleProp !== registrantHandleProp) {
+          mapped[handleProp] = registrantHandle;
+        }
+        if (countProp && countProp !== challengeCountProp) mapped[countProp] = wins;
+
+        return mapped;
+      }),
+    };
+  },
+  // Development Prototype Wins (by member)
+  1131: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
+      || propList.find(p => p.toLowerCase().includes('handle'))
+      || 'challenge_stats.winner_handle';
+    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || null;
+    const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+      || propList.find(p => p.toLowerCase().includes('win'))
+      || 'challenge_stats.count';
+    const countProp = propList.find(p => p.toLowerCase() === 'count') || null;
+    const maxRatingProp = propList.find(p => p.toLowerCase().includes('max_rating'))
+      || 'member_profile_advanced.max_rating';
+    const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
+    return {
+      path: '/statistics/development/prototype-wins',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const wins = Number(pickDefined(
+          r && r['challenge_stats.count'],
+          r && r.count,
+          r && r.wins,
+          0,
+        )) || 0;
+        const winnerHandle = pickDefined(
+          r && r['challenge_stats.winner_handle'],
+          r && r.handle,
+          null,
+        );
+        const maxRating = pickDefined(r && r['member_profile_advanced.max_rating'], null);
+        const rankValue = Number(pickDefined(r && r.rank, 0)) || 0;
+
+        const mapped = {
+          [winnerHandleProp]: winnerHandle,
+          [challengeCountProp]: wins,
+          [maxRatingProp]: maxRating,
+          [rankProp]: rankValue,
+        };
+
+        if (handleProp && handleProp !== winnerHandleProp) mapped[handleProp] = winnerHandle;
+        if (countProp && countProp !== challengeCountProp) mapped[countProp] = wins;
+
+        return mapped;
+      }),
+    };
+  },
+  // Development Code Wins (by member)
+  1132: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
+      || propList.find(p => p.toLowerCase().includes('handle'))
+      || 'challenge_stats.winner_handle';
+    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || null;
+    const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+      || propList.find(p => p.toLowerCase().includes('win'))
+      || 'challenge_stats.count';
+    const countProp = propList.find(p => p.toLowerCase() === 'count') || null;
+    const maxRatingProp = propList.find(p => p.toLowerCase().includes('max_rating'))
+      || 'member_profile_advanced.max_rating';
+    const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
+    return {
+      path: '/statistics/development/code-wins',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const wins = Number(pickDefined(
+          r && r['challenge_stats.count'],
+          r && r.count,
+          r && r.wins,
+          0,
+        )) || 0;
+        const winnerHandle = pickDefined(
+          r && r['challenge_stats.winner_handle'],
+          r && r.handle,
+          null,
+        );
+        const maxRating = pickDefined(r && r['member_profile_advanced.max_rating'], null);
+        const rankValue = Number(pickDefined(r && r.rank, 0)) || 0;
+
+        const mapped = {
+          [winnerHandleProp]: winnerHandle,
+          [challengeCountProp]: wins,
+          [maxRatingProp]: maxRating,
+          [rankProp]: rankValue,
+        };
+
+        if (handleProp && handleProp !== winnerHandleProp) mapped[handleProp] = winnerHandle;
+        if (countProp && countProp !== challengeCountProp) mapped[countProp] = wins;
+
+        return mapped;
+      }),
+    };
+  },
+  // Development First Time Submitters
+  1172: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const handleProp = propList.find(p => p.toLowerCase().includes('handle')) || 'user.handle';
+    const challengeProp = propList.find(p => p.toLowerCase().includes('challenge')) || 'challenge.challenge_name';
+    const dateProp = propList.find(p => p.toLowerCase().includes('submit_date')) || 'newest_submitters.submit_date_date';
+    const ratingProp = propList.find(p => p.toLowerCase().includes('max_rating')) || null;
+    return {
+      path: '/statistics/development/first-time-submitters',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const handleValue = pickDefined(
+          r && r['user.handle'],
+          r && r.handle,
+          r && r.member_handle,
+          null,
+        );
+        const challengeValue = pickDefined(
+          r && r['challenge.challenge_name'],
+          r && r.challenge_name,
+          null,
+        );
+        const dateValueRaw = pickDefined(
+          r && r['newest_submitters.submit_date_date'],
+          r && r.submit_date,
+          r && r.first_submission_date,
+          null,
+        );
+        const dateValue = dateValueRaw ? String(dateValueRaw).split('T')[0] : dateValueRaw;
+        const ratingValue = pickDefined(
+          r && r['submitter_profile.max_rating'],
+          r && r.max_rating,
+          null,
+        );
+
+        const mapped = {
+          [handleProp]: handleValue,
+          [challengeProp]: challengeValue,
+          [dateProp]: dateValue,
+        };
+        if (ratingProp) mapped[ratingProp] = ratingValue;
+        return mapped;
+      }),
+    };
+  },
+  // DEVELOPMENT tab datasets (fetched from DB via reports-api-v6)
+  // Development F2F Wins (by member)
+  1133: '/statistics/development/f2f-wins',
+  // QA tab datasets (fetched from DB via reports-api-v6)
+  // QA Wins (by member)
+  1700: '/statistics/qa/wins',
   // DESIGN tab datasets (fetched from DB via reports-api-v6)
   // UI Design Wins (by member)
   1138: (props) => {
@@ -610,7 +880,11 @@ export default function SmartLooker(props) {
         const data = await res.json();
         let lookerData = Array.isArray(data) ? data : [data];
         if (typeof transformer === 'function') {
-          lookerData = transformer(Array.isArray(data) ? data : [data]);
+          const transformed = transformer(data);
+          if (Array.isArray(transformed)) lookerData = transformed;
+          else if (transformed !== undefined && transformed !== null) {
+            lookerData = [transformed];
+          } else lookerData = [];
         }
         if (!cancelled) setState({ loading: false, error: null, lookerInfo: { lookerData } });
       } catch (e) {
