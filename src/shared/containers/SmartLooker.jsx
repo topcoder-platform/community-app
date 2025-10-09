@@ -44,6 +44,9 @@ function parseTableDef(table) {
 function inferFromProps(props) {
   const { property, table, render } = props;
   const cols = parseTableDef(table);
+  const headers = (cols || []).map(c => String(c.headerName || ''));
+  const lowerHeaders = headers.map(h => h.toLowerCase());
+  const lowerProps = (cols || []).map(c => String(c.property || '').toLowerCase());
 
   // Header metrics (single value)
   if (property && !cols) {
@@ -85,6 +88,127 @@ function inferFromProps(props) {
     const hasChallengeCount = propList.some(p => p.toLowerCase() === 'challenge.count');
     const hasUserCount = propList.some(p => p.toLowerCase() === 'user.count');
     const hasFirstPlace = propList.some(p => p.toLowerCase().includes('first_place'));
+
+    // Deprecated/removed options: ignore Wireframe/LUX/RUX tiles by returning
+    // an empty dataset mapping (no fetch, just empty rows rendered if any).
+    const removedOption = lowerHeaders.some(h => (
+      h.includes('wireframe wins')
+      || h.includes('lux 1st place wins')
+      || h.includes('lux placements')
+      || h.includes('rux 1st place wins')
+      || h.includes('rux placements')
+    ));
+    if (removedOption) {
+      return {
+        path: null,
+        transform: () => ([]),
+      };
+    }
+
+    // Design tab: UI Design Wins (by member)
+    const looksLikeUiDesignWins = (
+      (hasHandle)
+      && (
+        lowerHeaders.some(h => (h.includes('ui') && h.includes('win'))) // header mentions UI + wins
+        || lowerProps.some(p => (p.includes('ui') && p.includes('win')))
+        || lowerHeaders.some(h => (h.includes('design') && h.includes('wins')))
+      )
+    );
+    if (looksLikeUiDesignWins) {
+      const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+      // choose a numeric/value column property name from the table definition
+      const valueProp = propList.find(p => p.toLowerCase().includes('win'))
+        || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
+        || 'wins';
+      return {
+        path: '/statistics/design/ui-design-wins',
+        transform: rows => rows.map(r => ({
+          [nameProp]: r.handle,
+          [valueProp]: Number(r.wins_count) || 0,
+        })),
+      };
+    }
+
+    // Design tab: F2F Wins (by member)
+    const looksLikeF2FWins = (
+      hasHandle && (
+        lowerHeaders.some(h => (h.includes('f2f') && h.includes('win')))
+        || lowerProps.some(p => (p.includes('f2f') && p.includes('win')))
+      )
+    );
+    if (looksLikeF2FWins) {
+      const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+      const valueProp = propList.find(p => p.toLowerCase().includes('win'))
+        || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
+        || 'wins';
+      return {
+        path: '/statistics/design/f2f-wins',
+        transform: rows => rows.map(r => ({
+          [nameProp]: r.handle,
+          [valueProp]: Number(r.wins_count) || 0,
+        })),
+      };
+    }
+
+    // Design tab: First Time Submitters (by date)
+    const looksLikeFirstTimeSubmitters = (
+      hasHandle && (
+        lowerHeaders.some(h => (h.includes('first time') || h.includes('first-time')))
+        || lowerProps.some(p => p.includes('first') && p.includes('submission'))
+        || lowerProps.some(p => p.includes('date'))
+      )
+    );
+    if (looksLikeFirstTimeSubmitters) {
+      const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+      const dateProp = propList.find(p => p.toLowerCase().includes('date'))
+        || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
+        || 'first_submission_date';
+      return {
+        path: '/statistics/design/first-time-submitters',
+        transform: rows => rows.map(r => ({
+          [nameProp]: r.handle,
+          [dateProp]: r.first_submission_date,
+        })),
+      };
+    }
+
+    // Design tab: Countries Represented (Design submitters)
+    const looksLikeDesignCountries = (
+      lowerHeaders.some(h => h.includes('countries represented'))
+      || (hasCountry && hasUserCount && lowerHeaders.some(h => h.includes('design')))
+    );
+    if (looksLikeDesignCountries) {
+      return {
+        path: '/statistics/design/countries-represented',
+        transform: rows => rows.map(r => ({
+          [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
+            r.country_code,
+          [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
+            Number(r.members_count) || 0,
+        })),
+      };
+    }
+
+    // Design tab: 1st Place Finishes by Country
+    const looksLikeDesignFirstPlace = (
+      hasCountry && (
+        lowerHeaders.some(h => (h.includes('1st place') || h.includes('first place')))
+        || hasFirstPlace
+      )
+    );
+    if (looksLikeDesignFirstPlace) {
+      const nameProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
+      const valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
+        || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('country')))
+        || 'first_place_count';
+      return {
+        path: '/statistics/design/first-place-by-country',
+        transform: rows => rows.map(r => ({
+          [nameProp]: r.country_code,
+          [valueProp]: Number(r.first_place_count) || 0,
+        })),
+      };
+    }
 
     // Countries represented: expect country + user.count
     if (hasCountry && hasUserCount) {
@@ -196,6 +320,7 @@ export default function SmartLooker(props) {
   const direct = LOOKER_TO_REPORTS_MAP[lookerId];
   const inferred = inferFromProps(props);
   const reportsPath = direct || (inferred && inferred.path);
+  const blocked = Boolean(inferred && Object.prototype.hasOwnProperty.call(inferred, 'path') && inferred.path === null);
 
   const [state, setState] = React.useState({
     loading: !!reportsPath,
@@ -206,6 +331,21 @@ export default function SmartLooker(props) {
   React.useEffect(() => {
     let cancelled = false;
     async function load() {
+      if (blocked) {
+        // Intentionally block legacy Looker usage and render empty data
+        // for removed/unsupported tiles.
+        const transformed = (inferred && typeof inferred.transform === 'function')
+          ? inferred.transform([])
+          : [];
+        if (!cancelled) {
+          setState({
+            loading: false,
+            error: null,
+            lookerInfo: { lookerData: transformed },
+          });
+        }
+        return;
+      }
       if (!reportsPath) return;
       setState(s => ({ ...s, loading: true, error: null }));
       try {
@@ -231,7 +371,7 @@ export default function SmartLooker(props) {
     return () => { cancelled = true; };
   }, [lookerId, reportsPath]);
 
-  if (!reportsPath) {
+  if (!reportsPath && !blocked) {
     // Fall back to legacy behavior for non-mapped lookerIds
     return (
       <OriginalLookerContainer {...props} />
