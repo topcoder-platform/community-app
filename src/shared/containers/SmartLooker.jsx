@@ -230,7 +230,7 @@ const LOOKER_TO_REPORTS_MAP = {
     };
   },
   // LUX Placements (Design)
-  1573: (props) => {
+  1572: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
     const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
@@ -244,6 +244,66 @@ const LOOKER_TO_REPORTS_MAP = {
     const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
     return {
       path: '/statistics/design/lux-placements',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const placements = Number(pickDefined(r && r.placements_count, r && r.count, 0)) || 0;
+        const maxRating = pickDefined(r && r.max_rating, null);
+        const mapped = {
+          [winnerHandleProp]: r.handle,
+          [handleProp]: r.handle,
+          [challengeCountProp]: placements,
+          [countProp]: placements,
+          [maxRatingProp]: maxRating,
+          [rankProp]: Number(r && r.rank) || 0,
+        };
+        return mapped;
+      }),
+    };
+  },
+  // RUX 1st Place Wins (Design)
+  1573: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
+      || 'challenge_stats.winner_handle';
+    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+      || 'challenge_stats.count';
+    const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
+    const maxRatingProp = propList.find(p => p.toLowerCase().includes('max_rating'))
+      || 'member_profile_advanced.max_rating';
+    const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
+    return {
+      path: '/statistics/design/rux-first-place-wins',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const wins = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
+        const maxRating = pickDefined(r && r.max_rating, null);
+        const mapped = {
+          [winnerHandleProp]: r.handle,
+          [handleProp]: r.handle,
+          [challengeCountProp]: wins,
+          [countProp]: wins,
+          [maxRatingProp]: maxRating,
+          [rankProp]: Number(r && r.rank) || 0,
+        };
+        return mapped;
+      }),
+    };
+  },
+  // RUX Placements (Design)
+  1574: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
+      || 'challenge_stats.winner_handle';
+    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+      || 'challenge_stats.count';
+    const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
+    const maxRatingProp = propList.find(p => p.toLowerCase().includes('max_rating'))
+      || 'member_profile_advanced.max_rating';
+    const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
+    return {
+      path: '/statistics/design/rux-placements',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
         const placements = Number(pickDefined(r && r.placements_count, r && r.count, 0)) || 0;
         const maxRating = pickDefined(r && r.max_rating, null);
