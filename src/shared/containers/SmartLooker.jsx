@@ -11,18 +11,6 @@ import { config } from 'topcoder-react-utils';
 import Looker from 'components/Looker';
 import OriginalLookerContainer from 'containers/Looker';
 
-// Direct mappings from known Looker IDs to reports-api-v6 endpoints.
-// These are the specific Looker tiles used by the /community/statistics page
-// that we want to source from the new reports service instead of legacy Looker.
-const LOOKER_TO_REPORTS_MAP = {
-  // SRM datasets (static JSON served by reports-api-v6)
-  1653: '/statistics/srm/top-rated',
-  1657: '/statistics/srm/country-ratings',
-  1654: '/statistics/srm/competitions-count',
-  // NOTE: Additional general statistics Looker IDs can be added here as they
-  // are identified in content (e.g. header metrics and general tab tables).
-};
-
 // Safely parse a possible JSON string table definition into an array of columns.
 function parseTableDef(table) {
   if (!table && table !== '') return null;
@@ -37,6 +25,164 @@ function parseTableDef(table) {
     return null;
   }
 }
+
+// Direct mappings from known Looker IDs to reports-api-v6 endpoints.
+// These are the specific Looker tiles used by the /community/statistics page
+// that we want to source from the new reports service instead of legacy Looker.
+const LOOKER_TO_REPORTS_MAP = {
+  // SRM datasets (static JSON served by reports-api-v6)
+  1653: '/statistics/srm/top-rated',
+  1657: '/statistics/srm/country-ratings',
+  1654: '/statistics/srm/competitions-count',
+  // Marathon Match datasets (static JSON served by reports-api-v6)
+  1652: '/statistics/mm/top-rated',
+  1658: '/statistics/mm/country-ratings',
+  1656: '/statistics/mm/top-10-finishes',
+  1655: '/statistics/mm/competitions-count',
+  // General tab datasets (fetched from DB via reports-api-v6)
+  // Countries Represented
+  1127: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const countryProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
+    const countProp = propList.find(p => p.toLowerCase() === 'user.count') || 'user.count';
+    return {
+      path: '/statistics/general/countries-represented',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [countryProp]: r.country_code,
+        [countProp]: Number(r.members_count) || 0,
+      })),
+    };
+  },
+  // 1st place by country
+  1149: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const countryProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
+    let valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
+      || propList.find(p => p.toLowerCase() === 'user.count');
+    if (!valueProp) {
+      valueProp = propList.find(p => (p && !p.toLowerCase().includes('country') && p.toLowerCase() !== 'rank'))
+        || 'first_place_count';
+    }
+    return {
+      path: '/statistics/general/first-place-by-country',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [countryProp]: r.country_code,
+        [valueProp]: Number(r.first_place_count) || 0,
+      })),
+    };
+  },
+  // Copiloted challenges (by member)
+  1146: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const handleProp = propList.find(p => p.toLowerCase().includes('copilot'))
+      || propList.find(p => p.toLowerCase().includes('handle'))
+      || 'copilot.handle';
+    const countProp = 'challenge.count';
+    return {
+      path: '/statistics/general/copiloted-challenges',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [handleProp]: r.handle,
+        [countProp]: Number(r.copiloted_challenges) || 0,
+      })),
+    };
+  },
+  // Number of Reviews (by member)
+  1150: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const handleProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const valueProp = propList.find(p => p.toLowerCase().includes('review')) || 'review.count';
+    return {
+      path: '/statistics/general/reviews-by-member',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [handleProp]: r.handle,
+        [valueProp]: Number(r.review_count) || 0,
+      })),
+    };
+  },
+  // DESIGN tab datasets (fetched from DB via reports-api-v6)
+  // UI Design Wins (by member)
+  1138: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const valueProp = propList.find(p => p.toLowerCase().includes('win'))
+      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
+      || 'wins';
+    return {
+      path: '/statistics/design/ui-design-wins',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [nameProp]: r.handle,
+        [valueProp]: Number(r.wins_count) || 0,
+      })),
+    };
+  },
+  // Design F2F Wins (by member)
+  1141: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const valueProp = propList.find(p => p.toLowerCase().includes('win'))
+      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
+      || 'wins';
+    return {
+      path: '/statistics/design/f2f-wins',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [nameProp]: r.handle,
+        [valueProp]: Number(r.wins_count) || 0,
+      })),
+    };
+  },
+  // 1st Place Finishes (by country)
+  1135: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const nameProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
+    const valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
+      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('country')))
+      || 'first_place_count';
+    return {
+      path: '/statistics/design/first-place-by-country',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [nameProp]: r.country_code,
+        [valueProp]: Number(r.first_place_count) || 0,
+      })),
+    };
+  },
+  // First Time Submitters (Design)
+  1178: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const dateProp = propList.find(p => p.toLowerCase().includes('date'))
+      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
+      || 'first_submission_date';
+    return {
+      path: '/statistics/design/first-time-submitters',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [nameProp]: r.handle,
+        [dateProp]: r.first_submission_date,
+      })),
+    };
+  },
+  // Countries Represented (Design)
+  1136: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    return {
+      path: '/statistics/design/countries-represented',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
+          r.country_code,
+        [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
+          Number(r.members_count) || 0,
+      })),
+    };
+  },
+};
 
 // Infer a reports-api-v6 endpoint and a transformer based on Looker props.
 // This allows us to support the community/statistics page without knowing all
@@ -89,14 +235,17 @@ function inferFromProps(props) {
     const hasUserCount = propList.some(p => p.toLowerCase() === 'user.count');
     const hasFirstPlace = propList.some(p => p.toLowerCase().includes('first_place'));
 
-    // Deprecated/removed options: ignore Wireframe/LUX/RUX tiles by returning
-    // an empty dataset mapping (no fetch, just empty rows rendered if any).
     const removedOption = lowerHeaders.some(h => (
       h.includes('wireframe wins')
       || h.includes('lux 1st place wins')
       || h.includes('lux placements')
       || h.includes('rux 1st place wins')
       || h.includes('rux placements')
+      || (h.includes('wireframe') && h.includes('win'))
+      || (h.includes('lux') && (h.includes('1st') || h.includes('first')) && (h.includes('win')))
+      || (h.includes('lux') && h.includes('placement'))
+      || (h.includes('rux') && (h.includes('1st') || h.includes('first')) && (h.includes('win')))
+      || (h.includes('rux') && h.includes('placement'))
     ));
     if (removedOption) {
       return {
@@ -104,6 +253,8 @@ function inferFromProps(props) {
         transform: () => ([]),
       };
     }
+
+    // MM tiles are handled via direct Looker ID mappings.
 
     // Design tab: UI Design Wins (by member)
     const looksLikeUiDesignWins = (
@@ -130,10 +281,17 @@ function inferFromProps(props) {
     }
 
     // Design tab: F2F Wins (by member)
+    const containsF2FSynonym = s => (
+      s.includes('f2f')
+      || s.includes('first2finish')
+      || s.includes('first 2 finish')
+      || s.includes('first-to-finish')
+      || s.includes('first to finish')
+    );
     const looksLikeF2FWins = (
       hasHandle && (
-        lowerHeaders.some(h => (h.includes('f2f') && h.includes('win')))
-        || lowerProps.some(p => (p.includes('f2f') && p.includes('win')))
+        lowerHeaders.some(h => (containsF2FSynonym(h) && (h.includes('win') || h.includes('wins') || true)))
+        || lowerProps.some(p => (containsF2FSynonym(p) && (p.includes('win') || p.includes('wins') || true)))
       )
     );
     if (looksLikeF2FWins) {
@@ -317,9 +475,15 @@ function inferFromProps(props) {
 
 export default function SmartLooker(props) {
   const { lookerId } = props;
-  const direct = LOOKER_TO_REPORTS_MAP[lookerId];
+  const directEntry = LOOKER_TO_REPORTS_MAP[lookerId];
+  let directConfig = null;
+  if (typeof directEntry === 'function') directConfig = directEntry(props);
+  else if (typeof directEntry === 'string') directConfig = { path: directEntry };
+  else if (directEntry && typeof directEntry === 'object') directConfig = directEntry;
+
   const inferred = inferFromProps(props);
-  const reportsPath = direct || (inferred && inferred.path);
+  const reportsPath = (directConfig && directConfig.path) || (inferred && inferred.path);
+  const transformer = (directConfig && directConfig.transform) || (inferred && inferred.transform);
   const blocked = Boolean(inferred && Object.prototype.hasOwnProperty.call(inferred, 'path') && inferred.path === null);
 
   const [state, setState] = React.useState({
@@ -339,8 +503,8 @@ export default function SmartLooker(props) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         let lookerData = Array.isArray(data) ? data : [data];
-        if (inferred && typeof inferred.transform === 'function') {
-          lookerData = inferred.transform(Array.isArray(data) ? data : data);
+        if (typeof transformer === 'function') {
+          lookerData = transformer(Array.isArray(data) ? data : data);
         }
         if (!cancelled) setState({ loading: false, error: null, lookerInfo: { lookerData } });
       } catch (e) {
