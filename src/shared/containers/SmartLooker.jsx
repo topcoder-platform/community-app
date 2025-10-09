@@ -35,6 +35,14 @@ function countryNameFromCode(code) {
   return (obj && obj.name) ? obj.name : code;
 }
 
+function pickDefined(...values) {
+  for (let i = 0; i < values.length; i += 1) {
+    const value = values[i];
+    if (value !== undefined && value !== null) return value;
+  }
+  return undefined;
+}
+
 // Direct mappings from known Looker IDs to reports-api-v6 endpoints.
 // These are the specific Looker tiles used by the /community/statistics page
 // that we want to source from the new reports service instead of legacy Looker.
@@ -60,6 +68,52 @@ const LOOKER_TO_REPORTS_MAP = {
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
         [countryProp]: countryNameFromCode(r.country_code),
         [countProp]: Number(r.members_count) || 0,
+      })),
+    };
+  },
+  // Countries Represented (Design)
+  1136: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    return {
+      path: '/statistics/design/countries-represented',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
+          countryNameFromCode(r.country_code),
+        [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
+          Number(r.members_count) || 0,
+      })),
+    };
+  },
+  // First Time Submitters (Design)
+  1178: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const dateProp = propList.find(p => p.toLowerCase().includes('date'))
+      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
+      || 'first_submission_date';
+    return {
+      path: '/statistics/design/first-time-submitters',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [nameProp]: r.handle,
+        [dateProp]: r.first_submission_date,
+      })),
+    };
+  },
+  // 1st Place Finishes (by country)
+  1135: (props) => {
+    const cols = parseTableDef(props.table) || [];
+    const propList = cols.map(c => String(c.property || ''));
+    const nameProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
+    const valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
+      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('country')))
+      || 'first_place_count';
+    return {
+      path: '/statistics/design/first-place-by-country',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
+        [nameProp]: countryNameFromCode(r.country_code),
+        [valueProp]: Number(r.first_place_count) || 0,
       })),
     };
   },
@@ -125,7 +179,7 @@ const LOOKER_TO_REPORTS_MAP = {
       path: '/statistics/design/ui-design-wins',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
         [nameProp]: r.handle,
-        [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
+        [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
       })),
     };
   },
@@ -141,54 +195,68 @@ const LOOKER_TO_REPORTS_MAP = {
       path: '/statistics/design/f2f-wins',
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
         [nameProp]: r.handle,
-        [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
+        [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
       })),
     };
   },
-  // 1st Place Finishes (by country)
-  1135: (props) => {
+  // LUX 1st Place Wins (Design)
+  1571: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const nameProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
-    const valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
-      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('country')))
-      || 'first_place_count';
+    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
+      || 'challenge_stats.winner_handle';
+    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+      || 'challenge_stats.count';
+    const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
+    const maxRatingProp = propList.find(p => p.toLowerCase().includes('max_rating'))
+      || 'member_profile_advanced.max_rating';
+    const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
     return {
-      path: '/statistics/design/first-place-by-country',
-      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [nameProp]: countryNameFromCode(r.country_code),
-        [valueProp]: Number(r.first_place_count) || 0,
-      })),
+      path: '/statistics/design/lux-first-place-wins',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const wins = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
+        const maxRating = pickDefined(r && r.max_rating, null);
+        const mapped = {
+          [winnerHandleProp]: r.handle,
+          [handleProp]: r.handle,
+          [challengeCountProp]: wins,
+          [countProp]: wins,
+          [maxRatingProp]: maxRating,
+          [rankProp]: Number(r && r.rank) || 0,
+        };
+        return mapped;
+      }),
     };
   },
-  // First Time Submitters (Design)
-  1178: (props) => {
+  // LUX Placements (Design)
+  1573: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
-    const dateProp = propList.find(p => p.toLowerCase().includes('date'))
-      || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
-      || 'first_submission_date';
+    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
+      || 'challenge_stats.winner_handle';
+    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
+      || 'challenge_stats.count';
+    const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
+    const maxRatingProp = propList.find(p => p.toLowerCase().includes('max_rating'))
+      || 'member_profile_advanced.max_rating';
+    const rankProp = propList.find(p => p.toLowerCase() === 'rank') || 'rank';
     return {
-      path: '/statistics/design/first-time-submitters',
-      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [nameProp]: r.handle,
-        [dateProp]: r.first_submission_date,
-      })),
-    };
-  },
-  // Countries Represented (Design)
-  1136: (props) => {
-    const cols = parseTableDef(props.table) || [];
-    const propList = cols.map(c => String(c.property || ''));
-    return {
-      path: '/statistics/design/countries-represented',
-      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
-          countryNameFromCode(r.country_code),
-        [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
-          Number(r.members_count) || 0,
-      })),
+      path: '/statistics/design/lux-placements',
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const placements = Number(pickDefined(r && r.placements_count, r && r.count, 0)) || 0;
+        const maxRating = pickDefined(r && r.max_rating, null);
+        const mapped = {
+          [winnerHandleProp]: r.handle,
+          [handleProp]: r.handle,
+          [challengeCountProp]: placements,
+          [countProp]: placements,
+          [maxRatingProp]: maxRating,
+          [rankProp]: Number(r && r.rank) || 0,
+        };
+        return mapped;
+      }),
     };
   },
 };
@@ -218,7 +286,6 @@ function inferFromProps(props) {
         transform: data => [{ 'challenge.count': Number(data.count) || 0 }],
       };
     }
-    // Total prizes: property names may vary. Cover common cases.
     if (
       prop === 'total'
       || prop.includes('total')
@@ -244,47 +311,25 @@ function inferFromProps(props) {
     const hasUserCount = propList.some(p => p.toLowerCase() === 'user.count');
     const hasFirstPlace = propList.some(p => p.toLowerCase().includes('first_place'));
 
-    const removedOption = lowerHeaders.some(h => (
-      h.includes('wireframe wins')
-      || h.includes('lux 1st place wins')
-      || h.includes('lux placements')
-      || h.includes('rux 1st place wins')
-      || h.includes('rux placements')
-      || (h.includes('wireframe') && h.includes('win'))
-      || (h.includes('lux') && (h.includes('1st') || h.includes('first')) && (h.includes('win')))
-      || (h.includes('lux') && h.includes('placement'))
-      || (h.includes('rux') && (h.includes('1st') || h.includes('first')) && (h.includes('win')))
-      || (h.includes('rux') && h.includes('placement'))
-    ));
-    if (removedOption) {
-      return {
-        path: null,
-        transform: () => ([]),
-      };
-    }
-
-    // MM tiles are handled via direct Looker ID mappings.
-
     // Design tab: UI Design Wins (by member)
     const looksLikeUiDesignWins = (
-      (hasHandle)
+      hasHandle
       && (
-        lowerHeaders.some(h => (h.includes('ui') && h.includes('win'))) // header mentions UI + wins
+        lowerHeaders.some(h => (h.includes('ui') && h.includes('win')))
         || lowerProps.some(p => (p.includes('ui') && p.includes('win')))
         || lowerHeaders.some(h => (h.includes('design') && h.includes('wins')))
       )
     );
     if (looksLikeUiDesignWins) {
       const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
-      // choose a numeric/value column property name from the table definition
       const valueProp = propList.find(p => p.toLowerCase().includes('win'))
         || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
         || 'wins';
       return {
         path: '/statistics/design/ui-design-wins',
-        transform: rows => rows.map(r => ({
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [nameProp]: r.handle,
-          [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
+          [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
         })),
       };
     }
@@ -297,11 +342,17 @@ function inferFromProps(props) {
       || s.includes('first-to-finish')
       || s.includes('first to finish')
     );
+    const headersMentionF2F = lowerHeaders.some(h => containsF2FSynonym(h));
+    const propsMentionF2F = lowerProps.some(p => containsF2FSynonym(p));
+    const headersMentionF2FWins = lowerHeaders.some(
+      h => containsF2FSynonym(h) && (h.includes('win') || h.includes('wins')),
+    );
+    const propsMentionF2FWins = lowerProps.some(
+      p => containsF2FSynonym(p) && (p.includes('win') || p.includes('wins')),
+    );
     const looksLikeF2FWins = (
-      hasHandle && (
-        lowerHeaders.some(h => (containsF2FSynonym(h) && (h.includes('win') || h.includes('wins') || true)))
-        || lowerProps.some(p => (containsF2FSynonym(p) && (p.includes('win') || p.includes('wins') || true)))
-      )
+      hasHandle
+      && (headersMentionF2FWins || propsMentionF2FWins || headersMentionF2F || propsMentionF2F)
     );
     if (looksLikeF2FWins) {
       const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
@@ -310,9 +361,9 @@ function inferFromProps(props) {
         || 'wins';
       return {
         path: '/statistics/design/f2f-wins',
-        transform: rows => rows.map(r => ({
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [nameProp]: r.handle,
-          [valueProp]: Number((r && (r.wins_count ?? r.count)) || 0),
+          [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
         })),
       };
     }
@@ -332,7 +383,7 @@ function inferFromProps(props) {
         || 'first_submission_date';
       return {
         path: '/statistics/design/first-time-submitters',
-        transform: rows => rows.map(r => ({
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [nameProp]: r.handle,
           [dateProp]: r.first_submission_date,
         })),
@@ -347,7 +398,7 @@ function inferFromProps(props) {
     if (looksLikeDesignCountries) {
       return {
         path: '/statistics/design/countries-represented',
-        transform: rows => rows.map(r => ({
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
             countryNameFromCode(r.country_code),
           [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
@@ -370,7 +421,7 @@ function inferFromProps(props) {
         || 'first_place_count';
       return {
         path: '/statistics/design/first-place-by-country',
-        transform: rows => rows.map(r => ({
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [nameProp]: countryNameFromCode(r.country_code),
           [valueProp]: Number(r.first_place_count) || 0,
         })),
@@ -381,8 +432,7 @@ function inferFromProps(props) {
     if (hasCountry && hasUserCount) {
       return {
         path: '/statistics/general/countries-represented',
-        transform: rows => rows.map(r => ({
-          // Use whatever property the table asked for to label country
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name']:
             countryNameFromCode(r.country_code),
           [propList.find(p => p.toLowerCase() === 'user.count') || 'user.count']:
@@ -392,12 +442,7 @@ function inferFromProps(props) {
     }
 
     // First place by country: expect country + a numeric count field.
-    // In Contentful, the numeric column property has varied, so fall back to
-    // the first non-country, non-rank property when we don't explicitly see
-    // `first_place` or `user.count`.
     if (hasCountry && (hasFirstPlace || (!hasUserCount && !hasCopilot && !hasReview))) {
-      // Prefer an explicit first_place column, else user.count, else the first
-      // non-country/non-rank column as the value property.
       let valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
         || propList.find(p => p.toLowerCase() === 'user.count');
       if (!valueProp) {
@@ -410,15 +455,12 @@ function inferFromProps(props) {
 
       const nameProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
 
-      // Heuristic guard: if this looks like the Countries Represented table
-      // (i.e. valueProp resolved to user.count) let the dedicated block above
-      // handle it instead of mapping to first-place.
       if (valueProp && valueProp.toLowerCase() === 'user.count') {
         // Do nothing; countries-represented case above will match.
       } else {
         return {
           path: '/statistics/general/first-place-by-country',
-          transform: rows => rows.map(r => ({
+          transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
             [nameProp]: countryNameFromCode(r.country_code),
             [valueProp]: Number(r.first_place_count) || 0,
           })),
@@ -433,7 +475,7 @@ function inferFromProps(props) {
         || 'copilot.handle';
       return {
         path: '/statistics/general/copiloted-challenges',
-        transform: rows => rows.map(r => ({
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [nameProp]: r.handle,
           'challenge.count': Number(r.copiloted_challenges) || 0,
         })),
@@ -446,7 +488,7 @@ function inferFromProps(props) {
       const valueProp = propList.find(p => p.toLowerCase().includes('review')) || 'review.count';
       return {
         path: '/statistics/general/reviews-by-member',
-        transform: rows => rows.map(r => ({
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
           [nameProp]: r.handle,
           [valueProp]: Number(r.review_count) || 0,
         })),
@@ -455,11 +497,9 @@ function inferFromProps(props) {
   }
 
   // Render-based single value (e.g. used to prefix with currency symbol)
-  // Try to infer the data source by inspecting referenced fields in the render function.
   if (!property && !cols && render) {
     try {
       const r = String(render).replace(/&q;/g, '"').replace(/'/g, '"');
-      // Find all occurrences of data[0]["prop"]
       const matches = Array.from(r.matchAll(/data\s*\[\s*0\s*\]\s*\[\s*"([^"]+)"\s*\]/g));
       const referenced = matches.map(m => (m && m[1] ? m[1] : ''));
       const hasTotalPrizes = referenced.some((p) => {
@@ -467,7 +507,6 @@ function inferFromProps(props) {
         return pl.includes('total') || pl.includes('prize') || pl.includes('payment') || pl.includes('amount');
       });
       if (hasTotalPrizes) {
-        // Use the first referenced property as the key expected by the render function
         const key = referenced.find(p => p) || 'total';
         return {
           path: '/statistics/general/total-prizes',
@@ -493,7 +532,6 @@ export default function SmartLooker(props) {
   const inferred = inferFromProps(props);
   const reportsPath = (directConfig && directConfig.path) || (inferred && inferred.path);
   const transformer = (directConfig && directConfig.transform) || (inferred && inferred.transform);
-  const blocked = Boolean(inferred && Object.prototype.hasOwnProperty.call(inferred, 'path') && inferred.path === null);
 
   const [state, setState] = React.useState({
     loading: !!reportsPath,
@@ -504,7 +542,6 @@ export default function SmartLooker(props) {
   React.useEffect(() => {
     let cancelled = false;
     async function load() {
-      if (blocked) return; // Hide removed/unsupported tiles entirely
       if (!reportsPath) return;
       setState(s => ({ ...s, loading: true, error: null }));
       try {
@@ -513,7 +550,7 @@ export default function SmartLooker(props) {
         const data = await res.json();
         let lookerData = Array.isArray(data) ? data : [data];
         if (typeof transformer === 'function') {
-          lookerData = transformer(Array.isArray(data) ? data : data);
+          lookerData = transformer(Array.isArray(data) ? data : [data]);
         }
         if (!cancelled) setState({ loading: false, error: null, lookerInfo: { lookerData } });
       } catch (e) {
@@ -530,9 +567,7 @@ export default function SmartLooker(props) {
     return () => { cancelled = true; };
   }, [lookerId, reportsPath]);
 
-  if (blocked) return null; // Do not render removed options
-
-  if (!reportsPath && !blocked) {
+  if (!reportsPath) {
     // Fall back to legacy behavior for non-mapped lookerIds
     return (
       <OriginalLookerContainer {...props} />
