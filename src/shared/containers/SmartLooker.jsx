@@ -331,21 +331,7 @@ export default function SmartLooker(props) {
   React.useEffect(() => {
     let cancelled = false;
     async function load() {
-      if (blocked) {
-        // Intentionally block legacy Looker usage and render empty data
-        // for removed/unsupported tiles.
-        const transformed = (inferred && typeof inferred.transform === 'function')
-          ? inferred.transform([])
-          : [];
-        if (!cancelled) {
-          setState({
-            loading: false,
-            error: null,
-            lookerInfo: { lookerData: transformed },
-          });
-        }
-        return;
-      }
+      if (blocked) return; // Hide removed/unsupported tiles entirely
       if (!reportsPath) return;
       setState(s => ({ ...s, loading: true, error: null }));
       try {
@@ -370,6 +356,8 @@ export default function SmartLooker(props) {
     load();
     return () => { cancelled = true; };
   }, [lookerId, reportsPath]);
+
+  if (blocked) return null; // Do not render removed options
 
   if (!reportsPath && !blocked) {
     // Fall back to legacy behavior for non-mapped lookerIds
