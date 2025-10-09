@@ -158,16 +158,25 @@ export default class Looker extends Component {
                 }
                 const { styles } = c;
                 let value = '';
+                let cellKey;
                 if (limit <= 0 || i < limit) {
-                  if (typeof record[prop] === 'string') {
+                  // Special-case a column with property "rank" to display
+                  // the current row index (1-based). This mirrors the old
+                  // Looker behavior and ensures alignment even when the
+                  // underlying data does not include a rank field.
+                  if ((prop || '').toString().toLowerCase() === 'rank') {
+                    value = i + 1;
+                    cellKey = `${prop}-index-${i}`;
+                  } else if (typeof record[prop] === 'string') {
                     value = record[prop];
-                  }
-                  if (typeof record[prop] === 'number') {
+                    cellKey = record[prop];
+                  } else if (typeof record[prop] === 'number') {
                     value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    cellKey = record[prop];
                   }
                 }
                 return value ? (
-                  <td key={record[prop]} style={fixStyle(styles)} title={value} styleName="body-row">
+                  <td key={cellKey} style={fixStyle(styles)} title={value} styleName="body-row">
                     {memberLinks ? (
                       <a styleName="handle-link" href={`${window.origin}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`} style={{ color: ratingProp ? getRatingColor(record[ratingProp]) : null }}>
                         {value}

@@ -42,7 +42,7 @@ function parseTableDef(table) {
 // This allows us to support the community/statistics page without knowing all
 // Looker IDs ahead of time, by recognizing common property/table patterns.
 function inferFromProps(props) {
-  const { property, table } = props;
+  const { property, table, render } = props;
   const cols = parseTableDef(table);
 
   // Header metrics (single value)
@@ -60,8 +60,14 @@ function inferFromProps(props) {
         transform: data => [{ 'challenge.count': Number(data.count) || 0 }],
       };
     }
-    // Total prizes: common property names are often 'total' or contain 'total'
-    if (prop === 'total' || prop.includes('total')) {
+    // Total prizes: property names may vary. Cover common cases.
+    if (
+      prop === 'total'
+      || prop.includes('total')
+      || prop.includes('prize')
+      || prop.includes('payment')
+      || prop.includes('amount')
+    ) {
       return {
         path: '/statistics/general/total-prizes',
         transform: data => [{ [property]: data.total }],
@@ -94,20 +100,39 @@ function inferFromProps(props) {
       };
     }
 
-    // First place by country: expect country + a first_place count field
-    if (hasCountry && (hasFirstPlace || hasUserCount)) {
-      // Count column property: prefer one mentioning first_place, else user.count
-      const valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
-        || propList.find(p => p.toLowerCase() === 'user.count')
-        || 'first_place_count';
+    // First place by country: expect country + a numeric count field.
+    // In Contentful, the numeric column property has varied, so fall back to
+    // the first non-country, non-rank property when we don't explicitly see
+    // `first_place` or `user.count`.
+    if (hasCountry && (hasFirstPlace || (!hasUserCount && !hasCopilot && !hasReview))) {
+      // Prefer an explicit first_place column, else user.count, else the first
+      // non-country/non-rank column as the value property.
+      let valueProp = propList.find(p => p.toLowerCase().includes('first_place'))
+        || propList.find(p => p.toLowerCase() === 'user.count');
+      if (!valueProp) {
+        valueProp = propList.find(p => (
+          p
+          && !p.toLowerCase().includes('country')
+          && p.toLowerCase() !== 'rank'
+        )) || 'first_place_count';
+      }
+
       const nameProp = propList.find(p => p.toLowerCase().includes('country')) || 'country.country_name';
-      return {
-        path: '/statistics/general/first-place-by-country',
-        transform: rows => rows.map(r => ({
-          [nameProp]: r.country_code,
-          [valueProp]: Number(r.first_place_count) || 0,
-        })),
-      };
+
+      // Heuristic guard: if this looks like the Countries Represented table
+      // (i.e. valueProp resolved to user.count) let the dedicated block above
+      // handle it instead of mapping to first-place.
+      if (valueProp && valueProp.toLowerCase() === 'user.count') {
+        // Do nothing; countries-represented case above will match.
+      } else {
+        return {
+          path: '/statistics/general/first-place-by-country',
+          transform: rows => rows.map(r => ({
+            [nameProp]: r.country_code,
+            [valueProp]: Number(r.first_place_count) || 0,
+          })),
+        };
+      }
     }
 
     // Copiloted challenges: expect copilot handle + challenge.count
@@ -135,6 +160,31 @@ function inferFromProps(props) {
           [valueProp]: Number(r.review_count) || 0,
         })),
       };
+    }
+  }
+
+  // Render-based single value (e.g. used to prefix with currency symbol)
+  // Try to infer the data source by inspecting referenced fields in the render function.
+  if (!property && !cols && render) {
+    try {
+      const r = String(render).replace(/&q;/g, '"').replace(/'/g, '"');
+      // Find all occurrences of data[0]["prop"]
+      const matches = Array.from(r.matchAll(/data\s*\[\s*0\s*\]\s*\[\s*"([^"]+)"\s*\]/g));
+      const referenced = matches.map(m => (m && m[1] ? m[1] : ''));
+      const hasTotalPrizes = referenced.some((p) => {
+        const pl = String(p).toLowerCase();
+        return pl.includes('total') || pl.includes('prize') || pl.includes('payment') || pl.includes('amount');
+      });
+      if (hasTotalPrizes) {
+        // Use the first referenced property as the key expected by the render function
+        const key = referenced.find(p => p) || 'total';
+        return {
+          path: '/statistics/general/total-prizes',
+          transform: data => [{ [key]: data.total }],
+        };
+      }
+    } catch (e) {
+      // swallow and fall back to legacy looker
     }
   }
 

@@ -76,7 +76,7 @@ const ProfileBadges = ({ badges, handleParam }) => {
                   }
                   <div styleName="title">
                     <span>
-                      <div dangerouslySetInnerHTML={{ __html: title }} />
+                      <div>{title}</div>
                     </span>
                   </div>
                 </div>

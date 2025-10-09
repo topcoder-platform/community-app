@@ -69,7 +69,7 @@ const getTimestamp = async () => {
 
     timestamp = moment(tsData.timestamp).valueOf();
   } catch (err) {
-    console.error('Error:', err.message);
+    logger.error('Error:', err.message);
   }
 
   return timestamp;
