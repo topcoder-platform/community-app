@@ -414,7 +414,6 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const {
       legacy,
-      legacyId,
       status,
       phases,
       metadata,
@@ -695,17 +694,17 @@ class ChallengeDetailPageContainer extends React.Component {
               )
             }
           </div>
-          {legacyId && (
-            <Terms
-              defaultTitle="Challenge Prerequisites"
-              entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
-              instanceId={this.instanceId}
-              description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
-              register={() => {
-                registerForChallenge(auth, challengeId);
-              }}
-            />
-          )}
+
+          <Terms
+            defaultTitle="Challenge Prerequisites"
+            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
+            instanceId={this.instanceId}
+            description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
+            register={() => {
+              registerForChallenge(auth, challengeId);
+            }}
+          />
+
           {showSecurityReminder && (
             <SecurityReminder
               onCancel={() => this.setState({ showSecurityReminder: false })}
