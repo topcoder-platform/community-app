@@ -175,3 +175,8 @@ SmartLooker.propTypes = {
   property: PT.string,
   render: PT.func,
 };
+
+SmartLooker.defaultProps = {
+  property: undefined,
+  render: undefined,
+};
