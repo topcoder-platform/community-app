@@ -43,6 +43,65 @@ function pickDefined(...values) {
   return undefined;
 }
 
+function toBoolean(value) {
+  if (value === true) return true;
+  if (value === false) return false;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    if (normalized === 'true') return true;
+    if (normalized === 'false') return false;
+  }
+  return false;
+}
+
+function collectHandleProps(columns, fallback = 'handle') {
+  const props = new Set();
+  if (fallback) props.add(fallback);
+  if (!Array.isArray(columns)) return props;
+  columns.forEach((col) => {
+    if (!col) return;
+    const property = String(col.property || '').trim();
+    if (!property || property.toLowerCase() === 'rank') return;
+    const header = String(col.headerName || '').toLowerCase();
+    const memberLinks = toBoolean(col.memberLinks);
+    if (
+      property.toLowerCase().includes('handle')
+      || header.includes('handle')
+      || memberLinks
+    ) {
+      props.add(property);
+    }
+  });
+  return props;
+}
+
+function assignHandleProps(target, handleValue, props) {
+  if (
+    handleValue === undefined
+    || handleValue === null
+    || !target
+    || typeof target !== 'object'
+  ) {
+    return;
+  }
+  const list = [];
+  if (props && typeof props.forEach === 'function') {
+    props.forEach((prop) => {
+      if (prop) list.push(prop);
+    });
+  } else if (Array.isArray(props)) {
+    props.forEach((prop) => {
+      if (prop) list.push(prop);
+    });
+  }
+  if (!list.length) list.push('handle');
+  const updates = {};
+  list.forEach((prop) => {
+    updates[prop] = handleValue;
+  });
+  Object.assign(target, updates);
+}
+
 // Direct mappings from known Looker IDs to reports-api-v6 endpoints.
 // These are the specific Looker tiles used by the /community/statistics page
 // that we want to source from the new reports service instead of legacy Looker.
@@ -228,7 +287,7 @@ const LOOKER_TO_REPORTS_MAP = {
   1150: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const handleProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const handleProps = collectHandleProps(cols);
     const valueProp = propList.find(p => p.toLowerCase().includes('review')) || 'review.count';
     return {
       path: '/statistics/general/reviews-by-member',
@@ -249,12 +308,11 @@ const LOOKER_TO_REPORTS_MAP = {
             0,
           )) || 0;
           const mapped = {
-            handle: handleValue,
             'review.count': reviewCountValue,
             review_count: reviewCountValue,
             count: reviewCountValue,
           };
-          if (handleProp && handleProp !== 'handle') mapped[handleProp] = handleValue;
+          assignHandleProps(mapped, handleValue, handleProps);
           if (
             valueProp
             && valueProp !== 'review.count'
@@ -475,41 +533,61 @@ const LOOKER_TO_REPORTS_MAP = {
   1138: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const handleProps = collectHandleProps(cols);
     const valueProp = propList.find(p => p.toLowerCase().includes('win'))
       || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
       || 'wins';
     return {
       path: '/statistics/design/ui-design-wins',
-      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [nameProp]: r.handle,
-        [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
-      })),
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const handleValue = pickDefined(
+          r && r.handle,
+          r && r.member_handle,
+          r && r.winner_handle,
+          null,
+        );
+        const winsValue = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
+        const mapped = {};
+        if (valueProp) mapped[valueProp] = winsValue;
+        if (valueProp !== 'wins') mapped.wins = winsValue;
+        if (valueProp !== 'count') mapped.count = winsValue;
+        assignHandleProps(mapped, handleValue, handleProps);
+        return mapped;
+      }),
     };
   },
   // Design F2F Wins (by member)
   1141: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    const handleProps = collectHandleProps(cols);
     const valueProp = propList.find(p => p.toLowerCase().includes('win'))
       || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
       || 'wins';
     return {
       path: '/statistics/design/f2f-wins',
-      transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-        [nameProp]: r.handle,
-        [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
-      })),
+      transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+        const handleValue = pickDefined(
+          r && r.handle,
+          r && r.member_handle,
+          r && r.winner_handle,
+          null,
+        );
+        const winsValue = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
+        const mapped = {};
+        if (valueProp) mapped[valueProp] = winsValue;
+        if (valueProp !== 'wins') mapped.wins = winsValue;
+        if (valueProp !== 'count') mapped.count = winsValue;
+        assignHandleProps(mapped, handleValue, handleProps);
+        return mapped;
+      }),
     };
   },
   // LUX 1st Place Wins (Design)
   1571: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
-      || 'challenge_stats.winner_handle';
-    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const handleProps = collectHandleProps(cols);
     const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
       || 'challenge_stats.count';
     const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
@@ -521,14 +599,22 @@ const LOOKER_TO_REPORTS_MAP = {
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
         const wins = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
         const maxRating = pickDefined(r && r.max_rating, null);
-        const mapped = {
-          [winnerHandleProp]: r.handle,
-          [handleProp]: r.handle,
-          [challengeCountProp]: wins,
-          [countProp]: wins,
-          [maxRatingProp]: maxRating,
-          [rankProp]: Number(r && r.rank) || 0,
-        };
+        const rankValue = Number(pickDefined(r && r.rank, 0)) || 0;
+        const handleValue = pickDefined(
+          r && r.handle,
+          r && r.winner_handle,
+          r && r['challenge_stats.winner_handle'],
+          r && r.member_handle,
+          null,
+        );
+        const mapped = {};
+        if (challengeCountProp) mapped[challengeCountProp] = wins;
+        if (countProp && countProp !== challengeCountProp) mapped[countProp] = wins;
+        if (challengeCountProp !== 'wins') mapped.wins = wins;
+        if (challengeCountProp !== 'count' && countProp !== 'count') mapped.count = wins;
+        if (maxRatingProp) mapped[maxRatingProp] = maxRating;
+        if (rankProp) mapped[rankProp] = rankValue;
+        assignHandleProps(mapped, handleValue, handleProps);
         return mapped;
       }),
     };
@@ -537,9 +623,7 @@ const LOOKER_TO_REPORTS_MAP = {
   1572: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
-      || 'challenge_stats.winner_handle';
-    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const handleProps = collectHandleProps(cols);
     const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
       || 'challenge_stats.count';
     const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
@@ -551,14 +635,22 @@ const LOOKER_TO_REPORTS_MAP = {
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
         const placements = Number(pickDefined(r && r.placements_count, r && r.count, 0)) || 0;
         const maxRating = pickDefined(r && r.max_rating, null);
-        const mapped = {
-          [winnerHandleProp]: r.handle,
-          [handleProp]: r.handle,
-          [challengeCountProp]: placements,
-          [countProp]: placements,
-          [maxRatingProp]: maxRating,
-          [rankProp]: Number(r && r.rank) || 0,
-        };
+        const rankValue = Number(pickDefined(r && r.rank, 0)) || 0;
+        const handleValue = pickDefined(
+          r && r.handle,
+          r && r.winner_handle,
+          r && r['challenge_stats.winner_handle'],
+          r && r.member_handle,
+          null,
+        );
+        const mapped = {};
+        if (challengeCountProp) mapped[challengeCountProp] = placements;
+        if (countProp && countProp !== challengeCountProp) mapped[countProp] = placements;
+        if (challengeCountProp !== 'wins') mapped.wins = placements;
+        if (challengeCountProp !== 'count' && countProp !== 'count') mapped.count = placements;
+        if (maxRatingProp) mapped[maxRatingProp] = maxRating;
+        if (rankProp) mapped[rankProp] = rankValue;
+        assignHandleProps(mapped, handleValue, handleProps);
         return mapped;
       }),
     };
@@ -567,9 +659,7 @@ const LOOKER_TO_REPORTS_MAP = {
   1573: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
-      || 'challenge_stats.winner_handle';
-    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const handleProps = collectHandleProps(cols);
     const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
       || 'challenge_stats.count';
     const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
@@ -581,14 +671,22 @@ const LOOKER_TO_REPORTS_MAP = {
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
         const wins = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
         const maxRating = pickDefined(r && r.max_rating, null);
-        const mapped = {
-          [winnerHandleProp]: r.handle,
-          [handleProp]: r.handle,
-          [challengeCountProp]: wins,
-          [countProp]: wins,
-          [maxRatingProp]: maxRating,
-          [rankProp]: Number(r && r.rank) || 0,
-        };
+        const rankValue = Number(pickDefined(r && r.rank, 0)) || 0;
+        const handleValue = pickDefined(
+          r && r.handle,
+          r && r.winner_handle,
+          r && r['challenge_stats.winner_handle'],
+          r && r.member_handle,
+          null,
+        );
+        const mapped = {};
+        if (challengeCountProp) mapped[challengeCountProp] = wins;
+        if (countProp && countProp !== challengeCountProp) mapped[countProp] = wins;
+        if (challengeCountProp !== 'wins') mapped.wins = wins;
+        if (challengeCountProp !== 'count' && countProp !== 'count') mapped.count = wins;
+        if (maxRatingProp) mapped[maxRatingProp] = maxRating;
+        if (rankProp) mapped[rankProp] = rankValue;
+        assignHandleProps(mapped, handleValue, handleProps);
         return mapped;
       }),
     };
@@ -597,9 +695,7 @@ const LOOKER_TO_REPORTS_MAP = {
   1574: (props) => {
     const cols = parseTableDef(props.table) || [];
     const propList = cols.map(c => String(c.property || ''));
-    const winnerHandleProp = propList.find(p => p.toLowerCase().includes('winner_handle'))
-      || 'challenge_stats.winner_handle';
-    const handleProp = propList.find(p => p.toLowerCase() === 'handle') || 'handle';
+    const handleProps = collectHandleProps(cols);
     const challengeCountProp = propList.find(p => p.toLowerCase().includes('challenge_stats.count'))
       || 'challenge_stats.count';
     const countProp = propList.find(p => p.toLowerCase() === 'count') || 'count';
@@ -611,14 +707,22 @@ const LOOKER_TO_REPORTS_MAP = {
       transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
         const placements = Number(pickDefined(r && r.placements_count, r && r.count, 0)) || 0;
         const maxRating = pickDefined(r && r.max_rating, null);
-        const mapped = {
-          [winnerHandleProp]: r.handle,
-          [handleProp]: r.handle,
-          [challengeCountProp]: placements,
-          [countProp]: placements,
-          [maxRatingProp]: maxRating,
-          [rankProp]: Number(r && r.rank) || 0,
-        };
+        const rankValue = Number(pickDefined(r && r.rank, 0)) || 0;
+        const handleValue = pickDefined(
+          r && r.handle,
+          r && r.winner_handle,
+          r && r['challenge_stats.winner_handle'],
+          r && r.member_handle,
+          null,
+        );
+        const mapped = {};
+        if (challengeCountProp) mapped[challengeCountProp] = placements;
+        if (countProp && countProp !== challengeCountProp) mapped[countProp] = placements;
+        if (challengeCountProp !== 'wins') mapped.wins = placements;
+        if (challengeCountProp !== 'count' && countProp !== 'count') mapped.count = placements;
+        if (maxRatingProp) mapped[maxRatingProp] = maxRating;
+        if (rankProp) mapped[rankProp] = rankValue;
+        assignHandleProps(mapped, handleValue, handleProps);
         return mapped;
       }),
     };
@@ -667,10 +771,15 @@ function inferFromProps(props) {
   // General tab tables
   if (cols && cols.length) {
     const propList = cols.map(c => String(c.property || ''));
+    const handleProps = collectHandleProps(cols);
     const hasCountry = propList.some(p => p.toLowerCase().includes('country'));
     const hasHandle = propList.some(p => p.toLowerCase().includes('handle'));
     const hasCopilot = propList.some(p => p.toLowerCase().includes('copilot'));
     const hasReview = propList.some(p => p.toLowerCase().includes('review'));
+    const hasHandleHeader = lowerHeaders.some(h => h.includes('handle'));
+    const hasHandleMemberLink = cols.some(c => toBoolean(c && c.memberLinks));
+    const hasReviewHeader = lowerHeaders.some(h => h.includes('review'));
+    const reviewIndicator = hasReview || hasReviewHeader;
     const hasChallengeCount = propList.some(p => p.toLowerCase() === 'challenge.count');
     const hasUserCount = propList.some(p => p.toLowerCase() === 'user.count');
     const hasFirstPlace = propList.some(p => p.toLowerCase().includes('first_place'));
@@ -685,16 +794,26 @@ function inferFromProps(props) {
       )
     );
     if (looksLikeUiDesignWins) {
-      const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
       const valueProp = propList.find(p => p.toLowerCase().includes('win'))
         || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
         || 'wins';
       return {
         path: '/statistics/design/ui-design-wins',
-        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-          [nameProp]: r.handle,
-          [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
-        })),
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+          const handleValue = pickDefined(
+            r && r.handle,
+            r && r.member_handle,
+            r && r.winner_handle,
+            null,
+          );
+          const winsValue = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
+          const mapped = {};
+          if (valueProp) mapped[valueProp] = winsValue;
+          if (valueProp !== 'wins') mapped.wins = winsValue;
+          if (valueProp !== 'count') mapped.count = winsValue;
+          assignHandleProps(mapped, handleValue, handleProps);
+          return mapped;
+        }),
       };
     }
 
@@ -719,16 +838,26 @@ function inferFromProps(props) {
       && (headersMentionF2FWins || propsMentionF2FWins || headersMentionF2F || propsMentionF2F)
     );
     if (looksLikeF2FWins) {
-      const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
       const valueProp = propList.find(p => p.toLowerCase().includes('win'))
         || propList.find(p => (p && p.toLowerCase() !== 'rank' && !p.toLowerCase().includes('handle')))
         || 'wins';
       return {
         path: '/statistics/design/f2f-wins',
-        transform: rows => (Array.isArray(rows) ? rows : [rows]).map(r => ({
-          [nameProp]: r.handle,
-          [valueProp]: Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0,
-        })),
+        transform: rows => (Array.isArray(rows) ? rows : [rows]).map((r) => {
+          const handleValue = pickDefined(
+            r && r.handle,
+            r && r.member_handle,
+            r && r.winner_handle,
+            null,
+          );
+          const winsValue = Number(pickDefined(r && r.wins_count, r && r.count, 0)) || 0;
+          const mapped = {};
+          if (valueProp) mapped[valueProp] = winsValue;
+          if (valueProp !== 'wins') mapped.wins = winsValue;
+          if (valueProp !== 'count') mapped.count = winsValue;
+          assignHandleProps(mapped, handleValue, handleProps);
+          return mapped;
+        }),
       };
     }
 
@@ -847,8 +976,7 @@ function inferFromProps(props) {
     }
 
     // Reviews by member: expect handle + review count
-    if ((hasHandle || hasCopilot) && hasReview) {
-      const nameProp = propList.find(p => p.toLowerCase().includes('handle')) || 'handle';
+    if ((hasHandle || hasCopilot || hasHandleHeader || hasHandleMemberLink) && reviewIndicator) {
       const valueProp = propList.find(p => p.toLowerCase().includes('review')) || 'review.count';
       return {
         path: '/statistics/general/reviews-by-member',
@@ -869,12 +997,11 @@ function inferFromProps(props) {
               0,
             )) || 0;
             const mapped = {
-              handle: handleValue,
               'review.count': reviewCountValue,
               review_count: reviewCountValue,
               count: reviewCountValue,
             };
-            if (nameProp && nameProp !== 'handle') mapped[nameProp] = handleValue;
+            assignHandleProps(mapped, handleValue, handleProps);
             if (
               valueProp
               && valueProp !== 'review.count'
