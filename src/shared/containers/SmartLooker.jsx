@@ -19,8 +19,10 @@ const LOOKER_TO_REPORTS_PATH = {
   1135: '/statistics/design/first-place-by-country',
   1136: '/statistics/design/countries-represented',
   1138: '/statistics/design/ui-design-wins',
+  1140: '/statistics/design/wireframe-wins',
   1141: '/statistics/design/f2f-wins',
   1146: '/statistics/general/copiloted-challenges',
+  1148: '/statistics/general/countries-represented',
   1149: '/statistics/general/first-place-by-country',
   1150: '/statistics/general/reviews-by-member',
   1172: '/statistics/development/first-time-submitters',
@@ -39,9 +41,7 @@ const LOOKER_TO_REPORTS_PATH = {
   1700: '/statistics/qa/wins',
 };
 
-function inferFromProps(props) {
-  const { property, render } = props;
-
+function inferFromProps(property, render) {
   if (property) {
     const normalized = String(property).toLowerCase();
     if (normalized === 'user.count') {
@@ -96,9 +96,12 @@ function inferFromProps(props) {
 }
 
 export default function SmartLooker(props) {
-  const { lookerId } = props;
+  const { lookerId, property, render } = props;
   const directPath = LOOKER_TO_REPORTS_PATH[lookerId];
-  const inferred = directPath ? null : inferFromProps(props);
+  const inferred = React.useMemo(
+    () => (directPath ? null : inferFromProps(property, render)),
+    [directPath, property, render],
+  );
   const reportsPath = directPath || (inferred && inferred.path);
   const transformer = inferred && inferred.transform;
 
@@ -169,4 +172,6 @@ export default function SmartLooker(props) {
 
 SmartLooker.propTypes = {
   lookerId: PT.string.isRequired,
+  property: PT.string,
+  render: PT.func,
 };
