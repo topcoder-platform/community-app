@@ -39,7 +39,8 @@ function GigDetails(props) {
   const {
     job, application, profile,
   } = props;
-  let retUrl = isomorphy.isClientSide() ? location.href : null;
+  // eslint-disable-next-line no-restricted-globals
+  const retUrl = isomorphy.isClientSide() ? location.href : null;
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
   const hPerW = getCustomField(job.custom_fields, 'Hours per week');
