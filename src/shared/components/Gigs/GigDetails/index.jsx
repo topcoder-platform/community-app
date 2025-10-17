@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
 import React, { useState } from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, config } from 'topcoder-react-utils';
+import { Link, config, isomorphy } from 'topcoder-react-utils';
 import ReactHtmlParser from 'react-html-parser';
 import { getSalaryType, getCustomField } from 'utils/gigs';
 import './style.scss';
@@ -39,7 +39,8 @@ function GigDetails(props) {
   const {
     job, application, profile,
   } = props;
-  let retUrl;
+  // eslint-disable-next-line no-restricted-globals
+  const retUrl = isomorphy.isClientSide() ? location.href : null;
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
   const hPerW = getCustomField(job.custom_fields, 'Hours per week');
