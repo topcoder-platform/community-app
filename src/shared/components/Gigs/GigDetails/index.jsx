@@ -116,7 +116,7 @@ function GigDetails(props) {
                     ** USA Visa Holders - Please consult an attorney before applying to any Topcoder Gig. Some visa statuses will or will not allow you to conduct freelance work with Topcoder.
                   </strong>
                   <strong>
-                    *** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:talent.topcoder@wipro.com">talent.topcoder@wipro.com</a>.
+                    *** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:talent.taas@wipro.com">talent.taas@wipro.com</a>.
                   </strong>
                 </div>
                 <div styleName="cta-buttons">
@@ -156,7 +156,7 @@ function GigDetails(props) {
                     </li>
                   </ul>
                 </div>
-                <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:talent.topcoder@wipro.com">talent.topcoder@wipro.com</a>.</div>
+                <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:talent.taas@wipro.com">talent.taas@wipro.com</a>.</div>
                 {
                   isLoginModalOpen && <LoginModal retUrl={retUrl} onCancel={() => setLoginModalOpen(false)} />
                 }
