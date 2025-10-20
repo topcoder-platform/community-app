@@ -15,6 +15,7 @@ import {
   actions as actionsUtils,
 } from 'topcoder-react-lib';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import { EXCLUDED_CHALLENGE_TYPE_NAMES } from 'utils/challenge-listing/constants';
 import filterPanel from './filter-panel';
 import sidebar, { factory as sidebarFactory } from './sidebar';
 
@@ -405,15 +406,24 @@ function onSetFilter(state, { payload }) {
   /* Validation of filter parameters: they may come from URL query, thus
    * validation is not a bad idea. As you may note, at the moment we do not
    * do it very carefuly (many params are not validated). */
+  const basePayload = _.isPlainObject(payload) ? payload : {};
+  const sanitizedPayload = { ...basePayload };
+  const excludedTypeAbbreviations = state.challengeTypes
+    .filter(type => EXCLUDED_CHALLENGE_TYPE_NAMES.includes(type.name))
+    .map(type => type.abbreviation);
+  if (excludedTypeAbbreviations.length && Array.isArray(basePayload.types)) {
+    sanitizedPayload.types = basePayload.types
+      .filter(type => !excludedTypeAbbreviations.includes(type));
+  }
   const filter = _.pickBy(_.pick(
-    payload,
+    sanitizedPayload,
     ['tags', 'types', 'search', 'startDateEnd', 'endDateStart', 'groups', 'events', 'tracks', 'tco', 'isInnovationChallenge'],
   ), value => (!_.isArray(value) && value && value !== '') || (_.isArray(value) && value.length > 0));
 
   const emptyArrayAllowedFields = ['types'];
   emptyArrayAllowedFields.forEach((field) => {
-    if (_.isEqual(payload[field], [])) {
-      filter[field] = payload[field];
+    if (_.isEqual(sanitizedPayload[field], [])) {
+      filter[field] = sanitizedPayload[field];
     }
   });
 
@@ -437,7 +447,7 @@ function onSetFilter(state, { payload }) {
   // console.log(`======`);
   return {
     ...state,
-    filter: _.assign({}, state.filter, payload),
+    filter: _.assign({}, state.filter, sanitizedPayload),
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
