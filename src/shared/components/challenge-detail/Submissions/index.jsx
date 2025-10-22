@@ -180,7 +180,9 @@ class SubmissionsComponent extends React.Component {
   updateSortedSubmissions() {
     const isMM = this.isMM();
     const { submissions, mmSubmissions } = this.props;
-    const sortedSubmissions = _.cloneDeep(isMM ? mmSubmissions : submissions);
+    const source = isMM ? mmSubmissions : submissions;
+    const sourceList = Array.isArray(source) ? source : [];
+    const sortedSubmissions = _.cloneDeep(sourceList);
     this.sortSubmissions(sortedSubmissions);
     this.setState({ sortedSubmissions });
   }
@@ -190,16 +192,36 @@ class SubmissionsComponent extends React.Component {
      * @param {Array} submissions array of submission
      */
   sortSubmissions(submissions) {
+    if (!Array.isArray(submissions) || !submissions.length) {
+      return;
+    }
     const isMM = this.isMM();
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
-    if (field === 'Initial Score' || 'Final Score') {
+    if (field === 'Initial Score' || field === 'Final Score') {
       isHaveFinalScore = _.some(submissions, s => !_.isNil(
         s.review && s.finalScore,
       ));
     }
-    return sortList(submissions, field, sort, (a, b) => {
+    const toSubmissionTime = (entry) => {
+      const latest = _.get(entry, ['submissions', 0]);
+      if (!latest) {
+        return null;
+      }
+      const { submissionTime } = latest;
+      if (!submissionTime) {
+        return null;
+      }
+      const timestamp = new Date(submissionTime).getTime();
+      return Number.isFinite(timestamp) ? timestamp : null;
+    };
+    const toRankValue = rank => (_.isFinite(rank) ? rank : Number.MAX_SAFE_INTEGER);
+    const toScoreValue = (score) => {
+      const numeric = Number(score);
+      return Number.isFinite(numeric) ? numeric : null;
+    };
+    sortList(submissions, field, sort, (a, b) => {
       let valueA = 0;
       let valueB = 0;
       let valueIsString = false;
@@ -227,12 +249,14 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Time':
-          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
-          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
+          valueA = toSubmissionTime(a);
+          valueB = toSubmissionTime(b);
           break;
         case 'Submission Date': {
-          valueA = new Date(a.created || a.createdAt);
-          valueB = new Date(b.created || b.createdAt);
+          const createdA = a.created || a.createdAt;
+          const createdB = b.created || b.createdAt;
+          valueA = createdA ? new Date(createdA).getTime() : null;
+          valueB = createdB ? new Date(createdB).getTime() : null;
           break;
         }
         case 'Initial Score': {
@@ -250,25 +274,25 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Final Rank': {
-          if (this.checkIsReviewPhaseComplete()) {
-            valueA = a.finalRank ? a.finalRank : 0;
-            valueB = b.finalRank ? b.finalRank : 0;
+          if (isReviewPhaseComplete) {
+            valueA = toRankValue(_.get(a, 'finalRank'));
+            valueB = toRankValue(_.get(b, 'finalRank'));
           }
           break;
         }
         case 'Provisional Rank': {
-          valueA = a.provisionalRank ? a.provisionalRank : 0;
-          valueB = b.provisionalRank ? b.provisionalRank : 0;
+          valueA = toRankValue(_.get(a, 'provisionalRank'));
+          valueB = toRankValue(_.get(b, 'provisionalRank'));
           break;
         }
         case 'Final Score': {
-          valueA = getFinalScore(a);
-          valueB = getFinalScore(b);
+          valueA = toScoreValue(getFinalScore(a));
+          valueB = toScoreValue(getFinalScore(b));
           break;
         }
         case 'Provisional Score': {
-          valueA = getProvisionalScore(a);
-          valueB = getProvisionalScore(b);
+          valueA = toScoreValue(getProvisionalScore(a));
+          valueB = toScoreValue(getProvisionalScore(b));
           break;
         }
         default:
@@ -1020,7 +1044,10 @@ SubmissionsComponent.propTypes = {
   submissionHistoryOpen: PT.shape({}).isRequired,
   loadMMSubmissions: PT.func.isRequired,
   mmSubmissions: PT.arrayOf(PT.shape()).isRequired,
-  loadingMMSubmissionsForChallengeId: PT.string.isRequired,
+  loadingMMSubmissionsForChallengeId: PT.oneOfType([
+    PT.string,
+    PT.oneOf([null]),
+  ]).isRequired,
   isLoadingSubmissionInformation: PT.bool,
   submissionInformation: PT.shape(),
   loadSubmissionInformation: PT.func.isRequired,

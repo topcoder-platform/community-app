@@ -65,6 +65,7 @@ module.exports = {
     THRIVE_FEED: 'https://topcoder.com/api/feeds/thrive',
     TIMELINE_WALL_API: 'https://api.topcoder.com/v5/timeline-wall',
     REVIEW_TYPES_API_URL: '/reviewTypes',
+    REVIEW_SUMMATIONS_API_URL: '/reviewSummations',
   },
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */

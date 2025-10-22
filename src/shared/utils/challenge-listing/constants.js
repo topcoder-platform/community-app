@@ -1,2 +1,4 @@
-export const EXCLUDED_CHALLENGE_TYPE_NAMES = ['Topgear Task'];
+const EXCLUDED_CHALLENGE_TYPE_NAMES = ['Topgear Task'];
 
+export { EXCLUDED_CHALLENGE_TYPE_NAMES };
+export default EXCLUDED_CHALLENGE_TYPE_NAMES;

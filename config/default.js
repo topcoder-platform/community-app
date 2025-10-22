@@ -172,6 +172,7 @@ module.exports = {
     }],
     TIMELINE_WALL_API: 'https://api.topcoder-dev.com/v5/timeline-wall',
     REVIEW_TYPES_API_URL: '/reviewTypes',
+    REVIEW_SUMMATIONS_API_URL: '/reviewSummations',
   },
 
   /* Information about Topcoder user groups can be cached in various places.

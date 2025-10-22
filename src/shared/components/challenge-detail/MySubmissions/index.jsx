@@ -197,7 +197,10 @@ MySubmissionsView.propTypes = {
   submissionEnded: PT.bool.isRequired,
   isMM: PT.bool.isRequired,
   isLegacyMM: PT.bool.isRequired,
-  loadingMMSubmissionsForChallengeId: PT.string.isRequired,
+  loadingMMSubmissionsForChallengeId: PT.oneOfType([
+    PT.string,
+    PT.oneOf([null]),
+  ]).isRequired,
   auth: PT.shape().isRequired,
   loadMMSubmissions: PT.func.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
