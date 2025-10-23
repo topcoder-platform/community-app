@@ -13,7 +13,6 @@ const { api } = services;
 
 export const {
   OLD_COMPETITION_TRACKS,
-  COMPETITION_TRACKS,
   CHALLENGE_STATUS,
 } = tc;
 
@@ -25,7 +24,7 @@ export const REVIEW_OPPORTUNITY_TYPES = {
   SCENARIOS_REVIEW: 'Scenarios Review',
 };
 
-export const CHALLENGE_TRACKS = {
+export const COMPETITION_TRACKS = {
   DS: 'DATA_SCIENCE',
   DES: 'DESIGN',
   DEV: 'DEVELOPMENT',
