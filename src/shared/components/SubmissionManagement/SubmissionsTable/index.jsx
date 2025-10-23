@@ -46,9 +46,7 @@ export default function SubmissionsTable(props) {
     submissionPhaseStartDate,
     onDownloadArtifacts,
     getSubmissionArtifacts,
-    getReviewTypesList,
-    getChallengeResources,
-    getSubmissionInformation,
+    getSubmissionScores,
   } = props;
 
   const onOpenDownloadArtifactsModal = useCallback((id) => {
@@ -159,11 +157,9 @@ export default function SubmissionsTable(props) {
             setSubmissionId('');
             setShowRatingsListModal(false);
           }}
-          getReviewTypesList={getReviewTypesList}
-          getChallengeResources={getChallengeResources}
           submissionId={submissionId}
           challengeId={challenge.id}
-          getSubmissionInformation={getSubmissionInformation}
+          getSubmissionScores={getSubmissionScores}
         />
       )}
     </div>
@@ -189,9 +185,7 @@ SubmissionsTable.defaultProps = {
   getSubmissionArtifacts: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
-  getReviewTypesList: _.noop,
-  getChallengeResources: _.noop,
-  getSubmissionInformation: _.noop,
+  getSubmissionScores: _.noop,
 };
 
 SubmissionsTable.propTypes = {
@@ -208,7 +202,5 @@ SubmissionsTable.propTypes = {
   getSubmissionArtifacts: PT.func,
   status: PT.string.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
-  getReviewTypesList: PT.func,
-  getChallengeResources: PT.func,
-  getSubmissionInformation: PT.func,
+  getSubmissionScores: PT.func,
 };
