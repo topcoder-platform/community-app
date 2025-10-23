@@ -74,7 +74,7 @@ export default function Submission(props) {
         {formatDate(submissionObject.created)}
       </td>
       {
-         track === COMPETITION_TRACKS.COMPETITION_TRACKS.DES && (
+         track === 'DESIGN' && (
            <td styleName="status-col">
              <span styleName="mobile-header">Screening Status</span>
              {safeForDownloadCheck !== true ? safeForDownloadCheck : submissionObject.screening
