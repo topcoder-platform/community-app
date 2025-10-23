@@ -182,7 +182,7 @@ workflows:
               only:
                 - develop
                 - v6
-                - PM-2233
+                - PM-2479
 
       - "build-prod":
           context: org-global
