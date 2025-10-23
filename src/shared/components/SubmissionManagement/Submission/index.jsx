@@ -139,7 +139,7 @@ export default function Submission(props) {
            ><DownloadIcon /></button>
            */ }
           {status !== CHALLENGE_STATUS.COMPLETED
-             && track === COMPETITION_TRACKS.DES
+             && track === 'DESIGN'
              && safeForDownloadCheck === true && (
              <button
                styleName="delete-icon"
