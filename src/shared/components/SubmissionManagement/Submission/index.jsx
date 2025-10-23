@@ -14,7 +14,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { CHALLENGE_STATUS, safeForDownload } from 'utils/tc';
+import { CHALLENGE_STATUS, CHALLENGE_TRACKS, safeForDownload } from 'utils/tc';
 
 import PT from 'prop-types';
 
@@ -74,7 +74,7 @@ export default function Submission(props) {
         {formatDate(submissionObject.created)}
       </td>
       {
-         track === 'DESIGN' && (
+         track === CHALLENGE_TRACKS.DES && (
            <td styleName="status-col">
              <span styleName="mobile-header">Screening Status</span>
              {safeForDownloadCheck !== true ? safeForDownloadCheck : submissionObject.screening
@@ -139,7 +139,7 @@ export default function Submission(props) {
            ><DownloadIcon /></button>
            */ }
           {status !== CHALLENGE_STATUS.COMPLETED
-             && track === 'DESIGN'
+             && track === CHALLENGE_TRACKS.DES
              && safeForDownloadCheck === true && (
              <button
                styleName="delete-icon"

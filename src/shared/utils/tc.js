@@ -25,6 +25,13 @@ export const REVIEW_OPPORTUNITY_TYPES = {
   SCENARIOS_REVIEW: 'Scenarios Review',
 };
 
+export const CHALLENGE_TRACKS = {
+  DS: 'DATA_SCIENCE',
+  DES: 'DESIGN',
+  DEV: 'DEVELOPMENT',
+  QA: 'QUALITY_ASSURANCE',
+};
+
 /**
  * Possible phase types (at the moment, this map does not cover all
  * possibilities).
