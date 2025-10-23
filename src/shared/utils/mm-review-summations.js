@@ -13,10 +13,10 @@ function normalizeScoreValue(score) {
 
 function getSummationTimestamp(summation) {
   const candidates = [
-    _.get(summation, 'reviewedDate'),
     _.get(summation, 'createdAt'),
-    _.get(summation, 'updatedAt'),
     _.get(summation, 'created'),
+    _.get(summation, 'reviewedDate'),
+    _.get(summation, 'updatedAt'),
   ];
   return _.find(candidates, value => !!value) || null;
 }

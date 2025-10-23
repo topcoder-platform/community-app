@@ -903,9 +903,10 @@ function mapStateToProps(state, props) {
           ? submission.submissions.map((attempt, attemptIndex) => {
             const normalizedAttempt = { ...attempt };
             if (!normalizedAttempt.submissionTime) {
-              normalizedAttempt.submissionTime = normalizedAttempt.reviewedDate
+              normalizedAttempt.submissionTime = normalizedAttempt.createdAt
                 || normalizedAttempt.created
-                || normalizedAttempt.createdAt
+                || normalizedAttempt.reviewedDate
+                || normalizedAttempt.updatedAt
                 || null;
             }
             if (!normalizedAttempt.submissionId && normalizedAttempt.id) {
