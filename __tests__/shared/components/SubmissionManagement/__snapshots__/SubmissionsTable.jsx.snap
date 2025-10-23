@@ -17,11 +17,6 @@ exports[`Matches shallow shapshot 1`] = `
           Submission Date
         </th>
         <th
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1X1-o"
-        >
-          Screening Status
-        </th>
-        <th
           className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
         >
           Actions
@@ -78,11 +73,6 @@ exports[`Matches shallow shapshot 2`] = `
         </th>
         <th>
           Submission Date
-        </th>
-        <th
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1X1-o"
-        >
-          Screening Status
         </th>
         <th
           className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
