@@ -14,7 +14,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { COMPETITION_TRACKS, CHALLENGE_STATUS, safeForDownload } from 'utils/tc';
+import { CHALLENGE_STATUS, safeForDownload } from 'utils/tc';
 
 import PT from 'prop-types';
 
