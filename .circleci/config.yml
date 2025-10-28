@@ -95,7 +95,7 @@ jobs:
     environment:
       DEPLOY_ENV: "DEV"
       LOGICAL_ENV: "dev"
-      APPNAME: "community-app-v6"    
+      APPNAME: "community-app"    
     steps: *build_steps
 
   # Build & Deploy against production backend
@@ -104,7 +104,7 @@ jobs:
     environment:
       DEPLOY_ENV: "PROD"
       LOGICAL_ENV: "prod"
-      APPNAME: "community-app-v6"
+      APPNAME: "community-app"
     steps: *build_steps
 
 
