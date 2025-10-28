@@ -9,6 +9,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import cn from 'classnames';
 import { getRatingLevel } from 'utils/tc';
+import { getTrackName } from 'utils/challenge';
 
 import sortList from 'utils/challenge-detail/sort';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
@@ -286,9 +287,12 @@ export default class Registrants extends React.Component {
 
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
-    const isDesign = track.toLowerCase() === 'design';
+    const isDesign = (getTrackName(track) || '').toLowerCase() === 'design';
 
-    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    const placementPrizes = _.find(
+      prizeSets,
+      prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',
+    );
     const { prizes } = placementPrizes || [];
 
     const checkpoints = challenge.checkpoints || [];

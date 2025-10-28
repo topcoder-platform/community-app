@@ -36,26 +36,40 @@ export default function SubmissionHistoryRow({
 }) {
   // todo: hide download button until update submissions API
   const hideDownloadForMMRDM = true;
+  const parseScore = (value) => {
+    const numeric = Number(value);
+    return Number.isFinite(numeric) ? numeric : null;
+  };
+  const provisionalScoreValue = parseScore(provisionalScore);
+  const finalScoreValue = parseScore(finalScore);
+  const submissionMoment = submissionTime ? moment(submissionTime) : null;
+  const submissionTimeDisplay = submissionMoment
+    ? `${submissionMoment.format('DD MMM YYYY')} ${submissionMoment.format('HH:mm:ss')}`
+    : 'N/A';
   const getInitialReviewResult = () => {
-    if (provisionalScore && provisionalScore < 0) return <FailedSubmissionTooltip />;
+    if (status === 'failed') return <FailedSubmissionTooltip />;
+    if (status === 'in-review') return <InReview />;
+    if (status === 'queued') return <Queued />;
+    if (provisionalScoreValue === null) return 'N/A';
+    if (provisionalScoreValue < 0) return <FailedSubmissionTooltip />;
     switch (status) {
       case 'completed':
-        return provisionalScore;
-      case 'in-review':
-        return <InReview />;
-      case 'queued':
-        return <Queued />;
-      case 'failed':
-        return <FailedSubmissionTooltip />;
+        return provisionalScoreValue;
       default:
-        return provisionalScore === '-' ? 'N/A' : provisionalScore;
+        return provisionalScoreValue;
     }
   };
   const getFinalScore = () => {
-    if (isMM && finalScore && finalScore > -1 && isReviewPhaseComplete) {
-      return finalScore;
+    if (!isReviewPhaseComplete) {
+      return 'N/A';
     }
-    return 'N/A';
+    if (finalScoreValue === null) {
+      return 'N/A';
+    }
+    if (finalScoreValue < 0) {
+      return 0;
+    }
+    return finalScoreValue;
   };
 
   return (
@@ -80,7 +94,7 @@ export default function SubmissionHistoryRow({
         <div styleName={`col-4 col ${isMM ? 'mm' : ''}`}>
           <div styleName="mobile-header">TIME</div>
           <div>
-            {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
+            {submissionTimeDisplay}
           </div>
         </div>
         {
@@ -129,13 +143,18 @@ SubmissionHistoryRow.propTypes = {
   finalScore: PT.oneOfType([
     PT.number,
     PT.string,
+    PT.oneOf([null]),
   ]),
   status: PT.string.isRequired,
   provisionalScore: PT.oneOfType([
     PT.number,
     PT.string,
+    PT.oneOf([null]),
   ]),
-  submissionTime: PT.string.isRequired,
+  submissionTime: PT.oneOfType([
+    PT.string,
+    PT.oneOf([null]),
+  ]).isRequired,
   challengeStatus: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
   auth: PT.shape().isRequired,

@@ -8,6 +8,7 @@ module.exports = {
     V3: 'https://api.topcoder-dev.com/v3',
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
+    V6: 'https://api.topcoder-dev.com/v6',
     MM_BROKER: '/api',
   },
 
@@ -170,7 +171,8 @@ module.exports = {
       groupId: '20000000', communityId: 'wipro', communityName: 'topgear', userProfile: 'https://topgear-app.wipro.com/user-details',
     }],
     TIMELINE_WALL_API: 'https://api.topcoder-dev.com/v5/timeline-wall',
-    REVIEW_API_URL: '/reviewTypes',
+    REVIEW_TYPES_API_URL: '/reviewTypes',
+    REVIEW_SUMMATIONS_API_URL: '/reviewSummations',
   },
 
   /* Information about Topcoder user groups can be cached in various places.

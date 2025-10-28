@@ -96,7 +96,7 @@ export default {
     order: 'asc',
   },
   [SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z]: {
-    func: (a, b) => a.challenge.title.localeCompare(b.challenge.title),
+    func: (a, b) => a.challengeName.localeCompare(b.challengeName),
     name: 'Title A-Z',
   },
   [SORTS.REVIEW_OPPORTUNITIES_PAYMENT]: {

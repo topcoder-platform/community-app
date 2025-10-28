@@ -11,7 +11,7 @@ import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
 import { config } from 'topcoder-react-utils';
-import { isMM } from 'utils/challenge';
+import { isMM, getTrackName } from 'utils/challenge';
 
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
@@ -88,7 +88,8 @@ export default function ChallengeDetailsView(props) {
 
   let forumLink = '';
   if (forumId > 0) {
-    forumLink = track.toLowerCase() === 'design'
+    const trackName = (getTrackName(track) || '').toLowerCase();
+    forumLink = trackName === 'design'
       ? `/?module=ThreadList&forumID=${forumId}`
       : `/?module=Category&categoryID=${forumId}`;
   }
@@ -108,7 +109,7 @@ export default function ChallengeDetailsView(props) {
   }
 
   let accentedStyle = '';
-  switch (track.toLowerCase()) {
+  switch ((getTrackName(track) || '').toLowerCase()) {
     case 'design':
       accentedStyle = 'challenge-specs-design';
       break;
@@ -187,7 +188,7 @@ export default function ChallengeDetailsView(props) {
         <div styleName="challenge-specifications">
           <div styleName={`challenge-specs-main ${accentedStyle}`}>
             {
-              track.toLowerCase() !== 'design'
+              (getTrackName(track) || '').toLowerCase() !== 'design'
                 ? (
                   <div>
                     {
@@ -366,8 +367,8 @@ export default function ChallengeDetailsView(props) {
             legacyId={legacyId}
             forumLink={forumLink}
             discuss={discuss}
-            isDesign={track.toLowerCase() === 'design'}
-            isDevelop={track.toLowerCase() === 'development'}
+            isDesign={(getTrackName(track) || '').toLowerCase() === 'design'}
+            isDevelop={(getTrackName(track) || '').toLowerCase() === 'development'}
             eventDetail={_.isEmpty(events) ? null : events[0]}
             isMM={isMM(challenge)}
             terms={terms}
@@ -417,7 +418,7 @@ ChallengeDetailsView.propTypes = {
       forumId: PT.number,
       selfService: PT.bool,
     }),
-    track: PT.string.isRequired,
+    track: PT.oneOfType([PT.string, PT.shape()]).isRequired,
     legacyId: PT.oneOfType([PT.string, PT.number]),
     groups: PT.any,
     reviewType: PT.string,

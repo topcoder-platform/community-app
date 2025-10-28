@@ -8,7 +8,12 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
-import { isMM as checkIsMM, isRDM as checkIsRDM } from 'utils/challenge';
+import {
+  isMM as checkIsMM,
+  isRDM as checkIsRDM,
+  getTrackName,
+  getTypeName,
+} from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -45,9 +50,12 @@ import {
 } from 'utils/tc';
 import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
-import { actions } from 'topcoder-react-lib';
+import { decodeToken } from '@topcoder-platform/tc-auth-lib';
+import { actions, services } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
+import getReviewSummationsService from 'services/reviewSummations';
+import { buildMmSubmissionData, buildStatisticsData } from 'utils/mm-review-summations';
 // import {
 // getDisplayRecommendedChallenges,
 // getRecommendedTags,
@@ -87,6 +95,7 @@ import './styles.scss';
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
 const DAY = 24 * 60 * MIN;
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
  * Given challenge details object, it returns the URL of the image to be used in
@@ -97,6 +106,8 @@ const DAY = 24 * 60 * MIN;
 function getOgImage(challenge) {
   const { legacy } = challenge;
   const { subTrack } = legacy;
+  const trackName = getTrackName(challenge);
+  const typeName = getTypeName(challenge);
   if (challenge.name.startsWith('LUX -')) return ogBigPrizesChallenge;
   if (challenge.name.startsWith('RUX -')) return ogBigPrizesChallenge;
   if (challenge.prizes) {
@@ -106,15 +117,15 @@ function getOgImage(challenge) {
 
   switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH:
-      switch (challenge.track) {
-        case COMPETITION_TRACKS_V3.DEVELOP: return challenge.type === 'Task' ? ogDEVTask : ogFirst2FinishDEV;
-        case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogFirst2FinishQA;
+      switch (trackName) {
+        case COMPETITION_TRACKS_V3.DEVELOP: return typeName === 'Task' ? ogDEVTask : ogFirst2FinishDEV;
+        case COMPETITION_TRACKS_V3.QA: return typeName === 'Task' ? ogQATask : ogFirst2FinishQA;
         default: return ogFirst2FinishDEV;
       }
 
     case SUBTRACKS.DESIGN_FIRST_2_FINISH:
-      switch (challenge.track) {
-        case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
+      switch (trackName) {
+        case COMPETITION_TRACKS_V3.DESIGN: return typeName === 'Task' ? ogDESIGNTask : ogFirst2FinishDESIGN;
         default: return ogUiDesign;
       }
 
@@ -139,11 +150,11 @@ function getOgImage(challenge) {
     default:
   }
 
-  switch (challenge.track) {
+  switch (trackName) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
-    case COMPETITION_TRACKS_V3.DESIGN: return challenge.type === 'Task' ? ogDESIGNTask : ogUiDesign;
+    case COMPETITION_TRACKS_V3.DESIGN: return typeName === 'Task' ? ogDESIGNTask : ogUiDesign;
     case COMPETITION_TRACKS_V3.DS: return ogDSChallenge;
-    case COMPETITION_TRACKS_V3.QA: return challenge.type === 'Task' ? ogQATask : ogQAChallenge;
+    case COMPETITION_TRACKS_V3.QA: return typeName === 'Task' ? ogQATask : ogQAChallenge;
     default: return ogImage;
   }
 }
@@ -223,7 +234,7 @@ class ChallengeDetailPageContainer extends React.Component {
       loadChallengeDetails(auth, challengeId);
     }
 
-    fetchChallengeStatistics(auth, challengeId);
+    fetchChallengeStatistics(auth, challenge);
 
     if (!allCountries.length) {
       getAllCountries(auth.tokenV3);
@@ -254,12 +265,21 @@ class ChallengeDetailPageContainer extends React.Component {
       onSelectorClicked,
     } = this.props;
 
+    const previousChallengeId = _.get(challenge, 'id');
+    const nextChallengeId = _.get(nextProps.challenge, 'id');
+
+    if (nextChallengeId
+      && nextChallengeId !== previousChallengeId
+      && checkIsMM(nextProps.challenge)) {
+      nextProps.fetchChallengeStatistics(nextProps.auth, nextProps.challenge);
+    }
+
     if (challenge.isLegacyChallenge && !history.location.pathname.includes(challenge.id)) {
       history.location.pathname = `/challenges/${challenge.id}`; // eslint-disable-line no-param-reassign
       history.push(history.location.pathname, history.state);
     }
 
-    if (!checkIsMM(challenge) && COMPETITION_TRACKS_V3.DS !== challenge.track
+    if (!checkIsMM(challenge) && COMPETITION_TRACKS_V3.DS !== getTrackName(challenge)
       && selectedTab === DETAIL_TABS.MM_DASHBOARD) {
       onSelectorClicked(DETAIL_TABS.DETAILS);
     }
@@ -405,25 +425,28 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const {
       legacy,
-      legacyId,
       status,
       phases,
       metadata,
     } = challenge;
 
     let { track } = legacy || {};
-
     if (!track) {
       /* eslint-disable prefer-destructuring */
       track = challenge.track || '';
     }
+    // Normalize track to a string if needed
+    track = getTrackName(track);
     const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
 
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
 
     const { prizeSets } = challenge;
     let challengePrizes = [];
-    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    const placementPrizes = _.find(
+      prizeSets,
+      prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',
+    );
     if (placementPrizes) {
       challengePrizes = _.filter(placementPrizes.prizes, p => p.value > 0);
     }
@@ -457,7 +480,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
     let winners = challenge.winners || [];
-    if (challenge.type !== 'Task') {
+    if (getTypeName(challenge) !== 'Task') {
       winners = winners.filter(w => !w.type || w.type === 'final');
     }
 
@@ -682,17 +705,17 @@ class ChallengeDetailPageContainer extends React.Component {
               )
             }
           </div>
-          {legacyId && (
-            <Terms
-              defaultTitle="Challenge Prerequisites"
-              entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
-              instanceId={this.instanceId}
-              description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
-              register={() => {
-                registerForChallenge(auth, challengeId);
-              }}
-            />
-          )}
+
+          <Terms
+            defaultTitle="Challenge Prerequisites"
+            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
+            instanceId={this.instanceId}
+            description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
+            register={() => {
+              registerForChallenge(auth, challengeId);
+            }}
+          />
+
           {showSecurityReminder && (
             <SecurityReminder
               onCancel={() => this.setState({ showSecurityReminder: false })}
@@ -747,13 +770,13 @@ ChallengeDetailPageContainer.defaultProps = {
   allCountries: [],
   reviewTypes: [],
   isMenuOpened: false,
-  loadingMMSubmissionsForChallengeId: '',
+  loadingMMSubmissionsForChallengeId: null,
   mmSubmissions: [],
   mySubmissions: [],
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
   // prizeMode: 'money-usd',
-  statisticsData: null,
+  statisticsData: [],
   getSubmissionArtifacts: () => {},
 };
 
@@ -805,7 +828,10 @@ ChallengeDetailPageContainer.propTypes = {
   unregistering: PT.bool.isRequired,
   updateChallenge: PT.func.isRequired,
   isMenuOpened: PT.bool,
-  loadingMMSubmissionsForChallengeId: PT.string,
+  loadingMMSubmissionsForChallengeId: PT.oneOfType([
+    PT.string,
+    PT.oneOf([null]),
+  ]),
   mmSubmissions: PT.arrayOf(PT.shape()),
   loadMMSubmissions: PT.func.isRequired,
   isLoadingSubmissionInformation: PT.bool,
@@ -837,46 +863,213 @@ function mapStateToProps(state, props) {
     }));
 
     if (challenge.submissions) {
-      challenge.submissions = challenge.submissions.map(submission => ({
-        ...submission,
-        registrant: _.find(challenge.registrants, r => (`${r.memberId}` === `${submission.memberId}`)),
-      }));
+      // Normalize submissions shape: API may return { data, meta } now.
+      const normalizedSubmissions = Array.isArray(challenge.submissions)
+        ? challenge.submissions
+        : (_.get(challenge, 'submissions.data') || []);
+
+      challenge.submissions = normalizedSubmissions.map((submission) => {
+        const registrant = _.find(
+          challenge.registrants,
+          r => (`${r.memberId}` === `${submission.memberId}`),
+        );
+        // Ensure legacy fields used in UI exist
+        const created = submission.created || submission.createdAt || null;
+        const updated = submission.updated || submission.updatedAt || null;
+        return ({
+          ...submission,
+          created,
+          updated,
+          registrant,
+        });
+      });
     }
 
+    const loggedInUserId = _.get(auth, 'user.userId');
+    const loggedInUserHandle = _.get(auth, 'user.handle');
     if (!_.isEmpty(mmSubmissions)) {
       mmSubmissions = mmSubmissions.map((submission) => {
-        let registrant;
-        const { memberId } = submission;
-        let member = memberId;
-        if (`${auth.user.userId}` === `${memberId}`) {
-          mySubmissions = submission.submissions || [];
-          mySubmissions.forEach((mySubmission, index) => {
-            mySubmissions[index].id = mySubmissions.length - index;
-          });
+        let memberId = submission.memberId || submission.submitterId;
+        let registrant = submission.registrant;
+        let memberHandle = submission.member || submission.submitterHandle || '';
+        let ratingValue = null;
+        if (_.isFinite(submission.rating)) {
+          ratingValue = submission.rating;
+        } else if (_.isFinite(submission.submitterMaxRating)) {
+          ratingValue = submission.submitterMaxRating;
         }
-        const submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
+
+        const normalizedAttempts = Array.isArray(submission.submissions)
+          ? submission.submissions.map((attempt, attemptIndex) => {
+            const normalizedAttempt = { ...attempt };
+            if (!normalizedAttempt.submissionTime) {
+              normalizedAttempt.submissionTime = normalizedAttempt.createdAt
+                || normalizedAttempt.created
+                || normalizedAttempt.reviewedDate
+                || normalizedAttempt.updatedAt
+                || null;
+            }
+            if (!normalizedAttempt.submissionId && normalizedAttempt.id) {
+              normalizedAttempt.submissionId = `${normalizedAttempt.id}`;
+            }
+
+            const attemptSummations = [];
+            if (Array.isArray(normalizedAttempt.reviewSummations)) {
+              attemptSummations.push(...normalizedAttempt.reviewSummations);
+            }
+            if (Array.isArray(normalizedAttempt.reviewSummation)) {
+              attemptSummations.push(...normalizedAttempt.reviewSummation);
+            }
+
+            let effectiveSummations = attemptSummations;
+            if (!effectiveSummations.length) {
+              const submissionLevelSummations = [];
+              if (Array.isArray(submission.reviewSummations)) {
+                submissionLevelSummations.push(...submission.reviewSummations);
+              }
+              if (Array.isArray(submission.reviewSummation)) {
+                submissionLevelSummations.push(...submission.reviewSummation);
+              }
+              // Fall back to submission-level scores for the latest attempt when
+              // per-attempt review summaries are not available.
+              effectiveSummations = submissionLevelSummations.length && attemptIndex === 0
+                ? submissionLevelSummations
+                : attemptSummations;
+            }
+
+            const toNumericScore = (value) => {
+              const numeric = Number(value);
+              return Number.isFinite(numeric) ? numeric : null;
+            };
+
+            const findScore = (summations, predicate) => {
+              if (!Array.isArray(summations) || !summations.length) {
+                return null;
+              }
+              const match = _.find(summations, predicate);
+              if (!match) {
+                return null;
+              }
+              return toNumericScore(match.aggregateScore);
+            };
+
+            const hasProvisionalScore = !_.isNil(normalizedAttempt.provisionalScore);
+            const hasFinalScore = !_.isNil(normalizedAttempt.finalScore);
+
+            if (!hasProvisionalScore) {
+              const provisionalScore = findScore(
+                effectiveSummations,
+                s => s && (s.isProvisional || _.get(s, 'type', '').toLowerCase() === 'provisional'),
+              );
+              if (!_.isNil(provisionalScore)) {
+                normalizedAttempt.provisionalScore = provisionalScore;
+              }
+            }
+
+            if (!hasFinalScore) {
+              const finalScore = findScore(
+                effectiveSummations,
+                s => s && (s.isFinal || _.get(s, 'type', '').toLowerCase() === 'final'),
+              );
+              if (!_.isNil(finalScore)) {
+                normalizedAttempt.finalScore = finalScore;
+              }
+            }
+            if (process.env.NODE_ENV !== 'production'
+              && _.isNil(normalizedAttempt.provisionalScore)
+              && _.isNil(normalizedAttempt.finalScore)
+              && effectiveSummations.length) {
+              // eslint-disable-next-line no-console
+              console.warn('Submission attempt missing review scores despite summations', {
+                attemptId: normalizedAttempt.submissionId || normalizedAttempt.id,
+              });
+            }
+
+            return normalizedAttempt;
+          })
+          : [];
+
+        const normalizedHandle = _.toLower(memberHandle || '');
+        let submissionDetail = null;
+        if (memberId) {
+          submissionDetail = _.find(
+            challenge.submissions,
+            s => (`${s.memberId}` === `${memberId}`),
+          );
+        }
+        if (!submissionDetail && normalizedHandle) {
+          submissionDetail = _.find(
+            challenge.submissions,
+            (s) => {
+              const submissionHandle = _.toLower(_.get(s, 'registrant.memberHandle')
+                || _.get(s, 'memberHandle')
+                || _.get(s, 'createdBy')
+                || '');
+              return submissionHandle && submissionHandle === normalizedHandle;
+            },
+          );
+        }
 
         if (submissionDetail) {
-          member = submissionDetail.createdBy;
-          ({ registrant } = submissionDetail);
+          registrant = registrant || submissionDetail.registrant;
+          memberHandle = memberHandle || submissionDetail.createdBy;
+          if (!memberId && submissionDetail.memberId) {
+            memberId = `${submissionDetail.memberId}`;
+          }
         }
 
-        if (!registrant) {
+        if (!registrant && memberId) {
           registrant = _.find(challenge.registrants, r => `${r.memberId}` === `${memberId}`);
+        }
+        if (!registrant && normalizedHandle) {
+          registrant = _.find(
+            challenge.registrants,
+            (r) => {
+              const registrantHandle = _.toLower(r.memberHandle || r.handle || '');
+              return registrantHandle && registrantHandle === normalizedHandle;
+            },
+          );
         }
 
         if (registrant) {
-          member = registrant.memberHandle;
+          memberHandle = memberHandle || registrant.memberHandle;
+          if (!_.isFinite(ratingValue) && _.isFinite(registrant.rating)) {
+            ratingValue = registrant.rating;
+          }
+          if (!memberId && registrant.memberId) {
+            memberId = `${registrant.memberId}`;
+          }
+        }
+
+        if (!memberHandle && !_.isNil(memberId)) {
+          memberHandle = `${memberId}`;
+        }
+
+        const isLoggedInSubmitter = (
+          memberId && loggedInUserId && `${loggedInUserId}` === `${memberId}`
+        ) || (
+          normalizedHandle
+          && loggedInUserHandle
+          && normalizedHandle === _.toLower(loggedInUserHandle)
+        );
+
+        if (isLoggedInSubmitter) {
+          mySubmissions = normalizedAttempts.map((attempt, index) => ({
+            ...attempt,
+            id: normalizedAttempts.length - index,
+          }));
         }
 
         return ({
           ...submission,
+          submissions: normalizedAttempts,
           registrant,
-          member,
+          member: memberHandle,
+          rating: ratingValue,
         });
       });
-    } else {
-      mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
+    } else if (loggedInUserId) {
+      mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${loggedInUserId}`));
     }
   }
   const { page: { challengeDetails: { feedbackOpen } } } = state;
@@ -938,6 +1131,76 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
   const lookupActions = actions.lookup;
+  const challengeActions = actions.challenge || {};
+  const hasReviewSummationsActions = (
+    typeof challengeActions.getReviewSummationsInit === 'function'
+    && typeof challengeActions.getReviewSummationsDone === 'function'
+  );
+
+  const dispatchReviewSummations = (challengeId, tokenV3) => {
+    const challengeIdStr = _.toString(challengeId);
+    if (!challengeIdStr) {
+      return;
+    }
+
+    if (hasReviewSummationsActions) {
+      dispatch(challengeActions.getReviewSummationsInit(challengeIdStr));
+      dispatch(challengeActions.getReviewSummationsDone(challengeIdStr, tokenV3));
+      return;
+    }
+
+    dispatch({
+      type: 'CHALLENGE/GET_REVIEW_SUMMATIONS_INIT',
+      payload: challengeIdStr,
+    });
+    dispatch({
+      type: 'CHALLENGE/GET_MM_SUBMISSIONS_INIT',
+      payload: challengeIdStr,
+    });
+
+    getReviewSummationsService(tokenV3, challengeIdStr)
+      .then(({ data }) => {
+        const reviewSummations = Array.isArray(data) ? data : [];
+        const mmSubmissions = buildMmSubmissionData(reviewSummations);
+        const statisticsData = buildStatisticsData(reviewSummations);
+
+        dispatch({
+          type: 'CHALLENGE/GET_REVIEW_SUMMATIONS_DONE',
+          payload: reviewSummations,
+          meta: { challengeId: challengeIdStr },
+        });
+        dispatch({
+          type: 'CHALLENGE/GET_MM_SUBMISSIONS_DONE',
+          payload: {
+            challengeId: challengeIdStr,
+            submissions: mmSubmissions,
+          },
+        });
+        dispatch({
+          type: 'CHALLENGE/FETCH_CHALLENGE_STATISTICS_DONE',
+          payload: statisticsData,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: 'CHALLENGE/GET_REVIEW_SUMMATIONS_DONE',
+          error: true,
+          payload: { challengeId: challengeIdStr, error },
+          meta: { challengeId: challengeIdStr },
+        });
+        dispatch({
+          type: 'CHALLENGE/GET_MM_SUBMISSIONS_DONE',
+          error: true,
+          payload: { challengeId: challengeIdStr, error },
+        });
+        dispatch({
+          type: 'CHALLENGE/FETCH_CHALLENGE_STATISTICS_DONE',
+          error: true,
+          payload: error,
+        });
+      });
+  };
+
   return {
     // getAllRecommendedChallenges: (tokenV3, recommendedTechnology) => {
     //   const uuid = shortId();
@@ -968,7 +1231,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.track === COMPETITION_TRACKS.DES) {
+          const chTrack = (ch && ch.track && ch.track.name) ? ch.track.name : ch.track;
+          if (chTrack === COMPETITION_TRACKS.DES) {
             const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -986,13 +1250,66 @@ const mapDispatchToProps = (dispatch) => {
     registerForChallenge: (auth, challengeId) => {
       const a = actions.challenge;
       dispatch(a.registerInit());
-      dispatch(a.registerDone(auth, challengeId));
+
+      const challengeService = services.challenge.getService(auth.tokenV3, auth.tokenV2);
+      const apiV6 = services.api.getApi('V6', auth.tokenV3);
+      const actionType = a.registerDone.toString();
+
+      const payload = (async () => {
+        try {
+          if (!auth.tokenV3) {
+            throw new Error('Authentication token is required to register.');
+          }
+
+          const roleId = await challengeService.getRoleId('Submitter');
+          const user = decodeToken(auth.tokenV3);
+          const requestBody = {
+            challengeId,
+            memberHandle: encodeURIComponent(user.handle),
+            roleId,
+          };
+
+          const response = await apiV6.postJson('/resources', requestBody);
+          let responseData = null;
+
+          if (!response.ok) {
+            try {
+              responseData = await response.json();
+            } catch (parseError) {
+              responseData = null;
+            }
+            const error = new Error((responseData && responseData.message)
+              || response.statusText
+              || 'Failed to register for the challenge.');
+            error.status = response.status;
+            if (responseData && responseData.metadata && responseData.metadata.missingTerms) {
+              error.missingTerms = responseData.metadata.missingTerms;
+            }
+            throw error;
+          }
+
+          await response.json().catch(() => null);
+          await wait(config.CHALLENGE_DETAILS_REFRESH_DELAY);
+          return challengeService.getChallengeDetails(challengeId);
+        } catch (err) {
+          if (err.status === 403 && err.missingTerms) {
+            dispatch(termsActions.terms.openTermsModal('ANY'));
+          }
+          throw err;
+        }
+      })();
+
+      return dispatch({
+        type: actionType,
+        payload,
+      });
     },
     reloadChallengeDetails: (tokens, challengeId) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.track === COMPETITION_TRACKS.DES) {
+          const trackName = _.get(challengeDetails, 'track.name', challengeDetails.track);
+          if (trackName === COMPETITION_TRACKS.DES) {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -1053,9 +1370,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },
     loadMMSubmissions: (challengeId, tokenV3) => {
-      const a = actions.challenge;
-      dispatch(a.getMmSubmissionsInit(challengeId));
-      dispatch(a.getMmSubmissionsDone(challengeId, tokenV3));
+      dispatchReviewSummations(challengeId, tokenV3);
     },
     getSubmissionArtifacts:
             (submissionId, tokenV3) => getSubmissionArtifactsService(tokenV3, submissionId),
@@ -1068,10 +1383,17 @@ const mapDispatchToProps = (dispatch) => {
       const a = challengeListingActions.challengeListing;
       dispatch(a.expandTag(id));
     },
-    fetchChallengeStatistics: (tokens, challengeId) => {
-      const a = actions.challenge;
-      dispatch(a.fetchChallengeStatisticsInit());
-      dispatch(a.fetchChallengeStatisticsDone(challengeId, tokens.tokenV3));
+    fetchChallengeStatistics: (tokens, challengeDetails) => {
+      if (!tokens || !tokens.tokenV3 || !challengeDetails || !checkIsMM(challengeDetails)) {
+        return;
+      }
+
+      const challengeId = _.toString(challengeDetails.id || challengeDetails.legacyId);
+      if (!challengeId) {
+        return;
+      }
+
+      dispatchReviewSummations(challengeId, tokens.tokenV3);
     },
   };
 };

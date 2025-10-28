@@ -34,4 +34,7 @@ standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
   PUBLIC_PATH: JSON.stringify(publicPath),
 }));
 
+// Ensure production bundles emit debuggable source maps that can be hosted alongside the assets
+standardDevelopmentConfig.devtool = 'source-map';
+
 module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);

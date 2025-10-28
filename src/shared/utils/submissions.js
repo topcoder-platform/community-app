@@ -8,7 +8,9 @@
  */
 export function getMMSubmissionId(submissions, handle) {
   const filterSubmissions = handle ? submissions.filter(s => s.createdBy === handle) : submissions;
-  const sortedSubmissions = filterSubmissions.sort((a, b) => (a.created < b.created ? 1 : -1));
+  const sortedSubmissions = filterSubmissions.sort((a, b) => (
+    (a.created || a.createdAt) < (b.created || b.createdAt) ? 1 : -1
+  ));
 
   return sortedSubmissions.length > 0 ? sortedSubmissions[0].id : null;
 }

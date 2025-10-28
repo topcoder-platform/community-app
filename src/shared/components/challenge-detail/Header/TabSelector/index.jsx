@@ -16,6 +16,7 @@ import ArrowIcon from 'assets/images/ico-arrow-down.svg';
 import CloseIcon from 'assets/images/icon-close-green.svg';
 import SortIcon from 'assets/images/icon-sort-mobile.svg';
 
+import { getTypeName } from 'utils/challenge';
 import style from './style.scss';
 
 function getSelectorStyle(selectedView, currentView) {
@@ -57,7 +58,7 @@ export default function ChallengeViewSelector(props) {
   const [isTabClosed, setIsTabClosed] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [selectedSortOption, setSelectedSortOption] = useState();
-  const isF2F = type === 'First2Finish';
+  const isF2F = getTypeName({ type }) === 'First2Finish';
   const isBugHunt = _.includes(tags, 'Bug Hunt');
   const isDesign = trackLower === 'design';
 

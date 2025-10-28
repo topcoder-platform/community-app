@@ -6,7 +6,12 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { isMM as checkIsMM, isRDM as checkIsRDM } from 'utils/challenge';
+import {
+  isMM as checkIsMM,
+  isRDM as checkIsRDM,
+  getTrackName,
+  getTypeName,
+} from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -118,11 +123,11 @@ class SubmissionsComponent extends React.Component {
     let score = 'N/A';
     const { challenge } = this.props;
     if (!_.isEmpty(submission.review)
-          && !_.isEmpty(submission.review[0])
-          && submission.review[0].score
-          && (challenge.status === 'Completed'
+          && !_.isEmpty(submission)
+          && submission.initialScore
+          && (challenge.status === 'COMPLETED'
           || (_.includes(challenge.tags, 'Innovation Challenge') && _.find(challenge.metadata, { name: 'show_data_dashboard' })))) {
-      score = Number(submission.review[0].score).toFixed(2);
+      score = Number(submission.initialScore).toFixed(2);
     }
     return score;
   }
@@ -175,7 +180,9 @@ class SubmissionsComponent extends React.Component {
   updateSortedSubmissions() {
     const isMM = this.isMM();
     const { submissions, mmSubmissions } = this.props;
-    const sortedSubmissions = _.cloneDeep(isMM ? mmSubmissions : submissions);
+    const source = isMM ? mmSubmissions : submissions;
+    const sourceList = Array.isArray(source) ? source : [];
+    const sortedSubmissions = _.cloneDeep(sourceList);
     this.sortSubmissions(sortedSubmissions);
     this.setState({ sortedSubmissions });
   }
@@ -185,16 +192,36 @@ class SubmissionsComponent extends React.Component {
      * @param {Array} submissions array of submission
      */
   sortSubmissions(submissions) {
+    if (!Array.isArray(submissions) || !submissions.length) {
+      return;
+    }
     const isMM = this.isMM();
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
-    if (field === 'Initial Score' || 'Final Score') {
+    if (field === 'Initial Score' || field === 'Final Score') {
       isHaveFinalScore = _.some(submissions, s => !_.isNil(
-        s.reviewSummation && s.reviewSummation[0].aggregateScore,
+        s.review && s.finalScore,
       ));
     }
-    return sortList(submissions, field, sort, (a, b) => {
+    const toSubmissionTime = (entry) => {
+      const latest = _.get(entry, ['submissions', 0]);
+      if (!latest) {
+        return null;
+      }
+      const { submissionTime } = latest;
+      if (!submissionTime) {
+        return null;
+      }
+      const timestamp = new Date(submissionTime).getTime();
+      return Number.isFinite(timestamp) ? timestamp : null;
+    };
+    const toRankValue = rank => (_.isFinite(rank) ? rank : Number.MAX_SAFE_INTEGER);
+    const toScoreValue = (score) => {
+      const numeric = Number(score);
+      return Number.isFinite(numeric) ? numeric : null;
+    };
+    sortList(submissions, field, sort, (a, b) => {
       let valueA = 0;
       let valueB = 0;
       let valueIsString = false;
@@ -222,48 +249,50 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Time':
-          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
-          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
+          valueA = toSubmissionTime(a);
+          valueB = toSubmissionTime(b);
           break;
         case 'Submission Date': {
-          valueA = new Date(a.created);
-          valueB = new Date(b.created);
+          const createdA = a.created || a.createdAt;
+          const createdB = b.created || b.createdAt;
+          valueA = createdA ? new Date(createdA).getTime() : null;
+          valueB = createdB ? new Date(createdB).getTime() : null;
           break;
         }
         case 'Initial Score': {
           if (isHaveFinalScore) {
-            valueA = getFinalScore(a);
-            valueB = getFinalScore(b);
+            valueA = !_.isEmpty(a.review) && a.finalScore;
+            valueB = !_.isEmpty(b.review) && b.finalScore;
           } else if (valueA.score || valueB.score) {
             // Handle MM formatted scores in a code challenge (PS-295)
             valueA = Number(valueA.score);
             valueB = Number(valueB.score);
           } else {
-            valueA = !_.isEmpty(a.review) && a.review[0].score;
-            valueB = !_.isEmpty(b.review) && b.review[0].score;
+            valueA = !_.isEmpty(a.review) && a.initialScore;
+            valueB = !_.isEmpty(b.review) && b.initialScore;
           }
           break;
         }
         case 'Final Rank': {
-          if (this.checkIsReviewPhaseComplete()) {
-            valueA = a.finalRank ? a.finalRank : 0;
-            valueB = b.finalRank ? b.finalRank : 0;
+          if (isReviewPhaseComplete) {
+            valueA = toRankValue(_.get(a, 'finalRank'));
+            valueB = toRankValue(_.get(b, 'finalRank'));
           }
           break;
         }
         case 'Provisional Rank': {
-          valueA = a.provisionalRank ? a.provisionalRank : 0;
-          valueB = b.provisionalRank ? b.provisionalRank : 0;
+          valueA = toRankValue(_.get(a, 'provisionalRank'));
+          valueB = toRankValue(_.get(b, 'provisionalRank'));
           break;
         }
         case 'Final Score': {
-          valueA = getFinalScore(a);
-          valueB = getFinalScore(b);
+          valueA = toScoreValue(getFinalScore(a));
+          valueB = toScoreValue(getFinalScore(b));
           break;
         }
         case 'Provisional Score': {
-          valueA = getProvisionalScore(a);
-          valueB = getProvisionalScore(b);
+          valueA = toScoreValue(getProvisionalScore(a));
+          valueB = toScoreValue(getProvisionalScore(b));
           break;
         }
         default:
@@ -284,7 +313,8 @@ class SubmissionsComponent extends React.Component {
 
   isMM() {
     const { challenge } = this.props;
-    return challenge.track.toLowerCase() === 'data science' || checkIsMM(challenge);
+    const trackName = getTrackName(challenge);
+    return (trackName || '').toLowerCase() === 'data science' || checkIsMM(challenge);
   }
 
   /**
@@ -336,6 +366,8 @@ class SubmissionsComponent extends React.Component {
       type,
       tags,
     } = challenge;
+    const trackName = getTrackName(track);
+    const typeName = getTypeName(type);
     // todo: hide download button until update submissions API
     const hideDownloadForMMRDM = true;
 
@@ -414,7 +446,7 @@ class SubmissionsComponent extends React.Component {
       </div>
     );
 
-    const isF2F = type === 'First2Finish';
+    const isF2F = typeName === 'First2Finish';
     const isBugHunt = _.includes(tags, 'Bug Hunt');
 
     // copy colorStyle from registrants to submissions
@@ -434,7 +466,7 @@ class SubmissionsComponent extends React.Component {
       }
     });
 
-    if (track.toLowerCase() === 'design') {
+    if ((trackName || '').toLowerCase() === 'design') {
       return challenge.submissionViewable === 'true' ? (
         <div styleName="container view">
           <div styleName="title">
@@ -902,7 +934,7 @@ class SubmissionsComponent extends React.Component {
           {
             !isMM && (
               sortedSubmissions.map(s => (
-                <div key={_.get(s.registrant, 'memberHandle', '') + s.created} styleName="row">
+                <div key={_.get(s.registrant, 'memberHandle', '') + (s.created || s.createdAt)} styleName="row">
                   {
                     !isF2F && !isBugHunt && (
                       <React.Fragment>
@@ -927,7 +959,7 @@ class SubmissionsComponent extends React.Component {
                   <div styleName="col-4">
                     <div styleName="mobile-header">SUBMISSION DATE</div>
                     <p>
-                      {moment(s.created).format('MMM DD, YYYY HH:mm')}
+                      {moment(s.created || s.createdAt).format('MMM DD, YYYY HH:mm')}
                     </p>
                   </div>
                   <div styleName="col-5">
@@ -940,8 +972,8 @@ class SubmissionsComponent extends React.Component {
                     <div styleName="mobile-header">FINAL SCORE</div>
                     <p>
                       {
-                        (s.reviewSummation && s.reviewSummation[0].aggregateScore && challenge.status === 'Completed')
-                          ? s.reviewSummation[0].aggregateScore.toFixed(2)
+                        (s.review && s.finalScore && challenge.status === 'COMPLETED')
+                          ? Number(s.finalScore).toFixed(2)
                           : 'N/A'
                       }
                     </p>
@@ -1012,7 +1044,10 @@ SubmissionsComponent.propTypes = {
   submissionHistoryOpen: PT.shape({}).isRequired,
   loadMMSubmissions: PT.func.isRequired,
   mmSubmissions: PT.arrayOf(PT.shape()).isRequired,
-  loadingMMSubmissionsForChallengeId: PT.string.isRequired,
+  loadingMMSubmissionsForChallengeId: PT.oneOfType([
+    PT.string,
+    PT.oneOf([null]),
+  ]).isRequired,
   isLoadingSubmissionInformation: PT.bool,
   submissionInformation: PT.shape(),
   loadSubmissionInformation: PT.func.isRequired,

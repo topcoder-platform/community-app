@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { actions, services } from 'topcoder-react-lib';
-import getReviewTypes from 'services/reviewTypes';
+import getReviewSummationsService from 'services/reviewSummations';
 import { getSubmissionArtifacts, downloadSubmissions } from 'services/submissions';
 
 import style from './styles.scss';
@@ -24,7 +24,121 @@ import smpActions from '../../actions/page/submission_management';
 
 
 const { getService } = services.submissions;
-const { getService: getMemberService } = services.members;
+const SUMMATION_TYPE_PRIORITY = {
+  example: 0,
+  provisional: 1,
+  final: 2,
+  other: 3,
+};
+
+const normalizeTimestamp = (value) => {
+  if (!value) {
+    return 0;
+  }
+  const parsed = new Date(value).getTime();
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
+const ensureMetadataObject = metadata => ((metadata && typeof metadata === 'object') ? metadata : {});
+
+const deriveSummationType = (summation) => {
+  const metadata = ensureMetadataObject(_.get(summation, 'metadata'));
+  const metaStage = _.toLower(_.get(metadata, 'stage', ''));
+  const metaTestType = _.toLower(_.get(metadata, 'testType', ''));
+  const isExample = summation.isExample === true || metaTestType === 'example';
+  const isProvisional = summation.isProvisional === true || metaTestType === 'provisional';
+  const isFinal = summation.isFinal === true || metaStage === 'final';
+
+  if (isExample) {
+    return { key: 'example', label: 'Example' };
+  }
+  if (isProvisional) {
+    return { key: 'provisional', label: 'Provisional' };
+  }
+  if (isFinal) {
+    return { key: 'final', label: 'Final' };
+  }
+  return { key: 'other', label: 'Score' };
+};
+
+const mergeSubmissionWithSummations = (submission, reviewSummationsBySubmission) => {
+  if (!submission) {
+    return submission;
+  }
+  const submissionId = _.toString(submission.id || submission.submissionId);
+  if (!submissionId) {
+    return submission;
+  }
+
+  const summations = reviewSummationsBySubmission[submissionId];
+  if (!Array.isArray(summations) || !summations.length) {
+    return submission;
+  }
+
+  return {
+    ...submission,
+    reviewSummations: summations,
+    reviewSummation: summations,
+  };
+};
+
+const buildScoreEntries = (summations = []) => {
+  if (!Array.isArray(summations) || !summations.length) {
+    return [];
+  }
+
+  const latestByType = new Map();
+
+  summations.forEach((summation, index) => {
+    if (!summation) {
+      return;
+    }
+
+    const { key, label } = deriveSummationType(summation);
+    const timestampRaw = summation.reviewedDate
+      || summation.updatedAt
+      || summation.createdAt
+      || null;
+    const timestampValue = normalizeTimestamp(timestampRaw);
+    const reviewer = summation.updatedBy || summation.createdBy || 'System';
+    const aggregateScore = _.get(summation, 'aggregateScore');
+    let normalizedScore = null;
+    if (!_.isNil(aggregateScore) && aggregateScore !== '') {
+      if (Number.isFinite(aggregateScore)) {
+        normalizedScore = aggregateScore;
+      } else {
+        const parsedScore = Number(aggregateScore);
+        normalizedScore = Number.isFinite(parsedScore) ? parsedScore : aggregateScore;
+      }
+    }
+
+    const entry = {
+      id: summation.id || `${summation.submissionId || 'submission'}-${key}-${index}`,
+      label,
+      reviewer: reviewer || 'System',
+      score: _.isNil(normalizedScore) ? null : normalizedScore,
+      isPassing: typeof summation.isPassing === 'boolean' ? summation.isPassing : null,
+      reviewedOn: timestampRaw,
+      orderKey: key,
+      orderValue: SUMMATION_TYPE_PRIORITY[key] || SUMMATION_TYPE_PRIORITY.other,
+      timestampValue,
+    };
+
+    const existing = latestByType.get(key);
+    if (!existing || entry.timestampValue > existing.timestampValue) {
+      latestByType.set(key, entry);
+    }
+  });
+
+  return Array.from(latestByType.values())
+    .sort((a, b) => {
+      if (a.orderValue !== b.orderValue) {
+        return a.orderValue - b.orderValue;
+      }
+      return b.timestampValue - a.timestampValue;
+    })
+    .map(entry => _.omit(entry, ['orderKey', 'orderValue', 'timestampValue']));
+};
 
 const theme = {
   container: style.modalContainer,
@@ -35,14 +149,19 @@ class SubmissionManagementPageContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.pendingReviewSummationChallengeId = null;
+    this.isComponentMounted = false;
+
     this.state = {
       needReload: false,
       initialState: true,
       submissions: [],
+      reviewSummationsBySubmission: {},
     };
   }
 
   componentDidMount() {
+    this.isComponentMounted = true;
     const {
       authTokens,
       challenge,
@@ -60,6 +179,8 @@ class SubmissionManagementPageContainer extends React.Component {
     if (challengeId !== loadingSubmissionsForChallengeId) {
       loadMySubmissions(authTokens, challengeId);
     }
+
+    this.loadReviewSummations(_.get(authTokens, 'tokenV3'), challengeId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,6 +194,7 @@ class SubmissionManagementPageContainer extends React.Component {
         this.setState({ needReload: true });
         setTimeout(() => {
           loadMySubmissions(authTokens, challengeId);
+          this.loadReviewSummations(_.get(authTokens, 'tokenV3'), challengeId);
           this.setState({ needReload: false });
         }, 2000);
       }
@@ -84,17 +206,32 @@ class SubmissionManagementPageContainer extends React.Component {
       deletionSucceed,
       toBeDeletedId,
       mySubmissions,
+      authTokens,
+      challengeId,
     } = this.props;
     const { initialState } = this.state;
 
     if (initialState && mySubmissions) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        submissions: [...mySubmissions],
+        submissions: this.buildSubmissionsArray(mySubmissions),
         initialState: false,
       });
       return;
     }
+
+    if (challengeId !== prevProps.challengeId
+      || _.get(authTokens, 'tokenV3') !== _.get(prevProps.authTokens, 'tokenV3')) {
+      this.loadReviewSummations(_.get(authTokens, 'tokenV3'), challengeId);
+    }
+
+    if (mySubmissions !== prevProps.mySubmissions && !initialState && mySubmissions) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        submissions: this.buildSubmissionsArray(mySubmissions),
+      });
+    }
+
     const { submissions } = this.state;
 
     if (deletionSucceed !== prevProps.deletionSucceed) {
@@ -107,6 +244,101 @@ class SubmissionManagementPageContainer extends React.Component {
       });
     }
   }
+
+  componentWillUnmount() {
+    this.isComponentMounted = false;
+    this.pendingReviewSummationChallengeId = null;
+  }
+
+  buildSubmissionsArray = (source) => {
+    const { reviewSummationsBySubmission } = this.state;
+    const base = Array.isArray(source) ? source : [];
+    return base.map(submission => (
+      mergeSubmissionWithSummations(submission, reviewSummationsBySubmission)
+    ));
+  };
+
+  refreshSubmissionScores = () => {
+    if (!this.isComponentMounted) {
+      return;
+    }
+    this.setState((prevState) => {
+      if (!Array.isArray(prevState.submissions) || !prevState.submissions.length) {
+        return null;
+      }
+      const updated = prevState.submissions.map(submission => (
+        mergeSubmissionWithSummations(submission, prevState.reviewSummationsBySubmission)
+      ));
+      if (_.isEqual(updated, prevState.submissions)) {
+        return null;
+      }
+      return { submissions: updated };
+    });
+  };
+
+  loadReviewSummations = async (tokenV3, challengeId) => {
+    const challengeIdStr = _.toString(challengeId);
+    if (!this.isComponentMounted || !tokenV3 || !challengeIdStr) {
+      if (this.isComponentMounted) {
+        this.setState({ reviewSummationsBySubmission: {} }, () => {
+          this.refreshSubmissionScores();
+        });
+      }
+      return;
+    }
+
+    this.pendingReviewSummationChallengeId = challengeIdStr;
+
+    try {
+      const { data } = await getReviewSummationsService(tokenV3, challengeIdStr);
+      if (!this.isComponentMounted || this.pendingReviewSummationChallengeId !== challengeIdStr) {
+        return;
+      }
+
+      const grouped = {};
+      (Array.isArray(data) ? data : []).forEach((summation) => {
+        if (!summation) {
+          return;
+        }
+        const submissionId = _.toString(_.get(summation, 'submissionId') || _.get(summation, 'id'));
+        if (!submissionId) {
+          return;
+        }
+        if (!grouped[submissionId]) {
+          grouped[submissionId] = [];
+        }
+        grouped[submissionId].push(summation);
+      });
+
+      Object.keys(grouped).forEach((key) => {
+        grouped[key].sort((a, b) => (
+          normalizeTimestamp(_.get(b, 'reviewedDate') || _.get(b, 'updatedAt') || _.get(b, 'createdAt'))
+          - normalizeTimestamp(_.get(a, 'reviewedDate') || _.get(a, 'updatedAt') || _.get(a, 'createdAt'))
+        ));
+      });
+
+      this.setState({ reviewSummationsBySubmission: grouped }, () => {
+        this.refreshSubmissionScores();
+      });
+    } catch (error) {
+      if (!this.isComponentMounted || this.pendingReviewSummationChallengeId !== challengeIdStr) {
+        return;
+      }
+      this.setState({ reviewSummationsBySubmission: {} }, () => {
+        this.refreshSubmissionScores();
+      });
+    }
+  };
+
+  getSubmissionScores = async (submissionId) => {
+    const submissionKey = _.toString(submissionId);
+    if (!submissionKey) {
+      return [];
+    }
+    const { reviewSummationsBySubmission } = this.state;
+    const summations = reviewSummationsBySubmission[submissionKey] || [];
+    return buildScoreEntries(summations);
+  };
 
   render() {
     const {
@@ -175,18 +407,7 @@ class SubmissionManagementPageContainer extends React.Component {
       },
       getSubmissionArtifacts:
         submissionId => getSubmissionArtifacts(authTokens.tokenV3, submissionId),
-      getReviewTypesList: () => {
-        const reviewTypes = getReviewTypes(authTokens.tokenV3);
-        return reviewTypes;
-      },
-      getChallengeResources: (cId) => {
-        const membersService = getMemberService(authTokens.tokenV3);
-        return membersService.getChallengeResources(cId);
-      },
-      getSubmissionInformation: (submissionId) => {
-        const submissionsService = getService(authTokens.tokenV3);
-        return submissionsService.getSubmissionInformation(submissionId);
-      },
+      getSubmissionScores: submissionId => this.getSubmissionScores(submissionId),
       onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${challengeId}`,
       challengeUrl: `${challengesUrl}/${challengeId}`,
       addSumissionUrl: `${config.URL.BASE}/challenges/${challengeId}/submit`,

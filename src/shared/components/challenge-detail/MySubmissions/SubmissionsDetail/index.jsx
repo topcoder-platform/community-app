@@ -7,6 +7,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import cn from 'classnames';
 import sortList from 'utils/challenge-detail/sort';
+import { getSubmissionStatus } from 'utils/challenge-detail/submission-status';
 import Tooltip from 'components/Tooltip';
 import IconClose from 'assets/images/icon-close-green.svg';
 
@@ -145,6 +146,9 @@ class SubmissionsDetailView extends React.Component {
     const { onCancel, submission, onSortChange } = this.props;
     let { finalScore } = submission;
     const { sortedSubmissions } = this.state;
+    const { isAccepted } = getSubmissionStatus(submission);
+    const finalStatusStyleName = isAccepted ? 'status-complete' : 'status-in-queue';
+    const finalStatusLabel = isAccepted ? 'Complete' : 'In Queue';
 
     const { field, sort } = this.getSubmissionsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
@@ -373,9 +377,7 @@ class SubmissionsDetailView extends React.Component {
             </div>
             <div styleName="table-column">
               <div styleName="mobile-header">Status</div>
-              {submission.provisionalScoringIsCompleted ? (
-                <span styleName="status-complete">Complete</span>
-              ) : (<span styleName="status-in-queue">In Queue</span>)}
+              <span styleName={finalStatusStyleName}>{finalStatusLabel}</span>
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 /**
  * Modal that displays a list of available reviewer roles and allows user to select and apply
  */
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
@@ -26,23 +25,29 @@ class ApplyModal extends React.Component {
 
   render() {
     const {
-      details, handle, onApply, onCancel, toggleRole, selectedRoles,
+      details, handle, onApply, onCancel, selectedRoles,
     } = this.props;
     const positions = openPositionsByRole(details);
+    const position = positions[0];
     const previousRoles = activeRoleIds(details, handle);
     const hasApplied = Boolean(previousRoles.length);
-    const hasChanged = !_.isEqual(new Set(selectedRoles), new Set(previousRoles));
+
+    const onHandleApply = () => {
+      const updatedRoles = [...selectedRoles];
+      if (position.role === 'Reviewer') {
+        updatedRoles.push(position.roleId);
+      }
+      onApply(updatedRoles);
+    };
 
     return (
       <Modal onCancel={onCancel} theme={theme}>
         <h1>
-          {hasApplied ? 'Manage Applications' : 'Apply Reviewer Positions'}
+          {hasApplied ? 'Reviewer Application' : 'Apply Reviewer Position'}
         </h1>
         <p>
-          Select the review roles you would like to apply for and click the button.
-          The system will assign members that best meet the review requirements for this contest.
-          Although you will be assigned to at most one review position,
-          applying for multiple roles increases your chances of being selected.
+          Click Apply Now to apply as a Reviewer for this challenge.
+          Payment and positions are shown below.
         </p>
         <div styleName="head">
           <div styleName="col-1">
@@ -54,44 +59,23 @@ class ApplyModal extends React.Component {
           <div styleName="col-3">
             Payment
           </div>
-          <div styleName="col-4" />
         </div>
         <div styleName="body">
-          {
-            positions.map(position => (
-              <div styleName="row" key={`${position.role}`}>
-                <div styleName="col-1">
-                  <span styleName="role">
-                    {position.role}
-                  </span>
-                </div>
-                <div styleName="col-2">
-                  {position.openPositions}
-                </div>
-                <div styleName="col-3">
-                  $
-                  {position.payment}
-                  .00*
-                </div>
-                <div styleName="col-4">
-                  <div styleName="tc-checkbox">
-                    <input
-                      checked={_.includes(selectedRoles, position.roleId)}
-                      disabled={position.openPositions <= 0}
-                      id={`${position.roleId}-checkbox`}
-                      onChange={() => toggleRole(position.roleId)}
-                      type="checkbox"
-                    />
-                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                    <label htmlFor={`${position.roleId}-checkbox`}>
-                      <input type="hidden" />
-                      <div styleName="tc-checkbox-label" />
-                    </label>
-                  </div>
-                </div>
-              </div>
-            ))
-          }
+          <div styleName="row">
+            <div styleName="col-1">
+              <span styleName="role">
+                {position.role}
+              </span>
+            </div>
+            <div styleName="col-2">
+              {position.openPositions}
+            </div>
+            <div styleName="col-3">
+              $
+              {position.payment}
+              .00*
+            </div>
+          </div>
         </div>
         <p>
           *Depends on the number of submissions, the actual payment may differ.
@@ -100,12 +84,17 @@ class ApplyModal extends React.Component {
           <Button onClick={onCancel}>
             Cancel
           </Button>
+          {!hasApplied
+          && (
           <PrimaryButton
-            disabled={!hasChanged}
-            onClick={onApply}
+            disabled={position.openPositions <= 0}
+            onClick={onHandleApply}
           >
-            {hasApplied ? 'Update' : 'Apply Now'}
+            Apply Now
           </PrimaryButton>
+          )
+          }
+
         </div>
       </Modal>
     );
@@ -128,7 +117,6 @@ ApplyModal.propTypes = {
   onApply: PT.func.isRequired,
   onCancel: PT.func.isRequired,
   setRoles: PT.func.isRequired,
-  toggleRole: PT.func.isRequired,
   selectedRoles: PT.arrayOf(PT.number),
 };
 

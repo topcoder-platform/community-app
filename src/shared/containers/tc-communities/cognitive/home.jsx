@@ -54,7 +54,7 @@ class HomeContainer extends React.Component {
     if (filter) {
       filter = Filter.getFilterFunction(filter.challengeFilter);
       challenges = activeChallenges
-        .filter(x => x.status === 'Active')
+        .filter(x => x.status === 'ACTIVE')
         .filter(filter)
         .sort((a, b) => moment(a.registrationStartDate).diff(b.registrationStartDate));
     }

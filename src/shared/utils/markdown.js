@@ -20,7 +20,7 @@ import 'highlight.js/styles/github.css';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import VideoModalButton from 'components/VideoModalButton';
-import Looker from 'containers/Looker';
+import Looker from 'containers/SmartLooker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
 import MMLeaderboard from 'containers/MMLeaderboard';

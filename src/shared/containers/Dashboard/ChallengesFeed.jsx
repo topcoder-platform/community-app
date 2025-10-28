@@ -23,7 +23,7 @@ class ChallengesFeedContainer extends React.Component {
           perPage: excludeTags && excludeTags.length ? undefined : itemCount,
           types: ['CH', 'F2F', 'MM'],
           tracks,
-          status: 'Active',
+          status: 'ACTIVE',
           sortBy: 'updated',
           sortOrder: 'desc',
           isLightweight: true,

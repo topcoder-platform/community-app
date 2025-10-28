@@ -78,13 +78,13 @@ class Submit extends React.Component {
 
     // Submission type logic
     if (checkpoint && checkpoint.isOpen) {
-      subType = 'Checkpoint Submission';
+      subType = 'CHECKPOINT_SUBMISSION';
     } else if (checkpoint && !checkpoint.isOpen && submission && submission.isOpen) {
-      subType = 'Contest Submission';
+      subType = 'CONTEST_SUBMISSION';
     } else if (finalFix && finalFix.isOpen) {
-      subType = 'Studio Final Fix Submission';
+      subType = 'STUDIO_FINAL_FIX_SUBMISSION';
     } else {
-      subType = 'Contest Submission';
+      subType = 'CONTEST_SUBMISSION';
     }
 
     return subType;

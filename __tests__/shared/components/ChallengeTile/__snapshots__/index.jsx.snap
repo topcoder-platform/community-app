@@ -43,24 +43,7 @@ exports[`renders design 1`] = `
       >
         <div
           className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__data-science___2SGr7"
-        >
-          <div
-            className="src-shared-components-ChallengeTile-___style__design-challenge-user-place___3v-1O"
-          >
-            <div
-              className="src-shared-components-ChallengeTile-___style__tile-view___1stZU"
-            >
-              <p
-                className="src-shared-components-ChallengeTile-___style__place___18eIV"
-              >
-                Passed Screening
-              </p>
-              <div
-                className="src-shared-components-ChallengeTile-___style__thumbnail___2vRle"
-              />
-            </div>
-          </div>
-        </div>
+        />
         <p
           className="src-shared-components-ChallengeTile-___style__roles___1V-WA"
         >
@@ -132,40 +115,7 @@ exports[`renders develop 1`] = `
       >
         <div
           className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__data-science___2SGr7"
-        >
-          <div
-            className="src-shared-components-ChallengeTile-___style__dev-challenge-user-place___2tS8j"
-          >
-            <div
-              className="src-shared-components-ChallengeTile-___style__tile-view___1stZU"
-            >
-              <p
-                className="src-shared-components-ChallengeTile-___style__first-place___2-nh_ src-shared-components-ChallengeTile-___style__place___18eIV"
-              >
-                1
-                <span>
-                  st
-                </span>
-                 
-                Place
-              </p>
-              <div
-                className="src-shared-components-ChallengeTile-___style__challenge-score___2RKXS"
-              >
-                <p
-                  className="src-shared-components-ChallengeTile-___style__score___pPbmo"
-                >
-                  100%
-                </p>
-                <p
-                  className="src-shared-components-ChallengeTile-___style__last-child___10e2S"
-                >
-                  Review Score
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        />
         <p
           className="src-shared-components-ChallengeTile-___style__roles___1V-WA"
         >
