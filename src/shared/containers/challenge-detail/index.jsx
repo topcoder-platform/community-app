@@ -48,6 +48,7 @@ import {
   SUBTRACKS,
   CHALLENGE_STATUS,
 } from 'utils/tc';
+import { hasOpenSubmissionPhase } from 'utils/challengePhases';
 import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
 import { decodeToken } from '@topcoder-platform/tc-auth-lib';
@@ -491,8 +492,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
     const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
-    || (!_.some(phases, { name: 'Submission', isOpen: true })
-      && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
+      || !hasOpenSubmissionPhase(phases);
 
     return (
       <div styleName="container">
