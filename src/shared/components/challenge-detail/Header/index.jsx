@@ -466,7 +466,7 @@ export default function ChallengeHeader(props) {
                     <span>Submit a solution</span>
                   </PrimaryButton>
                   {
-                    track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+                    trackName === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
                       && hasSubmissions && (
                       <PrimaryButton
                         theme={{ button: style.submitButton }}
