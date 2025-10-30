@@ -1,7 +1,7 @@
 {
   "authorizedGroupIds": [],
   "challengeFilter": {
-    "groupIds": ["72a0b8a0-aa45-44f7-86c2-bf9de6321e5b"]
+    "groupIds": ["b7f7c0f8-8ee8-409e-9e5c-33404983b635"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": true,
@@ -9,7 +9,7 @@
   },
   "communityId": "wipro",
   "communityName": "TopGear Community",
-  "groupIds": ["72a0b8a0-aa45-44f7-86c2-bf9de6321e5b"],
+  "groupIds": ["b7f7c0f8-8ee8-409e-9e5c-33404983b635"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [
     {
