@@ -83,7 +83,7 @@ export default function ChallengeDetailsView(props) {
   }
 
   const discuss = _.get(challenge, 'discussions', []).filter(d => (
-    d.type === 'challenge' && !_.isEmpty(d.url)
+    _.toLower(d.type) === 'challenge' && !_.isEmpty(d.url)
   ));
 
   let forumLink = '';

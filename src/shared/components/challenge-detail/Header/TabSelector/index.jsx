@@ -135,7 +135,7 @@ export default function ChallengeViewSelector(props) {
   const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const discuss = _.get(challenge, 'discussions', []).filter(d => (
-    d.type === 'challenge' && !_.isEmpty(d.url)
+    _.toLower(d.type) === 'challenge' && !_.isEmpty(d.url)
   ));
   const roles = _.get(challenge, 'userDetails.roles') || [];
 
