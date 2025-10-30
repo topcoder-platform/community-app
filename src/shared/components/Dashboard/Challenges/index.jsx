@@ -51,7 +51,7 @@ export default function ChallengesFeed({
                 <span styleName="amount">
                   {`$${_.sum(
                     challenge.prizeSets
-                      .filter(set => set.type === 'placement')
+                      .filter(set => set.type === 'PLACEMENT')
                       .map(item => _.sum(item.prizes.map(prize => prize.value))),
                   ).toLocaleString()}`}
                 </span>
