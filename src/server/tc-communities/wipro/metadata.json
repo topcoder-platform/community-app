@@ -1,9 +1,7 @@
 {
-  "authorizedGroupIds": [
-    "20000000", "20000005", "20000011", "20000016"
-  ],
+  "authorizedGroupIds": [],
   "challengeFilter": {
-    "groupIds": ["20000000"]
+    "groupIds": ["72a0b8a0-aa45-44f7-86c2-bf9de6321e5b"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": true,
@@ -11,18 +9,19 @@
   },
   "communityId": "wipro",
   "communityName": "TopGear Community",
-  "groupIds": ["20000000"],
+  "groupIds": ["72a0b8a0-aa45-44f7-86c2-bf9de6321e5b"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
-  "logos": [{
-    "img": "/community-app-assets/themes/wipro/wipro-logo.png",
-    "url": "http://www.wipro.com/"
-  }, {
-    "img": "/community-app-assets/themes/wipro/logo_topcoder_with_name.svg",
-    "url": "https://www.topcoder.com"
-  }],
-  "additionalLogos": [
-    "/community-app-assets/themes/wipro/topgear_logo.png"
+  "logos": [
+    {
+      "img": "/community-app-assets/themes/wipro/wipro-logo.png",
+      "url": "http://www.wipro.com/"
+    },
+    {
+      "img": "/community-app-assets/themes/wipro/logo_topcoder_with_name.svg",
+      "url": "https://www.topcoder.com"
+    }
   ],
+  "additionalLogos": ["/community-app-assets/themes/wipro/topgear_logo.png"],
   "hideSearch": true,
   "chevronOverAvatar": true,
   "footerText": "© Copyright Wipro Ltd 2019",
@@ -30,10 +29,12 @@
     {
       "title": "Home",
       "url": "https://topgear-app.wipro.com"
-    }, {
+    },
+    {
       "title": "Challenges",
       "url": "/challenges"
-    }, {
+    },
+    {
       "title": "Leaderboard",
       "url": "/leaderboard"
     }
@@ -41,7 +42,7 @@
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["topgear", "wipro"],
   "description": "Wipro's TopGear community.",
-  "image":"wipro.jpg",
+  "image": "wipro.jpg",
   "accessDeniedPage": {
     "viewportId": "2ymrKrU9DISEX0zjAYj2k7",
     "spaceName": "topgear"
