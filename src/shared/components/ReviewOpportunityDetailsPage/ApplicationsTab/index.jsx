@@ -30,7 +30,7 @@ const ApplicationsTab = ({ applications }) => (
     <div styleName="body">
       {
         applications
-        && applications.filter(app => app.status !== 'Cancelled').map(app => (
+        && applications.filter(app => app.status !== 'CANCELLED').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
               <a href={`${window.origin}/members/${app.handle}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>

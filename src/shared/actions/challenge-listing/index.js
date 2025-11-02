@@ -10,11 +10,11 @@ import { processSRM } from 'utils/tc';
 import { errors, services } from 'topcoder-react-lib';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import SORT from 'utils/challenge-listing/sort';
+import getReviewOpportunities from 'services/reviewOpportunities';
 import getCopilotOpportunities from '../../services/copilotOpportunities';
 
 const { fireErrorMessage } = errors;
 const { getService } = services.challenge;
-const { getReviewOpportunitiesService } = services.reviewOpportunities;
 
 /**
  * The maximum number of challenges to fetch in a single API call.
@@ -203,7 +203,7 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       currentPhaseName: 'Submission',
       registrationEndDateEnd: new Date().toISOString(),
       perPage: PAGE_SIZE,
@@ -266,7 +266,7 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       currentPhaseName: 'Registration',
       perPage: PAGE_SIZE,
       page: page + 1,
@@ -302,7 +302,7 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       memberId: userId,
       perPage: PAGE_SIZE,
       page: page + 1,
@@ -328,7 +328,7 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ALL],
@@ -354,7 +354,7 @@ function getMyPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Completed',
+      status: 'COMPLETED',
       memberId: userId,
       perPage: PAGE_SIZE,
       page: page + 1,
@@ -382,7 +382,7 @@ function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Active',
+      status: 'ACTIVE',
       isLightweight: true,
       perPage: 1,
     },
@@ -465,7 +465,7 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
     frontFilter: {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
-      status: 'Completed',
+      status: 'COMPLETED',
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ALL_PAST],
@@ -489,9 +489,8 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
  * @return {Object} Action object
  */
-function getReviewOpportunitiesDone(uuid, page, tokenV3) {
-  return getReviewOpportunitiesService(tokenV3)
-    .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE)
+function getReviewOpportunitiesDone(uuid, page) {
+  return getReviewOpportunities(page, REVIEW_OPPORTUNITY_PAGE_SIZE)
     .then(loaded => ({ uuid, loaded }))
     .catch((error) => {
       fireErrorMessage('Error Getting Review Opportunities', error.content || error);

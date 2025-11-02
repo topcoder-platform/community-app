@@ -7,7 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
 import { formatDate, COMPETITION_TRACKS } from 'utils/tc';
-import { isMM } from 'utils/challenge';
+import { isMM, getTrackName, getTypeName } from 'utils/challenge';
 import ReactImageFallback from 'react-image-fallback';
 import InviteOnly from 'assets/images/ico-invite-only-prj.svg';
 import WinnerRibbon from 'assets/images/ico-winner-ribbon.svg';
@@ -75,9 +75,11 @@ class ChallengeTile extends React.Component {
     } = this.props;
 
     const { track, type } = challenge;
+    const trackName = getTrackName(track);
+    const typeName = getTypeName(type);
     const roles = _.get(challenge, 'userDetails.roles');
 
-    const outStyleName = `challenge tile-view ${track.replace(' ', '-').toLowerCase()}`;
+    const outStyleName = `challenge tile-view ${(trackName || '').replace(' ', '-').toLowerCase()}`;
     const extraStyle = {
       width: '285px',
       padding: '15px',
@@ -107,7 +109,7 @@ class ChallengeTile extends React.Component {
                 )}
 
               <p styleName="subtrack-color">
-                {underscoreReplace(type)}
+                {underscoreReplace(typeName)}
               </p>
               <p styleName="date-completed">
                 {challenge.submissionEndDate && formatDate(challenge.submissionEndDate)}

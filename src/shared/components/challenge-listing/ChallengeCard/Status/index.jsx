@@ -11,6 +11,7 @@ import {
   getTimeLeft,
 } from 'utils/challenge-detail/helper';
 
+import { getTypeName } from 'utils/challenge';
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
 import UserAvatarTooltip from '../../Tooltips/UserAvatarTooltip';
@@ -232,14 +233,14 @@ export default function ChallengeStatus(props) {
       .filter(p => p.name !== 'Registration' && p.isOpen)
       .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-    if (!statusPhase && type === 'First2Finish' && allPhases.length) {
+    if (!statusPhase && getTypeName({ type }) === 'First2Finish' && allPhases.length) {
       statusPhase = _.clone(allPhases[0]);
       statusPhase.name = 'Submission';
     }
 
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.name;
-    else if (status === 'Draft') phaseMessage = DRAFT_MSG;
+    else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
 
     const showRegisterInfo = false;
 
@@ -287,7 +288,7 @@ export default function ChallengeStatus(props) {
         </span>
         <ProgressBarTooltip challenge={challenge}>
           {
-            status === 'Active' && statusPhase ? (
+            status === 'ACTIVE' && statusPhase ? (
               <div>
                 <ChallengeProgressBar
                   color="green"
@@ -305,7 +306,7 @@ export default function ChallengeStatus(props) {
   }
 
   const { challenge, className } = props;
-  const completed = challenge.status === 'Completed';
+  const completed = challenge.status === 'COMPLETED';
   const status = completed ? 'completed' : '';
   return (
     <div className={className} styleName={`challenge-status ${status}`}>

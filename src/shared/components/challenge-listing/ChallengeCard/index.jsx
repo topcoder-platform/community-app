@@ -42,6 +42,7 @@ function ChallengeCard({
     id,
     track,
   } = challenge;
+  const trackName = (track && typeof track === 'object') ? (track.name || '') : track;
 
   challenge.prize = challenge.prizes || [];
 
@@ -59,12 +60,12 @@ function ChallengeCard({
       <div styleName="left-panel">
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
-            track={track}
+            track={trackName}
             type={challengeType}
           >
             <span>
               <TrackIcon
-                track={track}
+                track={trackName}
                 type={challengeType}
                 tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].key : ''}
               />
@@ -84,7 +85,7 @@ function ChallengeCard({
           </div>
           <div styleName="details-footer">
             <span styleName="date">
-              {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
+              {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge)}
             </span>
             {

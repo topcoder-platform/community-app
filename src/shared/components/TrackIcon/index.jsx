@@ -13,7 +13,8 @@ export default function TrackIcon({
   challengesUrl,
 }) {
   const TCO_URL = `${MAIN_URL}/tco`;
-  const trackStyle = track.replace(' ', '-').toLowerCase();
+  const trackName = (track && typeof track === 'object') ? (track.name || '') : (track || '');
+  const trackStyle = trackName.replace(' ', '-').toLowerCase();
   let abbreviationStyle = type.abbreviation;
   if (['CH', 'F2F', 'TSK', 'MM'].indexOf(abbreviationStyle) < 0) {
     abbreviationStyle = '';

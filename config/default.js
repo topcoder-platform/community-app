@@ -8,6 +8,7 @@ module.exports = {
     V3: 'https://api.topcoder-dev.com/v3',
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
+    V6: 'https://api.topcoder-dev.com/v6',
     MM_BROKER: '/api',
   },
 
@@ -167,10 +168,11 @@ module.exports = {
     // If a logged in user is a member of any of these groups, when they land on
     // their profile page (members/:handle), they'll be redirected to the "userProfile" url
     SUBDOMAIN_PROFILE_CONFIG: [{
-      groupId: '20000000', communityId: 'wipro', communityName: 'topgear', userProfile: 'https://topgear-app.wipro.com/user-details',
+      groupId: 'b7f7c0f8-8ee8-409e-9e5c-33404983b635', communityId: 'wipro', communityName: 'topgear', userProfile: 'https://topgear-app.wipro.com/user-details',
     }],
     TIMELINE_WALL_API: 'https://api.topcoder-dev.com/v5/timeline-wall',
-    REVIEW_API_URL: '/reviewTypes',
+    REVIEW_TYPES_API_URL: '/reviewTypes',
+    REVIEW_SUMMATIONS_API_URL: '/reviewSummations',
   },
 
   /* Information about Topcoder user groups can be cached in various places.

@@ -1,20 +1,19 @@
 /**
  * The bucket for review opportunities.
  */
+import React from 'react';
 import _ from 'lodash';
 import PT from 'prop-types';
-import React from 'react';
-import Sort from 'utils/challenge-listing/sort';
-import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
-import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
-import CardPlaceholder from '../../placeholders/ChallengeCard';
+import SortingSelectBar from 'components/SortingSelectBar';
+import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
+import Sort from 'utils/challenge-listing/sort';
+import { getReviewOpportunitiesFilterFunction } from 'utils/reviewOpportunities';
+
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
+import CardPlaceholder from '../../placeholders/ChallengeCard';
 
 import './style.scss';
-
-const Filter = challengeUtils.filter;
 
 const NO_RESULTS_MESSAGE = 'No challenges found';
 const LOADING_MESSAGE = 'Loading Challenges';
@@ -49,7 +48,7 @@ export default function ReviewOpportunityBucket({
    * which avoids reloading the review opportunities from server every time
    * a filter is changed.  */
   const filteredOpportunities = sortedOpportunities.filter(
-    Filter.getReviewOpportunitiesFilterFunction({
+    getReviewOpportunitiesFilterFunction({
       ...BUCKET_DATA[bucket].filter, // Default bucket filters from utils/buckets.js
       ...filterState, // User selected filters
     }, challengeTypes),
@@ -59,7 +58,7 @@ export default function ReviewOpportunityBucket({
   const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
       challengesUrl={challengesUrl}
-      challengeType={_.find(challengeTypes, { name: item.challenge.type }) || {}}
+      challengeType={_.find(challengeTypes, { name: item.challengeData.track }) || {}}
       expandedTags={expandedTags}
       expandTag={expandTag}
       onTechTagClicked={(tag) => {
@@ -142,7 +141,7 @@ export default function ReviewOpportunityBucket({
         )
       }
       {
-        loadMore && !loading && filterState.reviewOpportunityTypes.length ? (
+        loadMore && !loading ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }

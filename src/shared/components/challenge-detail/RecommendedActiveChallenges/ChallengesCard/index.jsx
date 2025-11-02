@@ -83,7 +83,7 @@ export default function ChallengesCard({
             </Link>
             <div styleName="endtime-prize-container">
               <span styleName="end-date">
-                {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
+                {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
                 {getEndDate(challenge)}
               </span>
               <div styleName="prizes">

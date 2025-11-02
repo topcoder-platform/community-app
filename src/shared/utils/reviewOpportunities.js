@@ -2,6 +2,8 @@
 * Utility functions for Review Opportunities
 */
 import _ from 'lodash';
+import moment from 'moment';
+import { REVIEW_OPPORTUNITY_TYPES } from './tc';
 
 /**
  * Infers open positions using review opportunity details and organizes them by role
@@ -45,8 +47,106 @@ export const openPositionsByRole = (details) => {
 export const activeRoleIds = (details, handle) => {
   const positions = openPositionsByRole(details);
   const apps = details.applications
-    ? details.applications.filter(app => _.toString(app.handle) === _.toString(handle) && app.status !== 'Cancelled') : [];
+    ? details.applications.filter(app => _.toString(app.handle) === _.toString(handle) && app.status !== 'CANCELLED') : [];
   return apps.map(app => positions.find(p => p.role === app.role).roleId);
 };
 
 export default null;
+
+/**
+ * Filter function for Review Opportunity Type, will be used internally in filter.js
+ * @param {Object} opp Review Opportunity object
+ * @param {Object} state Filter state
+ * @return {Boolean} True if opp satifies the filter
+ */
+function filterByReviewOpportunityType(opp, state) {
+  if (state.reviewOpportunityTypes.length === 0) return false;
+  return state.reviewOpportunityTypes.includes(opp.type);
+}
+
+function filterByStartDate(challenge, state) {
+  if (!state.startDate) return true;
+  const submissionPhase = (challenge.phases || []).filter(d => d.name === 'Submission')[0];
+  const submissionEndDate = submissionPhase ? submissionPhase.scheduledEndDate
+    : challenge.submissionEndDate;
+  return moment(state.startDate).isBefore(submissionEndDate);
+}
+
+function filterByEndDate(challenge, state) {
+  if (!state.endDate) return true;
+  const registrationPhase = (challenge.phases || []).filter(d => d.name === 'Registration')[0];
+  const registrationStartDate = registrationPhase ? registrationPhase.scheduledStartDate
+    : challenge.registrationStartDate;
+  return moment(state.endDate).isAfter(registrationStartDate);
+}
+
+function filterByTags(challenge, state) {
+  if (_.isEmpty(state.tags)) return true;
+  const { platforms, tags } = challenge;
+  const str = `${platforms.join(' ')} ${tags.join(' ')}`.toLowerCase();
+  return state.tags.some(tag => str.includes(tag.toLowerCase()));
+}
+
+function filterByText(challenge, state) {
+  if (!state.search) return true;
+  const str = `${challenge.name} ${challenge.tags} ${challenge.platforms} ${challenge.tags}`
+    .toLowerCase();
+  return str.includes(state.search.toLowerCase());
+}
+
+function filterByTrack(challenge, state) {
+  // if (!state.tracks) return true;
+  // eslint-disable-next-line max-len
+  return state.tracks[challenge.track] === true;
+}
+
+function filterByTypes(challenge, state) {
+  if (state.types.length === 0) return true;
+  return state.types.includes(challenge.typeId);
+}
+
+/**
+ * Generates a Review Opportunities filter function for the provided filter state.
+ * @param {Object} state
+ * @return {Function}
+ */
+export const getReviewOpportunitiesFilterFunction = (state, validTypes) => (opp) => {
+  const trackAbbr = {
+    'Data Science': 'DS',
+    Development: 'Dev',
+    Design: 'Des',
+    'Quality Assurance': 'QA',
+  };
+
+  const { challengeData } = opp;
+
+  // const newType = _.find(validTypes, { name: opp.challenge.type }) || {};
+  const newType = _.find(validTypes, { name: challengeData.subTrack === 'FIRST_2_FINISH' ? 'First2Finish' : 'Challenge' }) || {};
+
+  // Review Opportunity objects have a challenge field which
+  // is largely compatible with many of the existing filter functions
+  // especially after a few normalization tweaks
+  const challenge = {
+    ...challengeData,
+    // This allows filterByText to search for Review Types and Challenge Titles
+    name: `${challengeData.title} ${REVIEW_OPPORTUNITY_TYPES[opp.type]}`,
+    // registrationStartDate: opp.startDate, // startDate of Review, not Challenge
+    // submissionEndDate: opp.startDate, // Currently uses startDate for both date comparisons
+    // communities: new Set([ // Used to filter by Track, and communities at a future date
+    // opp.challenge.track === 'QA' ? 'Dev' : trackAbbr[opp.challenge.track],
+    // ]),
+    track: trackAbbr[challengeData.track],
+    typeId: newType.abbreviation,
+    tags: challengeData.technologies || [],
+    platforms: challengeData.platforms || [],
+  };
+  return (
+    filterByTrack(challenge, state)
+      && filterByText(challenge, state)
+      && filterByTags(challenge, state)
+      && filterByTypes(challenge, state)
+      && filterByEndDate(challenge, state)
+      && filterByStartDate(challenge, state)
+      && filterByReviewOpportunityType(opp, state)
+  );
+};

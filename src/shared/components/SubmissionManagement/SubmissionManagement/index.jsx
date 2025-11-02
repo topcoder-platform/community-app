@@ -22,6 +22,7 @@ import { Link } from 'topcoder-react-utils';
 import LeftArrow from 'assets/images/arrow-prev-green.svg';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
+import { getTrackName } from 'utils/challenge';
 import SubmissionsTable from '../SubmissionsTable';
 
 import style from './styles.scss';
@@ -41,14 +42,13 @@ export default function SubmissionManagement(props) {
     submissionPhaseStartDate,
     onDownloadArtifacts,
     getSubmissionArtifacts,
-    getSubmissionInformation,
-    getReviewTypesList,
-    getChallengeResources,
+    getSubmissionScores,
   } = props;
 
   const { track } = challenge;
+  const trackName = getTrackName(track);
 
-  const challengeType = track.toLowerCase();
+  const challengeType = (trackName || '').toLowerCase();
 
   const isDesign = challengeType === 'design';
   const isDevelop = challengeType === 'development';
@@ -57,6 +57,7 @@ export default function SubmissionManagement(props) {
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
   const submissionPhase = challenge.phases.filter(p => p.name === 'Submission')[0];
   const submissionEndDate = submissionPhase && phaseEndDate(submissionPhase);
+  const isSubmissionPhaseOpen = Boolean(submissionPhase && submissionPhase.isOpen);
 
   const now = moment();
   const end = moment(currentPhase && currentPhase.scheduledEndDate);
@@ -77,9 +78,7 @@ export default function SubmissionManagement(props) {
     onShowDetails,
     onDownloadArtifacts,
     getSubmissionArtifacts,
-    getSubmissionInformation,
-    getReviewTypesList,
-    getChallengeResources,
+    getSubmissionScores,
   };
   return (
     <div styleName="submission-management">
@@ -129,7 +128,7 @@ export default function SubmissionManagement(props) {
            }
           <span styleName="seperator" />
           {
-             challenge.status !== 'Completed' ? (
+             challenge.status !== 'COMPLETED' ? (
                <div>
                  <p styleName="round">
                    Current Deadline Ends: {' '}
@@ -184,7 +183,7 @@ export default function SubmissionManagement(props) {
              challenge={challenge}
              submissionObjects={submissions}
              showDetails={showDetails}
-             track={track}
+             track={trackName}
              status={challenge.status}
              submissionPhaseStartDate={submissionPhaseStartDate}
              {...componentConfig}
@@ -192,7 +191,7 @@ export default function SubmissionManagement(props) {
            )
          }
       </div>
-      {now.isBefore(submissionEndDate) && (
+      {isSubmissionPhaseOpen && now.isBefore(submissionEndDate) && (
       <div styleName="btn-wrap">
         <PrimaryButton
           theme={{
@@ -217,9 +216,7 @@ SubmissionManagement.defaultProps = {
   onDownload: _.noop,
   onDownloadArtifacts: _.noop,
   getSubmissionArtifacts: _.noop,
-  getSubmissionInformation: _.noop,
-  getReviewTypesList: _.noop,
-  getChallengeResources: _.noop,
+  getSubmissionScores: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
   loadingSubmissions: false,
@@ -237,9 +234,7 @@ SubmissionManagement.propTypes = {
   onShowDetails: PT.func,
   onDownloadArtifacts: PT.func,
   getSubmissionArtifacts: PT.func,
-  getSubmissionInformation: PT.func,
-  getReviewTypesList: PT.func,
-  getChallengeResources: PT.func,
+  getSubmissionScores: PT.func,
   submissions: PT.arrayOf(PT.shape()),
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,

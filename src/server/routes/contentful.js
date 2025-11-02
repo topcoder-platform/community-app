@@ -29,7 +29,7 @@ routes.options('*', cors());
 /* Gets non-image asset file. */
 routes.use(
   '/:spaceName/:environment/assets/:id/:version/:name',
-  (req, res) => {
+  (req, res, next) => {
     try {
       const {
         environment,
@@ -45,7 +45,7 @@ routes.use(
       const url = new URL(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
       res.redirect(url.href);
     } catch (e) {
-      console.log('error in getting asset', e);
+      next(e);
     }
   },
 );
@@ -53,7 +53,7 @@ routes.use(
 /* Gets image file. */
 routes.use(
   '/:spaceName/:environment/images/:id/:version/:name',
-  (req, res) => {
+  (req, res, next) => {
     try {
       const {
         environment,
@@ -69,7 +69,7 @@ routes.use(
       const url = new URL(`https://${IMAGES_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
       res.redirect(url.href);
     } catch (e) {
-      console.log('error in getting image', e);
+      next(e);
     }
   },
 );

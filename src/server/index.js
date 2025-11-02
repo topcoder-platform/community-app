@@ -69,7 +69,7 @@ const getTimestamp = async () => {
 
     timestamp = moment(tsData.timestamp).valueOf();
   } catch (err) {
-    console.error('Error:', err.message);
+    logger.error('Error:', err.message);
   }
 
   return timestamp;
@@ -211,6 +211,7 @@ async function onExpressJsSetup(server) {
           + ` ${config.API.V3}/`
           + ` ${config.API.V4}/`
           + ` ${config.API.V5}/`
+          + ` ${config.API.V6}/`
           + ` ${config.CDN.PUBLIC}`
           + ` ${config.URL.COMMUNITY_APP}`
           + ' https://api.segment.io'

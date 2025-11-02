@@ -10,6 +10,7 @@ import { PrimaryButton, Modal } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import { services } from 'topcoder-react-lib';
 import sortList from 'utils/challenge-detail/sort';
+import { getSubmissionStatus } from 'utils/challenge-detail/submission-status';
 
 import IconClose from 'assets/images/icon-close-green.svg';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
@@ -24,6 +25,43 @@ import ArtifactsDownloadIcon from '../../../SubmissionManagement/Icons/IconDownl
 import style from './styles.scss';
 
 const { getService } = services.submissions;
+
+const collectReviewSummations = (submission) => {
+  const summations = [];
+  if (!submission) {
+    return summations;
+  }
+  if (Array.isArray(submission.reviewSummations)) {
+    summations.push(...submission.reviewSummations);
+  }
+  if (Array.isArray(submission.reviewSummation)) {
+    summations.push(...submission.reviewSummation);
+  }
+  return summations;
+};
+
+const getReviewSummationSubmissionId = (submission) => {
+  const summations = collectReviewSummations(submission);
+  const match = _.find(summations, s => s && !_.isNil(s.submissionId));
+  if (!match) {
+    return null;
+  }
+  return `${match.submissionId}`;
+};
+
+const getDisplaySubmissionId = (submission) => {
+  const fromSummation = getReviewSummationSubmissionId(submission);
+  if (fromSummation) {
+    return fromSummation;
+  }
+  if (submission && !_.isNil(submission.submissionId)) {
+    return `${submission.submissionId}`;
+  }
+  if (submission && !_.isNil(submission.id)) {
+    return `${submission.id}`;
+  }
+  return '';
+};
 
 
 class SubmissionsListView extends React.Component {
@@ -100,16 +138,27 @@ class SubmissionsListView extends React.Component {
     return sortList(submissions, field, sort, (a, b) => {
       let valueA = 0;
       let valueB = 0;
-      const valueIsString = false;
+      let valueIsString = false;
       switch (field) {
         case 'Submission ID': {
-          valueA = a.id;
-          valueB = b.id;
+          const idA = getDisplaySubmissionId(a);
+          const idB = getDisplaySubmissionId(b);
+          const numericA = Number(idA);
+          const numericB = Number(idB);
+          const useNumericSort = idA !== '' && idB !== '' && _.isFinite(numericA) && _.isFinite(numericB);
+          if (useNumericSort) {
+            valueA = numericA;
+            valueB = numericB;
+          } else {
+            valueA = idA;
+            valueB = idB;
+            valueIsString = true;
+          }
           break;
         }
         case 'Status': {
-          valueA = a.provisionalScoringIsCompleted;
-          valueB = b.provisionalScoringIsCompleted;
+          valueA = getSubmissionStatus(a).isAccepted ? 1 : 0;
+          valueB = getSubmissionStatus(b).isAccepted ? 1 : 0;
           break;
         }
         case 'Final': {
@@ -391,8 +440,15 @@ class SubmissionsListView extends React.Component {
               } else {
                 provisionalScore = 'N/A';
               }
+              const { isAccepted } = getSubmissionStatus(mySubmission);
+              const statusStyleName = isAccepted ? 'accepted' : 'queue';
+              const statusLabel = isAccepted ? 'Accepted' : 'In Queue';
+              const displaySubmissionId = getDisplaySubmissionId(mySubmission);
               return (
-                <div key={mySubmission.submissionId} styleName="submission-table-row">
+                <div
+                  key={displaySubmissionId || mySubmission.submissionId || mySubmission.id}
+                  styleName="submission-table-row"
+                >
                   <div
                     styleName={cn(
                       'submission-table-column column-1',
@@ -404,7 +460,7 @@ class SubmissionsListView extends React.Component {
                       )}
                     >
                       <div styleName="mobile-header">Submission Id</div>
-                      <span>{mySubmission.id}</span>
+                      <span>{displaySubmissionId}</span>
                     </div>
                     <div
                       styleName={cn(
@@ -412,9 +468,7 @@ class SubmissionsListView extends React.Component {
                       )}
                     >
                       <div styleName="mobile-header">Status</div>
-                      {mySubmission.provisionalScoringIsCompleted ? (
-                        <span styleName="accepted">Accepted</span>
-                      ) : <span styleName="queue">In Queue</span>}
+                      <span styleName={statusStyleName}>{statusLabel}</span>
                     </div>
                   </div>
                   <div styleName="submission-table-column column-2">

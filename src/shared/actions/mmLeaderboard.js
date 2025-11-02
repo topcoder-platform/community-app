@@ -26,11 +26,25 @@ async function getMMLeaderboardDone(id) {
         sub.review = _.filter(sub.review, r => res.reviewIds.indexOf(r.typeId) === -1);
         return sub;
       });
-      const sortedSubs = _.orderBy(filteredSubs, ['updated'], ['desc']);
-      const scores = _.orderBy(_.compact(sortedSubs[0].review), ['updated'], ['desc']);
+      // New API uses updatedAt/createdAt; fallback to older fields where needed
+      const sortedSubs = _.orderBy(
+        filteredSubs,
+        [s => s.updatedAt || s.updated || s.createdAt || s.submittedDate || ''],
+        ['desc'],
+      );
+      const scores = _.orderBy(
+        _.compact(sortedSubs[0].review),
+        [r => r.updatedAt || r.updated || r.createdAt || ''],
+        ['desc'],
+      );
+      const latestDate = sortedSubs[0].submittedDate
+        || sortedSubs[0].createdAt
+        || sortedSubs[0].updatedAt
+        || sortedSubs[0].created
+        || '';
       data.push({
         createdBy: handle,
-        updated: sortedSubs[0].submittedDate,
+        updated: latestDate,
         id: sortedSubs[0].id,
         score: scores && scores.length ? scores[0].score : '...',
       });
@@ -42,7 +56,7 @@ async function getMMLeaderboardDone(id) {
     }));
     // Fetch member photos and rating for top 10
     const results = await Promise.all(
-      _.take(data, 10).map(d => fetch(`${config.API.V5}/members/${d.createdBy}`)),
+      _.take(data, 10).map(d => fetch(`${config.API.V6}/members/${d.createdBy}`)),
     );
     const memberData = await Promise.all(results.map(r => r.json()));
     // merge with data

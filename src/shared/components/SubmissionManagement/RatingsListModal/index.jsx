@@ -27,46 +27,52 @@ const RatingsListModal = ({
   onCancel,
   submissionId,
   challengeId,
-  getReviewTypesList,
-  getChallengeResources,
-  getSubmissionInformation,
+  getSubmissionScores,
 }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const enrichSources = useCallback(async (submissionReviews, reviewSummation) => {
-    const reviewTypes = await getReviewTypesList();
-    const resources = await getChallengeResources(challengeId);
+  const formatScoreValue = useCallback((value) => {
+    if (_.isNil(value)) {
+      return 'N/A';
+    }
+    if (Number.isFinite(value)) {
+      return Number.isInteger(value) ? `${value}` : value.toFixed(2);
+    }
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) {
+      return Number.isInteger(numeric) ? `${numeric}` : numeric.toFixed(2);
+    }
+    return `${value}`;
+  }, []);
 
-    const finalReview = {
-      reviewType: 'Final score',
-      reviewer: '',
-      score: reviewSummation ? reviewSummation.aggregateScore : 'N/A',
-      isPassing: reviewSummation ? reviewSummation.isPassing : undefined,
-    };
-
-    return [...submissionReviews.map((review) => {
-      const reviewType = reviewTypes.find(rt => rt.id === review.typeId);
-      const reviewer = resources
-        .find(resource => resource.memberHandle === review.reviewerId) || SystemReviewers.Default;
-      return {
-        ...review,
-        reviewType: reviewType ? reviewType.name : '',
-        reviewer,
-      };
-    }), finalReview];
-  }, [challengeId, getReviewTypesList, getChallengeResources]);
-
-  const getSubmission = useCallback(async () => {
-    const submissionInfo = await getSubmissionInformation(submissionId);
-    setReviews(await enrichSources(submissionInfo.review, submissionInfo.reviewSummation[0]));
-    setLoading(false);
-  }, [submissionId, getSubmissionInformation, enrichSources]);
+  const loadScores = useCallback(async () => {
+    if (!submissionId) {
+      setReviews([]);
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await getSubmissionScores(submissionId, challengeId);
+      const normalized = Array.isArray(response) ? response : [];
+      const decorated = normalized.map((entry, index) => ({
+        id: entry.id || `${submissionId}-${index}`,
+        reviewType: entry.label || entry.reviewType || 'Score',
+        reviewer: entry.reviewer || SystemReviewers.Default,
+        score: formatScoreValue(entry.score),
+        isPassing: typeof entry.isPassing === 'boolean' ? entry.isPassing : null,
+      }));
+      setReviews(decorated);
+    } catch (error) {
+      setReviews([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [submissionId, challengeId, getSubmissionScores, formatScoreValue]);
 
   useEffect(() => {
-    setLoading(true);
-    getSubmission();
-  }, [submissionId, getSubmission]);
+    loadScores();
+  }, [loadScores]);
 
   return (
     <Modal onCancel={() => onCancel()} theme={theme}>
@@ -131,18 +137,14 @@ RatingsListModal.defaultProps = {
   onCancel: () => {},
   submissionId: '',
   challengeId: '',
-  getReviewTypesList: _.noop,
-  getChallengeResources: _.noop,
-  getSubmissionInformation: _.noop,
+  getSubmissionScores: _.noop,
 };
 
 RatingsListModal.propTypes = {
   onCancel: PropTypes.func,
   submissionId: PropTypes.string,
   challengeId: PropTypes.string,
-  getReviewTypesList: PropTypes.func,
-  getChallengeResources: PropTypes.func,
-  getSubmissionInformation: PropTypes.func,
+  getSubmissionScores: PropTypes.func,
 };
 
 export default RatingsListModal;

@@ -17,9 +17,9 @@ import { connect } from 'react-redux';
 import qs from 'qs';
 import _ from 'lodash';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
+import { EXCLUDED_CHALLENGE_TYPE_NAMES } from 'utils/challenge-listing/constants';
 
 const MIN = 60 * 1000;
-
 
 export class Container extends React.Component {
   constructor(props) {
@@ -96,13 +96,26 @@ export class Container extends React.Component {
       setFilterState,
       validTypes,
     } = this.props;
+    const currentTypes = filterState.types || [];
 
-    if (!filterState.types.length && validTypes.length && !this.initialDefaultChallengeTypes) {
+    if (!currentTypes.length && validTypes.length && !this.initialDefaultChallengeTypes) {
       setFilterState({
         ..._.clone(filterState),
         types: validTypes.map(item => item.abbreviation),
       });
       this.initialDefaultChallengeTypes = true;
+    } else if (validTypes.length && currentTypes.length) {
+      const validAbbreviations = validTypes.map(item => item.abbreviation);
+      const sanitizedTypes = currentTypes.filter(type => validAbbreviations.includes(type));
+      if (sanitizedTypes.length !== currentTypes.length) {
+        if (!sanitizedTypes.length) {
+          this.initialDefaultChallengeTypes = false;
+        }
+        setFilterState({
+          ..._.clone(filterState),
+          types: sanitizedTypes,
+        });
+      }
     }
   }
 
@@ -222,6 +235,23 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state, ownProps) {
   const cl = state.challengeListing;
   const tc = state.tcCommunities;
+  const filteredChallengeTypes = cl.challengeTypes
+    .filter(type => !EXCLUDED_CHALLENGE_TYPE_NAMES.includes(type.name));
+  const excludedTypeAbbreviations = cl.challengeTypes
+    .filter(type => EXCLUDED_CHALLENGE_TYPE_NAMES.includes(type.name))
+    .map(type => type.abbreviation);
+  let filterState = cl.filter;
+  const existingTypes = Array.isArray(cl.filter.types) ? cl.filter.types : [];
+  if (excludedTypeAbbreviations.length && existingTypes.length) {
+    const sanitizedTypes = existingTypes
+      .filter(type => !excludedTypeAbbreviations.includes(type));
+    if (sanitizedTypes.length !== existingTypes.length) {
+      filterState = {
+        ...cl.filter,
+        types: sanitizedTypes,
+      };
+    }
+  }
   return {
     ...ownProps,
     ...state.challengeListing.filterPanel,
@@ -229,9 +259,9 @@ function mapStateToProps(state, ownProps) {
     communityFilters: tc.list.data,
     communityList: tc.list,
     defaultCommunityId: ownProps.defaultCommunityId,
-    filterState: cl.filter,
+    filterState,
     loadingTypes: cl.loadingChallengeTypes,
-    validTypes: cl.challengeTypes,
+    validTypes: filteredChallengeTypes,
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,

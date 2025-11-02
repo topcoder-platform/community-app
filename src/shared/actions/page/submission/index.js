@@ -24,7 +24,7 @@ const Api = services.api.default;
  * @return Promise
  */
 function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
-  const api = new Api(config.API.V5, tokenV3);
+  const api = new Api(config.API.V6, tokenV3);
   const url = '/submissions/';
   return api.upload(url, {
     body,

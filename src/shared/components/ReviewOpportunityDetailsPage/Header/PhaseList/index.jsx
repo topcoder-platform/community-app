@@ -22,9 +22,9 @@ const { formatDuration } = time;
  * @return {Object} The rendered React element
  */
 const renderPhase = phase => (
-  <div key={`phase-${phase.type}`} styleName={moment().isBetween(phase.scheduledStartDate, phase.scheduledEndDate) ? 'active-phase' : 'inactive-phase'}>
+  <div key={`phase-${phase.name}`} styleName={moment().isBetween(phase.scheduledStartDate, phase.scheduledEndDate) ? 'active-phase' : 'inactive-phase'}>
     <div styleName="type">
-      {phase.type}
+      {phase.name}
     </div>
     <div styleName="date">
       <strong>

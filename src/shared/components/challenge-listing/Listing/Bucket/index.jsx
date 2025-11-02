@@ -16,6 +16,7 @@ import {
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { getTypeName } from 'utils/challenge';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import NoRecommenderChallengeCard from '../../NoRecommenderChallengeCard';
@@ -85,7 +86,8 @@ export default function Bucket({
 
   if (!_.includes(roles, 'administrator')) {
     filteredChallenges = sortedChallenges.filter((ch) => {
-      if (ch.type === 'Task'
+      const typeName = getTypeName(ch);
+      if (typeName === 'Task'
         && ch.task
         && ch.task.isTask
         && ch.task.isAssigned
@@ -158,7 +160,7 @@ export default function Bucket({
   const cards = filteredChallenges.map(challenge => (
     <ChallengeCard
       challenge={challenge}
-      challengeType={_.find(challengeTypes, { name: challenge.type })}
+      challengeType={_.find(challengeTypes, { name: getTypeName(challenge) })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
       onTechTagClicked={(tag) => {

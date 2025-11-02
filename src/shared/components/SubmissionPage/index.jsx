@@ -7,6 +7,8 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
+import { CHALLENGE_STATUS } from 'utils/tc';
+import { hasOpenSubmissionPhase } from 'utils/challengePhases';
 import Header from './Header';
 import Submit from './Submit';
 import './styles.scss';
@@ -25,9 +27,8 @@ function SubmissionsPage(props) {
     handle,
   } = props;
 
-  const submissionEnded = status === 'COMPLETED'
-    || (!_.some(phases, { name: 'Submission', isOpen: true })
-      && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
+  const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
+    || !hasOpenSubmissionPhase(phases);
 
   const hasFirstPlacement = !_.isEmpty(winners) && _.some(winners, { placement: 1, handle });
 

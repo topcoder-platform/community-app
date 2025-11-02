@@ -3,13 +3,13 @@
  * information.  Will be contained within a Bucket.
  */
 import _ from 'lodash';
-import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
-import React, { useMemo } from 'react';
 import PT from 'prop-types';
+import React, { useMemo } from 'react';
+import { Link } from 'topcoder-react-utils';
 
-import TrackIcon from 'components/TrackIcon';
 import Tooltip from 'components/Tooltip';
+import TrackIcon from 'components/TrackIcon';
 
 import { time } from 'topcoder-react-lib';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
@@ -18,8 +18,8 @@ import Tags from '../Tags';
 
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 
-import SubmissionsIcon from '../Icons/SubmissionsIcon';
 import OpenPositionsIcon from '../Icons/RegistrantsIcon';
+import SubmissionsIcon from '../Icons/SubmissionsIcon';
 
 import './style.scss';
 
@@ -47,14 +47,16 @@ function ReviewOpportunityCard({
   opportunity,
   challengeType,
 }) {
-  const { challenge } = opportunity;
+  const { challengeData: challenge } = opportunity;
   let tags = challenge.tags || challenge.technologies;
   const skills = useMemo(() => _.uniq((challenge.skills || []).map(skill => skill.name)), [
     challenge.skills,
   ]);
   tags = tags.filter(tag => tag.trim().length);
-  const { track } = challenge.track;
+  const { track } = challenge;
   const start = moment(opportunity.startDate);
+  const now = moment();
+  const isLate = now.isAfter(start);
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
@@ -78,7 +80,7 @@ function ReviewOpportunityCard({
         ) /* END - DISABLED UNTIL REVIEW OPPORTUNITY RECEIVE UPDATE TO API V5 */ }
         <div styleName="challenge-details">
           <Link
-            to={`${challengesUrl}/${challenge.id}`}
+            to={`${challengesUrl}/${opportunity.challengeId}`}
           >
             {challenge.title}
           </Link>
@@ -156,12 +158,15 @@ function ReviewOpportunityCard({
           </Tooltip>
         </div>
         <Link
-          to={`/challenges/${challenge.legacyId || challenge.id}/review-opportunities`}
+          to={`/challenges/${opportunity.challengeId}/review-opportunities?opportunityId=${opportunity.id}`}
           styleName="register-button"
         >
           <span>
-            Late by<br />
-            { start.isAfter() ? formatDuration(start.diff()) : ` ${formatDuration(-start.diff())}` }
+            {isLate ? 'Late by' : 'Time left'}<br />
+            {isLate
+              ? formatDuration(now.diff(start))
+              : formatDuration(start.diff(now))
+            }
           </span>
           <span styleName="to-register">
             to Apply

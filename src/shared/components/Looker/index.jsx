@@ -26,6 +26,36 @@ import cn from 'classnames';
 import { Scrollbars } from 'react-custom-scrollbars';
 import './style.scss';
 
+// Format strings that represent numeric values (optionally with a leading
+// '$' and/or a leading '-') by inserting thousands separators while
+// preserving any decimal part. Non-numeric strings are returned as-is.
+function formatMaybeNumericString(s) {
+  if (typeof s !== 'string') return s;
+  const str = s.trim();
+  if (!str) return s;
+  if (str.includes(',')) return s; // assume already formatted
+
+  let prefix = '';
+  let sign = '';
+  let numberPart = str;
+
+  if (numberPart[0] === '$') {
+    prefix = '$';
+    numberPart = numberPart.slice(1);
+  }
+  if (numberPart[0] === '-') {
+    sign = '-';
+    numberPart = numberPart.slice(1);
+  }
+
+  if (!/^\d+(\.\d+)?$/.test(numberPart)) return s;
+
+  const [intPart, decPart] = numberPart.split('.');
+  const intWithCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const dec = decPart ? `.${decPart}` : '';
+  return `${prefix}${sign}${intWithCommas}${dec}`;
+}
+
 export default class Looker extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +107,7 @@ export default class Looker extends Component {
       if (property) {
         if (lookerData.length > 0 && lookerData[0][property]) {
           if (typeof lookerData[0][property] === 'string') {
-            return lookerData[0][property];
+            return formatMaybeNumericString(lookerData[0][property]);
           }
           if (typeof lookerData[0][property] === 'number') {
             return lookerData[0][property].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -158,16 +188,25 @@ export default class Looker extends Component {
                 }
                 const { styles } = c;
                 let value = '';
+                let cellKey;
                 if (limit <= 0 || i < limit) {
-                  if (typeof record[prop] === 'string') {
-                    value = record[prop];
-                  }
-                  if (typeof record[prop] === 'number') {
+                  // Special-case a column with property "rank" to display
+                  // the current row index (1-based). This mirrors the old
+                  // Looker behavior and ensures alignment even when the
+                  // underlying data does not include a rank field.
+                  if ((prop || '').toString().toLowerCase() === 'rank') {
+                    value = i + 1;
+                    cellKey = `${prop}-index-${i}`;
+                  } else if (typeof record[prop] === 'string') {
+                    value = formatMaybeNumericString(record[prop]);
+                    cellKey = record[prop];
+                  } else if (typeof record[prop] === 'number') {
                     value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    cellKey = record[prop];
                   }
                 }
                 return value ? (
-                  <td key={record[prop]} style={fixStyle(styles)} title={value} styleName="body-row">
+                  <td key={cellKey} style={fixStyle(styles)} title={value} styleName="body-row">
                     {memberLinks ? (
                       <a styleName="handle-link" href={`${window.origin}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`} style={{ color: ratingProp ? getRatingColor(record[ratingProp]) : null }}>
                         {value}
@@ -210,7 +249,7 @@ export default class Looker extends Component {
         try {
           const retValue = f(lookerData);
           if (typeof retValue === 'string') {
-            return retValue;
+            return formatMaybeNumericString(retValue);
           }
           if (typeof retValue === 'number') {
             return retValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

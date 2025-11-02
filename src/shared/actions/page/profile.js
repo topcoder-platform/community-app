@@ -23,9 +23,9 @@ async function getGamificationBadgesInit(handle) {
  */
 async function getGamificationBadgesDone(handle, limit) {
   try {
-    const memberInfo = await fetch(`${config.API.V5}/members/${handle}`)
+    const memberInfo = await fetch(`${config.API.V6}/members/${handle}`)
       .then(response => response.json());
-    const badges = await fetch(`${config.API.V5}/gamification/badges/assigned/${memberInfo.userId}?organization_id=${config.GAMIFICATION.ORG_ID}&limit=${limit || 4}`)
+    const badges = await fetch(`${config.API.V6}/gamification/badges/assigned/${memberInfo.userId}?organization_id=${config.GAMIFICATION.ORG_ID}&limit=${limit || 4}`)
       .then(response => response.json());
 
     return {

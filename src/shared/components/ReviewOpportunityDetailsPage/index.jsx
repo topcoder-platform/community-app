@@ -42,14 +42,14 @@ const ReviewOpportunityDetailsPage = ({
 
       <div styleName="header">
         <h1 styleName="challenge-title">
-          {details.challenge.title}
+          {details.challenge.name}
         </h1>
         <div styleName="tags">
           <div styleName="review-opportunity-tag">
             Review Opportunities
           </div>
           <div styleName="subtrack-tag">
-            {details.challenge.type}
+            {typeof details.challenge.type === 'object' ? details.challenge.type.name : details.challenge.type}
           </div>
         </div>
 
@@ -71,7 +71,7 @@ const ReviewOpportunityDetailsPage = ({
             >
               REVIEW APPLICATIONS
               {' '}
-              {`(${details.applications ? details.applications.filter(app => app.status !== 'Cancelled').length : 0})`}
+              {`(${details.applications ? details.applications.filter(app => app.status !== 'CANCELLED').length : 0})`}
             </a>
           </div>
           <div styleName={`tab ${selectedTab === TABS.CHALLENGE_SPEC ? 'selected-tab' : ''}`}>
@@ -85,7 +85,7 @@ const ReviewOpportunityDetailsPage = ({
             </a>
           </div>
           <div styleName="tab">
-            <a href="https://help.topcoder.com/hc/en-us/articles/222503827-Development-Reviewer-Role-Responsibilities" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.topcoder.com/thrive/articles/Development%20Review%20-%20Role%20&%20Responsibilities" target="_blank" rel="noopener noreferrer">
               REVIEW PROCESS AND RULES
             </a>
           </div>

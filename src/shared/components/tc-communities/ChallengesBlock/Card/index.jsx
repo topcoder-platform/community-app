@@ -13,6 +13,7 @@ import {
 import { Link } from 'topcoder-react-utils';
 
 import { COMPETITION_TRACKS } from 'utils/tc';
+import { getTrackName } from 'utils/challenge';
 
 import './style.scss';
 
@@ -29,7 +30,7 @@ export default function Card({
   } = challenge;
 
   let TrackTag;
-  switch (track.toLowerCase()) {
+  switch ((getTrackName(track) || '').toLowerCase()) {
     case 'datasci':
     case COMPETITION_TRACKS.DS:
       TrackTag = DataScienceTrackTag;

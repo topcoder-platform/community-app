@@ -19,45 +19,77 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import style from './style.scss';
 
 export default function SubmissionRow({
-  isMM, isRDM, openHistory, member, submissions, score, toggleHistory, challengeStatus,
+  isMM, isRDM, openHistory, member, submissions, toggleHistory, challengeStatus,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
   numWinners, auth, isLoggedIn,
 }) {
+  const submissionList = Array.isArray(submissions) ? submissions : [];
+  const latestSubmission = submissionList[0] || {};
   const {
-    submissionTime, provisionalScore, status, submissionId,
-  } = submissions[0];
-  let { finalScore } = submissions[0];
-  finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
-  let initialScore;
-  if (provisionalScore >= 0 || provisionalScore === -1) {
-    initialScore = provisionalScore;
-  }
+    status,
+    submissionId,
+    submissionTime,
+  } = latestSubmission;
+
+  const parseScore = (value) => {
+    const numeric = Number(value);
+    return Number.isFinite(numeric) ? numeric : null;
+  };
+
+  const provisionalScore = parseScore(_.get(latestSubmission, 'provisionalScore'));
+  const finalScore = parseScore(_.get(latestSubmission, 'finalScore'));
 
   const getInitialReviewResult = () => {
-    const s = isMM ? _.get(score, 'provisional', initialScore) : initialScore;
-    if (s && s < 0) return <FailedSubmissionTooltip />;
-    switch (status) {
-      case 'completed':
-        return s;
-      case 'in-review':
-        return <InReview />;
-      case 'queued':
-        return <Queued />;
-      case 'failed':
-        return <FailedSubmissionTooltip />;
-      default:
-        return s;
+    if (status === 'failed') {
+      return <FailedSubmissionTooltip />;
     }
+    if (status === 'in-review') {
+      return <InReview />;
+    }
+    if (status === 'queued') {
+      return <Queued />;
+    }
+    if (_.isNil(provisionalScore)) {
+      return 'N/A';
+    }
+    if (provisionalScore < 0) {
+      return <FailedSubmissionTooltip />;
+    }
+    return provisionalScore;
   };
 
   const getFinalReviewResult = () => {
-    const s = isMM && isReviewPhaseComplete ? _.get(score, 'final', finalScore) : finalScore;
-    if (isReviewPhaseComplete) {
-      if (s && s < 0) return 0;
-      return s;
+    if (!isReviewPhaseComplete) {
+      return 'N/A';
     }
-    return 'N/A';
+    if (_.isNil(finalScore)) {
+      return 'N/A';
+    }
+    if (finalScore < 0) {
+      return 0;
+    }
+    return finalScore;
   };
+
+  const initialReviewResult = getInitialReviewResult();
+  const finalReviewResult = getFinalReviewResult();
+
+  const submissionMoment = submissionTime ? moment(submissionTime) : null;
+  const submissionDateDisplay = submissionMoment
+    ? `${submissionMoment.format('DD MMM YYYY')} ${submissionMoment.format('HH:mm:ss')}`
+    : 'N/A';
+
+  const finalRankDisplay = (isReviewPhaseComplete && _.isFinite(finalRank)) ? finalRank : 'N/A';
+  const provisionalRankDisplay = _.isFinite(provisionalRank) ? provisionalRank : 'N/A';
+  const ratingDisplay = _.isFinite(rating) ? rating : '-';
+  const ratingLevelStyle = `col level-${getRatingLevel(rating)}`;
+  const memberHandle = member || '';
+  const memberDisplay = memberHandle || '-';
+  const memberProfileUrl = memberHandle ? `${window.origin}/members/${memberHandle}` : null;
+  const memberLinkTarget = `${_.includes(window.origin, 'www') ? '_self' : '_blank'}`;
+  const memberForHistory = memberHandle || memberDisplay;
+  const latestSubmissionId = submissionId || 'N/A';
+  const submissionCount = submissionList.length;
 
   return (
     <div styleName={`wrapper ${viewAsTable ? 'wrapper-as-table' : ''} `}>
@@ -67,14 +99,12 @@ export default function SubmissionRow({
             <React.Fragment>
               <div styleName={`col-1 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
                 <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>FINAL RANK</div>
-                {
-                    isReviewPhaseComplete ? finalRank || 'N/A' : 'N/A'
-                  }
+                {finalRankDisplay}
               </div>
               <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>PROVISIONAL RANK</div>
               <div styleName={`col-2 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
                 <div>
-                  { provisionalRank || 'N/A' }
+                  { provisionalRankDisplay }
                 </div>
               </div>
             </React.Fragment>
@@ -82,37 +112,43 @@ export default function SubmissionRow({
         }
         <div styleName={`col-3 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
           <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>RATING</div>
-          <span styleName={`col level-${getRatingLevel(rating)}`}>
-            {rating || '-'}
+          <span styleName={ratingLevelStyle}>
+            {ratingDisplay}
           </span>
         </div>
         <div styleName={`col-4 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
           <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>USERNAME</div>
-          <a
-            href={`${window.origin}/members/${member}`}
-            target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
-            rel="noopener noreferrer"
-            styleName={`col level-${getRatingLevel(rating)}`}
-          >
-            {member || '-'}
-          </a>
+          {
+            memberProfileUrl ? (
+              <a
+                href={memberProfileUrl}
+                target={memberLinkTarget}
+                rel="noopener noreferrer"
+                styleName={ratingLevelStyle}
+              >
+                {memberDisplay}
+              </a>
+            ) : (
+              <span styleName={ratingLevelStyle}>{memberDisplay}</span>
+            )
+          }
         </div>
         <div styleName={`col-5 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
           <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>FINAL SCORE</div>
           <div>
-            {getFinalReviewResult()}
+            {finalReviewResult}
           </div>
         </div>
         <div styleName={`col-6 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
           <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>PROVISIONAL SCORE</div>
           <div>
-            {getInitialReviewResult() ? getInitialReviewResult() : 'N/A'}
+            {initialReviewResult}
           </div>
         </div>
         <div styleName={`col-7 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
           <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>SUBMISSION DATE</div>
           <div styleName="time">
-            {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
+            {submissionDateDisplay}
           </div>
         </div>
         <div styleName={`col-8 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
@@ -123,7 +159,7 @@ export default function SubmissionRow({
           >
             <span styleName="text">
               History (
-              {submissions.length}
+              {submissionCount}
               )
             </span>
           </a>
@@ -143,7 +179,7 @@ export default function SubmissionRow({
             </div>
             <hr />
             <div styleName="submission-text">
-              Latest Submission: <span>{submissionId}</span>
+              Latest Submission: <span>{latestSubmissionId}</span>
             </div>
             <div>
               <div styleName="row no-border history-head">
@@ -182,17 +218,17 @@ export default function SubmissionRow({
             </div>
             <div styleName="table-body">
               {
-                submissions.map((submissionHistory, index) => (
+                submissionList.map((submissionHistory, index) => (
                   <SubmissionHistoryRow
                     isReviewPhaseComplete={isReviewPhaseComplete}
                     isMM={isMM}
                     isRDM={isRDM}
                     challengeStatus={challengeStatus}
-                    submission={submissions.length - index}
+                    submission={submissionList.length - index}
                     {...submissionHistory}
-                    key={submissionHistory.submissionId}
+                    key={submissionHistory.submissionId || index}
                     onShowPopup={onShowPopup}
-                    member={member}
+                    member={memberForHistory}
                     numWinners={numWinners}
                     auth={auth}
                     isLoggedIn={isLoggedIn}
@@ -216,7 +252,6 @@ export default function SubmissionRow({
 
 SubmissionRow.defaultProps = {
   toggleHistory: () => {},
-  score: {},
   isReviewPhaseComplete: false,
   finalRank: null,
   provisionalRank: null,
@@ -234,29 +269,20 @@ SubmissionRow.propTypes = {
     provisionalScore: PT.oneOfType([
       PT.number,
       PT.string,
+      PT.oneOf([null]),
     ]),
     finalScore: PT.oneOfType([
       PT.number,
       PT.string,
-    ]),
-    initialScore: PT.oneOfType([
-      PT.number,
-      PT.string,
+      PT.oneOf([null]),
     ]),
     status: PT.string.isRequired,
     submissionId: PT.string.isRequired,
-    submissionTime: PT.string.isRequired,
+    submissionTime: PT.oneOfType([
+      PT.string,
+      PT.oneOf([null]),
+    ]).isRequired,
   })).isRequired,
-  score: PT.shape({
-    final: PT.oneOfType([
-      PT.number,
-      PT.string,
-    ]),
-    provisional: PT.oneOfType([
-      PT.number,
-      PT.string,
-    ]),
-  }),
   rating: PT.number,
   toggleHistory: PT.func,
   isReviewPhaseComplete: PT.bool,

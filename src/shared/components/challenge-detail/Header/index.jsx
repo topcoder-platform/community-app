@@ -8,7 +8,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import 'moment-duration-format';
-import { isMM } from 'utils/challenge';
+import { isMM, getTrackName, getTypeName } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React, { useMemo } from 'react';
@@ -104,10 +104,16 @@ export default function ChallengeHeader(props) {
   const sortedAllPhases = _.cloneDeep(allPhases)
     .sort((a, b) => moment(phaseEndDate(a)).diff(phaseEndDate(b)));
 
-  const placementPrizes = _.find(prizeSets, { type: 'placement' });
+  const placementPrizes = _.find(
+    prizeSets,
+    prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',
+  );
   const { prizes } = placementPrizes || [];
 
-  const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
+  const checkpointPrizes = _.find(
+    prizeSets,
+    prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'checkpoint',
+  );
   let numberOfCheckpointsPrizes = 0;
   let topCheckPointPrize = 0;
   if (!_.isEmpty(checkpointPrizes)) {
@@ -124,7 +130,7 @@ export default function ChallengeHeader(props) {
 
   let registrationEnded = true;
   const regPhase = phases && phases.registration;
-  if (status !== 'Completed' && regPhase) {
+  if (status !== 'COMPLETED' && regPhase) {
     registrationEnded = !regPhase.isOpen;
   }
 
@@ -135,7 +141,9 @@ export default function ChallengeHeader(props) {
   const currentPhases = allOpenPhases
     .filter(p => !isRegistrationPhase(p))[0];
 
-  const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
+  const trackName = getTrackName(track);
+  const typeName = getTypeName(type);
+  const trackLower = trackName ? trackName.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
 
@@ -235,7 +243,7 @@ export default function ChallengeHeader(props) {
     if (trackLower === 'quality-assurance') {
       relevantPhases = _.filter(relevantPhases, p => !(p.name.toLowerCase().includes('specification submission') || p.name.toLowerCase().includes('specification review')));
     }
-    if (type === 'First2Finish' && status === 'Completed') {
+    if (typeName === 'First2Finish' && status === 'COMPLETED') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
       const endPhaseDate = Math.max(...phases2.map(d => phaseEndDate(d)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')
@@ -319,7 +327,7 @@ export default function ChallengeHeader(props) {
               <ChallengeTags
                 challengeId={challengeId}
                 track={track}
-                challengeType={_.find(challengeTypesMap, { name: type }) || {}}
+                challengeType={_.find(challengeTypesMap, { name: typeName }) || {}}
                 challengesUrl={challengesUrl}
                 events={eventNames}
                 technPlatforms={miscTags}
@@ -458,7 +466,7 @@ export default function ChallengeHeader(props) {
                     <span>Submit a solution</span>
                   </PrimaryButton>
                   {
-                    track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+                    trackName === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
                       && hasSubmissions && (
                       <PrimaryButton
                         theme={{ button: style.submitButton }}

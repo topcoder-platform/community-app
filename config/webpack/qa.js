@@ -39,4 +39,7 @@ standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
   PUBLIC_PATH: JSON.stringify('/api/cdn/public/static-assets'),
 }));
 
+// Align QA bundles with production by emitting source maps for debugging in browsers
+standardDevelopmentConfig.devtool = 'source-map';
+
 module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);
