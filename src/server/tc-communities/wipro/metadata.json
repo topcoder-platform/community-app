@@ -1,5 +1,8 @@
 {
-  "authorizedGroupIds": [],
+  "authorizedGroupIds": [
+    "b7f7c0f8-8ee8-409e-9e5c-33404983b635",
+    "55351e45-f8e2-4980-8461-94de5366623f"
+  ],
   "challengeFilter": {
     "groupIds": ["b7f7c0f8-8ee8-409e-9e5c-33404983b635"]
   },

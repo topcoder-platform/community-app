@@ -125,7 +125,6 @@ class Loader extends React.Component {
       // to any groups authorized to access this community
       return Community({ member, meta });
     }
-
     /* Visitor is not authorized to access this community. */
     return (
       <AccessDenied
