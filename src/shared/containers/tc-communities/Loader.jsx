@@ -103,6 +103,10 @@ class Loader extends React.Component {
       // to see the "Public Site" on Zurich
       if (communityId === 'zurich') return Community({ member, meta });
       // All other get the not authorized page
+
+      console.log('Rendering Access Denied - Not Authenticated for !visitorGroups');
+      console.loglog(visitorGroups, meta, communityId, member);
+
       return (
         <AccessDenied
           cause={ACCESS_DENIED_REASON.NOT_AUTHENTICATED}
@@ -125,6 +129,9 @@ class Loader extends React.Component {
       // to any groups authorized to access this community
       return Community({ member, meta });
     }
+
+    console.log('Rendering Access Denied - Not Authenticated');
+    console.loglog(visitorGroups, meta, communityId, member);
 
     /* Visitor is not authorized to access this community. */
     return (
