@@ -105,7 +105,7 @@ class Loader extends React.Component {
       // All other get the not authorized page
 
       console.log('Rendering Access Denied - Not Authenticated for !visitorGroups');
-      console.loglog(visitorGroups, meta, communityId, member);
+      console.log(visitorGroups, meta, communityId, member);
 
       return (
         <AccessDenied
@@ -131,7 +131,7 @@ class Loader extends React.Component {
     }
 
     console.log('Rendering Access Denied - Not Authenticated');
-    console.loglog(visitorGroups, meta, communityId, member);
+    console.log(visitorGroups, meta, communityId, member);
 
     /* Visitor is not authorized to access this community. */
     return (
