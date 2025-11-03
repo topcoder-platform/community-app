@@ -6,6 +6,9 @@ import moment from 'moment';
  * @return {Date}
  */
 export function phaseEndDate(phase) {
+  if (phase.actualEndDate) {
+    return new Date(phase.actualEndDate);
+  }
   // Case 1: phase is still open. take the `scheduledEndDate`
   // Case 2: phase is not open but `scheduledStartDate` is a future date.
   // This means phase is not yet started. So take the `scheduledEndDate`
@@ -17,7 +20,7 @@ export function phaseEndDate(phase) {
     return new Date(phase.scheduledEndDate);
   }
   // for other cases, take the `actualEndDate` as phase is already closed
-  return new Date(phase.scheduledEndDate || phase.actualEndDate);
+  return new Date(phase.actualEndDate || phase.scheduledEndDate);
 }
 
 /**
@@ -26,12 +29,15 @@ export function phaseEndDate(phase) {
  * @return {Date}
  */
 export function phaseStartDate(phase) {
+  if (phase.actualStartDate) {
+    return new Date(phase.actualStartDate);
+  }
   // Case 1: Phase is not yet started. take the `scheduledStartDate`
   if (phase.isOpen !== true && moment(phase.scheduledStartDate).isAfter()) {
     return new Date(phase.scheduledStartDate);
   }
   // For all other cases, take the `actualStartDate` as phase is already started
-  return new Date(phase.scheduledStartDate || phase.actualStartDate);
+  return new Date(phase.actualStartDate || phase.scheduledStartDate);
 }
 
 /**
