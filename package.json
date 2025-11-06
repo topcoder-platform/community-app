@@ -39,7 +39,7 @@
   "dependencies": {
     "@hapi/joi": "^16.1.4",
     "@optimizely/react-sdk": "^2.5.0",
-    "@topcoder-platform/tc-auth-lib": "topcoder-platform/tc-auth-lib#1.0.4",
+    "@topcoder-platform/tc-auth-lib": "topcoder-platform/tc-auth-lib#master",
     "aos": "^2.3.4",
     "atob": "^2.1.1",
     "babel-register": "^6.26.0",
