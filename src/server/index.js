@@ -343,7 +343,21 @@ async function onExpressJsSetup(server) {
    * HTML document (/src/shared/services/__mocks__/data/docu-sign-mock.html)
    * that has two buttons, that do the same redirects, as the real DocuSign
    * page would do on signing / rejecting a document. */
-  server.use('/community-app-assets/api/mock/docu-sign', (req, res) => setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
+  server.use('/community-app-assets/api/mock/docu-sign', (req, res) => {
+    const isValidUrl = (urlString) => {
+      const urlPattern = new RegExp('^(https?:\\/\\/)?'// validate protocol
+      + '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' // validate domain name
+      + '((\\d{1,3}\\.){3}\\d{1,3}))'// validate OR ip (v4) address
+      + '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'// validate port and path
+      + '(\\?[;&a-z\\d%_.~+=-]*)?'// validate query string
+      + '(\\#[-a-z\\d_]*)?$', 'i'); // validate fragment locator
+      return !!urlPattern.test(urlString);
+    };
+    if (isValidUrl(req.query.returnUrl)) {
+      return setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000);
+    }
+    return res.status(400).send('Invalid return URL');
+  });
 
   /* TODO:
    * This is a temporary fallback route: some of the assets in the app are not
