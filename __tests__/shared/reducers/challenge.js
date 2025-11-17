@@ -315,7 +315,6 @@ describe('Factory with server-side rendering', () => {
     reducers.factory({
       cookies: {
         tcjwt: 'TcAuthTokenV2',
-        v3jwt: 'TcAuthTokenV3',
       },
       url: '/challenges/12345/my-submissions',
     }).then((res) => {
