@@ -63,6 +63,16 @@ const getDisplaySubmissionId = (submission) => {
   return '';
 };
 
+const getSubmissionCreatedTime = (submission) => {
+  if (!submission) return undefined;
+  return (
+    submission.created
+    || submission.createdAt
+    || submission.submissionTime
+    || submission.updated
+    || submission.updatedAt
+  );
+};
 
 class SubmissionsListView extends React.Component {
   constructor(props) {
@@ -73,7 +83,7 @@ class SubmissionsListView extends React.Component {
       statusClicked: false,
       finalClicked: false,
       provisionClicked: false,
-      timeClicked: false,
+      timeClicked: true,
       openModal: false,
       selectedSubmission: {},
     };
@@ -106,7 +116,7 @@ class SubmissionsListView extends React.Component {
     } = this.props;
     let { field, sort } = submissionsSort;
     if (!field) {
-      field = 'Submission ID';
+      field = 'Time';
     }
 
     if (!sort) {
@@ -172,8 +182,8 @@ class SubmissionsListView extends React.Component {
           break;
         }
         case 'Time': {
-          valueA = new Date(a.submissionTime);
-          valueB = new Date(b.submissionTime);
+          valueA = new Date(getSubmissionCreatedTime(a));
+          valueB = new Date(getSubmissionCreatedTime(b));
           break;
         }
         default:
@@ -444,6 +454,10 @@ class SubmissionsListView extends React.Component {
               const statusStyleName = isAccepted ? 'accepted' : 'queue';
               const statusLabel = isAccepted ? 'Accepted' : 'In Queue';
               const displaySubmissionId = getDisplaySubmissionId(mySubmission);
+              const submissionCreatedTime = getSubmissionCreatedTime(mySubmission);
+              const submissionTimeDisplay = submissionCreatedTime
+                ? moment(submissionCreatedTime).format('MMM DD, YYYY HH:mm:ss')
+                : 'N/A';
               return (
                 <div
                   key={displaySubmissionId || mySubmission.submissionId || mySubmission.id}
@@ -498,7 +512,7 @@ class SubmissionsListView extends React.Component {
                       )}
                     >
                       <div styleName="mobile-header">Time</div>
-                      <span>{moment(mySubmission.submissionTime).format('MMM DD, YYYY HH:mm:ss')}</span>
+                      <span>{submissionTimeDisplay}</span>
                     </div>
                     <div styleName="submission-table-column column-2-4">
                       { !isTopCrowdChallenge
