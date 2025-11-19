@@ -873,7 +873,10 @@ function mapStateToProps(state, props) {
   const challengeId = String(props.match.params.challengeId);
   const cl = state.challengeListing;
   const { lookup: { allCountries, reviewTypes } } = state;
-  const reviewSummations = extractArrayFromStateSlice(state.challenge.reviewSummations, challengeId);
+  const reviewSummations = extractArrayFromStateSlice(
+    state.challenge.reviewSummations,
+    challengeId,
+  );
   let mmSubmissions = extractArrayFromStateSlice(state.challenge.mmSubmissions, challengeId);
   if (!mmSubmissions.length && reviewSummations.length) {
     mmSubmissions = buildMmSubmissionData(reviewSummations);
@@ -1160,7 +1163,6 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
   const lookupActions = actions.lookup;
-  const challengeActions = actions.challenge || {};
 
   const dispatchReviewSummations = (challengeId, tokenV3) => {
     const challengeIdStr = _.toString(challengeId);
