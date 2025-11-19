@@ -86,17 +86,12 @@ exports[`Matches shallow shapshot 1`] = `
         store.auth
       </code>
        
-      of Redux store, or in
-      <code>
-        v3jwt
-      </code>
-       
-      and
+      of Redux store, or in the
       <code>
         tcjwt
       </code>
        
-      cookies of the front-end requests to the server);
+      cookie of the front-end requests to the server);
     </li>
     <li>
       Stylefmt;

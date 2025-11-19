@@ -179,8 +179,8 @@ class ChallengeDetailPageContainer extends React.Component {
         sort: '',
       },
       mySubmissionsSort: {
-        field: '',
-        sort: '',
+        field: 'Time',
+        sort: 'desc',
       },
       notFoundCountryFlagUrl: {},
       viewAsTable: false,
@@ -849,11 +849,43 @@ ChallengeDetailPageContainer.propTypes = {
   getSubmissionArtifacts: PT.func,
 };
 
+function extractArrayFromStateSlice(slice, challengeId) {
+  if (Array.isArray(slice)) {
+    return slice;
+  }
+  if (slice && Array.isArray(slice.data)) {
+    return slice.data;
+  }
+  const key = challengeId ? String(challengeId) : null;
+  if (key && slice && slice[key]) {
+    const scoped = slice[key];
+    if (Array.isArray(scoped)) {
+      return scoped;
+    }
+    if (scoped && Array.isArray(scoped.data)) {
+      return scoped.data;
+    }
+  }
+  return [];
+}
+
 function mapStateToProps(state, props) {
+  const challengeId = String(props.match.params.challengeId);
   const cl = state.challengeListing;
   const { lookup: { allCountries, reviewTypes } } = state;
-  let { challenge: { mmSubmissions } } = state;
+  const reviewSummations = extractArrayFromStateSlice(
+    state.challenge.reviewSummations,
+    challengeId,
+  );
+  let mmSubmissions = extractArrayFromStateSlice(state.challenge.mmSubmissions, challengeId);
+  if (!mmSubmissions.length && reviewSummations.length) {
+    mmSubmissions = buildMmSubmissionData(reviewSummations);
+  }
   const { auth } = state;
+  let statisticsData = extractArrayFromStateSlice(state.challenge.statisticsData, challengeId);
+  if ((!Array.isArray(statisticsData) || !statisticsData.length) && reviewSummations.length) {
+    statisticsData = buildStatisticsData(reviewSummations);
+  }
   const challenge = state.challenge.details || {};
   let mySubmissions = [];
   if (challenge.registrants) {
@@ -1087,7 +1119,7 @@ function mapStateToProps(state, props) {
     // recommendedChallenges: cl.recommendedChallenges,
     // loadingRecommendedChallengesUUID: cl.loadingRecommendedChallengesUUID,
     expandedTags: cl.expandedTags,
-    challengeId: String(props.match.params.challengeId),
+    challengeId,
     challengesUrl: props.challengesUrl,
     challengeTypesMap: state.challengeListing.challengeTypesMap,
     checkpointResults: checkpoints.checkpointResults,
@@ -1099,7 +1131,7 @@ function mapStateToProps(state, props) {
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
     isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
       type: 'challenge',
-      id: props.match.params.challengeId,
+      id: challengeId,
     }),
     loadingCheckpointResults: state.challenge.loadingCheckpoints,
     loadingResultsForChallengeId: state.challenge.loadingResultsForChallengeId,
@@ -1124,28 +1156,17 @@ function mapStateToProps(state, props) {
     mySubmissions,
     reviewTypes,
     openForRegistrationChallenges: state.challengeListing.openForRegistrationChallenges,
-    statisticsData: state.challenge.statisticsData,
+    statisticsData,
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
   const lookupActions = actions.lookup;
-  const challengeActions = actions.challenge || {};
-  const hasReviewSummationsActions = (
-    typeof challengeActions.getReviewSummationsInit === 'function'
-    && typeof challengeActions.getReviewSummationsDone === 'function'
-  );
 
   const dispatchReviewSummations = (challengeId, tokenV3) => {
     const challengeIdStr = _.toString(challengeId);
     if (!challengeIdStr) {
-      return;
-    }
-
-    if (hasReviewSummationsActions) {
-      dispatch(challengeActions.getReviewSummationsInit(challengeIdStr));
-      dispatch(challengeActions.getReviewSummationsDone(challengeIdStr, tokenV3));
       return;
     }
 

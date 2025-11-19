@@ -102,17 +102,12 @@ export default function Content() {
           </code>
           {' '}
           of Redux store, or
-          in
-          <code>
-            v3jwt
-          </code>
-          {' '}
-          and
+          in the
           <code>
             tcjwt
           </code>
           {' '}
-          cookies of the front-end
+          cookie of the front-end
           requests to the server);
         </li>
         <li>
