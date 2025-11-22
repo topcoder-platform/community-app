@@ -54,6 +54,7 @@ function ensureSubmissionEntry(existingEntry, { submissionId, timestamp, timesta
   const baseEntry = {
     submissionId,
     submissionTime: timestamp || null,
+    isLatest: null,
     provisionalScore: null,
     finalScore: null,
     status: 'completed',
@@ -80,6 +81,7 @@ function ensureSubmissionEntry(existingEntry, { submissionId, timestamp, timesta
     ...existingEntry,
     submissionId: existingEntry.submissionId || submissionId,
     submissionTime: existingEntry.submissionTime || baseEntry.submissionTime,
+    isLatest: existingEntry.isLatest === undefined ? baseEntry.isLatest : existingEntry.isLatest,
     status: existingEntry.status || 'completed',
     reviewSummations,
     reviewSummation,
@@ -128,6 +130,7 @@ function updateSubmissionEntry(existingEntry, {
   normalizedScore,
   summation,
   isProvisional,
+  isLatest,
 }) {
   const baseEntry = ensureSubmissionEntry(existingEntry, {
     submissionId,
@@ -137,16 +140,22 @@ function updateSubmissionEntry(existingEntry, {
   const {
     submissionTime: baseSubmissionTime,
     latestTimestamp: baseLatestTimestamp,
+    isLatest: baseIsLatest,
   } = baseEntry;
 
   let submissionTime = baseSubmissionTime;
   let latestTimestamp = baseLatestTimestamp;
+  let submissionIsLatest = baseIsLatest;
 
   if (timestampValue > latestTimestamp) {
     latestTimestamp = timestampValue;
     submissionTime = timestamp || submissionTime;
   } else if (!submissionTime && timestamp) {
     submissionTime = timestamp;
+  }
+
+  if (!_.isNil(isLatest)) {
+    submissionIsLatest = Boolean(isLatest);
   }
 
   const provisionalResult = isProvisional
@@ -173,6 +182,7 @@ function updateSubmissionEntry(existingEntry, {
     ...baseEntry,
     submissionTime,
     latestTimestamp,
+    isLatest: submissionIsLatest,
     provisionalMeta: provisionalResult.meta,
     provisionalScore: provisionalResult.value,
     finalMeta: finalResult.meta,
@@ -278,8 +288,6 @@ export function buildMmSubmissionData(reviewSummations = []) {
         memberId: null,
         rating: null,
         submissionsMap: new Map(),
-        bestProvisionalScore: null,
-        bestFinalScore: null,
       });
     }
 
@@ -302,7 +310,7 @@ export function buildMmSubmissionData(reviewSummations = []) {
 
     const normalizedScore = normalizeScoreValue(_.get(summation, 'aggregateScore'));
     const isProvisional = Boolean(summation.isProvisional);
-    const isLatest = _.isNil(summation.isLatest) ? true : Boolean(summation.isLatest);
+    const isLatest = _.isNil(summation.isLatest) ? null : Boolean(summation.isLatest);
 
     const updatedEntry = updateSubmissionEntry(memberEntry.submissionsMap.get(submissionId), {
       submissionId,
@@ -311,21 +319,10 @@ export function buildMmSubmissionData(reviewSummations = []) {
       normalizedScore,
       summation,
       isProvisional,
+      isLatest,
     });
 
     memberEntry.submissionsMap.set(submissionId, updatedEntry);
-
-    if (!_.isNil(normalizedScore) && isLatest) {
-      if (isProvisional) {
-        memberEntry.bestProvisionalScore = _.isNil(memberEntry.bestProvisionalScore)
-          ? normalizedScore
-          : Math.max(memberEntry.bestProvisionalScore, normalizedScore);
-      } else {
-        memberEntry.bestFinalScore = _.isNil(memberEntry.bestFinalScore)
-          ? normalizedScore
-          : Math.max(memberEntry.bestFinalScore, normalizedScore);
-      }
-    }
   });
 
   const members = Array.from(membersByHandle.values()).map((memberEntry) => {
@@ -333,6 +330,7 @@ export function buildMmSubmissionData(reviewSummations = []) {
       .map(submission => ({
         submissionId: submission.submissionId,
         submissionTime: submission.submissionTime,
+        isLatest: submission.isLatest,
         provisionalScore: _.isNil(submission.provisionalScore) ? null : submission.provisionalScore,
         finalScore: _.isNil(submission.finalScore) ? null : submission.finalScore,
         status: submission.status || 'completed',
@@ -340,6 +338,20 @@ export function buildMmSubmissionData(reviewSummations = []) {
         reviewSummation: [...submission.reviewSummations],
       }))
       .sort((a, b) => toTimestampValue(b.submissionTime) - toTimestampValue(a.submissionTime));
+
+    const hasLatestFlag = submissions.some(s => !_.isNil(s.isLatest));
+    const latestSubmissions = hasLatestFlag ? submissions.filter(s => s.isLatest) : submissions;
+    const candidates = latestSubmissions.length ? latestSubmissions : submissions;
+    const bestProvisionalScore = _.chain(candidates)
+      .map(s => (_.isNil(s.provisionalScore) ? null : s.provisionalScore))
+      .filter(s => !_.isNil(s))
+      .max()
+      .value() || null;
+    const bestFinalScore = _.chain(candidates)
+      .map(s => (_.isNil(s.finalScore) ? null : s.finalScore))
+      .filter(s => !_.isNil(s))
+      .max()
+      .value() || null;
 
     const rating = _.isNil(memberEntry.rating) ? null : memberEntry.rating;
     const memberId = memberEntry.memberId ? _.toString(memberEntry.memberId) : null;
@@ -358,8 +370,8 @@ export function buildMmSubmissionData(reviewSummations = []) {
       provisionalRank: null,
       finalRank: null,
       submissions,
-      bestProvisionalScore: memberEntry.bestProvisionalScore,
-      bestFinalScore: memberEntry.bestFinalScore,
+      bestProvisionalScore,
+      bestFinalScore,
     };
   });
 
