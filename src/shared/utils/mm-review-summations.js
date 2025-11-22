@@ -302,6 +302,7 @@ export function buildMmSubmissionData(reviewSummations = []) {
 
     const normalizedScore = normalizeScoreValue(_.get(summation, 'aggregateScore'));
     const isProvisional = Boolean(summation.isProvisional);
+    const isLatest = _.isNil(summation.isLatest) ? true : Boolean(summation.isLatest);
 
     const updatedEntry = updateSubmissionEntry(memberEntry.submissionsMap.get(submissionId), {
       submissionId,
@@ -314,7 +315,7 @@ export function buildMmSubmissionData(reviewSummations = []) {
 
     memberEntry.submissionsMap.set(submissionId, updatedEntry);
 
-    if (!_.isNil(normalizedScore)) {
+    if (!_.isNil(normalizedScore) && isLatest) {
       if (isProvisional) {
         memberEntry.bestProvisionalScore = _.isNil(memberEntry.bestProvisionalScore)
           ? normalizedScore
