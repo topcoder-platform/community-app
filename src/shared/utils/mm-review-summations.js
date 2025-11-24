@@ -1,7 +1,7 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 function normalizeScoreValue(score) {
-  if (_.isNil(score) || score === "" || score === "-") {
+  if (_.isNil(score) || score === '' || score === '-') {
     return null;
   }
   const parsed = Number(score);
@@ -13,12 +13,12 @@ function normalizeScoreValue(score) {
 
 function getSummationTimestamp(summation) {
   const candidates = [
-    _.get(summation, "createdAt"),
-    _.get(summation, "created"),
-    _.get(summation, "reviewedDate"),
-    _.get(summation, "updatedAt"),
+    _.get(summation, 'createdAt'),
+    _.get(summation, 'created'),
+    _.get(summation, 'reviewedDate'),
+    _.get(summation, 'updatedAt'),
   ];
-  return _.find(candidates, (value) => !!value) || null;
+  return _.find(candidates, value => !!value) || null;
 }
 
 function toTimestampValue(value) {
@@ -33,20 +33,20 @@ function toTimestampValue(value) {
 }
 
 function getSummationHandle(summation) {
-  const handle = _.get(summation, "submitterHandle");
+  const handle = _.get(summation, 'submitterHandle');
   if (!handle || !_.isString(handle) || !handle.trim()) {
-    return "unknown";
+    return 'unknown';
   }
   return handle;
 }
 
 function getSummationMemberId(summation) {
-  const memberId = _.get(summation, "submitterId");
+  const memberId = _.get(summation, 'submitterId');
   return _.isNil(memberId) ? null : _.toString(memberId);
 }
 
 function getSummationRating(summation) {
-  const rating = _.get(summation, "submitterMaxRating");
+  const rating = _.get(summation, 'submitterMaxRating');
   return _.isNil(rating) ? null : rating;
 }
 
@@ -60,7 +60,7 @@ function ensureSubmissionEntry(
     isLatest: null,
     provisionalScore: null,
     finalScore: null,
-    status: "completed",
+    status: 'completed',
     reviewSummations: [],
     reviewSummation: [],
     latestTimestamp: timestampValue,
@@ -88,7 +88,7 @@ function ensureSubmissionEntry(
       existingEntry.isLatest === undefined
         ? baseEntry.isLatest
         : existingEntry.isLatest,
-    status: existingEntry.status || "completed",
+    status: existingEntry.status || 'completed',
     reviewSummations,
     reviewSummation,
     latestTimestamp: _.isFinite(existingEntry.latestTimestamp)
@@ -120,16 +120,16 @@ function mergeScoreData(
     nextValue = _.isNil(score) ? null : score;
   } else if (timestampValue === nextMeta.timestamp) {
     if (
-      !_.isNil(score) &&
-      (_.isNil(nextMeta.score) || score > nextMeta.score)
+      !_.isNil(score)
+      && (_.isNil(nextMeta.score) || score > nextMeta.score)
     ) {
       nextMeta.score = score;
       nextValue = score;
     }
   } else if (
-    allowOlderTimestampUpdate &&
-    _.isNil(nextValue) &&
-    !_.isNil(score)
+    allowOlderTimestampUpdate
+    && _.isNil(nextValue)
+    && !_.isNil(score)
   ) {
     nextMeta.timestamp = timestampValue;
     nextMeta.score = score;
@@ -182,21 +182,21 @@ function updateSubmissionEntry(
 
   const provisionalResult = isProvisional
     ? mergeScoreData(
-        baseEntry.provisionalMeta,
-        baseEntry.provisionalScore,
-        normalizedScore,
-        timestampValue,
-      )
+      baseEntry.provisionalMeta,
+      baseEntry.provisionalScore,
+      normalizedScore,
+      timestampValue,
+    )
     : { meta: baseEntry.provisionalMeta, value: baseEntry.provisionalScore };
 
   const finalResult = isProvisional
     ? { meta: baseEntry.finalMeta, value: baseEntry.finalScore }
     : mergeScoreData(
-        baseEntry.finalMeta,
-        baseEntry.finalScore,
-        normalizedScore,
-        timestampValue,
-      );
+      baseEntry.finalMeta,
+      baseEntry.finalScore,
+      normalizedScore,
+      timestampValue,
+    );
 
   const reviewSummations = [...baseEntry.reviewSummations, summation];
 
@@ -218,12 +218,12 @@ function assignRanks(members, scoreKey, rankKey, options = {}) {
   const { tieBreaker } = options;
 
   const rankedEntries = members
-    .map((member) => ({
-      key: `${member.memberId || member.member || ""}`,
+    .map(member => ({
+      key: `${member.memberId || member.member || ''}`,
       score: member[scoreKey],
       tieBreaker: tieBreaker ? tieBreaker(member) : null,
     }))
-    .filter((entry) => !_.isNil(entry.score))
+    .filter(entry => !_.isNil(entry.score))
     .sort((a, b) => {
       const scoreDiff = b.score - a.score;
       if (scoreDiff !== 0) {
@@ -265,7 +265,7 @@ function assignRanks(members, scoreKey, rankKey, options = {}) {
   }
 
   return members.map((member) => {
-    const key = `${member.memberId || member.member || ""}`;
+    const key = `${member.memberId || member.member || ''}`;
     const rank = rankByKey.get(key);
     return {
       ...member,
@@ -361,8 +361,8 @@ export function buildMmSubmissionData(reviewSummations = []) {
 
     const rawSubmissionId = _.get(
       summation,
-      "submissionId",
-      _.get(summation, "id"),
+      'submissionId',
+      _.get(summation, 'id'),
     );
     const submissionId = rawSubmissionId
       ? _.toString(rawSubmissionId)
@@ -371,7 +371,7 @@ export function buildMmSubmissionData(reviewSummations = []) {
     const timestampValue = toTimestampValue(timestamp);
 
     const normalizedScore = normalizeScoreValue(
-      _.get(summation, "aggregateScore"),
+      _.get(summation, 'aggregateScore'),
     );
     const isProvisional = Boolean(summation.isProvisional);
     const isLatest = _.isNil(summation.isLatest)
@@ -396,7 +396,7 @@ export function buildMmSubmissionData(reviewSummations = []) {
 
   const members = Array.from(membersByHandle.values()).map((memberEntry) => {
     const submissions = Array.from(memberEntry.submissionsMap.values())
-      .map((submission) => ({
+      .map(submission => ({
         submissionId: submission.submissionId,
         submissionTime: submission.submissionTime,
         isLatest: submission.isLatest,
@@ -406,49 +406,45 @@ export function buildMmSubmissionData(reviewSummations = []) {
         finalScore: _.isNil(submission.finalScore)
           ? null
           : submission.finalScore,
-        status: submission.status || "completed",
+        status: submission.status || 'completed',
         reviewSummations: [...submission.reviewSummations],
         reviewSummation: [...submission.reviewSummations],
       }))
       .sort(
-        (a, b) =>
-          toTimestampValue(b.submissionTime) -
-          toTimestampValue(a.submissionTime),
+        (a, b) => toTimestampValue(b.submissionTime)
+          - toTimestampValue(a.submissionTime),
       );
 
-    const hasLatestFlag = submissions.some((s) => !_.isNil(s.isLatest));
+    const hasLatestFlag = submissions.some(s => !_.isNil(s.isLatest));
     const latestSubmissions = hasLatestFlag
-      ? submissions.filter((s) => s.isLatest)
+      ? submissions.filter(s => s.isLatest)
       : submissions;
     const candidates = latestSubmissions.length
       ? latestSubmissions
       : submissions;
-    const bestProvisionalScore =
-      _.chain(candidates)
-        .map((s) => (_.isNil(s.provisionalScore) ? null : s.provisionalScore))
-        .filter((s) => !_.isNil(s))
-        .max()
-        .value() || null;
+    const bestProvisionalScore = _.chain(candidates)
+      .map(s => (_.isNil(s.provisionalScore) ? null : s.provisionalScore))
+      .filter(s => !_.isNil(s))
+      .max()
+      .value() || null;
     const bestProvisionalTimestampValue = _.min(
       _.chain(candidates)
         .filter(
-          (s) =>
-            !_.isNil(s.provisionalScore) &&
-            s.provisionalScore === bestProvisionalScore,
+          s => !_.isNil(s.provisionalScore)
+            && s.provisionalScore === bestProvisionalScore,
         )
-        .map((s) => toTimestampValue(s.submissionTime))
-        .filter((value) => value > 0)
+        .map(s => toTimestampValue(s.submissionTime))
+        .filter(value => value > 0)
         .value(),
     );
     const bestProvisionalTimestamp = _.isFinite(bestProvisionalTimestampValue)
       ? bestProvisionalTimestampValue
       : null;
-    const bestFinalScore =
-      _.chain(candidates)
-        .map((s) => (_.isNil(s.finalScore) ? null : s.finalScore))
-        .filter((s) => !_.isNil(s))
-        .max()
-        .value() || null;
+    const bestFinalScore = _.chain(candidates)
+      .map(s => (_.isNil(s.finalScore) ? null : s.finalScore))
+      .filter(s => !_.isNil(s))
+      .max()
+      .value() || null;
 
     const rating = _.isNil(memberEntry.rating) ? null : memberEntry.rating;
     const memberId = memberEntry.memberId
@@ -457,11 +453,11 @@ export function buildMmSubmissionData(reviewSummations = []) {
 
     const registrant = memberId
       ? {
-          userId: memberId,
-          memberHandle:
-            memberEntry.handle === "unknown" ? null : memberEntry.handle,
-          rating,
-        }
+        userId: memberId,
+        memberHandle:
+            memberEntry.handle === 'unknown' ? null : memberEntry.handle,
+        rating,
+      }
       : null;
 
     return {
@@ -480,19 +476,19 @@ export function buildMmSubmissionData(reviewSummations = []) {
 
   const withProvisionalRanks = assignRanks(
     members,
-    "bestProvisionalScore",
-    "provisionalRank",
+    'bestProvisionalScore',
+    'provisionalRank',
     {
       tieBreaker: (entry) => {
-        const timestamp = _.get(entry, "bestProvisionalTimestamp");
+        const timestamp = _.get(entry, 'bestProvisionalTimestamp');
         return _.isFinite(timestamp) ? timestamp : Number.POSITIVE_INFINITY;
       },
     },
   );
   const withFinalRanks = assignRanks(
     withProvisionalRanks,
-    "bestFinalScore",
-    "finalRank",
+    'bestFinalScore',
+    'finalRank',
   );
 
   return withFinalRanks
@@ -557,12 +553,12 @@ export function buildStatisticsData(reviewSummations = []) {
 
     const timestamp = getSummationTimestamp(summation);
     const timestampValue = toTimestampValue(timestamp);
-    const score = normalizeScoreValue(_.get(summation, "aggregateScore"));
+    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
 
     const rawSubmissionId = _.get(
       summation,
-      "submissionId",
-      _.get(summation, "id"),
+      'submissionId',
+      _.get(summation, 'id'),
     );
     const submissionId = rawSubmissionId
       ? _.toString(rawSubmissionId)
@@ -572,25 +568,25 @@ export function buildStatisticsData(reviewSummations = []) {
 
     const updatedSubmission = existingSubmission
       ? updateStatisticsSubmission(existingSubmission, {
-          timestamp,
-          timestampValue,
-          score,
-        })
+        timestamp,
+        timestampValue,
+        score,
+      })
       : createStatisticsSubmission({
-          submissionId,
-          timestamp,
-          timestampValue,
-          score,
-        });
+        submissionId,
+        timestamp,
+        timestampValue,
+        score,
+      });
 
     entry.submissionsMap.set(submissionId, updatedSubmission);
   });
 
-  return Array.from(grouped.values()).map((entry) => ({
+  return Array.from(grouped.values()).map(entry => ({
     handle: entry.handle,
     rating: entry.rating,
     submissions: Array.from(entry.submissionsMap.values())
-      .map((submission) => ({
+      .map(submission => ({
         submissionId: submission.submissionId,
         created: submission.created,
         createdAt: submission.createdAt,
