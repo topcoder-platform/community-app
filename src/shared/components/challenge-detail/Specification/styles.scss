@@ -143,13 +143,21 @@ $tc-link-visited: #0c4e98;
     font-size: 13px;
     color: $tc-black;
     line-height: 20px;
-    margin: (2 * $base-unit) 0 (3 * $base-unit);
-    padding: 3 * $base-unit;
-    display: block;
+    margin: 0;
+    padding: 0 6px;
+    display: inline;
   }
 
   pre {
+    margin: (2 * $base-unit) 0 (3 * $base-unit);
     overflow-x: scroll;
+  }
+
+  pre code {
+    display: block;
+    margin: 0;
+    padding: 3 * $base-unit;
+    white-space: pre;
   }
 
   ol {
@@ -385,8 +393,6 @@ $tc-link-visited: #0c4e98;
     }
 
     code {
-      white-space: pre;
-      margin: 10px 0 15px;
       background: $tc-gray-neutral-light;
       border: 1px solid silver;
       border-radius: 6px;
@@ -395,8 +401,22 @@ $tc-link-visited: #0c4e98;
       font-size: 13px;
       color: $tc-black;
       line-height: 20px;
-      padding: 15px;
+      padding: 0 6px;
+      margin: 0;
+      display: inline;
+      white-space: pre-wrap;
+    }
+
+    pre {
+      margin: 10px 0 15px;
+      overflow-x: scroll;
+    }
+
+    pre code {
       display: block;
+      padding: 15px;
+      margin: 0;
+      white-space: pre;
     }
 
     sub {
@@ -421,10 +441,6 @@ $tc-link-visited: #0c4e98;
       font-size: 15px;
       color: $tc-gray-90;
       line-height: 25px;
-    }
-
-    pre {
-      overflow-x: scroll;
     }
   }
 }
