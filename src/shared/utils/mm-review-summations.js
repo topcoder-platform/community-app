@@ -422,23 +422,19 @@ export function buildMmSubmissionData(reviewSummations = []) {
     const candidates = latestSubmissions.length
       ? latestSubmissions
       : submissions;
-    const bestProvisionalScore = _.chain(candidates)
-      .map(s => (_.isNil(s.provisionalScore) ? null : s.provisionalScore))
-      .filter(s => !_.isNil(s))
-      .max()
-      .value() || null;
-    const bestProvisionalTimestampValue = _.min(
-      _.chain(candidates)
-        .filter(
-          s => !_.isNil(s.provisionalScore)
-            && s.provisionalScore === bestProvisionalScore,
-        )
-        .map(s => toTimestampValue(s.submissionTime))
-        .filter(value => value > 0)
-        .value(),
+    const latestSubmissionForRanking = (latestSubmissions.length
+      ? latestSubmissions
+      : submissions)[0] || null;
+    // Provisional ranks should be based solely on the most recent submission,
+    // not the best historical one.
+    const bestProvisionalScore = normalizeScoreValue(
+      _.get(latestSubmissionForRanking, 'provisionalScore'),
     );
-    const bestProvisionalTimestamp = _.isFinite(bestProvisionalTimestampValue)
-      ? bestProvisionalTimestampValue
+    const latestProvisionalTimestampValue = toTimestampValue(
+      _.get(latestSubmissionForRanking, 'submissionTime'),
+    );
+    const bestProvisionalTimestamp = _.isFinite(latestProvisionalTimestampValue)
+      ? latestProvisionalTimestampValue
       : null;
     const bestFinalScore = _.chain(candidates)
       .map(s => (_.isNil(s.finalScore) ? null : s.finalScore))
