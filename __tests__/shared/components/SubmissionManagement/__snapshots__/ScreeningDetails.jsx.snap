@@ -14,7 +14,7 @@ exports[`Snapshot match 1`] = `
     </p>
   </div>
   <p>
-    Your submission has been received, and will be evaluated during Review phase.
+    Your submission has been received and may undergo AI-assisted review during Submission phase. Results will be available for inspection in the review app and final evaluation occurs during Review phase.
     <a
       className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
       href=""
