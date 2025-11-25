@@ -11,7 +11,8 @@ $submission-space-50: $base-unit * 10;
   margin: 20px;
   border-collapse: collapse;
 
-  th, td {
+  th,
+  td {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     text-align: left;
