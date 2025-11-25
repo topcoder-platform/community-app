@@ -23,7 +23,7 @@ const getRunStatusText = (run) => {
 };
 
 export default function TableWorkflowRuns(props) {
-  const { workflowRuns, challengeId } = props;
+  const { workflowRuns } = props;
   if (!workflowRuns || Object.keys(workflowRuns).length === 0) {
     return null;
   }
@@ -54,7 +54,7 @@ export default function TableWorkflowRuns(props) {
                   if (run.workflow.id) {
                     return (
                       <a
-                        href={`${config.REVIEW_APP_URL}/active-challenges/reviews/${challengeId}?workflowId=${run.workflow.id}`}
+                        href={`${config.REVIEW_APP_URL}/scorecard/${run.workflow.scorecard.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -80,5 +80,4 @@ TableWorkflowRuns.defaultProps = {
 
 TableWorkflowRuns.propTypes = {
   workflowRuns: PT.shape(),
-  challengeId: PT.string.isRequired,
 };
