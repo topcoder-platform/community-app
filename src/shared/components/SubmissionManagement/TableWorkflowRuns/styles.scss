@@ -1,0 +1,37 @@
+@import '~styles/mixins';
+$status-space-10: $base-unit * 2;
+$status-space-20: $base-unit * 4;
+$status-space-25: $base-unit * 5;
+$submission-space-10: $base-unit * 2;
+$submission-space-20: $base-unit * 4;
+$submission-space-25: $base-unit * 5;
+$submission-space-50: $base-unit * 10;
+
+.workflow-table {
+  margin: 20px;
+  border-collapse: collapse;
+
+  th, td {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    font-weight: 600;
+    line-height: $status-space-20;
+    vertical-align: middle;
+    padding: 8px 12px !important;
+  }
+
+  th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+  }
+
+  a {
+    color: $tc-dark-blue-110;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

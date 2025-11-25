@@ -24,6 +24,7 @@ import ScreeningDetails from '../ScreeningDetails';
 import DownloadArtifactsModal from '../DownloadArtifactsModal';
 import Submission from '../Submission';
 import RatingsListModal from '../RatingsListModal';
+import TableWorkflowRuns from '../TableWorkflowRuns';
 
 import './styles.scss';
 
@@ -35,6 +36,7 @@ export default function SubmissionsTable(props) {
   const {
     challenge,
     submissionObjects,
+    submissionWorkflowRuns,
     showDetails,
     track,
     onDelete,
@@ -92,12 +94,23 @@ export default function SubmissionsTable(props) {
         />
       );
       submissionsWithDetails.push(submission);
+      const workflowRunsForSubmission = submissionWorkflowRuns
+      && submissionWorkflowRuns[subObject.id]
+        ? submissionWorkflowRuns[subObject.id]
+        : null;
 
       const submissionDetail = (
         <tr key={subObject.id} styleName="submission-row">
           {showDetails[subObject.id]
             && (
             <td colSpan="6" styleName="dev-details">
+              <div styleName="workflow-table">
+                <TableWorkflowRuns
+                  workflowRuns={workflowRunsForSubmission}
+                  challengeId={challenge.id}
+                />
+              </div>
+
               <ScreeningDetails
                 screeningObject={subObject.screening}
                 helpPageUrl={helpPageUrl}
@@ -186,10 +199,12 @@ SubmissionsTable.defaultProps = {
   onlineReviewUrl: '',
   helpPageUrl: '',
   getSubmissionScores: _.noop,
+  submissionWorkflowRuns: [],
 };
 
 SubmissionsTable.propTypes = {
   challenge: PT.shape().isRequired,
+  submissionWorkflowRuns: PT.shape(),
   submissionObjects: PT.arrayOf(SubShape),
   showDetails: PT.shape().isRequired,
   track: PT.string.isRequired,

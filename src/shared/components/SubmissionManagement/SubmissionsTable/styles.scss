@@ -91,6 +91,14 @@ $submission-space-50: $base-unit * 10;
       border-top: 0;
       padding-top: 0;
 
+      .workflow-table {
+        padding-left: 80px;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
       .upload-artifact-btn {
         @include roboto-medium;
 
@@ -183,4 +191,6 @@ $submission-space-50: $base-unit * 10;
   .status-col button:focus {
     outline: none;
   }
+
 }
+

@@ -15,6 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { CHALLENGE_STATUS, COMPETITION_TRACKS, safeForDownload } from 'utils/tc';
+import { config } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
 
@@ -25,9 +26,9 @@ import ArtifactsDownloadIcon from '../Icons/IconDownloadArtifacts.svg';
 import ReviewRatingListIcon from '../Icons/IconReviewRatingList.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
+import IconShare from '../Icons/IconShare.svg';
 
 import './styles.scss';
-
 
 export default function Submission(props) {
   const {
@@ -48,6 +49,11 @@ export default function Submission(props) {
   const safeForDownloadCheck = safeForDownload(submissionObject.url);
   const onDownloadArtifacts = onOpenDownloadArtifactsModal.bind(1, submissionObject.id);
   const onOpenRatingsList = onOpenRatingsListModal.bind(1, submissionObject.id);
+  const onOpenReviewApp = () => {
+    if (!challenge || !challenge.id) return;
+    const url = `${config.REVIEW_APP_URL}/active-challenges/${challenge.id}/challenge-details?tab=submission`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
   let isTopCrowdChallenge = false;
@@ -117,7 +123,20 @@ export default function Submission(props) {
             : <span /> }
           { !isTopCrowdChallenge
             ? (
-              <Tooltip content={() => <div styleName="tooltip-content">Show Scores</div>}>
+              <Tooltip content={() => <div styleName="tooltip-content">View Review Info</div>}>
+                <button
+                  onClick={() => onOpenReviewApp()}
+                  type="button"
+                  styleName="download-artifacts-button"
+                >
+                  {safeForDownloadCheck === true && <IconShare />}
+                </button>
+              </Tooltip>
+            )
+            : <span />}
+          { !isTopCrowdChallenge
+            ? (
+              <Tooltip content={() => <div styleName="tooltip-content">Show scores</div>}>
                 <button
                   onClick={() => onOpenRatingsList()}
                   type="button"
