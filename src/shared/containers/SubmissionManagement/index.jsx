@@ -152,6 +152,7 @@ class SubmissionManagementPageContainer extends React.Component {
     this.pendingReviewSummationChallengeId = null;
     this.isComponentMounted = false;
     this.loadedWorkflowKeys = new Set();
+    this.firstSubmissionExpanded = false;
 
     this.state = {
       needReload: false,
@@ -211,6 +212,7 @@ class SubmissionManagementPageContainer extends React.Component {
       challengeId,
       challenge,
       loadAiWorkflowRuns,
+      onShowDetails,
     } = this.props;
     const { initialState } = this.state;
 
@@ -228,6 +230,7 @@ class SubmissionManagementPageContainer extends React.Component {
       });
     });
 
+
     if (initialState && mySubmissions) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
@@ -235,6 +238,11 @@ class SubmissionManagementPageContainer extends React.Component {
         initialState: false,
       });
       return;
+    }
+
+    if (mySubmissions.length && !this.firstSubmissionExpanded) {
+      onShowDetails(mySubmissions[0].id); // expand first submission
+      this.firstSubmissionExpanded = true; // mark that we've expanded it
     }
 
     if (challengeId !== prevProps.challengeId

@@ -26,7 +26,6 @@ import ArtifactsDownloadIcon from '../Icons/IconDownloadArtifacts.svg';
 import ReviewRatingListIcon from '../Icons/IconReviewRatingList.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
-import IconShare from '../Icons/IconShare.svg';
 
 import './styles.scss';
 
@@ -63,6 +62,9 @@ export default function Submission(props) {
       isTopCrowdChallenge = isTopCrowdChallengeData.value;
     }
   }
+
+  console.log('showScreeningDetails updated to:', showScreeningDetails);
+
 
   return (
     <tr styleName="submission-row">
@@ -123,19 +125,6 @@ export default function Submission(props) {
             : <span /> }
           { !isTopCrowdChallenge
             ? (
-              <Tooltip content={() => <div styleName="tooltip-content">View Review Info</div>}>
-                <button
-                  onClick={() => onOpenReviewApp()}
-                  type="button"
-                  styleName="download-artifacts-button"
-                >
-                  {safeForDownloadCheck === true && <IconShare />}
-                </button>
-              </Tooltip>
-            )
-            : <span />}
-          { !isTopCrowdChallenge
-            ? (
               <Tooltip content={() => <div styleName="tooltip-content">Show scores</div>}>
                 <button
                   onClick={() => onOpenRatingsList()}
@@ -170,6 +159,19 @@ export default function Submission(props) {
              </button>
           )
           }
+          { !isTopCrowdChallenge
+            ? (
+              <Tooltip content={() => <div styleName="tooltip-content">View Review Info</div>}>
+                <button
+                  onClick={() => onOpenReviewApp()}
+                  type="button"
+                  styleName="review-button"
+                >
+                  Review
+                </button>
+              </Tooltip>
+            )
+            : <span />}
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.id)}
