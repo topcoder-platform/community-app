@@ -6,6 +6,7 @@ test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
   renderer.render((
     <SubmissionsTable
+      challenge={{ id: 'test-challenge' }}
       showDetails={{ 12345: true }}
       submissionObjects={[{
         id: '12345',
@@ -17,6 +18,7 @@ test('Matches shallow shapshot', () => {
 
   renderer.render((
     <SubmissionsTable
+      challenge={{ id: 'test-challenge' }}
       showDetails={{ 12345: true }}
       track="Design"
     />

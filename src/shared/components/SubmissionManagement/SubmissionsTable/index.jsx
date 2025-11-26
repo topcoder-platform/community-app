@@ -107,6 +107,7 @@ export default function SubmissionsTable(props) {
               <div styleName="workflow-table">
                 <TableWorkflowRuns
                   workflowRuns={workflowRunsForSubmission}
+                  challengeId={challenge.id}
                 />
               </div>
 

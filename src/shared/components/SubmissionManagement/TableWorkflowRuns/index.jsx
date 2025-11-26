@@ -10,20 +10,20 @@ const TABLE_DATE_FORMAT = 'MMM DD YYYY, HH:mm A';
 const getRunStatusText = (run) => {
   if (!run) return '';
 
-  if (run.status === 'IN_PROGRESS' || run.status === 'QUEUED') return 'Pending';
-  if (run.status === 'FAILED') return 'Failed';
+  if (run.status === 'IN_PROGRESS' || run.status === 'QUEUED') return 'PENDING';
+  if (run.status === 'FAILED') return 'FAILED';
   if (run.status === 'SUCCESS') {
     const passingScore = run.workflow && run.workflow.scorecard
       ? run.workflow.scorecard.minimumPassingScore
       : 0;
-    return run.score >= passingScore ? 'Passed' : 'Failed Score';
+    return run.score >= passingScore ? 'PASSED' : 'FAILED';
   }
 
   return run.status;
 };
 
 export default function TableWorkflowRuns(props) {
-  const { workflowRuns } = props;
+  const { workflowRuns, challengeId } = props;
   if (!workflowRuns || Object.keys(workflowRuns).length === 0) {
     return null;
   }
@@ -54,7 +54,7 @@ export default function TableWorkflowRuns(props) {
                   if (run.workflow.id) {
                     return (
                       <a
-                        href={`${config.REVIEW_APP_URL}/scorecard/${run.workflow.scorecard.id}`}
+                        href={`${config.REVIEW_APP_URL}/active-challenges/${challengeId}/reviews/${run.submissionId}?workflowId=${run.workflowId}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -76,8 +76,10 @@ export default function TableWorkflowRuns(props) {
 
 TableWorkflowRuns.defaultProps = {
   workflowRuns: [],
+  challengeId: '',
 };
 
 TableWorkflowRuns.propTypes = {
   workflowRuns: PT.shape(),
+  challengeId: PT.string,
 };

@@ -6,15 +6,14 @@ const Api = services.api.default;
 
 function loadAiWorkflowRunsInit() {}
 
-function loadAiWorkflowRunsDone(tokenV3, submissionId, aiWorkflowId) {
+function loadAiWorkflowRunsDone(tokenV3, submissionId) {
   const api = new Api(config.API.V6, tokenV3);
-  const url = `/workflows/${aiWorkflowId}/runs?submissionId=${submissionId}`;
+  const url = `/workflows/runs?submissionId=${submissionId}`;
 
   return api.get(url)
     .then(res => res.json())
     .then(data => ({
       submissionId,
-      aiWorkflowId,
       runs: data,
     }))
     .catch((err) => {
