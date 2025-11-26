@@ -183,7 +183,8 @@ $submission-space-50: $base-unit * 10;
       .review-button {
         cursor: pointer;
         color: $color-turq-160;
-        font-size: small;
+        font-size: medium;
+        font-weight: 700;
       }
 
       .download-button {

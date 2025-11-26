@@ -219,15 +219,11 @@ class SubmissionManagementPageContainer extends React.Component {
     if (!challenge || !Array.isArray(challenge.reviewers) || !mySubmissions) return;
 
     mySubmissions.forEach((submission) => {
-      challenge.reviewers.forEach((reviewer) => {
-        if (!reviewer.aiWorkflowId) return;
+      const key = `${submission.id}`;
+      if (this.loadedWorkflowKeys.has(key)) return;
 
-        const key = `${submission.id}-${reviewer.aiWorkflowId}`;
-        if (this.loadedWorkflowKeys.has(key)) return;
-
-        this.loadedWorkflowKeys.add(key);
-        loadAiWorkflowRuns(authTokens, submission.id, reviewer.aiWorkflowId);
-      });
+      this.loadedWorkflowKeys.add(key);
+      loadAiWorkflowRuns(authTokens, submission.id);
     });
 
 
@@ -637,10 +633,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV3));
   },
 
-  loadAiWorkflowRuns: (tokens, submissionId, aiWorkflowId) => {
+  loadAiWorkflowRuns: (tokens, submissionId) => {
     dispatch(smpActions.page.submissionManagement.loadAiWorkflowRunsInit());
     dispatch(smpActions.page.submissionManagement.loadAiWorkflowRunsDone(
-      tokens.tokenV3, submissionId, aiWorkflowId,
+      tokens.tokenV3, submissionId,
     ));
   },
 });

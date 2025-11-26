@@ -63,9 +63,6 @@ export default function Submission(props) {
     }
   }
 
-  console.log('showScreeningDetails updated to:', showScreeningDetails);
-
-
   return (
     <tr styleName="submission-row">
       <td styleName="id-col">
