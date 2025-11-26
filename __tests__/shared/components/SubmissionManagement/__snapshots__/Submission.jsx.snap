@@ -123,10 +123,12 @@ exports[`Snapshot match 1`] = `
         }
       >
         <button
-          className="src-shared-components-SubmissionManagement-Submission-___styles__download-artifacts-button___2lSi_"
+          className="src-shared-components-SubmissionManagement-Submission-___styles__review-button___ibvdb"
           onClick={[Function]}
           type="button"
-        />
+        >
+          Review
+        </button>
       </Tooltip>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
@@ -271,10 +273,12 @@ exports[`Snapshot match 2`] = `
         }
       >
         <button
-          className="src-shared-components-SubmissionManagement-Submission-___styles__download-artifacts-button___2lSi_"
+          className="src-shared-components-SubmissionManagement-Submission-___styles__review-button___ibvdb"
           onClick={[Function]}
           type="button"
-        />
+        >
+          Review
+        </button>
       </Tooltip>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
