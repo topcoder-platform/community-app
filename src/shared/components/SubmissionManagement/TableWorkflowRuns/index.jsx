@@ -76,9 +76,10 @@ export default function TableWorkflowRuns(props) {
 
 TableWorkflowRuns.defaultProps = {
   workflowRuns: [],
+  challengeId: '',
 };
 
 TableWorkflowRuns.propTypes = {
   workflowRuns: PT.shape(),
-  challengeId: PT.string.isRequired,
+  challengeId: PT.string,
 };
