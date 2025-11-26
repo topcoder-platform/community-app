@@ -59,7 +59,7 @@ export default function ScreeningDetails(props) {
     return {
       title: '',
       classname: '',
-      message: 'Your submission has been received, and will be evaluated during Review phase.',
+      message: 'Your submission has been received and may undergo AI-assisted review during Submission phase. Results will be available for inspection in the review app and final evaluation occurs during Review phase.',
     };
   };
 

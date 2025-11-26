@@ -176,7 +176,14 @@ $submission-space-50: $base-unit * 10;
       .download-artifacts-button {
         svg {
           width: 24px;
+          fill: $color-turq-160;
         }
+      }
+
+      .review-button {
+        cursor: pointer;
+        color: $color-turq-160;
+        font-size: small;
       }
 
       .download-button {

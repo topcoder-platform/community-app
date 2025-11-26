@@ -45,6 +45,13 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__dev-details___2GC2b"
           colSpan="6"
         >
+          <div
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__workflow-table___WCWMZ"
+          >
+            <TableWorkflowRuns
+              workflowRuns={null}
+            />
+          </div>
           <ScreeningDetails
             helpPageUrl=""
             onlineReviewUrl=""

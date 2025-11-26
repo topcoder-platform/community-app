@@ -179,6 +179,8 @@ module.exports = {
    * This value [seconds] specifies the maximum age after which a group data
    * object should be considered outdated, and updated as soon as possible. */
   USER_GROUP_MAXAGE: 24 * 60 * 60 * 1000,
+  REVIEW_APP_URL: 'https://review.topcoder-dev.com',
+
 
   /* Maximum time to wait before timeout on searching past challenges (seconds)
    * when no result at all.

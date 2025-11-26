@@ -151,6 +151,8 @@ class SubmissionManagementPageContainer extends React.Component {
 
     this.pendingReviewSummationChallengeId = null;
     this.isComponentMounted = false;
+    this.loadedWorkflowKeys = new Set();
+    this.firstSubmissionExpanded = false;
 
     this.state = {
       needReload: false,
@@ -208,8 +210,26 @@ class SubmissionManagementPageContainer extends React.Component {
       mySubmissions,
       authTokens,
       challengeId,
+      challenge,
+      loadAiWorkflowRuns,
+      onShowDetails,
     } = this.props;
     const { initialState } = this.state;
+
+    if (!challenge || !Array.isArray(challenge.reviewers) || !mySubmissions) return;
+
+    mySubmissions.forEach((submission) => {
+      challenge.reviewers.forEach((reviewer) => {
+        if (!reviewer.aiWorkflowId) return;
+
+        const key = `${submission.id}-${reviewer.aiWorkflowId}`;
+        if (this.loadedWorkflowKeys.has(key)) return;
+
+        this.loadedWorkflowKeys.add(key);
+        loadAiWorkflowRuns(authTokens, submission.id, reviewer.aiWorkflowId);
+      });
+    });
+
 
     if (initialState && mySubmissions) {
       // eslint-disable-next-line react/no-did-update-set-state
@@ -218,6 +238,11 @@ class SubmissionManagementPageContainer extends React.Component {
         initialState: false,
       });
       return;
+    }
+
+    if (mySubmissions.length && !this.firstSubmissionExpanded) {
+      onShowDetails(mySubmissions[0].id); // expand first submission
+      this.firstSubmissionExpanded = true; // mark that we've expanded it
     }
 
     if (challengeId !== prevProps.challengeId
@@ -355,6 +380,7 @@ class SubmissionManagementPageContainer extends React.Component {
       onSubmissionDelete,
       onSubmissionDeleteConfirmed,
       showDetails,
+      submissionWorkflowRuns,
       showModal,
       toBeDeletedId,
     } = this.props;
@@ -425,6 +451,7 @@ class SubmissionManagementPageContainer extends React.Component {
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
               submissions={submissions}
               showDetails={showDetails}
+              submissionWorkflowRuns={submissionWorkflowRuns}
               submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}
             />
@@ -527,6 +554,8 @@ SubmissionManagementPageContainer.propTypes = {
   onSubmissionDelete: PT.func.isRequired,
   onDownloadSubmission: PT.func.isRequired,
   showDetails: PT.shape().isRequired,
+  submissionWorkflowRuns: PT.shape().isRequired,
+  loadAiWorkflowRuns: PT.func.isRequired,
   showModal: PT.bool,
   onCancelSubmissionDelete: PT.func.isRequired,
   toBeDeletedId: PT.string,
@@ -561,6 +590,8 @@ function mapStateToProps(state, props) {
     submissionPhaseStartDate: submissionPhase.actualStartDate || submissionPhase.scheduledStartDate || '',
 
     showDetails: state.page.submissionManagement.showDetails,
+
+    submissionWorkflowRuns: state.page.submissionManagement.submissionWorkflowRuns,
 
     showModal: state.page.submissionManagement.showModal,
     toBeDeletedId: state.page.submissionManagement.toBeDeletedId,
@@ -604,6 +635,13 @@ const mapDispatchToProps = dispatch => ({
     const a = actions.challenge;
     dispatch(a.getSubmissionsInit(challengeId));
     dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV3));
+  },
+
+  loadAiWorkflowRuns: (tokens, submissionId, aiWorkflowId) => {
+    dispatch(smpActions.page.submissionManagement.loadAiWorkflowRunsInit());
+    dispatch(smpActions.page.submissionManagement.loadAiWorkflowRunsDone(
+      tokens.tokenV3, submissionId, aiWorkflowId,
+    ));
   },
 });
 
