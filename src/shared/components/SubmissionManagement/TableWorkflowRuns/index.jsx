@@ -80,5 +80,5 @@ TableWorkflowRuns.defaultProps = {
 
 TableWorkflowRuns.propTypes = {
   workflowRuns: PT.shape(),
-  challengeId: PT.shape().isRequired,
+  challengeId: PT.string.isRequired,
 };
