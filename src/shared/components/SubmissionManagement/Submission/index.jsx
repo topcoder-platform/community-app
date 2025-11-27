@@ -50,7 +50,10 @@ export default function Submission(props) {
   const onOpenRatingsList = onOpenRatingsListModal.bind(1, submissionObject.id);
   const onOpenReviewApp = () => {
     if (!challenge || !challenge.id) return;
-    const url = `${config.REVIEW_APP_URL}/active-challenges/${challenge.id}/challenge-details?tab=submission`;
+    const tab = submissionObject.type === 'CHECKPOINT_SUBMISSION' || submissionObject.type === 'CONTEST_SUBMISSION'
+      ? 'checkpoint-submission'
+      : 'submission';
+    const url = `${config.REVIEW_APP_URL}/active-challenges/${challenge.id}/challenge-details?tab=${tab}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
