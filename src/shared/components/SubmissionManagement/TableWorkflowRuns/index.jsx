@@ -42,11 +42,11 @@ export default function TableWorkflowRuns(props) {
           {Object.entries(workflowRuns).map(([workflowId, run]) => (
             <tr key={workflowId}>
               <td>{run.workflow.name}</td>
-              <td>{run.status === 'SUCCESS' && (
+              <td>{run.status === 'SUCCESS' ? (
                 moment(run.completedAt)
                   .local()
                   .format(TABLE_DATE_FORMAT)
-              )}
+              ) : '-'}
               </td>
               <td>
                 {(() => {
