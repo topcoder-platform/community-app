@@ -106,6 +106,30 @@ exports[`Snapshot match 1`] = `
           type="button"
         />
       </Tooltip>
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          className="src-shared-components-SubmissionManagement-Submission-___styles__review-button___ibvdb"
+          onClick={[Function]}
+          type="button"
+        >
+          Review
+        </button>
+      </Tooltip>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
         onClick={[Function]}
@@ -231,6 +255,30 @@ exports[`Snapshot match 2`] = `
           onClick={[Function]}
           type="button"
         />
+      </Tooltip>
+      <Tooltip
+        align={Object {}}
+        className=""
+        content={[Function]}
+        defaultVisible={false}
+        id=""
+        onTooltipHover={[Function]}
+        placeArrow={[Function]}
+        position="top"
+        suppressDiv={false}
+        trigger={
+          Array [
+            "hover",
+          ]
+        }
+      >
+        <button
+          className="src-shared-components-SubmissionManagement-Submission-___styles__review-button___ibvdb"
+          onClick={[Function]}
+          type="button"
+        >
+          Review
+        </button>
       </Tooltip>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"

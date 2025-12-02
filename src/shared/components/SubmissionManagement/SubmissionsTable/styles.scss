@@ -91,6 +91,12 @@ $submission-space-50: $base-unit * 10;
       border-top: 0;
       padding-top: 0;
 
+      .workflow-table {
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
       .upload-artifact-btn {
         @include roboto-medium;
 

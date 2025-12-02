@@ -55,12 +55,24 @@ function create(initialState = {}) {
       toBeDeletedId: payload,
       deletionSucceed: true,
     }),
+    [a.loadAiWorkflowRunsInit]: state => ({ ...state, isLoadingDetails: true }),
+    [a.loadAiWorkflowRunsDone]: (state, { payload }) => {
+      const { submissionId, runs } = payload;
+      return {
+        ...state,
+        submissionWorkflowRuns: {
+          ...state.submissionWorkflowRuns,
+          [submissionId]: runs,
+        },
+      };
+    },
 
   }, _.defaults(initialState, {
     showDetails: {},
     showModal: false,
     toBeDeletedId: '',
     deletionSucceed: false,
+    submissionWorkflowRuns: {},
   }));
 }
 

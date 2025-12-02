@@ -67,6 +67,9 @@ module.exports = {
     REVIEW_TYPES_API_URL: '/reviewTypes',
     REVIEW_SUMMATIONS_API_URL: '/reviewSummations',
   },
+
+  REVIEW_APP_URL: 'https://review.topcoder.com',
+
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */
   FILESTACK: {
