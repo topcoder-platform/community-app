@@ -118,6 +118,20 @@ export const getReviewOpportunitiesFilterFunction = (state, validTypes) => (opp)
     'Quality Assurance': 'QA',
   };
 
+  const normalizedTrackMap = {
+    DEVELOPMENT: 'Dev',
+    DEVELOP: 'Dev',
+    DEV: 'Dev',
+    DESIGN: 'Des',
+    DES: 'Des',
+    'DATA SCIENCE': 'DS',
+    DATA_SCIENCE: 'DS',
+    DATASCIENCE: 'DS',
+    QA: 'QA',
+    'QUALITY ASSURANCE': 'QA',
+    QUALITY_ASSURANCE: 'QA',
+  };
+
   const { challengeData } = opp;
 
   // const newType = _.find(validTypes, { name: opp.challenge.type }) || {};
@@ -135,7 +149,9 @@ export const getReviewOpportunitiesFilterFunction = (state, validTypes) => (opp)
     // communities: new Set([ // Used to filter by Track, and communities at a future date
     // opp.challenge.track === 'QA' ? 'Dev' : trackAbbr[opp.challenge.track],
     // ]),
-    track: trackAbbr[challengeData.track],
+    track: normalizedTrackMap[(challengeData.track || '').toString().trim().toUpperCase()]
+      || trackAbbr[challengeData.track]
+      || challengeData.track,
     typeId: newType.abbreviation,
     tags: challengeData.technologies || [],
     platforms: challengeData.platforms || [],
