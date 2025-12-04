@@ -98,6 +98,9 @@ export default function SubmissionsTable(props) {
         && moment(subObject.submissionDate).isAfter(submissionPhaseStartDate)
         && isWorkflowRunComplete;
 
+      const hasPendingWorkflowRuns = workflowRunsForSubmission
+        && workflowRunsForSubmission.some(run => !TERMINAL_STATUSES.includes(run.status));
+
       const submission = (
         <Submission
           challenge={challenge}
@@ -112,6 +115,7 @@ export default function SubmissionsTable(props) {
           allowDelete={allowDelete}
           onOpenDownloadArtifactsModal={onOpenDownloadArtifactsModal}
           onOpenRatingsListModal={onOpenRatingsListModal}
+          hasPendingWorkflowRuns={hasPendingWorkflowRuns}
         />
       );
       submissionsWithDetails.push(submission);
