@@ -42,7 +42,7 @@ export default function Submission(props) {
     onOpenRatingsListModal,
     status,
     allowDelete,
-    hasPendingWorkflowRuns,
+    isWorkflowRunComplete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
@@ -70,8 +70,6 @@ export default function Submission(props) {
   const showDeleteButton = status !== CHALLENGE_STATUS.COMPLETED
   && track === COMPETITION_TRACKS.DES
   && safeForDownloadCheck === true;
-
-  const showPendingTooltip = !allowDelete && hasPendingWorkflowRuns;
 
   return (
     <tr styleName="submission-row">
@@ -154,7 +152,7 @@ export default function Submission(props) {
            ><DownloadIcon /></button>
            */ }
           {showDeleteButton && (
-            !showPendingTooltip ? (
+            isWorkflowRunComplete ? (
               <button
                 styleName="delete-icon"
                 onClick={() => onDelete(submissionObject.id)}
@@ -240,5 +238,5 @@ Submission.propTypes = {
   allowDelete: PT.bool.isRequired,
   onOpenDownloadArtifactsModal: PT.func,
   onOpenRatingsListModal: PT.func,
-  hasPendingWorkflowRuns: PT.bool.isRequired,
+  isWorkflowRunComplete: PT.bool.isRequired,
 };

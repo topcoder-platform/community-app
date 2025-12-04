@@ -87,19 +87,15 @@ export default function SubmissionsTable(props) {
         ? submissionWorkflowRuns[subObject.id]
         : null;
 
-      let isWorkflowRunComplete = true; // allow delete if no runs
+      const hasRuns = workflowRunsForSubmission && workflowRunsForSubmission.length > 0;
 
-      if (workflowRunsForSubmission && workflowRunsForSubmission.length > 0) {
-        isWorkflowRunComplete = workflowRunsForSubmission.length === 0
-      || workflowRunsForSubmission.every(run => TERMINAL_STATUSES.includes(run.status));
-      }
+      const isWorkflowRunComplete = !hasRuns
+        ? true
+        : workflowRunsForSubmission.every(run => TERMINAL_STATUSES.includes(run.status));
 
       const allowDelete = submissionPhaseStartDate
-        && moment(subObject.submissionDate).isAfter(submissionPhaseStartDate)
-        && isWorkflowRunComplete;
+        && moment(subObject.submissionDate).isAfter(submissionPhaseStartDate);
 
-      const hasPendingWorkflowRuns = workflowRunsForSubmission
-        && workflowRunsForSubmission.some(run => !TERMINAL_STATUSES.includes(run.status));
 
       const submission = (
         <Submission
@@ -115,7 +111,7 @@ export default function SubmissionsTable(props) {
           allowDelete={allowDelete}
           onOpenDownloadArtifactsModal={onOpenDownloadArtifactsModal}
           onOpenRatingsListModal={onOpenRatingsListModal}
-          hasPendingWorkflowRuns={hasPendingWorkflowRuns}
+          isWorkflowRunComplete={isWorkflowRunComplete}
         />
       );
       submissionsWithDetails.push(submission);
