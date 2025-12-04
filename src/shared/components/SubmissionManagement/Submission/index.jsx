@@ -42,6 +42,7 @@ export default function Submission(props) {
     onOpenRatingsListModal,
     status,
     allowDelete,
+    hasPendingWorkflowRuns,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
@@ -65,6 +66,12 @@ export default function Submission(props) {
       isTopCrowdChallenge = isTopCrowdChallengeData.value;
     }
   }
+
+  const showDeleteButton = status !== CHALLENGE_STATUS.COMPLETED
+  && track === COMPETITION_TRACKS.DES
+  && safeForDownloadCheck === true;
+
+  const showPendingTooltip = !allowDelete && hasPendingWorkflowRuns;
 
   return (
     <tr styleName="submission-row">
@@ -146,17 +153,32 @@ export default function Submission(props) {
              onClick={() => onDownload(submissionObject.id)}
            ><DownloadIcon /></button>
            */ }
-          {status !== CHALLENGE_STATUS.COMPLETED
-             && track === COMPETITION_TRACKS.DES
-             && safeForDownloadCheck === true && (
-             <button
-               styleName="delete-icon"
-               onClick={() => onDelete(submissionObject.id)}
-               disabled={!allowDelete}
-               type="button"
-             >
-               <DeleteIcon />
-             </button>
+          {showDeleteButton && (
+            !showPendingTooltip ? (
+              <button
+                styleName="delete-icon"
+                onClick={() => onDelete(submissionObject.id)}
+                type="button"
+              >
+                <DeleteIcon />
+              </button>
+            ) : (
+            // Disabled delete button with tooltip when workflow run is pending
+              <Tooltip content={() => (
+                <div styleName="tooltip-content">
+                  You can delete this submission only after the review is complete.
+                </div>
+              )}
+              >
+                <button
+                  styleName="delete-icon"
+                  disabled
+                  type="button"
+                >
+                  <DeleteIcon />
+                </button>
+              </Tooltip>
+            )
           )
           }
           { !isTopCrowdChallenge
@@ -217,4 +239,5 @@ Submission.propTypes = {
   allowDelete: PT.bool.isRequired,
   onOpenDownloadArtifactsModal: PT.func,
   onOpenRatingsListModal: PT.func,
+  hasPendingWorkflowRuns: PT.bool.isRequired,
 };
