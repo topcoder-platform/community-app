@@ -159,6 +159,7 @@ export default function Submission(props) {
                 styleName="delete-icon"
                 onClick={() => onDelete(submissionObject.id)}
                 type="button"
+                disabled={!allowDelete}
               >
                 <DeleteIcon />
               </button>
