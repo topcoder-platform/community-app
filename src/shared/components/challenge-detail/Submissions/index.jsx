@@ -314,7 +314,7 @@ class SubmissionsComponent extends React.Component {
   isMM() {
     const { challenge } = this.props;
     const trackName = getTrackName(challenge);
-    return (trackName || '').toLowerCase() === 'data science' || checkIsMM(challenge);
+    return (trackName || '').toLowerCase() === 'data science' && checkIsMM(challenge);
   }
 
   /**
