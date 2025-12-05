@@ -314,7 +314,7 @@ class SubmissionsComponent extends React.Component {
   isMM() {
     const { challenge } = this.props;
     const trackName = getTrackName(challenge);
-    return (trackName || '').toLowerCase() === 'data science' || checkIsMM(challenge);
+    return (trackName || '').toLowerCase() === 'data science' && checkIsMM(challenge);
   }
 
   /**
@@ -404,6 +404,10 @@ class SubmissionsComponent extends React.Component {
       provisionalRankClicked: false,
       provisionalScoreClicked: false,
     };
+    // eslint-disable-next-line no-debugger
+    debugger;
+
+    console.log('sorted submissions', sortedSubmissions);
 
     const modalSubmissionBasicInfo = () => _.find(mmSubmissions,
       item => item.member === memberOfModal);
