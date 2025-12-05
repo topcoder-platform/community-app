@@ -404,10 +404,6 @@ class SubmissionsComponent extends React.Component {
       provisionalRankClicked: false,
       provisionalScoreClicked: false,
     };
-    // eslint-disable-next-line no-debugger
-    debugger;
-
-    console.log('sorted submissions', sortedSubmissions);
 
     const modalSubmissionBasicInfo = () => _.find(mmSubmissions,
       item => item.member === memberOfModal);
