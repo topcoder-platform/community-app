@@ -30,6 +30,7 @@ exports[`Matches shallow shapshot 1`] = `
             "id": "test-challenge",
           }
         }
+        isWorkflowRunComplete={true}
         onDelete={[Function]}
         onDownload={[Function]}
         onOpenDownloadArtifactsModal={[Function]}
