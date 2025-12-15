@@ -114,12 +114,16 @@ export default function ChallengeHeader(props) {
     prizeSets,
     prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'checkpoint',
   );
+  const checkpointPrizeType = _.toUpper(_.get(checkpointPrizes, 'prizes[0].type', 'USD'));
   let numberOfCheckpointsPrizes = 0;
   let topCheckPointPrize = 0;
   if (!_.isEmpty(checkpointPrizes)) {
     numberOfCheckpointsPrizes = checkpointPrizes.prizes.length;
     topCheckPointPrize = checkpointPrizes.prizes[0].value;
   }
+  const topCheckPointPrizeDisplay = checkpointPrizeType === 'POINT'
+    ? `${topCheckPointPrize}${topCheckPointPrize === 1 ? 'pt' : 'pts'}`
+    : `$${topCheckPointPrize}`;
 
   const phases = {};
   if (allPhases) {
@@ -394,8 +398,7 @@ export default function ChallengeHeader(props) {
                               <span
                                 styleName={`bonus-highlight ${trackLower}-accent-color`}
                               >
-                                $
-                                {topCheckPointPrize}
+                                {topCheckPointPrizeDisplay}
                               </span>
                               &zwnj;
                               EACH
