@@ -37,8 +37,8 @@ export function appendUtmParamsToUrl(url, defaultParams = {}) {
 
   // If there are no cookie params and no defaults, nothing to do
   if (
-    (!utmParams || Object.keys(utmParams).length === 0) &&
-    (!defaultParams || Object.keys(defaultParams).length === 0)
+    (!utmParams || Object.keys(utmParams).length === 0)
+    && (!defaultParams || Object.keys(defaultParams).length === 0)
   ) {
     return url;
   }
