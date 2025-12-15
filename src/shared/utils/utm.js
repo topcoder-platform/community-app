@@ -6,21 +6,20 @@ const TC_UTM_COOKIE_NAME = 'tc_utm';
  * @returns Parsed UTM parameters or null if cookie doesn't exist
  */
 export function getUtmCookie() {
-    try {
-        const cookies = document.cookie.split(';');
-        const cookieStr = cookies.find(cookie => cookie.trim().startsWith(`${TC_UTM_COOKIE_NAME}=`));
+  try {
+    const cookies = document.cookie.split(';');
+    const cookieStr = cookies.find(cookie => cookie.trim().startsWith(`${TC_UTM_COOKIE_NAME}=`));
 
-        if (!cookieStr) {
-            return null;
-        }
-
-        // handle values that might contain '='
-        const cookieValue = decodeURIComponent(cookieStr.split('=').slice(1).join('='));
-        return JSON.parse(cookieValue);
-    } catch (error) {
-        console.warn('Error retrieving UTM cookie:', error);
-        return null;
+    if (!cookieStr) {
+      return null;
     }
+
+    // handle values that might contain '='
+    const cookieValue = decodeURIComponent(cookieStr.split('=').slice(1).join('='));
+    return JSON.parse(cookieValue);
+  } catch (error) {
+    return null;
+  }
 }
 
 /**
@@ -30,39 +29,41 @@ export function getUtmCookie() {
  * @returns URL with UTM parameters appended, or original URL if no cookie exists
  */
 export function appendUtmParamsToUrl(url, defaultParams = {}) {
-    if (!url) {
-        return url;
-    }
+  if (!url) {
+    return url;
+  }
 
-    const utmParams = getUtmCookie();
+  const utmParams = getUtmCookie();
 
-    // If there are no cookie params and no defaults, nothing to do
-    if ((!utmParams || Object.keys(utmParams).length === 0) && (!defaultParams || Object.keys(defaultParams).length === 0)) {
-        return url;
-    }
+  // If there are no cookie params and no defaults, nothing to do
+  if (
+    (!utmParams || Object.keys(utmParams).length === 0) &&
+    (!defaultParams || Object.keys(defaultParams).length === 0)
+  ) {
+    return url;
+  }
 
-    try {
-        const urlObj = new URL(url, window.location.origin);
-        const paramNames = ['utm_source', 'utm_medium', 'utm_campaign'];
+  try {
+    const urlObj = new URL(url, window.location.origin);
+    const paramNames = ['utm_source', 'utm_medium', 'utm_campaign'];
 
-        paramNames.forEach((param) => {
-            const cookieVal = utmParams && utmParams[param];
-            const defaultVal = defaultParams && defaultParams[param];
+    paramNames.forEach((param) => {
+      const cookieVal = utmParams && utmParams[param];
+      const defaultVal = defaultParams && defaultParams[param];
 
-            // Cookie takes precedence and will overwrite existing query param
-            if (cookieVal) {
-                urlObj.searchParams.set(param, cookieVal);
-            } else if (defaultVal) {
-                // Only apply default if the URL does not already have the param
-                if (!urlObj.searchParams.has(param)) {
-                    urlObj.searchParams.set(param, defaultVal);
-                }
-            }
-        });
+      // Cookie takes precedence and will overwrite existing query param
+      if (cookieVal) {
+        urlObj.searchParams.set(param, cookieVal);
+      } else if (defaultVal) {
+        // Only apply default if the URL does not already have the param
+        if (!urlObj.searchParams.has(param)) {
+          urlObj.searchParams.set(param, defaultVal);
+        }
+      }
+    });
 
-        return urlObj.toString();
-    } catch (error) {
-        console.warn('Error appending UTM parameters to URL:', error);
-        return url;
-    }
+    return urlObj.toString();
+  } catch (error) {
+    return url;
+  }
 }
