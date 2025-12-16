@@ -123,7 +123,7 @@ jobs:
           command: git config --global url."https://git@".insteadOf git://
       - run:
           name: App npm install
-          command: npm install
+          command: npm ci
           no_output_timeout: 20m
       - save_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
