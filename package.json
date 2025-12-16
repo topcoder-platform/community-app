@@ -162,7 +162,7 @@
     "showdown": "^1.8.6",
     "slick-carousel": "^1.8.1",
     "supertest": "^3.1.0",
-    "tc-core-library-js": "github:topcoder-platform/tc-core-library-js#master",
+    "tc-core-library-js": "github:topcoder-platform/tc-core-library-js#v2.6.3.1",
     "tc-ui": "^1.0.12",
     "topcoder-react-lib": "github:topcoder-platform/topcoder-react-lib#develop",
     "topcoder-react-ui-kit": "2.0.1",
