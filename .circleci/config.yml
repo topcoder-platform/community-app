@@ -179,7 +179,6 @@ workflows:
             branches:
               only:
                 - develop
-                - PM-3204_cookies-utm-codes_only
 
       - "build-prod":
           context: org-global
