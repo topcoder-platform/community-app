@@ -48,45 +48,44 @@ build_docker_image: &build_docker_image
     ./build.sh
   no_output_timeout: 20m
 
-build_steps: &build_steps
-      # Initialization.
-      - checkout
-      - setup_remote_docker
-      - run: *install_dependency
-      - run: *install_deploysuite
-      # Restoration of node_modules from cache.
-      # - restore_cache: *restore_cache_settings_for_build
-      # Build of Docker image.
-      - run:
-          name: "configuring environment"
-          command: |
-            ./awsconfiguration.sh ${DEPLOY_ENV}
-            source awsenvconf
-            ./psvar-processor.sh -t appenv -p /config/${APPNAME}/buildvar
-            source buildvar_env
-            # ./buildenv.sh -e ${DEPLOY_ENV} -b dev_communityapp_buildvar,dev_communityapp_deployvar -l dev_communityapp_buildvar_ps
-      - run: *build_docker_image
-      # Caching node modules.
-      # - save_cache: *save_cache_settings
-      # Deployment.
-      - deploy:
-          name: Running MasterScript
-          command: |
-            source awsenvconf
-            # source buildenvvar
-            ./psvar-processor.sh -t appenv -p /config/${APPNAME}/deployvar
-            source deployvar_env
-            ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -j /config/${APPNAME}/appvar -i ${APPNAME} -p FARGATE
-            # ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
-            if [ "${DEPLOY_ENV}" = "PROD" ]; 
-            then
-                # Executing plan
-                curl --request POST \
-                --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-                --header "Circle-Token: ${CIRCLE_TOKEN}" \
-                --header 'content-type: application/json' \
-                --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
-            fi              
+build_steps: &build_steps # Initialization.
+  - checkout
+  - setup_remote_docker
+  - run: *install_dependency
+  - run: *install_deploysuite
+  # Restoration of node_modules from cache.
+  # - restore_cache: *restore_cache_settings_for_build
+  # Build of Docker image.
+  - run:
+      name: "configuring environment"
+      command: |
+        ./awsconfiguration.sh ${DEPLOY_ENV}
+        source awsenvconf
+        ./psvar-processor.sh -t appenv -p /config/${APPNAME}/buildvar
+        source buildvar_env
+        # ./buildenv.sh -e ${DEPLOY_ENV} -b dev_communityapp_buildvar,dev_communityapp_deployvar -l dev_communityapp_buildvar_ps
+  - run: *build_docker_image
+  # Caching node modules.
+  # - save_cache: *save_cache_settings
+  # Deployment.
+  - deploy:
+      name: Running MasterScript
+      command: |
+        source awsenvconf
+        # source buildenvvar
+        ./psvar-processor.sh -t appenv -p /config/${APPNAME}/deployvar
+        source deployvar_env
+        ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -j /config/${APPNAME}/appvar -i ${APPNAME} -p FARGATE
+        # ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
+        if [ "${DEPLOY_ENV}" = "PROD" ]; 
+        then
+            # Executing plan
+            curl --request POST \
+            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
+            --header "Circle-Token: ${CIRCLE_TOKEN}" \
+            --header 'content-type: application/json' \
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
+        fi
 
 jobs:
   # Build & Deploy against development backend
@@ -95,7 +94,7 @@ jobs:
     environment:
       DEPLOY_ENV: "DEV"
       LOGICAL_ENV: "dev"
-      APPNAME: "community-app"    
+      APPNAME: "community-app"
     steps: *build_steps
 
   # Build & Deploy against production backend
@@ -106,7 +105,6 @@ jobs:
       LOGICAL_ENV: "prod"
       APPNAME: "community-app"
     steps: *build_steps
-
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
@@ -181,8 +179,7 @@ workflows:
             branches:
               only:
                 - develop
-                - v6
-                - PM-2479
+                - PM-3204_cookies-utm-codes_only
 
       - "build-prod":
           context: org-global
