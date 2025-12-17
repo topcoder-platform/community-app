@@ -57,6 +57,7 @@ import { getService } from 'services/contentful';
 import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
 import getReviewSummationsService from 'services/reviewSummations';
 import { buildMmSubmissionData, buildStatisticsData } from 'utils/mm-review-summations';
+import { appendUtmParamsToUrl } from 'utils/utm';
 // import {
 // getDisplayRecommendedChallenges,
 // getRecommendedTags,
@@ -349,7 +350,11 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.props;
     if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
-      window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(`${window.location.origin}${window.location.pathname}`)}&utm_source=${utmSource}&regSource=challenges`;
+      window.location.href = appendUtmParamsToUrl(
+        `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(`${window.location.origin}${window.location.pathname}`)}&regSource=challenges`, {
+          utm_source: utmSource,
+        },
+      );
     } else {
       // Show security reminder to all registrants
       this.setState({
