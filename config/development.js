@@ -1,8 +1,12 @@
 module.exports = {
   SEGMENT_IO_API_KEY: 'QBtLgV8vCiuRX1lDikbMjcoe9aCHkF6n',
   SERVER_API_KEY: '79b2d5eb-c1fd-42c4-9391-6b2c9780d591',
+  API: {
+    ENGAGEMENTS: 'https://api.topcoder-dev.com/v6/engagements',
+  },
   URL: {
     USER_SETTINGS: '', /* No dev server is available for saved searches */
+    ENGAGEMENTS_APP: 'https://engagements.topcoder-dev.com',
     REVIEW_API_URL: '/reviewTypes',
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',

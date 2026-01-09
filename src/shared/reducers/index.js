@@ -45,6 +45,7 @@ import thrive from './contentful/thrive';
 import dashboard from './dashboard';
 import blog from './blog';
 import identity from './identity';
+import engagements from './engagements';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -182,6 +183,7 @@ export function factory(req) {
     blog,
     timelineWall,
     identity,
+    engagements,
   }));
 }
 
