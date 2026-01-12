@@ -22,8 +22,18 @@ async function getEngagementsDone(uuid, page, filters, tokenV3) {
       page,
     };
   } catch (error) {
-    fireErrorMessage('Error Loading Engagements', (error && error.message) || error);
-    return Promise.reject({ uuid, error });
+    const { message: errorMessage } = error || {};
+    let message = 'Unknown error';
+    if (errorMessage) {
+      message = errorMessage;
+    } else if (typeof error === 'string') {
+      message = error;
+    }
+    fireErrorMessage('Error Loading Engagements', message);
+    const rejection = error instanceof Error ? error : new Error(message);
+    rejection.uuid = uuid;
+    rejection.originalError = error;
+    return Promise.reject(rejection);
   }
 }
 

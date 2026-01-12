@@ -62,6 +62,10 @@ exports[`Default render 1`] = `
                   "title": "All Challenges",
                 },
                 Object {
+                  "href": "/engagements",
+                  "title": "Engagements",
+                },
+                Object {
                   "href": "/community/arena",
                   "title": "Competitive Programming",
                 },

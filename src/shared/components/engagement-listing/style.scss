@@ -29,6 +29,10 @@
 .filter-group {
   label {
     display: block;
+  }
+
+  .filter-label {
+    display: block;
     font-size: 12px;
     color: $tc-gray-60;
     margin-bottom: 6px;

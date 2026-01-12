@@ -41,7 +41,8 @@ class EngagementListingContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.dropEngagements();
+    const { dropEngagements } = this.props;
+    dropEngagements();
   }
 
   loadMore = () => {

@@ -2,6 +2,10 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import { config } from 'topcoder-react-utils';
+import IconBlackDuration from 'assets/images/icon-black-calendar.svg';
+import IconBlackLocation from 'assets/images/icon-black-location.svg';
+import IconBlackPayment from 'assets/images/icon-black-payment.svg';
+import iconBlackSkills from 'assets/images/icon-skills.png';
 
 import './style.scss';
 
@@ -10,126 +14,133 @@ function asArray(value) {
   return Array.isArray(value) ? value : [value];
 }
 
-function formatDate(value) {
-  if (!value) return '';
-  const date = moment(value);
-  return date.isValid() ? date.format('MMM DD, YYYY') : '';
+function formatWeeks(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const numericValue = Number(value);
+  if (Number.isNaN(numericValue) || numericValue <= 0) return null;
+  return `${numericValue} Week${numericValue === 1 ? '' : 's'}`;
 }
 
-function getDuration(startDate, endDate) {
+function getDuration(startDate, endDate, durationWeeks) {
+  const directDuration = formatWeeks(durationWeeks);
+  if (directDuration) return directDuration;
   if (!startDate || !endDate) return 'TBD';
   const start = moment(startDate);
   const end = moment(endDate);
   if (!start.isValid() || !end.isValid()) return 'TBD';
 
   const diffDays = end.diff(start, 'days');
-  if (diffDays >= 7) {
-    const weeks = Math.ceil(diffDays / 7);
-    return `${weeks} week${weeks === 1 ? '' : 's'}`;
+  if (diffDays < 0) return 'TBD';
+  const weeks = Math.max(1, Math.ceil(diffDays / 7));
+  return `${weeks} Week${weeks === 1 ? '' : 's'}`;
+}
+
+function getRoleDisplay(role) {
+  if (typeof role === 'object' && role !== null) {
+    const label = role.name || role.title;
+    return label ? String(label) : 'Not Specified';
   }
-
-  return `${formatDate(startDate)} - ${formatDate(endDate)}`;
+  return role ? String(role) : 'Not Specified';
 }
 
-function getStatusLabel(status) {
-  const normalized = (status || '').toLowerCase();
-  if (normalized.includes('pending')) return 'Pending Assignment';
-  if (normalized.includes('closed')) return 'Closed';
-  return 'Open';
+function getWorkloadDisplay(workload) {
+  if (typeof workload === 'object' && workload !== null) {
+    const label = workload.name || workload.title;
+    return label ? String(label) : 'Not Specified';
+  }
+  return workload ? String(workload) : 'Not Specified';
 }
 
-function getStatusClass(status) {
-  const normalized = (status || '').toLowerCase();
-  if (normalized.includes('pending')) return 'status-pending';
-  if (normalized.includes('closed')) return 'status-closed';
-  return 'status-open';
+function getCompensationDisplay(compensationRange) {
+  if (typeof compensationRange === 'object' && compensationRange !== null) {
+    const label = compensationRange.name || compensationRange.title;
+    return label ? String(label) : 'Not Specified';
+  }
+  return compensationRange ? String(compensationRange) : 'Not Specified';
 }
 
 function EngagementCard({ engagement }) {
-  const title = engagement.title || engagement.name || 'Engagement';
-  const description = engagement.description || engagement.summary || '';
-  const truncatedDescription = description.length > 150
-    ? `${description.slice(0, 147).trim()}...`
-    : description;
-  const status = engagement.status || engagement.state || 'open';
-  const startDate = engagement.startDate || engagement.start;
-  const endDate = engagement.endDate || engagement.end;
-  const durationText = getDuration(startDate, endDate);
-  const deadline = engagement.applicationDeadline
-    || engagement.applicationEndDate
-    || engagement.applyBy
-    || engagement.applyByDate;
-  const deadlineText = formatDate(deadline);
+  const {
+    title,
+    name,
+    startDate,
+    start,
+    endDate,
+    end,
+    durationWeeks,
+    role,
+    workload,
+    compensationRange,
+    skills: engagementSkills,
+    requiredSkills,
+    skillsets,
+    location,
+    locations: engagementLocations,
+    timezone,
+    timezones,
+    nanoId,
+    id,
+    engagementId,
+  } = engagement;
 
-  const skills = asArray(engagement.skills || engagement.requiredSkills || engagement.skillsets)
+  const displayTitle = title || name || 'Engagement';
+  const normalizedStartDate = startDate || start;
+  const normalizedEndDate = endDate || end;
+  const durationText = getDuration(normalizedStartDate, normalizedEndDate, durationWeeks);
+
+  const skills = asArray(engagementSkills || requiredSkills || skillsets)
     .map(skill => (skill && skill.name) || (skill && skill.title) || skill)
     .filter(Boolean);
-  const visibleSkills = skills.slice(0, 5);
-  const extraSkills = skills.length - visibleSkills.length;
+  const skillsText = skills.length
+    ? skills.slice(0, 2).join(', ')
+    : 'Not Specified';
+  const limitedSkillsText = skills.length > 2
+    ? `${skillsText},...`
+    : skillsText;
 
   const locations = [
-    ...asArray(engagement.location),
-    ...asArray(engagement.locations),
-    ...asArray(engagement.timezone),
-    ...asArray(engagement.timezones),
+    ...asArray(location),
+    ...asArray(engagementLocations),
+    ...asArray(timezone),
+    ...asArray(timezones),
   ]
     .map(item => (item && item.name) || item)
     .filter(Boolean);
   const locationText = locations.length ? locations.join(', ') : 'Remote';
 
-  const engagementId = engagement.nanoId || engagement.id || engagement.engagementId;
-  const engagementLink = engagementId
-    ? `${config.URL.ENGAGEMENTS_APP}/engagements/${engagementId}`
+  const resolvedEngagementId = nanoId || id || engagementId;
+  const engagementLink = resolvedEngagementId
+    ? `${config.URL.ENGAGEMENTS_APP}/engagements/${resolvedEngagementId}`
     : config.URL.ENGAGEMENTS_APP;
 
-  const handleEngagementClick = () => {
-    if (!engagementLink || typeof window === 'undefined') return;
-    window.location.href = engagementLink;
-  };
-
   return (
-    <div styleName="engagementCard">
-      <div styleName="left-panel">
-        <span styleName={`statusBadge ${getStatusClass(status)}`}>
-          {getStatusLabel(status)}
-        </span>
-      </div>
-      <div styleName="right-panel">
-        <div styleName="header">
-          <button type="button" styleName="title" onClick={handleEngagementClick}>
-            {title}
-          </button>
-          {deadlineText ? (
-            <span styleName="deadline">Apply by {deadlineText}</span>
-          ) : null}
+    <div styleName="container">
+      <a styleName="gig-name" href={engagementLink}>
+        {displayTitle}
+      </a>
+      <div styleName="job-infos">
+        <div styleName="icon-val">
+          <img src={iconBlackSkills} alt="role-icon" /> {getRoleDisplay(role)}
         </div>
-        {truncatedDescription ? (
-          <p styleName="description">{truncatedDescription}</p>
-        ) : null}
-        <div styleName="meta">
-          <div styleName="meta-item">
-            <span styleName="meta-label">Duration</span>
-            <span styleName="meta-value">{durationText}</span>
-          </div>
-          <div styleName="meta-item">
-            <span styleName="meta-label">Location</span>
-            <span styleName="meta-value">{locationText}</span>
-          </div>
+        <div styleName="icon-val">
+          <img src={iconBlackSkills} alt="skills-icon" /> {limitedSkillsText}
         </div>
-        {visibleSkills.length ? (
-          <div styleName="skills">
-            {visibleSkills.map(skill => (
-              <span styleName="skill-tag" key={skill}>{skill}</span>
-            ))}
-            {extraSkills > 0 ? (
-              <span styleName="skill-tag more">+{extraSkills}</span>
-            ) : null}
-          </div>
-        ) : null}
-        <div styleName="footer">
-          <button type="button" styleName="details-button" onClick={handleEngagementClick}>
-            View Details
-          </button>
+        <div styleName="icon-val">
+          <IconBlackLocation /> {locationText}
+        </div>
+        <div styleName="icon-val">
+          <IconBlackDuration /> {getWorkloadDisplay(workload)}
+        </div>
+        <div styleName="icon-val">
+          <IconBlackPayment /> {getCompensationDisplay(compensationRange)}
+        </div>
+        <div styleName="icon-val">
+          <IconBlackDuration /> {durationText}
+        </div>
+        <div styleName="row-btn">
+          <a styleName="primary-green-md" href={engagementLink}>
+            VIEW DETAILS
+          </a>
         </div>
       </div>
     </div>
