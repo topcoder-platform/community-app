@@ -3,7 +3,13 @@
 .engagementListing {
   @include roboto-regular;
 
+  max-width: $screen-lg;
+  margin: 0 auto;
   padding: 24px 0;
+
+  @media (max-width: 1280px) {
+    padding: 24px 15px;
+  }
 }
 
 .filters {
@@ -12,18 +18,34 @@
   border-radius: $corner-radius;
   padding: 16px;
   margin-bottom: 24px;
-  gap: 16px;
 }
 
 .filters-desktop {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
-  align-items: end;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+
+  .filter-group {
+    flex: 1 1 160px;
+    min-width: 160px;
+
+    &:first-child {
+      flex: 2.5 1 280px;
+      min-width: 240px;
+    }
+  }
+
+  .filter-actions {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
 }
 
 .filters-mobile {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .filter-group {
