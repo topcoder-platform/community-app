@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/topcoder-platform/community-app#readme",
   "engines": {
-    "node": "^10.24.1",
+    "node": "^14.21.3",
     "npm": "^6.14.12"
   },
   "dependencies": {
@@ -218,7 +218,7 @@
     "mini-css-extract-plugin": "^0.4.1",
     "mkpath": "^1.0.0",
     "mockdate": "^2.0.2",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.14.1",
     "nodelist-foreach-polyfill": "^1.2.0",
     "optimize-css-assets-webpack-plugin": "^4.0.3",
     "postcss-loader": "^2.1.5",
@@ -246,6 +246,6 @@
     "workbox-webpack-plugin": "^3.6.2"
   },
   "volta": {
-    "node": "8.11.2"
+    "node": "14.21.3"
   }
 }
