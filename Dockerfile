@@ -2,7 +2,7 @@
 # and runs it against the specified Topcoder backend (development or
 # production) when container is executed.
 
-FROM node:14.21.3
+FROM node:10.24.1
 LABEL app="Community App" version="1.0"
 RUN useradd -m -s /bin/bash appuser
 
