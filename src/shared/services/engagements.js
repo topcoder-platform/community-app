@@ -1,31 +1,47 @@
 import { config } from 'topcoder-react-utils';
 
-const engagementsApiUrl = config.API.ENGAGEMENTS || `${config.API.V6}/engagements`;
+const engagementsApiUrl = config.API.ENGAGEMENTS || `${config.API.V6}/engagements/engagements`;
 
 function buildEngagementsUrl(page, pageSize, filters = {}) {
-  const offset = page * pageSize;
+  const normalizedPage = Number.isFinite(page) ? Math.max(1, page + 1) : 1;
   const url = new URL(engagementsApiUrl);
 
-  url.searchParams.append('limit', pageSize);
-  url.searchParams.append('offset', offset);
+  url.searchParams.append('page', normalizedPage.toString());
+  if (Number.isFinite(pageSize)) {
+    url.searchParams.append('perPage', pageSize.toString());
+  }
 
   if (filters.status) {
-    url.searchParams.append('status', filters.status);
+    const normalizedStatus = String(filters.status).trim().toUpperCase();
+    if (normalizedStatus) {
+      url.searchParams.append('status', normalizedStatus);
+    }
   }
 
   if (filters.search) {
-    url.searchParams.append('search', filters.search);
+    url.searchParams.append('search', String(filters.search).trim());
   }
 
   if (filters.location) {
-    url.searchParams.append('location', filters.location);
+    const countries = String(filters.location)
+      .split(',')
+      .map(entry => entry.trim())
+      .filter(Boolean);
+    if (countries.length) {
+      url.searchParams.append('countries', countries.join(','));
+    }
   }
 
   if (filters.skills && filters.skills.length) {
     const skills = Array.isArray(filters.skills)
       ? filters.skills
       : [filters.skills];
-    url.searchParams.append('skills', skills.join(','));
+    const normalizedSkills = skills
+      .map(skill => String(skill).trim())
+      .filter(Boolean);
+    if (normalizedSkills.length) {
+      url.searchParams.append('requiredSkills', normalizedSkills.join(','));
+    }
   }
 
   return url;

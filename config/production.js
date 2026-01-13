@@ -5,7 +5,7 @@ module.exports = {
     V4: 'https://api.topcoder.com/v4',
     V5: 'https://api.topcoder.com/v5',
     V6: 'https://api.topcoder.com/v6',
-    ENGAGEMENTS: 'https://api.topcoder.com/v6/engagements',
+    ENGAGEMENTS: 'https://api.topcoder.com/v6/engagements/engagements',
   },
   AUTH0: {
     DOMAIN: 'topcoder.auth0.com',

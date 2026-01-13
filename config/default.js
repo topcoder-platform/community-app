@@ -9,7 +9,7 @@ module.exports = {
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
     V6: 'https://api.topcoder-dev.com/v6',
-    ENGAGEMENTS: 'https://api.topcoder-dev.com/v6/engagements',
+    ENGAGEMENTS: 'https://api.topcoder-dev.com/v6/engagements/engagements',
     MM_BROKER: '/api',
   },
 

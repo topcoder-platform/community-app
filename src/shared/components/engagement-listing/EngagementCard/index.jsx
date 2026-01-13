@@ -14,16 +14,18 @@ function asArray(value) {
   return Array.isArray(value) ? value : [value];
 }
 
-function formatWeeks(value) {
+function formatDuration(value, unitLabel) {
   if (value === null || value === undefined || value === '') return null;
   const numericValue = Number(value);
   if (Number.isNaN(numericValue) || numericValue <= 0) return null;
-  return `${numericValue} Week${numericValue === 1 ? '' : 's'}`;
+  return `${numericValue} ${unitLabel}${numericValue === 1 ? '' : 's'}`;
 }
 
-function getDuration(startDate, endDate, durationWeeks) {
-  const directDuration = formatWeeks(durationWeeks);
-  if (directDuration) return directDuration;
+function getDuration(startDate, endDate, durationWeeks, durationMonths) {
+  const weekDuration = formatDuration(durationWeeks, 'Week');
+  if (weekDuration) return weekDuration;
+  const monthDuration = formatDuration(durationMonths, 'Month');
+  if (monthDuration) return monthDuration;
   if (!startDate || !endDate) return 'TBD';
   const start = moment(startDate);
   const end = moment(endDate);
@@ -67,7 +69,10 @@ function EngagementCard({ engagement }) {
     start,
     endDate,
     end,
+    durationStartDate,
+    durationEndDate,
     durationWeeks,
+    durationMonths,
     role,
     workload,
     compensationRange,
@@ -78,15 +83,22 @@ function EngagementCard({ engagement }) {
     locations: engagementLocations,
     timezone,
     timezones,
+    timeZones,
+    countries,
     nanoId,
     id,
     engagementId,
   } = engagement;
 
   const displayTitle = title || name || 'Engagement';
-  const normalizedStartDate = startDate || start;
-  const normalizedEndDate = endDate || end;
-  const durationText = getDuration(normalizedStartDate, normalizedEndDate, durationWeeks);
+  const normalizedStartDate = startDate || start || durationStartDate;
+  const normalizedEndDate = endDate || end || durationEndDate;
+  const durationText = getDuration(
+    normalizedStartDate,
+    normalizedEndDate,
+    durationWeeks,
+    durationMonths,
+  );
 
   const skills = asArray(engagementSkills || requiredSkills || skillsets)
     .map(skill => (skill && skill.name) || (skill && skill.title) || skill)
@@ -103,6 +115,8 @@ function EngagementCard({ engagement }) {
     ...asArray(engagementLocations),
     ...asArray(timezone),
     ...asArray(timezones),
+    ...asArray(timeZones),
+    ...asArray(countries),
   ]
     .map(item => (item && item.name) || item)
     .filter(Boolean);
