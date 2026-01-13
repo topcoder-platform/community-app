@@ -10,6 +10,11 @@ require('babel-register')({
   ],
 });
 
+/* Provide globalThis in older Node runtimes (e.g. Node 10). */
+if (typeof globalThis === 'undefined') {
+  global.globalThis = global;
+}
+
 /* Provide TextEncoder/TextDecoder in older Node runtimes (e.g. Node 10). */
 const { TextDecoder, TextEncoder } = require('util');
 if (typeof global.TextEncoder === 'undefined') {
