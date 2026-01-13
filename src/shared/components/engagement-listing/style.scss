@@ -20,28 +20,6 @@
   margin-bottom: 24px;
 }
 
-.filters-desktop {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 16px 24px;
-
-  .filter-group {
-    flex: 1 1 160px;
-    min-width: 160px;
-
-    &:first-child {
-      flex: 2.5 1 280px;
-      min-width: 240px;
-    }
-  }
-
-  .filter-actions {
-    flex: 0 0 auto;
-    margin-left: auto;
-  }
-}
-
 .filters-mobile {
   display: flex;
   flex-direction: column;
@@ -74,6 +52,28 @@
 .filter-actions {
   display: flex;
   gap: 8px;
+}
+
+.filters-desktop {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+
+  .filter-group {
+    flex: 1 1 160px;
+    min-width: 160px;
+
+    &:first-child {
+      flex: 2.5 1 280px;
+      min-width: 240px;
+    }
+  }
+
+  .filter-actions {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
 }
 
 .apply-button,
