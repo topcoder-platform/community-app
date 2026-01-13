@@ -124,7 +124,7 @@ function EngagementCard({ engagement }) {
 
   const resolvedEngagementId = nanoId || id || engagementId;
   const engagementLink = resolvedEngagementId
-    ? `${config.URL.ENGAGEMENTS_APP}/engagements/${resolvedEngagementId}`
+    ? `${config.URL.ENGAGEMENTS_APP}/${resolvedEngagementId}`
     : config.URL.ENGAGEMENTS_APP;
 
   return (
