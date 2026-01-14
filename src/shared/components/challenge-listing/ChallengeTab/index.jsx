@@ -3,15 +3,27 @@ import _ from 'lodash';
 import { BUCKETS, isPastBucket } from 'utils/challenge-listing/buckets';
 import cn from 'classnames';
 import { useMediaQuery } from 'react-responsive';
+import { Link } from 'topcoder-react-utils';
 import ArrowIcon from 'assets/images/ico-arrow-down.svg';
 import PT from 'prop-types';
 
 import './style.scss';
 
 const TAB_NAME = {
-  PAST_CHALLENGES: 'Past',
-  ACTIVE_CHALLENGES: 'Active',
+  PAST_CHALLENGES: 'Past Challenges',
+  ACTIVE_CHALLENGES: 'Active Challenges',
 };
+
+const TAB_LINKS = [
+  {
+    label: 'Engagements',
+    to: '/engagements',
+  },
+  {
+    label: 'Gigs',
+    to: '/gigs',
+  },
+];
 
 const ChallengeTab = ({
   activeBucket,
@@ -118,6 +130,16 @@ const ChallengeTab = ({
       >
         {TAB_NAME.PAST_CHALLENGES}
       </li>
+      {TAB_LINKS.map(link => (
+        <li
+          key={`tab-item-${link.to}`}
+          styleName="item"
+        >
+          <Link styleName="item-link" to={link.to}>
+            {link.label}
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 
@@ -154,6 +176,15 @@ const ChallengeTab = ({
             >
               <p>{TAB_NAME.PAST_CHALLENGES}</p>
             </div>
+            {TAB_LINKS.map(link => (
+              <Link
+                key={`tab-item-${link.to}`}
+                styleName="item item-link"
+                to={link.to}
+              >
+                <p>{link.label}</p>
+              </Link>
+            ))}
           </div>
         )
       }

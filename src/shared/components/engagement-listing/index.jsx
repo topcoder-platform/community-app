@@ -1,11 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PT from 'prop-types';
-import { useMediaQuery } from 'react-responsive';
 import LoadingIndicator from 'components/LoadingIndicator';
+import SearchCombo from 'components/GUIKit/SearchCombo';
+import Dropdown from 'components/GUIKit/Dropdown';
 
 import EngagementCard from './EngagementCard';
 
 import './style.scss';
+
+const SORT_OPTIONS = [
+  { label: 'Latest Added Descending', value: 'createdAt' },
+  { label: 'Latest Updated Descending', value: 'updatedAt' },
+];
+
+const CREATED_DATE_FIELDS = ['createdAt', 'created_at', 'createdOn', 'created'];
+const UPDATED_DATE_FIELDS = ['updatedAt', 'updated_at', 'updatedOn', 'updated'];
+
+function getTimestamp(engagement, fields) {
+  if (!engagement) return 0;
+  for (let i = 0; i < fields.length; i += 1) {
+    const value = engagement[fields[i]];
+    if (value) {
+      const timestamp = Date.parse(value);
+      if (!Number.isNaN(timestamp)) return timestamp;
+    }
+  }
+  return 0;
+}
 
 export default function EngagementListing({
   engagements,
@@ -14,117 +35,84 @@ export default function EngagementListing({
   filter,
   setFilter,
   allEngagementsLoaded,
+  auth,
 }) {
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
-
   const [search, setSearch] = useState(filter.search || '');
-  const [location, setLocation] = useState(filter.location || '');
-  const [status, setStatus] = useState(filter.status || 'open');
-  const [skillsText, setSkillsText] = useState((filter.skills || []).join(', '));
+  const [sortBy, setSortBy] = useState(filter.sortBy || 'createdAt');
 
   useEffect(() => {
     setSearch(filter.search || '');
-    setLocation(filter.location || '');
-    setStatus(filter.status || 'open');
-    setSkillsText((filter.skills || []).join(', '));
+    setSortBy(filter.sortBy || 'createdAt');
   }, [filter]);
-
-  const applyFilters = () => {
-    const nextSkills = skillsText
-      .split(',')
-      .map(skill => skill.trim())
-      .filter(Boolean);
-
-    setFilter({
-      ...filter,
-      search: search.trim(),
-      location: location.trim(),
-      status,
-      skills: nextSkills,
-    });
-  };
-
-  const clearFilters = () => {
-    setSearch('');
-    setLocation('');
-    setStatus('open');
-    setSkillsText('');
-
-    setFilter({
-      ...filter,
-      search: '',
-      location: '',
-      status: 'open',
-      skills: [],
-    });
-  };
 
   const hasEngagements = engagements && engagements.length > 0;
 
+  const handleSearch = (nextSearch) => {
+    const normalizedSearch = (nextSearch || '').trim();
+    setSearch(nextSearch || '');
+    setFilter({
+      ...filter,
+      search: normalizedSearch,
+    });
+  };
+
+  const handleSortChange = (nextOptions) => {
+    const selected = (nextOptions || []).find(option => option.selected);
+    const nextSortBy = selected && selected.label === SORT_OPTIONS[1].label
+      ? SORT_OPTIONS[1].value
+      : SORT_OPTIONS[0].value;
+
+    setSortBy(nextSortBy);
+    setFilter({
+      ...filter,
+      sortBy: nextSortBy,
+    });
+  };
+
+  const sortOptions = SORT_OPTIONS.map(option => ({
+    label: option.label,
+    selected: option.value === sortBy,
+  }));
+
+  const sortedEngagements = useMemo(() => {
+    if (!Array.isArray(engagements) || engagements.length <= 1) return engagements || [];
+
+    const primaryFields = sortBy === 'updatedAt' ? UPDATED_DATE_FIELDS : CREATED_DATE_FIELDS;
+    const fallbackFields = sortBy === 'updatedAt' ? CREATED_DATE_FIELDS : [];
+
+    return engagements
+      .map((engagement, index) => {
+        const primaryTimestamp = getTimestamp(engagement, primaryFields);
+        const fallbackTimestamp = primaryTimestamp ? 0 : getTimestamp(engagement, fallbackFields);
+        return {
+          engagement,
+          index,
+          timestamp: primaryTimestamp || fallbackTimestamp,
+        };
+      })
+      .sort((a, b) => {
+        if (a.timestamp === b.timestamp) return a.index - b.index;
+        return b.timestamp - a.timestamp;
+      })
+      .map(item => item.engagement);
+  }, [engagements, sortBy]);
+
   return (
     <div styleName="engagementListing">
-      <form
-        styleName={`filters ${isDesktop ? 'filters-desktop' : 'filters-mobile'}`}
-        onSubmit={(event) => {
-          event.preventDefault();
-          applyFilters();
-        }}
-      >
-        <div styleName="filter-group">
-          <label htmlFor="engagement-search">
-            <span styleName="filter-label">Search</span>
-            <input
-              id="engagement-search"
-              type="text"
-              value={search}
-              onChange={event => setSearch(event.target.value)}
-              placeholder="Role, client, or keyword"
-            />
-          </label>
-        </div>
-        <div styleName="filter-group">
-          <label htmlFor="engagement-status">
-            <span styleName="filter-label">Status</span>
-            <select
-              id="engagement-status"
-              value={status}
-              onChange={event => setStatus(event.target.value)}
-            >
-              <option value="open">Open</option>
-              <option value="pending_assignment">Pending Assignment</option>
-              <option value="closed">Closed</option>
-            </select>
-          </label>
-        </div>
-        <div styleName="filter-group">
-          <label htmlFor="engagement-skills">
-            <span styleName="filter-label">Skills</span>
-            <input
-              id="engagement-skills"
-              type="text"
-              value={skillsText}
-              onChange={event => setSkillsText(event.target.value)}
-              placeholder="React, Python, Figma"
-            />
-          </label>
-        </div>
-        <div styleName="filter-group">
-          <label htmlFor="engagement-location">
-            <span styleName="filter-label">Location</span>
-            <input
-              id="engagement-location"
-              type="text"
-              value={location}
-              onChange={event => setLocation(event.target.value)}
-              placeholder="Remote, EST, London"
-            />
-          </label>
-        </div>
-        <div styleName="filter-actions">
-          <button type="submit" styleName="apply-button">Apply</button>
-          <button type="button" styleName="clear-button" onClick={clearFilters}>Clear</button>
-        </div>
-      </form>
+      <div styleName="filters">
+        <SearchCombo
+          placeholder="Search Engagements by Name or Skills"
+          onSearch={handleSearch}
+          term={search}
+          auth={auth}
+        />
+        <Dropdown
+          label="Sort by"
+          onChange={handleSortChange}
+          options={sortOptions}
+          size="xs"
+        />
+      </div>
 
       {loading && !hasEngagements ? (
         <div styleName="loading-state">
@@ -140,7 +128,7 @@ export default function EngagementListing({
 
       {hasEngagements ? (
         <div styleName="cards">
-          {engagements.map((engagement, index) => (
+          {sortedEngagements.map((engagement, index) => (
             <EngagementCard
               key={engagement.nanoId || engagement.id || engagement.engagementId || index}
               engagement={engagement}
@@ -170,6 +158,7 @@ EngagementListing.defaultProps = {
   loading: false,
   loadMore: () => {},
   allEngagementsLoaded: false,
+  auth: {},
 };
 
 EngagementListing.propTypes = {
@@ -181,7 +170,11 @@ EngagementListing.propTypes = {
     skills: PT.arrayOf(PT.string),
     location: PT.string,
     search: PT.string,
+    sortBy: PT.string,
   }).isRequired,
   setFilter: PT.func.isRequired,
   allEngagementsLoaded: PT.bool,
+  auth: PT.shape({
+    tokenV3: PT.string,
+  }),
 };

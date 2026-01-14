@@ -13,89 +13,31 @@
 }
 
 .filters {
-  background: $tc-white;
-  border: 1px solid $tc-gray-10;
-  border-radius: $corner-radius;
-  padding: 16px;
-  margin-bottom: 24px;
-}
-
-.filters-mobile {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.filter-group {
-  label {
-    display: block;
-  }
-
-  .filter-label {
-    display: block;
-    font-size: 12px;
-    color: $tc-gray-60;
-    margin-bottom: 6px;
-  }
-
-  input,
-  select {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: $corner-radius;
-    border: 1px solid $tc-gray-20;
-    font-size: 14px;
-    color: $tc-gray-90;
-  }
-}
-
-.filter-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.filters-desktop {
   display: flex;
   align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 16px 24px;
+  margin-bottom: 20px;
 
-  .filter-group {
-    flex: 1 1 160px;
-    min-width: 160px;
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+
+  > div {
+    margin-right: 30px;
+    flex: 1;
+
+    @include xs-to-sm {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
 
     &:first-child {
-      flex: 2.5 1 280px;
-      min-width: 240px;
+      flex: 3;
+    }
+
+    &:last-child {
+      margin-right: 0;
     }
   }
-
-  .filter-actions {
-    flex: 0 0 auto;
-    margin-left: auto;
-  }
-}
-
-.apply-button,
-.clear-button {
-  @include roboto-medium;
-
-  border-radius: $corner-radius;
-  border: 1px solid $tc-dark-blue-70;
-  padding: 8px 14px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.apply-button {
-  background: $tc-dark-blue-110;
-  border-color: $tc-dark-blue-110;
-  color: $tc-white;
-}
-
-.clear-button {
-  background: transparent;
-  color: $tc-dark-blue-110;
 }
 
 .cards {

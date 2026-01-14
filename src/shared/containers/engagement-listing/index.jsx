@@ -65,6 +65,7 @@ class EngagementListingContainer extends React.Component {
     const {
       engagements,
       filter,
+      auth,
       loadingEngagementsUUID,
       setFilter,
       allEngagementsLoaded,
@@ -85,6 +86,7 @@ class EngagementListingContainer extends React.Component {
           filter={filter}
           setFilter={setFilter}
           allEngagementsLoaded={allEngagementsLoaded}
+          auth={auth}
         />
       </React.Fragment>
     );
@@ -117,6 +119,7 @@ EngagementListingContainer.propTypes = {
     skills: PT.arrayOf(PT.string),
     location: PT.string,
     search: PT.string,
+    sortBy: PT.string,
   }).isRequired,
   getEngagements: PT.func.isRequired,
   dropEngagements: PT.func.isRequired,
@@ -139,6 +142,7 @@ const mapStateToProps = (state) => {
       skills: [],
       location: '',
       search: '',
+      sortBy: 'createdAt',
     },
     meta: engagementsState.meta || {
       totalCount: 0,

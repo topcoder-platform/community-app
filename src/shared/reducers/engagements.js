@@ -11,6 +11,7 @@ const initialState = {
     skills: [],
     location: '',
     search: '',
+    sortBy: 'createdAt',
   },
   meta: {
     totalCount: 0,

@@ -9,9 +9,78 @@ import iconBlackSkills from 'assets/images/icon-skills.png';
 
 import './style.scss';
 
+const ROLE_LABELS = {
+  DESIGNER: 'Designer',
+  SOFTWARE_DEVELOPER: 'Software Developer',
+  DATA_SCIENTIST: 'Data Scientist',
+  DATA_ENGINEER: 'Data Engineer',
+};
+
+const WORKLOAD_LABELS = {
+  FULL_TIME: 'Full Time',
+  FRACTIONAL: 'Fractional',
+};
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const UNKNOWN_SKILL_LABEL = 'Unknown skill';
+
 function asArray(value) {
   if (!value) return [];
   return Array.isArray(value) ? value : [value];
+}
+
+function isUuid(value) {
+  return typeof value === 'string' && UUID_PATTERN.test(value);
+}
+
+function toTitleCase(value) {
+  return value
+    .toLowerCase()
+    .split(' ')
+    .map(part => (part ? `${part[0].toUpperCase()}${part.slice(1)}` : ''))
+    .join(' ');
+}
+
+function normalizeLabel(value, normalizedMap) {
+  if (typeof value === 'object' && value !== null) {
+    const label = value.name || value.title;
+    if (label) return String(label);
+  }
+
+  if (!value) return 'Not Specified';
+
+  const raw = String(value).trim();
+  if (!raw) return 'Not Specified';
+
+  const normalized = raw.toUpperCase().replace(/[\s-]+/g, '_');
+  if (normalizedMap && normalizedMap[normalized]) {
+    return normalizedMap[normalized];
+  }
+
+  const hasSeparators = /[_-]+/.test(raw);
+  const isAllCaps = raw === raw.toUpperCase();
+  const spaced = raw.replace(/[_-]+/g, ' ').trim();
+
+  if (hasSeparators || isAllCaps) {
+    return spaced ? toTitleCase(spaced) : raw;
+  }
+
+  return spaced || raw;
+}
+
+function normalizeSkillLabel(skill) {
+  if (!skill) return null;
+
+  if (typeof skill === 'object' && skill !== null) {
+    const label = skill.name || skill.title;
+    if (label) return String(label);
+    const skillId = skill.id || skill.value;
+    if (isUuid(skillId)) return UNKNOWN_SKILL_LABEL;
+    return skillId ? String(skillId) : null;
+  }
+
+  if (isUuid(skill)) return UNKNOWN_SKILL_LABEL;
+  return String(skill);
 }
 
 function formatDuration(value, unitLabel) {
@@ -38,19 +107,11 @@ function getDuration(startDate, endDate, durationWeeks, durationMonths) {
 }
 
 function getRoleDisplay(role) {
-  if (typeof role === 'object' && role !== null) {
-    const label = role.name || role.title;
-    return label ? String(label) : 'Not Specified';
-  }
-  return role ? String(role) : 'Not Specified';
+  return normalizeLabel(role, ROLE_LABELS);
 }
 
 function getWorkloadDisplay(workload) {
-  if (typeof workload === 'object' && workload !== null) {
-    const label = workload.name || workload.title;
-    return label ? String(label) : 'Not Specified';
-  }
-  return workload ? String(workload) : 'Not Specified';
+  return normalizeLabel(workload, WORKLOAD_LABELS);
 }
 
 function getCompensationDisplay(compensationRange) {
@@ -100,9 +161,16 @@ function EngagementCard({ engagement }) {
     durationMonths,
   );
 
-  const skills = asArray(engagementSkills || requiredSkills || skillsets)
-    .map(skill => (skill && skill.name) || (skill && skill.title) || skill)
-    .filter(Boolean);
+  const skillsSource = [engagementSkills, requiredSkills, skillsets]
+    .find(value => Array.isArray(value) && value.length)
+    || engagementSkills
+    || requiredSkills
+    || skillsets;
+  const skills = Array.from(new Set(
+    asArray(skillsSource)
+      .map(normalizeSkillLabel)
+      .filter(Boolean),
+  ));
   const skillsText = skills.length
     ? skills.slice(0, 2).join(', ')
     : 'Not Specified';

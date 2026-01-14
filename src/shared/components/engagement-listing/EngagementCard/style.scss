@@ -29,7 +29,6 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
-  text-transform: uppercase;
 
   @include xs-to-sm {
     margin-bottom: 20px;
@@ -37,74 +36,26 @@
 }
 
 .job-infos {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.5fr 1fr 1.3fr 0.9fr 141px;
+  column-gap: 20px;
+  align-items: center;
 
   @include xs-to-sm {
+    display: flex;
     flex-direction: column;
+    align-items: flex-start;
   }
 }
 
 .icon-val {
   display: flex;
   align-items: center;
+  min-width: 0;
 
   @include xs-to-sm {
     margin-bottom: 20px;
-  }
-
-  &:first-child {
-    width: 250px;
-
-    @media (max-width: 1280px) {
-      width: auto;
-      margin-right: 20px;
-    }
-  }
-
-  &:nth-child(2) {
-    width: 204px;
-
-    @media (max-width: 1280px) {
-      width: auto;
-      margin-right: 20px;
-    }
-  }
-
-  &:nth-child(3) {
-    width: 345px;
-
-    @media (max-width: 1280px) {
-      width: auto;
-      margin-right: 20px;
-    }
-  }
-
-  &:nth-child(4) {
-    width: 255px;
-
-    @media (max-width: 1280px) {
-      width: auto;
-      margin-right: 20px;
-    }
-  }
-
-  &:nth-child(5) {
-    width: 330px;
-
-    @media (max-width: 1280px) {
-      width: auto;
-      margin-right: 20px;
-    }
-  }
-
-  &:nth-child(6) {
-    width: 200px;
-
-    @media (max-width: 1280px) {
-      width: auto;
-      margin-right: 20px;
-    }
+    width: 100%;
   }
 
   svg,
@@ -118,27 +69,21 @@
 .row-btn {
   display: flex;
   justify-content: flex-end;
-  flex: 1;
-
-  &:last-child {
-    width: 141px;
-    flex: 0 0 141px;
-    margin-left: auto;
-  }
+  align-items: center;
+  width: 141px;
 
   @include xs-to-sm {
     justify-content: flex-start;
-
-    &:last-child {
-      width: auto;
-      flex: 1;
-      margin-left: 0;
-    }
+    width: auto;
+    margin-bottom: 10px;
   }
 }
 
 .primary-green-md {
   outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   @include primary-green;
   @include md;
