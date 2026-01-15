@@ -21,6 +21,14 @@ const WORKLOAD_LABELS = {
   FRACTIONAL: 'Fractional',
 };
 
+const STATUS_LABELS = {
+  OPEN: 'Open',
+  PENDING_ASSIGNMENT: 'Pending Assignment',
+  ACTIVE: 'Active',
+  CANCELLED: 'Cancelled',
+  CLOSED: 'Closed',
+};
+
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const UNKNOWN_SKILL_LABEL = 'Unknown skill';
 
@@ -122,6 +130,20 @@ function getCompensationDisplay(compensationRange) {
   return compensationRange ? String(compensationRange) : 'Not Specified';
 }
 
+function getStatusDisplay(status) {
+  if (typeof status === 'object' && status !== null) {
+    const label = status.name || status.title;
+    if (label) return String(label);
+  }
+
+  if (!status) return 'Not Specified';
+
+  const normalized = String(status).trim().toUpperCase().replace(/[\s-]+/g, '_');
+  if (!normalized) return 'Not Specified';
+
+  return STATUS_LABELS[normalized] || 'Not Specified';
+}
+
 function EngagementCard({ engagement }) {
   const {
     title,
@@ -146,6 +168,7 @@ function EngagementCard({ engagement }) {
     timezones,
     timeZones,
     countries,
+    status,
     nanoId,
     id,
     engagementId,
@@ -194,12 +217,16 @@ function EngagementCard({ engagement }) {
   const engagementLink = resolvedEngagementId
     ? `${config.URL.ENGAGEMENTS_APP}/${resolvedEngagementId}`
     : config.URL.ENGAGEMENTS_APP;
+  const statusText = getStatusDisplay(status);
 
   return (
     <div styleName="container">
-      <a styleName="gig-name" href={engagementLink}>
-        {displayTitle}
-      </a>
+      <div styleName="header">
+        <a styleName="gig-name" href={engagementLink}>
+          {displayTitle}
+        </a>
+        <span styleName="status-badge">{statusText}</span>
+      </div>
       <div styleName="job-infos">
         <div styleName="icon-val">
           <img src={iconBlackSkills} alt="role-icon" /> {getRoleDisplay(role)}
