@@ -99,7 +99,7 @@ export default function EngagementListing({
 
   return (
     <div styleName="engagementListing">
-      <div styleName="filters">
+      <div styleName={loading ? 'filters loading' : 'filters'}>
         <SearchCombo
           placeholder="Search Engagements by Name or Skills"
           onSearch={handleSearch}

@@ -14,30 +14,27 @@
 
 .filters {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  min-height: 52px;
+  gap: 30px;
   margin-bottom: 20px;
 
   @include xs-to-sm {
     flex-direction: column;
+    gap: 15px;
   }
 
   > div {
-    margin-right: 30px;
     flex: 1;
-
-    @include xs-to-sm {
-      margin-right: 0;
-      margin-bottom: 15px;
-    }
 
     &:first-child {
       flex: 3;
     }
-
-    &:last-child {
-      margin-right: 0;
-    }
   }
+}
+
+.filters.loading {
+  pointer-events: none;
 }
 
 .cards {
