@@ -1,5 +1,9 @@
 @import '~styles/mixins';
 
+:global(body.engagements-stable-scrollbar) {
+  overflow-y: scroll;
+}
+
 .engagementListing {
   @include roboto-regular;
 

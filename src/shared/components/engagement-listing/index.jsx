@@ -42,6 +42,15 @@ export default function EngagementListing({
   allEngagementsLoaded,
   auth,
 }) {
+  useEffect(() => {
+    const bodyClass = 'engagements-stable-scrollbar';
+    if (typeof document === 'undefined') return undefined;
+    document.body.classList.add(bodyClass);
+    return () => {
+      document.body.classList.remove(bodyClass);
+    };
+  }, []);
+
   const [search, setSearch] = useState(filter.search || '');
   const [sortBy, setSortBy] = useState(filter.sortBy || 'createdAt');
   const hasEngagements = engagements && engagements.length > 0;
