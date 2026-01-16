@@ -1,4 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import PT from 'prop-types';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SearchCombo from 'components/GUIKit/SearchCombo';
@@ -39,13 +44,30 @@ export default function EngagementListing({
 }) {
   const [search, setSearch] = useState(filter.search || '');
   const [sortBy, setSortBy] = useState(filter.sortBy || 'createdAt');
+  const hasEngagements = engagements && engagements.length > 0;
+  const [filtersReady, setFiltersReady] = useState(
+    hasEngagements || allEngagementsLoaded,
+  );
+  const hasStartedLoadingRef = useRef(false);
 
   useEffect(() => {
     setSearch(filter.search || '');
     setSortBy(filter.sortBy || 'createdAt');
   }, [filter]);
 
-  const hasEngagements = engagements && engagements.length > 0;
+  useEffect(() => {
+    if (loading) {
+      hasStartedLoadingRef.current = true;
+      return;
+    }
+
+    if (
+      !filtersReady
+      && (hasEngagements || allEngagementsLoaded || hasStartedLoadingRef.current)
+    ) {
+      setFiltersReady(true);
+    }
+  }, [allEngagementsLoaded, filtersReady, hasEngagements, loading]);
 
   const handleSearch = (nextSearch) => {
     const normalizedSearch = (nextSearch || '').trim();
@@ -100,18 +122,22 @@ export default function EngagementListing({
   return (
     <div styleName="engagementListing">
       <div styleName={loading ? 'filters loading' : 'filters'}>
-        <SearchCombo
-          placeholder="Search Engagements by Name or Skills"
-          onSearch={handleSearch}
-          term={search}
-          auth={auth}
-        />
-        <Dropdown
-          label="Sort by"
-          onChange={handleSortChange}
-          options={sortOptions}
-          size="xs"
-        />
+        {filtersReady ? (
+          <React.Fragment>
+            <SearchCombo
+              placeholder="Search Engagements by Name or Skills"
+              onSearch={handleSearch}
+              term={search}
+              auth={auth}
+            />
+            <Dropdown
+              label="Sort by"
+              onChange={handleSortChange}
+              options={sortOptions}
+              size="xs"
+            />
+          </React.Fragment>
+        ) : null}
       </div>
 
       {loading && !hasEngagements ? (
