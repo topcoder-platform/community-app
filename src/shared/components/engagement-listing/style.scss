@@ -1,12 +1,9 @@
 @import '~styles/mixins';
 
-:global(body.engagements-stable-scrollbar) {
-  overflow-y: scroll;
-}
-
 .engagementListing {
   @include roboto-regular;
 
+  width: 100%;
   max-width: $screen-lg;
   margin: 0 auto;
   padding: 24px 0;
