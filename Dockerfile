@@ -165,7 +165,7 @@ ENV TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS=$TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS
 
 RUN npm config set unsafe-perm true
 RUN git config --global url."https://git@".insteadOf git://
-RUN npm install
+RUN npm ci
 RUN npm test
 RUN npm run build
 
