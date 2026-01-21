@@ -7,6 +7,7 @@ import shortId from 'shortid';
 import { connect } from 'react-redux';
 import EngagementListing from 'components/engagement-listing';
 import MetaTags from 'components/MetaTags';
+import ChallengeTab from 'components/challenge-listing/ChallengeTab';
 
 import ogImage from '../../../assets/images/social.png';
 
@@ -66,6 +67,8 @@ class EngagementListingContainer extends React.Component {
       engagements,
       filter,
       auth,
+      history,
+      location,
       loadingEngagementsUUID,
       setFilter,
       allEngagementsLoaded,
@@ -78,6 +81,10 @@ class EngagementListingContainer extends React.Component {
           image={ogImage}
           siteName="Topcoder"
           title="Topcoder Engagements | Temporary Contract Work | Topcoder Community"
+        />
+        <ChallengeTab
+          history={history}
+          location={location}
         />
         <EngagementListing
           engagements={engagements}
@@ -125,6 +132,13 @@ EngagementListingContainer.propTypes = {
   dropEngagements: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   markHeaderMenu: PT.func.isRequired,
+  history: PT.shape({
+    push: PT.func,
+  }).isRequired,
+  location: PT.shape({
+    pathname: PT.string,
+    search: PT.string,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {

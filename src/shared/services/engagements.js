@@ -30,7 +30,8 @@ function buildEngagementsUrl(page, pageSize, filters = {}) {
     }
   }
 
-  if (filters.search) {
+  const hasSkillFilters = filters.skills && filters.skills.length;
+  if (filters.search && !hasSkillFilters) {
     url.searchParams.append('search', String(filters.search).trim());
   }
 

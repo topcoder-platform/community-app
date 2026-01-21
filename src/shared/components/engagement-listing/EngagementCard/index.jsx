@@ -114,6 +114,13 @@ function getDuration(startDate, endDate, durationWeeks, durationMonths) {
   return `${weeks} Week${weeks === 1 ? '' : 's'}`;
 }
 
+function formatDeadline(dateValue) {
+  if (!dateValue) return 'TBD';
+  const deadline = moment(dateValue);
+  if (!deadline.isValid()) return 'TBD';
+  return deadline.format('MMM DD, YYYY');
+}
+
 function getRoleDisplay(role) {
   return normalizeLabel(role, ROLE_LABELS);
 }
@@ -169,6 +176,7 @@ function EngagementCard({ engagement }) {
     timeZones,
     countries,
     status,
+    applicationDeadline,
     nanoId,
     id,
     engagementId,
@@ -183,6 +191,7 @@ function EngagementCard({ engagement }) {
     durationWeeks,
     durationMonths,
   );
+  const deadlineText = formatDeadline(applicationDeadline);
 
   const skillsSource = [engagementSkills, requiredSkills, skillsets]
     .find(value => Array.isArray(value) && value.length)
@@ -245,6 +254,9 @@ function EngagementCard({ engagement }) {
         </div>
         <div styleName="icon-val">
           <IconBlackDuration /> {durationText}
+        </div>
+        <div styleName="icon-val">
+          <IconBlackDuration /> {`Apply by ${deadlineText}`}
         </div>
         <div styleName="row-btn">
           <a styleName="primary-green-md" href={engagementLink}>

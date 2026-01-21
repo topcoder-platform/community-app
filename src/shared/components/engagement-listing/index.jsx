@@ -20,6 +20,7 @@ const SORT_OPTIONS = [
 
 const CREATED_DATE_FIELDS = ['createdAt', 'created_at', 'createdOn', 'created'];
 const UPDATED_DATE_FIELDS = ['updatedAt', 'updated_at', 'updatedOn', 'updated'];
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function getTimestamp(engagement, fields) {
   if (!engagement) return 0;
@@ -70,11 +71,23 @@ export default function EngagementListing({
   }, [allEngagementsLoaded, filtersReady, hasEngagements, loading]);
 
   const handleSearch = (nextSearch) => {
-    const normalizedSearch = (nextSearch || '').trim();
-    setSearch(nextSearch || '');
+    const nextOption = nextSearch && typeof nextSearch === 'object'
+      ? nextSearch
+      : { label: nextSearch, value: nextSearch };
+    const label = nextOption
+      ? String(nextOption.label || nextOption.value || '').trim()
+      : '';
+    const value = nextOption && nextOption.value
+      ? String(nextOption.value).trim()
+      : '';
+    const hasSkillId = Boolean(value) && UUID_PATTERN.test(value);
+    const normalizedSearch = label;
+
+    setSearch(normalizedSearch);
     setFilter({
       ...filter,
       search: normalizedSearch,
+      skills: hasSkillId ? [value] : [],
     });
   };
 

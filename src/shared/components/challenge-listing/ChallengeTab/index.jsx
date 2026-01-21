@@ -33,17 +33,25 @@ const ChallengeTab = ({
   previousBucketOfActiveTab,
   selectBucket,
   location,
+  history,
   setFilterState,
   filterState,
 }) => {
   const past = isPastBucket(activeBucket);
   const [currentSelected, setCurrentSelected] = useState(past);
   const [isTabClosed, setIsTabClosed] = useState(true);
+  const pathname = _.get(location, 'pathname', '');
+  const activeExternalTab = useMemo(
+    () => TAB_LINKS.find(link => pathname.startsWith(link.to)),
+    [pathname],
+  );
+  const externalTabLabel = activeExternalTab ? activeExternalTab.label : null;
   const currentTabName = useMemo(
     () => (
-      currentSelected ? TAB_NAME.PAST_CHALLENGES : TAB_NAME.ACTIVE_CHALLENGES
+      externalTabLabel
+      || (currentSelected ? TAB_NAME.PAST_CHALLENGES : TAB_NAME.ACTIVE_CHALLENGES)
     ),
-    [location, currentSelected, filterState],
+    [currentSelected, externalTabLabel],
   );
 
   useEffect(() => {
@@ -51,6 +59,12 @@ const ChallengeTab = ({
   }, [activeBucket]);
 
   const onActiveClick = () => {
+    if (externalTabLabel) {
+      if (history && history.push) {
+        history.push(`/challenges?bucket=${BUCKETS.OPEN_FOR_REGISTRATION}`);
+      }
+      return;
+    }
     if (currentTabName === TAB_NAME.ACTIVE_CHALLENGES) {
       return;
     }
@@ -75,6 +89,12 @@ const ChallengeTab = ({
   };
 
   const onPastChallengesClick = () => {
+    if (externalTabLabel) {
+      if (history && history.push) {
+        history.push(`/challenges?bucket=${BUCKETS.ALL_PAST}`);
+      }
+      return;
+    }
     if (currentTabName === TAB_NAME.PAST_CHALLENGES) {
       return;
     }
@@ -133,7 +153,7 @@ const ChallengeTab = ({
       {TAB_LINKS.map(link => (
         <li
           key={`tab-item-${link.to}`}
-          styleName="item"
+          styleName={cn('item', { active: externalTabLabel === link.label })}
         >
           <Link styleName="item-link" to={link.to}>
             {link.label}
@@ -179,7 +199,7 @@ const ChallengeTab = ({
             {TAB_LINKS.map(link => (
               <Link
                 key={`tab-item-${link.to}`}
-                styleName="item item-link"
+                styleName={cn('item', 'item-link', { active: externalTabLabel === link.label })}
                 to={link.to}
               >
                 <p>{link.label}</p>
@@ -208,6 +228,7 @@ ChallengeTab.defaultProps = {
   setPreviousBucketOfPastChallengesTab: () => {},
   previousBucketOfActiveTab: null,
   previousBucketOfPastChallengesTab: null,
+  history: null,
 };
 
 ChallengeTab.propTypes = {
@@ -215,6 +236,9 @@ ChallengeTab.propTypes = {
     search: PT.string,
     pathname: PT.string,
   }).isRequired,
+  history: PT.shape({
+    push: PT.func,
+  }),
   activeBucket: PT.string,
   setPreviousBucketOfActiveTab: PT.func,
   setPreviousBucketOfPastChallengesTab: PT.func,

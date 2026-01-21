@@ -21,6 +21,12 @@ function DropdownSingleSkills({
   loadOptions,
   createText,
 }) {
+  let normalizedTerms = null;
+  if (terms && typeof terms === 'object') {
+    normalizedTerms = terms;
+  } else if (terms) {
+    normalizedTerms = { value: terms, label: terms };
+  }
   const containerRef = useRef(null);
   useEffect(() => {
     const selectInput = containerRef.current.getElementsByClassName('Select-input');
@@ -79,17 +85,11 @@ function DropdownSingleSkills({
         <AsyncCreatable
           autosize={false}
           optionComponent={CustomReactSelectRow}
-          value={terms ? {
-            value: terms,
-            label: terms,
-          } : null}
+          value={normalizedTerms}
           onChange={(value) => {
-            onChange(value ? (value.value || '') : '');
+            onChange(value || null);
           }}
-          defaultValue={terms ? {
-            value: terms,
-            label: terms,
-          } : null}
+          defaultValue={normalizedTerms}
           promptTextCreator={value => `${createText} "${value}"`}
           placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
           cacheOptions={cacheOptions}
@@ -120,7 +120,13 @@ DropdownSingleSkills.defaultProps = {
 };
 
 DropdownSingleSkills.propTypes = {
-  terms: PT.string,
+  terms: PT.oneOfType([
+    PT.string,
+    PT.shape({
+      label: PT.string,
+      value: PT.string,
+    }),
+  ]),
   placeholder: PT.string,
   label: PT.string,
   required: PT.bool,
