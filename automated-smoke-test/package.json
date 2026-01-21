@@ -9,7 +9,7 @@
     "jasmine": "^3.4.0",
     "jasmine-reporters": "^2.3.2",
     "jsdom": "^15.1.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "mail-listener2": "^0.3.1",
     "papaparse": "^4.6.3",
     "protractor": "^5.4.2",
