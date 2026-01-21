@@ -7,7 +7,6 @@ import shortId from 'shortid';
 import { connect } from 'react-redux';
 import EngagementListing from 'components/engagement-listing';
 import MetaTags from 'components/MetaTags';
-import ChallengeTab from 'components/challenge-listing/ChallengeTab';
 
 import ogImage from '../../../assets/images/social.png';
 
@@ -82,10 +81,6 @@ class EngagementListingContainer extends React.Component {
           siteName="Topcoder"
           title="Topcoder Engagements | Temporary Contract Work | Topcoder Community"
         />
-        <ChallengeTab
-          history={history}
-          location={location}
-        />
         <EngagementListing
           engagements={engagements}
           loading={Boolean(loadingEngagementsUUID)}
@@ -94,6 +89,8 @@ class EngagementListingContainer extends React.Component {
           setFilter={setFilter}
           allEngagementsLoaded={allEngagementsLoaded}
           auth={auth}
+          history={history}
+          location={location}
         />
       </React.Fragment>
     );

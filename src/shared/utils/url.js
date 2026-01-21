@@ -228,6 +228,14 @@ export const getSubPageConfiguration = (location, loginUserHandle) => {
     fullFooter = false;
   }
 
+  if (url.includes('/engagements')) {
+    toolName = 'Opportunities';
+    toolRoot = '/challenges';
+    loginRedirect = '/engagements';
+    type = 'tool';
+    fullFooter = false;
+  }
+
   if (url.includes('/members')) {
     const handle = url.substring(url.lastIndexOf('/') + 1);
     toolName = loginUserHandle && handle && loginUserHandle.toLowerCase() === handle.toLocaleLowerCase() ? 'My Profile' : 'Profiles';

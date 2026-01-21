@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SearchCombo from 'components/GUIKit/SearchCombo';
 import Dropdown from 'components/GUIKit/Dropdown';
+import ChallengeTab from 'components/challenge-listing/ChallengeTab';
 
 import EngagementCard from './EngagementCard';
 
@@ -42,6 +43,8 @@ export default function EngagementListing({
   setFilter,
   allEngagementsLoaded,
   auth,
+  history,
+  location,
 }) {
   const [search, setSearch] = useState(filter.search || '');
   const [sortBy, setSortBy] = useState(filter.sortBy || 'createdAt');
@@ -134,6 +137,10 @@ export default function EngagementListing({
 
   return (
     <div styleName="engagementListing">
+      <ChallengeTab
+        history={history}
+        location={location}
+      />
       <div styleName={loading ? 'filters loading' : 'filters'}>
         {filtersReady ? (
           <React.Fragment>
@@ -198,6 +205,8 @@ EngagementListing.defaultProps = {
   loadMore: () => {},
   allEngagementsLoaded: false,
   auth: {},
+  history: null,
+  location: {},
 };
 
 EngagementListing.propTypes = {
@@ -215,5 +224,12 @@ EngagementListing.propTypes = {
   allEngagementsLoaded: PT.bool,
   auth: PT.shape({
     tokenV3: PT.string,
+  }),
+  history: PT.shape({
+    push: PT.func,
+  }),
+  location: PT.shape({
+    pathname: PT.string,
+    search: PT.string,
   }),
 };
