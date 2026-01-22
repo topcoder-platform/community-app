@@ -196,14 +196,6 @@ export const getSubPageConfiguration = (location, loginUserHandle) => {
 
   const url = (location || window.location).pathname;
 
-  if (url.includes('/gigs')) {
-    toolName = 'Gigs';
-    toolRoot = '/gigs';
-    loginRedirect = '/gigs';
-    type = 'tool';
-    fullFooter = false;
-  }
-
   if (url.includes('/thrive')) {
     toolName = 'Articles';
     toolRoot = '/thrive';
@@ -224,6 +216,14 @@ export const getSubPageConfiguration = (location, loginUserHandle) => {
     toolName = 'Opportunities';
     toolRoot = '/challenges';
     loginRedirect = '/challenges';
+    type = 'tool';
+    fullFooter = false;
+  }
+
+  if (url.includes('/engagements')) {
+    toolName = 'Opportunities';
+    toolRoot = '/challenges';
+    loginRedirect = '/engagements';
     type = 'tool';
     fullFooter = false;
   }
@@ -249,14 +249,6 @@ export const getSubPageConfiguration = (location, loginUserHandle) => {
     toolName = 'Announcements';
     toolRoot = '/community/programs-and-events';
     loginRedirect = '/community/programs-and-events';
-    type = 'marketing';
-    fullFooter = true;
-  }
-
-  if (url.includes('/community/gig-resources')) {
-    toolName = 'Gigs';
-    toolRoot = '/community/gig-resources';
-    loginRedirect = '/community/gig-resources';
     type = 'marketing';
     fullFooter = true;
   }

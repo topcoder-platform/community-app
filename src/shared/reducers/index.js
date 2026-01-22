@@ -38,13 +38,13 @@ import { factory as termsFactory } from './terms';
 import { factory as mfaFactory } from './mfa';
 import mmLeaderboard from './mmLeaderboard';
 import tcoLeaderboards from './tco/leaderboards';
-import recruitCRM from './recruitCRM';
 import gSheet from './gSheet';
 import timelineWall from './timelineWall';
 import thrive from './contentful/thrive';
 import dashboard from './dashboard';
 import blog from './blog';
 import identity from './identity';
+import engagements from './engagements';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -173,7 +173,6 @@ export function factory(req) {
     menuNavigation,
     challengesBlock,
     policyPages,
-    recruitCRM,
     mmLeaderboard,
     gSheet,
     thrive,
@@ -182,6 +181,7 @@ export function factory(req) {
     blog,
     timelineWall,
     identity,
+    engagements,
   }));
 }
 

@@ -836,11 +836,6 @@ export default function Content() {
           </Link>
           {' '}
           - Demo of Thrive Articles Feed component
-          <Link to="/examples/gigs-feed">
-            Gigs Feed
-          </Link>
-          {' '}
-          - Demo of Gigs Feed component
           <Link to="/examples/tco-leaderboards">
             TCO Leaderboards
           </Link>

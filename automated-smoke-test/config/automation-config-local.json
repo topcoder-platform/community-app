@@ -18,7 +18,6 @@
     "howItWorks": "http://localhost:3000/thrive/tracks?track=Topcoder",
     "allChallenges": "http://localhost:3000/challenges",
     "competitiveProgramming": "http://localhost:3000/community/arena",
-    "taas": "http://localhost:3000/gigs",
     "practice": "http://localhost:3000/community/practice",
     "competitiveProgrammingThrive": "http://localhost:3000/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "http://localhost:3000/thrive/tracks?track=Data%20Science&tax=",
@@ -41,7 +40,6 @@
   "footerLinks": {
     "allChallenges": "http://localhost:3000/challenges",
     "competitiveProgramming": "http://localhost:3000/community/arena",
-    "taas": "http://localhost:3000/gigs",
     "competitiveProgrammingThrive": "http://localhost:3000/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "http://localhost:3000/thrive/tracks?track=Data%20Science",
     "designThrive": "http://localhost:3000/thrive/tracks?track=Design",

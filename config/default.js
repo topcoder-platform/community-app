@@ -9,6 +9,7 @@ module.exports = {
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
     V6: 'https://api.topcoder-dev.com/v6',
+    ENGAGEMENTS: 'https://api.topcoder-dev.com/v6/engagements/engagements',
     MM_BROKER: '/api',
   },
 
@@ -106,6 +107,7 @@ module.exports = {
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
     CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
     COPILOTS_URL: 'https://copilots.topcoder-dev.com',
+    ENGAGEMENTS_APP: 'https://engagements.topcoder-dev.com',
     TCO_OPEN_URL: 'https://www.topcoder-dev.com/community/member-programs/topcoder-open',
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',
@@ -337,12 +339,12 @@ module.exports = {
               href: '/challenges',
             },
             {
-              title: 'Competitive Programming',
-              href: '/community/arena',
+              title: 'Engagements',
+              href: '/engagements',
             },
             {
-              title: 'Gig Work',
-              href: '/gigs',
+              title: 'Competitive Programming',
+              href: '/community/arena',
             },
             {
               title: 'Practice',
@@ -446,8 +448,6 @@ module.exports = {
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/privacy',
-  GIGS_PAGES_PATH: '/gigs',
-  GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',
   TC_ACADEMY_BASE_PATH: '/learn',
   GUIKIT: {

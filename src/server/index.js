@@ -26,7 +26,6 @@ import { promisify } from 'util';
 
 import cdnRouter from './routes/cdn';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
-import recruitCRMRouter from './routes/recruitCRM';
 import mmLeaderboardRouter from './routes/mmLeaderboard';
 import feedsRouter from './routes/feeds';
 
@@ -275,7 +274,6 @@ async function onExpressJsSetup(server) {
   });
 
   server.use('/api/cdn', cdnRouter);
-  server.use('/api/recruit', recruitCRMRouter);
   server.use('/api/mml', mmLeaderboardRouter);
   server.use('/api/feeds', feedsRouter);
 

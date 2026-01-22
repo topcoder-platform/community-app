@@ -62,12 +62,12 @@ exports[`Default render 1`] = `
                   "title": "All Challenges",
                 },
                 Object {
-                  "href": "/community/arena",
-                  "title": "Competitive Programming",
+                  "href": "/engagements",
+                  "title": "Engagements",
                 },
                 Object {
-                  "href": "/gigs",
-                  "title": "Gig Work",
+                  "href": "/community/arena",
+                  "title": "Competitive Programming",
                 },
                 Object {
                   "href": "/community/practice",
