@@ -57,8 +57,8 @@ function buildEngagementsUrl(page, pageSize, filters = {}) {
     }
   }
 
-  if (filters.sortBy === 'createdAt') {
-    url.searchParams.append('sortBy', 'createdAt');
+  if (filters.sortBy === 'createdAt' || filters.sortBy === 'updatedAt') {
+    url.searchParams.append('sortBy', filters.sortBy);
     url.searchParams.append('sortOrder', 'desc');
   }
 
