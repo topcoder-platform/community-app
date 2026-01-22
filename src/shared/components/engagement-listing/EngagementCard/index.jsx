@@ -139,7 +139,7 @@ function normalizeLocationValue(value) {
   if (!value) return null;
   const normalized = (value && value.name) || value;
   if (!normalized) return null;
-  if (typeof normalized === 'string' && moment?.tz?.zone?.(normalized)) {
+  if (typeof normalized === 'string' && moment && moment.tz && moment.tz.zone && moment.tz.zone(normalized)) {
     return formatTimeZoneLabel(normalized);
   }
   return normalized;
