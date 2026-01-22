@@ -18,10 +18,6 @@ export class FooterConstants {
             url: ConfigHelper.getFooterLink("competitiveProgramming"),
           },
           {
-            text: "Gig Work",
-            url: ConfigHelper.getFooterLink("taas"),
-          },
-          {
             text: "Practice",
             url: ConfigHelper.getFooterLink("practice"),
           },

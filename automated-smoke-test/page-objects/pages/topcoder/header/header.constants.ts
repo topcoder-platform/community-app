@@ -33,10 +33,6 @@ export class HeaderConstants {
             ),
           },
           {
-            text: 'Gig Work',
-            url: ConfigHelper.getSubMenuUrl('taas', isLoggedIn),
-          },
-          {
             text: 'Practice',
             url: ConfigHelper.getSubMenuUrl('practice', isLoggedIn),
           },

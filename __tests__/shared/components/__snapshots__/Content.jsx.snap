@@ -1039,14 +1039,6 @@ exports[`Matches shallow shapshot 1`] = `
       - Demo of Thrive Articles Feed component
       <Link
         replace={false}
-        to="/examples/gigs-feed"
-      >
-        Gigs Feed
-      </Link>
-       
-      - Demo of Gigs Feed component
-      <Link
-        replace={false}
         to="/examples/tco-leaderboards"
       >
         TCO Leaderboards

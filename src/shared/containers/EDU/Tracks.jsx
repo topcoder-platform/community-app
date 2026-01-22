@@ -24,7 +24,6 @@ import DS from 'assets/images/img-data-science.png';
 import Algo from 'assets/images/img-algorithm.png';
 import QA from 'assets/images/img-QA.png';
 import Topcoder from 'assets/images/img-Topcoder.png';
-import GigWork from 'assets/images/img-gig-work.png';
 import iconFilterArrow from 'assets/images/tc-edu/icon-filter-arrow.png';
 // Partials
 import ResultTabs from './partials/ResultTabs';
@@ -38,7 +37,6 @@ const TRACK_BANNER_BACK_COLORS = {
   'Competitive Programming': '#FFA45D',
   QA: '#8AFB8A',
   Topcoder: '#2A2A2A',
-  'Gig Work': '#ef476f',
 };
 const TRACK_IMAGES = {
   Development: Dev,
@@ -47,7 +45,6 @@ const TRACK_IMAGES = {
   'Competitive Programming': Algo,
   QA,
   Topcoder,
-  'Gig Work': GigWork,
 };
 const SORT_BY_OPTIONS = [
   { label: 'Content Publish Date', selected: true },

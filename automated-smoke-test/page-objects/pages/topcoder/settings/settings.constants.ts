@@ -37,7 +37,7 @@ export class SettingsPageConstants {
   public static getEmailPreferences() {
     return [
       'Pipeline',
-      'Gig Work',
+      'Engagements',
       'Monthly Newsletter',
       'Marathon Match Reminders',
       'Single Round Match Reminders',
