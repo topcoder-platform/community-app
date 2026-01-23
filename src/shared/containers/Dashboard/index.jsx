@@ -13,6 +13,8 @@ import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import { config } from 'topcoder-react-utils';
 import Viewport from 'components/Contentful/Viewport';
 import TopcoderTime from 'components/Dashboard/TCTime';
+// deprecated with https://topcoder.atlassian.net/browse/CORE-346
+// import GigsFeed from 'containers/Dashboard/GigsFeed';
 import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
 import MetaTags from 'components/MetaTags';
 // deprecated with https://topcoder.atlassian.net/browse/TOP-1390
@@ -53,6 +55,8 @@ function SlashTCContainer(props) {
                 theme="light"
                 excludeTags={[INNOVATION_CHALLENGES_TAG]}
               />
+              {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
+              {/* <GigsFeed itemCount={5} theme="dark" /> */}
               {/* deprecated with https://topcoder.atlassian.net/browse/TOP-1390 */}
               {/* <NewsFeed /> */}
               { isDevEnv ? <Viewport id="2qVJTorSdRVNlfRqoQocUH" /> : <Viewport id="SSwOFPT8l0WpGhqCBRISG" /> }
@@ -73,6 +77,8 @@ function SlashTCContainer(props) {
                 theme="light"
                 excludeTags={[INNOVATION_CHALLENGES_TAG]}
               />
+              {/* deprected with https://topcoder.atlassian.net/browse/CORE-346 */}
+              {/* <GigsFeed itemCount={5} theme="dark" /> */}
               {/* deprecated with https://topcoder.atlassian.net/browse/TOP-1390 */}
               {/* <NewsFeed /> */}
             </div>

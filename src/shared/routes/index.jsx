@@ -28,6 +28,7 @@ import Topcoder from './Topcoder';
 import TrackHomePages from './TrackHomePages';
 import TimelineWall from './TimelineWall';
 import PolicyPages from './PolicyPages';
+import GigsPages from './GigsPages';
 import ProfileRedirect from './ProfileRedirect';
 import RedirectMemberSearch from './RedirectMemberSearch';
 import SettingRedirect from './Settings/SettingRedirect';
@@ -119,6 +120,11 @@ function Routes({ communityId }) {
           component={() => <TrackHomePages base="/community" />}
           path="/community/(competitive-programming|data-science|design|development|qa)/how-to-compete"
         />
+        <Redirect
+          exact
+          from="/community/gigs"
+          to={config.GIGS_PAGES_PATH}
+        />
         <Route
           component={PolicyPages}
           exact
@@ -133,6 +139,29 @@ function Routes({ communityId }) {
           exact
           from="/policy/:slug?"
           to={`${config.POLICY_PAGES_PATH}/:slug?`}
+        />
+        <Route
+          render={() => (
+            <div styleName="container">
+              <Header />
+              <ContentfulRoute
+                baseUrl={`${config.GIGS_PAGES_PATH}/roles`}
+                id="2UgfR6GJvIO2tmLdo9ITVt"
+              />
+              <Footer />
+            </div>
+          )}
+          path={`${config.GIGS_PAGES_PATH}/roles`}
+        />
+        <Route
+          component={GigsPages}
+          exact
+          path={`${config.GIGS_PAGES_PATH}/:id?`}
+        />
+        <Route
+          component={GigsPages}
+          exact
+          path={`${config.GIGS_PAGES_PATH}/:id/apply`}
         />
         <Route
           render={() => (

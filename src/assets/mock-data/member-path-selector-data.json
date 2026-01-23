@@ -5,7 +5,7 @@
       "title": "COMPETE",
       "iconURL": "https://media-bucket-s3.s3.eu-central-1.amazonaws.com/sx/icon-compete.svg",
       "activeIconURL": "https://s3.eu-central-1.amazonaws.com/media-bucket-s3/sx/icon-compete-active.svg",
-      "contentText": "A competition-based alternative to a typical 9-5 job",
+      "contentText": "A competition based, gig economy, a typical 9-5 job for you",
       "btnText": "Topcoder Challenges",
       "btnURL": "https://www.topcoder.com/challenges",
       "btnNewTab": true
@@ -25,6 +25,15 @@
       "contentText": "Tutorials and workshops that matter",
       "btnText": "Thrive",
       "btnURL": "https://www.topcoder.com/thrive",
+      "btnNewTab": true
+    },
+    {
+      "title": "GET A GIG",
+      "iconURL": "https://s3.eu-central-1.amazonaws.com/media-bucket-s3/sx/icon-gig.svg",
+      "activeIconURL": "https://s3.eu-central-1.amazonaws.com/media-bucket-s3/sx/icon-get-a-gig-active.svg",
+      "contentText": "Find a freelance job with our help",
+      "btnText": "Gig Work",
+      "btnURL": "https://www.topcoder.com/gigs",
       "btnNewTab": true
     }
   ]

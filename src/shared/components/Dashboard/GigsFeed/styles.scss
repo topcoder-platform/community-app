@@ -1,0 +1,130 @@
+@import "~styles/mixins";
+
+.loading {
+  height: 195px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include xs-to-sm {
+    height: 285px;
+  }
+}
+
+.container {
+  @include roboto-regular;
+
+  color: $tc-gray-90;
+  margin-bottom: 30px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+
+  .title {
+    @include barlow-semi-bold;
+
+    font-size: 16px;
+  }
+
+  .allLink {
+    color: $dashboard-teal;
+    font-size: 13px;
+    line-height: 20px;
+
+    &:hover {
+      text-decoration: none !important;
+    }
+
+    span {
+      @include xs-to-sm {
+        display: none;
+      }
+    }
+  }
+}
+
+.gigs {
+  padding: 0 14px;
+  background-color: $tc-white;
+  border-radius: 8px;
+  height: 195px !important;
+  width: 100%;
+
+  @include xs-to-sm {
+    height: 285px !important;
+  }
+
+  .row {
+    display: flex;
+    font-size: 14px;
+    line-height: 18px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid $tc-gray-05;
+
+    a {
+      margin-right: 8px;
+    }
+
+    .salary {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .amount {
+      text-align: right;
+    }
+
+    .rateType {
+      margin-left: 7px;
+      text-align: right;
+    }
+
+    &:first-child {
+      border: none;
+    }
+
+    @include xs-to-sm {
+      .salary {
+        display: flex;
+        flex: 1 0 90px;
+        flex-direction: column;
+      }
+
+      .amount {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.light {
+  background: transparent;
+}
+
+.container.dark {
+  color: $tc-white;
+
+  .header {
+    .allLink {
+      color: $dashboard-dark-link;
+      text-decoration: underline;
+    }
+  }
+
+  .gigs {
+    background: $dashboard-dark-card-bg;
+
+    .row {
+      border-top: 1px solid $dashboard-dark-bg;
+    }
+  }
+}

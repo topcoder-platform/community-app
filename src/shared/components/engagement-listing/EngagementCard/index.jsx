@@ -1,6 +1,6 @@
 import React from 'react';
 import PT from 'prop-types';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import { config } from 'topcoder-react-utils';
 import IconBlackDuration from 'assets/images/icon-black-calendar.svg';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
@@ -31,7 +31,6 @@ const STATUS_LABELS = {
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const UNKNOWN_SKILL_LABEL = 'Unknown skill';
-const DEFAULT_LOCALE = 'en-US';
 
 function asArray(value) {
   if (!value) return [];
@@ -90,59 +89,6 @@ function normalizeSkillLabel(skill) {
 
   if (isUuid(skill)) return UNKNOWN_SKILL_LABEL;
   return String(skill);
-}
-
-function getIntlTimeZoneName(timeZone, style) {
-  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat !== 'function') return null;
-  try {
-    const formatter = new Intl.DateTimeFormat(DEFAULT_LOCALE, {
-      timeZone,
-      timeZoneName: style,
-    });
-    if (typeof formatter.formatToParts !== 'function') return null;
-    const parts = formatter.formatToParts(new Date());
-    const namePart = parts.find(part => part.type === 'timeZoneName');
-    return namePart && namePart.value ? namePart.value : null;
-  } catch (error) {
-    return null;
-  }
-}
-
-function getMomentTimeZoneName(timeZone) {
-  if (!moment || !moment.tz || !moment.tz.zone) return null;
-  if (!moment.tz.zone(timeZone)) return null;
-  try {
-    return moment.tz(new Date(), timeZone).format('z');
-  } catch (error) {
-    return null;
-  }
-}
-
-function formatTimeZoneLabel(timeZone) {
-  if (!timeZone) return '';
-  const normalized = String(timeZone).trim();
-  if (!normalized) return '';
-  if (normalized === 'Any') return 'Any';
-
-  const shortName = getMomentTimeZoneName(normalized) || getIntlTimeZoneName(normalized, 'short');
-  const longName = getIntlTimeZoneName(normalized, 'long');
-
-  if (shortName && longName) {
-    if (shortName === longName) return shortName;
-    return `${shortName} - ${longName}`;
-  }
-
-  return shortName || longName || normalized;
-}
-
-function normalizeLocationValue(value) {
-  if (!value) return null;
-  const normalized = (value && value.name) || value;
-  if (!normalized) return null;
-  if (typeof normalized === 'string' && moment && moment.tz && moment.tz.zone && moment.tz.zone(normalized)) {
-    return formatTimeZoneLabel(normalized);
-  }
-  return normalized;
 }
 
 function formatDuration(value, unitLabel) {
@@ -272,7 +218,7 @@ function EngagementCard({ engagement }) {
     ...asArray(timeZones),
     ...asArray(countries),
   ]
-    .map(normalizeLocationValue)
+    .map(item => (item && item.name) || item)
     .filter(Boolean);
   const locationText = locations.length ? locations.join(', ') : 'Remote';
 

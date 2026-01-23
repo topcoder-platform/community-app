@@ -347,6 +347,10 @@ module.exports = {
               href: '/community/arena',
             },
             {
+              title: 'Gig Work',
+              href: '/gigs',
+            },
+            {
               title: 'Practice',
               href: '/community/practice',
             },
@@ -448,6 +452,8 @@ module.exports = {
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/privacy',
+  GIGS_PAGES_PATH: '/gigs',
+  GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',
   TC_ACADEMY_BASE_PATH: '/learn',
   GUIKIT: {

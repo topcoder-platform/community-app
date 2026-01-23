@@ -19,6 +19,10 @@ const TAB_LINKS = [
     label: 'Engagements',
     to: '/engagements',
   },
+  {
+    label: 'Gigs',
+    to: '/gigs',
+  },
 ];
 
 const ChallengeTab = ({

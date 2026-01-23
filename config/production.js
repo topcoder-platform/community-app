@@ -138,6 +138,10 @@ module.exports = {
               href: '/community/arena?ref=nav',
             },
             {
+              title: 'Gig Work',
+              href: '/gigs?ref=nav',
+            },
+            {
               title: 'Practice',
               href: '/community/practice?ref=nav',
             },

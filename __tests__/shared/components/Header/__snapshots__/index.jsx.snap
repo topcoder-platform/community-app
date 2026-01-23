@@ -70,6 +70,10 @@ exports[`Default render 1`] = `
                   "title": "Competitive Programming",
                 },
                 Object {
+                  "href": "/gigs",
+                  "title": "Gig Work",
+                },
+                Object {
                   "href": "/community/practice",
                   "title": "Practice",
                 },

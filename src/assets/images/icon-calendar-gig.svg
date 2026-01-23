@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 62 (101010) - https://sketch.com -->
+    <title>7AC9DEAC-3F2A-487E-B616-A085E6B4D7FA</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="TaaS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="04-Gig-Work-Details-Redesign-V2----Approved" transform="translate(-607.000000, -298.000000)" stroke="#26B3C5">
+            <g id="icon-calendar" transform="translate(608.000000, 299.000000)">
+                <g>
+                    <rect id="Rectangle" stroke-width="2" x="0.625" y="3.125" width="18.75" height="16.25" rx="1.5"></rect>
+                    <line x1="0.625" y1="8.125" x2="19.375" y2="8.125" id="Path" stroke-width="2"></line>
+                    <line x1="5.625" y1="5" x2="5.625" y2="0.625" id="Path" stroke-width="2"></line>
+                    <line x1="14.375" y1="5" x2="14.375" y2="0.625" id="Path" stroke-width="2"></line>
+                    <line x1="4.6875" y1="11.25" x2="4.6875" y2="11.25" id="Path" stroke-width="2"></line>
+                    <path d="M4.6875,11.25 C4.51491102,11.25 4.375,11.389911 4.375,11.5625 C4.375,11.735089 4.51491102,11.875 4.6875,11.875 C4.86008898,11.875 5,11.735089 5,11.5625 C5,11.389911 4.86008898,11.25 4.6875,11.25" id="Path" stroke-width="2"></path>
+                    <line x1="4.6875" y1="15.625" x2="4.6875" y2="15.625" id="Path" stroke-width="2"></line>
+                    <path d="M4.6875,15.625 C4.51491102,15.625 4.375,15.764911 4.375,15.9375 C4.375,16.110089 4.51491102,16.25 4.6875,16.25 C4.86008898,16.25 5,16.110089 5,15.9375 C5,15.764911 4.86008898,15.625 4.6875,15.625" id="Path" stroke-width="2"></path>
+                    <line x1="10" y1="11.25" x2="10" y2="11.25" id="Path" stroke-width="2"></line>
+                    <path d="M10,11.25 C9.82741102,11.25 9.6875,11.389911 9.6875,11.5625 C9.6875,11.735089 9.82741102,11.875 10,11.875 C10.172589,11.875 10.3125,11.735089 10.3125,11.5625 C10.3125,11.389911 10.172589,11.25 10,11.25" id="Path" stroke-width="2"></path>
+                    <line x1="10" y1="15.625" x2="10" y2="15.625" id="Path" stroke-width="2"></line>
+                    <path d="M10,15.625 C9.82741102,15.625 9.6875,15.764911 9.6875,15.9375 C9.6875,16.110089 9.82741102,16.25 10,16.25 C10.172589,16.25 10.3125,16.110089 10.3125,15.9375 C10.3125,15.764911 10.172589,15.625 10,15.625" id="Path" stroke-width="2"></path>
+                    <line x1="15.3125" y1="11.25" x2="15.3125" y2="11.25" id="Path" stroke-width="2"></line>
+                    <path d="M15.3125,11.25 C15.139911,11.25 15,11.389911 15,11.5625 C15,11.735089 15.139911,11.875 15.3125,11.875 C15.485089,11.875 15.625,11.735089 15.625,11.5625 C15.625,11.389911 15.485089,11.25 15.3125,11.25" id="Path" stroke-width="2"></path>
+                    <line x1="15.3125" y1="15.625" x2="15.3125" y2="15.625" id="Path" stroke-width="2"></line>
+                    <path d="M15.3125,15.625 C15.139911,15.625 15,15.764911 15,15.9375 C15,16.110089 15.139911,16.25 15.3125,16.25 C15.485089,16.25 15.625,16.110089 15.625,15.9375 C15.625,15.764911 15.485089,15.625 15.3125,15.625" id="Path" stroke-width="2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

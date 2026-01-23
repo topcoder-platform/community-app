@@ -38,6 +38,7 @@ import { factory as termsFactory } from './terms';
 import { factory as mfaFactory } from './mfa';
 import mmLeaderboard from './mmLeaderboard';
 import tcoLeaderboards from './tco/leaderboards';
+import recruitCRM from './recruitCRM';
 import gSheet from './gSheet';
 import timelineWall from './timelineWall';
 import thrive from './contentful/thrive';
@@ -173,6 +174,7 @@ export function factory(req) {
     menuNavigation,
     challengesBlock,
     policyPages,
+    recruitCRM,
     mmLeaderboard,
     gSheet,
     thrive,
