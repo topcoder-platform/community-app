@@ -1,6 +1,6 @@
 import React from 'react';
 import PT from 'prop-types';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { config } from 'topcoder-react-utils';
 import IconBlackDuration from 'assets/images/icon-black-calendar.svg';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
@@ -31,6 +31,10 @@ const STATUS_LABELS = {
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const UNKNOWN_SKILL_LABEL = 'Unknown skill';
+const DEFAULT_LOCALE = 'en-US';
+const SIMPLE_TZ_PATTERN = /^[A-Za-z]{2,6}$/;
+const OFFSET_TZ_PATTERN = /^(?:UTC|GMT)?\s*([+-])\s*(\d{1,2})(?::?(\d{2}))?$/i;
+const BARE_OFFSET_PATTERN = /^([+-])(\d{2})(?::?(\d{2}))$/;
 
 function asArray(value) {
   if (!value) return [];
@@ -89,6 +93,132 @@ function normalizeSkillLabel(skill) {
 
   if (isUuid(skill)) return UNKNOWN_SKILL_LABEL;
   return String(skill);
+}
+
+function normalizeLocationValue(value) {
+  if (!value) return null;
+  if (typeof value === 'object' && value !== null) {
+    const label = value.name || value.title;
+    if (label) return String(label);
+  }
+  return String(value);
+}
+
+function getIntlTimeZoneName(timeZone, style) {
+  if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat !== 'function') {
+    return null;
+  }
+
+  try {
+    const formatter = new Intl.DateTimeFormat(DEFAULT_LOCALE, {
+      timeZone,
+      timeZoneName: style,
+    });
+
+    if (typeof formatter.formatToParts !== 'function') {
+      return null;
+    }
+
+    const parts = formatter.formatToParts(new Date());
+    const namePart = parts.find(part => part.type === 'timeZoneName');
+    return namePart && namePart.value ? namePart.value : null;
+  } catch (error) {
+    return null;
+  }
+}
+
+function getMomentTimeZoneName(timeZone) {
+  if (!moment || !moment.tz || !moment.tz.zone) {
+    return null;
+  }
+
+  if (!moment.tz.zone(timeZone)) {
+    return null;
+  }
+
+  try {
+    return moment.tz(new Date(), timeZone).format('z');
+  } catch (error) {
+    return null;
+  }
+}
+
+function formatUtcOffset(sign, hours, minutes) {
+  const hourValue = Number(hours);
+  const minuteValue = Number(minutes || 0);
+
+  if (Number.isNaN(hourValue) || Number.isNaN(minuteValue)) {
+    return null;
+  }
+
+  const normalizedHours = String(Math.abs(hourValue)).padStart(2, '0');
+  const normalizedMinutes = String(Math.abs(minuteValue)).padStart(2, '0');
+  const suffix = normalizedMinutes !== '00' ? `:${normalizedMinutes}` : '';
+
+  return `UTC${sign}${normalizedHours}${suffix}`;
+}
+
+function normalizeUtcOffset(value) {
+  if (!value) return null;
+  const normalized = String(value).trim();
+  if (!normalized) return null;
+
+  if (/^(utc|gmt)$/i.test(normalized)) {
+    return 'UTC';
+  }
+
+  const offsetMatch = normalized.match(OFFSET_TZ_PATTERN);
+  if (offsetMatch) {
+    return formatUtcOffset(offsetMatch[1], offsetMatch[2], offsetMatch[3]);
+  }
+
+  const bareMatch = normalized.match(BARE_OFFSET_PATTERN);
+  if (bareMatch) {
+    return formatUtcOffset(bareMatch[1], bareMatch[2], bareMatch[3]);
+  }
+
+  return null;
+}
+
+function normalizeTimezoneValue(value) {
+  const normalizedValue = normalizeLocationValue(value);
+  if (!normalizedValue) return null;
+
+  const trimmed = normalizedValue.trim();
+  if (!trimmed) return null;
+
+  if (trimmed === 'Any') {
+    return 'Any';
+  }
+
+  const shortName = getMomentTimeZoneName(trimmed) || getIntlTimeZoneName(trimmed, 'short');
+  if (shortName) {
+    return shortName;
+  }
+
+  const offset = normalizeUtcOffset(trimmed);
+  if (offset) {
+    return offset;
+  }
+
+  if (SIMPLE_TZ_PATTERN.test(trimmed)) {
+    return trimmed.toUpperCase();
+  }
+
+  return trimmed;
+}
+
+function uniqNormalizedStrings(values) {
+  const seen = new Set();
+  return values.reduce((acc, value) => {
+    const normalized = value.trim();
+    if (!normalized) return acc;
+    const key = normalized.toLowerCase();
+    if (seen.has(key)) return acc;
+    seen.add(key);
+    acc.push(normalized);
+    return acc;
+  }, []);
 }
 
 function formatDuration(value, unitLabel) {
@@ -210,16 +340,28 @@ function EngagementCard({ engagement }) {
     ? `${skillsText},...`
     : skillsText;
 
-  const locations = [
+  const baseLocations = [
     ...asArray(location),
     ...asArray(engagementLocations),
+  ]
+    .map(normalizeLocationValue)
+    .filter(Boolean);
+  const timezoneValues = [
     ...asArray(timezone),
     ...asArray(timezones),
     ...asArray(timeZones),
-    ...asArray(countries),
   ]
-    .map(item => (item && item.name) || item)
+    .map(normalizeTimezoneValue)
     .filter(Boolean);
+  const countryValues = asArray(countries)
+    .map(normalizeLocationValue)
+    .filter(Boolean);
+  const uniqueTimezones = uniqNormalizedStrings(timezoneValues);
+  const locations = [
+    ...baseLocations,
+    ...uniqueTimezones,
+    ...countryValues,
+  ];
   const locationText = locations.length ? locations.join(', ') : 'Remote';
 
   const resolvedEngagementId = nanoId || id || engagementId;
