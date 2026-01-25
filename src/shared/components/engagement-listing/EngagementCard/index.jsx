@@ -356,12 +356,23 @@ function EngagementCard({ engagement }) {
   const countryValues = asArray(countries)
     .map(normalizeLocationValue)
     .filter(Boolean);
-  const uniqueTimezones = uniqNormalizedStrings(timezoneValues);
-  const locations = [
+  const isAnyValue = value => value.trim().toLowerCase() === 'any';
+  const hasAnyLocation = [
     ...baseLocations,
-    ...uniqueTimezones,
+    ...timezoneValues,
     ...countryValues,
-  ];
+  ].some(isAnyValue);
+  const filteredBaseLocations = baseLocations.filter(value => !isAnyValue(value));
+  const filteredTimezones = uniqNormalizedStrings(
+    timezoneValues.filter(value => !isAnyValue(value)),
+  );
+  const filteredCountries = countryValues.filter(value => !isAnyValue(value));
+  const locations = uniqNormalizedStrings([
+    ...(hasAnyLocation ? ['Remote'] : []),
+    ...filteredBaseLocations,
+    ...filteredTimezones,
+    ...filteredCountries,
+  ]);
   const locationText = locations.length ? locations.join(', ') : 'Remote';
 
   const resolvedEngagementId = nanoId || id || engagementId;
