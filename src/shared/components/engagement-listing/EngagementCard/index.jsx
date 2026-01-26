@@ -213,7 +213,7 @@ function getTimeZoneAbbreviationMap() {
     return timezoneAbbreviationMap;
   }
 
-  moment.tz.names().forEach(zoneName => {
+  moment.tz.names().forEach((zoneName) => {
     try {
       const abbr = moment.tz(new Date(), zoneName).format('z');
       if (!abbr) return;
@@ -477,9 +477,12 @@ function EngagementCard({ engagement }) {
   const filteredTimezones = uniqNormalizedStrings(
     timezoneValues.filter(value => !isAnyValue(value)),
   );
-  const timezoneText = filteredTimezones.length
-    ? filteredTimezones.join(', ')
-    : (hasAnyTimezone ? 'Any' : 'Not Specified');
+  let timezoneText = 'Not Specified';
+  if (filteredTimezones.length) {
+    timezoneText = filteredTimezones.join(', ');
+  } else if (hasAnyTimezone) {
+    timezoneText = 'Any';
+  }
 
   const resolvedEngagementId = nanoId || id || engagementId;
   const engagementLink = resolvedEngagementId
