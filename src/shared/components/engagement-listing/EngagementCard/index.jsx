@@ -6,6 +6,7 @@ import IconBlackDuration from 'assets/images/icon-black-calendar.svg';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import IconBlackPayment from 'assets/images/icon-black-payment.svg';
 import iconBlackSkills from 'assets/images/icon-skills.png';
+import IconTimezone from 'assets/images/icon-timezone.svg';
 
 import './style.scss';
 
@@ -35,6 +36,46 @@ const DEFAULT_LOCALE = 'en-US';
 const SIMPLE_TZ_PATTERN = /^[A-Za-z]{2,6}$/;
 const OFFSET_TZ_PATTERN = /^(?:UTC|GMT)?\s*([+-])\s*(\d{1,2})(?::?(\d{2}))?$/i;
 const BARE_OFFSET_PATTERN = /^([+-])(\d{2})(?::?(\d{2}))$/;
+const TIMEZONE_ABBREVIATION_LONG_NAMES = {
+  ACDT: 'Australian Central Daylight Time',
+  ACST: 'Australian Central Standard Time',
+  AEDT: 'Australian Eastern Daylight Time',
+  AEST: 'Australian Eastern Standard Time',
+  AKDT: 'Alaska Daylight Time',
+  AKST: 'Alaska Standard Time',
+  AWST: 'Australian Western Standard Time',
+  BST: 'British Summer Time',
+  CDT: 'Central Daylight Time',
+  CEST: 'Central European Summer Time',
+  CET: 'Central European Standard Time',
+  CST: 'Central Standard Time',
+  EDT: 'Eastern Daylight Time',
+  EEST: 'Eastern European Summer Time',
+  EET: 'Eastern European Standard Time',
+  EST: 'Eastern Standard Time',
+  GMT: 'Greenwich Mean Time',
+  HST: 'Hawaii-Aleutian Standard Time',
+  IST: 'India Standard Time',
+  JST: 'Japan Standard Time',
+  KST: 'Korea Standard Time',
+  MDT: 'Mountain Daylight Time',
+  MST: 'Mountain Standard Time',
+  NZDT: 'New Zealand Daylight Time',
+  NZST: 'New Zealand Standard Time',
+  PDT: 'Pacific Daylight Time',
+  PST: 'Pacific Standard Time',
+  SAST: 'South Africa Standard Time',
+  UTC: 'Coordinated Universal Time',
+  WEST: 'Western European Summer Time',
+  WET: 'Western European Standard Time',
+};
+const REGION_NAME_OVERRIDES = {
+  UK: 'United Kingdom',
+};
+const regionDisplayNames = typeof Intl !== 'undefined' && typeof Intl.DisplayNames === 'function'
+  ? new Intl.DisplayNames([DEFAULT_LOCALE], { type: 'region' })
+  : null;
+let timezoneAbbreviationMap;
 
 function asArray(value) {
   if (!value) return [];
@@ -104,6 +145,28 @@ function normalizeLocationValue(value) {
   return String(value);
 }
 
+function normalizeRegionValue(value) {
+  const normalized = normalizeLocationValue(value);
+  if (!normalized) return null;
+  const trimmed = normalized.trim();
+  if (!trimmed) return null;
+  const lowered = trimmed.toLowerCase();
+  if (lowered === 'any') return 'Any';
+  if (lowered === 'remote') return 'Remote';
+  if (/^[A-Za-z]{2}$/.test(trimmed)) {
+    const regionCode = trimmed.toUpperCase();
+    if (REGION_NAME_OVERRIDES[regionCode]) {
+      return REGION_NAME_OVERRIDES[regionCode];
+    }
+    if (regionDisplayNames) {
+      const displayName = regionDisplayNames.of(regionCode);
+      if (displayName) return displayName;
+    }
+    return regionCode;
+  }
+  return trimmed;
+}
+
 function getIntlTimeZoneName(timeZone, style) {
   if (typeof Intl === 'undefined' || typeof Intl.DateTimeFormat !== 'function') {
     return null;
@@ -141,6 +204,45 @@ function getMomentTimeZoneName(timeZone) {
   } catch (error) {
     return null;
   }
+}
+
+function getTimeZoneAbbreviationMap() {
+  if (timezoneAbbreviationMap) return timezoneAbbreviationMap;
+  timezoneAbbreviationMap = new Map();
+  if (!moment || !moment.tz || typeof moment.tz.names !== 'function') {
+    return timezoneAbbreviationMap;
+  }
+
+  moment.tz.names().forEach(zoneName => {
+    try {
+      const abbr = moment.tz(new Date(), zoneName).format('z');
+      if (!abbr) return;
+      const normalized = abbr.toUpperCase();
+      if (!timezoneAbbreviationMap.has(normalized)) {
+        timezoneAbbreviationMap.set(normalized, zoneName);
+      }
+    } catch (error) {
+      // ignore invalid timezone data
+    }
+  });
+
+  return timezoneAbbreviationMap;
+}
+
+function resolveTimeZoneAbbreviationName(abbreviation) {
+  const normalized = abbreviation.toUpperCase();
+  if (TIMEZONE_ABBREVIATION_LONG_NAMES[normalized]) {
+    return TIMEZONE_ABBREVIATION_LONG_NAMES[normalized];
+  }
+
+  const map = getTimeZoneAbbreviationMap();
+  const zoneName = map.get(normalized);
+  if (!zoneName) return null;
+
+  return (
+    getIntlTimeZoneName(zoneName, 'long')
+    || getIntlTimeZoneName(zoneName, 'longGeneric')
+  );
 }
 
 function formatUtcOffset(sign, hours, minutes) {
@@ -187,13 +289,13 @@ function normalizeTimezoneValue(value) {
   const trimmed = normalizedValue.trim();
   if (!trimmed) return null;
 
-  if (trimmed === 'Any') {
+  if (trimmed.toLowerCase() === 'any') {
     return 'Any';
   }
 
-  const shortName = getMomentTimeZoneName(trimmed) || getIntlTimeZoneName(trimmed, 'short');
-  if (shortName) {
-    return shortName;
+  const longName = getIntlTimeZoneName(trimmed, 'long') || getIntlTimeZoneName(trimmed, 'longGeneric');
+  if (longName) {
+    return longName;
   }
 
   const offset = normalizeUtcOffset(trimmed);
@@ -202,7 +304,12 @@ function normalizeTimezoneValue(value) {
   }
 
   if (SIMPLE_TZ_PATTERN.test(trimmed)) {
-    return trimmed.toUpperCase();
+    return resolveTimeZoneAbbreviationName(trimmed) || trimmed.toUpperCase();
+  }
+
+  const fallbackShortName = getMomentTimeZoneName(trimmed) || getIntlTimeZoneName(trimmed, 'short');
+  if (fallbackShortName) {
+    return fallbackShortName;
   }
 
   return trimmed;
@@ -344,7 +451,7 @@ function EngagementCard({ engagement }) {
     ...asArray(location),
     ...asArray(engagementLocations),
   ]
-    .map(normalizeLocationValue)
+    .map(normalizeRegionValue)
     .filter(Boolean);
   const timezoneValues = [
     ...asArray(timezone),
@@ -354,26 +461,25 @@ function EngagementCard({ engagement }) {
     .map(normalizeTimezoneValue)
     .filter(Boolean);
   const countryValues = asArray(countries)
-    .map(normalizeLocationValue)
+    .map(normalizeRegionValue)
     .filter(Boolean);
   const isAnyValue = value => value.trim().toLowerCase() === 'any';
-  const hasAnyLocation = [
-    ...baseLocations,
-    ...timezoneValues,
-    ...countryValues,
-  ].some(isAnyValue);
+  const hasAnyLocation = [...baseLocations, ...countryValues].some(isAnyValue);
+  const hasAnyTimezone = timezoneValues.some(isAnyValue);
   const filteredBaseLocations = baseLocations.filter(value => !isAnyValue(value));
-  const filteredTimezones = uniqNormalizedStrings(
-    timezoneValues.filter(value => !isAnyValue(value)),
-  );
   const filteredCountries = countryValues.filter(value => !isAnyValue(value));
   const locations = uniqNormalizedStrings([
     ...(hasAnyLocation ? ['Remote'] : []),
     ...filteredBaseLocations,
-    ...filteredTimezones,
     ...filteredCountries,
   ]);
   const locationText = locations.length ? locations.join(', ') : 'Remote';
+  const filteredTimezones = uniqNormalizedStrings(
+    timezoneValues.filter(value => !isAnyValue(value)),
+  );
+  const timezoneText = filteredTimezones.length
+    ? filteredTimezones.join(', ')
+    : (hasAnyTimezone ? 'Any' : 'Not Specified');
 
   const resolvedEngagementId = nanoId || id || engagementId;
   const engagementLink = resolvedEngagementId
@@ -395,6 +501,9 @@ function EngagementCard({ engagement }) {
         </div>
         <div styleName="icon-val">
           <img src={iconBlackSkills} alt="skills-icon" /> {limitedSkillsText}
+        </div>
+        <div styleName="icon-val">
+          <IconTimezone /> {timezoneText}
         </div>
         <div styleName="icon-val">
           <IconBlackLocation /> {locationText}
