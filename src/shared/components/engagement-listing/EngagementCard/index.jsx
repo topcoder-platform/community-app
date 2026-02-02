@@ -22,6 +22,12 @@ const WORKLOAD_LABELS = {
   FRACTIONAL: 'Fractional',
 };
 
+const ANTICIPATED_START_LABELS = {
+  IMMEDIATE: 'Immediate',
+  FEW_DAYS: 'Few Days',
+  FEW_WEEKS: 'Few Weeks',
+};
+
 const STATUS_LABELS = {
   OPEN: 'Open',
   PENDING_ASSIGNMENT: 'Pending Assignment',
@@ -351,19 +357,16 @@ function getDuration(startDate, endDate, durationWeeks, durationMonths) {
   return `${weeks} Week${weeks === 1 ? '' : 's'}`;
 }
 
-function formatDeadline(dateValue) {
-  if (!dateValue) return 'TBD';
-  const deadline = moment(dateValue);
-  if (!deadline.isValid()) return 'TBD';
-  return deadline.format('MMM DD, YYYY');
-}
-
 function getRoleDisplay(role) {
   return normalizeLabel(role, ROLE_LABELS);
 }
 
 function getWorkloadDisplay(workload) {
   return normalizeLabel(workload, WORKLOAD_LABELS);
+}
+
+function getAnticipatedStartDisplay(value) {
+  return normalizeLabel(value, ANTICIPATED_START_LABELS);
 }
 
 function getCompensationDisplay(compensationRange) {
@@ -413,7 +416,7 @@ function EngagementCard({ engagement }) {
     timeZones,
     countries,
     status,
-    applicationDeadline,
+    anticipatedStart,
     nanoId,
     id,
     engagementId,
@@ -428,7 +431,7 @@ function EngagementCard({ engagement }) {
     durationWeeks,
     durationMonths,
   );
-  const deadlineText = formatDeadline(applicationDeadline);
+  const anticipatedStartText = getAnticipatedStartDisplay(anticipatedStart);
 
   const skillsSource = [engagementSkills, requiredSkills, skillsets]
     .find(value => Array.isArray(value) && value.length)
@@ -521,7 +524,7 @@ function EngagementCard({ engagement }) {
           <IconBlackDuration /> {durationText}
         </div>
         <div styleName="icon-val">
-          <IconBlackDuration /> {`Apply by ${deadlineText}`}
+          <IconBlackDuration /> {`Anticipated start: ${anticipatedStartText}`}
         </div>
         <div styleName="row-btn">
           <a styleName="primary-green-md" href={engagementLink}>
