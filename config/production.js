@@ -5,6 +5,7 @@ module.exports = {
     V4: 'https://api.topcoder.com/v4',
     V5: 'https://api.topcoder.com/v5',
     V6: 'https://api.topcoder.com/v6',
+    ENGAGEMENTS: 'https://api.topcoder.com/v6/engagements/engagements',
   },
   AUTH0: {
     DOMAIN: 'topcoder.auth0.com',
@@ -28,6 +29,7 @@ module.exports = {
     COMMUNITY_APP: 'https://community-app.topcoder.com',
     CHALLENGES_URL: 'https://www.topcoder.com/challenges',
     COPILOTS_URL: 'https://copilots.topcoder.com',
+    ENGAGEMENTS_APP: 'https://engagements.topcoder.com',
     TCO_OPEN_URL: 'https://www.topcoder.com/community/member-programs/topcoder-open',
 
     AUTH: 'https://accounts-auth0.topcoder.com',
@@ -126,6 +128,10 @@ module.exports = {
             {
               title: 'All Challenges',
               href: '/challenges?ref=nav',
+            },
+            {
+              title: 'Engagements',
+              href: '/engagements?ref=nav',
             },
             {
               title: 'Competitive Programming',

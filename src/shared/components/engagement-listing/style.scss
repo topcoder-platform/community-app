@@ -1,0 +1,81 @@
+@import '~styles/mixins';
+
+.engagementListing {
+  @include roboto-regular;
+
+  width: 100%;
+  max-width: $screen-lg;
+  margin: 0 auto;
+  padding: 24px 0;
+
+  @media (max-width: 1280px) {
+    padding: 24px 15px;
+  }
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  gap: 30px;
+  margin-bottom: 20px;
+
+  @include xs-to-sm {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  > div {
+    flex: 1;
+
+    &:first-child {
+      flex: 3;
+    }
+  }
+}
+
+.filters.loading {
+  pointer-events: none;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 16px;
+  background: $tc-white;
+  border: 1px solid $tc-gray-10;
+  border-radius: $corner-radius;
+  color: $tc-gray-60;
+}
+
+.load-more {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.load-more-button {
+  @include roboto-medium;
+
+  border-radius: $corner-radius;
+  border: 1px solid $tc-dark-blue-70;
+  padding: 10px 18px;
+  font-size: 14px;
+  background: transparent;
+  color: $tc-dark-blue-110;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

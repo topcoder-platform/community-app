@@ -1,5 +1,10 @@
 @import "~styles/mixins";
 
+.item-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .mobile-tab-expanded {
   margin: 0 16px;
   background-color: $listing-light-blue;
@@ -29,6 +34,11 @@
       font-weight: 700;
     }
   }
+
+  .item-link {
+    display: block;
+    width: 100%;
+  }
 }
 
 .challenge-tab {
@@ -56,6 +66,14 @@
       color: $color-blue-140;
       border-bottom-color: $color-blue-140;
     }
+  }
+
+  .item-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
   }
 
   .active {
