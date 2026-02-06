@@ -50,9 +50,10 @@ async function fetchReviewSummationsPage({
 }
 
 export default async function getReviewSummations(tokenV3, challengeId) {
-  const headers = new Headers({
-    Authorization: `Bearer ${tokenV3}`,
-  });
+  const headers = new Headers();
+  if (tokenV3) {
+    headers.set('Authorization', `Bearer ${tokenV3}`);
+  }
 
   const { aggregated, meta } = await fetchReviewSummationsPage({
     challengeId,

@@ -271,8 +271,7 @@ class ChallengeDetailPageContainer extends React.Component {
     const nextChallengeId = _.get(nextProps.challenge, 'id');
 
     if (nextChallengeId
-      && nextChallengeId !== previousChallengeId
-      && checkIsMM(nextProps.challenge)) {
+      && nextChallengeId !== previousChallengeId) {
       nextProps.fetchChallengeStatistics(nextProps.auth, nextProps.challenge);
     }
 
@@ -874,6 +873,206 @@ function extractArrayFromStateSlice(slice, challengeId) {
   return [];
 }
 
+function normalizeScoreValue(score) {
+  if (_.isNil(score) || score === '' || score === '-') {
+    return null;
+  }
+  const parsed = Number(score);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function getReviewSummationTimestampValue(summation) {
+  const timestampRaw = _.get(summation, 'reviewedDate')
+    || _.get(summation, 'updatedAt')
+    || _.get(summation, 'createdAt')
+    || _.get(summation, 'created')
+    || null;
+  if (!timestampRaw) {
+    return 0;
+  }
+  const timestamp = new Date(timestampRaw).getTime();
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function getReviewSummationType(summation) {
+  const metadata = _.isObject(_.get(summation, 'metadata'))
+    ? _.get(summation, 'metadata')
+    : {};
+  const type = _.toLower(_.toString(_.get(summation, 'type', '')).trim());
+  const stage = _.toLower(_.toString(_.get(metadata, 'stage', '')).trim());
+  const testType = _.toLower(_.toString(_.get(metadata, 'testType', '')).trim());
+  const isProvisional = Boolean(
+    _.get(summation, 'isProvisional')
+    || _.get(summation, 'is_provisional')
+    || type === 'provisional'
+    || testType === 'provisional',
+  );
+  const isFinal = Boolean(
+    _.get(summation, 'isFinal')
+    || _.get(summation, 'is_final')
+    || type === 'final'
+    || stage === 'final',
+  );
+
+  if (isFinal) {
+    return 'final';
+  }
+  if (isProvisional) {
+    return 'provisional';
+  }
+  return 'other';
+}
+
+function dedupeReviewSummations(summations = []) {
+  const deduped = [];
+  const seen = new Set();
+
+  summations.forEach((summation, index) => {
+    if (!summation) {
+      return;
+    }
+
+    const dedupeKey = _.toString(_.get(summation, 'id', '')).trim()
+      || `${_.toString(_.get(summation, 'submissionId', '')).trim()}::${_.toString(_.get(summation, 'legacySubmissionId', '')).trim()}::${_.toString(_.get(summation, 'submitterId', '')).trim()}::${_.toString(_.get(summation, 'aggregateScore', '')).trim()}::${_.toString(_.get(summation, 'reviewedDate', '')).trim()}::${index}`;
+
+    if (seen.has(dedupeKey)) {
+      return;
+    }
+    seen.add(dedupeKey);
+    deduped.push(summation);
+  });
+
+  return deduped;
+}
+
+function pushSummationByKey(map, rawKey, summation) {
+  const key = _.toString(rawKey || '').trim();
+  if (!key) {
+    return;
+  }
+  if (!map.has(key)) {
+    map.set(key, []);
+  }
+  map.get(key).push(summation);
+}
+
+function buildReviewSummationLookup(reviewSummations = []) {
+  const bySubmissionId = new Map();
+  const byLegacySubmissionId = new Map();
+  const byMemberId = new Map();
+  const byHandle = new Map();
+
+  reviewSummations.forEach((summation) => {
+    if (!summation) {
+      return;
+    }
+
+    pushSummationByKey(bySubmissionId, _.get(summation, 'submissionId'), summation);
+    pushSummationByKey(byLegacySubmissionId, _.get(summation, 'legacySubmissionId'), summation);
+    pushSummationByKey(byMemberId, _.get(summation, 'submitterId'), summation);
+
+    const handle = _.toLower(_.toString(_.get(summation, 'submitterHandle', '')).trim());
+    if (handle) {
+      pushSummationByKey(byHandle, handle, summation);
+    }
+  });
+
+  return {
+    bySubmissionId,
+    byLegacySubmissionId,
+    byMemberId,
+    byHandle,
+  };
+}
+
+function collectMatchedReviewSummations(submission, lookup) {
+  if (!submission || !lookup) {
+    return [];
+  }
+
+  const matchesBySubmissionId = [];
+  const matchesByMemberOrHandle = [];
+  const appendMatches = (items) => {
+    if (Array.isArray(items) && items.length) {
+      matchesBySubmissionId.push(...items);
+    }
+  };
+
+  [
+    _.get(submission, 'submissionId'),
+    _.get(submission, 'id'),
+  ].forEach((id) => {
+    const key = _.toString(id || '').trim();
+    if (key) {
+      appendMatches(lookup.bySubmissionId.get(key));
+    }
+  });
+
+  const legacySubmissionId = _.toString(_.get(submission, 'legacySubmissionId', '')).trim();
+  if (legacySubmissionId) {
+    appendMatches(lookup.byLegacySubmissionId.get(legacySubmissionId));
+  }
+
+  const appendFallbackMatches = (items) => {
+    if (Array.isArray(items) && items.length) {
+      matchesByMemberOrHandle.push(...items);
+    }
+  };
+
+  const memberId = _.toString(_.get(submission, 'memberId', '')).trim();
+  if (memberId) {
+    appendFallbackMatches(lookup.byMemberId.get(memberId));
+  }
+
+  const handle = _.toLower(_.toString(
+    _.get(submission, 'registrant.memberHandle')
+      || _.get(submission, 'memberHandle')
+      || _.get(submission, 'createdBy')
+      || '',
+  ).trim());
+  if (handle) {
+    appendFallbackMatches(lookup.byHandle.get(handle));
+  }
+
+  const selectedMatches = matchesBySubmissionId.length
+    ? matchesBySubmissionId
+    : matchesByMemberOrHandle;
+
+  return dedupeReviewSummations(selectedMatches);
+}
+
+function getLatestReviewSummationScore(summations = [], targetType = null) {
+  let latest = null;
+
+  summations.forEach((summation, index) => {
+    if (!summation) {
+      return;
+    }
+
+    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
+    if (_.isNil(score)) {
+      return;
+    }
+
+    if (targetType && getReviewSummationType(summation) !== targetType) {
+      return;
+    }
+
+    const timestampValue = getReviewSummationTimestampValue(summation);
+    if (!latest
+      || timestampValue > latest.timestampValue
+      || (timestampValue === latest.timestampValue && index > latest.index)) {
+      latest = {
+        score,
+        timestampValue,
+        index,
+      };
+    }
+  });
+
+  return latest ? latest.score : null;
+}
+
 function mapStateToProps(state, props) {
   const challengeId = String(props.match.params.challengeId);
   const cl = state.challengeListing;
@@ -892,6 +1091,9 @@ function mapStateToProps(state, props) {
     statisticsData = buildStatisticsData(reviewSummations);
   }
   const challenge = state.challenge.details || {};
+  const reviewSummationLookup = reviewSummations.length
+    ? buildReviewSummationLookup(reviewSummations)
+    : null;
   let mySubmissions = [];
   if (challenge.registrants) {
     challenge.registrants = challenge.registrants.map(registrant => ({
@@ -910,11 +1112,50 @@ function mapStateToProps(state, props) {
           challenge.registrants,
           r => (`${r.memberId}` === `${submission.memberId}`),
         );
+        const matchedReviewSummations = collectMatchedReviewSummations(
+          submission,
+          reviewSummationLookup,
+        );
+        const existingReviewSummations = dedupeReviewSummations([
+          ...(Array.isArray(submission.reviewSummations) ? submission.reviewSummations : []),
+          ...(Array.isArray(submission.reviewSummation) ? submission.reviewSummation : []),
+        ]);
+        const mergedReviewSummations = dedupeReviewSummations([
+          ...existingReviewSummations,
+          ...matchedReviewSummations,
+        ]);
+
+        const existingFinalScore = normalizeScoreValue(submission.finalScore);
+        const finalScoreFromSummations = getLatestReviewSummationScore(
+          mergedReviewSummations,
+          'final',
+        );
+        const fallbackSummationScore = _.isNil(finalScoreFromSummations)
+          ? getLatestReviewSummationScore(mergedReviewSummations)
+          : finalScoreFromSummations;
+        const resolvedFinalScore = !_.isNil(existingFinalScore)
+          ? existingFinalScore
+          : fallbackSummationScore;
+
+        const existingInitialScore = normalizeScoreValue(submission.initialScore);
+        const provisionalScoreFromSummations = getLatestReviewSummationScore(
+          mergedReviewSummations,
+          'provisional',
+        );
+        const resolvedInitialScore = !_.isNil(existingInitialScore)
+          ? existingInitialScore
+          : provisionalScoreFromSummations;
         // Ensure legacy fields used in UI exist
         const created = submission.created || submission.createdAt || null;
         const updated = submission.updated || submission.updatedAt || null;
         return ({
           ...submission,
+          finalScore: _.isNil(resolvedFinalScore) ? submission.finalScore : resolvedFinalScore,
+          initialScore: _.isNil(resolvedInitialScore)
+            ? submission.initialScore
+            : resolvedInitialScore,
+          reviewSummations: mergedReviewSummations,
+          reviewSummation: mergedReviewSummations,
           created,
           updated,
           registrant,
@@ -1169,7 +1410,11 @@ const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
   const lookupActions = actions.lookup;
 
-  const dispatchReviewSummations = (challengeId, tokenV3) => {
+  const dispatchReviewSummations = (challengeId, tokenV3, options = {}) => {
+    const {
+      includeMmSubmissions = true,
+      includeStatistics = includeMmSubmissions,
+    } = options;
     const challengeIdStr = _.toString(challengeId);
     if (!challengeIdStr) {
       return;
@@ -1179,33 +1424,39 @@ const mapDispatchToProps = (dispatch) => {
       type: 'CHALLENGE/GET_REVIEW_SUMMATIONS_INIT',
       payload: challengeIdStr,
     });
-    dispatch({
-      type: 'CHALLENGE/GET_MM_SUBMISSIONS_INIT',
-      payload: challengeIdStr,
-    });
+    if (includeMmSubmissions) {
+      dispatch({
+        type: 'CHALLENGE/GET_MM_SUBMISSIONS_INIT',
+        payload: challengeIdStr,
+      });
+    }
 
     getReviewSummationsService(tokenV3, challengeIdStr)
       .then(({ data }) => {
         const reviewSummations = Array.isArray(data) ? data : [];
-        const mmSubmissions = buildMmSubmissionData(reviewSummations);
-        const statisticsData = buildStatisticsData(reviewSummations);
 
         dispatch({
           type: 'CHALLENGE/GET_REVIEW_SUMMATIONS_DONE',
           payload: reviewSummations,
           meta: { challengeId: challengeIdStr },
         });
-        dispatch({
-          type: 'CHALLENGE/GET_MM_SUBMISSIONS_DONE',
-          payload: {
-            challengeId: challengeIdStr,
-            submissions: mmSubmissions,
-          },
-        });
-        dispatch({
-          type: 'CHALLENGE/FETCH_CHALLENGE_STATISTICS_DONE',
-          payload: statisticsData,
-        });
+        if (includeMmSubmissions) {
+          const mmSubmissions = buildMmSubmissionData(reviewSummations);
+          dispatch({
+            type: 'CHALLENGE/GET_MM_SUBMISSIONS_DONE',
+            payload: {
+              challengeId: challengeIdStr,
+              submissions: mmSubmissions,
+            },
+          });
+        }
+        if (includeStatistics) {
+          const statisticsData = buildStatisticsData(reviewSummations);
+          dispatch({
+            type: 'CHALLENGE/FETCH_CHALLENGE_STATISTICS_DONE',
+            payload: statisticsData,
+          });
+        }
       })
       .catch((error) => {
         dispatch({
@@ -1214,16 +1465,20 @@ const mapDispatchToProps = (dispatch) => {
           payload: { challengeId: challengeIdStr, error },
           meta: { challengeId: challengeIdStr },
         });
-        dispatch({
-          type: 'CHALLENGE/GET_MM_SUBMISSIONS_DONE',
-          error: true,
-          payload: { challengeId: challengeIdStr, error },
-        });
-        dispatch({
-          type: 'CHALLENGE/FETCH_CHALLENGE_STATISTICS_DONE',
-          error: true,
-          payload: error,
-        });
+        if (includeMmSubmissions) {
+          dispatch({
+            type: 'CHALLENGE/GET_MM_SUBMISSIONS_DONE',
+            error: true,
+            payload: { challengeId: challengeIdStr, error },
+          });
+        }
+        if (includeStatistics) {
+          dispatch({
+            type: 'CHALLENGE/FETCH_CHALLENGE_STATISTICS_DONE',
+            error: true,
+            payload: error,
+          });
+        }
       });
   };
 
@@ -1410,7 +1665,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.expandTag(id));
     },
     fetchChallengeStatistics: (tokens, challengeDetails) => {
-      if (!tokens || !tokens.tokenV3 || !challengeDetails || !checkIsMM(challengeDetails)) {
+      if (!challengeDetails) {
         return;
       }
 
@@ -1419,7 +1674,22 @@ const mapDispatchToProps = (dispatch) => {
         return;
       }
 
-      dispatchReviewSummations(challengeId, tokens.tokenV3);
+      const isMMChallenge = checkIsMM(challengeDetails);
+      const isCompletedNonMMChallenge = !isMMChallenge
+        && _.get(challengeDetails, 'status') === CHALLENGE_STATUS.COMPLETED;
+
+      if (!isMMChallenge && !isCompletedNonMMChallenge) {
+        return;
+      }
+
+      dispatchReviewSummations(
+        challengeId,
+        _.get(tokens, 'tokenV3'),
+        {
+          includeMmSubmissions: isMMChallenge,
+          includeStatistics: isMMChallenge,
+        },
+      );
     },
   };
 };

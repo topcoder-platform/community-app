@@ -122,14 +122,28 @@ class SubmissionsComponent extends React.Component {
   getInitialScore(submission) {
     let score = 'N/A';
     const { challenge } = this.props;
-    if (!_.isEmpty(submission.review)
-          && !_.isEmpty(submission)
-          && submission.initialScore
+    const parsedScore = Number(_.get(submission, 'initialScore'));
+    const hasScore = Number.isFinite(parsedScore);
+    if (hasScore
           && (challenge.status === 'COMPLETED'
           || (_.includes(challenge.tags, 'Innovation Challenge') && _.find(challenge.metadata, { name: 'show_data_dashboard' })))) {
-      score = Number(submission.initialScore).toFixed(2);
+      score = parsedScore.toFixed(2);
     }
     return score;
+  }
+
+  getFinalScoreDisplay(submission) {
+    const { challenge } = this.props;
+    if (challenge.status !== CHALLENGE_STATUS.COMPLETED) {
+      return 'N/A';
+    }
+
+    const parsedScore = Number(_.get(submission, 'finalScore'));
+    if (!Number.isFinite(parsedScore)) {
+      return 'N/A';
+    }
+
+    return parsedScore.toFixed(2);
   }
 
   /**
@@ -200,9 +214,10 @@ class SubmissionsComponent extends React.Component {
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
     if (field === 'Initial Score' || field === 'Final Score') {
-      isHaveFinalScore = _.some(submissions, s => !_.isNil(
-        s.review && s.finalScore,
-      ));
+      isHaveFinalScore = _.some(
+        submissions,
+        s => Number.isFinite(Number(_.get(s, 'finalScore'))),
+      );
     }
     const toSubmissionTime = (entry) => {
       const latest = _.get(entry, ['submissions', 0]);
@@ -261,15 +276,11 @@ class SubmissionsComponent extends React.Component {
         }
         case 'Initial Score': {
           if (isHaveFinalScore) {
-            valueA = !_.isEmpty(a.review) && a.finalScore;
-            valueB = !_.isEmpty(b.review) && b.finalScore;
-          } else if (valueA.score || valueB.score) {
-            // Handle MM formatted scores in a code challenge (PS-295)
-            valueA = Number(valueA.score);
-            valueB = Number(valueB.score);
+            valueA = toScoreValue(_.get(a, 'finalScore'));
+            valueB = toScoreValue(_.get(b, 'finalScore'));
           } else {
-            valueA = !_.isEmpty(a.review) && a.initialScore;
-            valueB = !_.isEmpty(b.review) && b.initialScore;
+            valueA = toScoreValue(_.get(a, 'initialScore'));
+            valueB = toScoreValue(_.get(b, 'initialScore'));
           }
           break;
         }
@@ -970,11 +981,7 @@ class SubmissionsComponent extends React.Component {
                   <div styleName="col-6">
                     <div styleName="mobile-header">FINAL SCORE</div>
                     <p>
-                      {
-                        (s.review && s.finalScore && challenge.status === 'COMPLETED')
-                          ? Number(s.finalScore).toFixed(2)
-                          : 'N/A'
-                      }
+                      {this.getFinalScoreDisplay(s)}
                     </p>
                   </div>
                 </div>
