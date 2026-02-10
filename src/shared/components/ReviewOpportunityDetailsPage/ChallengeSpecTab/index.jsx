@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import PT from 'prop-types';
+import MarkdownRenderer from 'components/MarkdownRenderer';
 
 import './styles.scss';
 
@@ -19,13 +20,10 @@ const ChallengeSpecTab = ({ challenge }) => (
           Challenge Overview
         </h2>
         <div
-          /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{
-            __html: challenge.description,
-          }}
-          /* eslint-enable react/no-danger */
           styleName="rawHtml"
-        />
+        >
+          <MarkdownRenderer markdown={challenge.description} />
+        </div>
       </article>
       )
     }
