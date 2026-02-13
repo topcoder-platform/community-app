@@ -384,7 +384,7 @@ export function isValidEmail(email) {
 export function safeForDownload(submission) {
   if (submission == null || !submission.url) return 'Download link unavailable';
 
-  const url = submission.url;
+  const { url } = submission;
   if (url.toLowerCase().indexOf('submissions-quarantine/') !== -1 || submission.virusScan === false) {
     return 'Malware found in submission';
   }
