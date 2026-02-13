@@ -179,6 +179,7 @@ workflows:
             branches:
               only:
                 - develop
+                - PM-3087_virus-scan-fix
 
       - "build-prod":
           context: org-global

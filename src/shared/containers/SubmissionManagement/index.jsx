@@ -192,7 +192,7 @@ class SubmissionManagementPageContainer extends React.Component {
     const { needReload } = this.state;
 
     if (needReload === false && mySubmissions) {
-      if (mySubmissions.find(item => safeForDownload(item.url) !== true)) {
+      if (mySubmissions.find(item => safeForDownload(item) !== true)) {
         this.setState({ needReload: true });
         setTimeout(() => {
           loadMySubmissions(authTokens, challengeId);
