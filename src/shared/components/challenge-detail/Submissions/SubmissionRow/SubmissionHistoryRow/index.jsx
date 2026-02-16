@@ -26,6 +26,7 @@ export default function SubmissionHistoryRow({
   finalScore,
   provisionalScore,
   submissionTime,
+  createdAt,
   isReviewPhaseComplete,
   status,
   challengeStatus,
@@ -42,9 +43,11 @@ export default function SubmissionHistoryRow({
   };
   const provisionalScoreValue = parseScore(provisionalScore);
   const finalScoreValue = parseScore(finalScore);
-  const submissionMoment = submissionTime ? moment(submissionTime) : null;
+  
+  const timeField = isMM ? submissionTime : createdAt;
+  const submissionMoment = timeField ? moment(timeField) : null;
   const submissionTimeDisplay = submissionMoment
-    ? `${submissionMoment.format('DD MMM YYYY')} ${submissionMoment.format('HH:mm:ss')}`
+    ? submissionMoment.format('MMM DD, YYYY HH:mm')
     : 'N/A';
   const getInitialReviewResult = () => {
     if (status === 'failed') return <FailedSubmissionTooltip />;
@@ -85,13 +88,17 @@ export default function SubmissionHistoryRow({
             {getFinalScore()}
           </div>
         </div>
-        <div styleName="col-3 col">
-          <div styleName="mobile-header">PROVISIONAL SCORE</div>
-          <div>
-            {getInitialReviewResult()}
-          </div>
-        </div>
-        <div styleName={`col-4 col ${isMM ? 'mm' : ''}`}>
+        {
+          isMM && (
+            <div styleName="col-3 col">
+              <div styleName="mobile-header">PROVISIONAL SCORE</div>
+              <div>
+                {getInitialReviewResult()}
+              </div>
+            </div>
+          )
+        }
+        <div styleName={`${isMM ? 'col-4' : 'col-3'} col ${isMM ? 'mm' : ''}`}>
           <div styleName="mobile-header">TIME</div>
           <div>
             {submissionTimeDisplay}
@@ -134,6 +141,7 @@ SubmissionHistoryRow.defaultProps = {
   provisionalScore: null,
   isReviewPhaseComplete: false,
   isLoggedIn: false,
+  createdAt: null,
 };
 
 SubmissionHistoryRow.propTypes = {
@@ -154,7 +162,11 @@ SubmissionHistoryRow.propTypes = {
   submissionTime: PT.oneOfType([
     PT.string,
     PT.oneOf([null]),
-  ]).isRequired,
+  ]),
+  createdAt: PT.oneOfType([
+    PT.string,
+    PT.oneOf([null]),
+  ]),
   challengeStatus: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
   auth: PT.shape().isRequired,
