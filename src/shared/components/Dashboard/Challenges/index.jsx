@@ -38,26 +38,32 @@ export default function ChallengesFeed({
             <LoadingIndicator />
           </div>
         ) : (
-          (challenges || []).map(challenge => (
-            <div styleName="row" key={challenge.id}>
-              <a
-                href={`/challenges/${challenge.id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {challenge.name}
-              </a>
-              <div styleName="prize">
-                <span styleName="amount">
-                  {`$${_.sum(
-                    challenge.prizeSets
-                      .filter(set => set.type === 'PLACEMENT')
-                      .map(item => _.sum(item.prizes.map(prize => prize.value))),
-                  ).toLocaleString()}`}
-                </span>
+          (challenges || []).map(challenge => {
+            const placementPrizes = challenge.prizeSets
+              .filter(set => set.type === 'PLACEMENT')
+              .flatMap(item => item.prizes);
+            const prizeTotal = _.sum(placementPrizes.map(prize => prize.value));
+            const prizeType = placementPrizes.length > 0 ? placementPrizes[0].type : null;
+            const isPointBasedPrize = prizeType === 'POINT';
+            const prizeSymbol = isPointBasedPrize ? '' : '$';
+
+            return (
+              <div styleName="row" key={challenge.id}>
+                <a
+                  href={`/challenges/${challenge.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {challenge.name}
+                </a>
+                <div styleName="prize">
+                  <span styleName="amount">
+                    {`${prizeSymbol}${prizeTotal.toLocaleString()}`}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>
