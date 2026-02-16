@@ -38,7 +38,7 @@ export default function ChallengesFeed({
             <LoadingIndicator />
           </div>
         ) : (
-          (challenges || []).map(challenge => {
+          (challenges || []).map((challenge) => {
             const placementPrizes = challenge.prizeSets
               .filter(set => set.type === 'PLACEMENT')
               .flatMap(item => item.prizes);
