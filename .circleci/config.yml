@@ -180,6 +180,7 @@ workflows:
               only:
                 - develop
                 - PM-3087_virus-scan-fix
+                - PM-3541_home-points-challenge
 
       - "build-prod":
           context: org-global
