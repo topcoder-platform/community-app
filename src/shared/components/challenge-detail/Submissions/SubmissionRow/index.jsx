@@ -189,13 +189,13 @@ export default function SubmissionRow({
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <div styleName={`col-2 col`}>
+              <div styleName="col-2 col">
                 <div styleName="mobile-header">RATING</div>
                 <span styleName={ratingLevelStyle}>
                   {ratingDisplay}
                 </span>
               </div>
-              <div styleName={`col-3 col`}>
+              <div styleName="col-3 col">
                 <div styleName="mobile-header">USERNAME</div>
                 {
                   memberProfileUrl ? (
@@ -212,19 +212,19 @@ export default function SubmissionRow({
                   )
                 }
               </div>
-              <div styleName={`col-4 col`}>
+              <div styleName="col-4 col">
                 <div styleName="mobile-header">SUBMISSION DATE</div>
                 <p>{submissionDateDisplay}</p>
               </div>
-              <div styleName={`col-5 col`}>
+              <div styleName="col-5 col">
                 <div styleName="mobile-header">INITIAL SCORE</div>
                 <p>{getInitialScoreDisplay()}</p>
               </div>
-              <div styleName={`col-6 col`}>
+              <div styleName="col-6 col">
                 <div styleName="mobile-header">FINAL SCORE</div>
                 <p>{getFinalScoreDisplay()}</p>
               </div>
-              <div styleName={`col-8 col`}>
+              <div styleName="col-8 col">
                 <a
                   onClick={toggleHistory}
                   onKeyPress={toggleHistory}
@@ -377,7 +377,6 @@ SubmissionRow.propTypes = {
     ]),
   })).isRequired,
   rating: PT.number,
-  registrant: PT.shape(),
   toggleHistory: PT.func,
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,

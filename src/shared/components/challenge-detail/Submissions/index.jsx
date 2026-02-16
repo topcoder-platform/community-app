@@ -196,14 +196,14 @@ class SubmissionsComponent extends React.Component {
     const { submissions, mmSubmissions } = this.props;
     const source = isMM ? mmSubmissions : submissions;
     const sourceList = Array.isArray(source) ? source : [];
-    
+
     let sortedSubmissions = _.cloneDeep(sourceList);
-    
+
     // Group submissions by member for non-MM challenges
     if (!isMM) {
       sortedSubmissions = this.groupSubmissionsByMember(sortedSubmissions);
     }
-    
+
     this.sortSubmissions(sortedSubmissions);
     this.setState({ sortedSubmissions });
   }
@@ -219,10 +219,10 @@ class SubmissionsComponent extends React.Component {
     const isMM = this.isMM();
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
-    
+
     // For non-MM submissions that are grouped by member, we need to adjust the sorting logic
     const isGrouped = !isMM && submissions.length > 0 && submissions[0].submissions;
-    
+
     let hasFinalScore = false;
     if (!isGrouped && (field === 'Initial Score' || field === 'Final Score')) {
       hasFinalScore = _.some(
@@ -239,10 +239,10 @@ class SubmissionsComponent extends React.Component {
         ),
       );
     }
-    
+
     const toSubmissionTime = (entry) => {
-      const submissions = entry.submissions || [entry];
-      const latest = _.get(submissions, [0]);
+      const entrySubmissions = entry.submissions || [entry];
+      const latest = _.get(entrySubmissions, [0]);
       if (!latest) {
         return null;
       }
@@ -253,28 +253,28 @@ class SubmissionsComponent extends React.Component {
       const timestamp = new Date(submissionTime).getTime();
       return Number.isFinite(timestamp) ? timestamp : null;
     };
-    
+
     const toRankValue = rank => (_.isFinite(rank) ? rank : Number.MAX_SAFE_INTEGER);
     const toScoreValue = (score) => {
       const numeric = Number(score);
       return Number.isFinite(numeric) ? numeric : null;
     };
-    
+
     sortList(submissions, field, sort, (a, b) => {
       let valueA = 0;
       let valueB = 0;
       let valueIsString = false;
-      
+
       const getPrimarySubmission = (entry) => {
         if (isGrouped) {
           return _.get(entry, ['submissions', 0]);
         }
         return entry;
       };
-      
+
       const primaryA = getPrimarySubmission(a);
       const primaryB = getPrimarySubmission(b);
-      
+
       switch (field) {
         case 'Country': {
           valueA = a.registrant ? a.registrant.countryCode : '';
@@ -393,7 +393,7 @@ class SubmissionsComponent extends React.Component {
     });
 
     // Convert map to array and sort submissions within each member by date (newest first)
-    return Array.from(memberMap.values()).map((memberGroup) => ({
+    return Array.from(memberMap.values()).map(memberGroup => ({
       ...memberGroup,
       submissions: memberGroup.submissions.sort((a, b) => {
         const timeA = new Date(a.created || a.createdAt).getTime();
@@ -1033,7 +1033,6 @@ class SubmissionsComponent extends React.Component {
                   key={memberGroup.member}
                   member={memberGroup.member}
                   rating={memberGroup.rating}
-                  registrant={memberGroup.registrant}
                   challengeStatus={challenge.status}
                   toggleHistory={() => { toggleSubmissionHistory(index); }}
                   openHistory={(submissionHistoryOpen[index.toString()] || false)}

@@ -43,7 +43,7 @@ export default function SubmissionHistoryRow({
   };
   const provisionalScoreValue = parseScore(provisionalScore);
   const finalScoreValue = parseScore(finalScore);
-  
+
   const timeField = isMM ? submissionTime : createdAt;
   const submissionMoment = timeField ? moment(timeField) : null;
   const submissionTimeDisplay = submissionMoment
@@ -142,6 +142,7 @@ SubmissionHistoryRow.defaultProps = {
   isReviewPhaseComplete: false,
   isLoggedIn: false,
   createdAt: null,
+  submissionTime: null,
 };
 
 SubmissionHistoryRow.propTypes = {
