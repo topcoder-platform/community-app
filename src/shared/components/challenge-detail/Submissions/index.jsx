@@ -41,6 +41,52 @@ const { getProvisionalScore, getFinalScore } = submissionUtils;
 
 const { getService } = services.submissions;
 
+/**
+ * Groups submissions by member
+ * @param {Array} submissions all submissions
+ * @return {Array} grouped submissions by member
+ */
+function groupSubmissionsByMember(submissions) {
+  if (!Array.isArray(submissions)) {
+    return [];
+  }
+
+  const memberMap = new Map();
+
+  submissions.forEach((submission) => {
+    const memberHandle = _.get(submission, 'registrant.memberHandle', '');
+    if (!memberHandle) {
+      return;
+    }
+
+    if (!memberMap.has(memberHandle)) {
+      memberMap.set(memberHandle, {
+        member: memberHandle,
+        registrant: submission.registrant,
+        submissions: [],
+        rating: submission.rating,
+      });
+    }
+
+    const memberEntry = memberMap.get(memberHandle);
+    memberEntry.submissions.push(submission);
+    // Update rating to the latest
+    if (submission.rating !== undefined) {
+      memberEntry.rating = submission.rating;
+    }
+  });
+
+  // Convert map to array and sort submissions within each member by date (newest first)
+  return Array.from(memberMap.values()).map(memberGroup => ({
+    ...memberGroup,
+    submissions: memberGroup.submissions.sort((a, b) => {
+      const timeA = new Date(a.created || a.createdAt).getTime();
+      const timeB = new Date(b.created || b.createdAt).getTime();
+      return timeB - timeA; // Newest first
+    }),
+  }));
+}
+
 class SubmissionsComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -201,7 +247,7 @@ class SubmissionsComponent extends React.Component {
 
     // Group submissions by member for non-MM challenges
     if (!isMM) {
-      sortedSubmissions = this.groupSubmissionsByMember(sortedSubmissions);
+      sortedSubmissions = groupSubmissionsByMember(sortedSubmissions);
     }
 
     this.sortSubmissions(sortedSubmissions);
@@ -355,52 +401,6 @@ class SubmissionsComponent extends React.Component {
         valueIsString,
       };
     });
-  }
-
-  /**
-   * Groups submissions by member
-   * @param {Array} submissions all submissions
-   * @return {Array} grouped submissions by member
-   */
-  groupSubmissionsByMember(submissions) {
-    if (!Array.isArray(submissions)) {
-      return [];
-    }
-
-    const memberMap = new Map();
-
-    submissions.forEach((submission) => {
-      const memberHandle = _.get(submission, 'registrant.memberHandle', '');
-      if (!memberHandle) {
-        return;
-      }
-
-      if (!memberMap.has(memberHandle)) {
-        memberMap.set(memberHandle, {
-          member: memberHandle,
-          registrant: submission.registrant,
-          submissions: [],
-          rating: submission.rating,
-        });
-      }
-
-      const memberEntry = memberMap.get(memberHandle);
-      memberEntry.submissions.push(submission);
-      // Update rating to the latest
-      if (submission.rating !== undefined) {
-        memberEntry.rating = submission.rating;
-      }
-    });
-
-    // Convert map to array and sort submissions within each member by date (newest first)
-    return Array.from(memberMap.values()).map(memberGroup => ({
-      ...memberGroup,
-      submissions: memberGroup.submissions.sort((a, b) => {
-        const timeA = new Date(a.created || a.createdAt).getTime();
-        const timeB = new Date(b.created || b.createdAt).getTime();
-        return timeB - timeA; // Newest first
-      }),
-    }));
   }
 
   isMM() {
