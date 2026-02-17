@@ -808,6 +808,9 @@ class SubmissionsComponent extends React.Component {
                   >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
+                <div styleName="col-8">
+                  <span>Actions</span>
+                </div>
               </div>
             )
           }

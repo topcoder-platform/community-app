@@ -27,7 +27,6 @@ export default function SubmissionRow({
   const latestSubmission = submissionList[0] || {};
   const {
     status,
-    submissionId,
     submissionTime,
     created,
     createdAt,
@@ -113,7 +112,7 @@ export default function SubmissionRow({
   const memberProfileUrl = memberHandle ? `${window.origin}/members/${memberHandle}` : null;
   const memberLinkTarget = `${_.includes(window.origin, 'www') ? '_self' : '_blank'}`;
   const memberForHistory = memberHandle || memberDisplay;
-  const latestSubmissionId = submissionId || 'N/A';
+  const latestSubmissionId = latestSubmission.submissionId || latestSubmission.id || 'N/A';
   const submissionCount = submissionList.length;
 
   return (
@@ -362,6 +361,7 @@ SubmissionRow.propTypes = {
       PT.oneOf([null]),
     ]),
     status: PT.string.isRequired,
+    id: PT.string.isRequired,
     submissionId: PT.string.isRequired,
     submissionTime: PT.oneOfType([
       PT.string,

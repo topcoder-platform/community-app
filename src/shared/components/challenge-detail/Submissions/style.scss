@@ -372,7 +372,7 @@
 
     .col-1 {
       padding-left: 30px;
-      width: 10%;
+      flex: 20;
       justify-content: flex-start;
       display: flex;
       min-width: 140px;
@@ -383,13 +383,13 @@
     }
 
     .col-2 {
-      width: 15%;
+      flex: 20;
       justify-content: flex-start;
       display: flex;
     }
 
     .col-3 {
-      width: 20.5%;
+      flex: 20;
       margin-right: auto;
 
       a {
@@ -406,7 +406,7 @@
     }
 
     .col-4 {
-      width: 20.5%;
+      flex: 20;
       margin-right: auto;
 
       p {
@@ -423,7 +423,7 @@
     }
 
     .col-5 {
-      width: 22%;
+      flex: 20;
 
       p {
         padding-right: 60px;
@@ -439,7 +439,7 @@
     }
 
     .col-6 {
-      width: 22%;
+      flex: 20;
 
       p {
         padding-right: 55px;
@@ -451,6 +451,16 @@
 
       @include xs-to-sm {
         text-align: left;
+      }
+    }
+
+    .col-8 {
+      flex: 13;
+      text-align: left;
+      color: $tc-gray-50;
+
+      @include xs-to-sm {
+        display: none;
       }
     }
 
