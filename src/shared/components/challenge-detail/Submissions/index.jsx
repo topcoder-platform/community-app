@@ -808,9 +808,13 @@ class SubmissionsComponent extends React.Component {
                   >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
-                <div styleName="col-8">
-                  <span>Actions</span>
-                </div>
+                {
+                  !isF2F && !isBugHunt && (
+                    <div styleName="col-8">
+                      <span>Actions</span>
+                    </div>
+                  )
+                }
               </div>
             )
           }
@@ -1049,6 +1053,8 @@ class SubmissionsComponent extends React.Component {
                   numWinners={numWinners}
                   auth={auth}
                   isLoggedIn={isLoggedIn}
+                  isF2F={isF2F}
+                  isBugHunt={isBugHunt}
                 />
               ))
             )

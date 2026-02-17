@@ -21,7 +21,7 @@ import style from './style.scss';
 export default function SubmissionRow({
   isMM, isRDM, openHistory, member, submissions, toggleHistory, challengeStatus,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
-  numWinners, auth, isLoggedIn,
+  numWinners, auth, isLoggedIn, isF2F, isBugHunt,
 }) {
   const submissionList = Array.isArray(submissions) ? submissions : [];
   const latestSubmission = submissionList[0] || {};
@@ -188,12 +188,16 @@ export default function SubmissionRow({
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <div styleName="col-2 col">
-                <div styleName="mobile-header">RATING</div>
-                <span styleName={ratingLevelStyle}>
-                  {ratingDisplay}
-                </span>
-              </div>
+              {
+                !isF2F && !isBugHunt && (
+                  <div styleName="col-2 col">
+                    <div styleName="mobile-header">RATING</div>
+                    <span styleName={ratingLevelStyle}>
+                      {ratingDisplay}
+                    </span>
+                  </div>
+                )
+              }
               <div styleName="col-3 col">
                 <div styleName="mobile-header">USERNAME</div>
                 {
@@ -223,18 +227,22 @@ export default function SubmissionRow({
                 <div styleName="mobile-header">FINAL SCORE</div>
                 <p>{getFinalScoreDisplay()}</p>
               </div>
-              <div styleName="col-8 col">
-                <a
-                  onClick={toggleHistory}
-                  onKeyPress={toggleHistory}
-                >
-                  <span styleName="text">
-                    History (
-                    {submissionCount}
-                    )
-                  </span>
-                </a>
-              </div>
+              {
+                !isF2F && !isBugHunt && (
+                  <div styleName="col-8 col">
+                    <a
+                      onClick={toggleHistory}
+                      onKeyPress={toggleHistory}
+                    >
+                      <span styleName="text">
+                        History (
+                        {submissionCount}
+                        )
+                      </span>
+                    </a>
+                  </div>
+                )
+              }
             </React.Fragment>
           )
         }
@@ -336,6 +344,8 @@ SubmissionRow.defaultProps = {
   provisionalRank: null,
   rating: null,
   isLoggedIn: false,
+  isF2F: false,
+  isBugHunt: false,
 };
 
 SubmissionRow.propTypes = {
@@ -344,6 +354,8 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   challengeStatus: PT.string.isRequired,
+  isF2F: PT.bool,
+  isBugHunt: PT.bool,
   submissions: PT.arrayOf(PT.shape({
     provisionalScore: PT.oneOfType([
       PT.number,
