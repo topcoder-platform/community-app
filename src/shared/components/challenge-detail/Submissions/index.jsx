@@ -41,6 +41,52 @@ const { getProvisionalScore, getFinalScore } = submissionUtils;
 
 const { getService } = services.submissions;
 
+/**
+ * Groups submissions by member
+ * @param {Array} submissions all submissions
+ * @return {Array} grouped submissions by member
+ */
+function groupSubmissionsByMember(submissions) {
+  if (!Array.isArray(submissions)) {
+    return [];
+  }
+
+  const memberMap = new Map();
+
+  submissions.forEach((submission) => {
+    const memberHandle = _.get(submission, 'registrant.memberHandle', '');
+    if (!memberHandle) {
+      return;
+    }
+
+    if (!memberMap.has(memberHandle)) {
+      memberMap.set(memberHandle, {
+        member: memberHandle,
+        registrant: submission.registrant,
+        submissions: [],
+        rating: submission.rating,
+      });
+    }
+
+    const memberEntry = memberMap.get(memberHandle);
+    memberEntry.submissions.push(submission);
+    // Update rating to the latest
+    if (submission.rating !== undefined) {
+      memberEntry.rating = submission.rating;
+    }
+  });
+
+  // Convert map to array and sort submissions within each member by date (newest first)
+  return Array.from(memberMap.values()).map(memberGroup => ({
+    ...memberGroup,
+    submissions: memberGroup.submissions.sort((a, b) => {
+      const timeA = new Date(a.created || a.createdAt).getTime();
+      const timeB = new Date(b.created || b.createdAt).getTime();
+      return timeB - timeA; // Newest first
+    }),
+  }));
+}
+
 class SubmissionsComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -122,14 +168,28 @@ class SubmissionsComponent extends React.Component {
   getInitialScore(submission) {
     let score = 'N/A';
     const { challenge } = this.props;
-    if (!_.isEmpty(submission.review)
-          && !_.isEmpty(submission)
-          && submission.initialScore
+    const parsedScore = Number(_.get(submission, 'initialScore'));
+    const hasScore = Number.isFinite(parsedScore);
+    if (hasScore
           && (challenge.status === 'COMPLETED'
           || (_.includes(challenge.tags, 'Innovation Challenge') && _.find(challenge.metadata, { name: 'show_data_dashboard' })))) {
-      score = Number(submission.initialScore).toFixed(2);
+      score = parsedScore.toFixed(2);
     }
     return score;
+  }
+
+  getFinalScoreDisplay(submission) {
+    const { challenge } = this.props;
+    if (challenge.status !== CHALLENGE_STATUS.COMPLETED) {
+      return 'N/A';
+    }
+
+    const parsedScore = Number(_.get(submission, 'finalScore'));
+    if (!Number.isFinite(parsedScore)) {
+      return 'N/A';
+    }
+
+    return parsedScore.toFixed(2);
   }
 
   /**
@@ -182,7 +242,14 @@ class SubmissionsComponent extends React.Component {
     const { submissions, mmSubmissions } = this.props;
     const source = isMM ? mmSubmissions : submissions;
     const sourceList = Array.isArray(source) ? source : [];
-    const sortedSubmissions = _.cloneDeep(sourceList);
+
+    let sortedSubmissions = _.cloneDeep(sourceList);
+
+    // Group submissions by member for non-MM challenges
+    if (!isMM) {
+      sortedSubmissions = groupSubmissionsByMember(sortedSubmissions);
+    }
+
     this.sortSubmissions(sortedSubmissions);
     this.setState({ sortedSubmissions });
   }
@@ -198,14 +265,30 @@ class SubmissionsComponent extends React.Component {
     const isMM = this.isMM();
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
-    let isHaveFinalScore = false;
-    if (field === 'Initial Score' || field === 'Final Score') {
-      isHaveFinalScore = _.some(submissions, s => !_.isNil(
-        s.review && s.finalScore,
-      ));
+
+    // For non-MM submissions that are grouped by member, we need to adjust the sorting logic
+    const isGrouped = !isMM && submissions.length > 0 && submissions[0].submissions;
+
+    let hasFinalScore = false;
+    if (!isGrouped && (field === 'Initial Score' || field === 'Final Score')) {
+      hasFinalScore = _.some(
+        submissions,
+        s => Number.isFinite(Number(_.get(s, 'finalScore'))),
+      );
+    } else if (isGrouped && (field === 'Initial Score' || field === 'Final Score')) {
+      // For grouped submissions, check in the submissions array
+      hasFinalScore = _.some(
+        submissions,
+        group => _.some(
+          group.submissions,
+          s => Number.isFinite(Number(_.get(s, 'finalScore'))),
+        ),
+      );
     }
+
     const toSubmissionTime = (entry) => {
-      const latest = _.get(entry, ['submissions', 0]);
+      const entrySubmissions = entry.submissions || [entry];
+      const latest = _.get(entrySubmissions, [0]);
       if (!latest) {
         return null;
       }
@@ -216,15 +299,28 @@ class SubmissionsComponent extends React.Component {
       const timestamp = new Date(submissionTime).getTime();
       return Number.isFinite(timestamp) ? timestamp : null;
     };
+
     const toRankValue = rank => (_.isFinite(rank) ? rank : Number.MAX_SAFE_INTEGER);
     const toScoreValue = (score) => {
       const numeric = Number(score);
       return Number.isFinite(numeric) ? numeric : null;
     };
+
     sortList(submissions, field, sort, (a, b) => {
       let valueA = 0;
       let valueB = 0;
       let valueIsString = false;
+
+      const getPrimarySubmission = (entry) => {
+        if (isGrouped) {
+          return _.get(entry, ['submissions', 0]);
+        }
+        return entry;
+      };
+
+      const primaryA = getPrimarySubmission(a);
+      const primaryB = getPrimarySubmission(b);
+
       switch (field) {
         case 'Country': {
           valueA = a.registrant ? a.registrant.countryCode : '';
@@ -233,12 +329,12 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Rating': {
-          valueA = a.registrant ? a.registrant.rating : 0;
-          valueB = b.registrant ? b.registrant.rating : 0;
+          valueA = a.rating || (a.registrant ? a.registrant.rating : 0);
+          valueB = b.rating || (b.registrant ? b.registrant.rating : 0);
           break;
         }
         case 'Username': {
-          if (isMM) {
+          if (isMM || isGrouped) {
             valueA = `${a.member || ''}`.toLowerCase();
             valueB = `${b.member || ''}`.toLowerCase();
           } else {
@@ -253,23 +349,19 @@ class SubmissionsComponent extends React.Component {
           valueB = toSubmissionTime(b);
           break;
         case 'Submission Date': {
-          const createdA = a.created || a.createdAt;
-          const createdB = b.created || b.createdAt;
+          const createdA = primaryA ? (primaryA.created || primaryA.createdAt) : null;
+          const createdB = primaryB ? (primaryB.created || primaryB.createdAt) : null;
           valueA = createdA ? new Date(createdA).getTime() : null;
           valueB = createdB ? new Date(createdB).getTime() : null;
           break;
         }
         case 'Initial Score': {
-          if (isHaveFinalScore) {
-            valueA = !_.isEmpty(a.review) && a.finalScore;
-            valueB = !_.isEmpty(b.review) && b.finalScore;
-          } else if (valueA.score || valueB.score) {
-            // Handle MM formatted scores in a code challenge (PS-295)
-            valueA = Number(valueA.score);
-            valueB = Number(valueB.score);
+          if (hasFinalScore) {
+            valueA = toScoreValue(_.get(primaryA, 'finalScore'));
+            valueB = toScoreValue(_.get(primaryB, 'finalScore'));
           } else {
-            valueA = !_.isEmpty(a.review) && a.initialScore;
-            valueB = !_.isEmpty(b.review) && b.initialScore;
+            valueA = toScoreValue(_.get(primaryA, 'initialScore'));
+            valueB = toScoreValue(_.get(primaryB, 'initialScore'));
           }
           break;
         }
@@ -286,13 +378,13 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Final Score': {
-          valueA = toScoreValue(getFinalScore(a));
-          valueB = toScoreValue(getFinalScore(b));
+          valueA = toScoreValue(getFinalScore(primaryA));
+          valueB = toScoreValue(getFinalScore(primaryB));
           break;
         }
         case 'Provisional Score': {
-          valueA = toScoreValue(getProvisionalScore(a));
-          valueB = toScoreValue(getProvisionalScore(b));
+          valueA = toScoreValue(getProvisionalScore(primaryA));
+          valueB = toScoreValue(getProvisionalScore(primaryB));
           break;
         }
         default:
@@ -716,6 +808,13 @@ class SubmissionsComponent extends React.Component {
                   >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                   </div>
                 </button>
+                {
+                  !isF2F && !isBugHunt && (
+                    <div styleName="col-8">
+                      <span>Actions</span>
+                    </div>
+                  )
+                }
               </div>
             )
           }
@@ -932,52 +1031,31 @@ class SubmissionsComponent extends React.Component {
           }
           {
             !isMM && (
-              sortedSubmissions.map(s => (
-                <div key={_.get(s.registrant, 'memberHandle', '') + (s.created || s.createdAt)} styleName="row">
-                  {
-                    !isF2F && !isBugHunt && (
-                      <React.Fragment>
-                        <div styleName="mobile-header">RATING</div>
-                        <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}>
-                          { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
-                        </div>
-                      </React.Fragment>
-                    )
-                  }
-                  <div styleName="col-3">
-                    <div styleName="mobile-header">USERNAME</div>
-                    <a
-                      href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
-                      target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
-                      rel="noopener noreferrer"
-                      styleName={`handle level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
-                    >
-                      {_.get(s.registrant, 'memberHandle', '')}
-                    </a>
-                  </div>
-                  <div styleName="col-4">
-                    <div styleName="mobile-header">SUBMISSION DATE</div>
-                    <p>
-                      {moment(s.created || s.createdAt).format('MMM DD, YYYY HH:mm')}
-                    </p>
-                  </div>
-                  <div styleName="col-5">
-                    <div styleName="mobile-header">INITIAL SCORE</div>
-                    <p>
-                      {this.getInitialScore(s)}
-                    </p>
-                  </div>
-                  <div styleName="col-6">
-                    <div styleName="mobile-header">FINAL SCORE</div>
-                    <p>
-                      {
-                        (s.review && s.finalScore && challenge.status === 'COMPLETED')
-                          ? Number(s.finalScore).toFixed(2)
-                          : 'N/A'
-                      }
-                    </p>
-                  </div>
-                </div>
+              sortedSubmissions.map((memberGroup, index) => (
+                <SubmissionRow
+                  submissions={memberGroup.submissions}
+                  isReviewPhaseComplete={isReviewPhaseComplete}
+                  isMM={isMM}
+                  isRDM={isRDM}
+                  key={memberGroup.member}
+                  member={memberGroup.member}
+                  rating={memberGroup.rating}
+                  challengeStatus={challenge.status}
+                  toggleHistory={() => { toggleSubmissionHistory(index); }}
+                  openHistory={(submissionHistoryOpen[index.toString()] || false)}
+                  isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                  submissionInformation={submissionInformation}
+                  onShowPopup={this.onHandleInformationPopup}
+                  getFlagFirstTry={this.getFlagFirstTry}
+                  onGetFlagImageFail={onGetFlagImageFail}
+                  submissionDetail={memberGroup}
+                  viewAsTable={viewAsTable}
+                  numWinners={numWinners}
+                  auth={auth}
+                  isLoggedIn={isLoggedIn}
+                  isF2F={isF2F}
+                  isBugHunt={isBugHunt}
+                />
               ))
             )
           }
