@@ -52,7 +52,7 @@ import { hasOpenSubmissionPhase } from 'utils/challengePhases';
 import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
 import { decodeToken } from '@topcoder-platform/tc-auth-lib';
-import { actions, services } from 'topcoder-react-lib';
+import { actions, errors, services } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
 import getReviewSummationsService from 'services/reviewSummations';
@@ -98,6 +98,19 @@ import './styles.scss';
 const MIN = 60 * 1000;
 const DAY = 24 * 60 * MIN;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+const { fireErrorMessage } = errors;
+const WIPRO_REGISTRATION_BLOCKED_MESSAGE = 'Wipro employees are not allowed to participate in this Topcoder challenge';
+
+/**
+ * Checks whether challenge registration should be blocked for Wipro members.
+ * @param {String} email User email.
+ * @param {Boolean} wiproAllowed Challenge-level flag.
+ * @return {Boolean}
+ */
+export function isWiproRegistrationBlocked(email, wiproAllowed) {
+  if (wiproAllowed !== false) return false;
+  return /@wipro\.com$/i.test(_.trim(email || ''));
+}
 
 /**
  * Given challenge details object, it returns the URL of the image to be used in
@@ -345,8 +358,17 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     const {
       auth,
+      challenge,
       communityId,
     } = this.props;
+    const userEmail = _.get(auth, 'user.email');
+    const wiproAllowed = _.get(challenge, 'wiproAllowed');
+
+    if (isWiproRegistrationBlocked(userEmail, wiproAllowed)) {
+      fireErrorMessage(WIPRO_REGISTRATION_BLOCKED_MESSAGE);
+      return;
+    }
+
     if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
       window.location.href = appendUtmParamsToUrl(
