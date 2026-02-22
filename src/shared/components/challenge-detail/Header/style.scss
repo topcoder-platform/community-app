@@ -406,6 +406,22 @@
               background-color: #d98f64;
             }
           }
+
+          .fun-challenge-prize {
+            @include roboto-bold;
+
+            color: #2a2a2a;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 32px;
+            margin: 0;
+
+            @include xs-to-md {
+              font-size: 14px;
+              line-height: 30px;
+              text-align: center;
+            }
+          }
         }
 
         .bonus-div {
