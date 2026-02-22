@@ -113,6 +113,27 @@ export function isWiproRegistrationBlocked(email, wiproAllowed) {
 }
 
 /**
+ * Returns winners to display in challenge detail.
+ * For non-task challenges we only keep final winners, while supporting
+ * legacy winner type values like "Final".
+ *
+ * @param {Object} challenge Challenge details object.
+ * @returns {Array<Object>} Winners for display.
+ */
+export function getDisplayWinners(challenge = {}) {
+  const winners = _.get(challenge, 'winners', []);
+
+  if (getTypeName(challenge) === 'Task') {
+    return winners;
+  }
+
+  return winners.filter((winner = {}) => {
+    const winnerType = _.toLower(_.trim(_.toString(winner.type)));
+    return !winner.type || winnerType === 'final';
+  });
+}
+
+/**
  * Given challenge details object, it returns the URL of the image to be used in
  * OpenGraph (i.e. in social sharing posts).
  * @param {Object} challenge
@@ -506,10 +527,7 @@ class ChallengeDetailPageContainer extends React.Component {
       return <LoadingPagePlaceholder />;
     }
 
-    let winners = challenge.winners || [];
-    if (getTypeName(challenge) !== 'Task') {
-      winners = winners.filter(w => !w.type || w.type === 'final');
-    }
+    const winners = getDisplayWinners(challenge);
 
     let hasFirstPlacement = false;
     if (!_.isEmpty(winners)) {
