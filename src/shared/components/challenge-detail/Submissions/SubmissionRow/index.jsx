@@ -21,14 +21,17 @@ import style from './style.scss';
 export default function SubmissionRow({
   isMM, isRDM, openHistory, member, submissions, toggleHistory, challengeStatus,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
-  numWinners, auth, isLoggedIn,
+  numWinners, auth, isLoggedIn, isF2F, isBugHunt,
 }) {
   const submissionList = Array.isArray(submissions) ? submissions : [];
   const latestSubmission = submissionList[0] || {};
   const {
     status,
-    submissionId,
     submissionTime,
+    created,
+    createdAt,
+    initialScore,
+    finalScore: submissionFinalScore,
   } = latestSubmission;
 
   const parseScore = (value) => {
@@ -36,8 +39,12 @@ export default function SubmissionRow({
     return Number.isFinite(numeric) ? numeric : null;
   };
 
+  // For non-MM challenges, use createdAt field for submission date
+  const submissionDateField = isMM ? submissionTime : (created || createdAt);
+
   const provisionalScore = parseScore(_.get(latestSubmission, 'provisionalScore'));
-  const finalScore = parseScore(_.get(latestSubmission, 'finalScore'));
+  const finalScore = parseScore(submissionFinalScore);
+  const initialScoreValue = parseScore(initialScore);
 
   const getInitialReviewResult = () => {
     if (status === 'failed') {
@@ -71,12 +78,29 @@ export default function SubmissionRow({
     return finalScore;
   };
 
+  const getInitialScoreDisplay = () => {
+    if (_.isNil(initialScoreValue)) {
+      return 'N/A';
+    }
+    return initialScoreValue.toFixed(2);
+  };
+
+  const getFinalScoreDisplay = () => {
+    if (challengeStatus !== CHALLENGE_STATUS.COMPLETED) {
+      return 'N/A';
+    }
+    if (_.isNil(finalScore)) {
+      return 'N/A';
+    }
+    return finalScore.toFixed(2);
+  };
+
   const initialReviewResult = getInitialReviewResult();
   const finalReviewResult = getFinalReviewResult();
 
-  const submissionMoment = submissionTime ? moment(submissionTime) : null;
+  const submissionMoment = submissionDateField ? moment(submissionDateField) : null;
   const submissionDateDisplay = submissionMoment
-    ? `${submissionMoment.format('DD MMM YYYY')} ${submissionMoment.format('HH:mm:ss')}`
+    ? submissionMoment.format('MMM DD, YYYY HH:mm')
     : 'N/A';
 
   const finalRankDisplay = (isReviewPhaseComplete && _.isFinite(finalRank)) ? finalRank : 'N/A';
@@ -88,7 +112,7 @@ export default function SubmissionRow({
   const memberProfileUrl = memberHandle ? `${window.origin}/members/${memberHandle}` : null;
   const memberLinkTarget = `${_.includes(window.origin, 'www') ? '_self' : '_blank'}`;
   const memberForHistory = memberHandle || memberDisplay;
-  const latestSubmissionId = submissionId || 'N/A';
+  const latestSubmissionId = latestSubmission.submissionId || latestSubmission.id || 'N/A';
   const submissionCount = submissionList.length;
 
   return (
@@ -107,63 +131,121 @@ export default function SubmissionRow({
                   { provisionalRankDisplay }
                 </div>
               </div>
+              <div styleName={`col-3 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+                <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>RATING</div>
+                <span styleName={ratingLevelStyle}>
+                  {ratingDisplay}
+                </span>
+              </div>
+              <div styleName={`col-4 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+                <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>USERNAME</div>
+                {
+                  memberProfileUrl ? (
+                    <a
+                      href={memberProfileUrl}
+                      target={memberLinkTarget}
+                      rel="noopener noreferrer"
+                      styleName={ratingLevelStyle}
+                    >
+                      {memberDisplay}
+                    </a>
+                  ) : (
+                    <span styleName={ratingLevelStyle}>{memberDisplay}</span>
+                  )
+                }
+              </div>
+              <div styleName={`col-5 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+                <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>FINAL SCORE</div>
+                <div>
+                  {finalReviewResult}
+                </div>
+              </div>
+              <div styleName={`col-6 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+                <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>PROVISIONAL SCORE</div>
+                <div>
+                  {initialReviewResult}
+                </div>
+              </div>
+              <div styleName={`col-7 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+                <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>SUBMISSION DATE</div>
+                <div styleName="time">
+                  {submissionDateDisplay}
+                </div>
+              </div>
+              <div styleName={`col-8 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
+                <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>ACTIONS</div>
+                <a
+                  onClick={toggleHistory}
+                  onKeyPress={toggleHistory}
+                >
+                  <span styleName="text">
+                    History (
+                    {submissionCount}
+                    )
+                  </span>
+                </a>
+              </div>
             </React.Fragment>
-          ) : null
+          ) : (
+            <React.Fragment>
+              {
+                !isF2F && !isBugHunt && (
+                  <div styleName="col-2 col">
+                    <div styleName="mobile-header">RATING</div>
+                    <span styleName={ratingLevelStyle}>
+                      {ratingDisplay}
+                    </span>
+                  </div>
+                )
+              }
+              <div styleName="col-3 col">
+                <div styleName="mobile-header">USERNAME</div>
+                {
+                  memberProfileUrl ? (
+                    <a
+                      href={memberProfileUrl}
+                      target={memberLinkTarget}
+                      rel="noopener noreferrer"
+                      styleName={ratingLevelStyle}
+                    >
+                      {memberDisplay}
+                    </a>
+                  ) : (
+                    <span styleName={ratingLevelStyle}>{memberDisplay}</span>
+                  )
+                }
+              </div>
+              <div styleName="col-4 col">
+                <div styleName="mobile-header">SUBMISSION DATE</div>
+                <p>{submissionDateDisplay}</p>
+              </div>
+              <div styleName="col-5 col">
+                <div styleName="mobile-header">INITIAL SCORE</div>
+                <p>{getInitialScoreDisplay()}</p>
+              </div>
+              <div styleName="col-6 col">
+                <div styleName="mobile-header">FINAL SCORE</div>
+                <p>{getFinalScoreDisplay()}</p>
+              </div>
+              {
+                !isF2F && !isBugHunt && (
+                  <div styleName="col-8 col">
+                    <a
+                      onClick={toggleHistory}
+                      onKeyPress={toggleHistory}
+                    >
+                      <span styleName="text">
+                        History (
+                        {submissionCount}
+                        )
+                      </span>
+                    </a>
+                  </div>
+                )
+              }
+            </React.Fragment>
+          )
         }
-        <div styleName={`col-3 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
-          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>RATING</div>
-          <span styleName={ratingLevelStyle}>
-            {ratingDisplay}
-          </span>
-        </div>
-        <div styleName={`col-4 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
-          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>USERNAME</div>
-          {
-            memberProfileUrl ? (
-              <a
-                href={memberProfileUrl}
-                target={memberLinkTarget}
-                rel="noopener noreferrer"
-                styleName={ratingLevelStyle}
-              >
-                {memberDisplay}
-              </a>
-            ) : (
-              <span styleName={ratingLevelStyle}>{memberDisplay}</span>
-            )
-          }
-        </div>
-        <div styleName={`col-5 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
-          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>FINAL SCORE</div>
-          <div>
-            {finalReviewResult}
-          </div>
-        </div>
-        <div styleName={`col-6 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
-          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>PROVISIONAL SCORE</div>
-          <div>
-            {initialReviewResult}
-          </div>
-        </div>
-        <div styleName={`col-7 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
-          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>SUBMISSION DATE</div>
-          <div styleName="time">
-            {submissionDateDisplay}
-          </div>
-        </div>
-        <div styleName={`col-8 col ${viewAsTable ? 'col-view-as-table' : ''}`}>
-          <div styleName={viewAsTable ? 'view-as-table-header' : 'mobile-header'}>ACTIONS</div>
-          <a
-            onClick={toggleHistory}
-            onKeyPress={toggleHistory}
-          >
-            <span styleName="text">
-              History (
-              {submissionCount}
-              )
-            </span>
-          </a>
-        </div>
       </div>
       { openHistory && (
         <Modal
@@ -193,12 +275,16 @@ export default function SubmissionRow({
                     Final Score
                   </div>
                 </div>
-                <div styleName="col-4 col">
-                  <div styleName="col">
-                    Provisional Score
-                  </div>
-                </div>
-                <div styleName="col-5 col">
+                {
+                  isMM && (
+                    <div styleName="col-4 col">
+                      <div styleName="col">
+                        Provisional Score
+                      </div>
+                    </div>
+                  )
+                }
+                <div styleName={isMM ? 'col-5 col' : 'col-4 col'}>
                   Time
                 </div>
                 {
@@ -233,6 +319,7 @@ export default function SubmissionRow({
                     auth={auth}
                     isLoggedIn={isLoggedIn}
                     submissionId={submissionHistory.submissionId}
+                    createdAt={submissionHistory.created || submissionHistory.createdAt}
                   />
                 ))
               }
@@ -257,6 +344,8 @@ SubmissionRow.defaultProps = {
   provisionalRank: null,
   rating: null,
   isLoggedIn: false,
+  isF2F: false,
+  isBugHunt: false,
 };
 
 SubmissionRow.propTypes = {
@@ -265,6 +354,8 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   challengeStatus: PT.string.isRequired,
+  isF2F: PT.bool,
+  isBugHunt: PT.bool,
   submissions: PT.arrayOf(PT.shape({
     provisionalScore: PT.oneOfType([
       PT.number,
@@ -276,12 +367,26 @@ SubmissionRow.propTypes = {
       PT.string,
       PT.oneOf([null]),
     ]),
+    initialScore: PT.oneOfType([
+      PT.number,
+      PT.string,
+      PT.oneOf([null]),
+    ]),
     status: PT.string.isRequired,
+    id: PT.string.isRequired,
     submissionId: PT.string.isRequired,
     submissionTime: PT.oneOfType([
       PT.string,
       PT.oneOf([null]),
-    ]).isRequired,
+    ]),
+    created: PT.oneOfType([
+      PT.string,
+      PT.oneOf([null]),
+    ]),
+    createdAt: PT.oneOfType([
+      PT.string,
+      PT.oneOf([null]),
+    ]),
   })).isRequired,
   rating: PT.number,
   toggleHistory: PT.func,

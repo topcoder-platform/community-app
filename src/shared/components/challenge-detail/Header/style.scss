@@ -566,6 +566,7 @@
 
 .block-tags-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -575,6 +576,7 @@
     background-color: $color-black-10 !important;
     border: none;
     margin: 0;
+    padding: 4px 8px;
 
     &:hover {
       background-color: #d4d4d4 !important;

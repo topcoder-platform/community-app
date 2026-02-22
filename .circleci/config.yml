@@ -179,6 +179,7 @@ workflows:
             branches:
               only:
                 - develop
+                - PM-3686_group-submissions-in-challenge-details
 
       - "build-prod":
           context: org-global

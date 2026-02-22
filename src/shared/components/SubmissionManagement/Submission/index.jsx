@@ -46,7 +46,7 @@ export default function Submission(props) {
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
-  const safeForDownloadCheck = safeForDownload(submissionObject.url);
+  const safeForDownloadCheck = safeForDownload(submissionObject);
   const onDownloadArtifacts = onOpenDownloadArtifactsModal.bind(1, submissionObject.id);
   const onOpenRatingsList = onOpenRatingsListModal.bind(1, submissionObject.id);
   const onOpenReviewApp = () => {
