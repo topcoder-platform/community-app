@@ -163,7 +163,7 @@ ChallengeCard.propTypes = {
   openChallengesInNewTabs: PT.bool,
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
-  userId: PT.number,
+  userId: PT.oneOfType([PT.number, PT.string]),
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,

@@ -91,7 +91,7 @@ export default function Bucket({
         && ch.task
         && ch.task.isTask
         && ch.task.isAssigned
-        && Number(ch.task.memberId) !== Number(userId)) {
+        && `${ch.task.memberId}` !== `${userId}`) {
         return null;
       }
       return ch;
@@ -313,7 +313,7 @@ Bucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
-  userId: PT.number,
+  userId: PT.oneOfType([PT.number, PT.string]),
   auth: PT.shape(),
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
