@@ -199,8 +199,10 @@ export function getUnSelectedColors(rating) {
  */
 export function getAuthTokens(req = {}) {
   const cookies = req.cookies || {};
-  let tokenV2 = cookies.tcjwt;
-  let tokenV3 = cookies.tcjwt;
+  // Support both historical cookie names used across environments.
+  const authToken = cookies.tcjwt || cookies.tcJwt;
+  let tokenV2 = authToken;
+  let tokenV3 = authToken;
 
   if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) {
     tokenV2 = '';

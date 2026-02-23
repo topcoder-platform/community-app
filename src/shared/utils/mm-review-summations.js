@@ -577,6 +577,10 @@ export function buildStatisticsData(reviewSummations = []) {
     if (!summation) {
       return false;
     }
+    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
+    if (_.isNil(score)) {
+      return false;
+    }
     return getSummationScoreClassification(summation).isProvisional;
   });
 
@@ -585,6 +589,19 @@ export function buildStatisticsData(reviewSummations = []) {
   reviewSummations.forEach((summation, index) => {
     if (!summation) {
       return;
+    }
+
+    const timestamp = getSummationTimestamp(summation);
+    const timestampValue = toTimestampValue(timestamp);
+    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
+    if (_.isNil(score)) {
+      return;
+    }
+    const scoreType = getSummationScoreClassification(summation);
+    if (includeOnlyProvisional) {
+      if (!scoreType.isProvisional) {
+        return;
+      }
     }
 
     const handle = getSummationHandle(summation);
@@ -597,23 +614,9 @@ export function buildStatisticsData(reviewSummations = []) {
     }
 
     const entry = grouped.get(handle);
-
     const rating = getSummationRating(summation);
     if (_.isNil(entry.rating) && !_.isNil(rating)) {
       entry.rating = rating;
-    }
-
-    const timestamp = getSummationTimestamp(summation);
-    const timestampValue = toTimestampValue(timestamp);
-    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
-    if (_.isNil(score)) {
-      return;
-    }
-    if (includeOnlyProvisional) {
-      const scoreType = getSummationScoreClassification(summation);
-      if (!scoreType.isProvisional) {
-        return;
-      }
     }
 
     const rawSubmissionId = _.get(
@@ -643,20 +646,22 @@ export function buildStatisticsData(reviewSummations = []) {
     entry.submissionsMap.set(submissionId, updatedSubmission);
   });
 
-  return Array.from(grouped.values()).map(entry => ({
-    handle: entry.handle,
-    rating: entry.rating,
-    submissions: Array.from(entry.submissionsMap.values())
-      .map(submission => ({
-        submissionId: submission.submissionId,
-        created: submission.created,
-        createdAt: submission.createdAt,
-        score: submission.score,
-      }))
-      .sort(
-        (a, b) => toTimestampValue(b.createdAt) - toTimestampValue(a.createdAt),
-      ),
-  }));
+  return Array.from(grouped.values())
+    .map(entry => ({
+      handle: entry.handle,
+      rating: entry.rating,
+      submissions: Array.from(entry.submissionsMap.values())
+        .map(submission => ({
+          submissionId: submission.submissionId,
+          created: submission.created,
+          createdAt: submission.createdAt,
+          score: submission.score,
+        }))
+        .sort(
+          (a, b) => toTimestampValue(b.createdAt) - toTimestampValue(a.createdAt),
+        ),
+    }))
+    .filter(entry => Array.isArray(entry.submissions) && entry.submissions.length > 0);
 }
 
 export default {
