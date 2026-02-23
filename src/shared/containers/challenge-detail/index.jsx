@@ -99,6 +99,14 @@ const MIN = 60 * 1000;
 const DAY = 24 * 60 * MIN;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+function hasRenderableStatisticsData(statisticsData) {
+  return Array.isArray(statisticsData)
+    && statisticsData.some(entry => (
+      Array.isArray(_.get(entry, 'submissions'))
+      && _.get(entry, 'submissions.length', 0) > 0
+    ));
+}
+
 /**
  * Given challenge details object, it returns the URL of the image to be used in
  * OpenGraph (i.e. in social sharing posts).
@@ -314,9 +322,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const previousToken = _.get(auth, 'tokenV3');
     const nextToken = _.get(nextProps, 'auth.tokenV3');
-    const hasStatisticsData = Array.isArray(statisticsData) && statisticsData.length > 0;
-    const nextHasStatisticsData = Array.isArray(nextProps.statisticsData)
-      && nextProps.statisticsData.length > 0;
+    const hasStatisticsData = hasRenderableStatisticsData(statisticsData);
+    const nextHasStatisticsData = hasRenderableStatisticsData(nextProps.statisticsData);
     const enteringMmDashboard = selectedTab !== DETAIL_TABS.MM_DASHBOARD
       && nextProps.selectedTab === DETAIL_TABS.MM_DASHBOARD;
     const tokenBecameAvailable = !previousToken && !!nextToken;
@@ -693,7 +700,7 @@ class ChallengeDetailPageContainer extends React.Component {
             }
             {
               !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
-              && (!statisticsData || statisticsData.length === 0)
+              && !hasRenderableStatisticsData(statisticsData)
               && (
                 <div styleName="page">
                   {
@@ -704,7 +711,7 @@ class ChallengeDetailPageContainer extends React.Component {
             }
             {
               !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
-              && statisticsData && statisticsData.length > 0
+              && hasRenderableStatisticsData(statisticsData)
               && (
                 <MMDashboardGraph
                   statisticsData={statisticsData}
@@ -1108,7 +1115,7 @@ function mapStateToProps(state, props) {
   }
   const { auth } = state;
   let statisticsData = extractArrayFromStateSlice(state.challenge.statisticsData, challengeId);
-  if ((!Array.isArray(statisticsData) || !statisticsData.length) && reviewSummations.length) {
+  if (!hasRenderableStatisticsData(statisticsData) && reviewSummations.length) {
     statisticsData = buildStatisticsData(reviewSummations);
   }
   const challenge = state.challenge.details || {};

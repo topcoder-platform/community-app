@@ -26,33 +26,41 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
     });
   });
 
-  const pointDatas = _.map(flatData, (data) => {
-    let color;
-    let isSelected = false;
-    if (point) {
-      isSelected = point.customData.handle === data.handle;
-      if (isSelected) {
-        color = getHighlightedColor(data.rating || 0);
+  const pointDatas = _.chain(flatData)
+    .map((data) => {
+      let color;
+      let isSelected = false;
+      if (point) {
+        isSelected = point.customData.handle === data.handle;
+        if (isSelected) {
+          color = getHighlightedColor(data.rating || 0);
+        } else {
+          color = getUnSelectedColors(data.rating || 0);
+        }
       } else {
-        color = getUnSelectedColors(data.rating || 0);
+        color = data.ratingColor || getRatingColor(data.rating || 0);
       }
-    } else {
-      color = data.ratingColor || getRatingColor(data.rating || 0);
-    }
-    return {
-      x: moment(data.created || data.createdAt).valueOf(),
-      y: _.max([0, data.score ? (parseFloat(data.score)) : 0]),
-      name: data.handle,
-      color,
-      customData: data,
-      marker: {
-        enabled: true,
-        width: 'circle',
-        radius: isSelected ? 6 : 4,
-      },
-      className: !isSelected && point ? styles.selectedPoint : '',
-    };
-  });
+
+      const score = parseFloat(data.score);
+      const x = moment(data.created || data.createdAt).valueOf();
+      const y = _.max([0, Number.isFinite(score) ? score : 0]);
+
+      return {
+        x,
+        y,
+        name: data.handle,
+        color,
+        customData: data,
+        marker: {
+          enabled: true,
+          width: 'circle',
+          radius: isSelected ? 6 : 4,
+        },
+        className: !isSelected && point ? styles.selectedPoint : '',
+      };
+    })
+    .filter(pointData => Number.isFinite(pointData.x) && Number.isFinite(pointData.y))
+    .value();
 
   const options = {
     plotOptions: {
@@ -79,6 +87,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
     series: [
       {
         data: pointDatas,
+        turboThreshold: 0,
         pointStart: moment(_.min(dates)).valueOf(),
         pointInterval: 24 * 3600 * 1000,
         backgroundColor: 'rgb(51,51,51)',
