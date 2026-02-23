@@ -1,0 +1,47 @@
+@import '~styles/mixins';
+
+$sm-space-10: $base-unit * 2;
+$sm-space-15: $base-unit * 3;
+$sm-space-25: $base-unit * 5;
+$sm-space-40: $base-unit * 8;
+
+.container {
+  @include roboto-regular;
+
+  overflow: hidden;
+  padding: 8 * $base-unit;
+  text-align: center;
+
+  @include xs-to-sm {
+    padding: 40px 10px;
+  }
+}
+
+.details {
+  font-weight: 400;
+  font-size: 13px;
+  color: $tc-gray-60;
+  line-height: $sm-space-25;
+  padding: 0 $sm-space-15;
+  margin-bottom: $sm-space-10;
+  text-align: justify;
+
+  a {
+    color: $tc-dark-blue;
+    text-decoration: underline;
+  }
+}
+
+.title {
+  color: $tc-red;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: $sm-space-25;
+  margin-bottom: $sm-space-10;
+  padding: 0 $sm-space-15;
+
+  .id {
+    color: #000;
+    font-weight: 500;
+  }
+}

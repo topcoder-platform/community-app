@@ -100,6 +100,7 @@ const DAY = 24 * 60 * MIN;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 const { fireErrorMessage } = errors;
 const WIPRO_REGISTRATION_BLOCKED_MESSAGE = 'Wipro employees are not allowed to participate in this Topcoder challenge';
+const WIPRO_REGISTRATION_SUPPORT_MESSAGE = 'If you think this is an error, please contact support support@topcoder.com';
 
 /**
  * Checks whether challenge registration should be blocked for Wipro members.
@@ -386,7 +387,10 @@ class ChallengeDetailPageContainer extends React.Component {
     const wiproAllowed = _.get(challenge, 'wiproAllowed');
 
     if (isWiproRegistrationBlocked(userEmail, wiproAllowed)) {
-      fireErrorMessage(WIPRO_REGISTRATION_BLOCKED_MESSAGE);
+      fireErrorMessage(
+        WIPRO_REGISTRATION_BLOCKED_MESSAGE,
+        WIPRO_REGISTRATION_SUPPORT_MESSAGE,
+      );
       return;
     }
 
