@@ -21,6 +21,33 @@ function getSummationTimestamp(summation) {
   return _.find(candidates, value => !!value) || null;
 }
 
+function getSummationScoreClassification(summation) {
+  const metadata = _.isObject(_.get(summation, 'metadata'))
+    ? _.get(summation, 'metadata')
+    : {};
+  const type = _.toLower(_.toString(_.get(summation, 'type', '')).trim());
+  const stage = _.toLower(_.toString(_.get(metadata, 'stage', '')).trim());
+  const testType = _.toLower(_.toString(_.get(metadata, 'testType', '')).trim());
+
+  const isProvisional = Boolean(
+    _.get(summation, 'isProvisional')
+    || _.get(summation, 'is_provisional')
+    || type === 'provisional'
+    || testType === 'provisional',
+  );
+  const isFinal = Boolean(
+    _.get(summation, 'isFinal')
+    || _.get(summation, 'is_final')
+    || type === 'final'
+    || stage === 'final',
+  );
+
+  return {
+    isProvisional,
+    isFinal,
+  };
+}
+
 function toTimestampValue(value) {
   if (!value) {
     return 0;
@@ -373,7 +400,10 @@ export function buildMmSubmissionData(reviewSummations = []) {
     const normalizedScore = normalizeScoreValue(
       _.get(summation, 'aggregateScore'),
     );
-    const isProvisional = Boolean(summation.isProvisional);
+    const scoreType = getSummationScoreClassification(summation);
+    // Most MM review summations are provisional updates; if an entry does not
+    // explicitly identify itself as final, treat it as provisional.
+    const isProvisional = scoreType.isProvisional || !scoreType.isFinal;
     const isLatest = _.isNil(summation.isLatest)
       ? null
       : Boolean(summation.isLatest);
@@ -415,16 +445,35 @@ export function buildMmSubmissionData(reviewSummations = []) {
           - toTimestampValue(a.submissionTime),
       );
 
-    const hasLatestFlag = submissions.some(s => !_.isNil(s.isLatest));
+    const latestProvisionalScore = _.chain(submissions)
+      .map(s => normalizeScoreValue(s.provisionalScore))
+      .find(score => !_.isNil(score))
+      .value();
+
+    const submissionsWithProvisionalFallback = submissions.map((submission) => {
+      const hasFinalScore = !_.isNil(normalizeScoreValue(submission.finalScore));
+      const hasProvisionalScore = !_.isNil(
+        normalizeScoreValue(submission.provisionalScore),
+      );
+      if (!hasFinalScore || hasProvisionalScore || _.isNil(latestProvisionalScore)) {
+        return submission;
+      }
+      return {
+        ...submission,
+        provisionalScore: latestProvisionalScore,
+      };
+    });
+
+    const hasLatestFlag = submissionsWithProvisionalFallback.some(s => !_.isNil(s.isLatest));
     const latestSubmissions = hasLatestFlag
-      ? submissions.filter(s => s.isLatest)
-      : submissions;
+      ? submissionsWithProvisionalFallback.filter(s => s.isLatest)
+      : submissionsWithProvisionalFallback;
     const candidates = latestSubmissions.length
       ? latestSubmissions
-      : submissions;
+      : submissionsWithProvisionalFallback;
     const latestSubmissionForRanking = (latestSubmissions.length
       ? latestSubmissions
-      : submissions)[0] || null;
+      : submissionsWithProvisionalFallback)[0] || null;
     // Provisional ranks should be based solely on the most recent submission,
     // not the best historical one.
     const bestProvisionalScore = normalizeScoreValue(
@@ -463,7 +512,7 @@ export function buildMmSubmissionData(reviewSummations = []) {
       rating,
       provisionalRank: null,
       finalRank: null,
-      submissions,
+      submissions: submissionsWithProvisionalFallback,
       bestProvisionalScore,
       bestProvisionalTimestamp,
       bestFinalScore,
@@ -524,6 +573,13 @@ export function buildStatisticsData(reviewSummations = []) {
     return [];
   }
 
+  const includeOnlyProvisional = reviewSummations.some((summation) => {
+    if (!summation) {
+      return false;
+    }
+    return getSummationScoreClassification(summation).isProvisional;
+  });
+
   const grouped = new Map();
 
   reviewSummations.forEach((summation, index) => {
@@ -550,6 +606,15 @@ export function buildStatisticsData(reviewSummations = []) {
     const timestamp = getSummationTimestamp(summation);
     const timestampValue = toTimestampValue(timestamp);
     const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
+    if (_.isNil(score)) {
+      return;
+    }
+    if (includeOnlyProvisional) {
+      const scoreType = getSummationScoreClassification(summation);
+      if (!scoreType.isProvisional) {
+        return;
+      }
+    }
 
     const rawSubmissionId = _.get(
       summation,

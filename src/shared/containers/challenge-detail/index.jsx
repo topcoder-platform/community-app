@@ -290,12 +290,14 @@ class ChallengeDetailPageContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
+      auth,
       challengeId,
       reloadChallengeDetails,
       // getAllRecommendedChallenges,
       // recommendedChallenges,
       // auth,
       challenge,
+      statisticsData,
       // loadingRecommendedChallengesUUID,
       history,
       selectedTab,
@@ -343,6 +345,25 @@ class ChallengeDetailPageContainer extends React.Component {
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
+    }
+
+    const previousToken = _.get(auth, 'tokenV3');
+    const nextToken = _.get(nextProps, 'auth.tokenV3');
+    const hasStatisticsData = Array.isArray(statisticsData) && statisticsData.length > 0;
+    const nextHasStatisticsData = Array.isArray(nextProps.statisticsData)
+      && nextProps.statisticsData.length > 0;
+    const enteringMmDashboard = selectedTab !== DETAIL_TABS.MM_DASHBOARD
+      && nextProps.selectedTab === DETAIL_TABS.MM_DASHBOARD;
+    const tokenBecameAvailable = !previousToken && !!nextToken;
+
+    if (
+      checkIsMM(nextProps.challenge)
+      && nextToken
+      && (tokenBecameAvailable || enteringMmDashboard)
+      && !hasStatisticsData
+      && !nextHasStatisticsData
+    ) {
+      nextProps.fetchChallengeStatistics(nextProps.auth, nextProps.challenge);
     }
 
     const { track } = nextProps.challenge;
