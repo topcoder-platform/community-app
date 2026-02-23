@@ -5,6 +5,54 @@ import _ from 'lodash';
 import moment from 'moment';
 import { REVIEW_OPPORTUNITY_TYPES } from './tc';
 
+export const DEFAULT_ESTIMATED_SUBMISSIONS = 2;
+
+export const calculateEstimatedReviewerPayment = (
+  basePayment,
+  incrementalPayment,
+  estimatedSubmissions = DEFAULT_ESTIMATED_SUBMISSIONS,
+) => {
+  const base = _.toNumber(basePayment);
+  const incremental = _.toNumber(incrementalPayment);
+  const submissions = _.toNumber(estimatedSubmissions);
+
+  if (_.isNaN(base) || _.isNaN(submissions)) {
+    return null;
+  }
+
+  const incrementalValue = _.isNaN(incremental) ? 0 : incremental;
+  return base + (submissions * incrementalValue);
+};
+
+export const withEstimatedReviewerPayments = (
+  opportunity,
+  estimatedSubmissions = DEFAULT_ESTIMATED_SUBMISSIONS,
+) => {
+  if (!opportunity) return opportunity;
+
+  const estimatedPayment = calculateEstimatedReviewerPayment(
+    _.get(opportunity, 'basePayment', _.get(opportunity, 'payments[0].payment')),
+    _.get(opportunity, 'incrementalPayment', 0),
+    estimatedSubmissions,
+  );
+
+  if (!_.isNumber(estimatedPayment)) {
+    return opportunity;
+  }
+
+  const payments = Array.isArray(opportunity.payments)
+    ? opportunity.payments.map(payment => ({
+      ...payment,
+      payment: estimatedPayment,
+    }))
+    : opportunity.payments;
+
+  return {
+    ...opportunity,
+    payments,
+  };
+};
+
 /**
  * Infers open positions using review opportunity details and organizes them by role
  *
@@ -14,7 +62,10 @@ import { REVIEW_OPPORTUNITY_TYPES } from './tc';
 export const openPositionsByRole = (details) => {
   if (!details.payments) return [];
 
-  const roleCount = details.payments.length;
+  const detailsWithPayments = withEstimatedReviewerPayments(details);
+  const payments = detailsWithPayments.payments || [];
+
+  const roleCount = payments.length;
 
   let approved;
   if (details.applications && details.openPositions === 1 && roleCount === 2) {
@@ -28,7 +79,7 @@ export const openPositionsByRole = (details) => {
     return details.openPositions / roleCount;
   };
 
-  return details.payments.map(({ role, roleId, payment }) => ({
+  return payments.map(({ role, roleId, payment }) => ({
     role,
     roleId,
     payment,
@@ -118,6 +169,20 @@ export const getReviewOpportunitiesFilterFunction = (state, validTypes) => (opp)
     'Quality Assurance': 'QA',
   };
 
+  const normalizedTrackMap = {
+    DEVELOPMENT: 'Dev',
+    DEVELOP: 'Dev',
+    DEV: 'Dev',
+    DESIGN: 'Des',
+    DES: 'Des',
+    'DATA SCIENCE': 'DS',
+    DATA_SCIENCE: 'DS',
+    DATASCIENCE: 'DS',
+    QA: 'QA',
+    'QUALITY ASSURANCE': 'QA',
+    QUALITY_ASSURANCE: 'QA',
+  };
+
   const { challengeData } = opp;
 
   // const newType = _.find(validTypes, { name: opp.challenge.type }) || {};
@@ -135,7 +200,9 @@ export const getReviewOpportunitiesFilterFunction = (state, validTypes) => (opp)
     // communities: new Set([ // Used to filter by Track, and communities at a future date
     // opp.challenge.track === 'QA' ? 'Dev' : trackAbbr[opp.challenge.track],
     // ]),
-    track: trackAbbr[challengeData.track],
+    track: normalizedTrackMap[(challengeData.track || '').toString().trim().toUpperCase()]
+      || trackAbbr[challengeData.track]
+      || challengeData.track,
     typeId: newType.abbreviation,
     tags: challengeData.technologies || [],
     platforms: challengeData.platforms || [],

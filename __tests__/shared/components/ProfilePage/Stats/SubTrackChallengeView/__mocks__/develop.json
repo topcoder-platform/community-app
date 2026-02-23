@@ -16,7 +16,7 @@
         "submissions": [{
             "id": 520456,
             "submittedAt": "2017-12-02T11:57Z",
-            "status": "Active",
+            "status": "ACTIVE",
             "score": 100.0,
             "placement": 1,
             "challengeId": 30060905,
@@ -172,7 +172,7 @@
         }, {
         "id": 520452,
         "submittedAt": "2017-12-02T11:11Z",
-        "status": "Active",
+        "status": "ACTIVE",
         "score": 100.0,
         "placement": 1,
         "challengeId": 30060903,
@@ -370,7 +370,7 @@
         }, {
         "id": 246093,
         "submittedAt": "2017-11-25T13:36Z",
-        "status": "Active",
+        "status": "ACTIVE",
         "score": 100.0,
         "placement": 1,
         "challengeId": 30060687,
@@ -700,7 +700,7 @@
         }, {
         "id": 245457,
         "submittedAt": "2017-11-13T22:25Z",
-        "status": "Active",
+        "status": "ACTIVE",
         "score": 100.0,
         "placement": 1,
         "challengeId": 30060425,

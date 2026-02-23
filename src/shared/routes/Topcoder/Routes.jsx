@@ -27,6 +27,7 @@ import EDUHome from '../EDUHome';
 import EDUTracks from '../EDUTracks';
 import EDUSearch from '../EDUSearch';
 import ChallengeListing from './ChallengeListing';
+import EngagementListing from './EngagementListing';
 import Dashboard from './Dashboard';
 import Notifications from './Notifications';
 import HallOfFame from '../HallOfFame';
@@ -60,6 +61,7 @@ export default function Topcoder() {
                 path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})"
               />
               <Route component={ChallengeListing} exact path="/challenges" />
+              <Route component={EngagementListing} exact path="/engagements" />
               <Route component={Notifications} exact path="/notifications" />
               <Redirect
                 exact

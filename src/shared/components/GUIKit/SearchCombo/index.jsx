@@ -22,10 +22,14 @@ function SearchCombo({
     } else {
       getService(auth.tokenV3).getSkills(inputValue).then(
         (response) => {
-          const suggestedOptions = (response || []).map(skillItem => ({
-            label: skillItem.name,
-            value: skillItem.name,
-          }));
+          const suggestedOptions = (response || [])
+            .map((skillItem) => {
+              const label = skillItem && (skillItem.name || skillItem.label || skillItem.title);
+              if (!label) return null;
+              const value = skillItem.id || skillItem.skillId || skillItem.value || label;
+              return { label, value };
+            })
+            .filter(Boolean);
           return callback(null, {
             options: suggestedOptions,
           });
@@ -40,8 +44,9 @@ function SearchCombo({
         terms={skills}
         placeholder={placeholder}
         onChange={(newSkill) => {
-          setSkills(newSkill);
-          onSearch(newSkill);
+          const nextSkill = newSkill || '';
+          setSkills(nextSkill);
+          onSearch(nextSkill);
         }}
         cacheOptions
         loadOptions={fetchSkills}
@@ -58,7 +63,13 @@ SearchCombo.defaultProps = {
 };
 
 SearchCombo.propTypes = {
-  term: PT.string,
+  term: PT.oneOfType([
+    PT.string,
+    PT.shape({
+      label: PT.string,
+      value: PT.string,
+    }),
+  ]),
   placeholder: PT.string,
   onSearch: PT.func.isRequired,
   auth: PT.object,

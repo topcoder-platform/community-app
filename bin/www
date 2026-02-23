@@ -10,5 +10,38 @@ require('babel-register')({
   ],
 });
 
+/* Provide globalThis in older Node runtimes (e.g. Node 10). */
+if (typeof globalThis === 'undefined') {
+  global.globalThis = global;
+}
+
+/* Provide crypto.sign/crypto.verify in older Node runtimes (e.g. Node 10). */
+const crypto = require('crypto');
+if (typeof crypto.sign !== 'function') {
+  crypto.sign = (algorithm, data, key) => {
+    const signer = crypto.createSign(algorithm);
+    signer.update(data);
+    signer.end();
+    return signer.sign(key);
+  };
+}
+if (typeof crypto.verify !== 'function') {
+  crypto.verify = (algorithm, data, key, signature) => {
+    const verifier = crypto.createVerify(algorithm);
+    verifier.update(data);
+    verifier.end();
+    return verifier.verify(key, signature);
+  };
+}
+
+/* Provide TextEncoder/TextDecoder in older Node runtimes (e.g. Node 10). */
+const { TextDecoder, TextEncoder } = require('util');
+if (typeof global.TextEncoder === 'undefined') {
+  global.TextEncoder = TextEncoder;
+}
+if (typeof global.TextDecoder === 'undefined') {
+  global.TextDecoder = TextDecoder;
+}
+
 /* Runs the ExpressJS startup script. */
 require('../src/server');

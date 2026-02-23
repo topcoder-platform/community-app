@@ -9,6 +9,7 @@ module.exports = {
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
     V6: 'https://api.topcoder-dev.com/v6',
+    ENGAGEMENTS: 'https://api.topcoder-dev.com/v6/engagements/engagements',
     MM_BROKER: '/api',
   },
 
@@ -106,6 +107,7 @@ module.exports = {
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
     CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
     COPILOTS_URL: 'https://copilots.topcoder-dev.com',
+    ENGAGEMENTS_APP: 'https://engagements.topcoder-dev.com',
     TCO_OPEN_URL: 'https://www.topcoder-dev.com/community/member-programs/topcoder-open',
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',
@@ -179,6 +181,8 @@ module.exports = {
    * This value [seconds] specifies the maximum age after which a group data
    * object should be considered outdated, and updated as soon as possible. */
   USER_GROUP_MAXAGE: 24 * 60 * 60 * 1000,
+  REVIEW_APP_URL: 'https://review.topcoder-dev.com',
+
 
   /* Maximum time to wait before timeout on searching past challenges (seconds)
    * when no result at all.
@@ -333,6 +337,10 @@ module.exports = {
             {
               title: 'All Challenges',
               href: '/challenges',
+            },
+            {
+              title: 'Engagements',
+              href: '/engagements',
             },
             {
               title: 'Competitive Programming',

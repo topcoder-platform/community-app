@@ -1,0 +1,135 @@
+@import "~styles/mixins";
+@import "~components/GUIKit/Assets/Styles/default";
+@import "~components/Contentful/default";
+@import "~components/buttons/themed/tc";
+
+.container {
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #2a2a2a;
+  padding: 25px 35px 25px 44px;
+  margin-bottom: 15px;
+
+  @include gui-kit-headers;
+  @include gui-kit-content;
+  @include roboto-regular;
+
+  .gig-name,
+  .gig-name:visited,
+  .gig-name:active,
+  .gig-name:hover {
+    color: #1e94a3;
+    display: inline-block;
+    font-family: Barlow, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    margin-bottom: 12px;
+    margin-top: 0;
+    min-width: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  @include xs-to-sm {
+    margin-bottom: 20px;
+  }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid #e1e1e1;
+  background-color: #f7f7f7;
+  color: #2a2a2a;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.job-infos {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1fr 1.3fr 0.9fr 141px;
+  column-gap: 20px;
+  align-items: center;
+
+  @include xs-to-sm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.icon-val {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+
+  @include xs-to-sm {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  svg,
+  img {
+    margin-right: 7px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    min-width: 20px;
+    min-height: 20px;
+  }
+}
+
+.row-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 141px;
+
+  @include xs-to-sm {
+    justify-content: flex-start;
+    width: auto;
+    margin-bottom: 10px;
+  }
+}
+
+.primary-green-md {
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  @include primary-green;
+  @include md;
+
+  &:hover {
+    @include primary-green;
+  }
+
+  &:disabled,
+  &:hover:disabled {
+    background-color: #e9e9e9 !important;
+    border: none !important;
+    text-decoration: none !important;
+    color: #fafafb !important;
+    box-shadow: none !important;
+  }
+}

@@ -15,6 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { CHALLENGE_STATUS, COMPETITION_TRACKS, safeForDownload } from 'utils/tc';
+import { config } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
 
@@ -27,7 +28,6 @@ import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
 
 import './styles.scss';
-
 
 export default function Submission(props) {
   const {
@@ -42,12 +42,21 @@ export default function Submission(props) {
     onOpenRatingsListModal,
     status,
     allowDelete,
+    isWorkflowRunComplete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
-  const safeForDownloadCheck = safeForDownload(submissionObject.url);
+  const safeForDownloadCheck = safeForDownload(submissionObject);
   const onDownloadArtifacts = onOpenDownloadArtifactsModal.bind(1, submissionObject.id);
   const onOpenRatingsList = onOpenRatingsListModal.bind(1, submissionObject.id);
+  const onOpenReviewApp = () => {
+    if (!challenge || !challenge.id) return;
+    const tab = submissionObject.type === 'CHECKPOINT_SUBMISSION'
+      ? 'checkpoint-submission'
+      : 'submission';
+    const url = `${config.REVIEW_APP_URL}/active-challenges/${challenge.id}/challenge-details?tab=${tab}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   // Determine if a challenge is for Topcrowd so we can edit the UI accordingly
   let isTopCrowdChallenge = false;
@@ -57,6 +66,10 @@ export default function Submission(props) {
       isTopCrowdChallenge = isTopCrowdChallengeData.value;
     }
   }
+
+  const showDeleteButton = status !== CHALLENGE_STATUS.COMPLETED
+  && track === COMPETITION_TRACKS.DES
+  && safeForDownloadCheck === true;
 
   return (
     <tr styleName="submission-row">
@@ -117,7 +130,7 @@ export default function Submission(props) {
             : <span /> }
           { !isTopCrowdChallenge
             ? (
-              <Tooltip content={() => <div styleName="tooltip-content">Show Scores</div>}>
+              <Tooltip content={() => <div styleName="tooltip-content">Show scores</div>}>
                 <button
                   onClick={() => onOpenRatingsList()}
                   type="button"
@@ -138,19 +151,48 @@ export default function Submission(props) {
              onClick={() => onDownload(submissionObject.id)}
            ><DownloadIcon /></button>
            */ }
-          {status !== CHALLENGE_STATUS.COMPLETED
-             && track === COMPETITION_TRACKS.DES
-             && safeForDownloadCheck === true && (
-             <button
-               styleName="delete-icon"
-               onClick={() => onDelete(submissionObject.id)}
-               disabled={!allowDelete}
-               type="button"
-             >
-               <DeleteIcon />
-             </button>
+          {showDeleteButton && (
+            isWorkflowRunComplete ? (
+              <button
+                styleName="delete-icon"
+                onClick={() => onDelete(submissionObject.id)}
+                type="button"
+                disabled={!allowDelete}
+              >
+                <DeleteIcon />
+              </button>
+            ) : (
+            // Disabled delete button with tooltip when workflow run is pending
+              <Tooltip content={() => (
+                <div styleName="tooltip-content">
+                  You can delete this submission only after the review is complete.
+                </div>
+              )}
+              >
+                <button
+                  styleName="delete-icon"
+                  disabled
+                  type="button"
+                >
+                  <DeleteIcon />
+                </button>
+              </Tooltip>
+            )
           )
           }
+          { !isTopCrowdChallenge
+            ? (
+              <Tooltip content={() => <div styleName="tooltip-content">View Review Info</div>}>
+                <button
+                  onClick={() => onOpenReviewApp()}
+                  type="button"
+                  styleName="review-button"
+                >
+                  Review
+                </button>
+              </Tooltip>
+            )
+            : <span />}
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.id)}
@@ -196,4 +238,5 @@ Submission.propTypes = {
   allowDelete: PT.bool.isRequired,
   onOpenDownloadArtifactsModal: PT.func,
   onOpenRatingsListModal: PT.func,
+  isWorkflowRunComplete: PT.bool.isRequired,
 };

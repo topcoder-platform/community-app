@@ -1,4 +1,5 @@
 import { config } from 'topcoder-react-utils';
+import { withEstimatedReviewerPayments } from 'utils/reviewOpportunities';
 
 const v6ApiUrl = config.API.V6;
 
@@ -22,7 +23,10 @@ export default async function getReviewOpportunities(page, pageSize) {
     throw new Error(res.statusText);
   }
 
-  return res.json();
+  const data = await res.json();
+
+  const opportunities = Array.isArray(data) ? data : [];
+  return opportunities.map(opportunity => withEstimatedReviewerPayments(opportunity));
 }
 
 /**
@@ -51,7 +55,7 @@ export async function getDetails(challengeId, opportunityId) {
     const challengeData = await challengeRes.json();
 
     return {
-      ...opportunityData.result.content,
+      ...withEstimatedReviewerPayments(opportunityData.result.content),
       challenge: challengeData,
     };
   } catch (err) {

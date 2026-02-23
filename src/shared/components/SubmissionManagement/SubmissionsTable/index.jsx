@@ -24,6 +24,7 @@ import ScreeningDetails from '../ScreeningDetails';
 import DownloadArtifactsModal from '../DownloadArtifactsModal';
 import Submission from '../Submission';
 import RatingsListModal from '../RatingsListModal';
+import TableWorkflowRuns from '../TableWorkflowRuns';
 
 import './styles.scss';
 
@@ -35,6 +36,7 @@ export default function SubmissionsTable(props) {
   const {
     challenge,
     submissionObjects,
+    submissionWorkflowRuns,
     showDetails,
     track,
     onDelete,
@@ -72,8 +74,28 @@ export default function SubmissionsTable(props) {
     submissionObjects.forEach((subObject) => {
       // submissionPhaseStartDate will be the start date of
       // the current submission/checkpoint or empty string if any other phase
+
+      const TERMINAL_STATUSES = [
+        'COMPLETED',
+        'FAILURE',
+        'CANCELLED',
+        'SUCCESS',
+      ];
+
+      const workflowRunsForSubmission = submissionWorkflowRuns
+      && submissionWorkflowRuns[subObject.id]
+        ? submissionWorkflowRuns[subObject.id]
+        : null;
+
+      const hasRuns = workflowRunsForSubmission && workflowRunsForSubmission.length > 0;
+
+      const isWorkflowRunComplete = !hasRuns
+        ? true
+        : workflowRunsForSubmission.every(run => TERMINAL_STATUSES.includes(run.status));
+
       const allowDelete = submissionPhaseStartDate
         && moment(subObject.submissionDate).isAfter(submissionPhaseStartDate);
+
 
       const submission = (
         <Submission
@@ -89,6 +111,7 @@ export default function SubmissionsTable(props) {
           allowDelete={allowDelete}
           onOpenDownloadArtifactsModal={onOpenDownloadArtifactsModal}
           onOpenRatingsListModal={onOpenRatingsListModal}
+          isWorkflowRunComplete={isWorkflowRunComplete}
         />
       );
       submissionsWithDetails.push(submission);
@@ -98,6 +121,13 @@ export default function SubmissionsTable(props) {
           {showDetails[subObject.id]
             && (
             <td colSpan="6" styleName="dev-details">
+              <div styleName="workflow-table">
+                <TableWorkflowRuns
+                  workflowRuns={workflowRunsForSubmission}
+                  challengeId={challenge.id}
+                />
+              </div>
+
               <ScreeningDetails
                 screeningObject={subObject.screening}
                 helpPageUrl={helpPageUrl}
@@ -186,10 +216,12 @@ SubmissionsTable.defaultProps = {
   onlineReviewUrl: '',
   helpPageUrl: '',
   getSubmissionScores: _.noop,
+  submissionWorkflowRuns: [],
 };
 
 SubmissionsTable.propTypes = {
   challenge: PT.shape().isRequired,
+  submissionWorkflowRuns: PT.shape(),
   submissionObjects: PT.arrayOf(SubShape),
   showDetails: PT.shape().isRequired,
   track: PT.string.isRequired,
