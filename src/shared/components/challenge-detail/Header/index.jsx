@@ -75,6 +75,7 @@ export default function ChallengeHeader(props) {
     pointPrizes,
     events,
     prizeSets,
+    funChallenge,
     reliabilityBonus,
     numOfRegistrants,
     numOfCheckpointSubmissions,
@@ -379,7 +380,11 @@ export default function ChallengeHeader(props) {
         <div>
           <div styleName="prizes-ops-container">
             <div styleName="prizes-outer-container">
-              <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
+              <Prizes
+                isFunChallenge={funChallenge === true}
+                prizes={prizes && prizes.length ? prizes : [0]}
+                pointPrizes={pointPrizes}
+              />
               {
                   bonusType ? (
                     <div id={`bonus-${trackLower}`} styleName="bonus-div">
@@ -584,6 +589,7 @@ ChallengeHeader.propTypes = {
     platforms: PT.any,
     tags: PT.any,
     skills: PT.any,
+    funChallenge: PT.bool,
     prizes: PT.any,
     timelineTemplateId: PT.string,
     reliabilityBonus: PT.any,

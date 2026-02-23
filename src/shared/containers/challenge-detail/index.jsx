@@ -52,7 +52,7 @@ import { hasOpenSubmissionPhase } from 'utils/challengePhases';
 import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
 import { decodeToken } from '@topcoder-platform/tc-auth-lib';
-import { actions, services } from 'topcoder-react-lib';
+import { actions, errors, services } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
 import getReviewSummationsService from 'services/reviewSummations';
@@ -98,6 +98,41 @@ import './styles.scss';
 const MIN = 60 * 1000;
 const DAY = 24 * 60 * MIN;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+const { fireErrorMessage } = errors;
+const WIPRO_REGISTRATION_BLOCKED_MESSAGE = 'Wipro employees are not allowed to participate in this Topcoder challenge';
+const WIPRO_REGISTRATION_SUPPORT_MESSAGE = 'If you think this is an error, please contact support support@topcoder.com';
+
+/**
+ * Checks whether challenge registration should be blocked for Wipro members.
+ * @param {String} email User email.
+ * @param {Boolean} wiproAllowed Challenge-level flag.
+ * @return {Boolean}
+ */
+export function isWiproRegistrationBlocked(email, wiproAllowed) {
+  if (wiproAllowed !== false) return false;
+  return /@wipro\.com$/i.test(_.trim(email || ''));
+}
+
+/**
+ * Returns winners to display in challenge detail.
+ * For non-task challenges we only keep final winners, while supporting
+ * legacy winner type values like "Final".
+ *
+ * @param {Object} challenge Challenge details object.
+ * @returns {Array<Object>} Winners for display.
+ */
+export function getDisplayWinners(challenge = {}) {
+  const winners = _.get(challenge, 'winners', []);
+
+  if (getTypeName(challenge) === 'Task') {
+    return winners;
+  }
+
+  return winners.filter((winner = {}) => {
+    const winnerType = _.toLower(_.trim(_.toString(winner.type)));
+    return !winner.type || winnerType === 'final';
+  });
+}
 
 function hasRenderableStatisticsData(statisticsData) {
   return Array.isArray(statisticsData)
@@ -373,8 +408,20 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     const {
       auth,
+      challenge,
       communityId,
     } = this.props;
+    const userEmail = _.get(auth, 'user.email');
+    const wiproAllowed = _.get(challenge, 'wiproAllowed');
+
+    if (isWiproRegistrationBlocked(userEmail, wiproAllowed)) {
+      fireErrorMessage(
+        WIPRO_REGISTRATION_BLOCKED_MESSAGE,
+        WIPRO_REGISTRATION_SUPPORT_MESSAGE,
+      );
+      return;
+    }
+
     if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
       window.location.href = appendUtmParamsToUrl(
@@ -512,10 +559,7 @@ class ChallengeDetailPageContainer extends React.Component {
       return <LoadingPagePlaceholder />;
     }
 
-    let winners = challenge.winners || [];
-    if (getTypeName(challenge) !== 'Task') {
-      winners = winners.filter(w => !w.type || w.type === 'final');
-    }
+    const winners = getDisplayWinners(challenge);
 
     let hasFirstPlacement = false;
     if (!_.isEmpty(winners)) {

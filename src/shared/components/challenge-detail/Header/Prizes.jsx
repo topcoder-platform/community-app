@@ -7,13 +7,25 @@ import PT from 'prop-types';
 
 import './style.scss';
 
+const FUN_CHALLENGE_PRIZE_LABEL = 'No individual prize - leaderboard scoring';
+
 function getOrdinal(num) {
   const ordinals = ['th', 'st', 'nd', 'rd'];
   const v = num % 100;
   return ordinals[(v - 20) % 10] || ordinals[v] || ordinals[0];
 }
 
-export default function Prizes({ pointPrizes, prizes }) {
+export default function Prizes({ isFunChallenge, pointPrizes, prizes }) {
+  if (isFunChallenge) {
+    return (
+      <div styleName="prizes-container">
+        <p styleName="fun-challenge-prize">
+          {FUN_CHALLENGE_PRIZE_LABEL}
+        </p>
+      </div>
+    );
+  }
+
   const prizeLength = Math.max(pointPrizes.length, prizes.length);
   return (
     <div styleName="prizes-container">
@@ -62,11 +74,13 @@ export default function Prizes({ pointPrizes, prizes }) {
 }
 
 Prizes.defaultProps = {
+  isFunChallenge: false,
   pointPrizes: [],
   prizes: [],
 };
 
 Prizes.propTypes = {
+  isFunChallenge: PT.bool,
   pointPrizes: PT.arrayOf(PT.number),
   prizes: PT.arrayOf(PT.shape()),
 };
