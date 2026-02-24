@@ -619,19 +619,6 @@ export function buildStatisticsData(reviewSummations = []) {
       entry.rating = rating;
     }
 
-    const timestamp = getSummationTimestamp(summation);
-    const timestampValue = toTimestampValue(timestamp);
-    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
-    if (_.isNil(score)) {
-      return;
-    }
-    if (includeOnlyProvisional) {
-      const scoreType = getSummationScoreClassification(summation);
-      if (!scoreType.isProvisional) {
-        return;
-      }
-    }
-
     const rawSubmissionId = _.get(
       summation,
       'submissionId',
