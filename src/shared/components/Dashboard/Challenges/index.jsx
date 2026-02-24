@@ -39,13 +39,18 @@ export default function ChallengesFeed({
           </div>
         ) : (
           (challenges || []).map((challenge) => {
-            const placementPrizes = challenge.prizeSets
-              .filter(set => set.type === 'PLACEMENT')
-              .flatMap(item => item.prizes);
+            const isFunChallenge = challenge.funChallenge === true;
+            const placementPrizes = _.flatMap(
+              (challenge.prizeSets || []).filter(set => set.type === 'PLACEMENT'),
+              item => item.prizes,
+            );
             const prizeTotal = _.sum(placementPrizes.map(prize => prize.value));
             const prizeType = placementPrizes.length > 0 ? placementPrizes[0].type : null;
             const isPointBasedPrize = prizeType === 'POINT';
             const prizeSymbol = isPointBasedPrize ? '' : '$';
+            const prizeDisplay = isFunChallenge
+              ? 'Fun'
+              : `${prizeSymbol}${prizeTotal.toLocaleString()}`;
 
             return (
               <div styleName="row" key={challenge.id}>
@@ -58,7 +63,7 @@ export default function ChallengesFeed({
                 </a>
                 <div styleName="prize">
                   <span styleName="amount">
-                    {`${prizeSymbol}${prizeTotal.toLocaleString()}`}
+                    {prizeDisplay}
                   </span>
                 </div>
               </div>
