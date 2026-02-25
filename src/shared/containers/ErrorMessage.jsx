@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import style from './ErrorMessage.scss';
 
 const WIPRO_REGISTRATION_BLOCKED_MESSAGE = 'Wipro employees are not allowed to participate in this Topcoder challenge';
-const WIPRO_REGISTRATION_SUPPORT_MESSAGE = 'If you think this is an error, please contact support support@topcoder.com';
+const WIPRO_REGISTRATION_SUPPORT_MESSAGE = 'If you think this is an error, please contact support@topcoder.com';
 const SCROLLING_DISABLED_CLASS_NAME = 'scrolling-disabled-by-modal';
 
 /**
@@ -80,7 +80,9 @@ class ErrorMessageContainer extends React.Component {
             {error.details && !isWiproError ? (
               <p styleName="details">{error.details}</p>
             ) : null}
-            <p styleName="details">{this.renderSupportMessage()}</p>
+            <p styleName={isWiproError ? 'details wiproSupport' : 'details'}>
+              {this.renderSupportMessage()}
+            </p>
             <DangerButton
               onClick={(e) => {
                 e.preventDefault();
