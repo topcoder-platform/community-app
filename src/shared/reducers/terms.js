@@ -29,7 +29,7 @@ function sortTerms(terms) {
  */
 function onGetTermsDone(state, action) {
   if (action.error) {
-    logger.error('Failed to get terms!', action.payload);
+    logger.error('Failed to get terms!', action);
     return {
       ...state,
       terms: [],
