@@ -25,7 +25,7 @@ function getTermsDone(entity, tokens, mockAgreed) {
   if (!tokens || !tokens.tokenV3) {
     // eslint-disable-next-line no-console
     console.warn(
-      "getTermsDone called without a valid tokenV3, skipping API call",
+      'getTermsDone called without a valid tokenV3, skipping API call',
     );
     return Promise.resolve({ entity, terms: [] });
   }
