@@ -199,8 +199,6 @@ export function getUnSelectedColors(rating) {
  */
 export function getAuthTokens(req = {}) {
   const cookies = req.cookies || {};
-  // Support both historical cookie names used across environments.
-  const authToken = cookies.tcjwt || cookies.tcJwt;
   let tokenV2 = cookies.tcjwt;
   let tokenV3 = cookies.tcjwt;
 
