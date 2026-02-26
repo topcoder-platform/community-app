@@ -32,6 +32,9 @@ function getTermsDone(entity, tokens, mockAgreed) {
   // but we will hardly have even more then 3 terms per entity)
   const mockAgreedArray = mockAgreed ? Array(10 + 1).join('1').split('').map(() => true) : [];
 
+  // eslint-disable-next-line no-console
+  console.log()('Getting terms for entity', entity, 'with mockAgreed', mockAgreed, 'and mockAgreedArray', mockAgreedArray, 'tokens', tokens);
+
   switch (entity.type) {
     case 'challenge': {
       termsPromise = service.getChallengeTerms(entity.terms, mockAgreedArray);
