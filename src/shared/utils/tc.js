@@ -201,8 +201,8 @@ export function getAuthTokens(req = {}) {
   const cookies = req.cookies || {};
   // Support both historical cookie names used across environments.
   const authToken = cookies.tcjwt || cookies.tcJwt;
-  let tokenV2 = authToken;
-  let tokenV3 = authToken;
+  let tokenV2 = cookies.tcjwt;
+  let tokenV3 = cookies.tcjwt;
 
   if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) {
     tokenV2 = '';
