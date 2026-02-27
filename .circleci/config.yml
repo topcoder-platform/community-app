@@ -180,6 +180,7 @@ workflows:
               only:
                 - develop
                 - PM-3686_group-submissions-in-challenge-details
+                - hide-terms-for-loggedout-users
 
       - "build-prod":
           context: org-global
