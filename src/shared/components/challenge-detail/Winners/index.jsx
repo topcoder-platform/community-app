@@ -18,6 +18,7 @@ const { getService } = services.submissions;
 export default function Winners({
   winners,
   prizes,
+  isFunChallenge,
   submissions,
   viewable,
   isDesign,
@@ -94,6 +95,7 @@ export default function Winners({
             isRDM={isRDM}
             key={`${w.handle}-${w.placement}`}
             prizes={prizes}
+            isFunChallenge={isFunChallenge}
             submissions={submissions}
             viewable={viewable}
             winner={w}
@@ -109,6 +111,7 @@ export default function Winners({
 Winners.defaultProps = {
   winners: [],
   prizes: [],
+  isFunChallenge: false,
   submissions: [],
   viewable: false,
   isDesign: false,
@@ -121,6 +124,7 @@ Winners.defaultProps = {
 Winners.propTypes = {
   winners: PT.arrayOf(PT.shape()),
   prizes: PT.arrayOf(PT.shape()),
+  isFunChallenge: PT.bool,
   submissions: PT.arrayOf(PT.shape()),
   viewable: PT.bool,
   isDesign: PT.bool,

@@ -293,7 +293,7 @@ export default class Registrants extends React.Component {
       prizeSets,
       prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',
     );
-    const { prizes } = placementPrizes || [];
+    const prizes = _.get(placementPrizes, 'prizes', []);
 
     const checkpoints = challenge.checkpoints || [];
 
