@@ -20,7 +20,9 @@ class TermsPageContainer extends React.Component {
       loadTerms, authTokens, entity, termsForEntity,
     } = this.props;
 
-    if (!_.isEqual(entity, termsForEntity)) {
+    // Only load terms for authenticated users
+    const isLoggedIn = !_.isEmpty(authTokens.tokenV3);
+    if (isLoggedIn && !_.isEqual(entity, termsForEntity)) {
       loadTerms(authTokens, entity);
     }
   }
@@ -31,7 +33,9 @@ class TermsPageContainer extends React.Component {
     // this is currently never happens that we have mounted Terms component
     // which persist without unmounting during entity is changed
     // but just in case better to support such case to avoid hidden unexpected behavior
-    if (!_.isEqual(nextProps.entity, entity)) {
+    // Only load terms for authenticated users
+    const isLoggedIn = !_.isEmpty(authTokens.tokenV3);
+    if (isLoggedIn && !_.isEqual(nextProps.entity, entity)) {
       loadTerms(authTokens, nextProps.entity);
     }
   }
