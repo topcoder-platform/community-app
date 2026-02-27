@@ -596,6 +596,7 @@ class ChallengeDetailPageContainer extends React.Component {
               !isEmpty && selectedTab === DETAIL_TABS.DETAILS
               && (
                 <ChallengeDetailsView
+                  auth={auth}
                   challenge={challenge}
                   challengesUrl={challengesUrl}
                   communitiesList={communitiesList.data}
@@ -738,15 +739,17 @@ class ChallengeDetailPageContainer extends React.Component {
             }
           </div>
 
-          <Terms
-            defaultTitle="Challenge Prerequisites"
-            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
-            instanceId={this.instanceId}
-            description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
-            register={() => {
-              registerForChallenge(auth, challengeId);
-            }}
-          />
+          {isLoggedIn && (
+            <Terms
+              defaultTitle="Challenge Prerequisites"
+              entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
+              instanceId={this.instanceId}
+              description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
+              register={() => {
+                registerForChallenge(auth, challengeId);
+              }}
+            />
+          )}
 
           {showSecurityReminder && (
             <SecurityReminder

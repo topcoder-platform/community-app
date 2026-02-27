@@ -34,7 +34,10 @@ export default function ChallengeDetailsView(props) {
     setSpecsTabState,
     specsTabState,
     updateChallenge,
+    auth,
   } = props;
+
+  const isLoggedIn = !_.isEmpty(auth && auth.tokenV3);
 
   const {
     groups,
@@ -371,7 +374,7 @@ export default function ChallengeDetailsView(props) {
             isDevelop={(getTrackName(track) || '').toLowerCase() === 'development'}
             eventDetail={_.isEmpty(events) ? null : events[0]}
             isMM={isMM(challenge)}
-            terms={terms}
+            terms={isLoggedIn ? terms : []}
             // shareable={_.isEmpty(groups)}
             environment={environment}
             codeRepo={codeRepo}
@@ -405,6 +408,7 @@ ChallengeDetailsView.defaultProps = {
 };
 
 ChallengeDetailsView.propTypes = {
+  auth: PT.shape(),
   terms: PT.arrayOf(PT.shape()),
   challenge: PT.shape({
     description: PT.string,
