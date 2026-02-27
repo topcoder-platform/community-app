@@ -390,6 +390,7 @@ export default function ChallengeDetailsView(props) {
 }
 
 ChallengeDetailsView.defaultProps = {
+  auth: {},
   terms: [],
   challenge: {
     description: undefined,
