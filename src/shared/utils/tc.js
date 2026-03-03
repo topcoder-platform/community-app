@@ -387,12 +387,13 @@ export function safeForDownload(submission) {
   if (submission == null || !submission.url) return 'Download link unavailable';
 
   const { url } = submission;
-  if (url.toLowerCase().indexOf('submissions-quarantine/') !== -1 || submission.virusScan === false) {
-    return 'Malware found in submission';
+
+  if (url.toLowerCase().indexOf('submissions-dmz/') !== -1 || (submission.virusScan !== false && !submission.virusScan)) {
+    return 'AV Scan in progress';
   }
 
-  if (url.toLowerCase().indexOf('submissions-dmz/') !== -1 || !submission.virusScan) {
-    return 'AV Scan in progress';
+  if (url.toLowerCase().indexOf('submissions-quarantine/') !== -1 || submission.virusScan === false) {
+    return 'Malware found in submission';
   }
 
   return true;
