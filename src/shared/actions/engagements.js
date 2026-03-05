@@ -11,9 +11,14 @@ function getEngagementsInit(uuid, page, filters) {
   return { uuid, page, filters };
 }
 
+/**
+ * Fetches public engagements for the requested page and filters.
+ * The `status` filter is always forced to `OPEN` for the public feed.
+ */
 async function getEngagementsDone(uuid, page, filters, tokenV3) {
   try {
-    const { engagements, meta } = await getEngagements(page, PAGE_SIZE, filters, tokenV3);
+    const publicFilters = { ...filters, status: 'OPEN' };
+    const { engagements, meta } = await getEngagements(page, PAGE_SIZE, publicFilters, tokenV3);
 
     return {
       uuid,
