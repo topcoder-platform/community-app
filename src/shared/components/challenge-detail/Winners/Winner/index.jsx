@@ -21,6 +21,7 @@ export default function Winner({
   isMM,
   isRDM,
   prizes,
+  isFunChallenge,
   submissions,
   viewable,
   winner,
@@ -52,12 +53,12 @@ export default function Winner({
     prizeType = prizes[prizeIndex].type;
   }
 
-  // Handle point prizes on the winners display
+  // Hide prize text for fun challenges, as they do not have individual payouts.
   let prizeText = '';
-  if (prizeType === 'POINT') {
-    prizeText = numberWithCommas(prize);
-  } else {
-    prizeText = `$${numberWithCommas(prize)}`;
+  if (!isFunChallenge) {
+    prizeText = prizeType === 'POINT'
+      ? numberWithCommas(prize)
+      : `$${numberWithCommas(prize)}`;
   }
 
   return (
@@ -157,6 +158,7 @@ export default function Winner({
 
 Winner.defaultProps = {
   prizes: [],
+  isFunChallenge: false,
 };
 
 Winner.propTypes = {
@@ -164,6 +166,7 @@ Winner.propTypes = {
   isMM: PT.bool.isRequired,
   isRDM: PT.bool.isRequired,
   prizes: PT.arrayOf(PT.shape()),
+  isFunChallenge: PT.bool,
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,
   winner: PT.shape({

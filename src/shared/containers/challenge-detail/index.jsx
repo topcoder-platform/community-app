@@ -770,6 +770,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 <Winners
                   winners={winners}
                   prizes={challengePrizes}
+                  isFunChallenge={challenge.funChallenge === true}
                   viewable={submissionsViewable ? submissionsViewable.value === 'true' : false}
                   submissions={challenge.submissions}
                   isDesign={track.toLowerCase() === 'design'}
