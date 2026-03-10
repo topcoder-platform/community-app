@@ -160,6 +160,10 @@ export function getPrizePurseUI(
  * @param {Object} challenge challenge info
  */
 export function getPrizePointsUI(challenge) {
+  if (challenge.funChallenge === true) {
+    return 'Fun';
+  }
+
   const placementPrizes = _.find(
     challenge.prizeSets,
     prizeSet => ((prizeSet && prizeSet.type) || '').toLowerCase() === 'placement',

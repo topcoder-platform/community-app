@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Challenge detail header prizes renders leaderboard-scoring label for fun challenges 1`] = `
+<div
+  className="src-shared-components-challenge-detail-Header-___style__prizes-container___3iYoT"
+>
+  <p
+    className="src-shared-components-challenge-detail-Header-___style__fun-challenge-prize___3T3KZ"
+  >
+    No individual prize - leaderboard scoring
+  </p>
+</div>
+`;
+
+exports[`Challenge detail header prizes renders normal placement prizes when fun challenge is false 1`] = `
+<div
+  className="src-shared-components-challenge-detail-Header-___style__prizes-container___3iYoT"
+>
+  <div
+    className="src-shared-components-challenge-detail-Header-___style__prize-fill___2MJPB"
+  >
+    <div
+      aria-label="1st prize is $$1,000"
+      className="src-shared-components-challenge-detail-Header-___style__prize-card___24y2m"
+      id="rank1"
+      tabIndex={0}
+    >
+      <p
+        aria-hidden="true"
+        className="src-shared-components-challenge-detail-Header-___style__prize-rank___3hC_J"
+      >
+        1
+        <span
+          className="src-shared-components-challenge-detail-Header-___style__rank-ordinal___1K53t"
+        >
+          st
+        </span>
+      </p>
+    </div>
+    <p
+      aria-hidden="true"
+      className="src-shared-components-challenge-detail-Header-___style__prize-money___3raXa"
+    >
+      $1,000
+    </p>
+  </div>
+</div>
+`;

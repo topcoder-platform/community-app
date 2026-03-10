@@ -4,6 +4,30 @@ import { withEstimatedReviewerPayments } from 'utils/reviewOpportunities';
 const v6ApiUrl = config.API.V6;
 
 /**
+ * Normalizes challenge details pulled from review opportunity payloads.
+ * This is used as fallback when challenge API access is restricted (for example
+ * grouped challenges whose review opportunities are public).
+ *
+ * @param {Object} opportunity Review opportunity details payload.
+ * @param {string|number} challengeId Challenge id from route.
+ * @returns {Object} Challenge-like object expected by the details page.
+ */
+function buildChallengeFallback(opportunity, challengeId) {
+  const challenge = opportunity
+    ? (opportunity.challenge || opportunity.challengeData || {})
+    : {};
+
+  return {
+    ...challenge,
+    id: challenge.id || challengeId,
+    name: challenge.name || challenge.title || '',
+    type: challenge.type || challenge.subTrack || '',
+    phases: Array.isArray(challenge.phases) ? challenge.phases : [],
+    terms: Array.isArray(challenge.terms) ? challenge.terms : [],
+  };
+}
+
+/**
  * Fetches copilot opportunities.
  *
  * @param {number} page - Page number (1-based).
@@ -47,15 +71,21 @@ export async function getDetails(challengeId, opportunityId) {
     if (!opportunityRes.ok) {
       throw new Error(`Failed to load review opportunity: ${opportunityRes.statusText}`);
     }
-    if (!challengeRes.ok) {
+
+    const opportunityData = await opportunityRes.json();
+    const opportunityDetails = withEstimatedReviewerPayments(opportunityData.result.content);
+
+    let challengeData;
+    if (challengeRes.ok) {
+      challengeData = await challengeRes.json();
+    } else if (challengeRes.status === 403) {
+      challengeData = buildChallengeFallback(opportunityDetails, challengeId);
+    } else {
       throw new Error(`Failed to load challenge details: ${challengeRes.statusText}`);
     }
 
-    const opportunityData = await opportunityRes.json();
-    const challengeData = await challengeRes.json();
-
     return {
-      ...withEstimatedReviewerPayments(opportunityData.result.content),
+      ...opportunityDetails,
       challenge: challengeData,
     };
   } catch (err) {
