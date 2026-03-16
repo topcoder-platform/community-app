@@ -123,43 +123,45 @@ function onQueryContentDone(state, action) {
 
   /* Adds matched items to items collection. */
   const d = _.omit(data, 'includes');
-  let a = collectionActions.addItems(_.keyBy(data.items, i => i.sys.id));
-  res.items = reduceCollection(res.items, a);
-
-  /* Adds query itself to the quries collection. */
-  d.items = d.items.map(i => i.sys.id);
-  a = collectionActions.loadItemDone(operationId, queryId, d);
-  res.queries = reduceCollection(res.queries, a);
-
-  /* In case the resulting query match is different from the one stored in the
-   * old state, we should correctly update reference counters of the newly
-   * matched items, and of the items not matched anymore. */
-
-  const q = state.queries[queryId];
-
-  let added = [];
-  const gone = [];
-  if (q.item) {
-    const neu = new Set(d.items);
-    const old = new Set(q.item.items);
-    d.items.forEach((id) => {
-      if (!old.has(id)) added.push(id);
-    });
-    q.item.items.forEach((id) => {
-      if (!neu.has(id)) gone.push(id);
-    });
-  } else added = d.items;
-
-  if (added.length) {
-    a = collectionActions.bookItems(added, q.numRefs);
+  /* sometimes contentful returns no data, so just return current state if that happens */
+  if (data && data.items) {
+    let a = collectionActions.addItems(_.keyBy(data.items, i => i.sys.id));
     res.items = reduceCollection(res.items, a);
-  }
 
-  if (gone.length) {
-    a = collectionActions.freeItems(gone, q.numRefs);
-    res.items = reduceCollection(res.items, a);
-  }
+    /* Adds query itself to the quries collection. */
+    d.items = d.items.map(i => i.sys.id);
+    a = collectionActions.loadItemDone(operationId, queryId, d);
+    res.queries = reduceCollection(res.queries, a);
 
+    /* In case the resulting query match is different from the one stored in the
+     * old state, we should correctly update reference counters of the newly
+     * matched items, and of the items not matched anymore. */
+
+    const q = state.queries[queryId];
+
+    let added = [];
+    const gone = [];
+    if (q.item) {
+      const neu = new Set(d.items);
+      const old = new Set(q.item.items);
+      d.items.forEach((id) => {
+        if (!old.has(id)) added.push(id);
+      });
+      q.item.items.forEach((id) => {
+        if (!neu.has(id)) gone.push(id);
+      });
+    } else added = d.items;
+
+    if (added.length) {
+      a = collectionActions.bookItems(added, q.numRefs);
+      res.items = reduceCollection(res.items, a);
+    }
+
+    if (gone.length) {
+      a = collectionActions.freeItems(gone, q.numRefs);
+      res.items = reduceCollection(res.items, a);
+    }
+  }
   return res;
 }
 
