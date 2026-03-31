@@ -105,10 +105,12 @@ const WIPRO_REGISTRATION_SUPPORT_MESSAGE = 'If you think this is an error, pleas
 /**
  * Checks whether challenge registration should be blocked for Wipro members.
  * @param {String} email User email.
- * @param {Boolean} wiproAllowed Challenge-level flag.
+ * @param {Object} challenge Challenge details used to determine registration policy.
  * @return {Boolean}
  */
-export function isWiproRegistrationBlocked(email, wiproAllowed) {
+export function isWiproRegistrationBlocked(email, challenge = {}) {
+  if (getTypeName(challenge) === 'Topgear Task') return false;
+  const wiproAllowed = _.get(challenge, 'wiproAllowed');
   if (wiproAllowed !== false) return false;
   return /@wipro\.com$/i.test(_.trim(email || ''));
 }
@@ -412,9 +414,7 @@ class ChallengeDetailPageContainer extends React.Component {
       communityId,
     } = this.props;
     const userEmail = _.get(auth, 'user.email');
-    const wiproAllowed = _.get(challenge, 'wiproAllowed');
-
-    if (isWiproRegistrationBlocked(userEmail, wiproAllowed)) {
+    if (isWiproRegistrationBlocked(userEmail, challenge)) {
       fireErrorMessage(
         WIPRO_REGISTRATION_BLOCKED_MESSAGE,
         WIPRO_REGISTRATION_SUPPORT_MESSAGE,
