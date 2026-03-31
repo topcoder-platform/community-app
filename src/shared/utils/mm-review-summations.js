@@ -77,6 +77,81 @@ function getSummationRating(summation) {
   return _.isNil(rating) ? null : rating;
 }
 
+function getSubmissionHandle(submission) {
+  const handle = _.get(submission, 'registrant.memberHandle')
+    || _.get(submission, 'memberHandle')
+    || _.get(submission, 'createdBy');
+
+  if (!handle || !_.isString(handle) || !handle.trim()) {
+    return 'unknown';
+  }
+
+  return handle;
+}
+
+function getSubmissionMemberId(submission) {
+  const memberId = _.get(submission, 'memberId', _.get(submission, 'registrant.memberId'));
+  return _.isNil(memberId) ? null : _.toString(memberId);
+}
+
+function getSubmissionRating(submission) {
+  const rating = _.get(submission, 'rating', _.get(submission, 'registrant.rating'));
+  return _.isNil(rating) ? null : rating;
+}
+
+function getSubmissionTimestamp(submission) {
+  const candidates = [
+    _.get(submission, 'submissionTime'),
+    _.get(submission, 'created'),
+    _.get(submission, 'createdAt'),
+    _.get(submission, 'submittedDate'),
+    _.get(submission, 'reviewedDate'),
+    _.get(submission, 'updated'),
+    _.get(submission, 'updatedAt'),
+  ];
+  return _.find(candidates, value => !!value) || null;
+}
+
+function getSubmissionIdentifier(submission, index, handle) {
+  const rawSubmissionId = _.get(
+    submission,
+    'submissionId',
+    _.get(submission, 'id'),
+  );
+
+  return rawSubmissionId
+    ? _.toString(rawSubmissionId)
+    : `unknown-${handle}-${index}`;
+}
+
+function dedupeReviewSummations(reviewSummations = []) {
+  const deduped = [];
+  const seen = new Set();
+
+  reviewSummations.forEach((summation, index) => {
+    if (!summation) {
+      return;
+    }
+
+    const dedupeKey = _.toString(_.get(summation, 'id', '')).trim()
+      || `${_.toString(_.get(summation, 'submissionId', '')).trim()}::${_.toString(_.get(summation, 'legacySubmissionId', '')).trim()}::${_.toString(_.get(summation, 'submitterId', '')).trim()}::${_.toString(_.get(summation, 'aggregateScore', '')).trim()}::${_.toString(_.get(summation, 'reviewedDate', '')).trim()}::${index}`;
+
+    if (seen.has(dedupeKey)) {
+      return;
+    }
+
+    seen.add(dedupeKey);
+    deduped.push(summation);
+  });
+
+  return deduped;
+}
+
+function normalizeSubmissionStatus(status) {
+  const normalizedStatus = _.toLower(_.toString(status || '').trim());
+  return normalizedStatus || 'completed';
+}
+
 function ensureSubmissionEntry(
   existingEntry,
   { submissionId, timestamp, timestampValue },
@@ -241,6 +316,77 @@ function updateSubmissionEntry(
   };
 }
 
+function updateSubmissionEntryFromSubmission(
+  existingEntry,
+  {
+    submissionId,
+    timestamp,
+    timestampValue,
+    provisionalScore,
+    finalScore,
+    status,
+    isLatest,
+    reviewSummations,
+  },
+) {
+  const baseEntry = ensureSubmissionEntry(existingEntry, {
+    submissionId,
+    timestamp,
+    timestampValue,
+  });
+
+  let { submissionTime, latestTimestamp } = baseEntry;
+  let submissionIsLatest = baseEntry.isLatest;
+
+  if (timestampValue > latestTimestamp) {
+    latestTimestamp = timestampValue;
+    submissionTime = timestamp || submissionTime;
+  } else if (!submissionTime && timestamp) {
+    submissionTime = timestamp;
+  }
+
+  if (!_.isNil(isLatest)) {
+    submissionIsLatest = Boolean(isLatest);
+  }
+
+  const provisionalResult = _.isNil(provisionalScore)
+    ? { meta: baseEntry.provisionalMeta, value: baseEntry.provisionalScore }
+    : mergeScoreData(
+      baseEntry.provisionalMeta,
+      baseEntry.provisionalScore,
+      provisionalScore,
+      timestampValue,
+    );
+
+  const finalResult = _.isNil(finalScore)
+    ? { meta: baseEntry.finalMeta, value: baseEntry.finalScore }
+    : mergeScoreData(
+      baseEntry.finalMeta,
+      baseEntry.finalScore,
+      finalScore,
+      timestampValue,
+    );
+
+  const mergedReviewSummations = dedupeReviewSummations([
+    ...baseEntry.reviewSummations,
+    ...(Array.isArray(reviewSummations) ? reviewSummations : []),
+  ]);
+
+  return {
+    ...baseEntry,
+    submissionTime,
+    latestTimestamp,
+    isLatest: submissionIsLatest,
+    provisionalMeta: provisionalResult.meta,
+    provisionalScore: provisionalResult.value,
+    finalMeta: finalResult.meta,
+    finalScore: finalResult.value,
+    status: normalizeSubmissionStatus(status || baseEntry.status),
+    reviewSummations: mergedReviewSummations,
+    reviewSummation: [...mergedReviewSummations],
+  };
+}
+
 function assignRanks(members, scoreKey, rankKey, options = {}) {
   const { tieBreaker } = options;
 
@@ -352,14 +498,32 @@ function updateStatisticsSubmission(
   };
 }
 
-export function buildMmSubmissionData(reviewSummations = []) {
-  if (!Array.isArray(reviewSummations) || !reviewSummations.length) {
+/**
+ * Builds Marathon Match submission rows from review summations and raw challenge
+ * submission records.
+ *
+ * Raw submissions are merged so the UI can still render attempts that have not
+ * produced review summations yet.
+ *
+ * @param {Array} reviewSummations review summations returned by review API
+ * @param {Array} rawSubmissions raw challenge submissions returned by challenge details
+ * @returns {Array} member-grouped Marathon Match submission rows
+ */
+export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []) {
+  const normalizedReviewSummations = Array.isArray(reviewSummations)
+    ? reviewSummations
+    : [];
+  const normalizedRawSubmissions = Array.isArray(rawSubmissions)
+    ? rawSubmissions
+    : [];
+
+  if (!normalizedReviewSummations.length && !normalizedRawSubmissions.length) {
     return [];
   }
 
   const membersByHandle = new Map();
 
-  reviewSummations.forEach((summation, index) => {
+  normalizedReviewSummations.forEach((summation, index) => {
     if (!summation) {
       return;
     }
@@ -424,9 +588,72 @@ export function buildMmSubmissionData(reviewSummations = []) {
     memberEntry.submissionsMap.set(submissionId, updatedEntry);
   });
 
+  normalizedRawSubmissions.forEach((submission, index) => {
+    if (!submission) {
+      return;
+    }
+
+    const handle = getSubmissionHandle(submission);
+    if (!membersByHandle.has(handle)) {
+      membersByHandle.set(handle, {
+        handle,
+        memberId: null,
+        rating: null,
+        submissionsMap: new Map(),
+      });
+    }
+
+    const memberEntry = membersByHandle.get(handle);
+    const memberId = getSubmissionMemberId(submission);
+    if (!memberEntry.memberId && memberId) {
+      memberEntry.memberId = memberId;
+    }
+
+    const rating = getSubmissionRating(submission);
+    if (_.isNil(memberEntry.rating) && !_.isNil(rating)) {
+      memberEntry.rating = rating;
+    }
+
+    const submissionId = getSubmissionIdentifier(submission, index, handle);
+    const timestamp = getSubmissionTimestamp(submission);
+    const timestampValue = toTimestampValue(timestamp);
+    const provisionalScore = normalizeScoreValue(
+      _.get(submission, 'provisionalScore', _.get(submission, 'initialScore')),
+    );
+    const finalScore = normalizeScoreValue(_.get(submission, 'finalScore'));
+    const isLatest = _.isNil(submission.isLatest)
+      ? null
+      : Boolean(submission.isLatest);
+    const reviewSummation = dedupeReviewSummations([
+      ...(Array.isArray(_.get(submission, 'reviewSummations'))
+        ? _.get(submission, 'reviewSummations')
+        : []),
+      ...(Array.isArray(_.get(submission, 'reviewSummation'))
+        ? _.get(submission, 'reviewSummation')
+        : []),
+    ]);
+
+    const updatedEntry = updateSubmissionEntryFromSubmission(
+      memberEntry.submissionsMap.get(submissionId),
+      {
+        submissionId,
+        timestamp,
+        timestampValue,
+        provisionalScore,
+        finalScore,
+        status: _.get(submission, 'status'),
+        isLatest,
+        reviewSummations: reviewSummation,
+      },
+    );
+
+    memberEntry.submissionsMap.set(submissionId, updatedEntry);
+  });
+
   const members = Array.from(membersByHandle.values()).map((memberEntry) => {
     const submissions = Array.from(memberEntry.submissionsMap.values())
       .map(submission => ({
+        id: submission.submissionId,
         submissionId: submission.submissionId,
         submissionTime: submission.submissionTime,
         isLatest: submission.isLatest,

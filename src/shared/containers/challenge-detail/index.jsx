@@ -1150,20 +1150,23 @@ function mapStateToProps(state, props) {
   const challengeId = String(props.match.params.challengeId);
   const cl = state.challengeListing;
   const { lookup: { allCountries, reviewTypes } } = state;
+  const challenge = state.challenge.details || {};
   const reviewSummations = extractArrayFromStateSlice(
     state.challenge.reviewSummations,
     challengeId,
   );
+  const rawChallengeSubmissions = Array.isArray(challenge.submissions)
+    ? challenge.submissions
+    : (_.get(challenge, 'submissions.data') || []);
   let mmSubmissions = extractArrayFromStateSlice(state.challenge.mmSubmissions, challengeId);
-  if (!mmSubmissions.length && reviewSummations.length) {
-    mmSubmissions = buildMmSubmissionData(reviewSummations);
+  if (reviewSummations.length || rawChallengeSubmissions.length) {
+    mmSubmissions = buildMmSubmissionData(reviewSummations, rawChallengeSubmissions);
   }
   const { auth } = state;
   let statisticsData = extractArrayFromStateSlice(state.challenge.statisticsData, challengeId);
   if (!hasRenderableStatisticsData(statisticsData) && reviewSummations.length) {
     statisticsData = buildStatisticsData(reviewSummations);
   }
-  const challenge = state.challenge.details || {};
   const reviewSummationLookup = reviewSummations.length
     ? buildReviewSummationLookup(reviewSummations)
     : null;
