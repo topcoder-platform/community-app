@@ -148,6 +148,7 @@ export default function ChallengeHeader(props) {
 
   const trackName = getTrackName(track);
   const typeName = getTypeName(type);
+  const isTaskChallenge = typeName === 'Task';
   const trackLower = trackName ? trackName.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -184,9 +185,14 @@ export default function ChallengeHeader(props) {
   const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
   const currentTime = moment();
 
-  const timeDiff = getTimeLeft(currentPhases || allOpenPhases[0], 'to go', true);
+  const activePhase = currentPhases || allOpenPhases[0];
+  const shouldShowCurrentPhase = !isTaskChallenge
+    || (activePhase && !isRegistrationPhase(activePhase));
+  const timeDiff = shouldShowCurrentPhase
+    ? getTimeLeft(activePhase, 'to go', true)
+    : null;
 
-  if (!timeDiff.late) {
+  if (timeDiff && !timeDiff.late) {
     timeDiff.text = timeDiff.text.replace('to go', '');
   }
 
@@ -316,6 +322,72 @@ export default function ChallengeHeader(props) {
     || !isActivedChallenge;
   const unregisterButtonDisabled = unregistering
     || registrationEnded || hasSubmissions || isLegacyMM;
+  let challengeActions = null;
+
+  if (!isTopCrowdChallenge && !isTaskChallenge) {
+    challengeActions = (
+      <div styleName="challenge-ops-container">
+        {hasRegistered ? (
+          <PrimaryButton
+            disabled={unregisterButtonDisabled}
+            theme={{
+              button: unregisterButtonDisabled
+                ? style.submitButtonDisabled
+                : style.submitButton,
+            }}
+            forceA
+            onClick={unregisterFromChallenge}
+          >
+            Unregister
+          </PrimaryButton>
+        ) : (
+          <PrimaryButton
+            disabled={registerButtonDisabled}
+            theme={{
+              button: registerButtonDisabled
+                ? style.submitButtonDisabled
+                : style.submitButton,
+            }}
+            forceA
+            onClick={registerForChallenge}
+          >
+            Register
+          </PrimaryButton>
+        )}
+        <PrimaryButton
+          disabled={disabled}
+          theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
+          to={`${challengesUrl}/${challengeId}/submit`}
+          forceA
+        >
+          <IconsUpload />
+          <span>Submit a solution</span>
+        </PrimaryButton>
+        {
+          trackName === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
+            && hasSubmissions && (
+            <PrimaryButton
+              theme={{ button: style.submitButton }}
+              to={`${challengesUrl}/${challengeId}/my-submissions`}
+            >
+              View Submissions
+            </PrimaryButton>
+          )
+        }
+      </div>
+    );
+  } else if (isTopCrowdChallenge) {
+    challengeActions = (
+      <Link
+        openNewTab
+        to={`${topcrowdLink}`}
+        styleName="topcrowd-container"
+      >
+        <span>View details on Topcoder platform</span>
+        <IconsOpenInNew />
+      </Link>
+    );
+  }
 
   return (
     <div styleName="challenge-outer-container">
@@ -435,66 +507,7 @@ export default function ChallengeHeader(props) {
                 }
             </div>
             <div styleName="challenge-ops-wrapper">
-              {!isTopCrowdChallenge ? (
-                <div styleName="challenge-ops-container">
-                  {hasRegistered ? (
-                    <PrimaryButton
-                      disabled={unregisterButtonDisabled}
-                      theme={{
-                        button: unregisterButtonDisabled
-                          ? style.submitButtonDisabled
-                          : style.submitButton,
-                      }}
-                      forceA
-                      onClick={unregisterFromChallenge}
-                    >
-                      Unregister
-                    </PrimaryButton>
-                  ) : (
-                    <PrimaryButton
-                      disabled={registerButtonDisabled}
-                      theme={{
-                        button: registerButtonDisabled
-                          ? style.submitButtonDisabled
-                          : style.submitButton,
-                      }}
-                      forceA
-                      onClick={registerForChallenge}
-                    >
-                      Register
-                    </PrimaryButton>
-                  )}
-                  <PrimaryButton
-                    disabled={disabled}
-                    theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
-                    to={`${challengesUrl}/${challengeId}/submit`}
-                    forceA
-                  >
-                    <IconsUpload />
-                    <span>Submit a solution</span>
-                  </PrimaryButton>
-                  {
-                    trackName === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
-                      && hasSubmissions && (
-                      <PrimaryButton
-                        theme={{ button: style.submitButton }}
-                        to={`${challengesUrl}/${challengeId}/my-submissions`}
-                      >
-                        View Submissions
-                      </PrimaryButton>
-                    )
-                  }
-                </div>
-              ) : (
-                <Link
-                  openNewTab
-                  to={`${topcrowdLink}`}
-                  styleName="topcrowd-container"
-                >
-                  <span>View details on Topcoder platform</span>
-                  <IconsOpenInNew />
-                </Link>
-              )}
+              {challengeActions}
             </div>
           </div>
           <div styleName="deadlines-view">
@@ -503,6 +516,7 @@ export default function ChallengeHeader(props) {
                 {nextDeadlineMsg}
                 {
                     (status || '').toLowerCase() === 'active'
+                    && timeDiff
                     && (
                     <div styleName="current-phase">
                       {currentPhases && `${currentPhases.name} Ends In: `}
