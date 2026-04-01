@@ -1307,6 +1307,12 @@ function mapStateToProps(state, props) {
               return toNumericScore(match.aggregateScore);
             };
 
+            const initialScore = toNumericScore(normalizedAttempt.initialScore);
+            if (!_.isNil(initialScore)) {
+              normalizedAttempt.initialScore = initialScore;
+              normalizedAttempt.provisionalScore = initialScore;
+            }
+
             const hasProvisionalScore = !_.isNil(normalizedAttempt.provisionalScore);
             const hasFinalScore = !_.isNil(normalizedAttempt.finalScore);
 
