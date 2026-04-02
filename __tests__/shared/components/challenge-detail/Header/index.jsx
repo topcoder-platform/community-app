@@ -169,6 +169,20 @@ describe('Challenge detail header actions', () => {
     const output = renderer.getRenderOutput();
 =======
     const output = renderHeader({
+      phases: [
+        {
+          isOpen: false,
+          name: 'Registration',
+          scheduledEndDate: '2030-01-02T00:00:00.000Z',
+          scheduledStartDate: '2030-01-01T00:00:00.000Z',
+        },
+        {
+          isOpen: true,
+          name: 'Submission',
+          scheduledEndDate: '2030-01-03T00:00:00.000Z',
+          scheduledStartDate: '2030-01-02T00:00:00.000Z',
+        },
+      ],
       task: {
         isTask: true,
       },
