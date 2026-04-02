@@ -61,7 +61,7 @@ class SubmissionInformationModal extends React.Component {
   render() {
     const {
       toggleTestcase, onClose, isLoadingSubmissionInformation,
-      submissionInformation, isReviewPhaseComplete,
+      submissionInformation, showFinalResults,
     } = this.props;
     const submissionBasicInfo = isLoadingSubmissionInformation
       ? null : this.getSubmissionBasicInfo();
@@ -90,7 +90,7 @@ class SubmissionInformationModal extends React.Component {
                         <div
                           styleName="modal.details-item"
                         >
-                          {(!submissionBasicInfo.finalScore && submissionBasicInfo.finalScore !== 0) || !isReviewPhaseComplete ? '-' : submissionBasicInfo.finalScore}
+                          {(!submissionBasicInfo.finalScore && submissionBasicInfo.finalScore !== 0) || !showFinalResults ? '-' : submissionBasicInfo.finalScore}
                         </div>
                         <div
                           styleName="modal.details-item"
@@ -180,7 +180,7 @@ SubmissionInformationModal.propTypes = {
   openTestcase: PT.shape({}).isRequired,
   clearTestcaseOpen: PT.func.isRequired,
   submission: PT.shape().isRequired,
-  isReviewPhaseComplete: PT.bool.isRequired,
+  showFinalResults: PT.bool.isRequired,
 };
 
 export default SubmissionInformationModal;
