@@ -148,13 +148,9 @@ export default function ChallengeHeader(props) {
 
   const trackName = getTrackName(track);
   const typeName = getTypeName(type);
-<<<<<<< HEAD
-  const isTaskChallenge = typeName === 'Task';
-=======
   const isTaskChallenge = typeName === 'Task'
     || _.get(challenge, 'task.isTask') === true
     || _.get(challenge, 'legacy.pureV5Task') === true;
->>>>>>> bebcd7d6d3567960f13b1718b6491fb166b23b20
   const trackLower = trackName ? trackName.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -513,72 +509,7 @@ export default function ChallengeHeader(props) {
                 }
             </div>
             <div styleName="challenge-ops-wrapper">
-<<<<<<< HEAD
               {challengeActions}
-=======
-              {!isTopCrowdChallenge ? (
-                !isTaskChallenge && (
-                  <div styleName="challenge-ops-container">
-                    {hasRegistered ? (
-                      <PrimaryButton
-                        disabled={unregisterButtonDisabled}
-                        theme={{
-                          button: unregisterButtonDisabled
-                            ? style.submitButtonDisabled
-                            : style.submitButton,
-                        }}
-                        forceA
-                        onClick={unregisterFromChallenge}
-                      >
-                        Unregister
-                      </PrimaryButton>
-                    ) : (
-                      <PrimaryButton
-                        disabled={registerButtonDisabled}
-                        theme={{
-                          button: registerButtonDisabled
-                            ? style.submitButtonDisabled
-                            : style.submitButton,
-                        }}
-                        forceA
-                        onClick={registerForChallenge}
-                      >
-                        Register
-                      </PrimaryButton>
-                    )}
-                    <PrimaryButton
-                      disabled={disabled}
-                      theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
-                      to={`${challengesUrl}/${challengeId}/submit`}
-                      forceA
-                    >
-                      <IconsUpload />
-                      <span>Submit a solution</span>
-                    </PrimaryButton>
-                    {
-                      trackName === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
-                        && hasSubmissions && (
-                        <PrimaryButton
-                          theme={{ button: style.submitButton }}
-                          to={`${challengesUrl}/${challengeId}/my-submissions`}
-                        >
-                          View Submissions
-                        </PrimaryButton>
-                      )
-                    }
-                  </div>
-                )
-              ) : (
-                <Link
-                  openNewTab
-                  to={`${topcrowdLink}`}
-                  styleName="topcrowd-container"
-                >
-                  <span>View details on Topcoder platform</span>
-                  <IconsOpenInNew />
-                </Link>
-              )}
->>>>>>> bebcd7d6d3567960f13b1718b6491fb166b23b20
             </div>
           </div>
           <div styleName="deadlines-view">
