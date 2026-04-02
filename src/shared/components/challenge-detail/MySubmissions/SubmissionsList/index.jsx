@@ -9,6 +9,7 @@ import moment from 'moment';
 import { PrimaryButton, Modal } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import { services } from 'topcoder-react-lib';
+import { isReviewPhaseComplete } from 'utils/challenge-detail/mm-final-results';
 import sortList from 'utils/challenge-detail/sort';
 import { getSubmissionStatus } from 'utils/challenge-detail/submission-status';
 
@@ -73,6 +74,34 @@ const getSubmissionCreatedTime = (submission) => {
     || submission.updatedAt
   );
 };
+
+/**
+ * Returns the scores that should be displayed for a Marathon Match submission.
+ *
+ * @param {Object} submission submission attempt shown in My Submissions.
+ * @param {Object} challenge challenge that owns the submission.
+ * @returns {{ finalScore: number|null, provisionalScore: number|null }} display-ready scores.
+ */
+export function getDisplayedScores(submission = {}, challenge = {}) {
+  const toNumericScore = (value) => {
+    if (_.isNil(value) || value === '' || value === '-') {
+      return null;
+    }
+
+    const numeric = Number(value);
+    return Number.isFinite(numeric) ? numeric : null;
+  };
+
+  const initialScore = toNumericScore(_.get(submission, 'initialScore'));
+  const provisionalScore = toNumericScore(_.get(submission, 'provisionalScore'));
+  const finalScore = toNumericScore(_.get(submission, 'finalScore'));
+  const showFinalScore = isReviewPhaseComplete(challenge) || !_.isNil(finalScore);
+
+  return {
+    finalScore: showFinalScore ? finalScore : null,
+    provisionalScore: !_.isNil(initialScore) ? initialScore : provisionalScore,
+  };
+}
 
 class SubmissionsListView extends React.Component {
   constructor(props) {
@@ -435,7 +464,7 @@ class SubmissionsListView extends React.Component {
           </div>
           {
             sortedSubmissions.map((mySubmission) => {
-              let { finalScore, provisionalScore } = mySubmission;
+              let { finalScore, provisionalScore } = getDisplayedScores(mySubmission, challenge);
               if (_.isNumber(finalScore)) {
                 if (finalScore > 0) {
                   finalScore = finalScore.toFixed(2);

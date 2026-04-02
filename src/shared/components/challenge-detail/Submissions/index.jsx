@@ -21,6 +21,7 @@ import cn from 'classnames';
 import { Button } from 'topcoder-react-ui-kit';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
 import SortIcon from 'assets/images/icon-sort.svg';
+import { shouldShowFinalMmResults as resolveShouldShowFinalMmResults } from 'utils/challenge-detail/mm-final-results';
 import { getSubmissionId } from 'utils/submissions';
 import { compressFiles } from 'utils/files';
 
@@ -109,7 +110,7 @@ class SubmissionsComponent extends React.Component {
     this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
     this.updateSortedSubmissions = this.updateSortedSubmissions.bind(this);
     this.sortSubmissions = this.sortSubmissions.bind(this);
-    this.checkIsReviewPhaseComplete = this.checkIsReviewPhaseComplete.bind(this);
+    this.shouldShowFinalMmResults = this.shouldShowFinalMmResults.bind(this);
   }
 
   componentDidMount() {
@@ -208,7 +209,7 @@ class SubmissionsComponent extends React.Component {
   /**
      * Get submission sort parameter
      */
-  getSubmissionsSortParam(isMM, isReviewPhaseComplete) {
+  getSubmissionsSortParam(isMM, showFinalMmResults) {
     const {
       submissionsSort,
     } = this.props;
@@ -216,7 +217,7 @@ class SubmissionsComponent extends React.Component {
     if (!field) {
       field = 'Submission Date'; // default field for submission sorting
       if (isMM) {
-        if (isReviewPhaseComplete) {
+        if (showFinalMmResults) {
           field = 'Final Rank';
         } else {
           field = 'Provisional Rank';
@@ -263,8 +264,8 @@ class SubmissionsComponent extends React.Component {
       return;
     }
     const isMM = this.isMM();
-    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
-    const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
+    const showFinalMmResults = this.shouldShowFinalMmResults();
+    const { field, sort } = this.getSubmissionsSortParam(isMM, showFinalMmResults);
 
     // For non-MM submissions that are grouped by member, we need to adjust the sorting logic
     const isGrouped = !isMM && submissions.length > 0 && submissions[0].submissions;
@@ -366,7 +367,7 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Final Rank': {
-          if (isReviewPhaseComplete) {
+          if (showFinalMmResults) {
             valueA = toRankValue(_.get(a, 'finalRank'));
             valueB = toRankValue(_.get(b, 'finalRank'));
           }
@@ -409,22 +410,15 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
-     * Check if review phase complete
-     */
-  checkIsReviewPhaseComplete() {
+   * Returns whether Marathon Match final results should be shown.
+   */
+  shouldShowFinalMmResults() {
     const {
       challenge,
+      mmSubmissions,
     } = this.props;
 
-    const allPhases = challenge.phases || [];
-
-    let isReviewPhaseComplete = false;
-    _.forEach(allPhases, (phase) => {
-      if (phase.name === 'Review' && !phase.isOpen && moment(phase.scheduledStartDate).isBefore()) {
-        isReviewPhaseComplete = true;
-      }
-    });
-    return isReviewPhaseComplete;
+    return resolveShouldShowFinalMmResults(challenge, mmSubmissions);
   }
 
   render() {
@@ -465,9 +459,9 @@ class SubmissionsComponent extends React.Component {
     const isMM = this.isMM();
     const isRDM = checkIsRDM(challenge);
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
-    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
+    const showFinalMmResults = this.shouldShowFinalMmResults();
 
-    const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
+    const { field, sort } = this.getSubmissionsSortParam(isMM, showFinalMmResults);
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
 
     const {
@@ -1007,7 +1001,7 @@ class SubmissionsComponent extends React.Component {
               sortedSubmissions.map((submission, index) => (
                 <SubmissionRow
                   submissions={sortedSubmissions}
-                  isReviewPhaseComplete={isReviewPhaseComplete}
+                  showFinalResults={showFinalMmResults}
                   isMM={isMM}
                   isRDM={isRDM}
                   key={submission.member}
@@ -1034,7 +1028,7 @@ class SubmissionsComponent extends React.Component {
               sortedSubmissions.map((memberGroup, index) => (
                 <SubmissionRow
                   submissions={memberGroup.submissions}
-                  isReviewPhaseComplete={isReviewPhaseComplete}
+                  showFinalResults={showFinalMmResults}
                   isMM={isMM}
                   isRDM={isRDM}
                   key={memberGroup.member}
@@ -1084,7 +1078,7 @@ class SubmissionsComponent extends React.Component {
                 openTestcase={submissionTestcaseOpen}
                 clearTestcaseOpen={clearSubmissionTestcaseOpen}
                 submission={modalSubmissionBasicInfo()}
-                isReviewPhaseComplete={isReviewPhaseComplete}
+                showFinalResults={showFinalMmResults}
               />
             )
           }
