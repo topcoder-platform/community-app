@@ -618,7 +618,7 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
     const timestamp = getSubmissionTimestamp(submission);
     const timestampValue = toTimestampValue(timestamp);
     const provisionalScore = normalizeScoreValue(
-      _.get(submission, 'provisionalScore', _.get(submission, 'initialScore')),
+      _.get(submission, 'initialScore', _.get(submission, 'provisionalScore')),
     );
     const finalScore = normalizeScoreValue(_.get(submission, 'finalScore'));
     const isLatest = _.isNil(submission.isLatest)

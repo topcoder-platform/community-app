@@ -94,4 +94,35 @@ describe('buildMmSubmissionData', () => {
       }),
     ]);
   });
+
+  it('prefers initial scores over stale provisional scores from raw submissions', () => {
+    const rawSubmissions = [
+      {
+        createdAt: '2026-04-01T00:01:03.000Z',
+        finalScore: 100,
+        id: 'submission-stale-provisional',
+        initialScore: 100,
+        memberId: '1003',
+        provisionalScore: 0,
+        registrant: {
+          memberHandle: 'gamma',
+          memberId: '1003',
+          rating: 1700,
+        },
+        status: 'queued',
+      },
+    ];
+
+    const result = buildMmSubmissionData([], rawSubmissions);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        finalScore: 100,
+        provisionalScore: 100,
+        status: 'queued',
+        submissionId: 'submission-stale-provisional',
+      }),
+    ]);
+  });
 });
