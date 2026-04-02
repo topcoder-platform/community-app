@@ -76,7 +76,10 @@ const getSubmissionCreatedTime = (submission) => {
 };
 
 /**
- * Returns the scores that should be displayed for a Marathon Match submission.
+ * Returns the scores that should be displayed for a Marathon Match submission row.
+ * Initial score is the authoritative provisional score for MM submissions, and
+ * final scores become visible once review is complete or the payload already
+ * includes a final result during review.
  *
  * @param {Object} submission submission attempt shown in My Submissions.
  * @param {Object} challenge challenge that owns the submission.
