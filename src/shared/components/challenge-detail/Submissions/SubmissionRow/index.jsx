@@ -14,6 +14,7 @@ import moment from 'moment';
 import FailedSubmissionTooltip from '../FailedSubmissionTooltip';
 import InReview from '../../icons/in-review.svg';
 import Queued from '../../icons/queued.svg';
+import { getDisplayedMmScores } from '../score-display';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
 
 import style from './style.scss';
@@ -31,7 +32,6 @@ export default function SubmissionRow({
     created,
     createdAt,
     initialScore,
-    finalScore: submissionFinalScore,
   } = latestSubmission;
 
   const parseScore = (value) => {
@@ -42,8 +42,7 @@ export default function SubmissionRow({
   // For non-MM challenges, use createdAt field for submission date
   const submissionDateField = isMM ? submissionTime : (created || createdAt);
 
-  const provisionalScore = parseScore(_.get(latestSubmission, 'provisionalScore'));
-  const finalScore = parseScore(submissionFinalScore);
+  const { provisionalScore, finalScore } = getDisplayedMmScores(latestSubmission);
   const initialScoreValue = parseScore(initialScore);
 
   const getInitialReviewResult = () => {
