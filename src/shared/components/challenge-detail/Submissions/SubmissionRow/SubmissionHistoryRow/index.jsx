@@ -14,6 +14,7 @@ import FailedSubmissionTooltip from '../../FailedSubmissionTooltip';
 import InReview from '../../../icons/in-review.svg';
 import Queued from '../../../icons/queued.svg';
 import DownloadIcon from '../../../../SubmissionManagement/Icons/IconSquareDownload.svg';
+import { getDisplayedMmScores } from '../../score-display';
 
 import './style.scss';
 
@@ -24,6 +25,7 @@ export default function SubmissionHistoryRow({
   isRDM,
   submission,
   finalScore,
+  initialScore,
   provisionalScore,
   submissionTime,
   createdAt,
@@ -37,12 +39,14 @@ export default function SubmissionHistoryRow({
 }) {
   // todo: hide download button until update submissions API
   const hideDownloadForMMRDM = true;
-  const parseScore = (value) => {
-    const numeric = Number(value);
-    return Number.isFinite(numeric) ? numeric : null;
-  };
-  const provisionalScoreValue = parseScore(provisionalScore);
-  const finalScoreValue = parseScore(finalScore);
+  const {
+    provisionalScore: provisionalScoreValue,
+    finalScore: finalScoreValue,
+  } = getDisplayedMmScores({
+    finalScore,
+    initialScore,
+    provisionalScore,
+  });
 
   const timeField = isMM ? submissionTime : createdAt;
   const submissionMoment = timeField ? moment(timeField) : null;
@@ -138,6 +142,7 @@ export default function SubmissionHistoryRow({
 
 SubmissionHistoryRow.defaultProps = {
   finalScore: null,
+  initialScore: null,
   provisionalScore: null,
   isReviewPhaseComplete: false,
   isLoggedIn: false,
@@ -150,6 +155,11 @@ SubmissionHistoryRow.propTypes = {
   isRDM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.oneOfType([
+    PT.number,
+    PT.string,
+    PT.oneOf([null]),
+  ]),
+  initialScore: PT.oneOfType([
     PT.number,
     PT.string,
     PT.oneOf([null]),

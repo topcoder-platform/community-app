@@ -191,6 +191,49 @@ test('Hides assigned task when memberId and userId do not match', () => {
   expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(0);
 });
 
+test('Hides assigned task when flattened task fields and userId do not match', () => {
+  const renderer = new Renderer();
+  renderer.render((
+    <Bucket
+      activeBucket="openForRegistration"
+      auth={{ user: { roles: [] } }}
+      bucket="openForRegistration"
+      challenges={[
+        {
+          id: 'task-3',
+          name: 'Assigned task',
+          status: 'ACTIVE',
+          type: { name: 'Task' },
+          tags: [],
+          prizes: [],
+          taskIsTask: true,
+          taskIsAssigned: true,
+          taskMemberId: 'owner-user',
+        },
+      ]}
+      challengeTypes={challengeTypes}
+      challengesUrl="/challenges"
+      expand={_.noop}
+      expanded
+      expandTag={_.noop}
+      expandedTags={[]}
+      expanding={false}
+      filterState={{}}
+      isLoggedIn
+      needLoad={false}
+      prizeMode="money-usd"
+      selectChallengeDetailsTab={_.noop}
+      setFilterState={setFilterState}
+      setSearchText={setSearchText}
+      setSort={setSort}
+      sort=""
+      userId="different-user"
+    />
+  ));
+
+  expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(0);
+});
+
 // class Wrapper extends React.Component {
 //   componentDidMount() {}
 

@@ -33,11 +33,12 @@ import ViewAsListActive from '../icons/view-as-list-active.svg';
 import ViewAsListInactive from '../icons/view-as-list-inactive.svg';
 import ViewAsTableActive from '../icons/view-as-table-active.svg';
 import ViewAsTableInactive from '../icons/view-as-table-inactive.svg';
+import { getDisplayedMmScores } from './score-display';
 import SubmissionRow from './SubmissionRow';
 import SubmissionInformationModal from './SubmissionInformationModal';
 import style from './style.scss';
 
-const { getProvisionalScore, getFinalScore } = submissionUtils;
+const { getFinalScore } = submissionUtils;
 
 const { getService } = services.submissions;
 
@@ -383,8 +384,8 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Provisional Score': {
-          valueA = toScoreValue(getProvisionalScore(primaryA));
-          valueB = toScoreValue(getProvisionalScore(primaryB));
+          valueA = getDisplayedMmScores(primaryA).provisionalScore;
+          valueB = getDisplayedMmScores(primaryB).provisionalScore;
           break;
         }
         default:
