@@ -8,7 +8,12 @@
 import _ from 'lodash';
 import moment from 'moment';
 import 'moment-duration-format';
-import { isMM, getTrackName, getTypeName } from 'utils/challenge';
+import {
+  isMM,
+  getTaskInfo,
+  getTrackName,
+  getTypeName,
+} from 'utils/challenge';
 
 import PT from 'prop-types';
 import React, { useMemo } from 'react';
@@ -148,9 +153,7 @@ export default function ChallengeHeader(props) {
 
   const trackName = getTrackName(track);
   const typeName = getTypeName(type);
-  const isTaskChallenge = typeName === 'Task'
-    || _.get(challenge, 'task.isTask') === true
-    || _.get(challenge, 'legacy.pureV5Task') === true;
+  const { isTask: isTaskChallenge } = getTaskInfo(challenge);
   const trackLower = trackName ? trackName.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
