@@ -27,7 +27,6 @@ export default function SubmissionHistoryRow({
   provisionalScore,
   submissionTime,
   createdAt,
-  isReviewPhaseComplete,
   status,
   challengeStatus,
   auth,
@@ -63,9 +62,6 @@ export default function SubmissionHistoryRow({
     }
   };
   const getFinalScore = () => {
-    if (!isReviewPhaseComplete) {
-      return 'N/A';
-    }
     if (finalScoreValue === null) {
       return 'N/A';
     }
@@ -139,7 +135,6 @@ export default function SubmissionHistoryRow({
 SubmissionHistoryRow.defaultProps = {
   finalScore: null,
   provisionalScore: null,
-  isReviewPhaseComplete: false,
   isLoggedIn: false,
   createdAt: null,
   submissionTime: null,
@@ -169,7 +164,6 @@ SubmissionHistoryRow.propTypes = {
     PT.oneOf([null]),
   ]),
   challengeStatus: PT.string.isRequired,
-  isReviewPhaseComplete: PT.bool,
   auth: PT.shape().isRequired,
   numWinners: PT.number.isRequired,
   submissionId: PT.string.isRequired,

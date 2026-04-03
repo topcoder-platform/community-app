@@ -77,29 +77,23 @@ const getSubmissionCreatedTime = (submission) => {
 /**
  * Returns the scores that should be displayed for a marathon match submission row.
  * Initial score is the authoritative provisional score for MM submissions, while
- * final scores should remain hidden until the review phase has completed.
+ * final scores should surface as soon as Review API provides them.
  *
  * @param {Object} submission submission attempt shown in My Submissions.
- * @param {Object} challenge challenge that owns the submission.
  * @returns {{ finalScore: number|null, provisionalScore: number|null }} display-ready scores.
  */
-export function getDisplayedScores(submission = {}, challenge = {}) {
+export function getDisplayedScores(submission = {}) {
   const toNumericScore = (value) => {
     const numeric = Number(value);
     return Number.isFinite(numeric) ? numeric : null;
   };
-
-  const isReviewPhaseComplete = _.some(
-    challenge.phases || [],
-    phase => phase.name === 'Review' && !phase.isOpen && moment(phase.scheduledStartDate).isBefore(),
-  );
 
   const initialScore = toNumericScore(_.get(submission, 'initialScore'));
   const provisionalScore = toNumericScore(_.get(submission, 'provisionalScore'));
   const finalScore = toNumericScore(_.get(submission, 'finalScore'));
 
   return {
-    finalScore: isReviewPhaseComplete ? finalScore : null,
+    finalScore,
     provisionalScore: !_.isNil(initialScore) ? initialScore : provisionalScore,
   };
 }
@@ -465,7 +459,7 @@ class SubmissionsListView extends React.Component {
           </div>
           {
             sortedSubmissions.map((mySubmission) => {
-              let { finalScore, provisionalScore } = getDisplayedScores(mySubmission, challenge);
+              let { finalScore, provisionalScore } = getDisplayedScores(mySubmission);
               if (_.isNumber(finalScore)) {
                 if (finalScore > 0) {
                   finalScore = finalScore.toFixed(2);

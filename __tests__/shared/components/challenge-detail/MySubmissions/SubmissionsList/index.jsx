@@ -1,7 +1,7 @@
 import { getDisplayedScores } from '../../../../../../src/shared/components/challenge-detail/MySubmissions/SubmissionsList';
 
 describe('getDisplayedScores', () => {
-  test('uses the initial score as the provisional score before review completes', () => {
+  test('uses the initial score as the provisional score while keeping final scores visible', () => {
     expect(getDisplayedScores(
       {
         finalScore: 100,
@@ -18,12 +18,12 @@ describe('getDisplayedScores', () => {
         ],
       },
     )).toEqual({
-      finalScore: null,
+      finalScore: 100,
       provisionalScore: 100,
     });
   });
 
-  test('shows final scores once the review phase is complete', () => {
+  test('shows final scores after the review phase is complete', () => {
     expect(getDisplayedScores(
       {
         finalScore: 100,

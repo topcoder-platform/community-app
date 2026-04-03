@@ -66,9 +66,6 @@ export default function SubmissionRow({
   };
 
   const getFinalReviewResult = () => {
-    if (!isReviewPhaseComplete) {
-      return 'N/A';
-    }
     if (_.isNil(finalScore)) {
       return 'N/A';
     }

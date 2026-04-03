@@ -61,11 +61,26 @@ class SubmissionInformationModal extends React.Component {
   render() {
     const {
       toggleTestcase, onClose, isLoadingSubmissionInformation,
-      submissionInformation, isReviewPhaseComplete,
+      submissionInformation,
     } = this.props;
     const submissionBasicInfo = isLoadingSubmissionInformation
       ? null : this.getSubmissionBasicInfo();
     const testcases = isLoadingSubmissionInformation ? [] : this.getTestcases();
+    const toNumericScore = (value) => {
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? numeric : null;
+    };
+    const displayedScores = submissionBasicInfo
+      ? {
+        finalScore: toNumericScore(_.get(submissionBasicInfo, 'finalScore')),
+        provisionalScore: (() => {
+          const initialScore = toNumericScore(_.get(submissionBasicInfo, 'initialScore'));
+          return !_.isNil(initialScore)
+            ? initialScore
+            : toNumericScore(_.get(submissionBasicInfo, 'provisionalScore'));
+        })(),
+      }
+      : { finalScore: null, provisionalScore: null };
 
     return (
       <Modal theme={{ container: modal.container }} onCancel={() => onClose(false)}>
@@ -90,12 +105,14 @@ class SubmissionInformationModal extends React.Component {
                         <div
                           styleName="modal.details-item"
                         >
-                          {(!submissionBasicInfo.finalScore && submissionBasicInfo.finalScore !== 0) || !isReviewPhaseComplete ? '-' : submissionBasicInfo.finalScore}
+                          {displayedScores.finalScore === null ? '-' : displayedScores.finalScore}
                         </div>
                         <div
                           styleName="modal.details-item"
                         >
-                          {(!submissionBasicInfo.provisionalScore && submissionBasicInfo.provisionalScore !== 0) ? '-' : submissionBasicInfo.provisionalScore}
+                          {displayedScores.provisionalScore === null
+                            ? '-'
+                            : displayedScores.provisionalScore}
                         </div>
                         <div styleName="modal.details-item">
                           {moment(submissionBasicInfo.submissionTime)
@@ -180,7 +197,6 @@ SubmissionInformationModal.propTypes = {
   openTestcase: PT.shape({}).isRequired,
   clearTestcaseOpen: PT.func.isRequired,
   submission: PT.shape().isRequired,
-  isReviewPhaseComplete: PT.bool.isRequired,
 };
 
 export default SubmissionInformationModal;
