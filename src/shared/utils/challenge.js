@@ -30,6 +30,28 @@ export function getTypeName(typeOrChallenge) {
 }
 
 /**
+ * Returns normalized task info for challenge payloads that may use nested
+ * or flattened task fields.
+ * @param {Object} challenge challenge object
+ * @returns {{isTask: boolean, isAssigned: boolean, memberId: ?string}}
+ */
+export function getTaskInfo(challenge = {}) {
+  const taskIsTask = _.get(challenge, 'task.isTask');
+  const taskIsAssigned = _.get(challenge, 'task.isAssigned');
+  const taskMemberId = _.get(challenge, 'task.memberId');
+
+  return {
+    isTask: getTypeName(challenge) === 'Task'
+      || (_.isNil(taskIsTask) ? _.get(challenge, 'taskIsTask', false) : taskIsTask)
+      || _.get(challenge, 'legacy.pureV5Task') === true,
+    isAssigned: _.isNil(taskIsAssigned)
+      ? _.get(challenge, 'taskIsAssigned', false)
+      : taskIsAssigned,
+    memberId: !_.isNil(taskMemberId) ? taskMemberId : _.get(challenge, 'taskMemberId', null),
+  };
+}
+
+/**
  * check if is marathon match challenge
  * @param {Object} challenge challenge object
  */
@@ -70,4 +92,5 @@ export default {
   updateChallengeType,
   getTrackName,
   getTypeName,
+  getTaskInfo,
 };

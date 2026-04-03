@@ -118,6 +118,16 @@ describe('Challenge detail header actions', () => {
     expect(collectText(output)).not.toContain('Submit a solution');
   });
 
+  test('hides registration and submission actions for flattened task payloads', () => {
+    const output = renderHeader({
+      taskIsTask: true,
+    });
+
+    expect(collectText(output)).not.toContain('Register');
+    expect(collectText(output)).not.toContain('Unregister');
+    expect(collectText(output)).not.toContain('Submit a solution');
+  });
+
   test('shows registration and submission actions for non-task challenges', () => {
     const output = renderHeader();
 
