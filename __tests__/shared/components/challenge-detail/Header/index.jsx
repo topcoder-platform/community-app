@@ -21,7 +21,9 @@ function renderHeader(challengeOverrides = {}) {
   renderer.render(
     <Header
       challenge={{
+        drPoints: null,
         events: [],
+        funChallenge: false,
         id: 'challenge-id',
         legacy: {},
         metadata: [],
@@ -38,7 +40,13 @@ function renderHeader(challengeOverrides = {}) {
           },
         ],
         pointPrizes: [],
-        prizeSets: [],
+        prizeSets: [
+          {
+            type: 'placement',
+            prizes: [{ type: 'USD', value: 1000 }],
+          },
+        ],
+        reliabilityBonus: 0,
         skills: [],
         status: 'ACTIVE',
         tags: [],
@@ -46,12 +54,9 @@ function renderHeader(challengeOverrides = {}) {
         type: 'Challenge',
         ...challengeOverrides,
       }}
-      challengeTypesMap={[
-        { abbreviation: 'CH', name: 'Challenge' },
-        { abbreviation: 'TSK', name: 'Task' },
-      ]}
+      challengeTypesMap={{}}
       challengesUrl="/challenges"
-      checkpoints={[]}
+      checkpoints={{}}
       hasFirstPlacement={false}
       hasRecommendedChallenges={false}
       hasRegistered={false}
@@ -79,25 +84,8 @@ function renderHeader(challengeOverrides = {}) {
 }
 
 describe('Challenge detail header actions', () => {
-  test('hides registration and submission actions for task challenges', () => {
+  test('hides registration and submission actions for classic task challenges', () => {
     const output = renderHeader({
-      phases: [
-        {
-          isOpen: false,
-          name: 'Registration',
-          scheduledEndDate: '2030-01-02T00:00:00.000Z',
-          scheduledStartDate: '2030-01-01T00:00:00.000Z',
-        },
-        {
-          isOpen: true,
-          name: 'Submission',
-          scheduledEndDate: '2030-01-03T00:00:00.000Z',
-          scheduledStartDate: '2030-01-02T00:00:00.000Z',
-        },
-      ],
-      task: {
-        isTask: true,
-      },
       type: 'Task',
     });
 
@@ -106,10 +94,22 @@ describe('Challenge detail header actions', () => {
     expect(collectText(output)).not.toContain('Submit a solution');
   });
 
-  test('hides registration and submission actions for task payloads from work app', () => {
+  test('hides registration and submission actions for work-app task payloads', () => {
     const output = renderHeader({
       task: {
         isTask: true,
+      },
+    });
+
+    expect(collectText(output)).not.toContain('Register');
+    expect(collectText(output)).not.toContain('Unregister');
+    expect(collectText(output)).not.toContain('Submit a solution');
+  });
+
+  test('hides registration and submission actions for pure v5 task payloads', () => {
+    const output = renderHeader({
+      legacy: {
+        pureV5Task: true,
       },
     });
 
