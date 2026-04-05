@@ -9,6 +9,7 @@ import moment from 'moment';
 import { PrimaryButton, Modal } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import { services } from 'topcoder-react-lib';
+import { isReviewPhaseComplete } from 'utils/challenge-detail/mm-final-results';
 import sortList from 'utils/challenge-detail/sort';
 import { getSubmissionStatus } from 'utils/challenge-detail/submission-status';
 
@@ -75,9 +76,10 @@ const getSubmissionCreatedTime = (submission) => {
 };
 
 /**
- * Returns the scores that should be displayed for a marathon match submission row.
- * Initial score is the authoritative provisional score for MM submissions, while
- * final scores should remain hidden until the review phase has completed.
+ * Returns the scores that should be displayed for a Marathon Match submission row.
+ * Initial score is the authoritative provisional score for MM submissions, and
+ * final scores become visible once review is complete or the payload already
+ * includes a final result during review.
  *
  * @param {Object} submission submission attempt shown in My Submissions.
  * @param {Object} challenge challenge that owns the submission.
@@ -85,21 +87,21 @@ const getSubmissionCreatedTime = (submission) => {
  */
 export function getDisplayedScores(submission = {}, challenge = {}) {
   const toNumericScore = (value) => {
+    if (_.isNil(value) || value === '' || value === '-') {
+      return null;
+    }
+
     const numeric = Number(value);
     return Number.isFinite(numeric) ? numeric : null;
   };
 
-  const isReviewPhaseComplete = _.some(
-    challenge.phases || [],
-    phase => phase.name === 'Review' && !phase.isOpen && moment(phase.scheduledStartDate).isBefore(),
-  );
-
   const initialScore = toNumericScore(_.get(submission, 'initialScore'));
   const provisionalScore = toNumericScore(_.get(submission, 'provisionalScore'));
   const finalScore = toNumericScore(_.get(submission, 'finalScore'));
+  const showFinalScore = isReviewPhaseComplete(challenge) || !_.isNil(finalScore);
 
   return {
-    finalScore: isReviewPhaseComplete ? finalScore : null,
+    finalScore: showFinalScore ? finalScore : null,
     provisionalScore: !_.isNil(initialScore) ? initialScore : provisionalScore,
   };
 }
