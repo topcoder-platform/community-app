@@ -1,6 +1,6 @@
 import { config } from 'topcoder-react-utils';
 
-const v5ApiUrl = config.API.V5;
+const v6ApiUrl = config.API.V6;
 
 /**
  * Fetches copilot opportunities.
@@ -11,7 +11,7 @@ const v5ApiUrl = config.API.V5;
  * @returns {Promise<Object>} The fetched data.
  */
 export default function getCopilotOpportunities(page, pageSize = 20, sort = 'createdAt desc', noGrouping = true) {
-  const url = new URL(`${v5ApiUrl}/projects/copilots/opportunities`);
+  const url = new URL(`${v6ApiUrl}/projects/copilots/opportunities`);
   url.searchParams.append('page', page);
   url.searchParams.append('pageSize', pageSize);
   url.searchParams.append('sort', sort);
