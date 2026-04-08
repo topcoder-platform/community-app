@@ -493,6 +493,10 @@
     margin-bottom: 300px;
   }
 
+  @media screen and (max-width: 425px) {
+    margin-bottom: 180px;
+  }
+
   .bannerInner {
     display: flex;
     max-width: 1280px;
@@ -578,6 +582,10 @@
           background-position: center center;
           -webkit-clip-path: url(#thrive-banner-clip-path);
           clip-path: url(#thrive-banner-clip-path);
+
+          @media screen and (max-width: 425px) {
+            height: 270px;
+          }
         }
       }
     }
@@ -588,12 +596,6 @@
     position: relative;
     left: -2px;
     bottom: -10px;
-  }
-}
-
-.bannerContainerDefaultImage {
-  @media screen and (max-width: 425px) {
-    margin-bottom: 180px;
   }
 }
 
