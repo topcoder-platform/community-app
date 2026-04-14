@@ -105,10 +105,12 @@ const WIPRO_REGISTRATION_SUPPORT_MESSAGE = 'If you think this is an error, pleas
 /**
  * Checks whether challenge registration should be blocked for Wipro members.
  * @param {String} email User email.
- * @param {Boolean} wiproAllowed Challenge-level flag.
+ * @param {Object} challenge Challenge details used to determine registration policy.
  * @return {Boolean}
  */
-export function isWiproRegistrationBlocked(email, wiproAllowed) {
+export function isWiproRegistrationBlocked(email, challenge = {}) {
+  if (getTypeName(challenge) === 'Topgear Task') return false;
+  const wiproAllowed = _.get(challenge, 'wiproAllowed');
   if (wiproAllowed !== false) return false;
   return /@wipro\.com$/i.test(_.trim(email || ''));
 }
@@ -412,9 +414,7 @@ class ChallengeDetailPageContainer extends React.Component {
       communityId,
     } = this.props;
     const userEmail = _.get(auth, 'user.email');
-    const wiproAllowed = _.get(challenge, 'wiproAllowed');
-
-    if (isWiproRegistrationBlocked(userEmail, wiproAllowed)) {
+    if (isWiproRegistrationBlocked(userEmail, challenge)) {
       fireErrorMessage(
         WIPRO_REGISTRATION_BLOCKED_MESSAGE,
         WIPRO_REGISTRATION_SUPPORT_MESSAGE,
@@ -1153,20 +1153,23 @@ function mapStateToProps(state, props) {
   const challengeId = String(props.match.params.challengeId);
   const cl = state.challengeListing;
   const { lookup: { allCountries, reviewTypes } } = state;
+  const challenge = state.challenge.details || {};
   const reviewSummations = extractArrayFromStateSlice(
     state.challenge.reviewSummations,
     challengeId,
   );
+  const rawChallengeSubmissions = Array.isArray(challenge.submissions)
+    ? challenge.submissions
+    : (_.get(challenge, 'submissions.data') || []);
   let mmSubmissions = extractArrayFromStateSlice(state.challenge.mmSubmissions, challengeId);
-  if (!mmSubmissions.length && reviewSummations.length) {
-    mmSubmissions = buildMmSubmissionData(reviewSummations);
+  if (reviewSummations.length || rawChallengeSubmissions.length) {
+    mmSubmissions = buildMmSubmissionData(reviewSummations, rawChallengeSubmissions);
   }
   const { auth } = state;
   let statisticsData = extractArrayFromStateSlice(state.challenge.statisticsData, challengeId);
   if (!hasRenderableStatisticsData(statisticsData) && reviewSummations.length) {
     statisticsData = buildStatisticsData(reviewSummations);
   }
-  const challenge = state.challenge.details || {};
   const reviewSummationLookup = reviewSummations.length
     ? buildReviewSummationLookup(reviewSummations)
     : null;
@@ -1306,6 +1309,12 @@ function mapStateToProps(state, props) {
               }
               return toNumericScore(match.aggregateScore);
             };
+
+            const initialScore = toNumericScore(normalizedAttempt.initialScore);
+            if (!_.isNil(initialScore)) {
+              normalizedAttempt.initialScore = initialScore;
+              normalizedAttempt.provisionalScore = initialScore;
+            }
 
             const hasProvisionalScore = !_.isNil(normalizedAttempt.provisionalScore);
             const hasFinalScore = !_.isNil(normalizedAttempt.finalScore);

@@ -2,19 +2,38 @@ import { getDisplayWinners, isWiproRegistrationBlocked } from 'containers/challe
 
 describe('Challenge detail Wipro registration guard', () => {
   test('blocks Wipro members when challenge disallows Wipro participation', () => {
-    expect(isWiproRegistrationBlocked('member@wipro.com', false)).toBe(true);
+    expect(isWiproRegistrationBlocked('member@wipro.com', {
+      wiproAllowed: false,
+      type: 'Challenge',
+    })).toBe(true);
   });
 
   test('does not block Wipro members when challenge allows Wipro participation', () => {
-    expect(isWiproRegistrationBlocked('member@wipro.com', true)).toBe(false);
+    expect(isWiproRegistrationBlocked('member@wipro.com', {
+      wiproAllowed: true,
+      type: 'Challenge',
+    })).toBe(false);
   });
 
   test('does not block non-Wipro members when challenge disallows Wipro participation', () => {
-    expect(isWiproRegistrationBlocked('member@example.com', false)).toBe(false);
+    expect(isWiproRegistrationBlocked('member@example.com', {
+      wiproAllowed: false,
+      type: 'Challenge',
+    })).toBe(false);
   });
 
   test('matches Wipro domain case-insensitively and ignores surrounding spaces', () => {
-    expect(isWiproRegistrationBlocked('  MEMBER@WIPRO.COM ', false)).toBe(true);
+    expect(isWiproRegistrationBlocked('  MEMBER@WIPRO.COM ', {
+      wiproAllowed: false,
+      type: 'Challenge',
+    })).toBe(true);
+  });
+
+  test('does not block Wipro members for Topgear Task even when the flag is false', () => {
+    expect(isWiproRegistrationBlocked('member@wipro.com', {
+      wiproAllowed: false,
+      type: 'Topgear Task',
+    })).toBe(false);
   });
 });
 
