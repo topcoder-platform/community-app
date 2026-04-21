@@ -13,9 +13,9 @@ function normalizeScoreValue(score) {
 
 function getSummationTimestamp(summation) {
   const candidates = [
+    _.get(summation, 'reviewedDate'),
     _.get(summation, 'createdAt'),
     _.get(summation, 'created'),
-    _.get(summation, 'reviewedDate'),
     _.get(summation, 'updatedAt'),
   ];
   return _.find(candidates, value => !!value) || null;
@@ -80,6 +80,7 @@ function getSummationRating(summation) {
 function getSubmissionHandle(submission) {
   const handle = _.get(submission, 'registrant.memberHandle')
     || _.get(submission, 'memberHandle')
+    || _.get(submission, 'submitterHandle')
     || _.get(submission, 'createdBy');
 
   if (!handle || !_.isString(handle) || !handle.trim()) {
@@ -90,21 +91,31 @@ function getSubmissionHandle(submission) {
 }
 
 function getSubmissionMemberId(submission) {
-  const memberId = _.get(submission, 'memberId', _.get(submission, 'registrant.memberId'));
+  const memberId = _.get(
+    submission,
+    'memberId',
+    _.get(submission, 'registrant.memberId', _.get(submission, 'submitterId')),
+  );
   return _.isNil(memberId) ? null : _.toString(memberId);
 }
 
 function getSubmissionRating(submission) {
-  const rating = _.get(submission, 'rating', _.get(submission, 'registrant.rating'));
+  let rating = _.get(submission, 'rating');
+  if (_.isNil(rating)) {
+    rating = _.get(submission, 'registrant.rating');
+  }
+  if (_.isNil(rating)) {
+    rating = _.get(submission, 'submitterMaxRating');
+  }
   return _.isNil(rating) ? null : rating;
 }
 
 function getSubmissionTimestamp(submission) {
   const candidates = [
     _.get(submission, 'submissionTime'),
+    _.get(submission, 'submittedDate'),
     _.get(submission, 'created'),
     _.get(submission, 'createdAt'),
-    _.get(submission, 'submittedDate'),
     _.get(submission, 'reviewedDate'),
     _.get(submission, 'updated'),
     _.get(submission, 'updatedAt'),
