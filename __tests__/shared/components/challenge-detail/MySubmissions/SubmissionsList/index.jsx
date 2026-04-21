@@ -23,7 +23,7 @@ describe('getDisplayedScores', () => {
     });
   });
 
-  test('shows final scores once the review phase is complete', () => {
+  test('shows final scores after the review phase is complete', () => {
     expect(getDisplayedScores(
       {
         finalScore: 100,
