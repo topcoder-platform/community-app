@@ -27,7 +27,6 @@ export default function SubmissionHistoryRow({
   provisionalScore,
   submissionTime,
   createdAt,
-  showFinalResults,
   status,
   challengeStatus,
   auth,
@@ -38,6 +37,10 @@ export default function SubmissionHistoryRow({
   // todo: hide download button until update submissions API
   const hideDownloadForMMRDM = true;
   const parseScore = (value) => {
+    if (value === null || value === undefined || value === '' || value === '-') {
+      return null;
+    }
+
     const numeric = Number(value);
     return Number.isFinite(numeric) ? numeric : null;
   };
@@ -63,9 +66,6 @@ export default function SubmissionHistoryRow({
     }
   };
   const getFinalScore = () => {
-    if (!showFinalResults) {
-      return 'N/A';
-    }
     if (finalScoreValue === null) {
       return 'N/A';
     }
@@ -139,7 +139,6 @@ export default function SubmissionHistoryRow({
 SubmissionHistoryRow.defaultProps = {
   finalScore: null,
   provisionalScore: null,
-  showFinalResults: false,
   isLoggedIn: false,
   createdAt: null,
   submissionTime: null,
@@ -169,7 +168,6 @@ SubmissionHistoryRow.propTypes = {
     PT.oneOf([null]),
   ]),
   challengeStatus: PT.string.isRequired,
-  showFinalResults: PT.bool,
   auth: PT.shape().isRequired,
   numWinners: PT.number.isRequired,
   submissionId: PT.string.isRequired,

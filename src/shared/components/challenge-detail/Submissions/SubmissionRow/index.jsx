@@ -35,6 +35,10 @@ export default function SubmissionRow({
   } = latestSubmission;
 
   const parseScore = (value) => {
+    if (_.isNil(value) || value === '' || value === '-') {
+      return null;
+    }
+
     const numeric = Number(value);
     return Number.isFinite(numeric) ? numeric : null;
   };
@@ -66,9 +70,6 @@ export default function SubmissionRow({
   };
 
   const getFinalReviewResult = () => {
-    if (!showFinalResults) {
-      return 'N/A';
-    }
     if (_.isNil(finalScore)) {
       return 'N/A';
     }

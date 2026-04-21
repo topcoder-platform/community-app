@@ -9,7 +9,6 @@ import moment from 'moment';
 import { PrimaryButton, Modal } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import { services } from 'topcoder-react-lib';
-import { isReviewPhaseComplete } from 'utils/challenge-detail/mm-final-results';
 import sortList from 'utils/challenge-detail/sort';
 import { getSubmissionStatus } from 'utils/challenge-detail/submission-status';
 
@@ -77,15 +76,13 @@ const getSubmissionCreatedTime = (submission) => {
 
 /**
  * Returns the scores that should be displayed for a Marathon Match submission row.
- * Initial score is the authoritative provisional score for MM submissions, and
- * final scores become visible once review is complete or the payload already
- * includes a final result during review.
+ * Initial score is the authoritative provisional score for MM submissions, while
+ * final scores should surface as soon as Review API provides them.
  *
  * @param {Object} submission submission attempt shown in My Submissions.
- * @param {Object} challenge challenge that owns the submission.
  * @returns {{ finalScore: number|null, provisionalScore: number|null }} display-ready scores.
  */
-export function getDisplayedScores(submission = {}, challenge = {}) {
+export function getDisplayedScores(submission = {}) {
   const toNumericScore = (value) => {
     if (_.isNil(value) || value === '' || value === '-') {
       return null;
@@ -98,10 +95,9 @@ export function getDisplayedScores(submission = {}, challenge = {}) {
   const initialScore = toNumericScore(_.get(submission, 'initialScore'));
   const provisionalScore = toNumericScore(_.get(submission, 'provisionalScore'));
   const finalScore = toNumericScore(_.get(submission, 'finalScore'));
-  const showFinalScore = isReviewPhaseComplete(challenge) || !_.isNil(finalScore);
 
   return {
-    finalScore: showFinalScore ? finalScore : null,
+    finalScore,
     provisionalScore: !_.isNil(initialScore) ? initialScore : provisionalScore,
   };
 }
@@ -467,7 +463,7 @@ class SubmissionsListView extends React.Component {
           </div>
           {
             sortedSubmissions.map((mySubmission) => {
-              let { finalScore, provisionalScore } = getDisplayedScores(mySubmission, challenge);
+              let { finalScore, provisionalScore } = getDisplayedScores(mySubmission);
               if (_.isNumber(finalScore)) {
                 if (finalScore > 0) {
                   finalScore = finalScore.toFixed(2);
