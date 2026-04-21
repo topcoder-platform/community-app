@@ -54,7 +54,10 @@ import MetaTags from 'components/MetaTags';
 import { decodeToken } from '@topcoder-platform/tc-auth-lib';
 import { actions, errors, services } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
-import { getSubmissionArtifacts as getSubmissionArtifactsService } from 'services/submissions';
+import {
+  getChallengeSubmissions as getChallengeSubmissionsService,
+  getSubmissionArtifacts as getSubmissionArtifactsService,
+} from 'services/submissions';
 import getReviewSummationsService from 'services/reviewSummations';
 import { buildMmSubmissionData, buildStatisticsData } from 'utils/mm-review-summations';
 import { appendUtmParamsToUrl } from 'utils/utm';
@@ -931,6 +934,9 @@ function extractArrayFromStateSlice(slice, challengeId) {
     return slice;
   }
   if (slice && Array.isArray(slice.data)) {
+    if (slice.challengeId && _.toString(slice.challengeId) !== _.toString(challengeId)) {
+      return [];
+    }
     return slice.data;
   }
   const key = challengeId ? String(challengeId) : null;
@@ -1159,8 +1165,10 @@ function mapStateToProps(state, props) {
     ? challenge.submissions
     : (_.get(challenge, 'submissions.data') || []);
   let mmSubmissions = extractArrayFromStateSlice(state.challenge.mmSubmissions, challengeId);
-  if (reviewSummations.length || rawChallengeSubmissions.length) {
+  if (reviewSummations.length) {
     mmSubmissions = buildMmSubmissionData(reviewSummations, rawChallengeSubmissions);
+  } else if (!mmSubmissions.length && rawChallengeSubmissions.length) {
+    mmSubmissions = buildMmSubmissionData([], rawChallengeSubmissions);
   }
   const { auth } = state;
   let statisticsData = extractArrayFromStateSlice(state.challenge.statisticsData, challengeId);
@@ -1513,9 +1521,17 @@ const mapDispatchToProps = (dispatch) => {
       });
     }
 
-    getReviewSummationsService(tokenV3, challengeIdStr)
-      .then(({ data }) => {
+    const challengeSubmissionsPromise = includeMmSubmissions
+      ? getChallengeSubmissionsService(tokenV3, challengeIdStr)
+      : Promise.resolve({ data: [] });
+
+    Promise.all([
+      getReviewSummationsService(tokenV3, challengeIdStr),
+      challengeSubmissionsPromise,
+    ])
+      .then(([{ data }, { data: rawSubmissions }]) => {
         const reviewSummations = Array.isArray(data) ? data : [];
+        const rawChallengeSubmissions = Array.isArray(rawSubmissions) ? rawSubmissions : [];
 
         dispatch({
           type: 'CHALLENGE/GET_REVIEW_SUMMATIONS_DONE',
@@ -1523,12 +1539,15 @@ const mapDispatchToProps = (dispatch) => {
           meta: { challengeId: challengeIdStr },
         });
         if (includeMmSubmissions) {
-          const mmSubmissions = buildMmSubmissionData(reviewSummations);
+          const mmSubmissions = buildMmSubmissionData(reviewSummations, rawChallengeSubmissions);
           dispatch({
             type: 'CHALLENGE/GET_MM_SUBMISSIONS_DONE',
             payload: {
               challengeId: challengeIdStr,
-              submissions: mmSubmissions,
+              submissions: {
+                challengeId: challengeIdStr,
+                data: mmSubmissions,
+              },
             },
           });
         }
