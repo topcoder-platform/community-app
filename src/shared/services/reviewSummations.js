@@ -30,8 +30,7 @@ async function fetchReviewSummationsPage({
   const totalPages = _.get(payload, 'meta.totalPages')
     || _.get(payload, 'meta.total_pages');
   const reachedEnd = !data.length
-    || (totalPages && page >= totalPages)
-    || data.length < DEFAULT_PER_PAGE;
+    || (totalPages ? page >= totalPages : data.length < DEFAULT_PER_PAGE);
 
   if (reachedEnd) {
     return {
