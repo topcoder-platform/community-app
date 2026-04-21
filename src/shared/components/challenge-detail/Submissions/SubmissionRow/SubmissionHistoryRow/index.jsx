@@ -37,6 +37,10 @@ export default function SubmissionHistoryRow({
   // todo: hide download button until update submissions API
   const hideDownloadForMMRDM = true;
   const parseScore = (value) => {
+    if (value === null || value === undefined || value === '' || value === '-') {
+      return null;
+    }
+
     const numeric = Number(value);
     return Number.isFinite(numeric) ? numeric : null;
   };

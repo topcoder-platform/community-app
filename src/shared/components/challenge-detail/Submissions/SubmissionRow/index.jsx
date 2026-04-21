@@ -20,7 +20,7 @@ import style from './style.scss';
 
 export default function SubmissionRow({
   isMM, isRDM, openHistory, member, submissions, toggleHistory, challengeStatus,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
+  showFinalResults, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
   numWinners, auth, isLoggedIn, isF2F, isBugHunt,
 }) {
   const submissionList = Array.isArray(submissions) ? submissions : [];
@@ -35,6 +35,10 @@ export default function SubmissionRow({
   } = latestSubmission;
 
   const parseScore = (value) => {
+    if (_.isNil(value) || value === '' || value === '-') {
+      return null;
+    }
+
     const numeric = Number(value);
     return Number.isFinite(numeric) ? numeric : null;
   };
@@ -100,7 +104,7 @@ export default function SubmissionRow({
     ? submissionMoment.format('MMM DD, YYYY HH:mm')
     : 'N/A';
 
-  const finalRankDisplay = (isReviewPhaseComplete && _.isFinite(finalRank)) ? finalRank : 'N/A';
+  const finalRankDisplay = (showFinalResults && _.isFinite(finalRank)) ? finalRank : 'N/A';
   const provisionalRankDisplay = _.isFinite(provisionalRank) ? provisionalRank : 'N/A';
   const ratingDisplay = _.isFinite(rating) ? rating : '-';
   const ratingLevelStyle = `col level-${getRatingLevel(rating)}`;
@@ -303,7 +307,7 @@ export default function SubmissionRow({
               {
                 submissionList.map((submissionHistory, index) => (
                   <SubmissionHistoryRow
-                    isReviewPhaseComplete={isReviewPhaseComplete}
+                    showFinalResults={showFinalResults}
                     isMM={isMM}
                     isRDM={isRDM}
                     challengeStatus={challengeStatus}
@@ -336,7 +340,7 @@ export default function SubmissionRow({
 
 SubmissionRow.defaultProps = {
   toggleHistory: () => {},
-  isReviewPhaseComplete: false,
+  showFinalResults: false,
   finalRank: null,
   provisionalRank: null,
   rating: null,
@@ -387,7 +391,7 @@ SubmissionRow.propTypes = {
   })).isRequired,
   rating: PT.number,
   toggleHistory: PT.func,
-  isReviewPhaseComplete: PT.bool,
+  showFinalResults: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,
   onShowPopup: PT.func.isRequired,

@@ -75,7 +75,7 @@ const getSubmissionCreatedTime = (submission) => {
 };
 
 /**
- * Returns the scores that should be displayed for a marathon match submission row.
+ * Returns the scores that should be displayed for a Marathon Match submission row.
  * Initial score is the authoritative provisional score for MM submissions, while
  * final scores should surface as soon as Review API provides them.
  *
@@ -84,6 +84,10 @@ const getSubmissionCreatedTime = (submission) => {
  */
 export function getDisplayedScores(submission = {}) {
   const toNumericScore = (value) => {
+    if (_.isNil(value) || value === '' || value === '-') {
+      return null;
+    }
+
     const numeric = Number(value);
     return Number.isFinite(numeric) ? numeric : null;
   };

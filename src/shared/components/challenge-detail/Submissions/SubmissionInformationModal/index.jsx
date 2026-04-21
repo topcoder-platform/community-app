@@ -67,6 +67,10 @@ class SubmissionInformationModal extends React.Component {
       ? null : this.getSubmissionBasicInfo();
     const testcases = isLoadingSubmissionInformation ? [] : this.getTestcases();
     const toNumericScore = (value) => {
+      if (_.isNil(value) || value === '' || value === '-') {
+        return null;
+      }
+
       const numeric = Number(value);
       return Number.isFinite(numeric) ? numeric : null;
     };

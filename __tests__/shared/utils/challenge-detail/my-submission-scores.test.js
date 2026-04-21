@@ -1,7 +1,8 @@
-import { getDisplayedScores } from '../../../../../../src/shared/components/challenge-detail/MySubmissions/SubmissionsList';
+/* eslint-env jest */
+import { getDisplayedScores } from '../../../../src/shared/components/challenge-detail/MySubmissions/SubmissionsList';
 
 describe('getDisplayedScores', () => {
-  test('shows final scores when a system review already produced one before review completes', () => {
+  it('shows final scores when a system review has already produced one', () => {
     expect(getDisplayedScores(
       {
         finalScore: 100,
@@ -23,7 +24,29 @@ describe('getDisplayedScores', () => {
     });
   });
 
-  test('shows final scores after the review phase is complete', () => {
+  it('hides final scores while review is active and no final result exists yet', () => {
+    expect(getDisplayedScores(
+      {
+        finalScore: null,
+        initialScore: 95,
+        provisionalScore: 0,
+      },
+      {
+        phases: [
+          {
+            isOpen: true,
+            name: 'Registration',
+            scheduledStartDate: '2030-01-01T00:00:00.000Z',
+          },
+        ],
+      },
+    )).toEqual({
+      finalScore: null,
+      provisionalScore: 95,
+    });
+  });
+
+  it('shows final scores once the review phase is complete', () => {
     expect(getDisplayedScores(
       {
         finalScore: 100,
