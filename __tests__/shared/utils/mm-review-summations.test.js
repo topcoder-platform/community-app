@@ -125,4 +125,61 @@ describe('buildMmSubmissionData', () => {
       }),
     ]);
   });
+
+  it('uses v6 submitter fields and submittedDate for imported raw submissions', () => {
+    const rawSubmissions = [
+      {
+        createdAt: '2026-04-09T05:00:55.279Z',
+        createdBy: 'historical-mm-importer',
+        finalScore: '7186.79',
+        id: 'submission-imported',
+        isLatest: true,
+        memberId: '16064986',
+        submittedDate: '2006-05-16T10:31:42.790Z',
+        submitterHandle: 'ctrucza',
+        submitterMaxRating: 1228,
+      },
+    ];
+
+    const result = buildMmSubmissionData([], rawSubmissions);
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toEqual(expect.objectContaining({
+      member: 'ctrucza',
+      memberId: '16064986',
+      rating: 1228,
+    }));
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        finalScore: 7186.79,
+        submissionId: 'submission-imported',
+        submissionTime: '2006-05-16T10:31:42.790Z',
+      }),
+    ]);
+  });
+
+  it('uses reviewedDate before import createdAt for review summation times', () => {
+    const reviewSummations = [
+      {
+        aggregateScore: 7186.79,
+        createdAt: '2026-04-21T02:55:21.255Z',
+        id: 'summation-imported',
+        isFinal: true,
+        reviewedDate: '2006-05-16T10:31:42.790Z',
+        submissionId: 'submission-reviewed',
+        submitterHandle: 'ctrucza',
+        submitterId: '16064986',
+      },
+    ];
+
+    const result = buildMmSubmissionData(reviewSummations);
+
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        finalScore: 7186.79,
+        submissionId: 'submission-reviewed',
+        submissionTime: '2006-05-16T10:31:42.790Z',
+      }),
+    ]);
+  });
 });
