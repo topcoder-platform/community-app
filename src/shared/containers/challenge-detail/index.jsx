@@ -454,6 +454,7 @@ class ChallengeDetailPageContainer extends React.Component {
       communitiesList,
       isLoadingChallenge,
       isLoadingTerms,
+      fetchChallengeFailure,
       onSelectorClicked,
       registerForChallenge,
       registering,
@@ -553,7 +554,7 @@ class ChallengeDetailPageContainer extends React.Component {
     const results2 = resultsLoadedForChallengeId === _.toString(challengeId)
       ? results : null;
 
-    const isEmpty = _.isEmpty(challenge);
+    const isEmpty = fetchChallengeFailure || _.isEmpty(challenge);
     const isMM = checkIsMM(challenge);
     const isRDM = checkIsRDM(challenge);
     const isLegacyMM = isMM && Boolean(challenge.roundId);
@@ -788,7 +789,11 @@ class ChallengeDetailPageContainer extends React.Component {
 
           <Terms
             defaultTitle="Challenge Prerequisites"
-            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
+            entity={{
+              type: 'challenge',
+              id: challengeId.toString(),
+              terms: isEmpty ? [] : challenge.terms,
+            }}
             instanceId={this.instanceId}
             description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
             register={() => {
@@ -844,6 +849,7 @@ ChallengeDetailPageContainer.defaultProps = {
   communityId: null,
   isLoadingChallenge: false,
   isLoadingTerms: false,
+  fetchChallengeFailure: false,
   // loadingCheckpointResults: false,
   results: null,
   terms: [],
@@ -881,6 +887,7 @@ ChallengeDetailPageContainer.propTypes = {
   getTypes: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
+  fetchChallengeFailure: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   fetchChallengeStatistics: PT.func.isRequired,
   getAllCountries: PT.func.isRequired,
@@ -1465,6 +1472,7 @@ function mapStateToProps(state, props) {
     communitiesList: state.tcCommunities.list,
     domain: state.domain,
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
+    fetchChallengeFailure: Boolean(state.challenge.fetchChallengeFailure),
     isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
       type: 'challenge',
       id: challengeId,
