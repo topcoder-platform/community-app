@@ -711,7 +711,7 @@ class SubmissionsListView extends React.Component {
                     </div>
                     <div
                       styleName={cn(
-                        'submission-table-column column-2-6 test-status-row',
+                        'submission-table-column column-2-6',
                       )}
                     >
                       <div styleName="mobile-header">Test Status</div>
@@ -719,7 +719,7 @@ class SubmissionsListView extends React.Component {
                     </div>
                     <div
                       styleName={cn(
-                        'submission-table-column column-2-7 test-progress-row',
+                        'submission-table-column column-2-7',
                       )}
                     >
                       <div styleName="mobile-header">Test Progress</div>
