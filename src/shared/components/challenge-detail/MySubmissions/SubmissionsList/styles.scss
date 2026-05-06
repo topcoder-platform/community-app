@@ -155,6 +155,20 @@ button.column-1-1,
   }
 }
 
+.test-status-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  width: 22px;
+
+  svg {
+    display: block;
+    height: 20px;
+    width: 20px;
+  }
+}
+
 .submission-table-column {
   @include roboto-medium;
 
@@ -213,7 +227,7 @@ button.column-1-1,
 }
 
 .column-1 {
-  width: 22%;
+  width: 18%;
   display: flex;
   justify-content: space-between;
 
@@ -224,7 +238,7 @@ button.column-1-1,
 }
 
 .column-2 {
-  width: 78%;
+  width: 82%;
   display: flex;
   justify-content: space-between;
 
@@ -255,9 +269,9 @@ button.column-1-1,
 }
 
 .column-2-1 {
-  width: 28%;
+  width: 14%;
   justify-content: flex-end;
-  padding-right: 20px;
+  padding-right: 12px;
 
   &.final-score-row {
     margin-left: -40px;
@@ -275,9 +289,9 @@ button.column-1-1,
 }
 
 .column-2-2 {
-  width: 18%;
+  width: 14%;
   justify-content: flex-end;
-  padding-right: 20px;
+  padding-right: 12px;
 
   &.provisional-score-row {
     margin-left: -23px;
@@ -294,13 +308,13 @@ button.column-1-1,
 }
 
 .column-2-3 {
-  width: 18%;
+  width: 20%;
   justify-content: flex-start;
-  padding-left: 40px;
+  padding-left: 16px;
 
   &.time-row {
-    width: 19%;
-    margin-left: 65px;
+    width: 20%;
+    margin-left: 0;
 
     @include xs-to-sm {
       margin-left: 0;
@@ -316,7 +330,7 @@ button.column-1-1,
 }
 
 .column-2-4 {
-  width: 8%;
+  width: 9%;
 
   @include xs-to-sm {
     width: auto;
@@ -327,6 +341,52 @@ button.column-1-1,
     right: 0;
     top: 0;
   }
+}
+
+.column-2-5 {
+  width: 15%;
+  justify-content: flex-start;
+
+  @include xs-to-sm {
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+
+.column-2-6 {
+  width: 9%;
+  justify-content: center;
+
+  @include xs-to-sm {
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+
+.column-2-7 {
+  width: 9%;
+  justify-content: flex-start;
+
+  @include xs-to-sm {
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+
+.test-process-row {
+  text-transform: lowercase;
+}
+
+.test-status-in-progress {
+  color: #d97706;
+}
+
+.test-status-success {
+  color: #137d60;
+}
+
+.test-status-failed {
+  color: #ef476f;
 }
 
 .icon-search {

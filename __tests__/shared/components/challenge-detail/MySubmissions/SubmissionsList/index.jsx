@@ -1,4 +1,7 @@
-import { getDisplayedScores } from '../../../../../../src/shared/components/challenge-detail/MySubmissions/SubmissionsList';
+import {
+  getDisplayedScores,
+  getSubmissionTestProgress,
+} from '../../../../../../src/shared/components/challenge-detail/MySubmissions/SubmissionsList';
 
 describe('getDisplayedScores', () => {
   test('shows final scores when a system review already produced one before review completes', () => {
@@ -42,6 +45,26 @@ describe('getDisplayedScores', () => {
     )).toEqual({
       finalScore: 100,
       provisionalScore: 95,
+    });
+  });
+});
+
+describe('getSubmissionTestProgress', () => {
+  it('formats marathon test progress metadata for display', () => {
+    expect(getSubmissionTestProgress({
+      reviewSummations: [
+        {
+          metadata: {
+            testProcess: 'system',
+            testProgress: 0.2,
+            testStatus: 'FAILED',
+          },
+        },
+      ],
+    })).toEqual({
+      process: 'system',
+      progressPercent: '20%',
+      status: 'FAILED',
     });
   });
 });
