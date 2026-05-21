@@ -126,10 +126,9 @@
 
 button.column-1-1,
 .column-1-1 {
-  width: 35%;
+  width: 100%;
 
-  @include xs-to-sm {
-    width: 100%;
+  @include xs-to-md {
     align-items: flex-start;
   }
 }
@@ -150,7 +149,7 @@ button.column-1-1,
     color: #888894;
   }
 
-  @include xs-to-sm {
+  @include xs-to-md {
     display: none !important;
   }
 }
@@ -188,7 +187,7 @@ button.column-1-1,
     }
   }
 
-  @include xs-to-sm {
+  @include xs-to-md {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -198,7 +197,9 @@ button.column-1-1,
 }
 
 .submission-table-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 1.05fr) minmax(0, 1.55fr) minmax(0, 1.2fr) minmax(0, 0.85fr) minmax(0, 0.85fr) minmax(0, 0.95fr);
+  column-gap: 16px;
   border-bottom: none;
   height: 54px;
   margin-top: 5px;
@@ -227,22 +228,22 @@ button.column-1-1,
 }
 
 .column-1 {
-  width: 18%;
-  display: flex;
-  justify-content: space-between;
+  display: contents;
 
-  @include xs-to-sm {
+  @include xs-to-md {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     align-items: flex-start;
   }
 }
 
 .column-2 {
-  width: 82%;
-  display: flex;
-  justify-content: space-between;
+  display: contents;
 
-  @include xs-to-sm {
+  @include xs-to-md {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     align-items: flex-start;
   }
@@ -259,80 +260,78 @@ button.column-1-1,
 
 .column-1-2 {
   &.status-row {
-    margin-right: -16px;
+    margin-right: 0;
   }
 
-  @include xs-to-sm {
+  @include xs-to-md {
     width: 100%;
     align-items: flex-start;
   }
 }
 
 .column-2-1 {
-  width: 14%;
+  width: 100%;
   justify-content: flex-end;
   padding-right: 12px;
 
   &.final-score-row {
-    margin-left: -40px;
+    margin-left: 0;
 
-    @include xs-to-sm {
+    @include xs-to-md {
       margin-left: 0;
     }
   }
 
-  @include xs-to-sm {
-    width: 100%;
+  @include xs-to-md {
     align-items: flex-start;
     margin-left: 0;
   }
 }
 
 .column-2-2 {
-  width: 14%;
+  width: 100%;
   justify-content: flex-end;
   padding-right: 12px;
 
   &.provisional-score-row {
-    margin-left: -23px;
+    margin-left: 0;
 
-    @include xs-to-sm {
+    @include xs-to-md {
       margin-left: 0;
     }
   }
 
-  @include xs-to-sm {
-    width: 100%;
+  @include xs-to-md {
     align-items: flex-start;
   }
 }
 
 .column-2-3 {
-  width: 20%;
+  width: 100%;
   justify-content: flex-start;
   padding-left: 16px;
 
   &.time-row {
-    width: 20%;
+    width: 100%;
     margin-left: 0;
 
-    @include xs-to-sm {
+    @include xs-to-md {
       margin-left: 0;
       margin-bottom: 16px;
     }
   }
 
-  @include xs-to-sm {
-    width: 100%;
+  @include xs-to-md {
     align-items: flex-start;
     padding-left: 0;
   }
 }
 
 .column-2-4 {
-  width: 9%;
+  width: 100%;
+  justify-content: flex-end;
 
-  @include xs-to-sm {
+  @include xs-to-md {
     width: auto;
     align-items: flex-start;
     margin-top: 16px;
@@ -344,31 +343,28 @@ button.column-1-1,
 }
 
 .column-2-5 {
-  width: 15%;
+  width: 100%;
   justify-content: flex-start;
 
-  @include xs-to-sm {
-    width: 100%;
+  @include xs-to-md {
     align-items: flex-start;
   }
 }
 
 .column-2-6 {
-  width: 9%;
+  width: 100%;
   justify-content: center;
 
-  @include xs-to-sm {
-    width: 100%;
+  @include xs-to-md {
     align-items: flex-start;
   }
 }
 
 .column-2-7 {
-  width: 9%;
+  width: 100%;
   justify-content: flex-start;
 
-  @include xs-to-sm {
-    width: 100%;
+  @include xs-to-md {
     align-items: flex-start;
   }
 }
@@ -430,7 +426,7 @@ button.column-1-1,
 .mobile-header {
   display: none;
 
-  @include xs-to-sm {
+  @include xs-to-md {
     display: block;
     margin-top: 16px;
     font-size: 11px;
