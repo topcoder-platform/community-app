@@ -12,7 +12,7 @@ async function fetchReviewSummationsPage({
   aggregated,
   meta,
 }) {
-  const url = `${v6ApiUrl}${baseUrl}?challengeId=${encodeURIComponent(challengeId)}&perPage=${DEFAULT_PER_PAGE}&page=${page}`;
+  const url = `${v6ApiUrl}${baseUrl}?challengeId=${encodeURIComponent(challengeId)}&perPage=${DEFAULT_PER_PAGE}&page=${page}&metadata=true`;
   const response = await fetch(url, {
     method: 'GET',
     headers,

@@ -17,6 +17,8 @@ import DateSortIcon from 'assets/images/icon-date-sort.svg';
 import SortIcon from 'assets/images/icon-sort.svg';
 import Tooltip from 'components/Tooltip';
 import IconFail from '../../icons/failed.svg';
+import IconTestInProgress from '../../icons/clock.svg';
+import IconTestSuccess from '../../icons/check-mark.svg';
 import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 import ZoomIcon from '../../../SubmissionManagement/Icons/IconZoom.svg';
 import ArtifactsDownloadIcon from '../../../SubmissionManagement/Icons/IconDownloadArtifacts.svg';
@@ -100,6 +102,153 @@ export function getDisplayedScores(submission = {}) {
     finalScore,
     provisionalScore: !_.isNil(initialScore) ? initialScore : provisionalScore,
   };
+}
+
+/**
+ * Normalizes Review API test process metadata for display.
+ *
+ * @param {String} value test process or legacy test type metadata.
+ * @returns {String|undefined} `provisional` or `system` when recognized.
+ */
+function normalizeTestProcess(value) {
+  const normalized = _.toLower(_.toString(value || '').trim());
+  if (normalized === 'system' || normalized === 'final') {
+    return 'system';
+  }
+  if (normalized === 'provisional') {
+    return 'provisional';
+  }
+  return undefined;
+}
+
+/**
+ * Normalizes Review API test status metadata for display.
+ *
+ * @param {String} value test status metadata.
+ * @returns {String|undefined} supported status value when recognized.
+ */
+function normalizeTestStatus(value) {
+  const normalized = _.toUpper(_.toString(value || '').trim());
+  if (['FAILED', 'IN PROGRESS', 'SUCCESS'].indexOf(normalized) >= 0) {
+    return normalized;
+  }
+  return undefined;
+}
+
+/**
+ * Normalizes Review API test progress metadata into the supported 0-to-1 range.
+ *
+ * @param {Number|String} value test progress metadata.
+ * @returns {Number|undefined} finite progress value when present.
+ */
+function normalizeTestProgress(value) {
+  const progress = _.isString(value) ? Number(value) : value;
+  if (!_.isFinite(progress)) {
+    return undefined;
+  }
+  return Math.min(Math.max(progress, 0), 1);
+}
+
+/**
+ * Returns display-ready test process, status, and percent progress for a submission.
+ *
+ * @param {Object} submission submission attempt shown in My Submissions.
+ * @returns {Object} display process, status, and progress percentage.
+ * Marathon Match competitors receive only sanitized progress metadata from Review API.
+ */
+export function getSubmissionTestProgress(submission = {}) {
+  const candidates = collectReviewSummations(submission)
+    .map((summation) => {
+      const metadata = _.isObject(_.get(summation, 'metadata'))
+        ? _.get(summation, 'metadata')
+        : {};
+      const process = normalizeTestProcess(
+        _.get(metadata, 'testProcess', _.get(metadata, 'testType')),
+      );
+      const status = normalizeTestStatus(_.get(metadata, 'testStatus'));
+      const progress = normalizeTestProgress(_.get(metadata, 'testProgress'));
+
+      if (!process && !status && _.isUndefined(progress)) {
+        return null;
+      }
+
+      const updatedAt = _.get(metadata, 'testProgressDetails.updatedAt')
+        || _.get(summation, 'updatedAt')
+        || _.get(summation, 'createdAt')
+        || '';
+      const updatedAtValue = new Date(updatedAt).getTime();
+
+      return {
+        process,
+        progress,
+        progressPercent: _.isUndefined(progress)
+          ? undefined
+          : `${Math.round(progress * 100)}%`,
+        status,
+        inProgressPriority: status === 'IN PROGRESS' ? 1 : 0,
+        processPriority: process === 'system' ? 1 : 0,
+        updatedAt: _.isFinite(updatedAtValue) ? updatedAtValue : 0,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => (
+      b.inProgressPriority - a.inProgressPriority
+      || b.updatedAt - a.updatedAt
+      || b.processPriority - a.processPriority
+    ));
+
+  if (!candidates.length) {
+    return {};
+  }
+
+  return {
+    process: candidates[0].process,
+    progressPercent: candidates[0].progressPercent,
+    status: candidates[0].status,
+  };
+}
+
+/**
+ * Renders a visual test status indicator.
+ *
+ * @param {String} status normalized test status.
+ * @returns {React.Node} status icon, or null when no status is available.
+ */
+function renderTestStatusIcon(status) {
+  if (status === 'IN PROGRESS') {
+    return (
+      <span
+        aria-label="Test status: IN PROGRESS"
+        role="img"
+        styleName="test-status-icon test-status-in-progress"
+      >
+        <IconTestInProgress />
+      </span>
+    );
+  }
+  if (status === 'SUCCESS') {
+    return (
+      <span
+        aria-label="Test status: SUCCESS"
+        role="img"
+        styleName="test-status-icon test-status-success"
+      >
+        <IconTestSuccess />
+      </span>
+    );
+  }
+  if (status === 'FAILED') {
+    return (
+      <span
+        aria-label="Test status: FAILED"
+        role="img"
+        styleName="test-status-icon test-status-failed"
+      >
+        <IconFail />
+      </span>
+    );
+  }
+  return null;
 }
 
 class SubmissionsListView extends React.Component {
@@ -456,6 +605,15 @@ class SubmissionsListView extends React.Component {
                   </div>
                 </button>
               </div>
+              <div styleName="submission-table-column column-2-5">
+                <span>Current Tests Process</span>
+              </div>
+              <div styleName="submission-table-column column-2-6">
+                <span>Test Status</span>
+              </div>
+              <div styleName="submission-table-column column-2-7">
+                <span>Test Progress</span>
+              </div>
               <div styleName="submission-table-column column-2-4">
                 <span styleName="actions-col">ACTIONS</span>
               </div>
@@ -479,6 +637,7 @@ class SubmissionsListView extends React.Component {
                 provisionalScore = 'N/A';
               }
               const { isAccepted } = getSubmissionStatus(mySubmission);
+              const testProgress = getSubmissionTestProgress(mySubmission);
               const statusStyleName = isAccepted ? 'accepted' : 'queue';
               const statusLabel = isAccepted ? 'Accepted' : 'In Queue';
               const displaySubmissionId = getDisplaySubmissionId(mySubmission);
@@ -541,6 +700,30 @@ class SubmissionsListView extends React.Component {
                     >
                       <div styleName="mobile-header">Time</div>
                       <span>{submissionTimeDisplay}</span>
+                    </div>
+                    <div
+                      styleName={cn(
+                        'submission-table-column column-2-5 test-process-row',
+                      )}
+                    >
+                      <div styleName="mobile-header">Current Tests Process</div>
+                      <span>{testProgress.process || ''}</span>
+                    </div>
+                    <div
+                      styleName={cn(
+                        'submission-table-column column-2-6',
+                      )}
+                    >
+                      <div styleName="mobile-header">Test Status</div>
+                      {renderTestStatusIcon(testProgress.status)}
+                    </div>
+                    <div
+                      styleName={cn(
+                        'submission-table-column column-2-7',
+                      )}
+                    >
+                      <div styleName="mobile-header">Test Progress</div>
+                      <span>{testProgress.progressPercent || ''}</span>
                     </div>
                     <div styleName="submission-table-column column-2-4">
                       { !isTopCrowdChallenge

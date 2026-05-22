@@ -67,12 +67,12 @@ describe('reviewSummations service', () => {
     expect(global.fetch).toHaveBeenCalledTimes(2);
     expect(global.fetch).toHaveBeenNthCalledWith(
       1,
-      `${baseUrl}?challengeId=challenge-id&perPage=500&page=1`,
+      `${baseUrl}?challengeId=challenge-id&perPage=500&page=1&metadata=true`,
       expect.objectContaining({ method: 'GET' }),
     );
     expect(global.fetch).toHaveBeenNthCalledWith(
       2,
-      `${baseUrl}?challengeId=challenge-id&perPage=500&page=2`,
+      `${baseUrl}?challengeId=challenge-id&perPage=500&page=2&metadata=true`,
       expect.objectContaining({ method: 'GET' }),
     );
     expect(result.data).toEqual([
