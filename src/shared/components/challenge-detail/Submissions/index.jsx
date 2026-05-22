@@ -24,6 +24,7 @@ import SortIcon from 'assets/images/icon-sort.svg';
 import { shouldShowFinalMmResults as resolveShouldShowFinalMmResults } from 'utils/challenge-detail/mm-final-results';
 import { getSubmissionId } from 'utils/submissions';
 import { compressFiles } from 'utils/files';
+import { getChallengeSubmissions as getChallengeSubmissionsService } from 'services/submissions';
 
 import sortList from 'utils/challenge-detail/sort';
 import challengeDetailsActions from 'actions/page/challenge-details';
@@ -43,11 +44,270 @@ const { getProvisionalScore, getFinalScore } = submissionUtils;
 const { getService } = services.submissions;
 
 /**
- * Groups submissions by member
- * @param {Array} submissions all submissions
- * @return {Array} grouped submissions by member
+ * Normalizes score values from submissions and review summations.
+ * @param {*} score Raw score value from an API response.
+ * @return {Number|null} Numeric score or null when the value is missing.
  */
-function groupSubmissionsByMember(submissions) {
+function normalizeScoreValue(score) {
+  if (_.isNil(score) || score === '' || score === '-') {
+    return null;
+  }
+  const parsed = Number(score);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+/**
+ * Resolves a submission id from the v5/v6 submission shapes used by the tab.
+ * @param {Object} submission Submission record.
+ * @return {String} Submission id, or an empty string when unavailable.
+ */
+function getSubmissionIdentifier(submission = {}) {
+  return _.toString(submission.id || submission.submissionId || '').trim();
+}
+
+/**
+ * Resolves a member id from the v5/v6 submission shapes used by the tab.
+ * @param {Object} submission Submission record.
+ * @return {String} Member id, or an empty string when unavailable.
+ */
+function getSubmissionMemberId(submission = {}) {
+  return _.toString(
+    submission.memberId
+      || _.get(submission, 'registrant.memberId')
+      || submission.submitterId
+      || '',
+  ).trim();
+}
+
+/**
+ * Resolves a display handle from the v5/v6 submission shapes used by the tab.
+ * @param {Object} submission Submission record.
+ * @return {String} Member handle, or an empty string when unavailable.
+ */
+function getSubmissionHandle(submission = {}) {
+  return _.toString(
+    _.get(submission, 'registrant.memberHandle')
+      || submission.memberHandle
+      || submission.submitterHandle
+      || submission.createdBy
+      || '',
+  ).trim();
+}
+
+/**
+ * Resolves the newest available submission timestamp.
+ * @param {Object} submission Submission record.
+ * @return {String|null} Timestamp string or null when unavailable.
+ */
+function getSubmissionTimestamp(submission = {}) {
+  return submission.submittedDate
+    || submission.submissionTime
+    || submission.created
+    || submission.createdAt
+    || null;
+}
+
+/**
+ * Returns a submission's review summations from all supported response fields.
+ * @param {Object} submission Submission record.
+ * @return {Array} Review summations for the submission.
+ */
+function getSubmissionReviewSummations(submission = {}) {
+  return [
+    ...(Array.isArray(submission.reviewSummations) ? submission.reviewSummations : []),
+    ...(Array.isArray(submission.reviewSummation) ? submission.reviewSummation : []),
+  ];
+}
+
+/**
+ * Determines whether a review summation is final, provisional, or uncategorized.
+ * @param {Object} summation Review summation record.
+ * @return {String|null} "final", "provisional", or null.
+ */
+function getReviewSummationType(summation = {}) {
+  const metadata = _.isObject(summation.metadata) ? summation.metadata : {};
+  const type = _.toLower(_.toString(summation.type || '').trim());
+  const stage = _.toLower(_.toString(metadata.stage || '').trim());
+  const testType = _.toLower(_.toString(metadata.testType || '').trim());
+
+  if (summation.isFinal || summation.is_final || type === 'final' || stage === 'final') {
+    return 'final';
+  }
+  if (
+    summation.isProvisional
+    || summation.is_provisional
+    || type === 'provisional'
+    || testType === 'provisional'
+  ) {
+    return 'provisional';
+  }
+  return null;
+}
+
+/**
+ * Gets the latest score from review summations, optionally limited by type.
+ * @param {Array} summations Review summation records.
+ * @param {String|null} targetType Optional summation type to include.
+ * @return {Number|null} Latest score, or null when no score is available.
+ */
+function getLatestReviewSummationScore(summations = [], targetType = null) {
+  let latest = null;
+
+  summations.forEach((summation, index) => {
+    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
+    if (_.isNil(score)) {
+      return;
+    }
+    if (targetType && getReviewSummationType(summation) !== targetType) {
+      return;
+    }
+
+    const timestamp = _.get(summation, 'reviewedDate')
+      || _.get(summation, 'createdAt')
+      || _.get(summation, 'created')
+      || _.get(summation, 'updatedAt')
+      || '';
+    const timestampValue = timestamp ? new Date(timestamp).getTime() : 0;
+    if (!latest
+      || timestampValue > latest.timestampValue
+      || (timestampValue === latest.timestampValue && index > latest.index)) {
+      latest = {
+        score,
+        timestampValue,
+        index,
+      };
+    }
+  });
+
+  return latest ? latest.score : null;
+}
+
+/**
+ * Builds a lookup by submission id from existing normalized submissions.
+ * @param {Array} submissions Existing submissions passed through container normalization.
+ * @return {Map<String,Object>} Existing submissions keyed by id.
+ */
+function buildExistingSubmissionLookup(submissions = []) {
+  const lookup = new Map();
+  submissions.forEach((submission) => {
+    const submissionId = getSubmissionIdentifier(submission);
+    if (submissionId) {
+      lookup.set(submissionId, submission);
+    }
+  });
+  return lookup;
+}
+
+/**
+ * Builds registrant lookups by member id and handle.
+ * @param {Array} registrants Challenge registrants.
+ * @return {Object} Registrant lookup maps.
+ */
+function buildRegistrantLookup(registrants = []) {
+  const byMemberId = new Map();
+  const byHandle = new Map();
+
+  registrants.forEach((registrant) => {
+    const memberId = _.toString(registrant.memberId || '').trim();
+    const handle = _.toLower(_.toString(registrant.memberHandle || registrant.handle || '').trim());
+    if (memberId) {
+      byMemberId.set(memberId, registrant);
+    }
+    if (handle) {
+      byHandle.set(handle, registrant);
+    }
+  });
+
+  return {
+    byHandle,
+    byMemberId,
+  };
+}
+
+/**
+ * Enriches paginated v6 submissions with registrants and score fields expected by the tab.
+ * @param {Array} fetchedSubmissions Complete submissions fetched from the v6 API.
+ * @param {Object} challenge Challenge details containing registrants.
+ * @param {Array} existingSubmissions Already-normalized submissions from challenge details.
+ * @return {Array} Submissions ready for display by the challenge detail tab.
+ */
+export function enrichChallengeSubmissions(
+  fetchedSubmissions = [],
+  challenge = {},
+  existingSubmissions = [],
+) {
+  const existingById = buildExistingSubmissionLookup(existingSubmissions);
+  const registrants = Array.isArray(challenge.registrants) ? challenge.registrants : [];
+  const registrantsLookup = buildRegistrantLookup(registrants);
+
+  return fetchedSubmissions.map((submission) => {
+    const submissionId = getSubmissionIdentifier(submission);
+    const existing = existingById.get(submissionId) || {};
+    const memberId = getSubmissionMemberId(submission) || getSubmissionMemberId(existing);
+    const handle = getSubmissionHandle(submission) || getSubmissionHandle(existing);
+    let registrant = existing.registrant || submission.registrant || null;
+
+    if (!registrant && memberId) {
+      registrant = registrantsLookup.byMemberId.get(memberId) || null;
+    }
+    if (!registrant && handle) {
+      registrant = registrantsLookup.byHandle.get(_.toLower(handle)) || null;
+    }
+    if (!registrant && handle) {
+      registrant = {
+        memberHandle: handle,
+        memberId,
+        rating: submission.submitterMaxRating || existing.submitterMaxRating || null,
+      };
+    }
+
+    const reviewSummations = _.uniqBy([
+      ...getSubmissionReviewSummations(existing),
+      ...getSubmissionReviewSummations(submission),
+    ], summation => _.toString(summation.id || JSON.stringify(summation)));
+    const existingInitialScore = normalizeScoreValue(existing.initialScore);
+    const existingFinalScore = normalizeScoreValue(existing.finalScore);
+    const initialScore = !_.isNil(existingInitialScore)
+      ? existingInitialScore
+      : getLatestReviewSummationScore(reviewSummations, 'provisional');
+    const finalScoreFromSummations = getLatestReviewSummationScore(reviewSummations, 'final');
+    const fallbackFinalScore = _.isNil(finalScoreFromSummations)
+      ? getLatestReviewSummationScore(reviewSummations)
+      : finalScoreFromSummations;
+    const finalScore = !_.isNil(existingFinalScore) ? existingFinalScore : fallbackFinalScore;
+    const created = getSubmissionTimestamp(submission) || getSubmissionTimestamp(existing);
+    const updated = submission.updated
+      || submission.updatedAt
+      || existing.updated
+      || existing.updatedAt
+      || null;
+    const rating = submission.rating
+      || existing.rating
+      || _.get(registrant, 'rating')
+      || submission.submitterMaxRating
+      || existing.submitterMaxRating;
+
+    return {
+      ...existing,
+      ...submission,
+      created,
+      finalScore: _.isNil(finalScore) ? submission.finalScore : finalScore,
+      initialScore: _.isNil(initialScore) ? submission.initialScore : initialScore,
+      rating,
+      registrant,
+      reviewSummation: reviewSummations,
+      reviewSummations,
+      updated,
+    };
+  });
+}
+
+/**
+ * Groups submissions by member.
+ * @param {Array} submissions All submissions.
+ * @return {Array} Grouped submissions by member.
+ */
+export function groupSubmissionsByMember(submissions) {
   if (!Array.isArray(submissions)) {
     return [];
   }
@@ -55,7 +315,7 @@ function groupSubmissionsByMember(submissions) {
   const memberMap = new Map();
 
   submissions.forEach((submission) => {
-    const memberHandle = _.get(submission, 'registrant.memberHandle', '');
+    const memberHandle = getSubmissionHandle(submission);
     if (!memberHandle) {
       return;
     }
@@ -104,13 +364,19 @@ class SubmissionsComponent extends React.Component {
       provisionalRankClicked: false,
       provisionalScoreClicked: false,
       downloadingAll: false,
+      completeSubmissions: null,
+      completeSubmissionsChallengeId: '',
+      loadingCompleteSubmissionsForChallengeId: '',
     };
+    this.completeSubmissionsRequestId = 0;
+    this.unmounted = false;
     this.onHandleInformationPopup = this.onHandleInformationPopup.bind(this);
     this.getSubmissionsSortParam = this.getSubmissionsSortParam.bind(this);
     this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
     this.updateSortedSubmissions = this.updateSortedSubmissions.bind(this);
     this.sortSubmissions = this.sortSubmissions.bind(this);
     this.shouldShowFinalMmResults = this.shouldShowFinalMmResults.bind(this);
+    this.loadCompleteSubmissions = this.loadCompleteSubmissions.bind(this);
   }
 
   componentDidMount() {
@@ -125,21 +391,37 @@ class SubmissionsComponent extends React.Component {
 
     if (isMM) {
       loadMMSubmissions(challenge.id, auth.tokenV3);
+    } else {
+      this.loadCompleteSubmissions();
     }
     this.updateSortedSubmissions();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const isMM = this.isMM();
 
     const { submissions, mmSubmissions, submissionsSort } = this.props;
+    const { completeSubmissions } = this.state;
+    const challengeId = _.toString(_.get(this.props, 'challenge.id', ''));
+    const prevChallengeId = _.toString(_.get(prevProps, 'challenge.id', ''));
+    const tokenV3 = _.get(this.props, 'auth.tokenV3');
+    const prevTokenV3 = _.get(prevProps, 'auth.tokenV3');
+    if (!isMM && challengeId && (challengeId !== prevChallengeId || tokenV3 !== prevTokenV3)) {
+      this.loadCompleteSubmissions();
+    }
+
     if (
       (!isMM && !_.isEqual(prevProps.submissions, submissions))
         || (isMM && !_.isEqual(prevProps.mmSubmissions, mmSubmissions))
         || !_.isEqual(prevProps.submissionsSort, submissionsSort)
+        || prevState.completeSubmissions !== completeSubmissions
     ) {
       this.updateSortedSubmissions();
     }
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true;
   }
 
   onHandleInformationPopup(status, submissionId = null, member = '') {
@@ -236,12 +518,93 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
+   * Returns the submissions source currently used by the tab.
+   * @return {Array} Complete loaded submissions when available, otherwise props.
+   */
+  getSubmissionsSource() {
+    const { submissions, challenge } = this.props;
+    const {
+      completeSubmissions,
+      completeSubmissionsChallengeId,
+    } = this.state;
+    const challengeId = _.toString(_.get(challenge, 'id', ''));
+
+    if (
+      this.shouldLoadCompleteSubmissions()
+      && Array.isArray(completeSubmissions)
+      && completeSubmissionsChallengeId === challengeId
+    ) {
+      return completeSubmissions;
+    }
+
+    return submissions;
+  }
+
+  /**
+   * Returns whether the component should load a complete v6 submissions list.
+   * @return {Boolean} True when the tab needs client-side pagination fill-in.
+   */
+  shouldLoadCompleteSubmissions() {
+    const { challenge } = this.props;
+    const trackName = getTrackName(_.get(challenge, 'track'));
+    return !this.isMM() && _.toLower(trackName || '') !== 'design';
+  }
+
+  /**
+   * Loads every v6 submissions page for non-MM challenge detail submissions.
+   * @return {Promise<void>|undefined} Resolves after the complete list is stored.
+   */
+  loadCompleteSubmissions() {
+    if (!this.shouldLoadCompleteSubmissions()) {
+      return undefined;
+    }
+
+    const { auth, challenge, submissions } = this.props;
+    const challengeId = _.toString(_.get(challenge, 'id', ''));
+    if (!challengeId) {
+      return undefined;
+    }
+
+    const requestId = this.completeSubmissionsRequestId + 1;
+    this.completeSubmissionsRequestId = requestId;
+    this.setState({
+      loadingCompleteSubmissionsForChallengeId: challengeId,
+    });
+
+    return getChallengeSubmissionsService(_.get(auth, 'tokenV3'), challengeId)
+      .then(({ data }) => {
+        if (this.unmounted || requestId !== this.completeSubmissionsRequestId) {
+          return;
+        }
+
+        const completeSubmissions = enrichChallengeSubmissions(
+          Array.isArray(data) ? data : [],
+          challenge,
+          submissions,
+        );
+        this.setState({
+          completeSubmissions,
+          completeSubmissionsChallengeId: challengeId,
+          loadingCompleteSubmissionsForChallengeId: '',
+        });
+      })
+      .catch(() => {
+        if (this.unmounted || requestId !== this.completeSubmissionsRequestId) {
+          return;
+        }
+        this.setState({
+          loadingCompleteSubmissionsForChallengeId: '',
+        });
+      });
+  }
+
+  /**
      * Update sorted submission array
      */
   updateSortedSubmissions() {
     const isMM = this.isMM();
-    const { submissions, mmSubmissions } = this.props;
-    const source = isMM ? mmSubmissions : submissions;
+    const { mmSubmissions } = this.props;
+    const source = isMM ? mmSubmissions : this.getSubmissionsSource();
     const sourceList = Array.isArray(source) ? source : [];
 
     let sortedSubmissions = _.cloneDeep(sourceList);
@@ -477,6 +840,8 @@ class SubmissionsComponent extends React.Component {
       provisionalRankClicked,
       provisionalScoreClicked,
       downloadingAll,
+      completeSubmissions,
+      loadingCompleteSubmissionsForChallengeId,
     } = this.state;
 
     const sortOptionClicked = {
@@ -599,7 +964,11 @@ class SubmissionsComponent extends React.Component {
         );
     }
 
-    if (!_.isEmpty(loadingMMSubmissionsForChallengeId)) {
+    const loadingCompleteSubmissions = this.shouldLoadCompleteSubmissions()
+      && loadingCompleteSubmissionsForChallengeId === _.toString(challengeId)
+      && !Array.isArray(completeSubmissions);
+
+    if (!_.isEmpty(loadingMMSubmissionsForChallengeId) || loadingCompleteSubmissions) {
       return <div styleName="loading"><LoadingIndicator /></div>;
     }
 
