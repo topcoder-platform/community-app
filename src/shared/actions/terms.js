@@ -22,6 +22,13 @@ const { getService } = services.terms;
  * @return {Promise}
  */
 function getTermsDone(entity, tokens, mockAgreed) {
+  if (!tokens || !tokens.tokenV3) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'getTermsDone called without a valid tokenV3, skipping API call',
+    );
+    return Promise.resolve({ entity, terms: [] });
+  }
   const service = getService(tokens.tokenV3);
   let termsPromise;
 
@@ -31,6 +38,9 @@ function getTermsDone(entity, tokens, mockAgreed) {
   // it will make all terms to have agreed status (actually only first 10 will be agreed,
   // but we will hardly have even more then 3 terms per entity)
   const mockAgreedArray = mockAgreed ? Array(10 + 1).join('1').split('').map(() => true) : [];
+
+  // eslint-disable-next-line no-console
+  console.log('Getting terms for entity', entity, 'with mockAgreed', mockAgreed, 'and mockAgreedArray', mockAgreedArray, 'tokens', tokens);
 
   switch (entity.type) {
     case 'challenge': {
