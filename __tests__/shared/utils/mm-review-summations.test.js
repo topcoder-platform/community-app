@@ -182,4 +182,72 @@ describe('buildMmSubmissionData', () => {
       }),
     ]);
   });
+
+  it('does not treat example summations as provisional or final scores', () => {
+    const reviewSummations = [
+      {
+        aggregateScore: 73.14798973137148,
+        id: 'summation-system',
+        isFinal: true,
+        metadata: {
+          testType: 'system',
+        },
+        reviewedDate: '2026-05-26T06:52:08.038Z',
+        submissionId: 'submission-latest',
+        submitterHandle: 'topacc_four',
+        submitterId: '1004',
+      },
+      {
+        aggregateScore: 76.16139684222824,
+        id: 'summation-example',
+        isExample: true,
+        metadata: {
+          testType: 'example',
+        },
+        reviewedDate: '2026-05-26T06:04:39.123Z',
+        submissionId: 'submission-latest',
+        submitterHandle: 'topacc_four',
+        submitterId: '1004',
+      },
+      {
+        aggregateScore: 69.13482014723114,
+        id: 'summation-provisional',
+        isProvisional: true,
+        metadata: {
+          testType: 'provisional',
+        },
+        reviewedDate: '2026-05-26T06:03:55.171Z',
+        submissionId: 'submission-latest',
+        submitterHandle: 'topacc_four',
+        submitterId: '1004',
+      },
+    ];
+
+    const rawSubmissions = [
+      {
+        createdAt: '2026-05-26T06:02:59.385Z',
+        id: 'submission-latest',
+        isLatest: true,
+        memberId: '1004',
+        registrant: {
+          memberHandle: 'topacc_four',
+          memberId: '1004',
+        },
+      },
+    ];
+
+    const result = buildMmSubmissionData(reviewSummations, rawSubmissions);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        finalScore: 73.14798973137148,
+        provisionalScore: 69.13482014723114,
+        reviewSummations: expect.arrayContaining([
+          expect.objectContaining({ id: 'summation-example' }),
+        ]),
+        submissionId: 'submission-latest',
+      }),
+    ]);
+  });
 });

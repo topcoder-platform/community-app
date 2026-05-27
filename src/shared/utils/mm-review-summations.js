@@ -28,21 +28,29 @@ function getSummationScoreClassification(summation) {
   const type = _.toLower(_.toString(_.get(summation, 'type', '')).trim());
   const stage = _.toLower(_.toString(_.get(metadata, 'stage', '')).trim());
   const testType = _.toLower(_.toString(_.get(metadata, 'testType', '')).trim());
-
-  const isProvisional = Boolean(
+  const isExample = Boolean(
+    _.get(summation, 'isExample')
+    || _.get(summation, 'is_example')
+    || type === 'example'
+    || testType === 'example',
+  );
+  const hasProvisionalMarker = Boolean(
     _.get(summation, 'isProvisional')
     || _.get(summation, 'is_provisional')
     || type === 'provisional'
     || testType === 'provisional',
   );
-  const isFinal = Boolean(
+  const hasFinalMarker = Boolean(
     _.get(summation, 'isFinal')
     || _.get(summation, 'is_final')
     || type === 'final'
     || stage === 'final',
   );
+  const isProvisional = !isExample && hasProvisionalMarker;
+  const isFinal = !isExample && hasFinalMarker;
 
   return {
+    isExample,
     isProvisional,
     isFinal,
   };
@@ -263,6 +271,7 @@ function updateSubmissionEntry(
     timestampValue,
     normalizedScore,
     summation,
+    isFinal,
     isProvisional,
     isLatest,
   },
@@ -302,14 +311,14 @@ function updateSubmissionEntry(
     )
     : { meta: baseEntry.provisionalMeta, value: baseEntry.provisionalScore };
 
-  const finalResult = isProvisional
-    ? { meta: baseEntry.finalMeta, value: baseEntry.finalScore }
-    : mergeScoreData(
+  const finalResult = isFinal
+    ? mergeScoreData(
       baseEntry.finalMeta,
       baseEntry.finalScore,
       normalizedScore,
       timestampValue,
-    );
+    )
+    : { meta: baseEntry.finalMeta, value: baseEntry.finalScore };
 
   const reviewSummations = [...baseEntry.reviewSummations, summation];
 
@@ -577,8 +586,9 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
     );
     const scoreType = getSummationScoreClassification(summation);
     // Most MM review summations are provisional updates; if an entry does not
-    // explicitly identify itself as final, treat it as provisional.
-    const isProvisional = scoreType.isProvisional || !scoreType.isFinal;
+    // explicitly identify itself as final or example, treat it as provisional.
+    const isProvisional = scoreType.isProvisional
+      || (!scoreType.isFinal && !scoreType.isExample);
     const isLatest = _.isNil(summation.isLatest)
       ? null
       : Boolean(summation.isLatest);
@@ -591,6 +601,7 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
         timestampValue,
         normalizedScore,
         summation,
+        isFinal: scoreType.isFinal,
         isProvisional,
         isLatest,
       },
