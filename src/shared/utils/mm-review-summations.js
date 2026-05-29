@@ -120,13 +120,10 @@ function getSubmissionRating(submission) {
 
 function getSubmissionTimestamp(submission) {
   const candidates = [
-    _.get(submission, 'submissionTime'),
     _.get(submission, 'submittedDate'),
-    _.get(submission, 'created'),
     _.get(submission, 'createdAt'),
-    _.get(submission, 'reviewedDate'),
-    _.get(submission, 'updated'),
-    _.get(submission, 'updatedAt'),
+    _.get(submission, 'created'),
+    _.get(submission, 'submissionTime'),
   ];
   return _.find(candidates, value => !!value) || null;
 }
@@ -358,11 +355,12 @@ function updateSubmissionEntryFromSubmission(
   let { submissionTime, latestTimestamp } = baseEntry;
   let submissionIsLatest = baseEntry.isLatest;
 
+  if (timestamp) {
+    submissionTime = timestamp;
+  }
+
   if (timestampValue > latestTimestamp) {
     latestTimestamp = timestampValue;
-    submissionTime = timestamp || submissionTime;
-  } else if (!submissionTime && timestamp) {
-    submissionTime = timestamp;
   }
 
   if (!_.isNil(isLatest)) {

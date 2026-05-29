@@ -193,6 +193,7 @@ describe('buildMmSubmissionData', () => {
           testType: 'system',
         },
         reviewedDate: '2026-05-26T06:52:08.038Z',
+        updatedAt: '2026-05-26T07:00:00.000Z',
         submissionId: 'submission-latest',
         submitterHandle: 'topacc_four',
         submitterId: '1004',
@@ -247,6 +248,7 @@ describe('buildMmSubmissionData', () => {
           expect.objectContaining({ id: 'summation-example' }),
         ]),
         submissionId: 'submission-latest',
+        submissionTime: '2026-05-26T06:02:59.385Z',
       }),
     ]);
   });
