@@ -136,6 +136,17 @@ function normalizeTestStatus(value) {
 }
 
 /**
+ * Returns whether a Marathon Match test status still represents active testing.
+ *
+ * @param {String} status normalized test status from review summation metadata.
+ * @returns {Boolean} true when scoring should remain hidden until testing completes.
+ */
+export function isActiveTestStatus(status) {
+  const normalized = normalizeTestStatus(status);
+  return Boolean(normalized && ['FAILED', 'SUCCESS'].indexOf(normalized) < 0);
+}
+
+/**
  * Normalizes Review API test progress metadata into the supported 0-to-1 range.
  *
  * @param {Number|String} value test progress metadata.
@@ -622,6 +633,8 @@ class SubmissionsListView extends React.Component {
           {
             sortedSubmissions.map((mySubmission) => {
               let { finalScore, provisionalScore } = getDisplayedScores(mySubmission);
+              const testProgress = getSubmissionTestProgress(mySubmission);
+              const hideProvisionalScore = isActiveTestStatus(testProgress.status);
               if (_.isNumber(finalScore)) {
                 if (finalScore > 0) {
                   finalScore = finalScore.toFixed(2);
@@ -629,7 +642,9 @@ class SubmissionsListView extends React.Component {
               } else {
                 finalScore = 'N/A';
               }
-              if (_.isNumber(provisionalScore)) {
+              if (hideProvisionalScore) {
+                provisionalScore = '-';
+              } else if (_.isNumber(provisionalScore)) {
                 if (provisionalScore > 0) {
                   provisionalScore = provisionalScore.toFixed(2);
                 }
@@ -637,9 +652,8 @@ class SubmissionsListView extends React.Component {
                 provisionalScore = 'N/A';
               }
               const { isAccepted } = getSubmissionStatus(mySubmission);
-              const testProgress = getSubmissionTestProgress(mySubmission);
               const statusStyleName = isAccepted ? 'accepted' : 'queue';
-              const statusLabel = isAccepted ? 'Accepted' : 'In Queue';
+              const statusLabel = isAccepted ? 'Accepted' : 'Preparing';
               const displaySubmissionId = getDisplaySubmissionId(mySubmission);
               const submissionCreatedTime = getSubmissionCreatedTime(mySubmission);
               const submissionTimeDisplay = submissionCreatedTime
