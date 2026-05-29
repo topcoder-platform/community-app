@@ -1,5 +1,6 @@
 import {
   getDisplayedScores,
+  isActiveTestStatus,
   getSubmissionTestProgress,
 } from '../../../../../../src/shared/components/challenge-detail/MySubmissions/SubmissionsList';
 
@@ -66,5 +67,13 @@ describe('getSubmissionTestProgress', () => {
       progressPercent: '20%',
       status: 'FAILED',
     });
+  });
+});
+
+describe('isActiveTestStatus', () => {
+  it('keeps provisional scores hidden while tests are still running', () => {
+    expect(isActiveTestStatus('IN PROGRESS')).toBe(true);
+    expect(isActiveTestStatus('SUCCESS')).toBe(false);
+    expect(isActiveTestStatus('FAILED')).toBe(false);
   });
 });
