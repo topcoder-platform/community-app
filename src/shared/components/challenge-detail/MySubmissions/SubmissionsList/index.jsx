@@ -355,8 +355,20 @@ class SubmissionsListView extends React.Component {
           break;
         }
         case 'Status': {
-          valueA = getSubmissionStatus(a).isAccepted ? 1 : 0;
-          valueB = getSubmissionStatus(b).isAccepted ? 1 : 0;
+          const statusA = getSubmissionStatus(a);
+          const statusB = getSubmissionStatus(b);
+          valueA = 1;
+          valueB = 1;
+          if (statusA.isAccepted) {
+            valueA = 2;
+          } else if (statusA.isFailed) {
+            valueA = 0;
+          }
+          if (statusB.isAccepted) {
+            valueB = 2;
+          } else if (statusB.isFailed) {
+            valueB = 0;
+          }
           break;
         }
         case 'Final': {
@@ -651,9 +663,16 @@ class SubmissionsListView extends React.Component {
               } else {
                 provisionalScore = 'N/A';
               }
-              const { isAccepted } = getSubmissionStatus(mySubmission);
-              const statusStyleName = isAccepted ? 'accepted' : 'queue';
-              const statusLabel = isAccepted ? 'Accepted' : 'Preparing';
+              const { isAccepted, isFailed } = getSubmissionStatus(mySubmission);
+              let statusStyleName = 'queue';
+              let statusLabel = 'Preparing';
+              if (isAccepted) {
+                statusStyleName = 'accepted';
+                statusLabel = 'Accepted';
+              } else if (isFailed) {
+                statusStyleName = 'failed';
+                statusLabel = 'Failed';
+              }
               const displaySubmissionId = getDisplaySubmissionId(mySubmission);
               const submissionCreatedTime = getSubmissionCreatedTime(mySubmission);
               const submissionTimeDisplay = submissionCreatedTime
