@@ -25,10 +25,44 @@ function collectReviewSummations(submission) {
   return combined;
 }
 
+/**
+ * Returns whether a submission failed platform virus scanning.
+ * The submissions API marks confirmed malware with `virusScan: false`; older
+ * records may only expose the quarantine storage path.
+ *
+ * @param {Object} submission submission attempt shown in challenge details.
+ * @returns {Boolean} true when the submission failed virus scanning.
+ */
+function hasVirusScanFailure(submission) {
+  const url = _.toLower(_.toString(_.get(submission, 'url', '')).trim());
+  return _.get(submission, 'virusScan') === false
+    || url.indexOf('submissions-quarantine/') >= 0;
+}
+
+/**
+ * Returns whether the raw submission status is a failed state.
+ *
+ * @param {Object} submission submission attempt shown in challenge details.
+ * @returns {Boolean} true when the raw status is failed.
+ */
+function hasFailedSubmissionStatus(submission) {
+  const status = _.toLower(_.toString(_.get(submission, 'status', '')).trim());
+  return status === 'failed' || status === 'failure';
+}
+
 export function getSubmissionReviewSummations(submission) {
   return collectReviewSummations(submission);
 }
 
+/**
+ * Builds display status flags for a challenge submission attempt.
+ * Review summations indicate accepted scoring; when no accepted summation is
+ * present, failed scan or submission states should display as failed instead of
+ * staying in the generic preparing state.
+ *
+ * @param {Object} submission submission attempt shown in challenge details.
+ * @returns {{hasReviewSummation: Boolean, isAccepted: Boolean, isFailed: Boolean}} status flags.
+ */
 export function getSubmissionStatus(submission) {
   const targetIdRaw = _.get(submission, 'submissionId', _.get(submission, 'id', null));
   const targetId = _.toString(targetIdRaw || '').trim();
@@ -59,9 +93,13 @@ export function getSubmissionStatus(submission) {
     return hasFlag || type === 'provisional' || type === 'final';
   });
 
+  const isFailed = !isAccepted
+    && (hasVirusScanFailure(submission) || hasFailedSubmissionStatus(submission));
+
   return {
     hasReviewSummation,
     isAccepted,
+    isFailed,
   };
 }
 

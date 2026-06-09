@@ -51,6 +51,16 @@
   line-height: 22px;
 }
 
+.failed {
+  color: #ef476f;
+
+  @include roboto-medium;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+
 .h2 {
   @include roboto-bold;
 

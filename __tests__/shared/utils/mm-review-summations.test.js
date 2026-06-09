@@ -95,6 +95,33 @@ describe('buildMmSubmissionData', () => {
     ]);
   });
 
+  it('preserves virus scan metadata on raw marathon match submissions', () => {
+    const result = buildMmSubmissionData([], [
+      {
+        createdAt: '2026-06-05T06:16:09.421Z',
+        id: 'submission-virus-failed',
+        memberId: '1005',
+        registrant: {
+          memberHandle: 'delta',
+          memberId: '1005',
+        },
+        status: 'ACTIVE',
+        url: 'https://s3.amazonaws.com/topcoder-dev-submissions-dmz/submission.zip',
+        virusScan: false,
+      },
+    ]);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        status: 'active',
+        submissionId: 'submission-virus-failed',
+        url: 'https://s3.amazonaws.com/topcoder-dev-submissions-dmz/submission.zip',
+        virusScan: false,
+      }),
+    ]);
+  });
+
   it('prefers initial scores over stale provisional scores from raw submissions', () => {
     const rawSubmissions = [
       {

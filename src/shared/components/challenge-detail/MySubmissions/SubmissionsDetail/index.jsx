@@ -146,9 +146,16 @@ class SubmissionsDetailView extends React.Component {
     const { onCancel, submission, onSortChange } = this.props;
     let { finalScore } = submission;
     const { sortedSubmissions } = this.state;
-    const { isAccepted } = getSubmissionStatus(submission);
-    const finalStatusStyleName = isAccepted ? 'status-complete' : 'status-in-queue';
-    const finalStatusLabel = isAccepted ? 'Complete' : 'Preparing';
+    const { isAccepted, isFailed } = getSubmissionStatus(submission);
+    let finalStatusStyleName = 'status-in-queue';
+    let finalStatusLabel = 'Preparing';
+    if (isAccepted) {
+      finalStatusStyleName = 'status-complete';
+      finalStatusLabel = 'Complete';
+    } else if (isFailed) {
+      finalStatusStyleName = 'status-failed';
+      finalStatusLabel = 'Failed';
+    }
 
     const { field, sort } = this.getSubmissionsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
