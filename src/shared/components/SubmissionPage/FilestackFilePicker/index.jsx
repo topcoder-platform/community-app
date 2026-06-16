@@ -22,6 +22,8 @@ import style from './styles.scss';
 
 const { fireErrorMessage } = errors;
 
+const SUBMISSION_PICKER_SOURCES = ['local_file_system'];
+
 /**
  * FilestackFilePicker component
  */
@@ -237,14 +239,7 @@ class FilestackFilePicker extends React.Component {
                 const path = this.generateFilePath();
                 this.filestack.picker({
                   accept: fileExtensions,
-                  fromSources: [
-                    'local_file_system',
-                    'googledrive',
-                    'dropbox',
-                    'onedrive',
-                    'github',
-                    'url',
-                  ],
+                  fromSources: SUBMISSION_PICKER_SOURCES,
                   maxSize: 500 * 1024 * 1024,
                   onFileUploadFailed: () => setDragged(false),
                   onFileUploadFinished: (file) => {
@@ -263,14 +258,7 @@ class FilestackFilePicker extends React.Component {
                 const path = this.generateFilePath();
                 this.filestack.picker({
                   accept: fileExtensions,
-                  fromSources: [
-                    'local_file_system',
-                    'googledrive',
-                    'dropbox',
-                    'onedrive',
-                    'github',
-                    'url',
-                  ],
+                  fromSources: SUBMISSION_PICKER_SOURCES,
                   maxSize: 500 * 1024 * 1024,
                   onFileUploadFailed: () => setDragged(false),
                   onFileUploadFinished: (file) => {
