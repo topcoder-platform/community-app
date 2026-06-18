@@ -1,5 +1,8 @@
 /* eslint-env jest */
-import { buildMmSubmissionData } from '../../../src/shared/utils/mm-review-summations';
+import {
+  buildMmSubmissionData,
+  buildStatisticsData,
+} from '../../../src/shared/utils/mm-review-summations';
 
 describe('buildMmSubmissionData', () => {
   it('keeps newer raw submissions that do not have review summations yet', () => {
@@ -249,6 +252,115 @@ describe('buildMmSubmissionData', () => {
         ]),
         submissionId: 'submission-latest',
         submissionTime: '2026-05-26T06:02:59.385Z',
+      }),
+    ]);
+  });
+});
+
+describe('buildStatisticsData', () => {
+  it('omits processing and failed scorer updates from dashboard graph data', () => {
+    const reviewSummations = [
+      {
+        aggregateScore: 0,
+        id: 'summation-processing-zero',
+        isProvisional: true,
+        metadata: {
+          testStatus: 'IN PROGRESS',
+          testType: 'provisional',
+        },
+        reviewedDate: '2026-05-29T01:00:00.000Z',
+        submissionId: 'submission-processing',
+        submitterHandle: 'alpha',
+        submitterId: '1001',
+      },
+      {
+        aggregateScore: -1,
+        id: 'summation-failed',
+        isProvisional: true,
+        metadata: {
+          testStatus: 'FAILED',
+          testType: 'provisional',
+        },
+        reviewedDate: '2026-05-29T01:05:00.000Z',
+        submissionId: 'submission-failed',
+        submitterHandle: 'alpha',
+        submitterId: '1001',
+      },
+      {
+        aggregateScore: 0,
+        id: 'summation-success-zero',
+        isProvisional: true,
+        metadata: {
+          testStatus: 'SUCCESS',
+          testType: 'provisional',
+        },
+        reviewedDate: '2026-05-29T01:10:00.000Z',
+        submissionId: 'submission-success-zero',
+        submitterHandle: 'beta',
+        submitterId: '1002',
+      },
+      {
+        aggregateScore: 84.25,
+        id: 'summation-success',
+        isProvisional: true,
+        metadata: {
+          testStatus: 'SUCCESS',
+          testType: 'provisional',
+        },
+        reviewedDate: '2026-05-29T01:15:00.000Z',
+        submissionId: 'submission-success',
+        submitterHandle: 'alpha',
+        submitterId: '1001',
+      },
+    ];
+
+    const result = buildStatisticsData(reviewSummations);
+
+    expect(result).toHaveLength(2);
+    expect(result).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        handle: 'alpha',
+        submissions: [
+          expect.objectContaining({
+            score: 84.25,
+            submissionId: 'submission-success',
+          }),
+        ],
+      }),
+      expect.objectContaining({
+        handle: 'beta',
+        submissions: [
+          expect.objectContaining({
+            score: 0,
+            submissionId: 'submission-success-zero',
+          }),
+        ],
+      }),
+    ]));
+  });
+
+  it('keeps legacy non-negative summations when scorer status metadata is absent', () => {
+    const result = buildStatisticsData([
+      {
+        aggregateScore: 72.5,
+        id: 'summation-legacy',
+        isProvisional: true,
+        reviewedDate: '2026-05-29T02:00:00.000Z',
+        submissionId: 'submission-legacy',
+        submitterHandle: 'gamma',
+        submitterId: '1003',
+      },
+    ]);
+
+    expect(result).toEqual([
+      expect.objectContaining({
+        handle: 'gamma',
+        submissions: [
+          expect.objectContaining({
+            score: 72.5,
+            submissionId: 'submission-legacy',
+          }),
+        ],
       }),
     ]);
   });

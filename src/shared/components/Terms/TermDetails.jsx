@@ -6,6 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { getDocuSignTemplateIdForTerm } from 'utils/terms';
 
 import './TermDetails.scss';
 
@@ -20,8 +21,9 @@ export default class TermDetails extends React.Component {
 
   componentWillMount() {
     const { details, getDocuSignUrl } = this.props;
-    if (details.agreeabilityType !== 'Electronically-agreeable' && details.docusignTemplateId) {
-      getDocuSignUrl(details.docusignTemplateId);
+    const docusignTemplateId = getDocuSignTemplateIdForTerm(details);
+    if (docusignTemplateId) {
+      getDocuSignUrl(docusignTemplateId);
       this.setState({ loadingFrame: true });
     }
   }
@@ -38,11 +40,14 @@ export default class TermDetails extends React.Component {
       loadingDocuSignUrl,
     } = this.props;
     const { loadingFrame } = this.state;
+    const docusignTemplateId = getDocuSignTemplateIdForTerm(details);
+    const isDocuSignTerm = Boolean(docusignTemplateId);
 
     return (
       <div>
         {
           details.agreeabilityType === 'Electronically-agreeable'
+          && !isDocuSignTerm
           && (
           <div>
             <div
@@ -53,13 +58,12 @@ export default class TermDetails extends React.Component {
           )
         }
         {
-          details.agreeabilityType !== 'Electronically-agreeable'
-          && details.docusignTemplateId === loadingDocuSignUrl
+          isDocuSignTerm
+          && `${docusignTemplateId}` === loadingDocuSignUrl
           && <LoadingIndicator />
         }
         {
-          details.agreeabilityType !== 'Electronically-agreeable' && details.docusignTemplateId
-          && !loadingDocuSignUrl && docuSignUrl
+          isDocuSignTerm && !loadingDocuSignUrl && docuSignUrl
           && (
           <div>
             {

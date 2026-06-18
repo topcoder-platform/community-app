@@ -56,6 +56,56 @@ function getSummationScoreClassification(summation) {
   };
 }
 
+/**
+ * Normalizes scorer status values for comparison.
+ * Used for Marathon Match dashboard statistics, where Review API exposes
+ * scorer progress in review summation metadata.
+ *
+ * @param {*} status Raw scorer status value.
+ * @returns {String|null} Normalized status or null when absent.
+ */
+function normalizeScoringStatus(status) {
+  const normalizedStatus = _.toLower(_.toString(status || '').trim())
+    .replace(/[\s_-]+/g, '');
+  return normalizedStatus || null;
+}
+
+/**
+ * Returns whether a review summation represents completed successful scoring.
+ * Summations with explicit in-progress or failed scorer metadata are kept out
+ * of the public Marathon Match dashboard graph. Legacy summations without
+ * scorer metadata are still included when they have a non-negative score.
+ *
+ * @param {Object} summation Review summation returned by Review API.
+ * @param {Number} score Normalized aggregate score for the summation.
+ * @returns {Boolean} True when the summation can be graphed.
+ */
+function hasCompletedSuccessfulScoring(summation, score) {
+  const metadata = _.isObject(_.get(summation, 'metadata'))
+    ? _.get(summation, 'metadata')
+    : {};
+  const scoringStatus = normalizeScoringStatus(_.get(metadata, 'testStatus'));
+  const successStatuses = [
+    'complete',
+    'completed',
+    'pass',
+    'passed',
+    'success',
+    'succeeded',
+  ];
+
+  if (scoringStatus) {
+    return successStatuses.includes(scoringStatus);
+  }
+
+  const progress = Number(_.get(metadata, 'testProgress'));
+  if (Number.isFinite(progress) && progress < 1) {
+    return false;
+  }
+
+  return score >= 0;
+}
+
 function toTimestampValue(value) {
   if (!value) {
     return 0;
@@ -815,35 +865,48 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
     });
 }
 
+/**
+ * Builds Marathon Match dashboard graph data from Review API summations.
+ * Processing and failed scorer updates are omitted until a successful completed
+ * summation is available for the submission.
+ *
+ * @param {Array} reviewSummations Review summations returned by Review API.
+ * @returns {Array} Member-grouped submission score points for the dashboard.
+ */
 export function buildStatisticsData(reviewSummations = []) {
   if (!Array.isArray(reviewSummations) || !reviewSummations.length) {
     return [];
   }
 
-  const includeOnlyProvisional = reviewSummations.some((summation) => {
-    if (!summation) {
-      return false;
-    }
-    const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
-    if (_.isNil(score)) {
-      return false;
-    }
-    return getSummationScoreClassification(summation).isProvisional;
-  });
-
-  const grouped = new Map();
-
+  const graphableSummations = [];
   reviewSummations.forEach((summation, index) => {
     if (!summation) {
       return;
     }
-
-    const timestamp = getSummationTimestamp(summation);
-    const timestampValue = toTimestampValue(timestamp);
     const score = normalizeScoreValue(_.get(summation, 'aggregateScore'));
     if (_.isNil(score)) {
       return;
     }
+    if (!hasCompletedSuccessfulScoring(summation, score)) {
+      return;
+    }
+
+    graphableSummations.push({ index, score, summation });
+  });
+
+  if (!graphableSummations.length) {
+    return [];
+  }
+
+  const includeOnlyProvisional = graphableSummations.some(
+    ({ summation }) => getSummationScoreClassification(summation).isProvisional,
+  );
+
+  const grouped = new Map();
+
+  graphableSummations.forEach(({ index, score, summation }) => {
+    const timestamp = getSummationTimestamp(summation);
+    const timestampValue = toTimestampValue(timestamp);
     const scoreType = getSummationScoreClassification(summation);
     if (includeOnlyProvisional) {
       if (!scoreType.isProvisional) {
