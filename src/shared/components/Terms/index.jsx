@@ -11,6 +11,7 @@ import PT from 'prop-types';
 import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import LoadingIndicator from 'components/LoadingIndicator';
 import FocusTrap from 'focus-trap-react';
+import { getDocuSignTemplateIdForTerm } from 'utils/terms';
 import TermDetails from './TermDetails';
 
 import style from './styles.scss';
@@ -139,6 +140,7 @@ export default class Terms extends React.Component {
       loadingDocuSignUrl, selectedTerm, viewOnly, checkingStatus,
       description, defaultTitle,
     } = this.props;
+    const isDocuSignTerm = Boolean(getDocuSignTemplateIdForTerm(details));
 
     const handleHorizonalScroll = (e) => {
       const scrollElement = e.target;
@@ -283,7 +285,8 @@ export default class Terms extends React.Component {
                   !isLoadingTerms && !checkingStatus && selectedTerm && details
                     && !viewOnly
                     && loadingTermId !== _.toString(selectedTerm.id)
-                    && details.agreeabilityType === 'Electronically-agreeable' ? (
+                    && details.agreeabilityType === 'Electronically-agreeable'
+                    && !isDocuSignTerm ? (
                       <div styleName="buttons">
                         {
                           selectedTerm.agreed
