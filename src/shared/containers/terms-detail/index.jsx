@@ -15,6 +15,7 @@ import MetaTags from 'components/MetaTags';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { themr } from 'react-css-super-themr';
+import { getDocuSignTemplateIdForTerm } from 'utils/terms';
 import styles from './styles.scss';
 
 const ACCEPTANCE_LABEL = 'I understand and agree';
@@ -87,6 +88,7 @@ class TermsDetailPageContainer extends React.Component {
       theme,
     } = this.props;
     const { termsAccepted, showModal } = this.state;
+    const isDocuSignTerm = Boolean(getDocuSignTemplateIdForTerm(details));
 
     return (
       <div className={theme['outer-container']}>
@@ -131,7 +133,7 @@ class TermsDetailPageContainer extends React.Component {
         {
           agreeingTerm !== termId && details && !details.agreed
           && agreeTermFailure === undefined
-          && details.agreeabilityType !== 'DocuSignable'
+          && !isDocuSignTerm
             ? (
               <div className={theme['terms-acceptance-handler']}>
                 <SwitchWithLabel

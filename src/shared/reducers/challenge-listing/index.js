@@ -15,7 +15,7 @@ import {
   actions as actionsUtils,
 } from 'topcoder-react-lib';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { EXCLUDED_CHALLENGE_TYPE_NAMES } from 'utils/challenge-listing/constants';
+import { sanitizeChallengeTypeFilter } from 'utils/challenge-listing/constants';
 import filterPanel from './filter-panel';
 import sidebar, { factory as sidebarFactory } from './sidebar';
 
@@ -408,12 +408,8 @@ function onSetFilter(state, { payload }) {
    * do it very carefuly (many params are not validated). */
   const basePayload = _.isPlainObject(payload) ? payload : {};
   const sanitizedPayload = { ...basePayload };
-  const excludedTypeAbbreviations = state.challengeTypes
-    .filter(type => EXCLUDED_CHALLENGE_TYPE_NAMES.includes(type.name))
-    .map(type => type.abbreviation);
-  if (excludedTypeAbbreviations.length && Array.isArray(basePayload.types)) {
-    sanitizedPayload.types = basePayload.types
-      .filter(type => !excludedTypeAbbreviations.includes(type));
+  if (Array.isArray(basePayload.types)) {
+    sanitizedPayload.types = sanitizeChallengeTypeFilter(basePayload.types);
   }
   const filter = _.pickBy(_.pick(
     sanitizedPayload,
