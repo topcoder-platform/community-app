@@ -104,6 +104,69 @@ describe('getSubmissionTestProgress', () => {
     });
   });
 
+  it('shows completed seed failures as successful test status', () => {
+    expect(getSubmissionTestProgress({
+      reviewSummations: [
+        {
+          metadata: {
+            testProcess: 'provisional',
+            testProgress: 1,
+            testStatus: 'FAILED',
+            testScores: [
+              {
+                error: 'TIMEOUT! Time limit exceeded.',
+                score: -1,
+                testcase: '1',
+              },
+            ],
+            testProgressDetails: {
+              completedTests: 100,
+              failedTests: 2,
+              totalTests: 100,
+              updatedAt: '2026-06-19T06:02:01.019Z',
+            },
+          },
+        },
+      ],
+    })).toEqual({
+      process: 'provisional',
+      progressPercent: '100%',
+      status: 'SUCCESS',
+    });
+  });
+
+  it('keeps explicit scorer failures failed', () => {
+    expect(getSubmissionTestProgress({
+      reviewSummations: [
+        {
+          metadata: {
+            marathonMatchScoringSkipped: true,
+            testProcess: 'system',
+            testProgress: 1,
+            testStatus: 'FAILED',
+            testScores: [
+              {
+                error: 'Submission did not pass virus scan.',
+                score: -1,
+                testcase: '1',
+              },
+            ],
+            testProgressDetails: {
+              completedTests: 1,
+              failedTests: 1,
+              totalTests: 1,
+              updatedAt: '2026-06-19T06:02:01.019Z',
+            },
+          },
+        },
+      ],
+    })).toEqual({
+      process: 'system',
+      progressPercent: '100%',
+      status: 'FAILED',
+    });
+  });
+
   it('ignores per-seed metadata and returns blank display data when progress is absent', () => {
     expect(getSubmissionTestProgress({
       reviewSummation: [
