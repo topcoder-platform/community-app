@@ -25,4 +25,11 @@ describe('terms utils', () => {
       title: 'Assignment Terms',
     })).toBe('assignment-template-id');
   });
+
+  test('handles missing terms details', () => {
+    expect(isNdaTerm(null)).toBe(false);
+    expect(isNdaTerm()).toBe(false);
+    expect(getDocuSignTemplateIdForTerm(null)).toBe(undefined);
+    expect(getDocuSignTemplateIdForTerm()).toBe(undefined);
+  });
 });
