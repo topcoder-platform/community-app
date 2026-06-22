@@ -122,28 +122,17 @@ function normalizeTestProcess(value) {
 }
 
 /**
- * Normalizes Review API test status metadata for display.
+ * Normalizes numeric progress counters from Review API metadata.
  *
- * @param {String} value test status metadata.
- * @returns {String|undefined} supported status value when recognized.
+ * @param {Number|String} value progress counter value.
+ * @returns {Number|undefined} non-negative count when present.
  */
-function normalizeTestStatus(value) {
-  const normalized = _.toUpper(_.toString(value || '').trim());
-  if (['FAILED', 'IN PROGRESS', 'SUCCESS'].indexOf(normalized) >= 0) {
-    return normalized;
+function normalizeTestCount(value) {
+  const count = _.isString(value) ? Number(value) : value;
+  if (!_.isFinite(count)) {
+    return undefined;
   }
-  return undefined;
-}
-
-/**
- * Returns whether a Marathon Match test status still represents active testing.
- *
- * @param {String} status normalized test status from review summation metadata.
- * @returns {Boolean} true when scoring should remain hidden until testing completes.
- */
-export function isActiveTestStatus(status) {
-  const normalized = normalizeTestStatus(status);
-  return Boolean(normalized && ['FAILED', 'SUCCESS'].indexOf(normalized) < 0);
+  return Math.max(0, Math.floor(count));
 }
 
 /**
@@ -158,6 +147,74 @@ function normalizeTestProgress(value) {
     return undefined;
   }
   return Math.min(Math.max(progress, 0), 1);
+}
+
+/**
+ * Determines whether failed status came from completed seed-level errors.
+ *
+ * @param {Object} metadata review summation metadata.
+ * @returns {Boolean} true when tests completed and only seed failures are reported.
+ */
+function isCompletedSeedFailureStatus(metadata = {}) {
+  if (
+    _.get(metadata, 'marathonMatchScoringSkipped')
+    || _.get(metadata, 'timed_out')
+    || _.get(metadata, 'submissionError')
+  ) {
+    return false;
+  }
+
+  const details = _.isObject(_.get(metadata, 'testProgressDetails'))
+    ? _.get(metadata, 'testProgressDetails')
+    : {};
+  const progress = normalizeTestProgress(_.get(metadata, 'testProgress'));
+  const testScores = _.get(metadata, 'testScores');
+  const totalTests = normalizeTestCount(
+    _.get(details, 'totalTests', _.get(metadata, 'numberOfTests', _.get(metadata, 'tests.total'))),
+  );
+  const completedTests = normalizeTestCount(
+    _.get(details, 'completedTests', totalTests),
+  );
+  const failedTests = normalizeTestCount(
+    _.get(details, 'failedTests', _.get(metadata, 'tests.failed')),
+  );
+
+  return progress === 1
+    && Array.isArray(testScores)
+    && testScores.length > 0
+    && totalTests > 0
+    && completedTests >= totalTests
+    && failedTests > 0;
+}
+
+/**
+ * Normalizes Review API test status metadata for display.
+ *
+ * @param {String} value test status metadata.
+ * @param {Object} metadata full review summation metadata used to identify
+ * completed seed-level failures from older scorer callbacks.
+ * @returns {String|undefined} supported status value when recognized.
+ */
+function normalizeTestStatus(value, metadata = {}) {
+  const normalized = _.toUpper(_.toString(value || '').trim());
+  if (['FAILED', 'IN PROGRESS', 'SUCCESS'].indexOf(normalized) >= 0) {
+    if (normalized === 'FAILED' && isCompletedSeedFailureStatus(metadata)) {
+      return 'SUCCESS';
+    }
+    return normalized;
+  }
+  return undefined;
+}
+
+/**
+ * Returns whether a Marathon Match test status still represents active testing.
+ *
+ * @param {String} status normalized test status from review summation metadata.
+ * @returns {Boolean} true when scoring should remain hidden until testing completes.
+ */
+export function isActiveTestStatus(status) {
+  const normalized = normalizeTestStatus(status);
+  return Boolean(normalized && ['FAILED', 'SUCCESS'].indexOf(normalized) < 0);
 }
 
 /**
@@ -176,7 +233,7 @@ export function getSubmissionTestProgress(submission = {}) {
       const process = normalizeTestProcess(
         _.get(metadata, 'testProcess', _.get(metadata, 'testType')),
       );
-      const status = normalizeTestStatus(_.get(metadata, 'testStatus'));
+      const status = normalizeTestStatus(_.get(metadata, 'testStatus'), metadata);
       const progress = normalizeTestProgress(_.get(metadata, 'testProgress'));
 
       if (!process && !status && _.isUndefined(progress)) {
