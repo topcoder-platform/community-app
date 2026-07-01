@@ -1,5 +1,4 @@
 import {
-  mapStateToProps,
   buildChallengeLoginUrl,
   getDisplayWinners,
   isGroupedChallenge,
