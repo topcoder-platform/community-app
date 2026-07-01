@@ -1,4 +1,12 @@
-import { getDisplayWinners, isWiproRegistrationBlocked } from 'containers/challenge-detail';
+import {
+  buildChallengeLoginUrl,
+  getDisplayWinners,
+  isGroupedChallenge,
+  isGroupedChallengeAccessError,
+  isWiproRegistrationBlocked,
+  shouldLoginForGroupedChallenge,
+  shouldLoginForGroupedChallengeError,
+} from 'containers/challenge-detail';
 
 describe('Challenge detail Wipro registration guard', () => {
   test('blocks Wipro members when challenge disallows Wipro participation', () => {
@@ -65,5 +73,48 @@ describe('Challenge detail winners filter', () => {
     expect(winners).toEqual([
       { handle: 'taskWinner', type: 'provisional' },
     ]);
+  });
+});
+
+describe('Challenge detail grouped challenge login guard', () => {
+  beforeEach(() => {
+    document.cookie = 'tc_utm=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+  });
+
+  test('detects grouped challenge payloads from array or map groups', () => {
+    expect(isGroupedChallenge({ groups: ['group-id'] })).toBe(true);
+    expect(isGroupedChallenge({ groups: { 'group-id': true } })).toBe(true);
+    expect(isGroupedChallenge({ groups: [] })).toBe(false);
+    expect(isGroupedChallenge({ groups: {} })).toBe(false);
+  });
+
+  test('requires login only for anonymous grouped challenge payloads', () => {
+    expect(shouldLoginForGroupedChallenge({}, { groups: ['group-id'] })).toBe(true);
+    expect(shouldLoginForGroupedChallenge({ tokenV3: 'token' }, { groups: ['group-id'] }))
+      .toBe(false);
+    expect(shouldLoginForGroupedChallenge({}, { groups: [] })).toBe(false);
+  });
+
+  test('detects grouped challenge access errors for anonymous detail requests', () => {
+    expect(isGroupedChallengeAccessError({ payload: new Error('Forbidden') })).toBe(true);
+    expect(isGroupedChallengeAccessError(new Error('You do not have access to this group')))
+      .toBe(true);
+    expect(isGroupedChallengeAccessError(new Error('Not Found'))).toBe(false);
+
+    expect(shouldLoginForGroupedChallengeError({}, { payload: new Error('Forbidden') }))
+      .toBe(true);
+    expect(shouldLoginForGroupedChallengeError({ tokenV3: 'token' }, new Error('Forbidden')))
+      .toBe(false);
+  });
+
+  test('builds a login URL that preserves the original challenge URL', () => {
+    const retUrl = 'https://www.topcoder.com/challenges/abc?tab=details#timeline';
+    const loginUrl = buildChallengeLoginUrl(retUrl);
+    const parsedUrl = new URL(loginUrl);
+
+    expect(`${parsedUrl.origin}${parsedUrl.pathname}`)
+      .toBe('https://accounts-auth0.topcoder-dev.com/member');
+    expect(parsedUrl.searchParams.get('retUrl')).toBe(retUrl);
+    expect(parsedUrl.searchParams.get('utm_source')).toBe('community-app-main');
   });
 });
