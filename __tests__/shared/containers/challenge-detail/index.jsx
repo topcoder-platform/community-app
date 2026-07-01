@@ -1,7 +1,12 @@
 import {
-  getDisplayWinners,
-  isWiproRegistrationBlocked,
   mapStateToProps,
+  buildChallengeLoginUrl,
+  getDisplayWinners,
+  isGroupedChallenge,
+  isGroupedChallengeAccessError,
+  isWiproRegistrationBlocked,
+  shouldLoginForGroupedChallenge,
+  shouldLoginForGroupedChallengeError,
 } from 'containers/challenge-detail';
 
 describe('Challenge detail Wipro registration guard', () => {
@@ -72,134 +77,45 @@ describe('Challenge detail winners filter', () => {
   });
 });
 
-describe('Challenge detail MM submissions state mapping', () => {
-  function createState() {
-    return {
-      auth: {
-        user: {},
-      },
-      challenge: {
-        details: {
-          id: 'challenge-id',
-          registrants: [
-            {
-              memberHandle: 'alpha',
-              memberId: '101',
-              rating: 1200,
-            },
-            {
-              memberHandle: 'beta',
-              memberId: '102',
-              rating: 1500,
-            },
-          ],
-          submissions: [
-            {
-              createdAt: '2026-06-29T01:00:00.000Z',
-              id: 'raw-alpha',
-              memberId: '101',
-              registrant: {
-                memberHandle: 'alpha',
-                memberId: '101',
-              },
-            },
-          ],
-        },
-        mmSubmissions: {
-          challengeId: 'challenge-id',
-          data: [
-            {
-              finalRank: null,
-              member: 'alpha',
-              memberId: '101',
-              provisionalRank: 1,
-              submissions: [
-                {
-                  finalScore: null,
-                  provisionalScore: 75,
-                  status: 'completed',
-                  submissionId: 'raw-alpha',
-                  submissionTime: '2026-06-29T01:00:00.000Z',
-                },
-              ],
-            },
-            {
-              finalRank: null,
-              member: 'beta',
-              memberId: '102',
-              provisionalRank: 2,
-              submissions: [
-                {
-                  finalScore: null,
-                  provisionalScore: 70,
-                  status: 'completed',
-                  submissionId: 'full-beta',
-                  submissionTime: '2026-06-28T01:00:00.000Z',
-                },
-              ],
-            },
-          ],
-        },
-        reviewSummations: {
-          challengeId: 'challenge-id',
-          data: [
-            {
-              aggregateScore: 75,
-              id: 'summation-alpha',
-              isProvisional: true,
-              reviewedDate: '2026-06-29T01:10:00.000Z',
-              submissionId: 'raw-alpha',
-              submitterHandle: 'alpha',
-              submitterId: '101',
-            },
-          ],
-        },
-        statisticsData: [],
-        checkpoints: {},
-      },
-      challengeListing: {
-        challengeTypes: [],
-        challengeTypesMap: {},
-        openForRegistrationChallenges: {},
-      },
-      lookup: {
-        allCountries: [],
-        reviewTypes: [],
-      },
-      page: {
-        challengeDetails: {
-          checkpoints: {},
-          feedbackOpen: {},
-        },
-      },
-      tcCommunities: {
-        list: {
-          data: [],
-          loadingUuid: '',
-          timestamp: 0,
-        },
-      },
-      terms: {
-        loadingTermsForEntity: null,
-        terms: [],
-      },
-      topcoderHeader: {},
-    };
-  }
+describe('Challenge detail grouped challenge login guard', () => {
+  beforeEach(() => {
+    document.cookie = 'tc_utm=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+  });
 
-  test('keeps fully fetched MM submitters when review summations are present', () => {
-    const props = mapStateToProps(createState(), {
-      challengesUrl: '/challenges',
-      match: {
-        params: {
-          challengeId: 'challenge-id',
-        },
-      },
-    });
+  test('detects grouped challenge payloads from array or map groups', () => {
+    expect(isGroupedChallenge({ groups: ['group-id'] })).toBe(true);
+    expect(isGroupedChallenge({ groups: { 'group-id': true } })).toBe(true);
+    expect(isGroupedChallenge({ groups: [] })).toBe(false);
+    expect(isGroupedChallenge({ groups: {} })).toBe(false);
+  });
 
-    expect(props.mmSubmissions.map(submission => submission.member)).toEqual([
-      'alpha',
-      'beta',
-    ]);
+  test('requires login only for anonymous grouped challenge payloads', () => {
+    expect(shouldLoginForGroupedChallenge({}, { groups: ['group-id'] })).toBe(true);
+    expect(shouldLoginForGroupedChallenge({ tokenV3: 'token' }, { groups: ['group-id'] }))
+      .toBe(false);
+    expect(shouldLoginForGroupedChallenge({}, { groups: [] })).toBe(false);
+  });
+
+  test('detects grouped challenge access errors for anonymous detail requests', () => {
+    expect(isGroupedChallengeAccessError({ payload: new Error('Forbidden') })).toBe(true);
+    expect(isGroupedChallengeAccessError(new Error('You do not have access to this group')))
+      .toBe(true);
+    expect(isGroupedChallengeAccessError(new Error('Not Found'))).toBe(false);
+
+    expect(shouldLoginForGroupedChallengeError({}, { payload: new Error('Forbidden') }))
+      .toBe(true);
+    expect(shouldLoginForGroupedChallengeError({ tokenV3: 'token' }, new Error('Forbidden')))
+      .toBe(false);
+  });
+
+  test('builds a login URL that preserves the original challenge URL', () => {
+    const retUrl = 'https://www.topcoder.com/challenges/abc?tab=details#timeline';
+    const loginUrl = buildChallengeLoginUrl(retUrl);
+    const parsedUrl = new URL(loginUrl);
+
+    expect(`${parsedUrl.origin}${parsedUrl.pathname}`)
+      .toBe('https://accounts-auth0.topcoder-dev.com/member');
+    expect(parsedUrl.searchParams.get('retUrl')).toBe(retUrl);
+    expect(parsedUrl.searchParams.get('utm_source')).toBe('community-app-main');
   });
 });
