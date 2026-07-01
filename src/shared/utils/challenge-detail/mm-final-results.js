@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
+import { hasOpenSubmissionPhase } from 'utils/challengePhases';
 
 /**
  * Normalizes a displayed score or rank value into a finite number.
@@ -31,7 +32,7 @@ export function isReviewPhaseComplete(challenge = {}) {
 
 /**
  * Returns whether Marathon Match final scores or ranks already exist in the
- * loaded submission payload, even if the review phase is still active.
+ * loaded submission payload after submissions are closed.
  *
  * @param {Array} mmSubmissions grouped Marathon Match submissions.
  * @returns {boolean} true when at least one final result is available.
@@ -59,6 +60,10 @@ export function hasVisibleMmFinalResults(mmSubmissions = []) {
  * @returns {boolean} true when final results are ready for display.
  */
 export function shouldShowFinalMmResults(challenge = {}, mmSubmissions = []) {
+  if (hasOpenSubmissionPhase(challenge.phases)) {
+    return false;
+  }
+
   return isReviewPhaseComplete(challenge)
     || hasVisibleMmFinalResults(mmSubmissions);
 }
