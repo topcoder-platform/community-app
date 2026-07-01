@@ -1,4 +1,8 @@
-import { getDisplayWinners, isWiproRegistrationBlocked } from 'containers/challenge-detail';
+import {
+  getDisplayWinners,
+  isWiproRegistrationBlocked,
+  mapStateToProps,
+} from 'containers/challenge-detail';
 
 describe('Challenge detail Wipro registration guard', () => {
   test('blocks Wipro members when challenge disallows Wipro participation', () => {
@@ -64,6 +68,138 @@ describe('Challenge detail winners filter', () => {
 
     expect(winners).toEqual([
       { handle: 'taskWinner', type: 'provisional' },
+    ]);
+  });
+});
+
+describe('Challenge detail MM submissions state mapping', () => {
+  function createState() {
+    return {
+      auth: {
+        user: {},
+      },
+      challenge: {
+        details: {
+          id: 'challenge-id',
+          registrants: [
+            {
+              memberHandle: 'alpha',
+              memberId: '101',
+              rating: 1200,
+            },
+            {
+              memberHandle: 'beta',
+              memberId: '102',
+              rating: 1500,
+            },
+          ],
+          submissions: [
+            {
+              createdAt: '2026-06-29T01:00:00.000Z',
+              id: 'raw-alpha',
+              memberId: '101',
+              registrant: {
+                memberHandle: 'alpha',
+                memberId: '101',
+              },
+            },
+          ],
+        },
+        mmSubmissions: {
+          challengeId: 'challenge-id',
+          data: [
+            {
+              finalRank: null,
+              member: 'alpha',
+              memberId: '101',
+              provisionalRank: 1,
+              submissions: [
+                {
+                  finalScore: null,
+                  provisionalScore: 75,
+                  status: 'completed',
+                  submissionId: 'raw-alpha',
+                  submissionTime: '2026-06-29T01:00:00.000Z',
+                },
+              ],
+            },
+            {
+              finalRank: null,
+              member: 'beta',
+              memberId: '102',
+              provisionalRank: 2,
+              submissions: [
+                {
+                  finalScore: null,
+                  provisionalScore: 70,
+                  status: 'completed',
+                  submissionId: 'full-beta',
+                  submissionTime: '2026-06-28T01:00:00.000Z',
+                },
+              ],
+            },
+          ],
+        },
+        reviewSummations: {
+          challengeId: 'challenge-id',
+          data: [
+            {
+              aggregateScore: 75,
+              id: 'summation-alpha',
+              isProvisional: true,
+              reviewedDate: '2026-06-29T01:10:00.000Z',
+              submissionId: 'raw-alpha',
+              submitterHandle: 'alpha',
+              submitterId: '101',
+            },
+          ],
+        },
+        statisticsData: [],
+        checkpoints: {},
+      },
+      challengeListing: {
+        challengeTypes: [],
+        challengeTypesMap: {},
+        openForRegistrationChallenges: {},
+      },
+      lookup: {
+        allCountries: [],
+        reviewTypes: [],
+      },
+      page: {
+        challengeDetails: {
+          checkpoints: {},
+          feedbackOpen: {},
+        },
+      },
+      tcCommunities: {
+        list: {
+          data: [],
+          loadingUuid: '',
+          timestamp: 0,
+        },
+      },
+      terms: {
+        loadingTermsForEntity: null,
+        terms: [],
+      },
+      topcoderHeader: {},
+    };
+  }
+
+  test('keeps fully fetched MM submitters when review summations are present', () => {
+    const props = mapStateToProps(createState(), {
+      challengesUrl: '/challenges',
+      match: {
+        params: {
+          challengeId: 'challenge-id',
+        },
+      },
+    });
+
+    expect(props.mmSubmissions.map(submission => submission.member)).toEqual([
+      'alpha',
+      'beta',
     ]);
   });
 });

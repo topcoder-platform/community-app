@@ -1158,7 +1158,7 @@ function getLatestReviewSummationScore(summations = [], targetType = null) {
   return latest ? latest.score : null;
 }
 
-function mapStateToProps(state, props) {
+export function mapStateToProps(state, props) {
   const challengeId = String(props.match.params.challengeId);
   const cl = state.challengeListing;
   const { lookup: { allCountries, reviewTypes } } = state;
@@ -1171,7 +1171,7 @@ function mapStateToProps(state, props) {
     ? challenge.submissions
     : (_.get(challenge, 'submissions.data') || []);
   let mmSubmissions = extractArrayFromStateSlice(state.challenge.mmSubmissions, challengeId);
-  if (reviewSummations.length) {
+  if (!mmSubmissions.length && reviewSummations.length) {
     mmSubmissions = buildMmSubmissionData(reviewSummations, rawChallengeSubmissions);
   } else if (!mmSubmissions.length && rawChallengeSubmissions.length) {
     mmSubmissions = buildMmSubmissionData([], rawChallengeSubmissions);
