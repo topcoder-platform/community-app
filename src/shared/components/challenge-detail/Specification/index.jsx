@@ -343,25 +343,6 @@ export default function ChallengeDetailsView(props) {
                   </div>
                 )
             }
-            {isWipro && (
-              <article>
-                <h2>
-                  Payments
-                </h2>
-                <div>
-                  <p>
-                    For employees of Wipro Technologies, following are the payment terms.
-                    Winner(s) will be awarded the reward money/Winner Circle Points (WCPs) on
-                    successful completion and acceptance of the submission by the stakeholder.
-                    Accumulated reward money for the month will be paid through Wipro payroll as part of subsequent
-                    month’s salary (eg. Aug month challenge winners payment will be credited as part of Sept month salary).
-                    WCPs will be credited to winner’s WCP wallet in 3-4 weeks post challenge closure.
-                    For payment of reward money/WCPs, respective country currency conversion will be
-                    considered as per Wipro standard currency conversion guidelines.
-                  </p>
-                </div>
-              </article>
-            )}
           </div>
         </div>
         { !isTopCrowdChallenge ? (
