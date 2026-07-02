@@ -104,4 +104,29 @@ describe('submissions service', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(result.data).toEqual([{ id: 'submission-only-page' }]);
   });
+
+  it('passes latest and member filters to the submissions API', async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({
+        data: [{ id: 'submission-latest' }],
+        meta: {
+          page: 1,
+          perPage: 100,
+          totalPages: 1,
+        },
+      }),
+    });
+
+    await getChallengeSubmissions('token-v3', 'challenge-id', {
+      isLatest: true,
+      memberId: '1001',
+    });
+
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith(
+      `${baseUrl}?challengeId=challenge-id&perPage=500&page=1&isLatest=true&memberId=1001`,
+      expect.objectContaining({ method: 'GET' }),
+    );
+  });
 });

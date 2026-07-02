@@ -30,10 +30,21 @@ async function fetchChallengeSubmissionsPage({
   challengeId,
   page,
   perPage,
+  filters,
   aggregated,
   meta,
 }) {
-  const url = `${v6ApiUrl}/submissions?challengeId=${encodeURIComponent(challengeId)}&perPage=${perPage}&page=${page}`;
+  const params = new URLSearchParams();
+  params.set('challengeId', challengeId);
+  params.set('perPage', perPage);
+  params.set('page', page);
+  Object.keys(filters || {}).forEach((key) => {
+    const value = filters[key];
+    if (value !== undefined && value !== null && value !== '') {
+      params.set(key, value);
+    }
+  });
+  const url = `${v6ApiUrl}/submissions?${params.toString()}`;
   const response = await fetch(url, {
     method: 'GET',
     headers: getHeaders(tokenV3),
@@ -65,6 +76,7 @@ async function fetchChallengeSubmissionsPage({
     challengeId,
     page: page + 1,
     perPage,
+    filters,
     aggregated: combined,
     meta: latestMeta,
   });
@@ -81,17 +93,27 @@ async function fetchChallengeSubmissionsPage({
  * @param {String|Number} challengeId Challenge identifier used by the submissions API.
  * @param {Object} options Optional pagination settings.
  * @param {Number} options.perPage Number of records requested per API page.
+ * @param {Boolean} options.isLatest When true, fetch only the latest submission per member.
+ * @param {String|Number} options.memberId Optional member id used to fetch one member's history.
  * @return {Promise<{data: Array, meta: Object}>} Aggregated submissions and
  * final response metadata.
  * @throws {Error} Throws when any submissions API page returns a non-2xx status.
  */
 export async function getChallengeSubmissions(tokenV3, challengeId, options = {}) {
-  const { perPage = DEFAULT_PER_PAGE } = options;
+  const {
+    isLatest,
+    memberId,
+    perPage = DEFAULT_PER_PAGE,
+  } = options;
   const { data, meta } = await fetchChallengeSubmissionsPage({
     tokenV3,
     challengeId,
     page: 1,
     perPage,
+    filters: {
+      isLatest: isLatest === undefined ? undefined : isLatest,
+      memberId,
+    },
     aggregated: [],
     meta: null,
   });

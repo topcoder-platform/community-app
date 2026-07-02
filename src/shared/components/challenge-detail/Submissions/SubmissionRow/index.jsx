@@ -11,6 +11,7 @@ import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/icon-close-green.svg';
 import moment from 'moment';
 
+import LoadingIndicator from 'components/LoadingIndicator';
 import FailedSubmissionTooltip from '../FailedSubmissionTooltip';
 import InReview from '../../icons/in-review.svg';
 import Queued from '../../icons/queued.svg';
@@ -21,7 +22,7 @@ import style from './style.scss';
 export default function SubmissionRow({
   isMM, isRDM, openHistory, member, submissions, toggleHistory, challengeStatus,
   showFinalResults, finalRank, provisionalRank, onShowPopup, rating, viewAsTable,
-  numWinners, auth, isLoggedIn, isF2F, isBugHunt,
+  numWinners, auth, isLoggedIn, isF2F, isBugHunt, submissionCount, loadingHistory,
 }) {
   const submissionList = Array.isArray(submissions) ? submissions : [];
   const latestSubmission = submissionList[0] || {};
@@ -114,7 +115,9 @@ export default function SubmissionRow({
   const memberLinkTarget = `${_.includes(window.origin, 'www') ? '_self' : '_blank'}`;
   const memberForHistory = memberHandle || memberDisplay;
   const latestSubmissionId = latestSubmission.submissionId || latestSubmission.id || 'N/A';
-  const submissionCount = submissionList.length;
+  const displaySubmissionCount = _.isFinite(submissionCount)
+    ? submissionCount
+    : submissionList.length;
 
   return (
     <div styleName={`wrapper ${viewAsTable ? 'wrapper-as-table' : ''} `}>
@@ -181,7 +184,7 @@ export default function SubmissionRow({
                 >
                   <span styleName="text">
                     History (
-                    {submissionCount}
+                    {displaySubmissionCount}
                     )
                   </span>
                 </a>
@@ -237,7 +240,7 @@ export default function SubmissionRow({
                     >
                       <span styleName="text">
                         History (
-                        {submissionCount}
+                        {displaySubmissionCount}
                         )
                       </span>
                     </a>
@@ -305,7 +308,9 @@ export default function SubmissionRow({
             </div>
             <div styleName="table-body">
               {
-                submissionList.map((submissionHistory, index) => (
+                loadingHistory ? (
+                  <LoadingIndicator />
+                ) : submissionList.map((submissionHistory, index) => (
                   <SubmissionHistoryRow
                     showFinalResults={showFinalResults}
                     isMM={isMM}
@@ -347,6 +352,8 @@ SubmissionRow.defaultProps = {
   isLoggedIn: false,
   isF2F: false,
   isBugHunt: false,
+  loadingHistory: false,
+  submissionCount: null,
 };
 
 SubmissionRow.propTypes = {
@@ -397,6 +404,8 @@ SubmissionRow.propTypes = {
   onShowPopup: PT.func.isRequired,
   viewAsTable: PT.bool.isRequired,
   isLoggedIn: PT.bool,
+  loadingHistory: PT.bool,
   numWinners: PT.number.isRequired,
   auth: PT.shape().isRequired,
+  submissionCount: PT.number,
 };
