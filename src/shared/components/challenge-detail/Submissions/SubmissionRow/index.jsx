@@ -71,7 +71,7 @@ export default function SubmissionRow({
   };
 
   const getFinalReviewResult = () => {
-    if (_.isNil(finalScore)) {
+    if (!showFinalResults || _.isNil(finalScore)) {
       return 'N/A';
     }
     if (finalScore < 0) {

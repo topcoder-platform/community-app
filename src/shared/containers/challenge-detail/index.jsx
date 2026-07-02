@@ -139,6 +139,87 @@ export function getDisplayWinners(challenge = {}) {
   });
 }
 
+/**
+ * Checks whether a challenge has associated groups.
+ * @param {Object} challenge Challenge details loaded by the challenge service.
+ * @return {Boolean} True when the challenge has one or more group IDs.
+ * @throws {Error} This function does not throw.
+ */
+export function isGroupedChallenge(challenge = {}) {
+  return !_.isEmpty(_.get(challenge, 'groups'));
+}
+
+/**
+ * Checks whether an anonymous user should be forced through login before
+ * viewing a grouped challenge.
+ * @param {Object} auth Authentication state from Redux.
+ * @param {Object} challenge Challenge details loaded by the challenge service.
+ * @return {Boolean} True when the user is anonymous and the challenge is grouped.
+ * @throws {Error} This function does not throw.
+ */
+export function shouldLoginForGroupedChallenge(auth = {}, challenge = {}) {
+  return !_.get(auth, 'tokenV3') && isGroupedChallenge(challenge);
+}
+
+/**
+ * Checks whether a challenge details error represents anonymous access to a
+ * grouped/private challenge.
+ * @param {Object|Error} error Error or Redux action returned by the details load.
+ * @return {Boolean} True when the error indicates grouped challenge access denial.
+ * @throws {Error} This function does not throw.
+ */
+export function isGroupedChallengeAccessError(error = {}) {
+  const message = _.toString(
+    _.get(error, 'payload.message')
+    || _.get(error, 'message')
+    || _.get(error, 'payload')
+    || error,
+  );
+
+  return /Forbidden|access to this group/i.test(message);
+}
+
+/**
+ * Checks whether an anonymous failed challenge details request should force
+ * login before showing the existing not-found/access-denied state.
+ * @param {Object} auth Authentication state from Redux.
+ * @param {Object|Error} error Error or Redux action returned by the details load.
+ * @return {Boolean} True when the anonymous request failed on grouped access.
+ * @throws {Error} This function does not throw.
+ */
+export function shouldLoginForGroupedChallengeError(auth = {}, error = {}) {
+  return !_.get(auth, 'tokenV3') && isGroupedChallengeAccessError(error);
+}
+
+/**
+ * Builds a Topcoder login URL that returns users to the challenge details URL.
+ * @param {String} retUrl Original challenge details URL to return to after login.
+ * @param {String} utmSource UTM source to add to the login URL.
+ * @return {String} Login URL with encoded return URL and UTM source.
+ * @throws {Error} This function does not throw.
+ */
+export function buildChallengeLoginUrl(retUrl, utmSource = 'community-app-main') {
+  return appendUtmParamsToUrl(
+    `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`,
+    { utm_source: utmSource },
+  );
+}
+
+/**
+ * Redirects the browser to login and preserves the current challenge details URL.
+ * @param {String} utmSource UTM source to add to the login URL.
+ * @return {Boolean} True when a browser redirect was initiated.
+ * @throws {Error} This function does not throw.
+ */
+export function redirectToChallengeLogin(utmSource = 'community-app-main') {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  window.location.href = buildChallengeLoginUrl(window.location.href, utmSource);
+  return true;
+}
+
 function hasRenderableStatisticsData(statisticsData) {
   return Array.isArray(statisticsData)
     && statisticsData.some(entry => (
@@ -1158,7 +1239,7 @@ function getLatestReviewSummationScore(summations = [], targetType = null) {
   return latest ? latest.score : null;
 }
 
-function mapStateToProps(state, props) {
+export function mapStateToProps(state, props) {
   const challengeId = String(props.match.params.challengeId);
   const cl = state.challengeListing;
   const { lookup: { allCountries, reviewTypes } } = state;
@@ -1171,7 +1252,7 @@ function mapStateToProps(state, props) {
     ? challenge.submissions
     : (_.get(challenge, 'submissions.data') || []);
   let mmSubmissions = extractArrayFromStateSlice(state.challenge.mmSubmissions, challengeId);
-  if (reviewSummations.length) {
+  if (!mmSubmissions.length && reviewSummations.length) {
     mmSubmissions = buildMmSubmissionData(reviewSummations, rawChallengeSubmissions);
   } else if (!mmSubmissions.length && rawChallengeSubmissions.length) {
     mmSubmissions = buildMmSubmissionData([], rawChallengeSubmissions);
@@ -1624,7 +1705,19 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
+          if (res.error) {
+            if (shouldLoginForGroupedChallengeError(tokens, res)) {
+              redirectToChallengeLogin();
+            }
+            return res;
+          }
+
           const ch = res.payload;
+          if (shouldLoginForGroupedChallenge(tokens, ch)) {
+            redirectToChallengeLogin();
+            return res;
+          }
+
           const chTrack = (ch && ch.track && ch.track.name) ? ch.track.name : ch.track;
           if (chTrack === COMPETITION_TRACKS.DES) {
             const p = ch.phases || []
@@ -1639,6 +1732,13 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(a.loadResultsDone(ch.id));
           } else dispatch(a.dropResults());
           return res;
+        })
+        .catch((err) => {
+          if (shouldLoginForGroupedChallengeError(tokens, err)) {
+            redirectToChallengeLogin();
+            return err;
+          }
+          throw err;
         });
     },
     registerForChallenge: (auth, challengeId) => {

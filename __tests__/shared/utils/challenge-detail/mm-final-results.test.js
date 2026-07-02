@@ -41,6 +41,29 @@ describe('mm-final-results utilities', () => {
     ])).toBe(false);
   });
 
+  it('keeps final Marathon Match results hidden while submissions are still open', () => {
+    const submissionPhaseChallenge = {
+      phases: [
+        {
+          isOpen: true,
+          name: 'Submission',
+          scheduledStartDate: '2030-01-01T00:00:00.000Z',
+        },
+      ],
+    };
+
+    expect(shouldShowFinalMmResults(submissionPhaseChallenge, [
+      {
+        finalRank: 1,
+        submissions: [
+          {
+            finalScore: 100,
+          },
+        ],
+      },
+    ])).toBe(false);
+  });
+
   it('shows final Marathon Match results as soon as a final score is available', () => {
     const mmSubmissions = [
       {
