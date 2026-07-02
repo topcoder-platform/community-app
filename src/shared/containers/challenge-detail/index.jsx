@@ -1511,6 +1511,7 @@ const mapDispatchToProps = (dispatch) => {
     const {
       includeMmSubmissions = true,
       includeStatistics = includeMmSubmissions,
+      latestOnly = false,
     } = options;
     const challengeIdStr = _.toString(challengeId);
     if (!challengeIdStr) {
@@ -1529,7 +1530,11 @@ const mapDispatchToProps = (dispatch) => {
     }
 
     const challengeSubmissionsPromise = includeMmSubmissions
-      ? getChallengeSubmissionsService(tokenV3, challengeIdStr)
+      ? getChallengeSubmissionsService(
+        tokenV3,
+        challengeIdStr,
+        latestOnly ? { isLatest: true } : {},
+      )
       : Promise.resolve({ data: [] });
 
     Promise.all([
@@ -1758,8 +1763,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.updateChallengeInit(uuid));
       dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },
-    loadMMSubmissions: (challengeId, tokenV3) => {
-      dispatchReviewSummations(challengeId, tokenV3);
+    loadMMSubmissions: (challengeId, tokenV3, options = {}) => {
+      dispatchReviewSummations(challengeId, tokenV3, options);
     },
     getSubmissionArtifacts:
             (submissionId, tokenV3) => getSubmissionArtifactsService(tokenV3, submissionId),
@@ -1794,7 +1799,7 @@ const mapDispatchToProps = (dispatch) => {
         challengeId,
         _.get(tokens, 'tokenV3'),
         {
-          includeMmSubmissions: isMMChallenge,
+          includeMmSubmissions: false,
           includeStatistics: isMMChallenge,
         },
       );

@@ -24,6 +24,7 @@ import SortIcon from 'assets/images/icon-sort.svg';
 import { shouldShowFinalMmResults as resolveShouldShowFinalMmResults } from 'utils/challenge-detail/mm-final-results';
 import { getSubmissionId } from 'utils/submissions';
 import { compressFiles } from 'utils/files';
+import { buildMmSubmissionData } from 'utils/mm-review-summations';
 import { getChallengeSubmissions as getChallengeSubmissionsService } from 'services/submissions';
 
 import sortList from 'utils/challenge-detail/sort';
@@ -77,6 +78,15 @@ function getSubmissionMemberId(submission = {}) {
       || submission.submitterId
       || '',
   ).trim();
+}
+
+/**
+ * Returns a stable key used for cached Marathon Match member history.
+ * @param {Object} submission Member-grouped Marathon Match submission row.
+ * @return {String} Stable member key.
+ */
+function getMmSubmissionHistoryKey(submission = {}) {
+  return _.toString(submission.memberId || submission.member || '').trim();
 }
 
 /**
@@ -367,6 +377,8 @@ class SubmissionsComponent extends React.Component {
       completeSubmissions: null,
       completeSubmissionsChallengeId: '',
       loadingCompleteSubmissionsForChallengeId: '',
+      loadingMmSubmissionHistoryByMember: {},
+      mmSubmissionHistoryByMember: {},
     };
     this.completeSubmissionsRequestId = 0;
     this.unmounted = false;
@@ -377,6 +389,8 @@ class SubmissionsComponent extends React.Component {
     this.sortSubmissions = this.sortSubmissions.bind(this);
     this.shouldShowFinalMmResults = this.shouldShowFinalMmResults.bind(this);
     this.loadCompleteSubmissions = this.loadCompleteSubmissions.bind(this);
+    this.handleToggleSubmissionHistory = this.handleToggleSubmissionHistory.bind(this);
+    this.loadMmSubmissionHistory = this.loadMmSubmissionHistory.bind(this);
   }
 
   componentDidMount() {
@@ -390,7 +404,7 @@ class SubmissionsComponent extends React.Component {
     }
 
     if (isMM) {
-      loadMMSubmissions(challenge.id, auth.tokenV3);
+      loadMMSubmissions(challenge.id, auth.tokenV3, { latestOnly: true });
     } else {
       this.loadCompleteSubmissions();
     }
@@ -596,6 +610,113 @@ class SubmissionsComponent extends React.Component {
           loadingCompleteSubmissionsForChallengeId: '',
         });
       });
+  }
+
+  /**
+   * Loads all historical submissions for one Marathon Match member.
+   * @param {Object} submission Member-grouped Marathon Match submission row.
+   * @return {Promise<void>|undefined} Resolves after the history cache updates.
+   */
+  loadMmSubmissionHistory(submission) {
+    const key = getMmSubmissionHistoryKey(submission);
+    const memberId = _.toString(_.get(submission, 'memberId', '')).trim();
+    const { auth, challenge } = this.props;
+    const challengeId = _.toString(_.get(challenge, 'id', ''));
+
+    if (!key || !memberId || !challengeId) {
+      return undefined;
+    }
+
+    const {
+      loadingMmSubmissionHistoryByMember,
+      mmSubmissionHistoryByMember,
+    } = this.state;
+    if (loadingMmSubmissionHistoryByMember[key] || mmSubmissionHistoryByMember[key]) {
+      return undefined;
+    }
+
+    this.setState({
+      loadingMmSubmissionHistoryByMember: {
+        ...loadingMmSubmissionHistoryByMember,
+        [key]: true,
+      },
+    });
+
+    return getChallengeSubmissionsService(_.get(auth, 'tokenV3'), challengeId, { memberId })
+      .then(({ data }) => {
+        if (this.unmounted) {
+          return;
+        }
+        const memberHistoryRows = buildMmSubmissionData([], Array.isArray(data) ? data : []);
+        const memberHistory = _.find(
+          memberHistoryRows,
+          row => _.toString(row.memberId || row.member) === key,
+        );
+        const currentAttemptsById = new Map(
+          (submission.submissions || []).map(attempt => [
+            _.toString(attempt.submissionId || attempt.id),
+            attempt,
+          ]),
+        );
+        const historySubmissions = _.get(memberHistory, 'submissions', [])
+          .map((attempt) => {
+            const attemptId = _.toString(attempt.submissionId || attempt.id);
+            const existingAttempt = currentAttemptsById.get(attemptId) || {};
+            return {
+              ...existingAttempt,
+              ...attempt,
+              finalScore: _.isNil(attempt.finalScore)
+                ? existingAttempt.finalScore
+                : attempt.finalScore,
+              provisionalScore: _.isNil(attempt.provisionalScore)
+                ? existingAttempt.provisionalScore
+                : attempt.provisionalScore,
+            };
+          });
+
+        this.setState(prevState => ({
+          loadingMmSubmissionHistoryByMember: {
+            ...prevState.loadingMmSubmissionHistoryByMember,
+            [key]: false,
+          },
+          mmSubmissionHistoryByMember: {
+            ...prevState.mmSubmissionHistoryByMember,
+            [key]: historySubmissions,
+          },
+        }));
+      })
+      .catch(() => {
+        if (this.unmounted) {
+          return;
+        }
+        this.setState(prevState => ({
+          loadingMmSubmissionHistoryByMember: {
+            ...prevState.loadingMmSubmissionHistoryByMember,
+            [key]: false,
+          },
+        }));
+      });
+  }
+
+  /**
+   * Toggles a submission history modal and lazily loads MM history when needed.
+   * @param {String} historyKey Stable key for the submission row.
+   * @param {Object} submission Member-grouped submission row.
+   */
+  handleToggleSubmissionHistory(historyKey, submission) {
+    const { submissionHistoryOpen, toggleSubmissionHistory } = this.props;
+    const isOpening = !submissionHistoryOpen[historyKey];
+    toggleSubmissionHistory(historyKey);
+
+    if (!isOpening || !this.isMM()) {
+      return;
+    }
+
+    const loadedCount = _.get(submission, 'submissions.length', 0);
+    const expectedCount = Number(_.get(submission, 'submissionCount'));
+    if (Number.isFinite(expectedCount) && expectedCount > loadedCount) {
+      this.loadMmSubmissionHistory(submission);
+    }
   }
 
   /**
@@ -842,6 +963,8 @@ class SubmissionsComponent extends React.Component {
       downloadingAll,
       completeSubmissions,
       loadingCompleteSubmissionsForChallengeId,
+      loadingMmSubmissionHistoryByMember,
+      mmSubmissionHistoryByMember,
     } = this.state;
 
     const sortOptionClicked = {
@@ -1367,34 +1490,43 @@ class SubmissionsComponent extends React.Component {
           }
           {
             isMM && (
-              sortedSubmissions.map((submission, index) => (
-                <SubmissionRow
-                  submissions={sortedSubmissions}
-                  showFinalResults={showFinalMmResults}
-                  isMM={isMM}
-                  isRDM={isRDM}
-                  key={submission.member}
-                  {...submission}
-                  challengeStatus={challenge.status}
-                  toggleHistory={() => { toggleSubmissionHistory(index); }}
-                  openHistory={(submissionHistoryOpen[index.toString()] || false)}
-                  isLoadingSubmissionInformation={isLoadingSubmissionInformation}
-                  submissionInformation={submissionInformation}
-                  onShowPopup={this.onHandleInformationPopup}
-                  getFlagFirstTry={this.getFlagFirstTry}
-                  onGetFlagImageFail={onGetFlagImageFail}
-                  submissionDetail={submission}
-                  viewAsTable={viewAsTable}
-                  numWinners={numWinners}
-                  auth={auth}
-                  isLoggedIn={isLoggedIn}
-                />
-              ))
+              sortedSubmissions.map((submission) => {
+                const historyKey = getMmSubmissionHistoryKey(submission);
+                const loadedHistory = mmSubmissionHistoryByMember[historyKey];
+                const rowSubmissions = loadedHistory || submission.submissions;
+                return (
+                  <SubmissionRow
+                    showFinalResults={showFinalMmResults}
+                    isMM={isMM}
+                    isRDM={isRDM}
+                    key={historyKey || submission.member}
+                    {...submission}
+                    submissions={rowSubmissions}
+                    submissionCount={submission.submissionCount}
+                    challengeStatus={challenge.status}
+                    toggleHistory={() => {
+                      this.handleToggleSubmissionHistory(historyKey, submission);
+                    }}
+                    openHistory={(submissionHistoryOpen[historyKey] || false)}
+                    loadingHistory={Boolean(loadingMmSubmissionHistoryByMember[historyKey])}
+                    isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                    submissionInformation={submissionInformation}
+                    onShowPopup={this.onHandleInformationPopup}
+                    getFlagFirstTry={this.getFlagFirstTry}
+                    onGetFlagImageFail={onGetFlagImageFail}
+                    submissionDetail={submission}
+                    viewAsTable={viewAsTable}
+                    numWinners={numWinners}
+                    auth={auth}
+                    isLoggedIn={isLoggedIn}
+                  />
+                );
+              })
             )
           }
           {
             !isMM && (
-              sortedSubmissions.map((memberGroup, index) => (
+              sortedSubmissions.map(memberGroup => (
                 <SubmissionRow
                   submissions={memberGroup.submissions}
                   showFinalResults={showFinalMmResults}
@@ -1404,8 +1536,8 @@ class SubmissionsComponent extends React.Component {
                   member={memberGroup.member}
                   rating={memberGroup.rating}
                   challengeStatus={challenge.status}
-                  toggleHistory={() => { toggleSubmissionHistory(index); }}
-                  openHistory={(submissionHistoryOpen[index.toString()] || false)}
+                  toggleHistory={() => { toggleSubmissionHistory(memberGroup.member); }}
+                  openHistory={(submissionHistoryOpen[memberGroup.member] || false)}
                   isLoadingSubmissionInformation={isLoadingSubmissionInformation}
                   submissionInformation={submissionInformation}
                   onShowPopup={this.onHandleInformationPopup}

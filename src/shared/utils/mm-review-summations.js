@@ -178,6 +178,19 @@ function getSubmissionTimestamp(submission) {
   return _.find(candidates, value => !!value) || null;
 }
 
+/**
+ * Resolves the total number of attempts for a member from a submission row.
+ * Latest-only submission API responses include this value so the UI can show
+ * History counts without loading every historical attempt upfront.
+ *
+ * @param {Object} submission Raw submission returned by the submissions API.
+ * @returns {Number|null} Submission count, or null when unavailable.
+ */
+function getSubmissionCount(submission) {
+  const count = Number(_.get(submission, 'submissionCount'));
+  return Number.isFinite(count) ? count : null;
+}
+
 function getSubmissionIdentifier(submission, index, handle) {
   const rawSubmissionId = _.get(
     submission,
@@ -596,9 +609,30 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
   }
 
   const membersByHandle = new Map();
+  const latestRawSubmissionIds = new Set(
+    normalizedRawSubmissions
+      .filter(submission => submission && submission.isLatest === true)
+      .map(submission => _.toString(
+        _.get(submission, 'id', _.get(submission, 'submissionId', '')),
+      ))
+      .filter(id => id.length > 0),
+  );
+  const hasLatestRawSubmissions = latestRawSubmissionIds.size > 0;
 
   normalizedReviewSummations.forEach((summation, index) => {
     if (!summation) {
+      return;
+    }
+
+    const rawSubmissionId = _.get(
+      summation,
+      'submissionId',
+      _.get(summation, 'id'),
+    );
+    if (
+      hasLatestRawSubmissions
+      && (!rawSubmissionId || !latestRawSubmissionIds.has(_.toString(rawSubmissionId)))
+    ) {
       return;
     }
 
@@ -608,6 +642,7 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
         handle,
         memberId: null,
         rating: null,
+        submissionCount: null,
         submissionsMap: new Map(),
       });
     }
@@ -624,11 +659,6 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
       memberEntry.rating = rating;
     }
 
-    const rawSubmissionId = _.get(
-      summation,
-      'submissionId',
-      _.get(summation, 'id'),
-    );
     const submissionId = rawSubmissionId
       ? _.toString(rawSubmissionId)
       : `unknown-${handle}-${index}`;
@@ -675,6 +705,7 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
         handle,
         memberId: null,
         rating: null,
+        submissionCount: null,
         submissionsMap: new Map(),
       });
     }
@@ -688,6 +719,11 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
     const rating = getSubmissionRating(submission);
     if (_.isNil(memberEntry.rating) && !_.isNil(rating)) {
       memberEntry.rating = rating;
+    }
+
+    const submissionCount = getSubmissionCount(submission);
+    if (_.isNil(memberEntry.submissionCount) && !_.isNil(submissionCount)) {
+      memberEntry.submissionCount = submissionCount;
     }
 
     const submissionId = getSubmissionIdentifier(submission, index, handle);
@@ -819,6 +855,9 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
       rating,
       provisionalRank: null,
       finalRank: null,
+      submissionCount: _.isNil(memberEntry.submissionCount)
+        ? submissionsWithProvisionalFallback.length
+        : memberEntry.submissionCount,
       submissions: submissionsWithProvisionalFallback,
       bestProvisionalScore,
       bestProvisionalTimestamp,
