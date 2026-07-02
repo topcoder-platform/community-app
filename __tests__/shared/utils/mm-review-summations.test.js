@@ -188,6 +188,54 @@ describe('buildMmSubmissionData', () => {
     ]);
   });
 
+  it('keeps latest-only rows compact while preserving member submission count', () => {
+    const reviewSummations = [
+      {
+        aggregateScore: 10,
+        id: 'summation-old',
+        isProvisional: true,
+        reviewedDate: '2026-04-09T04:00:00.000Z',
+        submissionId: 'submission-old',
+        submitterHandle: 'ctrucza',
+        submitterId: '16064986',
+      },
+      {
+        aggregateScore: 20,
+        id: 'summation-latest',
+        isProvisional: true,
+        reviewedDate: '2026-04-09T05:00:00.000Z',
+        submissionId: 'submission-latest',
+        submitterHandle: 'ctrucza',
+        submitterId: '16064986',
+      },
+    ];
+    const rawSubmissions = [
+      {
+        createdAt: '2026-04-09T05:00:55.279Z',
+        id: 'submission-latest',
+        isLatest: true,
+        memberId: '16064986',
+        submissionCount: 7,
+        submittedDate: '2026-04-09T05:00:55.279Z',
+        submitterHandle: 'ctrucza',
+      },
+    ];
+
+    const result = buildMmSubmissionData(reviewSummations, rawSubmissions);
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toEqual(expect.objectContaining({
+      member: 'ctrucza',
+      submissionCount: 7,
+    }));
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        provisionalScore: 20,
+        submissionId: 'submission-latest',
+      }),
+    ]);
+  });
+
   it('uses reviewedDate before import createdAt for review summation times', () => {
     const reviewSummations = [
       {
