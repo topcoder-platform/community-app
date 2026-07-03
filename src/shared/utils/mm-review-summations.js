@@ -617,7 +617,8 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
       ))
       .filter(id => id.length > 0),
   );
-  const hasLatestRawSubmissions = latestRawSubmissionIds.size > 0;
+  const shouldFilterToLatestRawSubmissions = latestRawSubmissionIds.size > 0
+    && normalizedRawSubmissions.every(submission => submission && submission.isLatest === true);
 
   normalizedReviewSummations.forEach((summation, index) => {
     if (!summation) {
@@ -630,7 +631,7 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
       _.get(summation, 'id'),
     );
     if (
-      hasLatestRawSubmissions
+      shouldFilterToLatestRawSubmissions
       && (!rawSubmissionId || !latestRawSubmissionIds.has(_.toString(rawSubmissionId)))
     ) {
       return;
