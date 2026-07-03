@@ -87,6 +87,7 @@ SubmissionsPage.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   groups: PT.arrayOf(PT.shape()).isRequired,
+  metadata: PT.arrayOf(PT.shape()).isRequired,
   track: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,

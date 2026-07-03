@@ -4,7 +4,8 @@
  *
  * Description:
  *   Page that is shown when a user is trying to submit a Submission.
- *   Allows user to upload Submission.zip file using a Filestack plugin.
+ *   Allows users to submit either a standard zip upload or a Topgear URL,
+ *   depending on challenge metadata and legacy Topgear group defaults.
  */
 /* eslint-env browser */
 
@@ -20,6 +21,58 @@ import FilestackFilePicker from '../FilestackFilePicker';
 
 import Uploading from '../Uploading';
 import style from './styles.scss';
+
+const SUBMISSION_TYPE_METADATA_FIELD = 'submission_type';
+const SUBMISSION_TYPE_URL = 'url';
+const SUBMISSION_TYPE_ZIP = 'zip';
+
+/**
+ * Resolves which submission experience should be shown for the challenge.
+ * Explicit `submission_type` metadata wins over the historical Topgear group
+ * check. When the metadata is absent or invalid, the current fallback remains:
+ * Topgear/Wipro challenges use URL submission and all others use zip upload.
+ *
+ * @param {Array<Object>} metadata Challenge metadata entries.
+ * @param {Array<String>} groups Challenge group ids.
+ * @param {Object} communitiesList Loaded community metadata from Redux.
+ * @return {{isLoadingCommunitiesList: Boolean, isUrlSubmission: Boolean}}
+ */
+export function resolveSubmissionMode(metadata, groups, communitiesList) {
+  const submissionType = _.toLower(_.toString(_.get(
+    _.find(metadata, { name: SUBMISSION_TYPE_METADATA_FIELD }),
+    'value',
+    '',
+  )).trim());
+
+  if (submissionType === SUBMISSION_TYPE_ZIP || submissionType === SUBMISSION_TYPE_URL) {
+    return {
+      isLoadingCommunitiesList: false,
+      isUrlSubmission: submissionType === SUBMISSION_TYPE_URL,
+    };
+  }
+
+  if (_.isEmpty(groups)) {
+    return {
+      isLoadingCommunitiesList: false,
+      isUrlSubmission: false,
+    };
+  }
+
+  if (!communitiesList.timestamp) {
+    return {
+      isLoadingCommunitiesList: true,
+      isUrlSubmission: false,
+    };
+  }
+
+  const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
+  const topGearGroupIds = _.get(topGearCommunity, 'groupIds', []);
+
+  return {
+    isLoadingCommunitiesList: false,
+    isUrlSubmission: _.some(groups, groupId => groupId && _.includes(topGearGroupIds, groupId)),
+  };
+}
 
 /**
  * Submissions Page shown to develop challengers.
@@ -137,31 +190,15 @@ class Submit extends React.Component {
       setSubmissionFilestackData,
       submitForm,
       groups,
+      metadata,
     } = this.props;
 
     const id = 'file-picker-submission';
-
-    let isLoadingCommunitiesList = false;
-    let isChallengeBelongToTopgearGroup = false;
-    // check if challenge belong to any group
-    if (!_.isEmpty(groups)) {
-      // check if communitiesList is loaded
-      if (communitiesList.timestamp > 0) {
-        const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
-        if (topGearCommunity) {
-          // check the group info match with group list
-          _.forOwn(groups, (value) => {
-            if (value && _.includes(topGearCommunity.groupIds, value)) {
-              isChallengeBelongToTopgearGroup = true;
-              return false;
-            }
-            return true;
-          });
-        }
-      } else {
-        isLoadingCommunitiesList = true;
-      }
-    }
+    const submissionMode = resolveSubmissionMode(metadata, groups, communitiesList);
+    const {
+      isLoadingCommunitiesList,
+      isUrlSubmission: isChallengeBelongToTopgearGroup,
+    } = submissionMode;
 
     const submissionInstruction = isChallengeBelongToTopgearGroup ? (
       <div>
@@ -427,6 +464,7 @@ Submit.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   groups: PT.arrayOf(PT.shape()).isRequired,
+  metadata: PT.arrayOf(PT.shape()).isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string,
