@@ -569,6 +569,7 @@ class ChallengeDetailPageContainer extends React.Component {
       statisticsData,
       openTermsModal,
       getSubmissionArtifacts,
+      reviewSummations,
     } = this.props;
 
     // const displayRecommendedChallenges = getDisplayRecommendedChallenges(
@@ -781,6 +782,7 @@ class ChallengeDetailPageContainer extends React.Component {
                   submissions={challenge.submissions}
                   loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                   mmSubmissions={mmSubmissions}
+                  reviewSummations={reviewSummations}
                   loadMMSubmissions={loadMMSubmissions}
                   auth={auth}
                   isLoadingSubmissionInformation={isLoadingSubmissionInformation}
@@ -989,6 +991,7 @@ ChallengeDetailPageContainer.propTypes = {
   terms: PT.arrayOf(PT.shape()),
   allCountries: PT.arrayOf(PT.shape()),
   reviewTypes: PT.arrayOf(PT.shape()),
+  reviewSummations: PT.arrayOf(PT.shape()).isRequired,
   mySubmissions: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
@@ -1576,6 +1579,7 @@ export function mapStateToProps(state, props) {
       Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
     submissionInformation: state.challenge.submissionInformation,
     mmSubmissions,
+    reviewSummations,
     allCountries: state.lookup.allCountries,
     mySubmissions,
     reviewTypes,
