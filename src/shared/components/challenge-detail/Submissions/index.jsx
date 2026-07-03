@@ -620,7 +620,7 @@ class SubmissionsComponent extends React.Component {
   loadMmSubmissionHistory(submission) {
     const key = getMmSubmissionHistoryKey(submission);
     const memberId = _.toString(_.get(submission, 'memberId', '')).trim();
-    const { auth, challenge } = this.props;
+    const { auth, challenge, reviewSummations } = this.props;
     const challengeId = _.toString(_.get(challenge, 'id', ''));
 
     if (!key || !memberId || !challengeId) {
@@ -647,7 +647,10 @@ class SubmissionsComponent extends React.Component {
         if (this.unmounted) {
           return;
         }
-        const memberHistoryRows = buildMmSubmissionData([], Array.isArray(data) ? data : []);
+        const memberHistoryRows = buildMmSubmissionData(
+          reviewSummations,
+          Array.isArray(data) ? data : [],
+        );
         const memberHistory = _.find(
           memberHistoryRows,
           row => _.toString(row.memberId || row.member) === key,
@@ -1618,6 +1621,7 @@ SubmissionsComponent.propTypes = {
   submissionHistoryOpen: PT.shape({}).isRequired,
   loadMMSubmissions: PT.func.isRequired,
   mmSubmissions: PT.arrayOf(PT.shape()).isRequired,
+  reviewSummations: PT.arrayOf(PT.shape()).isRequired,
   loadingMMSubmissionsForChallengeId: PT.oneOfType([
     PT.string,
     PT.oneOf([null]),

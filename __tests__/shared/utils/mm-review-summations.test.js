@@ -156,6 +156,60 @@ describe('buildMmSubmissionData', () => {
     ]);
   });
 
+  it('derives scores from review summations embedded in raw submissions', () => {
+    const rawSubmissions = [
+      {
+        createdAt: '2026-07-01T00:33:51.464Z',
+        id: 'submission-with-embedded-summations',
+        isLatest: true,
+        memberId: '1003',
+        registrant: {
+          memberHandle: 'gamma',
+          memberId: '1003',
+          rating: 1700,
+        },
+        reviewSummation: [
+          {
+            aggregateScore: 68.94,
+            id: 'summation-example',
+            isExample: true,
+            reviewedDate: '2026-07-01T00:35:00.000Z',
+            submissionId: 'submission-with-embedded-summations',
+          },
+          {
+            aggregateScore: 75.82,
+            id: 'summation-provisional',
+            isProvisional: true,
+            reviewedDate: '2026-07-01T00:36:00.000Z',
+            submissionId: 'submission-with-embedded-summations',
+          },
+          {
+            aggregateScore: 75.87,
+            id: 'summation-final',
+            isFinal: true,
+            reviewedDate: '2026-07-01T00:37:00.000Z',
+            submissionId: 'submission-with-embedded-summations',
+          },
+        ],
+        status: 'completed',
+      },
+    ];
+
+    const result = buildMmSubmissionData([], rawSubmissions);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        finalScore: 75.87,
+        provisionalScore: 75.82,
+        reviewSummations: expect.arrayContaining([
+          expect.objectContaining({ id: 'summation-example' }),
+        ]),
+        submissionId: 'submission-with-embedded-summations',
+      }),
+    ]);
+  });
+
   it('uses v6 submitter fields and submittedDate for imported raw submissions', () => {
     const rawSubmissions = [
       {
@@ -232,6 +286,62 @@ describe('buildMmSubmissionData', () => {
       expect.objectContaining({
         provisionalScore: 20,
         submissionId: 'submission-latest',
+      }),
+    ]);
+  });
+
+  it('keeps scores for older rows when raw submissions include full member history', () => {
+    const reviewSummations = [
+      {
+        aggregateScore: 10,
+        id: 'summation-old',
+        isProvisional: true,
+        reviewedDate: '2026-04-09T04:00:00.000Z',
+        submissionId: 'submission-old',
+        submitterHandle: 'ctrucza',
+        submitterId: '16064986',
+      },
+      {
+        aggregateScore: 20,
+        id: 'summation-latest',
+        isProvisional: true,
+        reviewedDate: '2026-04-09T05:00:00.000Z',
+        submissionId: 'submission-latest',
+        submitterHandle: 'ctrucza',
+        submitterId: '16064986',
+      },
+    ];
+    const rawSubmissions = [
+      {
+        createdAt: '2026-04-09T05:00:55.279Z',
+        id: 'submission-latest',
+        isLatest: true,
+        memberId: '16064986',
+        submissionCount: 2,
+        submittedDate: '2026-04-09T05:00:55.279Z',
+        submitterHandle: 'ctrucza',
+      },
+      {
+        createdAt: '2026-04-09T04:00:55.279Z',
+        id: 'submission-old',
+        isLatest: false,
+        memberId: '16064986',
+        submittedDate: '2026-04-09T04:00:55.279Z',
+        submitterHandle: 'ctrucza',
+      },
+    ];
+
+    const result = buildMmSubmissionData(reviewSummations, rawSubmissions);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].submissions).toEqual([
+      expect.objectContaining({
+        provisionalScore: 20,
+        submissionId: 'submission-latest',
+      }),
+      expect.objectContaining({
+        provisionalScore: 10,
+        submissionId: 'submission-old',
       }),
     ]);
   });
