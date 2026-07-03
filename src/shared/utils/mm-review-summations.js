@@ -398,6 +398,59 @@ function updateSubmissionEntry(
   };
 }
 
+/**
+ * Applies a review summation to a normalized Marathon Match submission entry.
+ *
+ * The Review API can return summations either as top-level
+ * /reviewSummations rows or embedded in /submissions reviewSummation arrays.
+ * This helper keeps both shapes on the same score normalization path.
+ *
+ * @param {Object} existingEntry Existing normalized submission entry.
+ * @param {Object} options Summation merge options.
+ * @param {String} options.submissionId Submission id that owns the summation.
+ * @param {Object} options.summation Review summation returned by the API.
+ * @param {String|null} options.fallbackTimestamp Timestamp to use if the
+ * summation does not include one.
+ * @param {Boolean|null} options.isLatest Latest-submission flag from the
+ * owning submission or summation, when available.
+ * @return {Object} Submission entry with score fields updated from summation.
+ * @throws This function does not throw.
+ */
+function updateSubmissionEntryFromReviewSummation(
+  existingEntry,
+  {
+    submissionId,
+    summation,
+    fallbackTimestamp = null,
+    isLatest = null,
+  },
+) {
+  const timestamp = getSummationTimestamp(summation) || fallbackTimestamp;
+  const timestampValue = toTimestampValue(timestamp);
+  const normalizedScore = normalizeScoreValue(
+    _.get(summation, 'aggregateScore'),
+  );
+  const scoreType = getSummationScoreClassification(summation);
+  // Most MM review summations are provisional updates; if an entry does not
+  // explicitly identify itself as final or example, treat it as provisional.
+  const isProvisional = scoreType.isProvisional
+    || (!scoreType.isFinal && !scoreType.isExample);
+
+  return updateSubmissionEntry(
+    existingEntry,
+    {
+      submissionId,
+      timestamp,
+      timestampValue,
+      normalizedScore,
+      summation,
+      isFinal: scoreType.isFinal,
+      isProvisional,
+      isLatest,
+    },
+  );
+}
+
 function updateSubmissionEntryFromSubmission(
   existingEntry,
   {
@@ -663,31 +716,15 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
     const submissionId = rawSubmissionId
       ? _.toString(rawSubmissionId)
       : `unknown-${handle}-${index}`;
-    const timestamp = getSummationTimestamp(summation);
-    const timestampValue = toTimestampValue(timestamp);
-
-    const normalizedScore = normalizeScoreValue(
-      _.get(summation, 'aggregateScore'),
-    );
-    const scoreType = getSummationScoreClassification(summation);
-    // Most MM review summations are provisional updates; if an entry does not
-    // explicitly identify itself as final or example, treat it as provisional.
-    const isProvisional = scoreType.isProvisional
-      || (!scoreType.isFinal && !scoreType.isExample);
     const isLatest = _.isNil(summation.isLatest)
       ? null
       : Boolean(summation.isLatest);
 
-    const updatedEntry = updateSubmissionEntry(
+    const updatedEntry = updateSubmissionEntryFromReviewSummation(
       memberEntry.submissionsMap.get(submissionId),
       {
         submissionId,
-        timestamp,
-        timestampValue,
-        normalizedScore,
         summation,
-        isFinal: scoreType.isFinal,
-        isProvisional,
         isLatest,
       },
     );
@@ -746,8 +783,21 @@ export function buildMmSubmissionData(reviewSummations = [], rawSubmissions = []
         : []),
     ]);
 
-    const updatedEntry = updateSubmissionEntryFromSubmission(
+    const entryWithEmbeddedSummations = reviewSummation.reduce(
+      (entry, summation) => updateSubmissionEntryFromReviewSummation(
+        entry,
+        {
+          submissionId,
+          summation,
+          fallbackTimestamp: timestamp,
+          isLatest,
+        },
+      ),
       memberEntry.submissionsMap.get(submissionId),
+    );
+
+    const updatedEntry = updateSubmissionEntryFromSubmission(
+      entryWithEmbeddedSummations,
       {
         submissionId,
         timestamp,
