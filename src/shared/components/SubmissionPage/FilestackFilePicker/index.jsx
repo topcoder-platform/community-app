@@ -4,7 +4,8 @@
  *
  * Description:
  *   Component for uploading a file using Filestack Picker
- *   and Drag + Drop.  Does not store the file contents in form.  Instead,
+ *   and Drag + Drop, or accepting a URL for Topgear submissions.
+ *   Does not store the file contents in form.  Instead,
  *   uploads file to S3 storage container and sets the
  *   S3 storage details to Redux store for submission.
  */

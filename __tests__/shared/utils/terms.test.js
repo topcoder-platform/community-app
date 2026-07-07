@@ -12,9 +12,15 @@ describe('terms utils', () => {
     expect(isNdaTerm({ title: 'Assignment Terms' })).toBe(false);
   });
 
-  test('uses configured DocuSign template for NDA terms', () => {
+  test('uses terms-service DocuSign template for NDA terms when present', () => {
     expect(getDocuSignTemplateIdForTerm({
       docusignTemplateId: 'old-template-id',
+      title: 'Appirio NDA v2.0',
+    })).toBe('old-template-id');
+  });
+
+  test('uses configured DocuSign template for NDA terms without a template id', () => {
+    expect(getDocuSignTemplateIdForTerm({
       title: 'Appirio NDA v2.0',
     })).toBe(NEW_NDA_TEMPLATE_ID);
   });

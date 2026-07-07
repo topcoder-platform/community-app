@@ -16,14 +16,18 @@ export function isNdaTerm(term = {}) {
  * Resolves the DocuSign template id to use for a terms-service record.
  *
  * @param {Object|null} term terms-service record or details payload.
- * @returns {String|Number|undefined} configured NDA template id for NDA terms,
- * or the template id returned by terms-service for all other terms.
+ * @returns {String|Number|undefined} the template id returned by terms-service,
+ * or the configured NDA fallback when an NDA term has no template id.
  */
 export function getDocuSignTemplateIdForTerm(term = {}) {
+  if (term && term.docusignTemplateId) {
+    return term.docusignTemplateId;
+  }
+
   const configuredNdaTemplateId = config.NDA_DOCUSIGN_TEMPLATE_ID;
   if (configuredNdaTemplateId && isNdaTerm(term)) {
     return configuredNdaTemplateId;
   }
 
-  return term ? term.docusignTemplateId : undefined;
+  return undefined;
 }

@@ -70,9 +70,9 @@ module.exports = {
    * agreement flow. */
   MOCK_TERMS_SERVICE: false,
 
-  /* Optional DocuSign template override for NDA-like terms. When set, the
-   * terms modal requests this template for terms whose title includes NDA or
-   * Non-Disclosure, even if the Terms API still returns an older template id.
+  /* Optional DocuSign template fallback for NDA-like terms. The terms modal
+   * prefers the template id returned by the Terms API because backend
+   * completion is persisted against that same template id.
    */
   NDA_DOCUSIGN_TEMPLATE_ID: '400b989d-1c75-4889-b6f6-421e1f924709',
 
