@@ -16,7 +16,7 @@ import {
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
-import { getTypeName } from 'utils/challenge';
+import { getTaskInfo, getTypeName } from 'utils/challenge';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import NoRecommenderChallengeCard from '../../NoRecommenderChallengeCard';
@@ -50,7 +50,6 @@ export default function Bucket({
   setSort,
   sort,
   userId,
-  auth,
   expandedTags,
   expandTag,
   activeBucket,
@@ -67,36 +66,26 @@ export default function Bucket({
   };
   const activeSort = sort || 'startDate';
 
-  const roles = _.get(auth, 'user.roles');
+  const visibleChallenges = challenges.filter((challenge) => {
+    const taskInfo = getTaskInfo(challenge);
+    const hasAssignee = taskInfo.isAssigned || !_.isNil(taskInfo.memberId);
+    return !taskInfo.isTask || hasAssignee;
+  });
 
   // const sortedChallenges = activeBucket === 'all' ?
   //   _.clone(challenges.slice(0, 10)) : _.clone(challenges);
   let sortedChallenges;
   if ((activeBucket === BUCKETS.ALL || activeBucket === BUCKETS.ALL_PAST) && !expanded) {
-    if (loadMore && challenges.length > 10) {
-      sortedChallenges = _.clone(challenges);
+    if (loadMore && visibleChallenges.length > 10) {
+      sortedChallenges = _.clone(visibleChallenges);
     } else {
-      sortedChallenges = _.clone(challenges.slice(0, 10));
+      sortedChallenges = _.clone(visibleChallenges.slice(0, 10));
     }
   } else {
-    sortedChallenges = _.clone(challenges);
+    sortedChallenges = _.clone(visibleChallenges);
   }
 
-  let filteredChallenges = sortedChallenges;
-
-  if (!_.includes(roles, 'administrator')) {
-    filteredChallenges = sortedChallenges.filter((ch) => {
-      const typeName = getTypeName(ch);
-      if (typeName === 'Task'
-        && ch.task
-        && ch.task.isTask
-        && ch.task.isAssigned
-        && `${ch.task.memberId}` !== `${userId}`) {
-        return null;
-      }
-      return ch;
-    });
-  }
+  const filteredChallenges = sortedChallenges;
   // sortedChallenges.sort(Sort[activeSort].func);
 
   // const bucketQuery = qs.stringify({
@@ -283,7 +272,6 @@ Bucket.defaultProps = {
   openChallengesInNewTabs: false,
   sort: null,
   userId: '',
-  auth: {},
   expandedTags: [],
   expandTag: null,
   activeBucket: '',
@@ -314,7 +302,6 @@ Bucket.propTypes = {
   setSort: PT.func.isRequired,
   sort: PT.string,
   userId: PT.oneOfType([PT.number, PT.string]),
-  auth: PT.shape(),
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   activeBucket: PT.string,
