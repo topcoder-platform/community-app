@@ -67,9 +67,8 @@ export default function Bucket({
   const activeSort = sort || 'startDate';
 
   const visibleChallenges = challenges.filter((challenge) => {
-    const taskInfo = getTaskInfo(challenge);
-    const hasAssignee = taskInfo.isAssigned || !_.isNil(taskInfo.memberId);
-    return !taskInfo.isTask || hasAssignee;
+    if (isLoggedIn) return true;
+    return !getTaskInfo(challenge).isTask;
   });
 
   // const sortedChallenges = activeBucket === 'all' ?

@@ -234,7 +234,7 @@ test('Hides an unassigned task with nested task fields', () => {
   expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(0);
 });
 
-test('Hides an unassigned task with flattened task fields', () => {
+test('Shows an unassigned task returned for an authenticated associated resource', () => {
   const renderer = new Renderer();
   renderer.render((
     <Bucket
@@ -273,7 +273,7 @@ test('Hides an unassigned task with flattened task fields', () => {
     />
   ));
 
-  expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(0);
+  expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(1);
 });
 
 // class Wrapper extends React.Component {
