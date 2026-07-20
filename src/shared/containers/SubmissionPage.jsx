@@ -7,6 +7,7 @@
  *   Passes the relevent state and setters as properties to the UI components.
  */
 import actions from 'actions/page/submission';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import { actions as api } from 'topcoder-react-lib';
 import { isMM } from 'utils/challenge';
 import communityActions from 'actions/tc-communities';
@@ -138,12 +139,14 @@ SubmissionsPageContainer.propTypes = {
   challenge: PT.shape().isRequired,
   status: PT.string.isRequired,
   isRegistered: PT.bool.isRequired,
+  isMarathonMatch: PT.bool.isRequired,
   groups: PT.arrayOf(PT.shape()).isRequired,
   metadata: PT.arrayOf(PT.shape()).isRequired,
   errorMsg: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   resetForm: PT.func.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
   challengeName: PT.string.isRequired,
   uploadProgress: PT.number,
   agreed: PT.bool.isRequired,
@@ -193,6 +196,7 @@ const mapStateToProps = (state, ownProps) => {
     challenge: state.challenge,
     status: details.status,
     isRegistered: details.isRegistered,
+    isMarathonMatch: isMM(details),
     groups: details.groups,
     metadata: details.metadata || [],
     isSubmitting: submission.isSubmitting,
@@ -230,6 +234,11 @@ function mapDispatchToProps(dispatch) {
     },
     resetForm: () => {
       dispatch(a.submitReset());
+    },
+    selectChallengeDetailsTab: (tab) => {
+      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(
+        tab,
+      ));
     },
     setAgreed: agreed => dispatch(a.setAgreed(agreed)),
     setFilePickerError: (id, error) => dispatch(a.setFilePickerError(id, error)),

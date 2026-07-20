@@ -12,6 +12,7 @@ import UploadSuccess from 'assets/images/upload-success.svg';
 import UploadLoading from 'assets/images/upload-loading.svg';
 import UploadFail from 'assets/images/upload-fail.svg';
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import style from './styles.scss';
 
@@ -21,12 +22,14 @@ const Uploading = ({
   challengesUrl,
   error,
   isSubmitting,
+  isMarathonMatch,
   submitDone,
   reset,
   retry,
   track,
   uploadProgress,
   back,
+  selectChallengeDetailsTab,
 }) => (
   <div styleName="container">
     <div styleName="uploading">
@@ -169,8 +172,15 @@ const Uploading = ({
                    Add Another Submission
                  </Button>
                  <PrimaryButton
-                   to={`${challengesUrl}/${challengeId}/my-submissions`}
-                   onClick={() => back()}
+                   to={isMarathonMatch
+                     ? `${challengesUrl}/${challengeId}?tab=${DETAIL_TABS.MY_SUBMISSIONS}`
+                     : `${challengesUrl}/${challengeId}/my-submissions`}
+                   onClick={() => {
+                     back();
+                     if (isMarathonMatch) {
+                       selectChallengeDetailsTab(DETAIL_TABS.MY_SUBMISSIONS);
+                     }
+                   }}
                    theme={{ button: style.button }}
                  >
                    My Submissions
@@ -185,8 +195,15 @@ const Uploading = ({
                    ADD SUBMISSION
                  </Button>
                  <PrimaryButton
-                   to={`${challengesUrl}/${challengeId}/my-submissions`}
-                   onClick={() => back()}
+                   to={isMarathonMatch
+                     ? `${challengesUrl}/${challengeId}?tab=${DETAIL_TABS.MY_SUBMISSIONS}`
+                     : `${challengesUrl}/${challengeId}/my-submissions`}
+                   onClick={() => {
+                     back();
+                     if (isMarathonMatch) {
+                       selectChallengeDetailsTab(DETAIL_TABS.MY_SUBMISSIONS);
+                     }
+                   }}
                    theme={{ button: style.button }}
                  >
                    MY SUBMISSIONS
@@ -208,6 +225,7 @@ Uploading.propTypes = {
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
+  isMarathonMatch: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   reset: PT.func.isRequired,
   error: PT.string.isRequired,
@@ -215,6 +233,7 @@ Uploading.propTypes = {
   retry: PT.func.isRequired,
   uploadProgress: PT.number.isRequired,
   back: PT.func.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
 };
 
 export default Uploading;
