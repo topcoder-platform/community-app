@@ -225,12 +225,12 @@ class Submit extends React.Component {
         </div>
         <p styleName="wipro-paragraph">
           Note: All deliverables/outcomes should be uploaded to the Wipro SharePoint
-          directory <strong styleName="wipro-bold">ONLY</strong>. For work done directly on customer environment and
+          directory specified by the project team <strong styleName="wipro-bold">ONLY</strong>. For work done directly on customer environment and
           involving a customer SharePoint/drive/folder link, create a word document and include a
           brief summary of the work done and list the deliverables/assets created along
           with the link to the customer SharePoint/drive/folder link and upload the word
-          document to a Wipro SharePoint folder. And submit the link to this Word document
-          as the submission link.
+          document to a Wipro SharePoint folder specified by the project team. And submit
+          the link to this Word document as the submission link.
         </p>
       </div>
     )
