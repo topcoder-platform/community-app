@@ -146,7 +146,7 @@ test('Shows assigned task when memberId and userId are matching strings', () => 
   expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(1);
 });
 
-test('Hides assigned task when memberId and userId do not match', () => {
+test('Shows an assigned task returned for an associated resource', () => {
   const renderer = new Renderer();
   renderer.render((
     <Bucket
@@ -188,7 +188,92 @@ test('Hides assigned task when memberId and userId do not match', () => {
     />
   ));
 
+  expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(1);
+});
+
+test('Hides an unassigned task with nested task fields', () => {
+  const renderer = new Renderer();
+  renderer.render((
+    <Bucket
+      activeBucket="openForRegistration"
+      bucket="openForRegistration"
+      challenges={[
+        {
+          id: 'task-3',
+          name: 'Unassigned task',
+          status: 'ACTIVE',
+          type: { name: 'Task' },
+          tags: [],
+          prizes: [],
+          task: {
+            isTask: true,
+            isAssigned: false,
+            memberId: null,
+          },
+        },
+      ]}
+      challengeTypes={challengeTypes}
+      challengesUrl="/challenges"
+      expand={_.noop}
+      expanded
+      expandTag={_.noop}
+      expandedTags={[]}
+      expanding={false}
+      filterState={{}}
+      isLoggedIn={false}
+      needLoad={false}
+      prizeMode="money-usd"
+      selectChallengeDetailsTab={_.noop}
+      setFilterState={setFilterState}
+      setSearchText={setSearchText}
+      setSort={setSort}
+      sort=""
+    />
+  ));
+
   expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(0);
+});
+
+test('Shows an unassigned task returned for an authenticated associated resource', () => {
+  const renderer = new Renderer();
+  renderer.render((
+    <Bucket
+      activeBucket="openForRegistration"
+      bucket="openForRegistration"
+      challenges={[
+        {
+          id: 'task-4',
+          name: 'Unassigned task',
+          status: 'ACTIVE',
+          type: { name: 'Task' },
+          tags: [],
+          prizes: [],
+          taskIsTask: true,
+          taskIsAssigned: false,
+          taskMemberId: null,
+        },
+      ]}
+      challengeTypes={challengeTypes}
+      challengesUrl="/challenges"
+      expand={_.noop}
+      expanded
+      expandTag={_.noop}
+      expandedTags={[]}
+      expanding={false}
+      filterState={{}}
+      isLoggedIn
+      needLoad={false}
+      prizeMode="money-usd"
+      selectChallengeDetailsTab={_.noop}
+      setFilterState={setFilterState}
+      setSearchText={setSearchText}
+      setSort={setSort}
+      sort=""
+      userId="resource-user"
+    />
+  ));
+
+  expect(countElementsByType(renderer.getRenderOutput(), ChallengeCard)).toBe(1);
 });
 
 // class Wrapper extends React.Component {

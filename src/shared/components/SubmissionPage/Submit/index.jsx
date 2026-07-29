@@ -177,6 +177,7 @@ class Submit extends React.Component {
       communitiesList,
       errorMsg,
       isSubmitting,
+      isMarathonMatch,
       submitDone,
       track,
       uploadProgress,
@@ -191,6 +192,7 @@ class Submit extends React.Component {
       submitForm,
       groups,
       metadata,
+      selectChallengeDetailsTab,
     } = this.props;
 
     const id = 'file-picker-submission';
@@ -418,12 +420,14 @@ class Submit extends React.Component {
             challengesUrl={challengesUrl}
             error={errorMsg}
             isSubmitting={isSubmitting}
+            isMarathonMatch={isMarathonMatch}
             submitDone={submitDone}
             reset={this.reset}
             retry={this.retry}
             track={track}
             uploadProgress={uploadProgress}
             back={this.back}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
           />
         )
     );
@@ -466,10 +470,12 @@ Submit.propTypes = {
   groups: PT.arrayOf(PT.shape()).isRequired,
   metadata: PT.arrayOf(PT.shape()).isRequired,
   isSubmitting: PT.bool.isRequired,
+  isMarathonMatch: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string,
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
   track: PT.string.isRequired,
   uploadProgress: PT.number.isRequired,
   setAgreed: PT.func.isRequired,
