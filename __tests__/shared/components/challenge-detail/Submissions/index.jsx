@@ -1,4 +1,4 @@
-import {
+import Submissions, {
   enrichChallengeSubmissions,
   groupSubmissionsByMember,
 } from 'components/challenge-detail/Submissions';
@@ -88,5 +88,65 @@ describe('challenge detail Submissions helpers', () => {
       finalScore: 82,
       initialScore: 75,
     }));
+  });
+
+  it('sorts grouped submissions by final score', () => {
+    const component = new Submissions.WrappedComponent({
+      challenge: {
+        phases: [
+          {
+            isOpen: false,
+            name: 'Review',
+            scheduledStartDate: '2000-01-01T00:00:00.000Z',
+          },
+        ],
+        status: 'COMPLETED',
+        tags: [],
+        track: 'Development',
+        type: 'Challenge',
+      },
+      mmSubmissions: [],
+      submissionsSort: {
+        field: 'Final Score',
+        sort: 'desc',
+      },
+    });
+    const submissions = [
+      {
+        member: 'middle-score',
+        submissions: [{ finalScore: 68 }],
+      },
+      {
+        member: 'low-score',
+        submissions: [{ finalScore: 43.05 }],
+      },
+      {
+        member: 'high-score',
+        submissions: [{ finalScore: 94.8 }],
+      },
+    ];
+
+    component.sortSubmissions(submissions);
+
+    expect(submissions.map(submission => submission.member)).toEqual([
+      'high-score',
+      'middle-score',
+      'low-score',
+    ]);
+
+    component.props = {
+      ...component.props,
+      submissionsSort: {
+        field: 'Final Score',
+        sort: 'asc',
+      },
+    };
+    component.sortSubmissions(submissions);
+
+    expect(submissions.map(submission => submission.member)).toEqual([
+      'low-score',
+      'middle-score',
+      'high-score',
+    ]);
   });
 });
