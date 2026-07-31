@@ -111,11 +111,11 @@ jobs:
   # Jest unit-tests).
   test:
     docker:
-      - image: circleci/node:10.24.1
+      - image: cimg/node:24.18.0@sha256:4a638ad75f8601fec1f193e71df584639e6accb1771cea23f3d9d3857bca480c
     steps:
       - checkout
       - restore_cache:
-          key: test-node-modules-{{ checksum "package-lock.json" }}
+          key: test-node24-modules-{{ checksum "package-lock.json" }}
       - run:
           name: Config Git
           command: git config --global url."https://git@".insteadOf git://
@@ -124,15 +124,14 @@ jobs:
           command: npm ci
           no_output_timeout: 20m
       - save_cache:
-          key: test-node-modules-{{ checksum "package-lock.json" }}
+          key: test-node24-modules-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      - run: npm test
+      - run: npm run lint && npm run jest:ci
 
   Performance-Testing:
     docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+      - image: cimg/openjdk:17.0.19@sha256:09490c4b3e6e85f8b382c7ce0ef70aa8e940ee3a3567a11d2aede0ed094dc525
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -151,16 +150,16 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
+            - performance-jdk17-maven3-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - performance-jdk17-maven3-
 
       - run: mvn dependency:go-offline
 
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+          key: performance-jdk17-maven3-{{ checksum "pom.xml" }}
 
       - run: mvn verify
 

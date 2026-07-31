@@ -29,11 +29,16 @@ afterAll(() => {
   mockDate.reset();
 });
 
-function testReducer(r) {
+function testReducer(createReducer) {
+  let resolvedReducer;
   let state;
 
+  beforeAll(async () => {
+    resolvedReducer = await createReducer();
+  });
+
   function check(action) {
-    state = r(state, action);
+    state = resolvedReducer(state, action);
     expect(state).toMatchSnapshot();
     mockDate.set(Date.now() + 1234);
   }
@@ -53,15 +58,21 @@ function testReducer(r) {
 }
 
 describe('Default reducer', () => {
-  testReducer(reducer.default);
+  testReducer(() => reducer.default);
 });
 
-describe('Factory without http request', () => reducer.factory().then(testReducer));
+describe('Factory without http request', () => {
+  testReducer(() => reducer.factory());
+});
 
-describe('Factory with server-side rendering', () => reducer.factory({
-  url: '/community/communityId/header',
-}).then(testReducer));
+describe('Factory with server-side rendering', () => {
+  testReducer(() => reducer.factory({
+    url: '/community/communityId/header',
+  }));
+});
 
-describe('Factory without server-side rendering', () => reducer.factory({
-  url: '/some-random-url',
-}).then(testReducer));
+describe('Factory without server-side rendering', () => {
+  testReducer(() => reducer.factory({
+    url: '/some-random-url',
+  }));
+});

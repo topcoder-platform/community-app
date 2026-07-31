@@ -1,8 +1,11 @@
-import 'topcoder-react-utils/config/jest/setup';
-
 /* global Event, jest */
 
 import _ from 'lodash';
+import {
+  clearImmediate as nodeClearImmediate,
+  setImmediate as nodeSetImmediate,
+} from 'timers';
+import { TextDecoder, TextEncoder } from 'util';
 
 /* eslint-disable import/no-extraneous-dependencies */
 import Adapter from 'enzyme-adapter-react-16';
@@ -10,6 +13,11 @@ import Enzyme from 'enzyme';
 /* eslint-enable import/no-extraneous-dependencies */
 
 Enzyme.configure({ adapter: new Adapter() });
+
+global.TextDecoder = global.TextDecoder || TextDecoder;
+global.TextEncoder = global.TextEncoder || TextEncoder;
+global.clearImmediate = global.clearImmediate || nodeClearImmediate;
+global.setImmediate = global.setImmediate || nodeSetImmediate;
 
 global.window.matchMedia = global.window.matchMedia || function matchMedia() {
   return {

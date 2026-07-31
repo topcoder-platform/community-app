@@ -14,7 +14,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { client as filestack } from 'filestack-react';
+import * as filestack from 'filestack-js';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { errors } from 'topcoder-react-lib';
@@ -133,14 +133,45 @@ class FilestackFilePicker extends React.Component {
     this.setState({ inputUrl: e.target.value });
   }
 
+  /**
+   * Checks that a submission is a credential-free HTTPS URL.
+   * @param {String} url Candidate submission URL.
+   * @return {Boolean} True when the URL has a safe structure.
+   */
   /* eslint-disable class-methods-use-this */
   isValidUrl(url) {
-    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url); /* eslint-disable-line no-useless-escape */
+    try {
+      const parsed = new URL(url);
+      return parsed.protocol === 'https:'
+        && Boolean(parsed.hostname)
+        && !parsed.username
+        && !parsed.password
+        && !parsed.port;
+    } catch (e) {
+      return false;
+    }
   }
 
+  /**
+   * Checks a submission URL against the configured exact hostname allowlist.
+   * @param {String} url Candidate submission URL.
+   * @return {Boolean} True when the URL uses an allowed hostname.
+   */
   isDomainAllowed(url) {
-    const domainReg = new RegExp(`^https?://(${config.TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS})/.+`);
-    return !!url.match(domainReg);
+    try {
+      const parsed = new URL(url);
+      const allowedDomains = config.TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS
+        .split('|')
+        .map(domain => domain.trim().toLowerCase())
+        .filter(Boolean);
+      return parsed.protocol === 'https:'
+        && !parsed.username
+        && !parsed.password
+        && !parsed.port
+        && allowedDomains.includes(parsed.hostname.toLowerCase());
+    } catch (e) {
+      return false;
+    }
   }
 
   /**

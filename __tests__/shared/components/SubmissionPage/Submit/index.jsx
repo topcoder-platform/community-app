@@ -1,5 +1,7 @@
 import { resolveSubmissionMode } from 'components/SubmissionPage/Submit';
 
+jest.mock('components/SubmissionPage/FilestackFilePicker', () => 'FilestackFilePicker');
+
 const topgearCommunitiesList = {
   data: [
     {

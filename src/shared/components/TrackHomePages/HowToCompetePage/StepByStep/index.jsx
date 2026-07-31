@@ -1,19 +1,16 @@
 /**
  Step By Step  Component
  */
-/* eslint-disable react/no-danger */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import showdown from 'showdown';
 import Sticky from 'react-stickynode';
 import ContentfulLoader from 'containers/ContentfulLoader';
+import renderMarkdown from 'utils/markdown';
 import StepButton from './StepButton';
 
 
 import './styles.scss';
-
-const converter = new showdown.Converter();
 
 class StepByStep extends React.Component {
   constructor(props) {
@@ -72,12 +69,9 @@ class StepByStep extends React.Component {
                         <div styleName="title">
                           { menu.fields.title}
                         </div>
-                        <div
-                          styleName="text"
-                          dangerouslySetInnerHTML={
-                            { __html: converter.makeHtml(menu.fields.text) }
-                          }
-                        />
+                        <div styleName="text">
+                          {renderMarkdown(menu.fields.text)}
+                        </div>
                       </div>
                     </div>
                   ))

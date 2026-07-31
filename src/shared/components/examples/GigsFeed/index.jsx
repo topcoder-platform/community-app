@@ -2,7 +2,7 @@ import GigsFeed from 'containers/Dashboard/GigsFeed';
 import React from 'react';
 
 import './style.scss';
-import { PrimaryButton } from 'topcoder-react-ui-kit/src/shared/components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 export default class GigsFeedExample extends React.Component {
   constructor() {

@@ -16,7 +16,6 @@ export default function DeadlinesPanel({ deadlines }) {
   const getCardProps = (deadline, index) => {
     let { name } = deadline;
     let showRange = true;
-    name = name.replace(/\bCheckpoint\b/, 'Checkpoint');
     if (/.+submission/i.test(name)) {
       hasSubmissionPhase = true;
       name = name.replace(/submission/i, 'Submission');

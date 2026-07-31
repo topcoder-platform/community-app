@@ -2,7 +2,7 @@ import React from 'react';
 import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
 import './styles.scss';
 
-import { PrimaryButton } from 'topcoder-react-ui-kit/src/shared/components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 export default class ChallengesFeedExample extends React.Component {
   constructor() {
