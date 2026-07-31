@@ -1,7 +1,5 @@
 
 /* global document window */
-/* eslint-disable jsx-a11y/href-no-hash */
-
 import React from 'react';
 
 import TwitterIcon from '../../../../../assets/images/social/icon_twitter.svg';

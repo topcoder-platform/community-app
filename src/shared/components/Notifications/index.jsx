@@ -141,7 +141,7 @@ export default class NotificationList extends React.Component {
     this.setState({
       activeTab: tab,
     });
-  }
+  };
 
   toggleChallenge = (challengeIdx, collapsedChallenges) => {
     const collapsed = collapsedChallenges || {};
@@ -151,14 +151,14 @@ export default class NotificationList extends React.Component {
       collapsed[challengeIdx] = true;
     }
     this.setState({ collapsedChallenges: collapsed });
-  }
+  };
 
   isLink = (item) => {
     const ret = (eventTypes.PROJECT.ACTIVE.includes(item.eventType)
       || eventTypes.PROJECT.COMPLETED.includes(item.eventType))
       && item.sourceId > 0;
     return ret;
-  }
+  };
 
   render() {
     const {

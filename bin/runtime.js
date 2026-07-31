@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
-
 /*
  * Production sources are compiled during the image build. Starting the
  * compiled server directly keeps Babel and package-manager tooling out of the

@@ -3,24 +3,20 @@
 # Pin the complete multi-platform image digest so builds cannot silently pick up
 # a different base image. Renovate/Dependabot can update the tag and digest
 # together when a patched Node image is published.
-ARG NODE_IMAGE=node:24.18.0-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d
+ARG NODE_IMAGE=node:24.18.0-alpine3.23@sha256:595398b0081eacda8e1c4c5b97b76cd1020e4d58a8ebcb4843b9bca1e79e7436
+ARG NODE_BUILD_IMAGE=node:24.18.0-alpine3.23@sha256:595398b0081eacda8e1c4c5b97b76cd1020e4d58a8ebcb4843b9bca1e79e7436
 
-FROM ${NODE_IMAGE} AS development-dependencies
+FROM ${NODE_BUILD_IMAGE} AS development-dependencies
 
 WORKDIR /opt/app
 
-# Native build tools and Git are needed only while dependencies are installed.
-# They are deliberately absent from the final runtime image.
-RUN apt-get update \
-  && apt-get install --yes --no-install-recommends \
-    build-essential \
-    ca-certificates \
-    git \
-    python3 \
-  && rm -rf /var/lib/apt/lists/* \
+# Native build tools stay isolated in the disposable builder stages. The
+# Alpine runtime stage below never receives them.
+RUN apk add --no-cache git python3 make g++ \
   && git config --global url."https://github.com/".insteadOf "git://github.com/"
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
+COPY vendor ./vendor
 
 RUN npm ci
 
@@ -34,7 +30,12 @@ RUN npm test
 
 FROM test AS build
 
+ARG CDN_URL
+ARG NODE_CONFIG_ENV=production
+
 ENV BABEL_ENV=production \
+    CDN_URL=${CDN_URL} \
+    NODE_CONFIG_ENV=${NODE_CONFIG_ENV} \
     NODE_ENV=production
 
 # The browser bundle is built as before. Server/shared sources are then
@@ -69,7 +70,12 @@ FROM ${NODE_IMAGE} AS runtime
 LABEL org.opencontainers.image.title="Topcoder Community App" \
       org.opencontainers.image.description="Topcoder Community App web server"
 
+ARG CDN_URL
+ARG NODE_CONFIG_ENV=production
+
 ENV BABEL_ENV=production \
+    CDN_URL=${CDN_URL} \
+    NODE_CONFIG_ENV=${NODE_CONFIG_ENV} \
     NODE_ENV=production \
     PORT=3000
 
@@ -88,6 +94,7 @@ RUN rm -rf \
     /usr/local/bin/yarn \
     /usr/local/bin/yarnpkg
 
+COPY --from=production-dependencies --chown=node:node /opt/app/vendor ./vendor
 COPY --from=production-dependencies --chown=node:node /opt/app/node_modules ./node_modules
 COPY --from=build --chown=node:node /opt/app/build ./build
 COPY --from=build --chown=node:node /opt/app/.build-info ./.build-info

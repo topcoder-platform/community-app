@@ -583,7 +583,7 @@ export const getGroupAchievements = achievements => groupAchievements.map(group 
   }),
 })).filter(group => group.specificAchievements[0] && group.specificAchievements[0].active);
 
-  /**
+/**
    * Returns a copy of the base singleAchievements map updated with data
    * from api
    *

@@ -11,6 +11,7 @@
 node_modules
 automated-smoke-test
 build
+.build-info
 target
 coverage
 __coverage__

@@ -1,12 +1,69 @@
 {
-  "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
+  "extends": "airbnb",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "sourceType": "module",
+    "babelOptions": {
+      "babelrc": false,
+      "configFile": false,
+      "presets": ["@babel/preset-react"],
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-transform-class-properties"
+      ]
+    }
+  },
   "rules": {
-    "jsx-a11y/anchor-is-valid": false,
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
+    "class-methods-use-this": "off",
+    "default-param-last": "off",
+    "function-call-argument-newline": "off",
+    "function-paren-newline": ["error", "consistent"],
+    "import/no-import-module-exports": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "jsx-a11y/href-no-hash": "off",
+    "max-classes-per-file": "off",
     "import/no-cycle": [2, { "maxDepth": 1 }],
-    "react/forbid-prop-types": false,
-    "react/no-unknown-property": ["error", { "ignore": ["styleName"] }]
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 2, "maxEOF": 0 }],
+    "no-promise-executor-return": "off",
+    "no-redeclare": ["error", { "builtinGlobals": false }],
+    "prefer-regex-literals": "off",
+    "react/forbid-prop-types": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "react/jsx-curly-newline": "off",
+    "react/jsx-fragments": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-deprecated": "off",
+    "react/no-invalid-html-attribute": "off",
+    "react/no-unstable-nested-components": "off",
+    "react/no-unused-class-component-methods": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["styleName"] }],
+    "react/sort-comp": "off"
   },
   "env": {
-    "browser": true
-  }
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"],
+        "moduleDirectory": ["node_modules", "src/shared", "src"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["config/**/*.js", "webpack.config.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+      }
+    }
+  ]
 }

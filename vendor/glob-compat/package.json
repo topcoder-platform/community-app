@@ -1,0 +1,14 @@
+{
+  "name": "glob",
+  "version": "13.0.6",
+  "description": "CommonJS compatibility adapter for maintained glob",
+  "main": "index.js",
+  "browser": "browser.js",
+  "private": true,
+  "dependencies": {
+    "glob-modern": "npm:glob@13.0.6"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

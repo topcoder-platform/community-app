@@ -92,10 +92,25 @@ describe('credential configuration', () => {
       nodePath.resolve(__dirname, '../../build.sh'),
       'utf8',
     );
-    const buildArguments = [...source.matchAll(/--build-arg ([A-Z0-9_]+)/g)]
+    const buildArguments = [...source.matchAll(/--build-arg\s+["']?([A-Z0-9_]+)/g)]
       .map(match => match[1]);
 
     expect(buildArguments).toEqual(['CDN_URL', 'NODE_CONFIG_ENV']);
+  });
+
+  test('JMeter loads M2M credentials from runtime properties', () => {
+    const source = fs.readFileSync(
+      nodePath.resolve(__dirname, '../../src/test/jmeter/Community-25UV.jmx'),
+      'utf8',
+    );
+
+    // eslint-disable-next-line no-template-curly-in-string
+    expect(source).toContain('${__P(TC_M2M_CLIENT_ID,)}');
+    // eslint-disable-next-line no-template-curly-in-string
+    expect(source).toContain('${__P(TC_M2M_CLIENT_SECRET,)}');
+    expect(source).not.toMatch(
+      /name="client_(?:id|secret)"[\s\S]{0,250}Argument\.value">(?!(?:\$\{__P\(|<\/))/,
+    );
   });
 
   test('Segment analytics uses the configured key without a static literal', () => {

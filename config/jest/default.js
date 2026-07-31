@@ -1,15 +1,49 @@
-const config = require('topcoder-react-utils/config/jest/default');
 const nodeConfig = require('config');
-
-config.transformIgnorePatterns[0] = '/node_modules/(?!appirio-tech|topcoder|tc-|@topcoder)';
-// config.testMatch[0] = '**/__tests__/shared/containers/challenge-listing/FilterPanel.jsx';
-
-// Include the directories whose tests has been written to minimize coverage time
-config.collectCoverageFrom = ['src/client/*.{js,jsx}', 'src/server/*.{js,jsx}', 'src/shared/*.{js,jsx}'];
+const path = require('path');
 
 module.exports = {
-  ...config,
+  collectCoverage: true,
+  collectCoverageFrom: [
+    'src/client/*.{js,jsx}',
+    'src/server/*.{js,jsx}',
+    'src/shared/*.{js,jsx}',
+  ],
+  coverageDirectory: '__coverage__',
   globals: {
     CONFIG: nodeConfig,
   },
+  moduleNameMapper: {
+    '\\.(scss|css)$': 'identity-obj-proxy',
+  },
+  rootDir: '../..',
+  setupFilesAfterEnv: [
+    '<rootDir>/config/jest/setup.js',
+  ],
+  snapshotFormat: {
+    escapeString: true,
+    printBasicPrototype: true,
+  },
+  testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons'],
+    url: 'http://localhost',
+  },
+  testMatch: [
+    '**/__tests__/**/*.js?(x)',
+  ],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+  ],
+  transform: {
+    '^.+\\.(js|jsx|mjs)$': ['babel-jest', {
+      babelrc: false,
+      configFile: false,
+      presets: [[path.resolve(__dirname, '../babel/node.js'), {
+        baseAssetsOutputPath: '/community-app-assets',
+      }]],
+    }],
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!appirio-tech|topcoder|tc-|@topcoder|@optimizely/react-sdk|refractor|hastscript|hast-util-parse-selector|property-information|comma-separated-tokens|space-separated-tokens|parse-entities|character-entities|character-entities-legacy|character-reference-invalid|decode-named-character-reference|is-alphanumerical|is-alphabetical|is-decimal|is-hexadecimal)',
+  ],
 };

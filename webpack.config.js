@@ -6,10 +6,12 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 
-module.exports = function buildConfig(env) {
-  // eslint-disable-next-line no-console
-  console.log('Building config for environment:', env);
-  const config = require(`./config/webpack/${env}.js`);
-  console.log('config', JSON.stringify(config)); // eslint-disable-line no-console
-  return config;
+module.exports = function buildConfig(env = {}) {
+  const mode = typeof env === 'string' ? env : env.mode;
+  const supportedModes = ['development', 'production', 'qa'];
+  if (!supportedModes.includes(mode)) {
+    throw new Error(`Unsupported Webpack environment: ${mode || '(missing)'}`);
+  }
+  // eslint-disable-next-line global-require, import/no-dynamic-require
+  return require(`./config/webpack/${mode}.js`);
 };

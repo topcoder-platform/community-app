@@ -1,15 +1,12 @@
 /**
  * Header Component
  */
-/* eslint-disable react/no-danger */
 import React from 'react';
 import PT from 'prop-types';
-import showdown from 'showdown';
+import renderMarkdown from 'utils/markdown';
 import YouTubeVideo from 'components/YouTubeVideo';
 
 import './styles.scss';
-
-const converter = new showdown.Converter();
 
 const Header = ({ data }) => (
   <div styleName="container">
@@ -17,11 +14,9 @@ const Header = ({ data }) => (
       <h1>
         {data.title}
       </h1>
-      <p
-        dangerouslySetInnerHTML={
-          { __html: converter.makeHtml(data.text) }
-        }
-      />
+      <div>
+        {renderMarkdown(data.text)}
+      </div>
       {
         data.table
         && (
@@ -57,12 +52,9 @@ const Header = ({ data }) => (
         )
       }
     </div>
-    <div
-      styleName="text-mobile"
-      dangerouslySetInnerHTML={
-        { __html: converter.makeHtml(data.text) }
-      }
-    />
+    <div styleName="text-mobile">
+      {renderMarkdown(data.text)}
+    </div>
     {
       data.table
       && (

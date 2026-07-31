@@ -1,5 +1,3 @@
-/* global document window */
-
 import React from 'react';
 
 import Footer from 'components/TopcoderFooter';

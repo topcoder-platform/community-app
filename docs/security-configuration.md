@@ -44,3 +44,7 @@ Export only the variables needed for the integration being exercised. Keep
 local values in an untracked shell or secret-manager file. The server can run
 with optional integration credentials empty, but authenticated server routes
 require a strong, randomly generated `AUTH_SECRET`.
+
+The JMeter plan reads its M2M credentials from JMeter properties. Pass them at
+runtime as `-JTC_M2M_CLIENT_ID=...` and `-JTC_M2M_CLIENT_SECRET=...`; never save
+the values in the `.jmx` file.
