@@ -33,7 +33,6 @@ import feedsRouter from './routes/feeds';
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
 
-import webpackConfigFactory from '../../webpack.config';
 /* eslint-enable */
 
 global.atob = atob;
@@ -126,6 +125,36 @@ const getExtraScripts = ts => [
 ];
 
 const MODE = process.env.BABEL_ENV;
+
+/**
+ * Gets the Webpack metadata required by the standard server factory.
+ *
+ * Development still loads the complete Webpack configuration for hot module
+ * reloading. Production needs only the paths used to serve the already-built
+ * bundle, which keeps Webpack and its plugins out of the runtime dependency
+ * tree.
+ *
+ * @param {String} mode Current Babel environment.
+ * @return {Object} Webpack metadata used by the server factory.
+ */
+function getServerWebpackConfig(mode) {
+  if (mode === 'development') {
+    // eslint-disable-next-line global-require
+    return require('../../webpack.config')(mode);
+  }
+
+  let publicPath = process.env.CDN_URL || '/api/cdn/public';
+  publicPath += '/static-assets/';
+
+  return {
+    context: path.resolve(__dirname, '../..'),
+    output: {
+      crossOriginLoading: 'anonymous',
+      path: path.resolve(__dirname, '../../build'),
+      publicPath,
+    },
+  };
+}
 
 async function beforeRender(req, suggestedConfig) {
   const [
@@ -370,7 +399,7 @@ async function onExpressJsSetup(server) {
 }
 
 global.KEEP_BUILD_INFO = true;
-serverFactory(webpackConfigFactory(MODE), {
+serverFactory(getServerWebpackConfig(MODE), {
   Application,
   beforeRender,
   devMode: MODE === 'development',

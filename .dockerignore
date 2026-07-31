@@ -1,3 +1,39 @@
-__coverage__/
-.git/
-node_modules/
+# Version-control and local editor state
+.git
+.github
+.circleci
+.idea
+.vscode
+*.swp
+*.swo
+
+# Local dependencies, generated output, and test artifacts
+node_modules
+automated-smoke-test
+build
+target
+coverage
+__coverage__
+.nyc_output
+*.log
+npm-debug.log*
+
+# Local environment and deployment material must never enter the build context
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+awsenvconf
+buildvar_env
+deployvar_env
+
+# Files that are not needed to install, test, or build the application
+docs
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE
+CODEOWNERS
+pom.xml
+*.patch
