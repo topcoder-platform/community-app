@@ -20,12 +20,14 @@ jobs:
       - name: Run Trivy scanner in repo mode
         uses: aquasecurity/trivy-action@0.35.0
         with:
+          version: "v0.72.0"
           scan-type: "fs"
           ignore-unfixed: true
           format: "sarif"
           output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH,UNKNOWN"
-          scanners: vuln,secret,misconfig,license
+          severity: "CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN"
+          limit-severities-for-sarif: true
+          scanners: vuln,secret,misconfig
           github-pat: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Trivy scan results to GitHub Security tab

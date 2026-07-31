@@ -127,7 +127,7 @@ jobs:
           key: test-node24-modules-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      - run: npm test
+      - run: npm run lint && npm run jest:ci
 
   Performance-Testing:
     docker:

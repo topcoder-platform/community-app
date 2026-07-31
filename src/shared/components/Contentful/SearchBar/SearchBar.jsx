@@ -53,17 +53,17 @@ export function buildSearchUrl(filterName, inputValue) {
     return `${searchPath}?author=${encodeURIComponent(value)}`;
   }
 
-  const searchQuery = {};
-
   if (filterName === 'Tags') {
-    searchQuery.tags = [value];
-  } else if (filterName === 'All') {
-    searchQuery.phrase = value;
-  } else if (filterName === 'Title') {
-    searchQuery.title = value;
+    return `${searchPath}?tags%5B0%5D=${encodeURIComponent(value)}`;
+  }
+  if (filterName === 'All') {
+    return `${searchPath}?phrase=${encodeURIComponent(value)}`;
+  }
+  if (filterName === 'Title') {
+    return `${searchPath}?title=${encodeURIComponent(value)}`;
   }
 
-  return `${searchPath}?${qs.stringify(searchQuery)}`;
+  return `${searchPath}?`;
 }
 
 export class SearchBarInner extends Component {

@@ -7,12 +7,18 @@ jest.mock('services/contentful', () => ({
 }));
 
 describe('Contentful SearchBar URL construction', () => {
-  test('encodes author input as query data rather than DOM markup', () => {
-    const input = '<svg onload=alert(1)>&role=admin';
-    const searchUrl = buildSearchUrl('Author', input);
+  const input = '<svg onload=alert(1)>&role=admin';
+
+  test.each([
+    ['Author', { author: input }],
+    ['Title', { title: input }],
+    ['All', { phrase: input }],
+    ['Tags', { tags: [input] }],
+  ])('encodes %s input as query data rather than DOM markup', (filter, expected) => {
+    const searchUrl = buildSearchUrl(filter, input);
     const query = searchUrl.slice(searchUrl.indexOf('?') + 1);
 
-    expect(qs.parse(query)).toEqual({ author: input });
+    expect(qs.parse(query)).toEqual(expected);
     expect(searchUrl).not.toContain('<svg');
     expect(searchUrl).not.toContain('&role=admin');
   });
