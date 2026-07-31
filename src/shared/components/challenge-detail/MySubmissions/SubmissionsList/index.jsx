@@ -163,7 +163,7 @@ function normalizeTestProgress(value) {
 /**
  * Returns display-ready test process, status, and percent progress for a submission.
  *
- * @param {Object} submission submission attempt shown in My Submissions.
+ * @param {Object} submission submission attempt shown in a Marathon Match submissions table.
  * @returns {Object} display process, status, and progress percentage.
  * Marathon Match competitors receive only sanitized progress metadata from Review API.
  */
