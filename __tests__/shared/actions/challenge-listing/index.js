@@ -60,7 +60,7 @@ describe('live challenge listing filters', () => {
     }));
   });
 
-  test('only requests My Challenges with an open submission phase', async () => {
+  test('requests all active challenges registered to the member', async () => {
     const action = actions.getMyChallengesDone(
       'my-uuid',
       0,
@@ -74,11 +74,12 @@ describe('live challenge listing filters', () => {
     expect(mockGetChallenges).toHaveBeenCalledWith(expect.objectContaining({
       backendFilter,
       frontFilter: expect.objectContaining({
-        currentPhaseName: 'Submission',
         memberId: '123',
         status: 'ACTIVE',
       }),
     }));
+    expect(mockGetChallenges.mock.calls[0][0].frontFilter)
+      .not.toHaveProperty('currentPhaseName');
   });
 
   test('counts only live challenges with an open submission phase', async () => {

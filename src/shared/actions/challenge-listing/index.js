@@ -303,7 +303,6 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
       status: 'ACTIVE',
-      currentPhaseName: 'Submission',
       memberId: userId,
       perPage: PAGE_SIZE,
       page: page + 1,
