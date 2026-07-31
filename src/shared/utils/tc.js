@@ -377,7 +377,9 @@ export function isValidEmail(email) {
 
 /**
  * Test if the file is safe for download. This function can accept the full submission object.
+ * Quarantine URLs identify malware, while DMZ URLs identify submissions whose scan is pending.
  *
+ * @param {Object} submission The submission containing its URL and virus scan result
  * @returns {String|Boolean} true if submission is safe for download,
  * otherwise string describing reason for not being safe for download
  */
@@ -385,11 +387,19 @@ export function safeForDownload(submission) {
   if (submission == null || !submission.url) return 'Download link unavailable';
 
   const { url } = submission;
-  if (url.toLowerCase().indexOf('submissions-quarantine/') !== -1 || submission.virusScan === false) {
+  if (url.toLowerCase().indexOf('submissions-quarantine/') !== -1) {
     return 'Malware found in submission';
   }
 
-  if (url.toLowerCase().indexOf('submissions-dmz/') !== -1 || !submission.virusScan) {
+  if (url.toLowerCase().indexOf('submissions-dmz/') !== -1) {
+    return 'AV Scan in progress';
+  }
+
+  if (submission.virusScan === false) {
+    return 'Malware found in submission';
+  }
+
+  if (!submission.virusScan) {
     return 'AV Scan in progress';
   }
 
