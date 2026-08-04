@@ -39,6 +39,7 @@ export default function ChallengeViewSelector(props) {
     trackLower,
     hasRegistered,
     mySubmissions,
+    mySubmissionsCount,
     onSort,
     viewAsTable,
   } = props;
@@ -133,6 +134,9 @@ export default function ChallengeViewSelector(props) {
   }
 
   const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
+  const mySubmissionsBadgeCount = _.isFinite(mySubmissionsCount)
+    ? mySubmissionsCount
+    : mySubmissions.length;
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const discuss = _.get(challenge, 'discussions', []).filter(d => (
     _.toLower(d.type) === 'challenge' && !_.isEmpty(d.url)
@@ -247,7 +251,7 @@ export default function ChallengeViewSelector(props) {
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.MY_SUBMISSIONS)}
           >
             My Submissions
-            <span styleName="num">{mySubmissions.length}</span>
+            <span styleName="num">{mySubmissionsBadgeCount}</span>
           </a>
         ) : null
       }
@@ -358,7 +362,7 @@ export default function ChallengeViewSelector(props) {
                   {
                     currentSelected === DETAIL_TABS.MY_SUBMISSIONS && hasRegistered
                     && isMM && mySubmissions && (
-                      <span styleName="mobile-tab-num">{mySubmissions.length}</span>
+                      <span styleName="mobile-tab-num">{mySubmissionsBadgeCount}</span>
                     )
                   }
                   {
@@ -447,6 +451,7 @@ ChallengeViewSelector.defaultProps = {
   numOfRegistrants: 0,
   numOfCheckpointSubmissions: 0,
   numOfSubmissions: 0,
+  mySubmissionsCount: null,
 };
 
 ChallengeViewSelector.propTypes = {
@@ -477,6 +482,7 @@ ChallengeViewSelector.propTypes = {
   trackLower: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
+  mySubmissionsCount: PT.number,
   onSort: PT.func.isRequired,
   viewAsTable: PT.bool.isRequired,
 };

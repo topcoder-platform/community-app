@@ -564,6 +564,7 @@ class ChallengeDetailPageContainer extends React.Component {
       // expandedTags,
       // expandTag,
       mySubmissions,
+      mySubmissionsCount,
       reviewTypes,
       openForRegistrationChallenges,
       statisticsData,
@@ -710,6 +711,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 isMenuOpened={isMenuOpened}
                 submissionEnded={submissionEnded}
                 mySubmissions={challenge.isRegistered ? mySubmissions : []}
+                mySubmissionsCount={challenge.isRegistered ? mySubmissionsCount : 0}
                 openForRegistrationChallenges={openForRegistrationChallenges}
                 viewAsTable={viewAsTable && isMM}
                 onSort={(currenctSelected, sort) => {
@@ -941,6 +943,7 @@ ChallengeDetailPageContainer.defaultProps = {
   loadingMMSubmissionsForChallengeId: null,
   mmSubmissions: [],
   mySubmissions: [],
+  mySubmissionsCount: 0,
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
   // prizeMode: 'money-usd',
@@ -993,6 +996,7 @@ ChallengeDetailPageContainer.propTypes = {
   reviewTypes: PT.arrayOf(PT.shape()),
   reviewSummations: PT.arrayOf(PT.shape()).isRequired,
   mySubmissions: PT.arrayOf(PT.shape()),
+  mySubmissionsCount: PT.number,
   toggleCheckpointFeedback: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
@@ -1269,6 +1273,7 @@ export function mapStateToProps(state, props) {
     ? buildReviewSummationLookup(reviewSummations)
     : null;
   let mySubmissions = [];
+  let mySubmissionsCount = 0;
   if (challenge.registrants) {
     challenge.registrants = challenge.registrants.map(registrant => ({
       ...registrant,
@@ -1516,6 +1521,12 @@ export function mapStateToProps(state, props) {
             ...attempt,
             id: normalizedAttempts.length - index,
           }));
+          const submissionCount = _.isNil(submission.submissionCount)
+            ? null
+            : Number(submission.submissionCount);
+          mySubmissionsCount = Number.isFinite(submissionCount)
+            ? submissionCount
+            : mySubmissions.length;
         }
 
         return ({
@@ -1528,6 +1539,7 @@ export function mapStateToProps(state, props) {
       });
     } else if (loggedInUserId) {
       mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${loggedInUserId}`));
+      mySubmissionsCount = mySubmissions.length;
     }
   }
   const { page: { challengeDetails: { feedbackOpen } } } = state;
@@ -1582,6 +1594,7 @@ export function mapStateToProps(state, props) {
     reviewSummations,
     allCountries: state.lookup.allCountries,
     mySubmissions,
+    mySubmissionsCount,
     reviewTypes,
     openForRegistrationChallenges: state.challengeListing.openForRegistrationChallenges,
     statisticsData,
