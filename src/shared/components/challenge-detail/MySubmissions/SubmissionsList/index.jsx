@@ -646,7 +646,8 @@ class SubmissionsListView extends React.Component {
             sortedSubmissions.map((mySubmission) => {
               let { finalScore, provisionalScore } = getDisplayedScores(mySubmission);
               const testProgress = getSubmissionTestProgress(mySubmission);
-              const hideProvisionalScore = isActiveTestStatus(testProgress.status);
+              const hideProvisionalScore = testProgress.process !== 'system'
+                && isActiveTestStatus(testProgress.status);
               if (_.isNumber(finalScore)) {
                 if (finalScore > 0) {
                   finalScore = finalScore.toFixed(2);
