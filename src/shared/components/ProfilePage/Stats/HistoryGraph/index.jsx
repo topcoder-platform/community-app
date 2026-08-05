@@ -112,7 +112,7 @@ export default class HistoryGraph extends React.Component {
     const { padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
     if (!$scope.desktop) {
       w = HistoryGraph.getMobileWidthGrapthMeasurements();
-      h = w * 240 / 288.0;
+      h = (w * 240) / 288.0;
       this.mobileWidth = w;
     }
     // const totalH = h + padding.top + padding.bottom;

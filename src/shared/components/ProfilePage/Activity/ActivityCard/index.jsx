@@ -100,16 +100,16 @@ const ActivityCard = ({
                       </div>
                       )
                     }
-                <a
+                <button
+                  type="button"
                   styleName="link-button"
-                  href="javascript:void(0)" /* eslint-disable-line no-script-url */
                   onClick={() => onClick({
                     track: trackName === 'QA' ? 'DEVELOP' : trackName,
                     subTrack: subtrack.name.replaceAll(' ', '_'),
                   })}
                 >
                   <LinkButton />
-                </a>
+                </button>
               </div>
 
             </div>

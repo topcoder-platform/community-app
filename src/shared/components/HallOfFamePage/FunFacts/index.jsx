@@ -6,16 +6,10 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { getStories } from 'utils/hall-of-fame';
-import showdown from 'showdown';
+import renderMarkdown from 'utils/markdown';
 import ContentfulLoader from 'containers/ContentfulLoader';
 
 import './styles.scss';
-
-const converter = new showdown.Converter();
-
-// The HTML is from Contentful and is not dangerous.  It is
-// also required for the flexible dynamic styling needed for Fun Facts.
-/* eslint-disable react/no-danger */
 
 class FunFacts extends React.Component {
   constructor(props) {
@@ -87,12 +81,9 @@ class FunFacts extends React.Component {
                           styleName={`fact ${index === activeMobileFact ? 'mobile-active' : ''}`}
                         >
                           <img styleName="photo" src={_.get(fact, 'fields.image.fields.file.url')} alt="Fun Fact" />
-                          <div
-                            styleName="text"
-                            dangerouslySetInnerHTML={{
-                              __html: converter.makeHtml(fact.fields.text),
-                            }}
-                          />
+                          <div styleName="text">
+                            {renderMarkdown(fact.fields.text)}
+                          </div>
                         </div>
                       ))
                     }
@@ -120,8 +111,6 @@ class FunFacts extends React.Component {
     );
   }
 }
-
-/* eslint-enable react/no-danger */
 
 FunFacts.defaultProps = {
   numFacts: 3,

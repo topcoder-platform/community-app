@@ -210,6 +210,58 @@ describe('buildMmSubmissionData', () => {
     ]);
   });
 
+  it('preserves nested test progress metadata when top-level summations omit it', () => {
+    const reviewSummations = [
+      {
+        aggregateScore: 98.85,
+        id: 'summation-system',
+        isFinal: true,
+        reviewedDate: '2026-06-26T03:02:01.000Z',
+        submissionId: 'submission-latest',
+        submitterHandle: 'alpha',
+        submitterId: '1001',
+      },
+    ];
+    const rawSubmissions = [
+      {
+        createdAt: '2026-06-26T03:02:01.000Z',
+        id: 'submission-latest',
+        memberId: '1001',
+        registrant: {
+          memberHandle: 'alpha',
+          memberId: '1001',
+        },
+        reviewSummation: [
+          {
+            aggregateScore: 98.85,
+            id: 'summation-system',
+            isFinal: true,
+            metadata: {
+              testProcess: 'system',
+              testProgress: 1,
+              testStatus: 'SUCCESS',
+            },
+            submissionId: 'submission-latest',
+          },
+        ],
+      },
+    ];
+
+    const result = buildMmSubmissionData(reviewSummations, rawSubmissions);
+
+    expect(result[0].submissions[0].reviewSummations).toEqual([
+      expect.objectContaining({
+        id: 'summation-system',
+        metadata: {
+          testProcess: 'system',
+          testProgress: 1,
+          testStatus: 'SUCCESS',
+        },
+        submitterHandle: 'alpha',
+      }),
+    ]);
+  });
+
   it('uses v6 submitter fields and submittedDate for imported raw submissions', () => {
     const rawSubmissions = [
       {

@@ -1,0 +1,13 @@
+{
+  "name": "minimatch",
+  "version": "10.2.6",
+  "description": "Callable CommonJS compatibility adapter for maintained minimatch",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "minimatch-modern": "npm:minimatch@10.2.6"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -76,6 +76,7 @@
 }
 
 .link-button {
+  background: transparent;
   border: 1.5px solid $listing-checkbox-green;
   border-radius: 24px;
   width: 35px;
@@ -84,6 +85,7 @@
   flex-direction: row;
   justify-content: center;
   margin-top: -2px;
+  padding: 0;
 
   &a.selected:hover {
     cursor: default;

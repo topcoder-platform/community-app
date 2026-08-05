@@ -205,7 +205,7 @@ function getSubmissionIdentifier(submission, index, handle) {
 
 function dedupeReviewSummations(reviewSummations = []) {
   const deduped = [];
-  const seen = new Set();
+  const seen = new Map();
 
   reviewSummations.forEach((summation, index) => {
     if (!summation) {
@@ -216,10 +216,23 @@ function dedupeReviewSummations(reviewSummations = []) {
       || `${_.toString(_.get(summation, 'submissionId', '')).trim()}::${_.toString(_.get(summation, 'legacySubmissionId', '')).trim()}::${_.toString(_.get(summation, 'submitterId', '')).trim()}::${_.toString(_.get(summation, 'aggregateScore', '')).trim()}::${_.toString(_.get(summation, 'reviewedDate', '')).trim()}::${index}`;
 
     if (seen.has(dedupeKey)) {
+      const dedupedIndex = seen.get(dedupeKey);
+      const metadata = _.get(summation, 'metadata');
+      if (_.isObject(metadata)) {
+        const existingMetadata = _.get(deduped[dedupedIndex], 'metadata');
+        deduped[dedupedIndex] = {
+          ...deduped[dedupedIndex],
+          ...summation,
+          metadata: {
+            ...(_.isObject(existingMetadata) ? existingMetadata : {}),
+            ...metadata,
+          },
+        };
+      }
       return;
     }
 
-    seen.add(dedupeKey);
+    seen.set(dedupeKey, deduped.length);
     deduped.push(summation);
   });
 

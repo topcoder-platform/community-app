@@ -12,6 +12,10 @@ import IconClose from 'assets/images/icon-close-green.svg';
 import moment from 'moment';
 
 import LoadingIndicator from 'components/LoadingIndicator';
+import {
+  getSubmissionTestProgress,
+  isActiveTestStatus,
+} from 'components/challenge-detail/MySubmissions/SubmissionsList';
 import FailedSubmissionTooltip from '../FailedSubmissionTooltip';
 import InReview from '../../icons/in-review.svg';
 import Queued from '../../icons/queued.svg';
@@ -50,6 +54,9 @@ export default function SubmissionRow({
   const provisionalScore = parseScore(_.get(latestSubmission, 'provisionalScore'));
   const finalScore = parseScore(submissionFinalScore);
   const initialScoreValue = parseScore(initialScore);
+  const testProgress = getSubmissionTestProgress(latestSubmission);
+  const hideProvisionalScore = testProgress.process !== 'system'
+    && isActiveTestStatus(testProgress.status);
 
   const getInitialReviewResult = () => {
     if (status === 'failed') {
@@ -60,6 +67,9 @@ export default function SubmissionRow({
     }
     if (status === 'queued') {
       return <Queued />;
+    }
+    if (hideProvisionalScore) {
+      return 'N/A';
     }
     if (_.isNil(provisionalScore)) {
       return 'N/A';

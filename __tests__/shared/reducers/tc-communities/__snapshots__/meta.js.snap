@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Default reducer Creates expected intial state 1`] = `
 Object {
@@ -29,6 +29,120 @@ Object {
 `;
 
 exports[`Default reducer Handles mobileToggle as expected 2`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory with server-side rendering Creates expected intial state 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": null,
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory with server-side rendering Handles fetchDataInit as expected 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory with server-side rendering Handles mobileToggle as expected 1`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory with server-side rendering Handles mobileToggle as expected 2`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without http request Creates expected intial state 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": null,
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without http request Handles fetchDataInit as expected 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without http request Handles mobileToggle as expected 1`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without http request Handles mobileToggle as expected 2`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without server-side rendering Creates expected intial state 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": null,
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without server-side rendering Handles fetchDataInit as expected 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without server-side rendering Handles mobileToggle as expected 1`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Factory without server-side rendering Handles mobileToggle as expected 2`] = `
 Object {
   "data": null,
   "isMobileOpen": true,

@@ -1,173 +1,122 @@
-# Builds production version of Community App inside Docker container,
-# and runs it against the specified Topcoder backend (development or
-# production) when container is executed.
+# syntax=docker/dockerfile:1.7
 
-FROM node:10.24.1
-LABEL app="Community App" version="1.0"
-RUN useradd -m -s /bin/bash appuser
+# Pin the complete multi-platform image digest so builds cannot silently pick up
+# a different base image. Renovate/Dependabot can update the tag and digest
+# together when a patched Node image is published.
+ARG NODE_IMAGE=node:24.18.0-alpine3.23@sha256:595398b0081eacda8e1c4c5b97b76cd1020e4d58a8ebcb4843b9bca1e79e7436
+ARG NODE_BUILD_IMAGE=node:24.18.0-alpine3.23@sha256:595398b0081eacda8e1c4c5b97b76cd1020e4d58a8ebcb4843b9bca1e79e7436
+
+FROM ${NODE_BUILD_IMAGE} AS development-dependencies
 
 WORKDIR /opt/app
+
+# Native build tools stay isolated in the disposable builder stages. The
+# Alpine runtime stage below never receives them.
+RUN apk add --no-cache git python3 make g++ \
+  && git config --global url."https://github.com/".insteadOf "git://github.com/"
+
+COPY package.json package-lock.json .npmrc ./
+COPY vendor ./vendor
+
+RUN npm ci
+
+FROM development-dependencies AS test
+
+ENV CI=true
+
 COPY . .
 
-RUN chown -R appuser:appuser /opt/app
-USER appuser
-
-################################################################################
-# Receiving of build arguments.
-
-ARG AUTH0_CLIENT_ID
-ARG CDN_URL
-ARG COGNITIVE_NEWSLETTER_SIGNUP_APIKEY
-ARG COGNITIVE_NEWSLETTER_SIGNUP_URL
-ARG CONTENTFUL_CDN_API_KEY
-ARG CONTENTFUL_PREVIEW_API_KEY
-ARG CONTENTFUL_SPACE_ID
-
-# Credentials for access to Zurich space in Contentful CMS
-ARG CONTENTFUL_ZURICH_SPACE_ID
-ARG CONTENTFUL_ZURICH_CDN_API_KEY
-ARG CONTENTFUL_ZURICH_PREVIEW_API_KEY
-
-# Credentials for access to TopGear space in Contentful CMS
-ARG CONTENTFUL_TOPGEAR_SPACE_ID
-ARG CONTENTFUL_TOPGEAR_CDN_API_KEY
-ARG CONTENTFUL_TOPGEAR_PREVIEW_API_KEY
-
-# Credentials for access to Comcast space in Contentful CMS
-ARG CONTENTFUL_COMCAST_SPACE_ID
-ARG CONTENTFUL_COMCAST_CDN_API_KEY
-ARG CONTENTFUL_COMCAST_PREVIEW_API_KEY
-
-#Credentials for Contentfu EDU space
-
-ARG CONTENTFUL_MANAGEMENT_TOKEN
-ARG CONTENTFUL_EDU_SPACE_ID
-ARG CONTENTFUL_EDU_CDN_API_KEY
-ARG CONTENTFUL_EDU_PREVIEW_API_KEY
-
-ARG FILESTACK_API_KEY
-ARG FILESTACK_SUBMISSION_CONTAINER
-ARG RECRUITCRM_API_KEY
-
-# Credentials for Mailchimp service
-ARG MAILCHIMP_API_KEY
-ARG MAILCHIMP_BASE_URL
-
-ARG NODE_CONFIG_ENV
-ARG OPEN_EXCHANGE_RATES_KEY
-ARG SEGMENT_IO_API_KEY
-ARG CHAMELEON_VERIFICATION_SECRET
-ARG SERVER_API_KEY
-
-# TC M2M credentials for Community App server
-ARG TC_M2M_CLIENT_ID
-ARG TC_M2M_CLIENT_SECRET
-ARG TC_M2M_AUDIENCE
-ARG TC_M2M_GRANT_TYPE
-
-ARG TC_M2M_AUTH0_PROXY_SERVER_URL
-ARG TC_M2M_AUTH0_URL
-ARG AUTH_SECRET
-ARG VALID_ISSUERS
-
-ARG COMMUNITY_APP_URL
-ARG GSHEETS_API_KEY
-
-# Gig work referrals
-ARG SENDGRID_API_KEY
-ARG GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
-
-# Optimizely
-ARG OPTIMIZELY_SDK_KEY
-
-# Gamification
-ARG GAMIFICATION_ORG_ID
-
-# Universal Nav
-ARG UNIVERSAL_NAV_URL
-
-# Topgear submissions allowed domains
-ARG TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS
-
-################################################################################
-# Setting of environment variables in the Docker image.
-
-ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
-ENV CDN_URL=$CDN_URL
-ENV COGNITIVE_NEWSLETTER_SIGNUP_APIKEY=$COGNITIVE_NEWSLETTER_SIGNUP_APIKEY
-ENV COGNITIVE_NEWSLETTER_SIGNUP_URL=$COGNITIVE_NEWSLETTER_SIGNUP_URL
-ENV CONTENTFUL_CDN_API_KEY=$CONTENTFUL_CDN_API_KEY
-ENV CONTENTFUL_PREVIEW_API_KEY=$CONTENTFUL_PREVIEW_API_KEY
-ENV CONTENTFUL_SPACE_ID=$CONTENTFUL_SPACE_ID
-
-# Credentials for access to Zurich space in Contentful CMS
-ENV CONTENTFUL_ZURICH_SPACE_ID=$CONTENTFUL_ZURICH_SPACE_ID
-ENV CONTENTFUL_ZURICH_CDN_API_KEY=$CONTENTFUL_ZURICH_CDN_API_KEY
-ENV CONTENTFUL_ZURICH_PREVIEW_API_KEY=$CONTENTFUL_ZURICH_PREVIEW_API_KEY
-
-# Credentials for access to TopGear space in Contentful CMS
-ENV CONTENTFUL_TOPGEAR_SPACE_ID=$CONTENTFUL_TOPGEAR_SPACE_ID
-ENV CONTENTFUL_TOPGEAR_CDN_API_KEY=$CONTENTFUL_TOPGEAR_CDN_API_KEY
-ENV CONTENTFUL_TOPGEAR_PREVIEW_API_KEY=$CONTENTFUL_TOPGEAR_PREVIEW_API_KEY
-
-# Credentials for access to Comcast space in Contentful CMS
-ENV CONTENTFUL_COMCAST_SPACE_ID=$CONTENTFUL_COMCAST_SPACE_ID
-ENV CONTENTFUL_COMCAST_CDN_API_KEY=$CONTENTFUL_COMCAST_CDN_API_KEY
-ENV CONTENTFUL_COMCAST_PREVIEW_API_KEY=$CONTENTFUL_COMCAST_PREVIEW_API_KEY
-
-ENV FILESTACK_API_KEY=$FILESTACK_API_KEY
-ENV FILESTACK_SUBMISSION_CONTAINER=$FILESTACK_SUBMISSION_CONTAINER
-
-# Credentials for Mailchimp service
-ENV MAILCHIMP_API_KEY=$MAILCHIMP_API_KEY
-ENV MAILCHIMP_BASE_URL=$MAILCHIMP_BASE_URL
-
-ENV NODE_CONFIG_ENV=$NODE_CONFIG_ENV
-ENV OPEN_EXCHANGE_RATES_KEY=$OPEN_EXCHANGE_RATES_KEY
-ENV SEGMENT_IO_API_KEY=$SEGMENT_IO_API_KEY
-ENV CHAMELEON_VERIFICATION_SECRET=$CHAMELEON_VERIFICATION_SECRET
-ENV SERVER_API_KEY=$SERVER_API_KEY
-
-# TC M2M credentials for Community App server
-ENV TC_M2M_CLIENT_ID=$TC_M2M_CLIENT_ID
-ENV TC_M2M_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET
-ENV TC_M2M_AUDIENCE=$TC_M2M_AUDIENCE
-ENV TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE
-
-ENV TC_M2M_AUTH0_PROXY_SERVER_URL=$TC_M2M_AUTH0_PROXY_SERVER_URL
-ENV TC_M2M_AUTH0_URL=$TC_M2M_AUTH0_URL
-ENV AUTH_SECRET=$AUTH_SECRET
-ENV VALID_ISSUERS=$VALID_ISSUERS
-
-ENV CONTENTFUL_MANAGEMENT_TOKEN=$CONTENTFUL_MANAGEMENT_TOKEN
-ENV CONTENTFUL_EDU_SPACE_ID=$CONTENTFUL_EDU_SPACE_ID
-ENV CONTENTFUL_EDU_CDN_API_KEY=$CONTENTFUL_EDU_CDN_API_KEY
-ENV CONTENTFUL_EDU_PREVIEW_API_KEY=$CONTENTFUL_EDU_PREVIEW_API_KEY
-ENV RECRUITCRM_API_KEY=$RECRUITCRM_API_KEY
-ENV COMMUNITY_APP_URL=$COMMUNITY_APP_URL
-ENV SENDGRID_API_KEY=$SENDGRID_API_KEY
-ENV GSHEETS_API_KEY=$GSHEETS_API_KEY
-ENV GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
-
-# Optimizely
-ENV OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY
-
-ENV GAMIFICATION_ORG_ID=$GAMIFICATION_ORG_ID
-
-# Universal nav
-ENV UNIVERSAL_NAV_URL=$UNIVERSAL_NAV_URL
-
-# Topgear submissions allowed domains
-ENV TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS=$TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS
-
-################################################################################
-# Testing and build of the application inside the container.
-
-RUN npm config set unsafe-perm true
-RUN git config --global url."https://git@".insteadOf git://
-RUN npm ci
 RUN npm test
-RUN npm run build
+
+FROM test AS build
+
+ARG CDN_URL
+ARG NODE_CONFIG_ENV=production
+
+ENV BABEL_ENV=production \
+    CDN_URL=${CDN_URL} \
+    NODE_CONFIG_ENV=${NODE_CONFIG_ENV} \
+    NODE_ENV=production
+
+# The browser bundle is built as before. Server/shared sources are then
+# precompiled so the runtime does not need Babel or the Webpack toolchain.
+RUN npm run build \
+  && ./node_modules/.bin/babel src \
+    --out-dir /opt/runtime-src \
+    --copy-files \
+    --extensions ".js,.jsx" \
+  && rm -rf \
+    /opt/runtime-src/client \
+    /opt/runtime-src/styles \
+    /opt/runtime-src/test \
+  && find /opt/runtime-src -type f \
+    ! -name "*.js" \
+    ! -name "*.json" \
+    -delete \
+  && install --directory /opt/runtime-src/assets/images \
+  && install --mode=0644 \
+    src/assets/images/favicon.ico \
+    /opt/runtime-src/assets/images/favicon.ico
+
+FROM development-dependencies AS production-dependencies
+
+ENV NODE_ENV=production
+
+RUN npm prune --omit=dev --ignore-scripts \
+  && npm cache clean --force
+
+FROM ${NODE_IMAGE} AS runtime
+
+LABEL org.opencontainers.image.title="Topcoder Community App" \
+      org.opencontainers.image.description="Topcoder Community App web server"
+
+ARG CDN_URL
+ARG NODE_CONFIG_ENV=production
+
+ENV BABEL_ENV=production \
+    CDN_URL=${CDN_URL} \
+    NODE_CONFIG_ENV=${NODE_CONFIG_ENV} \
+    NODE_ENV=production \
+    PORT=3000
+
+WORKDIR /opt/app
+
+# The application starts Node directly, so package-manager executables and
+# their dependency trees are unnecessary attack surface in production.
+RUN rm -rf \
+    /opt/yarn-* \
+    /usr/local/lib/node_modules/corepack \
+    /usr/local/lib/node_modules/npm \
+  && rm -f \
+    /usr/local/bin/corepack \
+    /usr/local/bin/npm \
+    /usr/local/bin/npx \
+    /usr/local/bin/yarn \
+    /usr/local/bin/yarnpkg
+
+COPY --from=production-dependencies --chown=node:node /opt/app/vendor ./vendor
+COPY --from=production-dependencies --chown=node:node /opt/app/node_modules ./node_modules
+COPY --from=build --chown=node:node /opt/app/build ./build
+COPY --from=build --chown=node:node /opt/app/.build-info ./.build-info
+COPY --from=build --chown=node:node /opt/runtime-src ./src
+COPY --from=build --chown=node:node \
+  /opt/app/config/custom-environment-variables.js \
+  /opt/app/config/default.js \
+  /opt/app/config/development.js \
+  /opt/app/config/production.js \
+  /opt/app/config/qa.js \
+  ./config/
+COPY --from=build --chown=node:node /opt/app/config/contentful ./config/contentful
+COPY --chown=node:node package.json ./package.json
+COPY --chown=node:node bin/runtime.js ./bin/runtime.js
+
+USER node
 
 EXPOSE 3000
-CMD ["npm", "start"]
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+  CMD ["node", "-e", "const http=require('http');const req=http.get({host:'127.0.0.1',port:process.env.PORT||3000,path:'/api/cdn/public/ping',timeout:3000},res=>{res.resume();process.exit(res.statusCode===200?0:1);});req.on('timeout',()=>{req.destroy();process.exit(1);});req.on('error',()=>process.exit(1));"]
+
+STOPSIGNAL SIGTERM
+
+CMD ["node", "--max-old-space-size=8192", "bin/runtime.js"]

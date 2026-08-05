@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["topcoder-react-utils/config/babel/node-ssr", {
+    ["./config/babel/node", {
       "baseAssetsOutputPath": "/community-app-assets"
     }]
   ]

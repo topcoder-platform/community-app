@@ -342,32 +342,32 @@ function onGetPastChallengesDone(state, { error, payload }) {
       pastChallengesCount: payload.meta.allChallengesCount,
     },
   };
-// if (error) {
-//   logger.error(payload);
-//   return state;
-// }
-// const { uuid, challenges: loaded, frontFilter } = payload;
-// if (uuid !== state.loadingPastChallengesUUID) return state;
+  // if (error) {
+  //   logger.error(payload);
+  //   return state;
+  // }
+  // const { uuid, challenges: loaded, frontFilter } = payload;
+  // if (uuid !== state.loadingPastChallengesUUID) return state;
 
-// const ids = new Set();
-// loaded.forEach(item => ids.add(item.id));
+  // const ids = new Set();
+  // loaded.forEach(item => ids.add(item.id));
 
-// /* Fetching 0 page of past challenges also drops any past challenges
-//  * loaded to the state before. */
-// // const filter = state.lastRequestedPageOfPastChallenges
-// //   ? item => !ids.has(item.id)
-// //   : item => !ids.has(item.id) && item.status !== 'COMPLETED' && item.status !== 'PAST';
+  // /* Fetching 0 page of past challenges also drops any past challenges
+  //  * loaded to the state before. */
+  // // const filter = state.lastRequestedPageOfPastChallenges
+  // //   ? item => !ids.has(item.id)
+  // //   : item => !ids.has(item.id) && item.status !== 'COMPLETED' && item.status !== 'PAST';
 
-// const challenges = state.challenges.filter(filter).concat(loaded);
+  // const challenges = state.challenges.filter(filter).concat(loaded);
 
-// // let keepPastPlaceholders = false;
-// // if (loaded.length) {
-// // const ff = Filter.getFilterFunction(frontFilter);
-// keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
-// // }
+  // // let keepPastPlaceholders = false;
+  // // if (loaded.length) {
+  // // const ff = Filter.getFilterFunction(frontFilter);
+  // keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
+  // // }
 
-// // const pastSearchTimestamp = state.pastSearchTimestamp && state.pastSearchTimestamp > 0
-// //   ? state.pastSearchTimestamp : Date.now();
+  // // const pastSearchTimestamp = state.pastSearchTimestamp && state.pastSearchTimestamp > 0
+  // //   ? state.pastSearchTimestamp : Date.now();
 
 // return {
 //   ...state,

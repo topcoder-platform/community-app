@@ -40,6 +40,32 @@ const filterOptions = [
   },
 ];
 
+/**
+ * Builds an encoded Thrive search URL for the selected filter.
+ * @param {String} filterName Selected search filter.
+ * @param {String} inputValue Raw search input.
+ * @return {String} Relative search URL with an encoded query string.
+ */
+export function buildSearchUrl(filterName, inputValue) {
+  const value = _.trim(inputValue);
+  const searchPath = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}`;
+  if (filterName === 'Author') {
+    return `${searchPath}?author=${encodeURIComponent(value)}`;
+  }
+
+  if (filterName === 'Tags') {
+    return `${searchPath}?tags%5B0%5D=${encodeURIComponent(value)}`;
+  }
+  if (filterName === 'All') {
+    return `${searchPath}?phrase=${encodeURIComponent(value)}`;
+  }
+  if (filterName === 'Title') {
+    return `${searchPath}?title=${encodeURIComponent(value)}`;
+  }
+
+  return `${searchPath}?`;
+}
+
 export class SearchBarInner extends Component {
   constructor(props) {
     super(props);
@@ -75,22 +101,9 @@ export class SearchBarInner extends Component {
   onKeyDown(e) {
     const { inputlVal, selectedFilter } = this.state;
     if (_.trim(inputlVal) && e.which === 13) {
-      const searchQuery = {};
-      if (this.searchFieldRef && this.searchFieldRef.value) {
-        if (selectedFilter.name === 'Tags') {
-          searchQuery.tags = [this.searchFieldRef.value];
-        }
-        if (selectedFilter.name === 'All') {
-          searchQuery.phrase = this.searchFieldRef.value;
-        }
-        if (selectedFilter.name === 'Title') {
-          searchQuery.title = this.searchFieldRef.value;
-        }
-      }
-      if (selectedFilter.name !== 'Author') {
-        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify(searchQuery)}`;
-      } else {
-        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?author=${_.trim(inputlVal)}`;
+      const value = (this.searchFieldRef && this.searchFieldRef.value) || inputlVal;
+      if (value) {
+        window.location.href = buildSearchUrl(selectedFilter.name, value);
       }
     }
   }

@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint jsx-a11y/no-static-element-interactions:0 */
-/* global window */
-
 import React, { useState } from 'react';
 import PT from 'prop-types';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';

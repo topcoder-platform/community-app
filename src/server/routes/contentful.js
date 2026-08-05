@@ -3,9 +3,7 @@
  */
 
 import express from 'express';
-import { middleware } from 'tc-core-library-js';
-import config from 'config';
-import _ from 'lodash';
+import { rateLimit } from 'express-rate-limit';
 import {
   ASSETS_DOMAIN,
   IMAGES_DOMAIN,
@@ -14,12 +12,31 @@ import {
   articleVote,
   ALLOWED_DOMAINS,
 } from '../services/contentful';
+import {
+  configuredJwtAuthenticator,
+  protectedCorsOptions,
+} from './authentication';
 
 const cors = require('cors');
 
-const authenticator = middleware.jwtAuthenticator;
-const authenticatorOptions = _.pick(config.SECRET.JWT_AUTH, ['AUTH_SECRET', 'VALID_ISSUERS']);
 const routes = express.Router();
+export const articleVoteLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+/* Update votes on article. Keep protected CORS ahead of the public CDN CORS. */
+routes.options('/:spaceName/:environment/votes', cors(protectedCorsOptions));
+routes.post('/:spaceName/:environment/votes', cors(protectedCorsOptions), articleVoteLimiter, configuredJwtAuthenticator, (req, res, next) => {
+  try {
+    articleVote(req.body)
+      .then(res.send.bind(res), next);
+  } catch (e) {
+    next(e);
+  }
+});
 
 // Enables CORS on those routes according config above
 // ToDo configure CORS for set of our trusted domains
@@ -154,16 +171,6 @@ routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
     const { environment, spaceName } = req.params;
     getService(spaceName, environment, false)
       .queryEntries(req.query)
-      .then(res.send.bind(res), next);
-  } catch (e) {
-    next(e);
-  }
-});
-
-/* Update votes on article. */
-routes.use('/:spaceName/:environment/votes', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => {
-  try {
-    articleVote(req.body)
       .then(res.send.bind(res), next);
   } catch (e) {
     next(e);

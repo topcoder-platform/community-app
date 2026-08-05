@@ -2,7 +2,7 @@ import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
 import React from 'react';
 
 import './styles.scss';
-import { PrimaryButton } from 'topcoder-react-ui-kit/src/shared/components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 export default class BlogFeedExample extends React.Component {
   constructor() {

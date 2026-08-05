@@ -6,31 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jmeter-maven-plugin.version>2.9.0</jmeter-maven-plugin.version>
-		<jmeterScript>Community-25UV.jmx</jmeterScript>
+        <jmeter-maven-plugin.version>3.8.0</jmeter-maven-plugin.version>
+        <jmeter-plugins-casutg.version>3.1.1</jmeter-plugins-casutg.version>
+        <jmeter.version>5.6.3</jmeter.version>
+        <jmeterScript>Community-25UV.jmx</jmeterScript>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.jmeter</groupId>
-            <artifactId>ApacheJMeter_core</artifactId>
-            <version>5.1</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            
-        </plugins>
-    </build>
     <profiles>
         <profile>
             <id>standalone</id>
@@ -53,11 +33,8 @@
                                 <duration>30</duration>
                             </propertiesJMeter>
                             <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
+                                <artifact>kg.apc:jmeter-plugins-casutg:${jmeter-plugins-casutg.version}</artifact>
                             </jmeterExtensions>
-                            <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
-                            </testPlanLibraries>
                             <excludedArtifacts>
                                <exclusion>org.slf4j:slf4j-nop</exclusion>
                                <exclusion>avalon-framework:*</exclusion>
@@ -81,6 +58,12 @@
                         </configuration>
                         <executions>
                             <execution>
+                                <id>configuration</id>
+                                <goals>
+                                    <goal>configure</goal>
+                                </goals>
+                            </execution>
+                            <execution>
                                 <id>jmeter-tests</id>
                                 <phase>verify</phase>
                                 <goals>
@@ -98,19 +81,17 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.groovy.maven</groupId>
-                        <artifactId>gmaven-plugin</artifactId>
-                        <version>1.0</version>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.6.1</version>
                         <executions>
                             <execution>
-                                <phase>generate-resources</phase>
+                                <phase>initialize</phase>
                                 <goals>
-                                    <goal>execute</goal>
+                                    <goal>hostname</goal>
                                 </goals>
                                 <configuration>
-                                    <source>
-                                        project.properties["hostname"] = InetAddress.getLocalHost().getHostName()
-                                    </source>
+                                    <hostnameProperty>hostname</hostnameProperty>
                                 </configuration>
                             </execution>
                         </executions>
@@ -124,11 +105,8 @@
                                 <server.rmi.ssl.disable>true</server.rmi.ssl.disable>
                             </propertiesJMeter>
                             <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
+                                <artifact>kg.apc:jmeter-plugins-casutg:${jmeter-plugins-casutg.version}</artifact>
                             </jmeterExtensions>
-                            <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
-                            </testPlanLibraries>
                             <excludedArtifacts>
                                <exclusion>org.slf4j:slf4j-nop</exclusion>
                                <exclusion>avalon-framework:*</exclusion>
@@ -150,6 +128,12 @@
                             <serverPort>3010</serverPort>
                         </configuration>
                         <executions>
+                            <execution>
+                                <id>configuration</id>
+                                <goals>
+                                    <goal>configure</goal>
+                                </goals>
+                            </execution>
                             <execution>
                                 <id>start-jmeter-server</id>
                                 <goals>
@@ -184,11 +168,8 @@
                             </propertiesGlobal>
                             <generateReports>true</generateReports>
                             <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
+                                <artifact>kg.apc:jmeter-plugins-casutg:${jmeter-plugins-casutg.version}</artifact>
                             </jmeterExtensions>
-                            <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
-                            </testPlanLibraries>
                             <excludedArtifacts>
                                <exclusion>org.slf4j:slf4j-nop</exclusion>
                                <exclusion>avalon-framework:*</exclusion>
@@ -210,8 +191,14 @@
                                 <serverList>${serverList}</serverList>
                                 <startAndStopServersForEachTest>true</startAndStopServersForEachTest>
                             </remoteConfig>
-	                        </configuration>
+                        </configuration>
                         <executions>
+                            <execution>
+                                <id>configuration</id>
+                                <goals>
+                                    <goal>configure</goal>
+                                </goals>
+                            </execution>
                             <execution>
                                 <id>performance-test</id>
                                 <goals>

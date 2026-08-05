@@ -867,8 +867,8 @@ class SubmissionsComponent extends React.Component {
         }
         case 'Final Score': {
           if (showFinalMmResults) {
-            valueA = toScoreValue(getFinalScore(primaryA));
-            valueB = toScoreValue(getFinalScore(primaryB));
+            valueA = toScoreValue(getFinalScore(a));
+            valueB = toScoreValue(getFinalScore(b));
           }
           break;
         }
