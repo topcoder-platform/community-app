@@ -44,7 +44,7 @@ function getBuildInfo(publicPath, keepExisting) {
   }
 
   const info = {
-    key: crypto.randomBytes(32).toString('base64url'),
+    key: crypto.randomBytes(32).toString('latin1'),
     publicPath,
     timestamp: new Date().toISOString(),
     crossOriginLoading: 'anonymous',
