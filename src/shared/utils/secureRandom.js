@@ -7,7 +7,7 @@ const getCryptoLibrary = () => {
   return nodeCrypto;
 };
 
-export default function (min, max) {
+export default function getSecureRandomIndex(min, max) {
   const crypto = getCryptoLibrary();
   const random = new Uint32Array(1);
   if (typeof crypto.getRandomValues === 'function') {

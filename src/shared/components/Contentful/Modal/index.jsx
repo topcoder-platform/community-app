@@ -8,7 +8,7 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
-import Viewport from 'components/Contentful/Viewport';
+import { ViewportLoader as Viewport } from 'components/Contentful/Viewport';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { errors } from 'topcoder-react-lib';
 import { themr } from 'react-css-super-themr';

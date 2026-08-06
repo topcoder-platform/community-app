@@ -28,6 +28,7 @@ function configureConnector({
   }
 
   if (iframe) {
+    // eslint-disable-next-line no-console
     console.warn(
       'tc-accounts connector can only be configured once; this request was ignored.',
     );
