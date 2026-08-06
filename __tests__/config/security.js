@@ -87,7 +87,7 @@ describe('credential configuration', () => {
     },
   );
 
-  test('Docker builds receive only non-secret build arguments', () => {
+  test('Docker builds receive only approved build arguments', () => {
     const source = fs.readFileSync(
       nodePath.resolve(__dirname, '../../build.sh'),
       'utf8',
@@ -95,7 +95,49 @@ describe('credential configuration', () => {
     const buildArguments = [...source.matchAll(/--build-arg\s+["']?([A-Z0-9_]+)/g)]
       .map(match => match[1]);
 
-    expect(buildArguments).toEqual(['CDN_URL', 'NODE_CONFIG_ENV']);
+    expect(buildArguments).toEqual([
+      'CDN_URL',
+      'CONTENTFUL_CDN_API_KEY',
+      'CONTENTFUL_SPACE_ID',
+      'NODE_CONFIG_ENV',
+    ]);
+    expect(source).toContain(
+      [
+        ': "$',
+        '{CONTENTFUL_CDN_API_KEY:?CONTENTFUL_CDN_API_KEY must be set by the build environment}"',
+      ].join(''),
+    );
+    expect(source).toContain(
+      [
+        ': "$',
+        '{CONTENTFUL_SPACE_ID:?CONTENTFUL_SPACE_ID must be set by the build environment}"',
+      ].join(''),
+    );
+  });
+
+  test('runtime image preserves default Contentful delivery build arguments', () => {
+    const source = fs.readFileSync(
+      nodePath.resolve(__dirname, '../../Dockerfile'),
+      'utf8',
+    );
+    const runtimeMarker = ['FROM $', '{NODE_IMAGE} AS runtime'].join('');
+    const runtimeStart = source.indexOf(runtimeMarker);
+    const buildStage = source.slice(0, runtimeStart);
+    const runtimeStage = source.slice(runtimeStart);
+    const contentfulArgumentsStart = runtimeStage.indexOf('ARG CONTENTFUL_CDN_API_KEY');
+
+    expect(runtimeStart).toBeGreaterThan(-1);
+    expect(buildStage).not.toContain('CONTENTFUL_CDN_API_KEY');
+    expect(buildStage).not.toContain('CONTENTFUL_SPACE_ID');
+    expect(contentfulArgumentsStart).toBeGreaterThan(runtimeStage.lastIndexOf('COPY '));
+    expect(runtimeStage).toContain('ARG CONTENTFUL_CDN_API_KEY');
+    expect(runtimeStage).toContain('ARG CONTENTFUL_SPACE_ID');
+    expect(runtimeStage).toContain(
+      ['CONTENTFUL_CDN_API_KEY=$', '{CONTENTFUL_CDN_API_KEY}'].join(''),
+    );
+    expect(runtimeStage).toContain(
+      ['CONTENTFUL_SPACE_ID=$', '{CONTENTFUL_SPACE_ID}'].join(''),
+    );
   });
 
   test('JMeter loads M2M credentials from runtime properties', () => {

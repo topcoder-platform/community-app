@@ -1,9 +1,9 @@
 # Security-sensitive configuration
 
 Credential defaults in the tracked configuration files are intentionally
-empty. Supply credentials at runtime using the mappings in
-`config/custom-environment-variables.js`; never add a real value to a tracked
-configuration file.
+empty. Supply credentials using the mappings in
+`config/custom-environment-variables.js` and the deployment rules below; never
+add a real value to a tracked configuration file.
 
 ## Server-only credentials
 
@@ -15,7 +15,7 @@ corresponding integration is enabled:
 - `AUTH_SECRET`
 - `CHAMELEON_VERIFICATION_SECRET`
 - `CONTENTFUL_MANAGEMENT_TOKEN`
-- the `CONTENTFUL_*_CDN_API_KEY` and `CONTENTFUL_*_PREVIEW_API_KEY` variables
+- Contentful preview and non-default-space delivery credentials
 - `TC_M2M_CLIENT_SECRET` (along with the related M2M client configuration)
 - `COGNITIVE_NEWSLETTER_SIGNUP_APIKEY`
 - `MAILCHIMP_API_KEY`
@@ -25,19 +25,28 @@ corresponding integration is enabled:
 - `GSHEETS_API_KEY`
 - `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY`
 
-Do not pass these values as Docker build arguments. Inject them into the
-running container from the deployment platform's secret store. Rotate a
-credential immediately if it has ever been committed, exposed in a build log,
-or embedded in an image layer.
+Except for the default Contentful delivery configuration documented below, do
+not pass these values as Docker build arguments. Inject them into the running
+container from the deployment platform's secret store. Rotate a credential
+immediately if it has ever been committed or exposed in a build log.
 
 ### Contentful
 
 Published content in the default space uses `CONTENTFUL_SPACE_ID` and
-`CONTENTFUL_CDN_API_KEY`. Preview requests additionally require
-`CONTENTFUL_PREVIEW_API_KEY`. Configure the corresponding space-prefixed
-variables (for example, `CONTENTFUL_EDU_SPACE_ID` and
-`CONTENTFUL_EDU_CDN_API_KEY`) only for the additional spaces enabled in that
-deployment.
+`CONTENTFUL_CDN_API_KEY`. The current deployment pipeline loads these two
+values from Parameter Store into the build environment. `build.sh` requires
+them and passes them to the final Docker stage, which persists them as runtime
+environment variables for `node-config`.
+
+This build-time exception embeds both values in the image configuration, where
+users with image or registry access can recover them. Keep registry access
+restricted and do not extend this mechanism to preview or management tokens.
+Token rotation requires rebuilding and redeploying the image; retained older
+image versions continue to contain the previous token.
+Preview requests require `CONTENTFUL_PREVIEW_API_KEY`; additional spaces use
+their corresponding space-prefixed variables (for example,
+`CONTENTFUL_EDU_SPACE_ID` and `CONTENTFUL_EDU_CDN_API_KEY`). Inject those at
+runtime only for the integrations enabled in that deployment.
 
 Contentful clients are created lazily for the requested space, environment,
 and delivery mode. A missing optional-space or preview credential therefore

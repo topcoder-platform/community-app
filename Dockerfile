@@ -110,6 +110,14 @@ COPY --from=build --chown=node:node /opt/app/config/contentful ./config/contentf
 COPY --chown=node:node package.json ./package.json
 COPY --chown=node:node bin/runtime.js ./bin/runtime.js
 
+# Parameter Store supplies the default Contentful delivery configuration during
+# deployment builds. Declare it after all filesystem layers so secret rotation
+# does not invalidate them or expose the token to any RUN instruction.
+ARG CONTENTFUL_CDN_API_KEY
+ARG CONTENTFUL_SPACE_ID
+ENV CONTENTFUL_CDN_API_KEY=${CONTENTFUL_CDN_API_KEY} \
+    CONTENTFUL_SPACE_ID=${CONTENTFUL_SPACE_ID}
+
 USER node
 
 EXPOSE 3000
