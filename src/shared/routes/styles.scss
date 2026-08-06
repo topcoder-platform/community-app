@@ -1,0 +1,17 @@
+/*
+ * The root router owns a separate copy of the shared page layout so the
+ * asynchronous Topcoder route emits the stylesheet expected by AppChunk.
+ */
+.container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+
+  > *:nth-child(2):not(:last-child) {
+    display: flex;
+    flex: 1 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+}

@@ -54,15 +54,19 @@ function generateHash(localName, filename) {
  */
 function generateScopedName(localName, filename) {
   const hash = generateHash(localName, filename);
-  if (process.env.BABEL_ENV === 'production') return hash.slice(0, 6);
+  let scopedName = hash.slice(0, 6);
 
-  const relativeFilename = path.relative(context, filename).replace(/\\/g, '/');
-  const extension = path.extname(relativeFilename);
-  const name = path.basename(relativeFilename, extension);
-  const directory = path.dirname(relativeFilename) === '.'
-    ? ''
-    : `${path.dirname(relativeFilename)}/`;
-  return `${directory}${name}___${localName}___${hash.slice(0, 6)}`
+  if (process.env.BABEL_ENV !== 'production') {
+    const relativeFilename = path.relative(context, filename).replace(/\\/g, '/');
+    const extension = path.extname(relativeFilename);
+    const name = path.basename(relativeFilename, extension);
+    const directory = path.dirname(relativeFilename) === '.'
+      ? ''
+      : `${path.dirname(relativeFilename)}/`;
+    scopedName = `${directory}${name}___${localName}___${scopedName}`;
+  }
+
+  return scopedName
     .replace(new RegExp('[^a-zA-Z0-9\\-_\u00A0-\uFFFF]', 'g'), '-')
     .replace(/^((-?[0-9])|--)/, '_$1');
 }

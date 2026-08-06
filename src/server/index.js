@@ -78,7 +78,6 @@ const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
 const swScope = '/challenges'; // we are currently only interested in improving challenges pages
 
 const tcoPattern = new RegExp(/^tco\d{2}\.topcoder(?:-dev)?\.com$/i);
-const universalNavUrl = config.UNIVERSAL_NAV_URL;
 
 const getExtraScripts = ts => [
   `<script type="application/javascript">
@@ -114,14 +113,6 @@ const getExtraScripts = ts => [
     ga('create', 'UA-6340959-1', 'auto');
     ga('send', 'pageview');
   </script>`,
-  `<!-- Start of topcoder Topcoder Universal Navigation script -->
-  <script>
-  !function(n,t,e,a,c,i,o){n['TcUnivNavConfig']=c,n[c]=n[c]||function(){
-  (n[c].q=n[c].q??[]).push(arguments)},n[c].l=1*new Date();i=t.createElement(e),
-  o=t.getElementsByTagName(e)[0];i.async=1;i.type="module";i.src=a;o.parentNode.insertBefore(i,o)
-  }(window,document,"script","${universalNavUrl}","tcUniNav");
-  </script>
-  <!-- End of topcoder Topcoder Universal Navigation script -->`,
 ];
 
 const MODE = process.env.BABEL_ENV;
