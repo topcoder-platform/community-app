@@ -47,7 +47,8 @@ export async function DoSSR(request, store, App) {
  *  with the rendering of decorated component, using updated store for that.
  * @param {Function} updateStore Given Redux store and ExpressJS HTTP request,
  *  as its two arguments, this function should update the store to the necessary
- *  state. It should return a promise that resolves when ready.
+ *  state. It should return a promise that resolves when ready. Rejections stay
+ *  on the promise collected by DoSSR for the renderer's normal error handling.
  */
 export default function SSR(checkStore, updateStore) {
   return Component => (props) => {
@@ -55,11 +56,7 @@ export default function SSR(checkStore, updateStore) {
     const Wrapper = withRouter(({ location, staticContext }) => {
       const { request, ssrPromises, store } = staticContext;
       if (checkStore(store, props, request)) return <Component {...props} />;
-      const promise = updateStore(store, props, request);
-      if (ssrPromises) {
-        ssrPromises.push(promise);
-      }
-      promise.then(() => {
+      const promise = updateStore(store, props, request).then(() => {
         ReactDOM.renderToString((
           <Provider store={store}>
             <StaticRouter context={staticContext} location={location}>
@@ -68,6 +65,11 @@ export default function SSR(checkStore, updateStore) {
           </Provider>
         ));
       });
+      if (ssrPromises) {
+        ssrPromises.push(promise);
+      } else {
+        promise.catch(() => undefined);
+      }
       return null;
     });
     return <Wrapper />;

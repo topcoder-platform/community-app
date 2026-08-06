@@ -30,6 +30,21 @@ running container from the deployment platform's secret store. Rotate a
 credential immediately if it has ever been committed, exposed in a build log,
 or embedded in an image layer.
 
+### Contentful
+
+Published content in the default space uses `CONTENTFUL_SPACE_ID` and
+`CONTENTFUL_CDN_API_KEY`. Preview requests additionally require
+`CONTENTFUL_PREVIEW_API_KEY`. Configure the corresponding space-prefixed
+variables (for example, `CONTENTFUL_EDU_SPACE_ID` and
+`CONTENTFUL_EDU_CDN_API_KEY`) only for the additional spaces enabled in that
+deployment.
+
+Contentful clients are created lazily for the requested space, environment,
+and delivery mode. A missing optional-space or preview credential therefore
+does not disable unrelated routes. A request that actually needs an
+unconfigured Contentful service reports the exact missing runtime variable;
+the deployment must supply that credential for the CMS content to render.
+
 ## Browser-visible integration keys
 
 `AUTH0_CLIENT_ID`, `FILESTACK_API_KEY`, `SEGMENT_IO_API_KEY`, and
