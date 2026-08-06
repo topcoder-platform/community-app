@@ -437,14 +437,7 @@ function mapStateToProps(state, ownProps) {
   return ownProps.preview ? st.preview : st.published;
 }
 
-/**
- * Creates dispatch callbacks used by ContentfulLoader. Async callbacks return
- * the Redux middleware promise so SSR can observe dispatch failures.
- * @param {Function} dispatch Redux store dispatch function.
- * @return {Object} ContentfulLoader dispatch callbacks.
- * @throws {Error} Propagates synchronous errors raised by dispatch.
- */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   const a = actions.contentful;
   const bC = a.bookContent;
   const bQ = a.bookQuery;
@@ -459,16 +452,16 @@ export function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(a.getContentInit(uuid, contentId, target, preview, spaceName, environment));
       const action = a.getContentDone(uuid, contentId, target, preview, spaceName, environment);
-      /* Return redux-promise's chain so SSR observes dispatch failures. */
-      return dispatch(action);
+      dispatch(action);
+      return action.payload;
     },
     queryContent: (queryId, query, target, preview, spaceName, environment) => {
       const uuid = shortId();
       const q = _.isObject(query) ? query : null;
       dispatch(a.queryContentInit(uuid, queryId, target, preview, spaceName, environment));
       const action = a.queryContentDone(uuid, queryId, target, q, preview, spaceName, environment);
-      /* Return redux-promise's chain so SSR observes dispatch failures. */
-      return dispatch(action);
+      dispatch(action);
+      return action.payload;
     },
   };
 }

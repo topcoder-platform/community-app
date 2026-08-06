@@ -1,10 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as config from '../config/config.json';
 import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
-
-const config = JSON.parse(
-  fs.readFileSync(path.resolve(process.cwd(), 'config/config.json'), 'utf8'),
-);
 
 export interface ChallengeLinks {
   rssFeedUrl: string;

@@ -33,7 +33,7 @@ import ProfileRedirect from './ProfileRedirect';
 import RedirectMemberSearch from './RedirectMemberSearch';
 import SettingRedirect from './Settings/SettingRedirect';
 
-import './styles.scss';
+import './Topcoder/styles.scss';
 
 function Routes({ communityId }) {
   const metaTags = (

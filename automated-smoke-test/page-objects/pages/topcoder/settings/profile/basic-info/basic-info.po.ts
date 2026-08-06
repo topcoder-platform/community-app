@@ -315,7 +315,7 @@ export class BasicInfoPage extends SettingsPage {
    * @param date date object
    */
   private getDate(date: Date) {
-    const options: Intl.DateTimeFormatOptions = {
+    const options = {
       weekday: 'long',
       year: 'numeric',
       month: 'long',

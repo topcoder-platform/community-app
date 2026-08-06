@@ -179,7 +179,33 @@ export function articleVote(body) {
     .then(entry => entry.publish());
 }
 
-const services = new Map();
+let services;
+
+function initServiceInstances() {
+  const contentfulConfig = _.omit(config.SECRET.CONTENTFUL, [
+    'DEFAULT_SPACE_NAME', 'DEFAULT_ENVIRONMENT', 'MANAGEMENT_TOKEN',
+  ]);
+  services = {};
+  _.map(contentfulConfig, (spaceConfig, spaceName) => {
+    services[spaceName] = {};
+    _.map(spaceConfig, (env, name) => {
+      if (name !== 'SPACE_ID') {
+        const environment = name;
+        const spaceId = spaceConfig.SPACE_ID;
+        const previewBaseUrl = `${PREVIEW_URL}/${spaceId}/environments/${environment}`;
+        const cdnBaseUrl = `${CDN_URL}/${spaceId}/environments/${environment}`;
+        const svcs = {};
+
+        svcs.previewService = new ApiService(
+          previewBaseUrl.toString(), env.PREVIEW_API_KEY, spaceId, true,
+        );
+        svcs.cdnService = new ApiService(cdnBaseUrl.toString(), env.CDN_API_KEY, spaceId);
+        services[spaceName][environment] = svcs;
+      }
+    });
+  });
+  return services;
+}
 
 /**
  * get space id for the given space name.
@@ -195,50 +221,21 @@ export function getSpaceId(spaceName) {
  * @param {String} spaceName
  * @param {String} environment
  * @param {Boolean} preview
- * @return {ApiService} Cached service for the requested Contentful API.
- * @throws {Error} If the requested space, environment, or runtime credentials
- * are not configured.
  */
 export function getService(spaceName, environment, preview) {
+  if (!services) {
+    services = initServiceInstances();
+  }
   const name = spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
   const env = environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
-  const contentfulConfig = config.SECRET.CONTENTFUL;
 
-  if (!Object.prototype.hasOwnProperty.call(contentfulConfig, name)) {
+  if (!services[name]) {
     throw new Error(`space : '${name}' is not configured.`);
   }
-  const spaceConfig = contentfulConfig[name];
-  if (!spaceConfig || !Object.prototype.hasOwnProperty.call(spaceConfig, env)) {
-    throw new Error(`environment : '${env}' is not configured for space : '${name}'.`);
+  if (!services[name][env]) {
+    throw new Error(`environment  : '${env}' is not configured for space : '${name}.`);
   }
 
-  const environmentConfig = spaceConfig[env];
-  const tokenName = preview ? 'PREVIEW_API_KEY' : 'CDN_API_KEY';
-  const rawSpaceId = spaceConfig.SPACE_ID;
-  const rawAccessToken = environmentConfig && environmentConfig[tokenName];
-  const spaceId = typeof rawSpaceId === 'string' ? rawSpaceId.trim() : '';
-  const accessToken = typeof rawAccessToken === 'string' ? rawAccessToken.trim() : '';
-
-  if (!spaceId || !accessToken) {
-    const variablePrefix = name === 'default'
-      ? 'CONTENTFUL'
-      : `CONTENTFUL_${name.toUpperCase()}`;
-    const missingVariables = [];
-    if (!spaceId) missingVariables.push(`${variablePrefix}_SPACE_ID`);
-    if (!accessToken) missingVariables.push(`${variablePrefix}_${preview ? 'PREVIEW' : 'CDN'}_API_KEY`);
-    throw new Error(
-      `Contentful ${preview ? 'preview' : 'CDN'} service for space '${name}' and environment '${env}' is unavailable: missing ${missingVariables.join(', ')}.`,
-    );
-  }
-
-  const cacheKey = JSON.stringify([name, env, Boolean(preview)]);
-  if (!services.has(cacheKey)) {
-    const baseUrl = preview ? PREVIEW_URL : CDN_URL;
-    const apiBaseUrl = `${baseUrl}/${spaceId}/environments/${env}`;
-    services.set(
-      cacheKey,
-      new ApiService(apiBaseUrl, accessToken, spaceId, preview),
-    );
-  }
-  return services.get(cacheKey);
+  const service = services[name][env];
+  return preview ? service.previewService : service.cdnService;
 }

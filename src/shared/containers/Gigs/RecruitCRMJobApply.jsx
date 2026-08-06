@@ -10,7 +10,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { isValidEmail } from 'utils/tc';
-import withOptimizely from 'utils/withOptimizely';
+import { withOptimizely } from '@optimizely/react-sdk';
 
 
 const cookies = require('browser-cookies');

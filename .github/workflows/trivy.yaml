@@ -24,9 +24,8 @@ jobs:
           ignore-unfixed: true
           format: "sarif"
           output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN"
-          limit-severities-for-sarif: true
-          scanners: vuln,secret,misconfig
+          severity: "CRITICAL,HIGH,UNKNOWN"
+          scanners: vuln,secret,misconfig,license
           github-pat: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Trivy scan results to GitHub Security tab

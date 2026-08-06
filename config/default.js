@@ -62,9 +62,9 @@ module.exports = {
    */
   DISABLE_SERVICE_WORKER: true,
 
-  /* API token for logentries.com. Supply it only through the
-   * LOG_ENTRIES_TOKEN environment variable. */
-  LOG_ENTRIES_TOKEN: '',
+  /* API token for logentries.com. The token below is just for local testing of
+   * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
+  LOG_ENTRIES_TOKEN: '816f5574-0d4a-49f9-ab3b-00d791f7c1f7',
 
   /* When set to true, terms service is short-cut so that each time
    * a user goes to challenge details page or community page, it tells that none of
@@ -87,7 +87,9 @@ module.exports = {
     },
   },
 
-  /* Segment.io write key. Supply it through SEGMENT_IO_API_KEY. */
+  /* API key for Segment.io. For development environment the value is set inside
+   * development.json, for production environment it is set via CircleCI
+   * variables. */
   SEGMENT_IO_API_KEY: '',
 
   SERVER_API_KEY: '',
@@ -194,10 +196,10 @@ module.exports = {
    */
   SEARCH_TIMEOUT: 30 * 1000,
 
-  /* Filestack configuration for uploading submissions. The browser-visible
-   * API key is supplied through FILESTACK_API_KEY. */
+  /* Filestack configuration for uploading Submissions
+   * These are for the development back end */
   FILESTACK: {
-    API_KEY: '',
+    API_KEY: 'AzFINuQoqTmqw0QEoaw9az',
     REGION: 'us-east-1',
     SUBMISSION_CONTAINER: 'topcoder-dev-submissions-dmz',
   },
@@ -271,14 +273,12 @@ module.exports = {
 
     RECRUITCRM_API_KEY: '',
     SENDGRID_API_KEY: '',
-    /* Signing secrets have no fallback. AUTH_SECRET must be set anywhere
-     * authenticated server routes are enabled. */
     JWT_AUTH: {
-      SECRET: '',
-      AUTH_SECRET: '',
+      SECRET: 'mysecret',
+      AUTH_SECRET: 'mysecret',
       VALID_ISSUERS: '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/", "https://auth.topcoder-dev.com/","https://topcoder.auth0.com/","https://auth.topcoder.com/"]',
     },
-    CHAMELEON_VERIFICATION_SECRET: '',
+    CHAMELEON_VERIFICATION_SECRET: 'mysecret',
   },
 
   GSHEETS_API_KEY: '',

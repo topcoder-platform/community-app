@@ -60,7 +60,6 @@ const TopcoderHeader = ({ auth, location }) => {
   return (
     <div styleName="header-container">
       <NavComponent
-        uniNavUrl={config.UNIVERSAL_NAV_URL}
         toolName={pageCfg.toolName}
         toolRoot={pageCfg.toolRoot}
         user={isAuthenticated ? 'auto' : undefined}

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Custom Inline Elements (via simplified JSX) 1`] = `
 Array [
@@ -11,6 +11,7 @@ Array [
   <ul>
     <li>
       <p>
+        
         <strong>
           Button
         </strong>
@@ -37,6 +38,7 @@ Array [
     </li>
     <li>
       <p>
+        
         <strong>
           PrimaryButton
         </strong>
@@ -63,6 +65,7 @@ Array [
     </li>
     <li>
       <p>
+        
         <strong>
           SecondaryButton
         </strong>
@@ -89,6 +92,7 @@ Array [
     </li>
     <li>
       <p>
+        
         <strong>
           Link
         </strong>
@@ -97,6 +101,7 @@ Array [
     </li>
     <li>
       <p>
+        
         <strong>
           JoinCommunity
         </strong>
@@ -638,6 +643,7 @@ Array [
     </li>
   </ul>,
   <p>
+    
     <strong>
       Note:
     </strong>
@@ -786,7 +792,7 @@ Array [
     Markdown uses email-style 
     <code>
       <span
-        className="hljs-meta prompt_"
+        className="hljs-meta"
       >
         &gt;
       </span>
@@ -800,7 +806,7 @@ Array [
     wrap the text and put a 
     <code>
       <span
-        className="hljs-meta prompt_"
+        className="hljs-meta"
       >
         &gt;
       </span>
@@ -825,7 +831,7 @@ Array [
     Markdown allows you to be lazy and only put the 
     <code>
       <span
-        className="hljs-meta prompt_"
+        className="hljs-meta"
       >
         &gt;
       </span>
@@ -856,7 +862,7 @@ Array [
     adding additional levels of 
     <code>
       <span
-        className="hljs-meta prompt_"
+        className="hljs-meta"
       >
         &gt;
       </span>
@@ -1160,7 +1166,7 @@ Array [
     To put a blockquote within a list item, the blockquote’s 
     <code>
       <span
-        className="hljs-meta prompt_"
+        className="hljs-meta"
       >
         &gt;
       </span>
@@ -1272,7 +1278,7 @@ end tell
      and 
     <code>
       <span
-        className="hljs-meta prompt_"
+        className="hljs-meta"
       >
         &gt;
       </span>
@@ -1539,14 +1545,18 @@ end tell
     </em>
   </p>,
   <p>
+    
     <strong>
       double asterisks
     </strong>
+    
   </p>,
   <p>
+    
     <strong>
       double underscores
     </strong>
+    
   </p>,
   <h3>
     Code
@@ -2233,13 +2243,13 @@ Array [
     Ad amet irure est magna id mollit Lorem in do duis enim. Excepteur velit nisi magna ea pariatur pariatur ullamco fugiat deserunt sint non sint. Duis duis est 
     <code>
       <span
-        className="hljs-selector-tag"
+        className="hljs-built_in"
       >
         code
       </span>
        in 
       <span
-        className="hljs-selector-tag"
+        className="hljs-built_in"
       >
         text
       </span>

@@ -49,7 +49,7 @@ export default function Learn() {
                 Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.
               </p>
               <p>
-                Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.
+                Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.
               </p>
               <p>
                 Are you ready to step onto the innovative journey of learning?

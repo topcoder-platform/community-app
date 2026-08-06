@@ -10,14 +10,8 @@ const fetchSuccessMock = jest.fn(() => Promise.resolve({
   json: () => ({ data: DUMMY_PAYLOAD }),
 }));
 
-function testReducer(createReducer, expectedInitialState, factoryFetchMock = fetchSuccessMock) {
-  let reducer;
+function testReducer(reducer, expectedInitialState) {
   let state;
-
-  beforeAll(async () => {
-    global.fetch = factoryFetchMock;
-    reducer = await createReducer();
-  });
 
   test('creates expected initial state', () => {
     state = reducer(undefined, {});
@@ -58,22 +52,26 @@ function testReducer(createReducer, expectedInitialState, factoryFetchMock = fet
   });
 }
 
-describe('default reducer', () => testReducer(() => defaultReducer, {}));
+global.fetch = fetchSuccessMock;
+describe('default reducer', () => testReducer(defaultReducer, {}));
 
-describe('factory without http request', () => testReducer(() => factory(), {}));
+global.fetch = fetchSuccessMock;
+describe('factory without http request', () => factory().then(res => testReducer(res, {})));
 
-describe('factory with matching http request and success response', () => testReducer(() => factory({
+global.fetch = fetchSuccessMock;
+describe('factory with matching http request and success response', () => factory({
   url: '/examples/data-fetch/server',
-}), {
+}).then(res => testReducer(res, {
   data: DUMMY_PAYLOAD,
   failed: undefined,
   loading: false,
-}));
+})));
 
-describe('factory with matching http request and network failure', () => testReducer(() => factory({
+global.fetch = fetchFailureMock;
+describe('factory with matching http request and network failure', () => factory({
   url: '/examples/data-fetch/server',
-}), {
+}).then(res => testReducer(res, {
   data: null,
   failed: true,
   loading: false,
-}, fetchFailureMock));
+})));

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
 <div
@@ -9,7 +9,7 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <DefaultAvatar
       data-name="Layer 1"
-      viewBox="0 0 33 33.001"
+      viewBox="0 0 33 33.00137"
       xmlns="http://www.w3.org/2000/svg"
     />
     <div
@@ -21,7 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
   <div>
     <a
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
-      href="http://localhost/members/undefined/"
+      href="undefined/members/undefined/"
       target="_blank"
     />
   </div>
@@ -68,7 +68,7 @@ exports[`Matches shallow shapshot 2`] = `
   >
     <DefaultAvatar
       data-name="Layer 1"
-      viewBox="0 0 33 33.001"
+      viewBox="0 0 33 33.00137"
       xmlns="http://www.w3.org/2000/svg"
     />
     <div
@@ -80,7 +80,7 @@ exports[`Matches shallow shapshot 2`] = `
   <div>
     <a
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
-      href="http://localhost/members/undefined/"
+      href="undefined/members/undefined/"
       target="_blank"
     />
   </div>

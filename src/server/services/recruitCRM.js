@@ -7,8 +7,10 @@ import qs from 'qs';
 import _ from 'lodash';
 import { logger, services } from 'topcoder-react-lib';
 import Joi from 'joi';
+import xss from 'xss';
 import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
+
 
 const { api } = services;
 
@@ -18,10 +20,6 @@ const NodeCache = require('node-cache');
 // gigs list caching
 const CACHE_KEY = 'jobs';
 const gigsCache = new NodeCache({ stdTTL: config.GIGS_LISTING_CACHE_TIME, checkperiod: 10 });
-const MAX_APPLICATION_FORM_BYTES = 512 * 1024;
-const MAX_APPLICATION_CUSTOM_FIELDS = 32;
-const MAX_RECRUITCRM_PAGES = 25;
-const RECRUITCRM_IDENTIFIER_PATTERN = /^[A-Za-z0-9_-]{8,64}$/;
 
 const JOB_FIELDS_RESPONSE = [
   'id',
@@ -97,107 +95,6 @@ const updateProfileSchema = Joi.object().keys({
   city: Joi.string().required(),
   countryName: Joi.string().required(),
 }).required();
-
-const applicationFormSchema = Joi.object({
-  city: Joi.string().trim().max(200).required(),
-  contact_number: Joi.string().trim().max(100).required(),
-  custom_fields: Joi.array().max(MAX_APPLICATION_CUSTOM_FIELDS).items(
-    Joi.object({
-      field_id: Joi.number()
-        .integer()
-        .min(1)
-        .max(100000)
-        .required(),
-      value: Joi.alternatives().try(
-        Joi.string().max(2000).allow(''),
-        Joi.number(),
-        Joi.boolean(),
-      ).required(),
-    }).unknown(false),
-  ).required(),
-  email: Joi.string()
-    .trim()
-    .email({ tlds: { allow: false } })
-    .max(254)
-    .required(),
-  first_name: Joi.string().trim().max(200).required(),
-  last_name: Joi.string().trim().max(200).required(),
-  locality: Joi.string().trim().max(200).required(),
-  salary_expectation: Joi.string()
-    .trim()
-    .max(200)
-    .allow('')
-    .required(),
-  skill: Joi.string()
-    .trim()
-    .max(2000)
-    .allow('')
-    .required(),
-}).unknown(false);
-
-/**
- * Accepts only RecruitCRM slugs that cannot alter a URL path.
- * @param {String} value Candidate or job slug.
- * @return {String|null} Valid identifier, or null when rejected.
- */
-export function normalizeRecruitCrmIdentifier(value) {
-  return typeof value === 'string' && RECRUITCRM_IDENTIFIER_PATTERN.test(value)
-    ? value
-    : null;
-}
-
-/**
- * Parses and bounds the user-controlled job application form.
- * @param {String} serializedForm Serialized multipart form field.
- * @return {Object} Validated application data.
- */
-export function parseApplicationForm(serializedForm) {
-  if (typeof serializedForm !== 'string'
-    || Buffer.byteLength(serializedForm, 'utf8') > MAX_APPLICATION_FORM_BYTES) {
-    throw new Error('Invalid application form');
-  }
-
-  let parsed;
-  try {
-    parsed = JSON.parse(serializedForm);
-  } catch (e) {
-    throw new Error('Invalid application form');
-  }
-
-  if (!_.isPlainObject(parsed) || !Array.isArray(parsed.custom_fields)) {
-    throw new Error('Invalid application form');
-  }
-
-  const boundedCustomFields = parsed.custom_fields
-    .slice(0, MAX_APPLICATION_CUSTOM_FIELDS + 1);
-  if (boundedCustomFields.length > MAX_APPLICATION_CUSTOM_FIELDS) {
-    throw new Error('Invalid application form');
-  }
-
-  const validation = applicationFormSchema.validate({
-    ...parsed,
-    custom_fields: boundedCustomFields,
-  }, {
-    abortEarly: false,
-  });
-  if (validation.error) {
-    throw new Error('Invalid application form');
-  }
-  return validation.value;
-}
-
-/**
- * Converts an upstream page count into a small bounded integer.
- * @param {*} value Page count returned by RecruitCRM.
- * @return {Number} Page count between one and MAX_RECRUITCRM_PAGES.
- */
-function getBoundedPageCount(value) {
-  const pageCount = Number(value);
-  if (!Number.isSafeInteger(pageCount) || pageCount < 1) {
-    return 1;
-  }
-  return Math.min(pageCount, MAX_RECRUITCRM_PAGES);
-}
 
 /**
  * Auxiliary class that handles communication with recruitCRM
@@ -290,13 +187,12 @@ export default class RecruitCRMService {
    */
   async getJob(req, res, next) {
     try {
-      const sanitizedId = normalizeRecruitCrmIdentifier(req.params.id);
+      const sanitizedId = xss(req.params.id);
 
-      if (!sanitizedId) {
+      if (!/^[a-zA-Z0-9-_]{8,23}$/.test(sanitizedId)) {
         return res.status(400).json({ error: 'Invalid job ID format.' });
       }
-      const encodedId = encodeURIComponent(sanitizedId);
-      const response = await fetch(`${this.private.baseUrl}/v1/jobs/${encodedId}`, {
+      const response = await fetch(`${this.private.baseUrl}/v1/jobs/${sanitizedId}`, {
         method: 'GET',
         headers: {
           'Content-Type': req.headers['content-type'],
@@ -311,7 +207,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: response.status,
-          url: `${this.private.baseUrl}/v1/jobs/${encodedId}`,
+          url: `${this.private.baseUrl}/v1/jobs/${sanitizedId}`,
           errObj: await response.json(),
         };
         logger.error(error);
@@ -362,9 +258,8 @@ export default class RecruitCRMService {
         return error;
       }
       const data = await response.json();
-      const lastPage = getBoundedPageCount(data.last_page);
-      if (data.current_page < lastPage) {
-        const pages = _.range(2, lastPage + 1);
+      if (data.current_page < data.last_page) {
+        const pages = _.range(2, data.last_page + 1);
         return Promise.all(
           pages.map(page => fetch(`${this.private.baseUrl}/v1/jobs/search?${qs.stringify(query)}&page=${page}`, {
             method: 'GET',
@@ -396,8 +291,7 @@ export default class RecruitCRMService {
       const toSend = _.map(data.data, j => sanitizeJob(j));
       return toSend;
     } catch (err) {
-      logger.error('Unable to refresh the RecruitCRM jobs cache');
-      return { error: true };
+      return err;
     }
   }
 
@@ -433,9 +327,8 @@ export default class RecruitCRMService {
         return res.send(error);
       }
       const data = await response.json();
-      const lastPage = getBoundedPageCount(data.last_page);
-      if (data.current_page < lastPage) {
-        const pages = _.range(2, lastPage + 1);
+      if (data.current_page < data.last_page) {
+        const pages = _.range(2, data.last_page + 1);
         return Promise.all(
           pages.map(page => fetch(`${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}&page=${page}`, {
             method: 'GET',
@@ -460,9 +353,8 @@ export default class RecruitCRMService {
             gigsCache.set(CACHE_KEY, toSend);
             return res.send(toSend);
           })
-          .catch(() => res.status(502).send({
-            error: true,
-            message: 'Unable to retrieve jobs.',
+          .catch(e => res.send({
+            error: e,
           }));
       }
 
@@ -519,25 +411,9 @@ export default class RecruitCRMService {
    * @param {Object} the request.
    */
   async applyForJob(req, res, next) {
+    const { id } = req.params;
     const { body, file } = req;
-    const jobId = normalizeRecruitCrmIdentifier(req.params.id);
-    if (!jobId) {
-      return res.status(400).json({ error: 'Invalid job ID format.' });
-    }
-
-    let form;
-    try {
-      form = parseApplicationForm(body && body.form);
-    } catch (e) {
-      return res.status(400).json({ error: 'Invalid application form.' });
-    }
-    if (!Array.isArray(form.custom_fields)
-      || form.custom_fields.length > MAX_APPLICATION_CUSTOM_FIELDS) {
-      return res.status(400).json({ error: 'Invalid application form.' });
-    }
-    form.custom_fields = form.custom_fields.slice(0, MAX_APPLICATION_CUSTOM_FIELDS);
-    const encodedJobId = encodeURIComponent(jobId);
-
+    const form = JSON.parse(body.form);
     const fileData = new FormData();
     if (file) {
       fileData.append('resume', file.buffer, file.originalname);
@@ -548,10 +424,7 @@ export default class RecruitCRMService {
     let growRes;
     try {
       // Check if candidate exists in the system?
-      const candidateSearchUrl = `${this.private.baseUrl}/v1/candidates/search?email=${
-        encodeURIComponent(form.email)
-      }`;
-      const candidateResponse = await fetch(candidateSearchUrl, {
+      const candidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/search?email=${form.email}`, {
         method: 'GET',
         headers: {
           'Content-Type': req.headers['content-type'],
@@ -562,25 +435,22 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: candidateResponse.status,
-          url: candidateSearchUrl,
+          url: `${this.private.baseUrl}/v1/candidates/search?email=${form.email}`,
           errorObj: await candidateResponse.json(),
         };
         notifyKirilAndNick(error);
         return res.send(error);
       }
       let candidateData = await candidateResponse.json();
-      if (Array.isArray(candidateData.data) && candidateData.data.length > 0) {
+      if (candidateData.data) {
         // Candidate exists in recruitCRM
         // We will update profile fields, otherwise we create new candidate below
         // Check if candidate is placed in gig currently
         isNewCandidate = false;
-        const currentCandidate = candidateData.data[0];
-        const candidateCustomFields = Array.isArray(currentCandidate.custom_fields)
-          ? currentCandidate.custom_fields.slice(0, 256)
-          : [];
-        const candStatusIndex = _.findIndex(candidateCustomFields, { field_id: 12 });
-        if (candStatusIndex !== -1
-          && candidateCustomFields[candStatusIndex].value === 'Placed') {
+        const candStatusIndex = _.findIndex(
+          candidateData.data[0].custom_fields, { field_id: 12 },
+        );
+        if (candStatusIndex !== -1 && candidateData.data[0].custom_fields[candStatusIndex].value === 'Placed') {
           // reject application
           return res.send({
             error: true,
@@ -590,25 +460,21 @@ export default class RecruitCRMService {
             },
           });
         }
-        candidateSlug = normalizeRecruitCrmIdentifier(currentCandidate.slug);
-        if (!candidateSlug) {
-          return res.status(502).send({
-            error: true,
-            message: 'Invalid response from recruitment service.',
-          });
-        }
-        const fieldIndexProfile = _.findIndex(candidateCustomFields, { field_id: 14 });
+        candidateSlug = candidateData.data[0].slug;
+        const fieldIndexProfile = _.findIndex(
+          candidateData.data[0].custom_fields, { field_id: 14 },
+        );
         const fieldIndexForm = _.findIndex(form.custom_fields, { field_id: 14 });
         if (fieldIndexProfile !== -1 && fieldIndexForm !== -1) {
-          form.custom_fields[fieldIndexForm].value = `${
-            String(form.custom_fields[fieldIndexForm].value)
-          };${String(candidateCustomFields[fieldIndexProfile].value)}`.slice(0, 2000);
+          form.custom_fields[fieldIndexForm].value += `;${candidateData.data[0].custom_fields[fieldIndexProfile].value}`;
+          if (form.custom_fields[fieldIndexForm].value.length > 2000) {
+            form.custom_fields[fieldIndexForm].value = form.custom_fields[
+              fieldIndexForm].value.slice(0, 2000);
+          }
         }
       }
       // Create/update candidate profile
-      const candidatePath = candidateSlug ? `/${encodeURIComponent(candidateSlug)}` : '';
-      const workCandidateUrl = `${this.private.baseUrl}/v1/candidates${candidatePath}`;
-      const workCandidateResponse = await fetch(workCandidateUrl, {
+      const workCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${candidateSlug}` : ''}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -620,26 +486,18 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: workCandidateResponse.status,
-          url: workCandidateUrl,
+          url: `${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${candidateSlug}` : ''}`,
+          form,
           errorObj: await workCandidateResponse.json(),
         };
         notifyKirilAndNick(error);
         return res.send(error);
       }
       candidateData = await workCandidateResponse.json();
-      candidateSlug = normalizeRecruitCrmIdentifier(candidateData.slug);
-      if (!candidateSlug) {
-        return res.status(502).send({
-          error: true,
-          message: 'Invalid response from recruitment service.',
-        });
-      }
-      const encodedCandidateSlug = encodeURIComponent(candidateSlug);
       // Attach resume to candidate if uploaded
       if (file) {
         const formHeaders = fileData.getHeaders();
-        const fileCandidateUrl = `${this.private.baseUrl}/v1/candidates/${encodedCandidateSlug}`;
-        const fileCandidateResponse = await fetch(fileCandidateUrl, {
+        const fileCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}`, {
           method: 'POST',
           headers: {
             Authorization: this.private.authorization,
@@ -651,7 +509,11 @@ export default class RecruitCRMService {
           const error = {
             error: true,
             status: fileCandidateResponse.status,
-            url: fileCandidateUrl,
+            url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}`,
+            form,
+            fileData,
+            file,
+            formHeaders,
             errorObj: await fileCandidateResponse.json(),
           };
           notifyKirilAndNick(error);
@@ -660,10 +522,7 @@ export default class RecruitCRMService {
         candidateData = await fileCandidateResponse.json();
       }
       // Candidate ready to apply for job
-      const assignUrl = `${this.private.baseUrl}/v1/candidates/${
-        encodedCandidateSlug
-      }/assign?job_slug=${encodedJobId}`;
-      const applyResponse = await fetch(assignUrl, {
+      const applyResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}/assign?job_slug=${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': req.headers['content-type'],
@@ -680,25 +539,24 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: applyResponse.status,
-          url: assignUrl,
+          url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}/assign?job_slug=${id}`,
+          form,
+          candidateData,
           errorObj: errObj,
         };
         notifyKirilAndNick(error);
         return res.send(error);
       }
       // Set hired-stage
-      const hireStageUrl = `${this.private.baseUrl}/v1/candidates/${
-        encodedCandidateSlug
-      }/hiring-stages/${encodedJobId}`;
-      const hireStageResponse = await fetch(hireStageUrl, {
+      const hireStageResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: this.private.authorization,
         },
         body: JSON.stringify({
-          candidate_slug: candidateSlug,
-          job_slug: jobId,
+          candidate_slug: candidateData.slug,
+          job_slug: id,
           status_id: '10',
         }),
       });
@@ -706,7 +564,8 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: hireStageResponse.status,
-          url: hireStageUrl,
+          url: `$${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`,
+          form,
           errorObj: await hireStageResponse.json(),
         };
         notifyKirilAndNick(error);
@@ -721,12 +580,12 @@ export default class RecruitCRMService {
         // await gs.addToSheet(config.GIG_REFERRALS_SHEET, [[
         //   `${form.first_name} ${form.last_name}`,
         //   form.email,
-        //   `https://app.recruitcrm.io/candidate/${candidateSlug}`,
+        //   `https://app.recruitcrm.io/candidate/${candidateData.slug}`,
         //   `https://topcoder.com/members/${form.custom_fields[tcHandle].value}`,
         //   `${growRes.referrer.firstName} ${growRes.referrer.lastName}`,
         //   growRes.referrer.email,
         //   `https://topcoder.com/members/${growRes.referrer.metadata.tcHandle}`,
-        //   `https://app.recruitcrm.io/job/${jobId}`,
+        //   `https://app.recruitcrm.io/job/${id}`,
         // ]]);
         // Notify the person who referred
         sendEmailDirect({
@@ -920,7 +779,7 @@ gigsCache.on('expired', async (key) => {
     const gigs = await ss.getAll({
       job_status: 1,
     });
-    if (Array.isArray(gigs)) {
+    if (!gigs.error) {
       gigsCache.set(CACHE_KEY, gigs);
     }
   }
