@@ -1,3 +1,7 @@
+/* global
+  Math
+*/
+
 /**
  *  The component displays a challenge card without any data.
  *  The empty data is replaced with grey background.

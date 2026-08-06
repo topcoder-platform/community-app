@@ -2,23 +2,22 @@
 
 #### Software Required
 
-- Node.js 24.18.x
-- npm 11.16.x
-- Chrome browser
+Nodejs v8.11.4+
+Chrome Browser
 
 #### Installation:
 
 - Installs
-  `npm ci`
+  `npm install`
 
 - To run tests
   `cd automated-smoke-test`
   `npm run test`
-- To run tests locally
+-  To run Test locally  
   `cd automated-smoke-test`
   `npm run local-test`
 
-Note: To run the script for a different environment, create `config.json`. For example, to run against dev:
+Note : if you want to run the script for different env, make sure you  there is config.json  file created. For example , to run the dev env 
   `cd automated-smoke-test`
   `cp config/automation-config-dev.json config/config.json`
   `npm run test`
@@ -47,3 +46,4 @@ As of now, the tests are running in headless mode. To view the actual chrom brow
 
 - config.json holds the data level configuration, like user credentials etc
 - conf.ts holds the application configuration, like jasmine reporters to be configured, specs to be run etc.
+ 

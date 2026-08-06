@@ -84,7 +84,12 @@ export class LoginPage {
     );
     await this.userNameField.sendKeys(username);
     await this.passwordField.sendKeys(password);
-    logger.info('Login form filled for username: ' + username);
+    logger.info(
+      'Login form filled with values: username - ' +
+        username +
+        ', password - ' +
+        password
+    );
     await BrowserHelper.waitUntilClickableOf(
       this.loginButton,
       appconfig.Timeout.ElementClickable,

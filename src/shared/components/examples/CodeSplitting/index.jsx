@@ -15,9 +15,11 @@ export default function CodeSplitting() {
         For a better perspective, how cool and complex it is: Webpack 2+
         documentation on code splitting refer
         &zwnj;
-        <a href="https://reacttraining.com/react-router/web/guides/code-splitting">
-          this page
-        </a>
+        {
+          <a href="https://reacttraining.com/react-router/web/guides/code-splitting">
+            this page
+          </a>
+        }
         {' '}
         of
         {' '}

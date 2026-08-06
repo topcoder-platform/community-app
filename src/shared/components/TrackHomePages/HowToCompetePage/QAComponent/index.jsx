@@ -1,11 +1,14 @@
 /**
  * Question and Answer Component
  */
+/* eslint-disable react/no-danger */
 import React from 'react';
 import PT from 'prop-types';
-import renderMarkdown from 'utils/markdown';
+import showdown from 'showdown';
 
 import './styles.scss';
+
+const converter = new showdown.Converter();
 
 class QAComponent extends React.Component {
   constructor(props) {
@@ -40,9 +43,12 @@ class QAComponent extends React.Component {
           </div>
           <div styleName={isActive ? 'toggle-arrow active' : 'toggle-arrow'} />
         </div>
-        <div styleName={isActive ? 'answer active' : 'answer'}>
-          {renderMarkdown(data.text)}
-        </div>
+        <div
+          styleName={isActive ? 'answer active' : 'answer'}
+          dangerouslySetInnerHTML={
+            { __html: converter.makeHtml(data.text) }
+          }
+        />
       </div>
     );
   }

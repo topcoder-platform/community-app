@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { map, filter } from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
+import uuid from 'uuid';
 import PT from 'prop-types';
 import MenuItem from './MenuItem';
 import './style.scss';
@@ -12,7 +12,7 @@ export default class InputSelect extends Component {
       filterVal: '',
       isShowModal: false,
       inputValue: '',
-      _id: uuidv4(),
+      _id: uuid(),
     };
 
     this.handleClickOutside = this.handleClickOutside.bind(this);

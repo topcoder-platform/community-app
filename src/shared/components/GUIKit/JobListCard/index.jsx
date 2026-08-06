@@ -6,7 +6,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { config, Link } from 'topcoder-react-utils';
 import { getSalaryType, getCustomField } from 'utils/gigs';
-import withOptimizely from 'utils/withOptimizely';
+import { withOptimizely } from '@optimizely/react-sdk';
 import './style.scss';
 import IconBlackDuration from 'assets/images/icon-black-calendar.svg';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';

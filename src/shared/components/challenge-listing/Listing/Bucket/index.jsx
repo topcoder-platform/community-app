@@ -2,6 +2,8 @@
  * A single bucket of challenges.
  */
 
+/* global document */
+
 import _ from 'lodash';
 import PT from 'prop-types';
 // import qs from 'qs';

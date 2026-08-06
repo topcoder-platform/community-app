@@ -36,19 +36,11 @@ async function updateCache() {
   fx.rates = cache.rates;
 }
 
-/**
- * Starts a cache refresh without blocking synchronous callers.
- *
- * Used during module initialization and by the synchronous public methods.
- * Refresh failures are consumed so existing cached rates remain available
- * instead of creating an unhandled Promise rejection.
- * @return {void}
- */
-function refreshCacheInBackground() {
-  updateCache().catch(_.noop);
+try {
+  updateCache();
+} catch (error) {
+  // exchange-rates failed, reason: socket hang up
 }
-
-refreshCacheInBackground();
 
 /**
  * Converts specified amount of money to another currency.
@@ -69,16 +61,21 @@ export async function convert(amount, to, from = 'USD') {
 }
 
 /**
- * Converts an amount synchronously using cached rates while triggering a
- * non-blocking refresh when the cache is stale. Refresh failures are ignored
- * and leave the existing cache in place.
- * @param {Number} amount Amount of money to convert.
- * @param {String} to Target currency (3-letter code such as USD or EUR).
- * @param {String} from Original currency. Defaults to USD.
- * @return {Number} Converted amount.
+ * Same as convert(..), but works syncroneously (using cached rates).
+ * This function still triggers refreshement of the cached rates if necessary,
+ * but it does not wait for the result, and just uses cached rates for the
+ * actual conversion. It is safe to use anyway
+ * @param {Number} amount
+ * @param {String} to
+ * @param {String} from
+ * @return {Number}
  */
 export function convertNow(amount, to, from = 'USD') {
-  refreshCacheInBackground();
+  try {
+    updateCache();
+  } catch (error) {
+    // exchange-rates failed, reason: socket hang up
+  }
   return fx.convert(amount, { from, to });
 }
 
@@ -96,11 +93,14 @@ export async function getRates() {
 }
 
 /**
- * Returns cached exchange rates synchronously while triggering a non-blocking
- * refresh when the cache is stale. Refresh failures leave the cache unchanged.
- * @return {Object} A clone of the cached exchange-rate data.
+ * Same as getRates(..) but works syncroneously, using the cached rates.
+ * @return {Promise}
  */
 export function getRatesNow() {
-  refreshCacheInBackground();
+  try {
+    updateCache();
+  } catch (error) {
+    // exchange-rates failed, reason: socket hang up
+  }
   return _.cloneDeep(cache);
 }

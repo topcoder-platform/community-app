@@ -33,6 +33,7 @@ import feedsRouter from './routes/feeds';
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
 
+import webpackConfigFactory from '../../webpack.config';
 /* eslint-enable */
 
 global.atob = atob;
@@ -78,6 +79,7 @@ const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
 const swScope = '/challenges'; // we are currently only interested in improving challenges pages
 
 const tcoPattern = new RegExp(/^tco\d{2}\.topcoder(?:-dev)?\.com$/i);
+const universalNavUrl = config.UNIVERSAL_NAV_URL;
 
 const getExtraScripts = ts => [
   `<script type="application/javascript">
@@ -102,7 +104,7 @@ const getExtraScripts = ts => [
   ></script>`,
   `<script>
     !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
-    analytics.load(${serializeJs(config.SEGMENT_IO_API_KEY)});
+    analytics.load("${config.SEGMENT_IO_API_KEY}");
     }}();
   </script>`,
   `<script>
@@ -113,39 +115,17 @@ const getExtraScripts = ts => [
     ga('create', 'UA-6340959-1', 'auto');
     ga('send', 'pageview');
   </script>`,
+  `<!-- Start of topcoder Topcoder Universal Navigation script -->
+  <script>
+  !function(n,t,e,a,c,i,o){n['TcUnivNavConfig']=c,n[c]=n[c]||function(){
+  (n[c].q=n[c].q??[]).push(arguments)},n[c].l=1*new Date();i=t.createElement(e),
+  o=t.getElementsByTagName(e)[0];i.async=1;i.type="module";i.src=a;o.parentNode.insertBefore(i,o)
+  }(window,document,"script","${universalNavUrl}","tcUniNav");
+  </script>
+  <!-- End of topcoder Topcoder Universal Navigation script -->`,
 ];
 
 const MODE = process.env.BABEL_ENV;
-
-/**
- * Gets the Webpack metadata required by the standard server factory.
- *
- * Development still loads the complete Webpack configuration for hot module
- * reloading. Production needs only the paths used to serve the already-built
- * bundle, which keeps Webpack and its plugins out of the runtime dependency
- * tree.
- *
- * @param {String} mode Current Babel environment.
- * @return {Object} Webpack metadata used by the server factory.
- */
-function getServerWebpackConfig(mode) {
-  if (mode === 'development') {
-    // eslint-disable-next-line global-require
-    return require('../../webpack.config')(mode);
-  }
-
-  let publicPath = process.env.CDN_URL || '/api/cdn/public';
-  publicPath += '/static-assets/';
-
-  return {
-    context: path.resolve(__dirname, '../..'),
-    output: {
-      crossOriginLoading: 'anonymous',
-      path: path.resolve(__dirname, '../../build'),
-      publicPath,
-    },
-  };
-}
 
 async function beforeRender(req, suggestedConfig) {
   const [
@@ -182,8 +162,7 @@ async function onExpressJsSetup(server) {
   global.atob = atob;
 
   const checkAuthorizationHeader = (req, res, next) => {
-    if (!config.SERVER_API_KEY
-      || req.headers.authorization !== `ApiKey ${config.SERVER_API_KEY}`) {
+    if (req.headers.authorization !== `ApiKey ${config.SERVER_API_KEY}`) {
       return res.status(403).end();
     }
     return next();
@@ -391,7 +370,7 @@ async function onExpressJsSetup(server) {
 }
 
 global.KEEP_BUILD_INFO = true;
-serverFactory(getServerWebpackConfig(MODE), {
+serverFactory(webpackConfigFactory(MODE), {
   Application,
   beforeRender,
   devMode: MODE === 'development',
