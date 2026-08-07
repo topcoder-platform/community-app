@@ -2,6 +2,7 @@
  * Challenge listing sidebar reducer.
  */
 
+/* global alert */
 /* eslint-disable no-alert */
 
 import _ from 'lodash';

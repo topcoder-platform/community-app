@@ -2,7 +2,7 @@ import _ from 'lodash';
 import SubTrackChallengeView from 'components/ProfilePage/Stats/SubTrackChallengeView';
 import React from 'react';
 import R from 'react-test-renderer/shallow';
-import develop from './fixtures/develop.json';
+import develop from './__mocks__/develop.json';
 
 const mockState = {
   auth: {

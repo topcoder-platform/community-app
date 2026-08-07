@@ -6,27 +6,7 @@
 import 'isomorphic-fetch';
 import { config, isomorphy } from 'topcoder-react-utils';
 
-const XMLParser = isomorphy.isServerSide()
-  ? require('fast-xml-parser').XMLParser
-  : null;
-
-/**
- * Matches the former xml2json package's representation of empty elements.
- *
- * @param {*} value parsed XML value.
- * @return {*} value with empty elements represented as objects.
- */
-function normalizeEmptyElements(value) {
-  if (value === '') return {};
-  if (Array.isArray(value)) return value.map(normalizeEmptyElements);
-  if (value && typeof value === 'object') {
-    return Object.keys(value).reduce((result, key) => ({
-      ...result,
-      [key]: normalizeEmptyElements(value[key]),
-    }), {});
-  }
-  return value;
-}
+const xml2json = isomorphy.isServerSide() ? require('xml2json') : null;
 
 /**
  * Makes XML -> JSON conversion.
@@ -34,13 +14,7 @@ function normalizeEmptyElements(value) {
  * @return {Promise} Resolves to JSON document.
  */
 export function toJson(xml) {
-  if (XMLParser) {
-    const parser = new XMLParser({
-      attributeNamePrefix: '',
-      ignoreAttributes: false,
-    });
-    return Promise.resolve(normalizeEmptyElements(parser.parse(xml)));
-  }
+  if (xml2json) return Promise.resolve(xml2json.toJson(xml, { object: true }));
   return fetch('/community-app-assets/api/xml2json', {
     body: JSON.stringify({ xml }),
     headers: {

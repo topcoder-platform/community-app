@@ -3,6 +3,7 @@
  *
  * This is mostly a clone of the Slider component found in tc-communities.
  */
+/* global window */
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Carousel from 'nuka-carousel';

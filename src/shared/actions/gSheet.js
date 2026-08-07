@@ -1,6 +1,7 @@
 /**
  * Actions related to gsheets
  */
+/* global fetch */
 import { redux } from 'topcoder-react-utils';
 import Service from 'services/gSheet';
 

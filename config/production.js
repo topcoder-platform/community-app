@@ -19,7 +19,7 @@ module.exports = {
   },
   LOG_ENTRIES_TOKEN: '',
   NDA_DOCUSIGN_TEMPLATE_ID: '8b101e82-87c0-42c9-8440-d922749c4076',
-  SERVER_API_KEY: '',
+  SERVER_API_KEY: 'aa9ccf36-3936-450c-9983-097ddba51bef',
   GOOGLE_ANALYTICS_ID: 'UA-6340959-1',
   URL: {
     ARENA: 'https://arena.topcoder.com',

@@ -16,7 +16,7 @@ import { getSalaryType, getCustomField } from 'utils/gigs';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import { config, Link, isomorphy } from 'topcoder-react-utils';
 import { getQuery, updateQuery } from 'utils/url';
-import withOptimizely from 'utils/withOptimizely';
+import { withOptimizely } from '@optimizely/react-sdk';
 import GigHeader from 'components/Gigs/GigHeader';
 import './jobLisingStyles.scss';
 
