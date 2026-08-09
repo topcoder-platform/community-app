@@ -63,6 +63,7 @@ export default function ChallengeHeader(props) {
     isMenuOpened,
     submissionEnded,
     mySubmissions,
+    mySubmissionsCount,
     openForRegistrationChallenges,
     onSort,
     viewAsTable,
@@ -571,6 +572,7 @@ export default function ChallengeHeader(props) {
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
+          mySubmissionsCount={mySubmissionsCount}
           onSort={onSort}
           viewAsTable={viewAsTable}
         />
@@ -585,6 +587,7 @@ ChallengeHeader.defaultProps = {
   isMenuOpened: false,
   hasThriveArticles: false,
   hasRecommendedChallenges: false,
+  mySubmissionsCount: null,
 };
 
 ChallengeHeader.propTypes = {
@@ -639,6 +642,7 @@ ChallengeHeader.propTypes = {
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
+  mySubmissionsCount: PT.number,
   openForRegistrationChallenges: PT.shape().isRequired,
   onSort: PT.func.isRequired,
   viewAsTable: PT.bool.isRequired,

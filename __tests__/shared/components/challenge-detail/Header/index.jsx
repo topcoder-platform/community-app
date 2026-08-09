@@ -2,9 +2,14 @@ import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
 
 import Header from 'components/challenge-detail/Header';
+import TabSelector from 'components/challenge-detail/Header/TabSelector';
+
+jest.mock('react-responsive', () => ({
+  useMediaQuery: () => true,
+}));
 
 function collectText(node) {
-  if (typeof node === 'string') {
+  if (typeof node === 'string' || typeof node === 'number') {
     return [node];
   }
 
@@ -123,5 +128,42 @@ describe('Challenge detail header actions', () => {
 
     expect(collectText(output)).toContain('Register');
     expect(collectText(output)).toContain('Submit a solution');
+  });
+});
+
+describe('Challenge detail tab counts', () => {
+  test('renders the MM submission total independently of loaded attempts', () => {
+    const renderer = new Renderer();
+    renderer.render(
+      <TabSelector
+        challenge={{
+          id: 'challenge-id',
+          legacy: {},
+          metadata: [],
+          tags: [],
+          type: 'Marathon Match',
+        }}
+        checkpointCount={0}
+        hasRegistered
+        isLoggedIn
+        isMM
+        mySubmissions={[{ submissionId: 'latest-submission' }]}
+        mySubmissionsCount={3}
+        numOfCheckpointSubmissions={0}
+        numOfRegistrants={4}
+        numOfSubmissions={4}
+        numWinners={0}
+        onSelectorClicked={jest.fn()}
+        onSort={jest.fn()}
+        selectedView="submissions"
+        trackLower="data science"
+        viewAsTable={false}
+      />,
+    );
+
+    const text = collectText(renderer.getRenderOutput());
+    const mySubmissionsLabelIndex = text.indexOf('My Submissions');
+
+    expect(text[mySubmissionsLabelIndex + 1]).toBe(3);
   });
 });
