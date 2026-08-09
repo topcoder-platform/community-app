@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 
 import TooltipIcon from 'assets/images/tooltip-info.svg';
+import { getSubmissionLimit } from 'utils/challenge-detail/submission-limit';
 import EligibleEvents from './EligibleEvents';
 
 // import ShareSocial from './ShareSocial';
@@ -38,14 +39,13 @@ export default function SideBar({
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
   const submissionLimit = _.find(metadata, { name: 'submissionLimit' });
+  const submissionLimitCount = getSubmissionLimit(metadata);
   const fileTypes = _.find(metadata, { name: 'fileTypes' });
 
-  if (submissionLimit) {
-    if (submissionLimit.value === 1) {
-      submissionLimitDisplay = '1 submission';
-    } else if (submissionLimit.value > 1) {
-      submissionLimitDisplay = `${submissionLimit.value} submissions`;
-    }
+  if (submissionLimitCount === 1) {
+    submissionLimitDisplay = '1 submission';
+  } else if (submissionLimitCount > 1) {
+    submissionLimitDisplay = `${submissionLimitCount} submissions`;
   }
 
   const reviewTypeTitle = reviewType === 'PEER' ? 'Peer Review' : 'Community Review Board';
