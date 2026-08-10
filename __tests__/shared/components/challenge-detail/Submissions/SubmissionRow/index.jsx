@@ -53,15 +53,17 @@ function collectText(node) {
 }
 
 /**
- * Shallow-renders an MM row and returns its provisional score column text.
+ * Shallow-renders an MM row and returns the selected score column text.
  * Tests use this to compare score display behavior across scorer process states.
  *
+ * @param {String} scoreHeader Header for the score column to inspect.
  * @param {String} testProcess Review API test process metadata.
  * @param {String} testStatus Review API test status metadata.
- * @returns {Array<String|Number>} Provisional score column label and displayed value.
+ * @param {Number|null} finalScore Final score supplied by Review API.
+ * @returns {Array<String|Number>} Score column label and displayed value.
  * @throws {Error} Propagates errors raised while shallow-rendering SubmissionRow.
  */
-function renderProvisionalScore(testProcess, testStatus) {
+function renderScore(scoreHeader, testProcess, testStatus, finalScore = null) {
   const renderer = new Renderer();
   renderer.render(
     <SubmissionRow
@@ -73,9 +75,10 @@ function renderProvisionalScore(testProcess, testStatus) {
       numWinners={0}
       onShowPopup={jest.fn()}
       openHistory={false}
+      showFinalResults
       submissions={[
         {
-          finalScore: null,
+          finalScore,
           id: 'submission-id',
           provisionalScore: 0,
           reviewSummations: [
@@ -95,23 +98,35 @@ function renderProvisionalScore(testProcess, testStatus) {
     />,
   );
 
-  const column = findColumnByHeader(renderer.getRenderOutput(), 'PROVISIONAL SCORE');
+  const column = findColumnByHeader(renderer.getRenderOutput(), scoreHeader);
   return collectText(column);
 }
 
 describe('Marathon Match provisional score', () => {
   it('shows N/A while provisional tests are still running', () => {
-    expect(renderProvisionalScore('provisional', 'IN PROGRESS'))
+    expect(renderScore('PROVISIONAL SCORE', 'provisional', 'IN PROGRESS'))
       .toEqual(['PROVISIONAL SCORE', 'N/A']);
   });
 
   it('keeps a completed zero provisional score visible', () => {
-    expect(renderProvisionalScore('provisional', 'SUCCESS'))
+    expect(renderScore('PROVISIONAL SCORE', 'provisional', 'SUCCESS'))
       .toEqual(['PROVISIONAL SCORE', 0]);
   });
 
   it('keeps the provisional score visible while system tests are running', () => {
-    expect(renderProvisionalScore('system', 'IN PROGRESS'))
+    expect(renderScore('PROVISIONAL SCORE', 'system', 'IN PROGRESS'))
       .toEqual(['PROVISIONAL SCORE', 0]);
+  });
+});
+
+describe('Marathon Match final score', () => {
+  it('shows N/A while system tests are still running', () => {
+    expect(renderScore('FINAL SCORE', 'system', 'IN PROGRESS', 0))
+      .toEqual(['FINAL SCORE', 'N/A']);
+  });
+
+  it('keeps a completed zero final score visible', () => {
+    expect(renderScore('FINAL SCORE', 'system', 'SUCCESS', 0))
+      .toEqual(['FINAL SCORE', 0]);
   });
 });
