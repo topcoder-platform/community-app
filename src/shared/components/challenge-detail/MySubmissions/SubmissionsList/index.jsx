@@ -8,9 +8,9 @@ import _ from 'lodash';
 import moment from 'moment';
 import { PrimaryButton, Modal } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
-import { services } from 'topcoder-react-lib';
 import sortList from 'utils/challenge-detail/sort';
 import { getSubmissionStatus } from 'utils/challenge-detail/submission-status';
+import { getSubmissionDownloadUrl } from 'services/submissions';
 
 import IconClose from 'assets/images/icon-close-green.svg';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
@@ -25,8 +25,6 @@ import ArtifactsDownloadIcon from '../../../SubmissionManagement/Icons/IconDownl
 
 // import SearchIcon from '../../../SubmissionManagement/Icons/IconSearch.svg';
 import style from './styles.scss';
-
-const { getService } = services.submissions;
 
 const collectReviewSummations = (submission) => {
   const summations = [];
@@ -764,14 +762,16 @@ class SubmissionsListView extends React.Component {
                         ? (
                           <Tooltip content={() => <div styleName="tooltip-content">Download Submission</div>}>
                             <button
+                              aria-label="Download submission"
                               onClick={() => {
                                 // download submission
-                                const submissionsService = getService(auth.tokenV3);
-                                submissionsService.downloadSubmission(mySubmission.submissionId)
-                                  .then((blob) => {
-                                    const url = window.URL.createObjectURL(new Blob([blob]));
+                                getSubmissionDownloadUrl(
+                                  auth.tokenV3,
+                                  mySubmission.submissionId,
+                                )
+                                  .then((downloadUrl) => {
                                     const link = document.createElement('a');
-                                    link.href = url;
+                                    link.href = downloadUrl;
                                     link.setAttribute('download', `submission-${mySubmission.submissionId}.zip`);
                                     document.body.appendChild(link);
                                     link.click();

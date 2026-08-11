@@ -1,11 +1,16 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import { getSubmissionDownloadUrl as mockedGetSubmissionDownloadUrl } from 'services/submissions';
 
 import SubmissionsListView, {
   getDisplayedScores,
   isActiveTestStatus,
   getSubmissionTestProgress,
 } from '../../../../../../src/shared/components/challenge-detail/MySubmissions/SubmissionsList';
+
+jest.mock('services/submissions', () => ({
+  getSubmissionDownloadUrl: jest.fn(),
+}));
 
 /**
  * Renders a My Submissions row and returns its visible provisional score.
@@ -139,5 +144,60 @@ describe('Marathon Match provisional score display', () => {
 
   it('keeps the provisional score hidden while provisional tests are running', () => {
     expect(renderProvisionalScore('provisional')).toBe('-');
+  });
+});
+
+describe('Marathon Match submission download', () => {
+  let originalCreateObjectURL;
+
+  beforeEach(() => {
+    originalCreateObjectURL = window.URL.createObjectURL;
+  });
+
+  afterEach(() => {
+    window.URL.createObjectURL = originalCreateObjectURL;
+    jest.restoreAllMocks();
+    jest.clearAllMocks();
+  });
+
+  it('opens the browser-safe signed URL for an opaque submission id', async () => {
+    const submissionId = 'BKzPfVv24EcINT';
+    const downloadUrl = 'https://storage.example.test/signed-mm-submission';
+    const link = document.createElement('a');
+    link.click = jest.fn();
+    const createObjectURL = jest.fn();
+    window.URL.createObjectURL = createObjectURL;
+    jest.spyOn(document, 'createElement').mockReturnValue(link);
+    mockedGetSubmissionDownloadUrl.mockResolvedValue(downloadUrl);
+
+    const wrapper = shallow(
+      <SubmissionsListView
+        auth={{ tokenV3: 'token-v3' }}
+        challenge={{ id: 'challenge-id', metadata: [] }}
+        challengesUrl="/challenges"
+        hasRegistered
+        isLegacyMM={false}
+        mySubmissions={[
+          {
+            createdAt: '2026-08-11T00:00:00.000Z',
+            status: 'completed',
+            submissionId,
+          },
+        ]}
+        submissionEnded={false}
+        submissionsSort={{ field: '', sort: '' }}
+        unregistering={false}
+      />,
+    );
+
+    wrapper.find('button[aria-label="Download submission"]').prop('onClick')();
+    await Promise.resolve();
+
+    expect(mockedGetSubmissionDownloadUrl).toHaveBeenCalledWith('token-v3', submissionId);
+    expect(link.href).toBe(downloadUrl);
+    expect(link.getAttribute('download')).toBe(`submission-${submissionId}.zip`);
+    expect(link.click).toHaveBeenCalledTimes(1);
+    expect(document.body.contains(link)).toBe(false);
+    expect(createObjectURL).not.toHaveBeenCalled();
   });
 });
