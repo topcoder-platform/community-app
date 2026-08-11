@@ -25,6 +25,37 @@ function getHeaders(tokenV3) {
   return headers;
 }
 
+/**
+ * Requests a short-lived URL for downloading a submission directly from storage.
+ *
+ * @param {String} tokenV3 Topcoder auth token v3 used to authorize the download.
+ * @param {String|Number} submissionId Submission identifier used by the Review API.
+ * @return {Promise<String>} Signed submission download URL.
+ * @throws {Error} Throws when the submission id is empty, the request fails, or no URL is returned.
+ */
+export async function getSubmissionDownloadUrl(tokenV3, submissionId) {
+  const normalizedSubmissionId = String(submissionId).trim();
+  if (!normalizedSubmissionId) {
+    throw new Error('Submission id is required');
+  }
+
+  const response = await fetch(`${v6ApiUrl}/submissions/${encodeURIComponent(normalizedSubmissionId)}/download-url`, {
+    method: 'GET',
+    headers: getHeaders(tokenV3),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get submission download URL: ${response.status} ${response.statusText}`);
+  }
+
+  const payload = await response.json();
+  if (!payload || typeof payload.url !== 'string' || !payload.url.trim()) {
+    throw new Error('Submission download URL is missing');
+  }
+
+  return payload.url.trim();
+}
+
 async function fetchChallengeSubmissionsPage({
   tokenV3,
   challengeId,
