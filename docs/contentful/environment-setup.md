@@ -37,5 +37,38 @@ To run Community App locally against your Contentful account:
     $ source ./set-contentful-env.sh
     $ NODE_CONFIG_ENV=development npm run dev
     ```
+    We have prepared a demo env file you could use to start. You can find it
+    [here](https://gist.github.com/kkartunov/594dc65f76bac6aa800b4764cae72d2e).
 
-    We have prepared a demo env file you could use to start. You can find it [here](https://gist.github.com/kkartunov/594dc65f76bac6aa800b4764cae72d2e).
+### Using the Payload CMS compatibility API
+
+Community App can migrate spaces independently while retaining Contentful for
+spaces that have not been exported. Set the Delivery and Preview host variables
+only for the migrated spaces; values are hostnames without a path. Existing API
+keys remain the bearer credentials for the compatibility API.
+
+```bash
+# Default space
+export CONTENTFUL_CDN_API_HOST="cms.topcoder-dev.com"
+export CONTENTFUL_PREVIEW_API_HOST="cms.topcoder-dev.com"
+
+# EDU space
+export CONTENTFUL_EDU_CDN_API_HOST="cms.topcoder-dev.com"
+export CONTENTFUL_EDU_PREVIEW_API_HOST="cms.topcoder-dev.com"
+
+# TopGear space
+export CONTENTFUL_TOPGEAR_CDN_API_HOST="cms.topcoder-dev.com"
+export CONTENTFUL_TOPGEAR_PREVIEW_API_HOST="cms.topcoder-dev.com"
+```
+
+Zurich and Comcast continue to use Contentful unless host variables are added
+for those spaces in a later migration. To store EDU article votes in Payload,
+also set the full write endpoint and its service credential:
+
+```bash
+export CONTENTFUL_PAYLOAD_VOTE_API_URL="https://cms.topcoder-dev.com/contentful-management/votes"
+export CONTENTFUL_PAYLOAD_MANAGEMENT_API_KEY="<PAYLOAD_SERVICE_CREDENTIAL>"
+```
+
+When the Payload vote URL is unset, Community App retains the existing
+Contentful Management API update-and-publish behavior.

@@ -211,11 +211,17 @@ module.exports = {
       DEFAULT_SPACE_NAME: 'default',
       DEFAULT_ENVIRONMENT: 'master',
       MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
+      /* Optional Payload write-through endpoint. When unset, article votes
+       * continue to use the Contentful Management API. */
+      PAYLOAD_VOTE_API_URL: '',
+      PAYLOAD_MANAGEMENT_API_KEY: '',
       default: { // Human-readable name of space
         SPACE_ID: '',
         master: { // Name of an environment
           CDN_API_KEY: '',
           PREVIEW_API_KEY: '',
+          CDN_API_HOST: '',
+          PREVIEW_API_HOST: '',
         },
       },
       EDU: {
@@ -223,6 +229,8 @@ module.exports = {
         master: {
           CDN_API_KEY: '',
           PREVIEW_API_KEY: '',
+          CDN_API_HOST: '',
+          PREVIEW_API_HOST: '',
         },
       },
       /* Space for expert communities. */
@@ -239,6 +247,8 @@ module.exports = {
         master: {
           CDN_API_KEY: '',
           PREVIEW_API_KEY: '',
+          CDN_API_HOST: '',
+          PREVIEW_API_HOST: '',
         },
       },
       comcast: {
