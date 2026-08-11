@@ -1,6 +1,9 @@
 /* eslint-env jest */
 import { config } from 'topcoder-react-utils';
-import { getChallengeSubmissions } from '../../../src/shared/services/submissions';
+import {
+  getChallengeSubmissions,
+  getSubmissionDownloadUrl,
+} from '../../../src/shared/services/submissions';
 
 const baseUrl = `${config.API.V6}/submissions`;
 
@@ -33,6 +36,36 @@ describe('submissions service', () => {
 
   beforeEach(() => {
     global.fetch = jest.fn();
+  });
+
+  it('returns a signed submission URL without following the storage redirect', async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({
+        url: ' https://storage.example.test/signed-submission ',
+      }),
+    });
+
+    const result = await getSubmissionDownloadUrl('token-v3', 'submission/id');
+
+    expect(result).toBe('https://storage.example.test/signed-submission');
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith(
+      `${baseUrl}/submission%2Fid/download-url`,
+      expect.objectContaining({ method: 'GET' }),
+    );
+    expect(global.fetch.mock.calls[0][1].headers.get('Authorization'))
+      .toBe('Bearer token-v3');
+  });
+
+  it('rejects a submission download response without a signed URL', async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({}),
+    });
+
+    await expect(getSubmissionDownloadUrl('token-v3', 'submission-id'))
+      .rejects.toThrow('Submission download URL is missing');
   });
 
   it('loads every submissions page reported by metadata', async () => {
