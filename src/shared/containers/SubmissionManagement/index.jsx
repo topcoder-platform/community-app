@@ -12,13 +12,22 @@ import SubmissionManagement from 'components/SubmissionManagement/SubmissionMana
 import React from 'react';
 import PT from 'prop-types';
 import { safeForDownload } from 'utils/tc';
+import { getTrackName } from 'utils/challenge';
+import {
+  getActiveSubmissionType,
+  getSubmissionLimit,
+  getSubmissionLimitReachedMessage,
+  hasReachedSubmissionLimit,
+  isSubmissionLimitType,
+} from 'utils/challenge-detail/submission-limit';
 import { connect } from 'react-redux';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import { actions } from 'topcoder-react-lib';
+import { actions, errors } from 'topcoder-react-lib';
 import getReviewSummationsService from 'services/reviewSummations';
 import {
   downloadSubmissions,
+  getChallengeSubmissions,
   getSubmissionArtifacts,
   getSubmissionDownloadUrl,
 } from 'services/submissions';
@@ -146,9 +155,10 @@ const buildScoreEntries = (summations = []) => {
 const theme = {
   container: style.modalContainer,
 };
+const { fireErrorMessage } = errors;
 
 // The container component
-class SubmissionManagementPageContainer extends React.Component {
+export class SubmissionManagementPageContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -162,7 +172,10 @@ class SubmissionManagementPageContainer extends React.Component {
       initialState: true,
       submissions: [],
       reviewSummationsBySubmission: {},
+      submissionLimitCheckPending: false,
     };
+
+    this.submissionLimitCheckPending = false;
   }
 
   componentDidMount() {
@@ -272,7 +285,105 @@ class SubmissionManagementPageContainer extends React.Component {
   componentWillUnmount() {
     this.isComponentMounted = false;
     this.pendingReviewSummationChallengeId = null;
+    this.submissionLimitCheckPending = false;
   }
+
+  /**
+   * Verifies complete Design submission history before opening the upload page.
+   *
+   * Finite checkpoint and contest limits are checked against all matching submissions for the
+   * current member. Unlimited, non-Design, and final-fix links retain normal navigation. Repeated
+   * clicks are ignored while the authoritative lookup is pending.
+   *
+   * @param {Object} event Add Submission link click event.
+   * @return {Promise<void>} Resolves after navigation starts or an explanatory modal is shown.
+   * @throws Does not throw; lookup failures are reported to the member.
+   */
+  onAddSubmission = async (event) => {
+    const {
+      authTokens,
+      challenge,
+      challengeId,
+      challengesUrl,
+      history,
+      mySubmissions,
+    } = this.props;
+    const submissionLimit = getSubmissionLimit(challenge.metadata);
+    const submissionType = getActiveSubmissionType(challenge.phases);
+    const isDesign = _.toLower(getTrackName(challenge.track)) === 'design';
+
+    if (!isDesign || submissionLimit === null || !isSubmissionLimitType(submissionType)) {
+      return;
+    }
+
+    if (event && event.preventDefault) {
+      event.preventDefault();
+    }
+
+    if (this.submissionLimitCheckPending) {
+      return;
+    }
+
+    if (hasReachedSubmissionLimit(challenge.metadata, mySubmissions, challenge.phases)) {
+      fireErrorMessage(
+        'Submission Limit Reached',
+        getSubmissionLimitReachedMessage(submissionLimit),
+      );
+      return;
+    }
+
+    const memberId = _.get(authTokens, 'user.userId');
+    if (!authTokens.tokenV3 || _.isNil(memberId)) {
+      fireErrorMessage(
+        'Unable to Verify Submission Limit',
+        'We could not verify your existing submissions. Please try again.',
+      );
+      return;
+    }
+
+    this.submissionLimitCheckPending = true;
+    this.setState({ submissionLimitCheckPending: true });
+
+    let shouldNavigate = false;
+    try {
+      const existingSubmissions = await getChallengeSubmissions(
+        authTokens.tokenV3,
+        challengeId,
+        {
+          memberId,
+          type: submissionType,
+        },
+      );
+
+      if (!this.isComponentMounted) {
+        return;
+      }
+
+      if (existingSubmissions.data.length >= submissionLimit) {
+        fireErrorMessage(
+          'Submission Limit Reached',
+          getSubmissionLimitReachedMessage(submissionLimit),
+        );
+      } else {
+        shouldNavigate = true;
+      }
+    } catch (error) {
+      if (!this.isComponentMounted) {
+        return;
+      }
+      fireErrorMessage(
+        'Unable to Verify Submission Limit',
+        'We could not verify your existing submissions. Please try again.',
+      );
+    }
+
+    this.submissionLimitCheckPending = false;
+    this.setState({ submissionLimitCheckPending: false }, () => {
+      if (shouldNavigate) {
+        history.push(`${challengesUrl}/${challengeId}/submit`);
+      }
+    });
+  };
 
   buildSubmissionsArray = (source) => {
     const { reviewSummationsBySubmission } = this.state;
@@ -384,7 +495,7 @@ class SubmissionManagementPageContainer extends React.Component {
       toBeDeletedId,
     } = this.props;
 
-    const { submissions } = this.state;
+    const { submissions, submissionLimitCheckPending } = this.state;
 
     if (!challenge.isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
@@ -446,7 +557,9 @@ class SubmissionManagementPageContainer extends React.Component {
               challenge={challenge}
               challengesUrl={challengesUrl}
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
+              onAddSubmission={this.onAddSubmission}
               submissions={submissions}
+              submissionLimitCheckPending={submissionLimitCheckPending}
               showDetails={showDetails}
               submissionWorkflowRuns={submissionWorkflowRuns}
               submissionPhaseStartDate={submissionPhaseStartDate}
@@ -553,6 +666,7 @@ SubmissionManagementPageContainer.propTypes = {
   showDetails: PT.shape().isRequired,
   submissionWorkflowRuns: PT.shape().isRequired,
   loadAiWorkflowRuns: PT.func.isRequired,
+  history: PT.shape().isRequired,
   showModal: PT.bool,
   onCancelSubmissionDelete: PT.func.isRequired,
   toBeDeletedId: PT.string,

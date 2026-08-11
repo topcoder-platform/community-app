@@ -138,7 +138,7 @@ describe('submissions service', () => {
     expect(result.data).toEqual([{ id: 'submission-only-page' }]);
   });
 
-  it('passes latest and member filters to the submissions API', async () => {
+  it('passes latest, member, and submission type filters to the submissions API', async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve({
@@ -154,11 +154,12 @@ describe('submissions service', () => {
     await getChallengeSubmissions('token-v3', 'challenge-id', {
       isLatest: true,
       memberId: '1001',
+      type: 'CHECKPOINT_SUBMISSION',
     });
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(
-      `${baseUrl}?challengeId=challenge-id&perPage=500&page=1&isLatest=true&memberId=1001`,
+      `${baseUrl}?challengeId=challenge-id&perPage=500&page=1&isLatest=true&memberId=1001&type=CHECKPOINT_SUBMISSION`,
       expect.objectContaining({ method: 'GET' }),
     );
   });

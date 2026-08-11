@@ -126,6 +126,7 @@ async function fetchChallengeSubmissionsPage({
  * @param {Number} options.perPage Number of records requested per API page.
  * @param {Boolean} options.isLatest When true, fetch only the latest submission per member.
  * @param {String|Number} options.memberId Optional member id used to fetch one member's history.
+ * @param {String} options.type Optional submission type used to isolate a challenge phase.
  * @return {Promise<{data: Array, meta: Object}>} Aggregated submissions and
  * final response metadata.
  * @throws {Error} Throws when any submissions API page returns a non-2xx status.
@@ -135,6 +136,7 @@ export async function getChallengeSubmissions(tokenV3, challengeId, options = {}
     isLatest,
     memberId,
     perPage = DEFAULT_PER_PAGE,
+    type,
   } = options;
   const { data, meta } = await fetchChallengeSubmissionsPage({
     tokenV3,
@@ -144,6 +146,7 @@ export async function getChallengeSubmissions(tokenV3, challengeId, options = {}
     filters: {
       isLatest: isLatest === undefined ? undefined : isLatest,
       memberId,
+      type,
     },
     aggregated: [],
     meta: null,
