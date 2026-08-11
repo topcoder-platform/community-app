@@ -1,10 +1,39 @@
 import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
+import { errors as mockedErrors } from 'topcoder-react-lib';
 
 import Header from 'components/challenge-detail/Header';
+import TabSelector from 'components/challenge-detail/Header/TabSelector';
+
+jest.mock('topcoder-react-lib', () => ({
+  challenge: {
+    filter: {},
+  },
+  errors: {
+    fireErrorMessage: jest.fn(),
+  },
+  services: {
+    api: {},
+  },
+  tc: {
+    CHALLENGE_STATUS: {
+      ACTIVE: 'ACTIVE',
+      COMPLETED: 'COMPLETED',
+    },
+    OLD_COMPETITION_TRACKS: {},
+  },
+}));
+
+jest.mock('topcoder-react-ui-kit', () => ({
+  PrimaryButton: () => null,
+}));
+
+jest.mock('react-responsive', () => ({
+  useMediaQuery: () => true,
+}));
 
 function collectText(node) {
-  if (typeof node === 'string') {
+  if (typeof node === 'string' || typeof node === 'number') {
     return [node];
   }
 
@@ -16,7 +45,28 @@ function collectText(node) {
     .reduce((acc, child) => acc.concat(collectText(child)), []);
 }
 
-function renderHeader(challengeOverrides = {}) {
+function findSubmitAction(node) {
+  if (!React.isValidElement(node)) {
+    return null;
+  }
+
+  if ((node.props.to || node.props.onClick)
+    && collectText(node).includes('Submit a solution')) {
+    return node;
+  }
+
+  const children = React.Children.toArray(node.props.children);
+  for (let index = 0; index < children.length; index += 1) {
+    const match = findSubmitAction(children[index]);
+    if (match) {
+      return match;
+    }
+  }
+
+  return null;
+}
+
+function renderHeader(challengeOverrides = {}, propOverrides = {}) {
   const renderer = new Renderer();
   renderer.render(
     <Header
@@ -77,6 +127,7 @@ function renderHeader(challengeOverrides = {}) {
       unregisterFromChallenge={jest.fn()}
       unregistering={false}
       viewAsTable={false}
+      {...propOverrides}
     />,
   );
 
@@ -84,6 +135,10 @@ function renderHeader(challengeOverrides = {}) {
 }
 
 describe('Challenge detail header actions', () => {
+  beforeEach(() => {
+    mockedErrors.fireErrorMessage.mockClear();
+  });
+
   test('hides registration and submission actions for classic task challenges', () => {
     const output = renderHeader({
       type: 'Task',
@@ -123,5 +178,89 @@ describe('Challenge detail header actions', () => {
 
     expect(collectText(output)).toContain('Register');
     expect(collectText(output)).toContain('Submit a solution');
+  });
+
+  test('shows the limit-reached message instead of opening the submission page', () => {
+    const output = renderHeader({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '1',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+    }, {
+      hasRegistered: true,
+      mySubmissions: [{ id: 'submission-id' }],
+    });
+    const submitAction = findSubmitAction(output);
+
+    expect(submitAction.props.to).toBeUndefined();
+    submitAction.props.onClick();
+
+    expect(mockedErrors.fireErrorMessage).toHaveBeenCalledWith(
+      'Submission Limit Reached',
+      'This challenge allows only one submission, and you\'ve already submitted.'
+        + ' To replace it, delete your existing submission first.',
+    );
+  });
+
+  test('keeps the submission page available while slots remain', () => {
+    const output = renderHeader({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '2',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+    }, {
+      hasRegistered: true,
+      mySubmissions: [{ id: 'submission-id' }],
+    });
+    const submitAction = findSubmitAction(output);
+
+    expect(submitAction.props.to).toBe('/challenges/challenge-id/submit');
+    expect(submitAction.props.onClick).toBeUndefined();
+    expect(mockedErrors.fireErrorMessage).not.toHaveBeenCalled();
+  });
+});
+
+describe('Challenge detail tab counts', () => {
+  test('renders the MM submission total independently of loaded attempts', () => {
+    const renderer = new Renderer();
+    renderer.render(
+      <TabSelector
+        challenge={{
+          id: 'challenge-id',
+          legacy: {},
+          metadata: [],
+          tags: [],
+          type: 'Marathon Match',
+        }}
+        checkpointCount={0}
+        hasRegistered
+        isLoggedIn
+        isMM
+        mySubmissions={[{ submissionId: 'latest-submission' }]}
+        mySubmissionsCount={3}
+        numOfCheckpointSubmissions={0}
+        numOfRegistrants={4}
+        numOfSubmissions={4}
+        numWinners={0}
+        onSelectorClicked={jest.fn()}
+        onSort={jest.fn()}
+        selectedView="submissions"
+        trackLower="data science"
+        viewAsTable={false}
+      />,
+    );
+
+    const text = collectText(renderer.getRenderOutput());
+    const mySubmissionsLabelIndex = text.indexOf('My Submissions');
+
+    expect(text[mySubmissionsLabelIndex + 1]).toBe(3);
   });
 });

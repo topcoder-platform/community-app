@@ -8,6 +8,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import 'moment-duration-format';
+import { errors } from 'topcoder-react-lib';
 import { isMM, getTrackName, getTypeName } from 'utils/challenge';
 
 import PT from 'prop-types';
@@ -20,6 +21,10 @@ import {
   getTimeLeft,
   isRegistrationPhase,
 } from 'utils/challenge-detail/helper';
+import {
+  getSubmissionLimit,
+  getSubmissionLimitReachedMessage,
+} from 'utils/challenge-detail/submission-limit';
 
 import LeftArrow from 'assets/images/arrow-prev-blue.svg';
 import IconsOpenInNew from 'assets/images/open_in_new.svg';
@@ -38,6 +43,7 @@ import style from './style.scss';
 /* Holds day and hour range in ms. */
 const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
+const { fireErrorMessage } = errors;
 
 export default function ChallengeHeader(props) {
   const {
@@ -63,6 +69,7 @@ export default function ChallengeHeader(props) {
     isMenuOpened,
     submissionEnded,
     mySubmissions,
+    mySubmissionsCount,
     openForRegistrationChallenges,
     onSort,
     viewAsTable,
@@ -100,6 +107,9 @@ export default function ChallengeHeader(props) {
   }
   const showDeadlineDetail = showDeadlineDetailProp;
   const isActivedChallenge = `${status}`.indexOf(CHALLENGE_STATUS.ACTIVE) >= 0;
+  const submissionLimit = getSubmissionLimit(metadata);
+  const isSubmissionLimitReached = submissionLimit !== null
+    && mySubmissions.length >= submissionLimit;
 
   const allPhases = _.filter(challenge.phases || [], p => p.name !== 'Post-Mortem');
   const sortedAllPhases = _.cloneDeep(allPhases)
@@ -359,7 +369,15 @@ export default function ChallengeHeader(props) {
         <PrimaryButton
           disabled={disabled}
           theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
-          to={`${challengesUrl}/${challengeId}/submit`}
+          onClick={isSubmissionLimitReached
+            ? () => fireErrorMessage(
+              'Submission Limit Reached',
+              getSubmissionLimitReachedMessage(submissionLimit),
+            )
+            : undefined}
+          to={isSubmissionLimitReached
+            ? undefined
+            : `${challengesUrl}/${challengeId}/submit`}
           forceA
         >
           <IconsUpload />
@@ -571,6 +589,7 @@ export default function ChallengeHeader(props) {
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
+          mySubmissionsCount={mySubmissionsCount}
           onSort={onSort}
           viewAsTable={viewAsTable}
         />
@@ -585,6 +604,7 @@ ChallengeHeader.defaultProps = {
   isMenuOpened: false,
   hasThriveArticles: false,
   hasRecommendedChallenges: false,
+  mySubmissionsCount: null,
 };
 
 ChallengeHeader.propTypes = {
@@ -639,6 +659,7 @@ ChallengeHeader.propTypes = {
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
+  mySubmissionsCount: PT.number,
   openForRegistrationChallenges: PT.shape().isRequired,
   onSort: PT.func.isRequired,
   viewAsTable: PT.bool.isRequired,

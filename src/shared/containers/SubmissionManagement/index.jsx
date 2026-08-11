@@ -15,15 +15,18 @@ import { safeForDownload } from 'utils/tc';
 import { connect } from 'react-redux';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import { actions, services } from 'topcoder-react-lib';
+import { actions } from 'topcoder-react-lib';
 import getReviewSummationsService from 'services/reviewSummations';
-import { getSubmissionArtifacts, downloadSubmissions } from 'services/submissions';
+import {
+  downloadSubmissions,
+  getSubmissionArtifacts,
+  getSubmissionDownloadUrl,
+} from 'services/submissions';
 
 import style from './styles.scss';
 import smpActions from '../../actions/page/submission_management';
 
 
-const { getService } = services.submissions;
 const SUMMATION_TYPE_PRIORITY = {
   example: 0,
   provisional: 1,
@@ -401,12 +404,10 @@ class SubmissionManagementPageContainer extends React.Component {
       onShowDetails,
       onDelete: onSubmissionDelete,
       onDownload: (challengeType, submissionId) => {
-        const submissionsService = getService(authTokens.tokenV3);
-        submissionsService.downloadSubmission(submissionId)
-          .then((blob) => {
-            const url = window.URL.createObjectURL(new Blob([blob]));
+        getSubmissionDownloadUrl(authTokens.tokenV3, submissionId)
+          .then((downloadUrl) => {
             const link = document.createElement('a');
-            link.href = url;
+            link.href = downloadUrl;
             link.setAttribute('download', `submission-${challengeType}-${submissionId}.zip`);
             document.body.appendChild(link);
             link.click();

@@ -8,8 +8,12 @@
  */
 import actions from 'actions/page/submission';
 import challengeDetailsActions from 'actions/page/challenge-details';
-import { actions as api } from 'topcoder-react-lib';
+import { actions as api, errors } from 'topcoder-react-lib';
 import { isMM } from 'utils/challenge';
+import {
+  getSubmissionLimit,
+  getSubmissionLimitReachedMessage,
+} from 'utils/challenge-detail/submission-limit';
 import communityActions from 'actions/tc-communities';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import shortId from 'shortid';
@@ -19,11 +23,14 @@ import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { getChallengeSubmissions } from 'services/submissions';
+
+const { fireErrorMessage } = errors;
 
 /**
  * SubmissionsPage Container
  */
-class SubmissionsPageContainer extends React.Component {
+export class SubmissionsPageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,9 +61,17 @@ class SubmissionsPageContainer extends React.Component {
     }
   }
 
-  /* A child component has called their submitForm() prop, prepare the passed
-     form data for submission and create a submit action */
-  handleSubmit(body) {
+  /**
+   * Verifies the member has an available slot before creating a submission.
+   *
+   * Unlimited challenges submit immediately. Limited challenges load the member's complete
+   * submission history so direct navigation to this page cannot bypass the header guard.
+   *
+   * @param {FormData} body Prepared submission form data.
+   * @return {Promise<void>} Resolves after submission starts or the member is shown an error.
+   * @throws Does not throw; limit-check failures are reported to the member.
+   */
+  async handleSubmit(body) {
     const {
       tokenV2,
       tokenV3,
@@ -64,7 +79,34 @@ class SubmissionsPageContainer extends React.Component {
       challengeId,
       challenge,
       track,
+      metadata,
+      userId,
     } = this.props;
+
+    const submissionLimit = getSubmissionLimit(metadata);
+    if (submissionLimit !== null) {
+      try {
+        const existingSubmissions = await getChallengeSubmissions(
+          tokenV3,
+          challengeId,
+          { memberId: userId },
+        );
+
+        if (existingSubmissions.data.length >= submissionLimit) {
+          fireErrorMessage(
+            'Submission Limit Reached',
+            getSubmissionLimitReachedMessage(submissionLimit),
+          );
+          return;
+        }
+      } catch (error) {
+        fireErrorMessage(
+          'Unable to Verify Submission Limit',
+          'We could not verify your existing submissions. Please try again.',
+        );
+        return;
+      }
+    }
 
     submit(tokenV3, tokenV2, challengeId, body, isMM(challenge) ? 'DEVELOP' : track);
   }

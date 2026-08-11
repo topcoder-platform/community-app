@@ -4,6 +4,7 @@ import {
   isGroupedChallenge,
   isGroupedChallengeAccessError,
   isWiproRegistrationBlocked,
+  mapStateToProps,
   shouldLoginForGroupedChallenge,
   shouldLoginForGroupedChallengeError,
 } from 'containers/challenge-detail';
@@ -73,6 +74,64 @@ describe('Challenge detail winners filter', () => {
     expect(winners).toEqual([
       { handle: 'taskWinner', type: 'provisional' },
     ]);
+  });
+});
+
+describe('Challenge detail My Submissions count', () => {
+  test('uses the total attempt count when only the latest MM submission is loaded', () => {
+    const state = {
+      auth: {
+        user: {
+          handle: 'member',
+          userId: '123',
+        },
+      },
+      challenge: {
+        checkpoints: {},
+        details: {
+          id: 'challenge-id',
+          registrants: [{ memberHandle: 'member', memberId: '123' }],
+          submissions: [],
+        },
+        mmSubmissions: {
+          challengeId: 'challenge-id',
+          data: [{
+            member: 'member',
+            memberId: '123',
+            submissionCount: 3,
+            submissions: [{ submissionId: 'latest-submission' }],
+          }],
+        },
+        reviewSummations: [],
+        statisticsData: [],
+      },
+      challengeListing: {},
+      domain: {},
+      lookup: {
+        allCountries: [],
+        reviewTypes: [],
+      },
+      page: {
+        challengeDetails: {
+          feedbackOpen: {},
+        },
+      },
+      tcCommunities: {
+        list: {},
+      },
+      terms: {},
+      topcoderHeader: {},
+    };
+
+    const props = mapStateToProps(state, {
+      challengesUrl: '/challenges',
+      match: {
+        params: { challengeId: 'challenge-id' },
+      },
+    });
+
+    expect(props.mySubmissions).toHaveLength(1);
+    expect(props.mySubmissionsCount).toBe(3);
   });
 });
 

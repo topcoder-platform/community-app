@@ -57,6 +57,8 @@ export default function SubmissionRow({
   const testProgress = getSubmissionTestProgress(latestSubmission);
   const hideProvisionalScore = testProgress.process !== 'system'
     && isActiveTestStatus(testProgress.status);
+  const hideFinalScore = testProgress.process === 'system'
+    && isActiveTestStatus(testProgress.status);
 
   const getInitialReviewResult = () => {
     if (status === 'failed') {
@@ -81,7 +83,7 @@ export default function SubmissionRow({
   };
 
   const getFinalReviewResult = () => {
-    if (!showFinalResults || _.isNil(finalScore)) {
+    if (hideFinalScore || !showFinalResults || _.isNil(finalScore)) {
       return 'N/A';
     }
     if (finalScore < 0) {
