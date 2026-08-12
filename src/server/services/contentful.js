@@ -6,6 +6,7 @@
 import _ from 'lodash';
 import config from 'config';
 import { createClient } from 'contentful';
+import https from 'https';
 import fetch from 'isomorphic-fetch';
 import { logger } from 'topcoder-react-lib';
 import { isomorphy } from 'topcoder-react-utils';
@@ -16,6 +17,15 @@ import {
 } from './contentful-endpoints';
 
 const contentful = require('contentful-management');
+
+/**
+ * Process-wide HTTPS connection pool shared by every server-side Contentful
+ * Delivery, Preview, and Management SDK client. Node 10 does not enable
+ * keep-alive on its default agent, so reusing this agent avoids a new TCP/TLS
+ * connection for each CMS request while leaving browser requests unchanged.
+ * @type {https.Agent}
+ */
+const contentfulHttpsAgent = new https.Agent({ keepAlive: true });
 
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
@@ -63,6 +73,7 @@ class ApiService {
     // client config
     const clientConf = {
       accessToken: key,
+      httpsAgent: contentfulHttpsAgent,
       space: spaceId,
       logHandler,
       host,
@@ -182,6 +193,7 @@ export function articleVote(body) {
 
   const client = contentful.createClient({
     accessToken: config.SECRET.CONTENTFUL.MANAGEMENT_TOKEN,
+    httpsAgent: contentfulHttpsAgent,
   });
   return client.getSpace(config.SECRET.CONTENTFUL.EDU.SPACE_ID)
     .then(space => space.getEnvironment('master'))

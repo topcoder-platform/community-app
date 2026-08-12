@@ -5,6 +5,25 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { ArticleLoader } from 'components/Contentful/ArticleCard';
 
+// Contentful applies `select` to both entries and resolved includes. Keep only
+// Article small fields, plus the linked author identity and Asset file payload.
+const TRACK_CARD_SELECT = [
+  'sys.id',
+  'sys.type',
+  'fields.externalArticle',
+  'fields.contentUrl',
+  'fields.slug',
+  'fields.title',
+  'fields.tags',
+  'fields.readTime',
+  'fields.creationDate',
+  'fields.upvotes',
+  'fields.commentsCount',
+  'fields.featuredImage',
+  'fields.contentAuthor',
+  'fields.file',
+].join(',');
+
 export default function TrackCards(props) {
   const { track, theme } = props;
   return (
@@ -14,6 +33,7 @@ export default function TrackCards(props) {
         'fields.trackCategory': track,
         limit: 3,
         order: '-sys.createdAt',
+        select: TRACK_CARD_SELECT,
       }}
       spaceName="EDU"
       render={(data) => {
