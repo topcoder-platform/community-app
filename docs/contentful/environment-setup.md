@@ -59,6 +59,9 @@ export CONTENTFUL_EDU_PREVIEW_API_HOST="cms.topcoder-dev.com"
 # TopGear space
 export CONTENTFUL_TOPGEAR_CDN_API_HOST="cms.topcoder-dev.com"
 export CONTENTFUL_TOPGEAR_PREVIEW_API_HOST="cms.topcoder-dev.com"
+
+# Public S3/CloudFront origin returned for migrated asset bytes
+export PAYLOAD_CMS_ASSET_URL="https://assets.topcoder-dev.com"
 ```
 
 Zurich and Comcast continue to use Contentful unless host variables are added
@@ -72,3 +75,7 @@ export CONTENTFUL_PAYLOAD_MANAGEMENT_API_KEY="<PAYLOAD_SERVICE_CREDENTIAL>"
 
 When the Payload vote URL is unset, Community App retains the existing
 Contentful Management API update-and-publish behavior.
+
+`PAYLOAD_CMS_ASSET_URL` is added to the server's image and media Content
+Security Policy directives. Set it to the environment-specific Payload asset
+origin; do not include a path.

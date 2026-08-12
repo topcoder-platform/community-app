@@ -111,6 +111,7 @@ module.exports = {
     /* This is the same value as above, but it is used by topcoder-react-lib,
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
+    CMS_ASSETS: 'https://assets.topcoder-dev.com',
     CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
     COPILOTS_URL: 'https://copilots.topcoder-dev.com',
     ENGAGEMENTS_APP: 'https://engagements.topcoder-dev.com',
