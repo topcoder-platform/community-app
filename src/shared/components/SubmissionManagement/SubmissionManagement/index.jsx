@@ -10,7 +10,7 @@
  * onDownload() (to be triggered by download icon)
  * onOpenOnlineReview(submissionId); onHelp(submissionId);
  * onShowDetails(submissionId);
- * onSubmit() - to trigger when user clicks Add Submission button.
+ * onAddSubmission() - to verify the active submission limit before opening the upload page.
  */
 
 import _ from 'lodash';
@@ -44,6 +44,8 @@ export default function SubmissionManagement(props) {
     onDownloadArtifacts,
     getSubmissionArtifacts,
     getSubmissionScores,
+    onAddSubmission,
+    submissionLimitCheckPending,
   } = props;
 
   const { track } = challenge;
@@ -56,9 +58,11 @@ export default function SubmissionManagement(props) {
   const currentPhase = challenge.phases
     .filter(p => p.name !== 'Registration' && p.isOpen)
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
-  const submissionPhase = challenge.phases.filter(p => p.name === 'Submission')[0];
+  const submissionPhase = challenge.phases.find(
+    phase => phase.name === 'Checkpoint Submission' && phase.isOpen,
+  ) || challenge.phases.find(phase => phase.name === 'Submission' && phase.isOpen);
   const submissionEndDate = submissionPhase && phaseEndDate(submissionPhase);
-  const isSubmissionPhaseOpen = Boolean(submissionPhase && submissionPhase.isOpen);
+  const isSubmissionPhaseOpen = Boolean(submissionPhase);
 
   const now = moment();
   const end = moment(currentPhase && currentPhase.scheduledEndDate);
@@ -196,10 +200,12 @@ export default function SubmissionManagement(props) {
       {isSubmissionPhaseOpen && now.isBefore(submissionEndDate) && (
       <div styleName="btn-wrap">
         <PrimaryButton
+          disabled={submissionLimitCheckPending}
+          onClick={onAddSubmission}
           theme={{
             button: style['add-sub-btn'],
           }}
-          to={`${challengeUrl}/submit`}
+          to={submissionLimitCheckPending ? undefined : `${challengeUrl}/submit`}
         >
           {
                (!isDevelop || !submissions || submissions.length === 0)
@@ -219,11 +225,13 @@ SubmissionManagement.defaultProps = {
   onDownloadArtifacts: _.noop,
   getSubmissionArtifacts: _.noop,
   getSubmissionScores: _.noop,
+  onAddSubmission: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
   loadingSubmissions: false,
   challengeUrl: '',
   submissions: [],
+  submissionLimitCheckPending: false,
 };
 
 SubmissionManagement.propTypes = {
@@ -238,7 +246,9 @@ SubmissionManagement.propTypes = {
   onDownloadArtifacts: PT.func,
   getSubmissionArtifacts: PT.func,
   getSubmissionScores: PT.func,
+  onAddSubmission: PT.func,
   submissions: PT.arrayOf(PT.shape()),
+  submissionLimitCheckPending: PT.bool,
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,
   submissionPhaseStartDate: PT.string.isRequired,

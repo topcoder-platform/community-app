@@ -24,6 +24,7 @@ import {
 import {
   getSubmissionLimit,
   getSubmissionLimitReachedMessage,
+  hasReachedSubmissionLimit,
 } from 'utils/challenge-detail/submission-limit';
 
 import LeftArrow from 'assets/images/arrow-prev-blue.svg';
@@ -70,8 +71,10 @@ export default function ChallengeHeader(props) {
     submissionEnded,
     mySubmissions,
     mySubmissionsCount,
+    onSubmitChallenge,
     openForRegistrationChallenges,
     onSort,
+    submissionLimitCheckPending,
     viewAsTable,
   } = props;
 
@@ -108,8 +111,12 @@ export default function ChallengeHeader(props) {
   const showDeadlineDetail = showDeadlineDetailProp;
   const isActivedChallenge = `${status}`.indexOf(CHALLENGE_STATUS.ACTIVE) >= 0;
   const submissionLimit = getSubmissionLimit(metadata);
-  const isSubmissionLimitReached = submissionLimit !== null
-    && mySubmissions.length >= submissionLimit;
+  const isSubmissionLimitReached = _.toLower(getTrackName(track)) === 'design'
+    && hasReachedSubmissionLimit(
+      metadata,
+      mySubmissions,
+      challenge.phases,
+    );
 
   const allPhases = _.filter(challenge.phases || [], p => p.name !== 'Post-Mortem');
   const sortedAllPhases = _.cloneDeep(allPhases)
@@ -328,6 +335,7 @@ export default function ChallengeHeader(props) {
   }
 
   const disabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
+  const submitDisabled = disabled || submissionLimitCheckPending;
   const registerButtonDisabled = registering
     || registrationEnded
     || isLegacyMM
@@ -367,15 +375,15 @@ export default function ChallengeHeader(props) {
           </PrimaryButton>
         )}
         <PrimaryButton
-          disabled={disabled}
-          theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
+          disabled={submitDisabled}
+          theme={{ button: submitDisabled ? style.submitButtonDisabled : style.submitButton }}
           onClick={isSubmissionLimitReached
             ? () => fireErrorMessage(
               'Submission Limit Reached',
               getSubmissionLimitReachedMessage(submissionLimit),
             )
-            : undefined}
-          to={isSubmissionLimitReached
+            : onSubmitChallenge}
+          to={isSubmissionLimitReached || submissionLimitCheckPending
             ? undefined
             : `${challengesUrl}/${challengeId}/submit`}
           forceA
@@ -605,6 +613,7 @@ ChallengeHeader.defaultProps = {
   hasThriveArticles: false,
   hasRecommendedChallenges: false,
   mySubmissionsCount: null,
+  submissionLimitCheckPending: false,
 };
 
 ChallengeHeader.propTypes = {
@@ -660,7 +669,9 @@ ChallengeHeader.propTypes = {
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
   mySubmissionsCount: PT.number,
+  onSubmitChallenge: PT.func.isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
   onSort: PT.func.isRequired,
+  submissionLimitCheckPending: PT.bool,
   viewAsTable: PT.bool.isRequired,
 };
