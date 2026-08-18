@@ -90,7 +90,7 @@ export default function Topcoder() {
                   <Route
                     component={ProfileBadges}
                     exact
-                    path="/members/:handle([\w\-\[\].{} ]{2,15})/badges"
+                    path="/members/:handle([^/]{2,})/badges"
                   />
                 )
               }

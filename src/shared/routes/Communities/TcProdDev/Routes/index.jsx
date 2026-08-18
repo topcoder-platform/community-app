@@ -80,7 +80,7 @@ export default function TcProdDev({ base, meta }) {
               <Route
                 render={props => <ProfileStats {...props} meta={meta} />}
                 exact
-                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+                path={`${base}/members/:handle([^/]{2,})/details`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}
