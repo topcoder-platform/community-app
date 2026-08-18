@@ -56,7 +56,7 @@ function Routes({ communityId }) {
         <Route
           component={ProfileRedirect}
           exact
-          path="/members/:handle([\w\-\[\].{} ]{2,15})"
+          path="/members/:handle([^/]{2,})"
         />
         <div>
           {metaTags}
@@ -185,7 +185,7 @@ function Routes({ communityId }) {
         <Route
           component={ProfileRedirect}
           exact
-          path="/members/:handle([\w\-\[\].{} ]{2,15})"
+          path="/members/:handle([^/]{2,})"
         />
         <Route
           component={RedirectMemberSearch}
