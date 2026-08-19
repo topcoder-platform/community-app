@@ -11,7 +11,7 @@ import ModalDeleteConfirmation from '../../modal-delete-confirmation';
 import ModalPhotoViewer from '../../modal-photo-viewer';
 
 import './styles.scss';
-import { DEFAULT_AVATAR_URL } from '../../../../utils/url';
+import { DEFAULT_AVATAR_URL, getMemberProfileUrl } from '../../../../utils/url';
 
 function ApprovalItem({
   className, event, removeEvent, userAvatars, deleteEvent, onApproveEvent,
@@ -36,7 +36,7 @@ function ApprovalItem({
               <div styleName="separator" />
               <img width="24" height="24" src={photoURL} alt="avatar" />
               <a
-                href={`${window.origin}/members/${event.createdBy}`}
+                href={getMemberProfileUrl(event.createdBy)}
                 target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                 rel="noopener noreferrer"
                 styleName="text-handle"

@@ -260,19 +260,17 @@ exports[`Matches shallow shapshot 1`] = `
        
       endpoint. Valid links on dev:
       <br />
-      <Link
-        replace={false}
-        to="/members/TonyJ"
+      <a
+        href="https://profiles.topcoder-dev.com/TonyJ"
       >
         Profile 1.
-      </Link>
+      </a>
       <br />
-      <Link
-        replace={false}
-        to="/members/mess"
+      <a
+        href="https://profiles.topcoder-dev.com/mess"
       >
         Profile 2.
-      </Link>
+      </a>
     </li>
     <li>
       Stand-alone terms of use page: ‌

@@ -9,6 +9,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import cn from 'classnames';
+import { getMemberProfileUrl } from 'utils/url';
 import './style.scss';
 
 export default class GSheet extends Component {
@@ -88,7 +89,7 @@ export default class GSheet extends Component {
                   {
                     (config.pick || sheet.rows[0]._sheet.headerValues).map(c => (
                       <td key={`${record._rowNumber}-${c}`} title={record[c]} styleName="body-row">
-                        {c.toLowerCase() === 'handle' ? (<a styleName="handle-link" href={`${window.origin}/members/${record[c]}`} target="_blank" rel="noreferrer">{record[c]}</a>) : record[c]}
+                        {c.toLowerCase() === 'handle' ? (<a styleName="handle-link" href={getMemberProfileUrl(record[c])} target="_blank" rel="noreferrer">{record[c]}</a>) : record[c]}
                       </td>
                     ))
                   }

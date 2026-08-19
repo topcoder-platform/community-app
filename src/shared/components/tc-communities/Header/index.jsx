@@ -19,6 +19,7 @@ import {
   isomorphy,
 } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
+import { getMemberProfileUrl } from 'utils/url';
 import Dropdown from 'components/tc-communities/Dropdown';
 import { themr } from 'react-css-super-themr';
 import Menu from 'components/Contentful/Menu';
@@ -74,7 +75,7 @@ function Header(props) {
   let userSubMenu;
 
   if (profile) {
-    let profileLink = `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/members/${normalizedProfile.handle}`;
+    let profileLink = getMemberProfileUrl(normalizedProfile.handle);
     let paymentsLink = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
 
     // Handle Wipro specific links (PS-257)

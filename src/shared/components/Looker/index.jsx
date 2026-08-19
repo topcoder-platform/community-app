@@ -22,6 +22,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { fixStyle } from 'utils/contentful';
 import { getRatingColor } from 'utils/tc';
+import { getMemberProfileUrl } from 'utils/url';
 import cn from 'classnames';
 import { Scrollbars } from 'react-custom-scrollbars';
 import './style.scss';
@@ -208,7 +209,7 @@ export default class Looker extends Component {
                 return value ? (
                   <td key={cellKey} style={fixStyle(styles)} title={value} styleName="body-row">
                     {memberLinks ? (
-                      <a styleName="handle-link" href={`${window.origin}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`} style={{ color: ratingProp ? getRatingColor(record[ratingProp]) : null }}>
+                      <a styleName="handle-link" href={getMemberProfileUrl(value)} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`} style={{ color: ratingProp ? getRatingColor(record[ratingProp]) : null }}>
                         {value}
                       </a>
                     ) : value}

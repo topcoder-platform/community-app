@@ -10,6 +10,7 @@ import _ from 'lodash';
 import cn from 'classnames';
 import { getRatingLevel } from 'utils/tc';
 import { getTrackName } from 'utils/challenge';
+import { getMemberProfileUrl } from 'utils/url';
 
 import sortList from 'utils/challenge-detail/sort';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
@@ -464,7 +465,7 @@ export default class Registrants extends React.Component {
                      </div>
                      <span role="cell">
                        <a
-                         href={`${window.origin}/members/${r.memberHandle}`}
+                         href={getMemberProfileUrl(r.memberHandle)}
                          styleName={isDesign ? '' : `level-${getRatingLevel(_.get(r, 'rating', 0))}`}
                          target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                        >

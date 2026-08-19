@@ -32,8 +32,8 @@ exports[`Default render 1`] = `
               "title": "Home",
             },
             Object {
-              "href": "/members/willFilledByUserName",
-              "id": "myprofile",
+              "href": "https://profiles.topcoder-dev.com/huanner",
+              "id": "profile",
               "logged": true,
               "title": "My Profile",
             },

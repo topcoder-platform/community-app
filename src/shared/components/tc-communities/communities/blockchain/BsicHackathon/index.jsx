@@ -1,6 +1,7 @@
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import React from 'react';
 import { Link } from 'topcoder-react-utils';
+import { getMemberProfileUrl } from 'utils/url';
 
 import HeadBannerImage from
   'assets/images/communities/blockchain/bsic-hackathon/head-banner.jpg';
@@ -187,42 +188,42 @@ export default function BsicHackathon() {
                     Trevor Campbell (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/tdcampbell/"
+                      to={getMemberProfileUrl('tdcampbell')}
                     >
                       tdcampbell
                     </Link>
                     ), Todd Schultz (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/tschultz1216/"
+                      to={getMemberProfileUrl('tschultz1216')}
                     >
                       tschultz1216
                     </Link>
                     ), Sam Blumenthal (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/sam.blumenthal/"
+                      to={getMemberProfileUrl('sam.blumenthal')}
                     >
                       sam.blumenthal
                     </Link>
                     ), Gurmeet Budhraja (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/khojsolutions/"
+                      to={getMemberProfileUrl('khojsolutions')}
                     >
                       khojsolutions
                     </Link>
                     ), Madhu Machavarapu (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/94madhu94/"
+                      to={getMemberProfileUrl('94madhu94')}
                     >
                       94madhu94
                     </Link>
                     ), Urja Pawar (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/urjapawar/"
+                      to={getMemberProfileUrl('urjapawar')}
                     >
                       urjapawar
                     </Link>
@@ -253,21 +254,21 @@ export default function BsicHackathon() {
                     Elisa Pasquali (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/epg/"
+                      to={getMemberProfileUrl('epg')}
                     >
                       epg
                     </Link>
                     ), Ana Zamfir (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/ancaz/"
+                      to={getMemberProfileUrl('ancaz')}
                     >
                       ancaz
                     </Link>
                     ), Ioana Stanescu (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/osninja/"
+                      to={getMemberProfileUrl('osninja')}
                     >
                       osninja
                     </Link>
@@ -318,14 +319,14 @@ export default function BsicHackathon() {
                     Val Denay Mack (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/valem21/"
+                      to={getMemberProfileUrl('valem21')}
                     >
                       valem21
                     </Link>
                     ), Gael Gundin (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/wapinpana/"
+                      to={getMemberProfileUrl('wapinpana')}
                     >
                       wapinpana
                     </Link>
@@ -356,42 +357,42 @@ export default function BsicHackathon() {
                     Rahul Bansal (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/rahulb/"
+                      to={getMemberProfileUrl('rahulb')}
                     >
                       rahulb
                     </Link>
                     ), Siddharth Swarnkar (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/siddharthsoni/"
+                      to={getMemberProfileUrl('siddharthsoni')}
                     >
                       siddharthsoni
                     </Link>
                     ), Sundari Narayan Swami (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/sswami/"
+                      to={getMemberProfileUrl('sswami')}
                     >
                       sswami
                     </Link>
                     ), Bhavyaa Rastogi (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/krusherz/"
+                      to={getMemberProfileUrl('krusherz')}
                     >
                       krusherz
                     </Link>
                     ), Carlos Rojas Noveron (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/CarlosNoveron/"
+                      to={getMemberProfileUrl('CarlosNoveron')}
                     >
                       CarlosNoveron
                     </Link>
                     ), Dr. Hugh Gosnell (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/hugh_g/"
+                      to={getMemberProfileUrl('hugh_g')}
                     >
                       hugh_g
                     </Link>
@@ -441,42 +442,42 @@ export default function BsicHackathon() {
                     Sajida Zouarhi (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/sajz/"
+                      to={getMemberProfileUrl('sajz')}
                     >
                       SajZ
                     </Link>
                     ), Noah Basri (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/noah-basri/"
+                      to={getMemberProfileUrl('noah-basri')}
                     >
                       Noah-Basri
                     </Link>
                     ), Maroussia Arnault (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/marou_kid/"
+                      to={getMemberProfileUrl('marou_kid')}
                     >
                       Marou_Kid
                     </Link>
                     ), Amelia Lintern-Smith (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/amelials/"
+                      to={getMemberProfileUrl('amelials')}
                     >
                       amelials
                     </Link>
                     ), Clément Massonnaud (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/clemass/"
+                      to={getMemberProfileUrl('clemass')}
                     >
                       CleMass
                     </Link>
                     ), Mathieu Vincens (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/Mathvincens/"
+                      to={getMemberProfileUrl('Mathvincens')}
                     >
                       Mathvincens
                     </Link>
@@ -507,35 +508,35 @@ export default function BsicHackathon() {
                     Alexander S. Blum (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/ablumbc/"
+                      to={getMemberProfileUrl('ablumbc')}
                     >
                       ablumbc
                     </Link>
                     ), Meredith Finkelstein (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/msrobot0/"
+                      to={getMemberProfileUrl('msrobot0')}
                     >
                       msrobot0
                     </Link>
                     ), Seth Weiner (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/sethweiner/"
+                      to={getMemberProfileUrl('sethweiner')}
                     >
                       sethweiner
                     </Link>
                     ), Chris Jaroszewski (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/CJaroszewski/"
+                      to={getMemberProfileUrl('CJaroszewski')}
                     >
                       Cjaroszewski
                     </Link>
                     ) , Peter Lyons (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/anemas971/"
+                      to={getMemberProfileUrl('anemas971')}
                     >
                       Anemas971
                     </Link>
@@ -590,21 +591,21 @@ export default function BsicHackathon() {
                     Philipp Beer (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/Depose/"
+                      to={getMemberProfileUrl('Depose')}
                     >
                       Depose
                     </Link>
                     ), Lewis Daly (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/lwilld/"
+                      to={getMemberProfileUrl('lwilld')}
                     >
                       lwilld
                     </Link>
                     ), Billy Garrison (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/BillyGarrison/"
+                      to={getMemberProfileUrl('BillyGarrison')}
                     >
                       BillyGarrison
                     </Link>
@@ -632,42 +633,42 @@ export default function BsicHackathon() {
                     Ylli Vllasolli (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/Team-Thor/"
+                      to={getMemberProfileUrl('Team-Thor')}
                     >
                       Team-Thor
                     </Link>
                     ), Charlotte Stephens (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/Charlotte-Thor/"
+                      to={getMemberProfileUrl('Charlotte-Thor')}
                     >
                       Charlotte-Thor
                     </Link>
                     ), Bayo Akins (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/BayoAkins/"
+                      to={getMemberProfileUrl('BayoAkins')}
                     >
                       Bayoakins
                     </Link>
                     ), Erica Sundberg (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/e5r34t/"
+                      to={getMemberProfileUrl('e5r34t')}
                     >
                       e5r34t
                     </Link>
                     ), Stephen Jackson (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/stevejaxon/"
+                      to={getMemberProfileUrl('stevejaxon')}
                     >
                       stevejaxon
                     </Link>
                     ), Ife Nkechukwu (
                     <Link
                       openNewTab
-                      to="https://www.topcoder.com/members/ife-thor/"
+                      to={getMemberProfileUrl('ife-thor')}
                     >
                       ife-thor
                     </Link>

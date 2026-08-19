@@ -2,6 +2,7 @@ import { redux } from 'topcoder-react-utils';
 import Service from 'services/recruitCRM';
 import _ from 'lodash';
 import { getCustomField } from 'utils/gigs';
+import { getMemberProfileUrl } from 'utils/url';
 
 /**
  * Jobs page fetch init
@@ -86,7 +87,7 @@ function normalizeRecruitPayload(job, payload) {
     custom_fields: [
       {
         field_id: 1,
-        value: payload.tcProfileLink || (payload.handle ? `https://topcoder.com/members/${payload.handle}` : ''),
+        value: payload.tcProfileLink || (payload.handle ? getMemberProfileUrl(payload.handle) : ''),
       },
       {
         field_id: 2,

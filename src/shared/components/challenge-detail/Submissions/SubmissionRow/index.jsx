@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { CHALLENGE_STATUS, getRatingLevel } from 'utils/tc';
+import { getMemberProfileUrl } from 'utils/url';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/icon-close-green.svg';
 import moment from 'moment';
@@ -123,7 +124,7 @@ export default function SubmissionRow({
   const ratingLevelStyle = `col level-${getRatingLevel(rating)}`;
   const memberHandle = member || '';
   const memberDisplay = memberHandle || '-';
-  const memberProfileUrl = memberHandle ? `${window.origin}/members/${memberHandle}` : null;
+  const memberProfileUrl = memberHandle ? getMemberProfileUrl(memberHandle) : null;
   const memberLinkTarget = `${_.includes(window.origin, 'www') ? '_self' : '_blank'}`;
   const memberForHistory = memberHandle || memberDisplay;
   const latestSubmissionId = latestSubmission.submissionId || latestSubmission.id || 'N/A';

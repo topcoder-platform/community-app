@@ -22,6 +22,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { fixStyle } from 'utils/contentful';
 import { getRatingColor } from 'utils/tc';
+import { getMemberProfileUrl } from 'utils/url';
 import cn from 'classnames';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { config } from 'topcoder-react-utils';
@@ -94,10 +95,10 @@ export default class MMLeaderboard extends Component {
                     <div className={defaultStyles.topMemberPhotoAndPlace}>
                       <img src={member.photoUrl || DEFAULT_AVATAR_URL} className={defaultStyles.topMemberPhoto} alt={`Avatar of ${member.createdBy}`} />
                       <div className={defaultStyles[`topMemberRank${indx + 1}`]}>{member.rank}</div>
-                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
+                      <a href={getMemberProfileUrl(member.createdBy)} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                     </div>
                     <div className={defaultStyles.topMemberLink}>
-                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
+                      <a href={getMemberProfileUrl(member.createdBy)} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                       <p className={defaultStyles.topMemberScore}>{member.score}</p>
                     </div>
                   </div>
@@ -107,10 +108,10 @@ export default class MMLeaderboard extends Component {
                 <div className={defaultStyles.topMemberPhotoAndPlace}>
                   <img src={data[2].photoUrl || DEFAULT_AVATAR_URL} className={defaultStyles.topMemberPhoto} alt={`Avatar of ${data[2].createdBy}`} />
                   <div className={defaultStyles.topMemberRank3}>{data[2].rank}</div>
-                  <a href={`${config.URL.BASE}/members/${data[2].createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].rating) }}>{data[2].createdBy}</a>
+                  <a href={getMemberProfileUrl(data[2].createdBy)} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].rating) }}>{data[2].createdBy}</a>
                 </div>
                 <div className={defaultStyles.topMemberLink}>
-                  <a href={`${config.URL.BASE}/members/${data[2].createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].rating) }}>{data[2].createdBy}</a>
+                  <a href={getMemberProfileUrl(data[2].createdBy)} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].rating) }}>{data[2].createdBy}</a>
                   <p className={defaultStyles.topMemberScore}>{data[2].score}</p>
                 </div>
               </div>
@@ -120,7 +121,7 @@ export default class MMLeaderboard extends Component {
                 {_.slice(data, 3, 7).map(member => (
                   <div className={defaultStyles.follower}>
                     <span>{member.rank}.&nbsp;</span>
-                    <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
+                    <a href={getMemberProfileUrl(member.createdBy)} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                     <span className={defaultStyles.followerScore}>{member.score}</span>
                   </div>
                 ))}
@@ -131,7 +132,7 @@ export default class MMLeaderboard extends Component {
                   {_.slice(data, 7, 10).map(member => (
                     <div className={defaultStyles.follower}>
                       <span>{member.rank}.&nbsp;</span>
-                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
+                      <a href={getMemberProfileUrl(member.createdBy)} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                       <span className={defaultStyles.followerScore}>{member.score}</span>
                     </div>
                   ))}
@@ -249,7 +250,7 @@ export default class MMLeaderboard extends Component {
                 }
                 return value ? (
                   <td key={record[prop]} style={fixStyle(styles)} title={value} className={defaultStyles['body-row']}>
-                    {memberLinks ? (<a className={defaultStyles['handle-link']} href={`${window.origin}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>{value}</a>) : value}
+                    {memberLinks ? (<a className={defaultStyles['handle-link']} href={getMemberProfileUrl(value)} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>{value}</a>) : value}
                   </td>
                 ) : null;
               })

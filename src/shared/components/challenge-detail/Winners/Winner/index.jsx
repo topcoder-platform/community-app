@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import { formatOrdinals, numberWithCommas } from 'utils/challenge-detail/helper';
 import { getMMSubmissionId } from 'utils/submissions';
+import { getMemberProfileUrl } from 'utils/url';
 import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 
 import style from './style.scss';
@@ -75,7 +76,7 @@ export default function Winner({
             />
             <div>
               <a
-                href={`${windowOrigin}/members/${winner.handle}`}
+                href={getMemberProfileUrl(winner.handle)}
                 styleName="handle"
                 target={`${_.includes(windowOrigin, 'www') ? '_self' : '_blank'}`}
               >

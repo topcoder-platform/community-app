@@ -12,6 +12,7 @@ import DropdownSkills from 'components/GUIKit/DropdownSkills';
 import RadioButton from 'components/GUIKit/RadioButton';
 import Checkbox from 'components/GUIKit/Checkbox';
 import { getCustomField } from 'utils/gigs';
+import { getMemberProfileUrl } from 'utils/url';
 import Modal from 'components/Contentful/Modal';
 import FilestackFilePicker from 'components/GUIKit/FilePicker';
 import Dropdown from 'components/GUIKit/Dropdown';
@@ -238,11 +239,11 @@ export default function GigApply(props) {
                           readonly
                         />
                         <TextInput
-                          placeholder="Topcoder Profile (topcoder.com/members/[username])"
+                          placeholder="Topcoder Profile (profiles.topcoder.com/[username])"
                           label="Topcoder Profile"
                           onChange={val => onFormInputChange('tcProfileLink', val)}
                           errorMsg={formErrors.tcProfileLink}
-                          value={formData.handle ? `https://topcoder.com/members/${formData.handle}` : null}
+                          value={formData.handle ? getMemberProfileUrl(formData.handle) : null}
                           readonly
                         />
                       </div>
