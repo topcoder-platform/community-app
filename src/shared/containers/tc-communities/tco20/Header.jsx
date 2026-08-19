@@ -7,7 +7,7 @@ import { Link, config } from 'topcoder-react-utils';
 import { connect } from 'react-redux';
 import { Avatar } from 'topcoder-react-ui-kit';
 import MediaQuery from 'react-responsive';
-import { getCurrentUrl } from 'utils/url';
+import { getCurrentUrl, getMemberProfileUrl } from 'utils/url';
 import TCO20Logo from 'assets/themes/tco/TCO20.svg';
 import defaultStyle from './header.scss';
 
@@ -18,7 +18,10 @@ function TCO20Header(props) {
       {
         auth && auth.profile ? (
           <React.Fragment>
-            <Link to={`${base}/members/${auth.profile.handle}`} className={defaultStyle.userMenuHandle}>
+            <Link
+              to={getMemberProfileUrl(auth.profile.handle)}
+              className={defaultStyle.userMenuHandle}
+            >
               {auth.profile.handle}
             </Link>
             <Avatar url={auth.profile.photoURL} />

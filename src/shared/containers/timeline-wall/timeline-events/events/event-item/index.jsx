@@ -13,7 +13,7 @@ import ModalPhotoViewer from '../../../modal-photo-viewer';
 import PhotoItemsMobile from '../../../photo-items-mobile';
 import ModalDeleteConfirmation from '../../../modal-delete-confirmation';
 import './styles.scss';
-import { DEFAULT_AVATAR_URL } from '../../../../../utils/url';
+import { DEFAULT_AVATAR_URL, getMemberProfileUrl } from '../../../../../utils/url';
 
 function EventItem({
   className, isLeft, eventItem, deleteEvent, isAdmin, userAvatars, idPrefix,
@@ -86,7 +86,7 @@ function EventItem({
             <img width="23" height="23" src={photoURL} alt="avatar" />
             <a
               styleName="text-handle"
-              href={`${window.origin}/members/${eventItem.createdBy}`}
+              href={getMemberProfileUrl(eventItem.createdBy)}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
             >{eventItem.createdBy}

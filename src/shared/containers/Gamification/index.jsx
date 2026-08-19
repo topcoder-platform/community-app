@@ -11,6 +11,7 @@ import YouGotSkillsModal from 'components/Gamification/YouGotSkillsModal';
 import { keys } from 'lodash';
 import cookies from 'browser-cookies';
 import { actions } from 'topcoder-react-lib';
+import { getMemberProfileUrl } from 'utils/url';
 
 const REMIND_TIME_COOKIE_NAME = 'tc_skills_remind_time';
 const REMIND_TIME = 604800000; // a week
@@ -98,7 +99,7 @@ class GamificationContainer extends React.Component {
       ...profile,
     });
     // Send them to profile page
-    window.location = `/members/${auth.user.handle}`;
+    window.location = getMemberProfileUrl(auth.user.handle);
   }
 
   onYouGotSkillsModalCancel() {

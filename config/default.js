@@ -314,9 +314,9 @@ module.exports = {
           logged: true,
         },
         {
-          id: 'myprofile',
+          id: 'profile',
           title: 'My Profile',
-          href: '/members/willFilledByUserName',
+          href: 'https://profiles.topcoder-dev.com/willFilledByUserName',
           logged: true,
         },
         {

@@ -100,9 +100,9 @@ module.exports = {
           logged: true,
         },
         {
-          id: 'myprofile',
+          id: 'profile',
           title: 'My Profile',
-          href: '/members/willFilledByUserName?ref=nav',
+          href: 'https://profiles.topcoder.com/willFilledByUserName',
           logged: true,
         },
         {

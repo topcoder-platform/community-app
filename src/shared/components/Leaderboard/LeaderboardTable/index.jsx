@@ -29,6 +29,7 @@ import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 import { getRatingColor } from 'utils/tc';
+import { getMemberProfileUrl } from 'utils/url';
 
 
 import avatarStyles from '../avatarStyles.scss';
@@ -126,7 +127,7 @@ export default function LeaderboardTable(props) {
                 </div>
               ) : (
                 <a
-                  href={`${config.URL.BASE}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                  href={getMemberProfileUrl(competitor['member_profile_basic.handle'] || competitor.handle)}
                   target="_blank"
                   rel="noreferrer"
                   style={{ color: rating !== undefined ? getRatingColor(rating) : null }}

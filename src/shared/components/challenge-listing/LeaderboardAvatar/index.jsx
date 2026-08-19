@@ -5,6 +5,7 @@ import PT from 'prop-types';
 import { config, Link } from 'topcoder-react-utils';
 import _ from 'lodash';
 import { formatOrdinals } from 'utils/challenge-listing/helper';
+import { getMemberProfileUrl } from 'utils/url';
 import './style.scss';
 
 /* TODO: Should be functional component! */
@@ -21,7 +22,7 @@ class LeaderboardAvatar extends Component {
       onClick, plusOne, url,
     } = this.props;
     const { member } = this.state;
-    const targetURL = url || `${window.origin}/members/${member.handle}`;
+    const targetURL = url || getMemberProfileUrl(member.handle);
     let { photoURL } = member;
     if (photoURL) {
       /* Note: 50px is larger than we really need here (the avatar size is

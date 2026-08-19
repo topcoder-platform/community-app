@@ -14,6 +14,7 @@ import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
 import { loadPublicStatsOnly } from 'utils/memberStats';
+import { getMemberProfileUrl } from 'utils/url';
 
 // how many challenges to query per batch
 const CHALLENGE_PER_PAGE = 36;
@@ -100,7 +101,7 @@ class ProfileContainer extends React.Component {
         if (profileConfig && profileConfig.userProfile
           && memberGroups.indexOf(profileConfig.groupId) === -1) {
           if (window.location.href.indexOf(profileConfig.communityName) !== -1) {
-            window.location.href = `${config.URL.BASE}/members/${handleParam}`;
+            window.location.href = getMemberProfileUrl(handleParam);
           }
           return false;
         }

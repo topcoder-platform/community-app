@@ -134,7 +134,7 @@ export class HeaderPage {
    * Gets the notification bell icon
    */
   private async getBellIcon() {
-    const xpath = `//a[contains(@href, '/members/${ConfigHelper.getUserName()}')]/parent::div/parent::div/div[position()=1]`;
+    const xpath = `//a[contains(@href, 'profiles.topcoder') and contains(@href, '/${ConfigHelper.getUserName()}')]/parent::div/parent::div/div[position()=1]`;
     const els = await ElementHelper.getAllElementsByXPath(xpath);
     return els[1];
   }

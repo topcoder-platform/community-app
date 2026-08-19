@@ -25,6 +25,7 @@ import { shouldShowFinalMmResults as resolveShouldShowFinalMmResults } from 'uti
 import { getSubmissionId } from 'utils/submissions';
 import { compressFiles } from 'utils/files';
 import { buildMmSubmissionData } from 'utils/mm-review-summations';
+import { getMemberProfileUrl } from 'utils/url';
 import { getChallengeSubmissions as getChallengeSubmissionsService } from 'services/submissions';
 
 import sortList from 'utils/challenge-detail/sort';
@@ -1008,7 +1009,7 @@ class SubmissionsComponent extends React.Component {
               {`#${s.id}`}
             </a>
             <a
-              href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
+              href={getMemberProfileUrl(_.get(s.registrant, 'memberHandle', ''))}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
               styleName={`level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
