@@ -147,6 +147,61 @@ export function removeTrailingSlash(url) {
 }
 
 /**
+ * Get the direct URL for a member profile.
+ *
+ * @param {String} handle Topcoder member handle.
+ * @return {String} URL of the member's profile in the configured environment.
+ */
+export function getMemberProfileUrl(handle) {
+  return `${config.MEMBER_PROFILE_REDIRECT_URL}/${handle}`;
+}
+
+/**
+ * Point the profile entry in a navigation menu directly to the profile app.
+ * The id is changed because navigation-component replaces "myprofile" URLs
+ * with its legacy /members/:handle route.
+ *
+ * @param {Array} menu Navigation menu configuration.
+ * @param {String} handle Topcoder member handle.
+ * @return {Array} Navigation menu with a direct member profile link.
+ */
+export function getMenuWithDirectProfileLink(menu, handle) {
+  if (!handle) return menu;
+
+  return menu.map(item => (item.secondaryMenu ? {
+    ...item,
+    secondaryMenu: item.secondaryMenu.map(secondaryItem => (
+      ['myprofile', 'profile'].includes(secondaryItem.id)
+        ? {
+          ...secondaryItem,
+          id: 'profile',
+          href: getMemberProfileUrl(handle),
+        }
+        : secondaryItem
+    )),
+  } : item));
+}
+
+/**
+ * Update exact legacy profile anchors rendered by navigation-component.
+ *
+ * @param {Element|Document} root Root node containing navigation links.
+ * @param {String} handle Topcoder member handle.
+ * @return {void}
+ */
+export function updateLegacyProfileLinks(root, handle) {
+  if (!root || !handle) return;
+
+  const legacyProfilePath = `/members/${handle}`;
+  _.forEach(root.querySelectorAll('a[href]'), (link) => {
+    const href = link.getAttribute('href');
+    if (href && href.replace(/\/$/, '') === legacyProfilePath) {
+      link.setAttribute('href', getMemberProfileUrl(handle));
+    }
+  });
+}
+
+/**
  * Get Payment page url from header menu.
  *
  * @return {String}

@@ -5,6 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
+import { getMemberProfileUrl } from 'utils/url';
 
 import './styles.scss';
 
@@ -33,7 +34,7 @@ const ApplicationsTab = ({ applications }) => (
         && applications.filter(app => app.status !== 'CANCELLED').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
-              <a href={`${window.origin}/members/${app.handle}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
+              <a href={getMemberProfileUrl(app.handle)} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
                 {app.handle}
               </a>
             </div>

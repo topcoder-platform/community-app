@@ -34,7 +34,7 @@
   },
   "subMenuUrlsAfterLogin": {
     "dashboard": "http://localhost:3000/my-dashboard",
-    "myProfile": "http://localhost:3000/members/CustomerUser",
+    "myProfile": "https://profiles.topcoder-dev.com/CustomerUser",
     "payments": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
     "forums": "https://apps.topcoder.com/forums/"
   },

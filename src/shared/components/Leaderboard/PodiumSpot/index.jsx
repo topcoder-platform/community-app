@@ -32,6 +32,7 @@ import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
 import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 import { getRatingColor } from 'utils/tc';
+import { getMemberProfileUrl } from 'utils/url';
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -164,7 +165,7 @@ export default function PodiumSpot(props) {
         ) : (
           <a
             styleName={`${stylesName}.profile-link`}
-            href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+            href={getMemberProfileUrl(competitor['member_profile_basic.handle'] || competitor.handle)}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
           >
@@ -261,7 +262,7 @@ export default function PodiumSpot(props) {
               ) : (
                 <a
                   styleName={`${stylesName}.profile-link`}
-                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                  href={getMemberProfileUrl(competitor['member_profile_basic.handle'] || competitor.handle)}
                   target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                 >
                   {competitor['member_profile_basic.handle'] || competitor.handle}
@@ -287,7 +288,7 @@ export default function PodiumSpot(props) {
                 ) : (
                   <a
                     styleName={`${stylesName}.profile-link`}
-                    href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                    href={getMemberProfileUrl(competitor['member_profile_basic.handle'] || competitor.handle)}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                   >

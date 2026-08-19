@@ -34,7 +34,7 @@
   },
   "subMenuUrlsAfterLogin": {
     "dashboard": "https://community-app.topcoder-dev.com/my-dashboard",
-    "myProfile": "https://community-app.topcoder-dev.com/members/tester1234",
+    "myProfile": "https://profiles.topcoder-dev.com/tester1234",
     "payments": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
     "competitiveProgramming": "https://community-app.topcoder-dev.com/community/arena",
     "forums": "https://apps.topcoder-dev.com/forums/"

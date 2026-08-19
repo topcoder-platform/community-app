@@ -6,6 +6,7 @@
 import Error404 from 'components/Error404';
 import React from 'react';
 import PT from 'prop-types';
+import { getMemberProfileUrl } from 'utils/url';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 
@@ -21,6 +22,10 @@ export default function AssetDetail({
 }) {
   const assets = assetsData.filter(item => item.id === assetId);
   const asset = assets[0];
+  const abstract = asset && asset.abstract.replace(
+    /https:\/\/www\.topcoder\.com\/members\/([^/'"]+)\/?/g,
+    (_legacyUrl, handle) => getMemberProfileUrl(handle),
+  );
   return (
     typeof asset === 'undefined'
       ? <Error404 />
@@ -37,7 +42,7 @@ export default function AssetDetail({
               <h2>
                 Asset Details
               </h2>
-              <div dangerouslySetInnerHTML={{ __html: asset.abstract }} />
+              <div dangerouslySetInnerHTML={{ __html: abstract }} />
               <p>
                 <a href={asset.githubUrl} styleName="github">
                   { asset.githubUrl }
@@ -59,7 +64,7 @@ export default function AssetDetail({
                     Topcoder Winner
                   </h4>
 
-                  <a href={asset.author.profileURL} target="_blank" rel="noreferrer noopener">
+                  <a href={getMemberProfileUrl(asset.author.name)} target="_blank" rel="noreferrer noopener">
                     { asset.author.name }
                   </a>
                   <div>

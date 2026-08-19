@@ -12,6 +12,10 @@ import { connect } from 'react-redux';
 import Logo from 'assets/images/tc-logo.svg';
 import { isomorphy, config } from 'topcoder-react-utils';
 import actions from 'actions/contentful';
+import {
+  getMenuWithDirectProfileLink,
+  updateLegacyProfileLinks,
+} from 'utils/url';
 
 
 class MenuLoaderContainer extends React.Component {
@@ -51,6 +55,18 @@ class MenuLoaderContainer extends React.Component {
         baseUrl,
       });
     }
+    this.refreshProfileLinks();
+  }
+
+  componentDidUpdate() {
+    this.refreshProfileLinks();
+  }
+
+  refreshProfileLinks() {
+    const { auth } = this.props;
+    if (isomorphy.isClientSide()) {
+      updateLegacyProfileLinks(document, _.get(auth, 'profile.handle'));
+    }
   }
 
   handleChangeLevel1Id(menuId) {
@@ -87,12 +103,16 @@ class MenuLoaderContainer extends React.Component {
       } else {
         normalizedProfile = null;
       }
+      const menuWithDirectProfileLink = getMenuWithDirectProfileLink(
+        menu,
+        _.get(auth, 'profile.handle'),
+      );
       if (fields.theme.indexOf('TCO22') !== -1) {
         // eslint-disable-next-line global-require
         const { TopNav: TopNavTCO, LoginNav: LoginNavTCO } = require('navigation-component-tco');
         return (
           <TopNavTCO
-            menu={menu}
+            menu={menuWithDirectProfileLink}
             rightMenu={(
               <LoginNavTCO
                 loggedIn={!_.isEmpty(auth.profile)}
@@ -126,7 +146,7 @@ class MenuLoaderContainer extends React.Component {
       const { TopNav, LoginNav } = require('navigation-component');
       return (
         <TopNav
-          menu={menu}
+          menu={menuWithDirectProfileLink}
           rightMenu={(
             <LoginNav
               loggedIn={!_.isEmpty(auth.profile)}

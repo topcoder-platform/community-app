@@ -7,6 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { isomorphy } from 'topcoder-react-utils';
+import { getMemberProfileUrl } from 'utils/url';
 
 import './style.scss';
 
@@ -247,13 +248,13 @@ export default function Content() {
           endpoint.
           Valid links on dev:
           <br />
-          <Link to="/members/TonyJ">
+          <a href={getMemberProfileUrl('TonyJ')}>
             Profile 1.
-          </Link>
+          </a>
           <br />
-          <Link to="/members/mess">
+          <a href={getMemberProfileUrl('mess')}>
             Profile 2.
-          </Link>
+          </a>
         </li>
         <li>
           Stand-alone terms of use page:

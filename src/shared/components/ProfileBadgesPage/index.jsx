@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import { Modal } from 'topcoder-react-ui-kit';
 import IconClose from 'assets/images/tc-edu/icon-close-big.svg';
 import FallBackAwardIcon from 'assets/images/default-award.svg';
 import md from 'utils/markdown';
+import { getMemberProfileUrl } from 'utils/url';
 import { format } from 'date-fns';
 import AwardModal from '../ProfilePage/Awards/AwardModal';
 
@@ -17,8 +17,8 @@ const ProfileBadges = ({ badges, handleParam }) => {
 
   return (
     <div styleName="outer-container">
-      <Link
-        to={`/members/${handleParam}`}
+      <a
+        href={getMemberProfileUrl(handleParam)}
         styleName="memberPageBackLink"
       >
         <svg
@@ -36,7 +36,7 @@ const ProfileBadges = ({ badges, handleParam }) => {
           />
         </svg>
         Return to Profile
-      </Link>
+      </a>
       <div styleName="badgesWrap">
         <div styleName="seactionTitle">COMMUNITY AWARDS & HONORS</div>
         <div styleName="badgesGrid">

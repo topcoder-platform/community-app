@@ -1,8 +1,12 @@
 import _ from 'lodash';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
 import Logo from 'assets/images/TC-logo-new.svg';
+import {
+  getMenuWithDirectProfileLink,
+  updateLegacyProfileLinks,
+} from 'utils/url';
 import { tracking } from '../../actions';
 
 import './style.scss';
@@ -23,6 +27,7 @@ const Header = ({
   profile, auth, notifications, loadNotifications, markNotificationAsRead,
   markAllNotificationAsRead, markAllNotificationAsSeen, dismissChallengeNotifications, headerMenu,
 }) => {
+  const headerRef = useRef(null);
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
   const [openMore, setOpenMore] = useState(true);
@@ -51,9 +56,18 @@ const Header = ({
     normalizedProfile = null;
   }
 
+  const menu = getMenuWithDirectProfileLink(
+    headerMenu || config.HEADER_MENU,
+    profile && profile.handle,
+  );
+
   useEffect(() => {
     setPath(window.location.pathname + window.location.search);
   }, []);
+
+  useEffect(() => {
+    updateLegacyProfileLinks(headerRef.current, profile && profile.handle);
+  }, [profile]);
 
   /*
   * Load Notifications and Init Google Analytics
@@ -71,9 +85,9 @@ const Header = ({
 
   if (TopNavRef) {
     return (
-      <div styleName="nav-header-wrapper">
+      <div ref={headerRef} styleName="nav-header-wrapper">
         <TopNavRef
-          menu={headerMenu || config.HEADER_MENU}
+          menu={menu}
           rightMenu={(
             <LoginNavRef
               loggedIn={!_.isEmpty(profile)}

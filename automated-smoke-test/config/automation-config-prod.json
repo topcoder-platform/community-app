@@ -34,7 +34,7 @@
   },
   "subMenuUrlsAfterLogin": {
     "dashboard": "https://www.topcoder.com/my-dashboard",
-    "myProfile": "https://www.topcoder.com/members/CustomerUser",
+    "myProfile": "https://profiles.topcoder.com/CustomerUser",
     "payments": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
     "forums": "https://apps.topcoder.com/forums/"
   },

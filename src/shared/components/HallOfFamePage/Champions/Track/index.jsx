@@ -5,6 +5,7 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { themr } from 'react-css-super-themr';
+import { getMemberProfileUrl } from 'utils/url';
 
 import defaultStyles from './styles.scss';
 
@@ -22,7 +23,7 @@ const Track = ({
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.champion}>
           <a
-            to={`${window.origin}/members/${member.fields.handle}`}
+            href={getMemberProfileUrl(member.fields.handle)}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
           >
             {member.fields.handle}
