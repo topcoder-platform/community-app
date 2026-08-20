@@ -488,11 +488,12 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
  * Action to get a list of currently open Review Opportunities using V3 API
  * @param {String} uuid Unique identifier for init/donen instance from shortid module
  * @param {Number} page Page of review opportunities to fetch.
- * @param {String} tokenV3 Optional. Topcoder auth token v3.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3. Required for the
+ *  API to return opportunities of group restricted (private) challenges.
  * @return {Object} Action object
  */
-function getReviewOpportunitiesDone(uuid, page) {
-  return getReviewOpportunities(page, REVIEW_OPPORTUNITY_PAGE_SIZE)
+function getReviewOpportunitiesDone(uuid, page, tokenV3) {
+  return getReviewOpportunities(page, REVIEW_OPPORTUNITY_PAGE_SIZE, tokenV3)
     .then(loaded => ({ uuid, loaded }))
     .catch((error) => {
       fireErrorMessage('Error Getting Review Opportunities', error.content || error);

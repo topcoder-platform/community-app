@@ -28,11 +28,12 @@ function getDetailsInit() {}
  *  the specified challenge.
  * @param {Number} challengeId The ID of the challenge (not the opportunity id)
  * @param {Number} opportunityId The ID of the review opportunity
- * @param {String} tokenV3=null Optional. Topcoder auth token v3.
+ * @param {String} tokenV3=null Optional. Topcoder auth token v3. Required for
+ *  the API to serve opportunities of group restricted (private) challenges.
  * @return {Action}
  */
-function getDetailsDone(challengeId, opportunityId) {
-  return getDetails(challengeId, opportunityId)
+function getDetailsDone(challengeId, opportunityId, tokenV3) {
+  return getDetails(challengeId, opportunityId, tokenV3)
     .then(details => ({ details }))
     .catch((error) => {
       if (error.status !== 401) {

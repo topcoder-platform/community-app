@@ -28,20 +28,37 @@ function buildChallengeFallback(opportunity, challengeId) {
 }
 
 /**
- * Fetches copilot opportunities.
+ * Builds the request options for review opportunity reads.
+ * The token must be forwarded so that the API can evaluate the caller against
+ * the groups of private challenges; anonymous calls only receive opportunities
+ * of public challenges.
+ *
+ * @param {String} tokenV3 Optional. Topcoder auth token v3.
+ * @returns {Object} Fetch options for a GET request.
+ */
+function getRequestOptions(tokenV3) {
+  return {
+    method: 'GET',
+    headers: tokenV3 ? { Authorization: `Bearer ${tokenV3}` } : {},
+  };
+}
+
+/**
+ * Fetches review opportunities.
  *
  * @param {number} page - Page number (1-based).
  * @param {number} pageSize - Number of items per page.
+ * @param {String} tokenV3 - Optional. Topcoder auth token v3.
  * @returns {Promise<Object>} The fetched data.
  */
-export default async function getReviewOpportunities(page, pageSize) {
+export default async function getReviewOpportunities(page, pageSize, tokenV3) {
   const offset = page * pageSize;
 
   const url = new URL(`${v6ApiUrl}/review-opportunities`);
   url.searchParams.append('limit', pageSize);
   url.searchParams.append('offset', offset);
 
-  const res = await fetch(url.toString(), { method: 'GET' });
+  const res = await fetch(url.toString(), getRequestOptions(tokenV3));
 
   if (!res.ok) {
     throw new Error(res.statusText);
@@ -56,16 +73,19 @@ export default async function getReviewOpportunities(page, pageSize) {
 /**
    * Gets the details of the review opportunity for the corresponding challenge
    * @param {Number} challengeId The ID of the challenge (not the opportunity id)
+   * @param {Number} opportunityId The ID of the review opportunity
+   * @param {String} tokenV3 Optional. Topcoder auth token v3.
    * @return {Object} The combined data of the review opportunity and challenge details
    */
-export async function getDetails(challengeId, opportunityId) {
+export async function getDetails(challengeId, opportunityId, tokenV3) {
   const getReviewOpportunityUrl = new URL(`${v6ApiUrl}/review-opportunities/${opportunityId}`);
   const getChallengeUrl = new URL(`${v6ApiUrl}/challenges/${challengeId}`);
+  const options = getRequestOptions(tokenV3);
 
   try {
     const [opportunityRes, challengeRes] = await Promise.all([
-      fetch(getReviewOpportunityUrl.toString(), { method: 'GET' }),
-      fetch(getChallengeUrl.toString(), { method: 'GET' }),
+      fetch(getReviewOpportunityUrl.toString(), options),
+      fetch(getChallengeUrl.toString(), options),
     ]);
 
     if (!opportunityRes.ok) {
