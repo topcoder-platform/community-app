@@ -603,6 +603,7 @@ export class ListingContainer extends React.Component {
     if (!allReviewOpportunitiesLoaded) {
       loadMoreReviewOpportunities = () => getReviewOpportunities(
         1 + lastRequestedPageOfReviewOpportunities,
+        tokenV3,
       );
     }
 
@@ -1001,10 +1002,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
       dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
     },
-    getReviewOpportunities: (page) => {
+    getReviewOpportunities: (page, tokenV3) => {
       const uuid = shortId();
       dispatch(a.getReviewOpportunitiesInit(uuid, page));
-      dispatch(a.getReviewOpportunitiesDone(uuid, page));
+      dispatch(a.getReviewOpportunitiesDone(uuid, page, tokenV3));
     },
     getCopilotOpportunities: (page) => {
       const uuid = shortId();

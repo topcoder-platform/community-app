@@ -1,4 +1,4 @@
-import { getDetails } from 'services/reviewOpportunities';
+import getReviewOpportunities, { getDetails } from 'services/reviewOpportunities';
 
 describe('shared/services/reviewOpportunities.getDetails', () => {
   let originalFetch;
@@ -97,5 +97,68 @@ describe('shared/services/reviewOpportunities.getDetails', () => {
     await expect(getDetails('12345', 'opp-3')).rejects.toThrow(
       'Failed to load review opportunity: Not Found',
     );
+  });
+});
+
+describe('shared/services/reviewOpportunities auth token forwarding', () => {
+  let originalFetch;
+
+  beforeAll(() => {
+    originalFetch = global.fetch;
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+    jest.clearAllMocks();
+  });
+
+  test('sends the auth token when listing review opportunities', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve([]),
+    });
+
+    await getReviewOpportunities(0, 10, 'token-v3');
+
+    expect(global.fetch).toHaveBeenCalledWith(expect.any(String), {
+      method: 'GET',
+      headers: { Authorization: 'Bearer token-v3' },
+    });
+  });
+
+  test('omits the authorization header for anonymous listing requests', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve([]),
+    });
+
+    await getReviewOpportunities(0, 10);
+
+    expect(global.fetch).toHaveBeenCalledWith(expect.any(String), {
+      method: 'GET',
+      headers: {},
+    });
+  });
+
+  test('sends the auth token when loading review opportunity details', async () => {
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ result: { content: { id: 'opp-4' } } }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ id: '12345' }),
+      });
+
+    await getDetails('12345', 'opp-4', 'token-v3');
+
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+    global.fetch.mock.calls.forEach(([, options]) => {
+      expect(options).toEqual({
+        method: 'GET',
+        headers: { Authorization: 'Bearer token-v3' },
+      });
+    });
   });
 });
