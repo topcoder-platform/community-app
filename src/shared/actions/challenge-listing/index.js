@@ -590,6 +590,7 @@ export default createActions({
     DROP_PAST_CHALLENGES: _.noop,
     DROP_MY_PAST_CHALLENGES: _.noop,
     DROP_RECOMMENDED_CHALLENGES: _.noop,
+    DROP_REVIEW_OPPORTUNITIES: _.noop,
 
     // GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     // GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,

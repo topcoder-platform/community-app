@@ -821,6 +821,13 @@ function create(initialState) {
       lastRequestedPageOfPastChallenges: -1,
       loadingPastChallengesUUID: '',
     }),
+    [a.dropReviewOpportunities]: state => ({
+      ...state,
+      allReviewOpportunitiesLoaded: false,
+      reviewOpportunities: [],
+      lastRequestedPageOfReviewOpportunities: -1,
+      loadingReviewOpportunitiesUUID: '',
+    }),
     [a.expandTag]: (state, { payload }) => ({
       ...state,
       expandedTags: [...state.expandedTags, payload],
