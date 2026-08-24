@@ -109,7 +109,7 @@ export class ListingContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const {
-      // activeBucket,
+      activeBucket,
       auth,
       // dropChallenges,
       communityId,
@@ -134,6 +134,8 @@ export class ListingContainer extends React.Component {
       dropOpenForRegistrationChallenges,
       dropPastChallenges,
       getPastChallenges,
+      dropReviewOpportunities,
+      getReviewOpportunities,
       filterState,
       loading,
       setFilter,
@@ -144,6 +146,12 @@ export class ListingContainer extends React.Component {
 
     if (userId !== oldUserId) {
       getCommunitiesList(auth);
+    }
+    if (prevProps.auth.tokenV3 !== auth.tokenV3) {
+      dropReviewOpportunities();
+      if (activeBucket === BUCKETS.REVIEW_OPPORTUNITIES) {
+        getReviewOpportunities(0, auth.tokenV3);
+      }
     }
     // console.log(prevProps);
     // const { profile } = auth;
@@ -794,6 +802,7 @@ ListingContainer.propTypes = {
   dropOpenForRegistrationChallenges: PT.func.isRequired,
   dropActiveChallenges: PT.func.isRequired,
   dropPastChallenges: PT.func.isRequired,
+  dropReviewOpportunities: PT.func.isRequired,
   filter: PT.shape().isRequired,
   hideSrm: PT.bool,
   // hideTcLinksInSidebarFooter: PT.bool,
@@ -997,6 +1006,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(ca.getListDone(uuid, auth));
     },
     dropPastChallenges: () => dispatch(a.dropPastChallenges()),
+    dropReviewOpportunities: () => dispatch(a.dropReviewOpportunities()),
     getPastChallenges: (page, filter, token, frontFilter) => {
       const uuid = shortId();
       dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
