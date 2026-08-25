@@ -2,6 +2,7 @@ const SUBMISSION_LIMIT_METADATA_NAME = 'submissionLimit';
 const CHECKPOINT_SUBMISSION_TYPE = 'CHECKPOINT_SUBMISSION';
 const CONTEST_SUBMISSION_TYPE = 'CONTEST_SUBMISSION';
 const FINAL_FIX_SUBMISSION_TYPE = 'STUDIO_FINAL_FIX_SUBMISSION';
+const SUBMISSION_PHASE_NAMES = ['Checkpoint Submission', 'Submission'];
 
 /**
  * Converts a metadata value to a positive integer submission limit.
@@ -162,6 +163,33 @@ function normalizeSubmissionType(value) {
   }
 
   return normalizedValue;
+}
+
+/**
+ * Checks whether a submission was created by the currently open submission phase.
+ *
+ * Submitters may only remove a submission while the phase that produced it is still open. A
+ * checkpoint submission therefore stops being deletable as soon as the Checkpoint Submission
+ * phase ends, even though the Submission phase opens right after it, and nothing is deletable
+ * once every submission phase is closed (screening, review, appeals, ...).
+ *
+ * @param {Object} submission Member submission, using the V6 `type` or legacy `submissionType`.
+ * @param {Array<Object>} phases Challenge phases.
+ * @return {Boolean} Whether the submission belongs to the currently open submission phase.
+ * @throws Does not throw; missing submissions or phases resolve to false.
+ */
+export function belongsToActiveSubmissionPhase(submission, phases) {
+  const challengePhases = Array.isArray(phases) ? phases : [];
+  const hasOpenSubmissionPhase = challengePhases.some(phase => (
+    phase && phase.isOpen && SUBMISSION_PHASE_NAMES.includes(phase.name)
+  ));
+
+  if (!submission || !hasOpenSubmissionPhase) {
+    return false;
+  }
+
+  return normalizeSubmissionType(submission.type || submission.submissionType)
+    === getActiveSubmissionType(challengePhases);
 }
 
 /**

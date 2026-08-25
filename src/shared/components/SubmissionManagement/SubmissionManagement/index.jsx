@@ -40,7 +40,6 @@ export default function SubmissionManagement(props) {
     onShowDetails,
     challengeUrl,
     onlineReviewUrl,
-    submissionPhaseStartDate,
     onDownloadArtifacts,
     getSubmissionArtifacts,
     getSubmissionScores,
@@ -191,7 +190,6 @@ export default function SubmissionManagement(props) {
              showDetails={showDetails}
              track={trackName}
              status={challenge.status}
-             submissionPhaseStartDate={submissionPhaseStartDate}
              {...componentConfig}
            />
            )
@@ -251,5 +249,4 @@ SubmissionManagement.propTypes = {
   submissionLimitCheckPending: PT.bool,
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,
-  submissionPhaseStartDate: PT.string.isRequired,
 };
