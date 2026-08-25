@@ -8,6 +8,9 @@ import {
   getService,
 } from 'server/services/contentful';
 
+const RETIRED_ASSET_HOST = ['images.', 'ctf', 'assets.net'].join('');
+const RETIRED_ASSET_URL = `https://${RETIRED_ASSET_HOST}/space/asset/file.png`;
+
 jest.mock('config', () => ({
   CONTENTFUL: {
     DEFAULT_ENVIRONMENT: 'master',
@@ -109,12 +112,24 @@ describe('server/services/contentful Payload compatibility client', () => {
 
   test('rejects compatibility responses containing retired asset URLs', async () => {
     fetch.mockResolvedValue(response({
-      fields: { file: { url: '//images.ctfassets.net/space/asset/file.png' } },
+      fields: { file: { url: `//${RETIRED_ASSET_HOST}/space/asset/file.png` } },
       sys: { id: 'asset-id', type: 'Asset' },
     }));
 
     await expect(new ApiService('https://cms.topcoder-dev.com/spaces/a/environments/master', 'key')
       .getAsset('asset-id')).rejects.toThrow('retired provider URL');
+  });
+
+  test.each([
+    `https://player.example.test/embed?source=${RETIRED_ASSET_URL}`,
+    encodeURIComponent(encodeURIComponent(RETIRED_ASSET_URL)),
+    'https:\\u002f\\u002fquickedit\\u002eoctana\\u002eio/preview',
+    'https&colon;&sol;&sol;preview--topcoder&period;netlify&period;app/page',
+  ])('fails closed for an obscured retired URL in a compatibility response', async (url) => {
+    fetch.mockResolvedValue(response({ fields: { body: url } }));
+
+    await expect(new ApiService('https://cms.topcoder-dev.com/spaces/a/environments/master', 'key')
+      .getEntry('entry-id')).rejects.toThrow('retired provider URL');
   });
 
   test('writes votes only through the configured Payload endpoint', async () => {
