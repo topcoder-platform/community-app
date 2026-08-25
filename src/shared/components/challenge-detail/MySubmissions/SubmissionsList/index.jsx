@@ -17,6 +17,7 @@ import DateSortIcon from 'assets/images/icon-date-sort.svg';
 import SortIcon from 'assets/images/icon-sort.svg';
 import Tooltip from 'components/Tooltip';
 import IconFail from '../../icons/failed.svg';
+import IconTestCancelled from '../../icons/cancelled.svg';
 import IconTestInProgress from '../../icons/clock.svg';
 import IconTestSuccess from '../../icons/check-mark.svg';
 import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
@@ -127,17 +128,19 @@ function normalizeTestProcess(value) {
  */
 function normalizeTestStatus(value) {
   const normalized = _.toUpper(_.toString(value || '').trim());
-  if (['FAILED', 'IN PROGRESS', 'SUCCESS'].indexOf(normalized) >= 0) {
+  if (['CANCELLED', 'FAILED', 'IN PROGRESS', 'SUCCESS'].indexOf(normalized) >= 0) {
     return normalized;
   }
   return undefined;
 }
 
 /**
- * Returns whether a Marathon Match test status still represents active testing.
+ * Returns whether a Marathon Match test status produced no score to display.
+ * Running tests have no score yet, and a run cancelled because the member
+ * submitted a newer solution never produces one.
  *
  * @param {String} status normalized test status from review summation metadata.
- * @returns {Boolean} true when scoring should remain hidden until testing completes.
+ * @returns {Boolean} true when scoring should stay hidden for the submission.
  */
 export function isActiveTestStatus(status) {
   const normalized = normalizeTestStatus(status);
@@ -254,6 +257,17 @@ function renderTestStatusIcon(status) {
         styleName="test-status-icon test-status-failed"
       >
         <IconFail />
+      </span>
+    );
+  }
+  if (status === 'CANCELLED') {
+    return (
+      <span
+        aria-label="Test status: CANCELLED"
+        role="img"
+        styleName="test-status-icon test-status-cancelled"
+      >
+        <IconTestCancelled />
       </span>
     );
   }
@@ -662,10 +676,15 @@ class SubmissionsListView extends React.Component {
               } else {
                 provisionalScore = 'N/A';
               }
-              const { isAccepted, isFailed } = getSubmissionStatus(mySubmission);
+              const {
+                isAccepted, isCancelled, isFailed,
+              } = getSubmissionStatus(mySubmission);
               let statusStyleName = 'queue';
               let statusLabel = 'Preparing';
-              if (isAccepted) {
+              if (isCancelled) {
+                statusStyleName = 'cancelled';
+                statusLabel = 'Cancelled';
+              } else if (isAccepted) {
                 statusStyleName = 'accepted';
                 statusLabel = 'Accepted';
               } else if (isFailed) {

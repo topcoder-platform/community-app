@@ -10,6 +10,7 @@ describe('getSubmissionStatus', () => {
     })).toEqual({
       hasReviewSummation: false,
       isAccepted: false,
+      isCancelled: false,
       isFailed: true,
     });
   });
@@ -28,6 +29,30 @@ describe('getSubmissionStatus', () => {
     })).toEqual({
       hasReviewSummation: false,
       isAccepted: false,
+      isCancelled: false,
+      isFailed: false,
+    });
+  });
+
+  it('reports cancelled scoring runs instead of leaving them in preparing state', () => {
+    expect(getSubmissionStatus({
+      status: 'ACTIVE',
+      submissionId: 'submission-1',
+      reviewSummations: [
+        {
+          submissionId: 'submission-1',
+          isProvisional: true,
+          metadata: {
+            testProcess: 'provisional',
+            testProgress: 1,
+            testStatus: 'CANCELLED',
+          },
+        },
+      ],
+    })).toEqual({
+      hasReviewSummation: true,
+      isAccepted: true,
+      isCancelled: true,
       isFailed: false,
     });
   });
