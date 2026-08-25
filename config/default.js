@@ -111,6 +111,8 @@ module.exports = {
     /* This is the same value as above, but it is used by topcoder-react-lib,
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
+    /* Payload CMS application and S3-backed asset origin. */
+    CMS_APP: 'https://cms.topcoder-dev.com',
     CMS_ASSETS: 'https://assets.topcoder-dev.com',
     CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
     COPILOTS_URL: 'https://copilots.topcoder-dev.com',
@@ -209,9 +211,7 @@ module.exports = {
     CONTENTFUL: {
       DEFAULT_SPACE_NAME: 'default',
       DEFAULT_ENVIRONMENT: 'master',
-      MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
-      /* Optional Payload write-through endpoint. When unset, article votes
-       * continue to use the Contentful Management API. */
+      /* Required Payload write-through configuration for article votes. */
       PAYLOAD_VOTE_API_URL: '',
       PAYLOAD_MANAGEMENT_API_KEY: '',
       default: { // Human-readable name of space

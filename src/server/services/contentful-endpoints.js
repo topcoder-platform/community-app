@@ -1,47 +1,71 @@
 /**
- * Endpoint helpers shared by the server-side Contentful Delivery and Preview
- * clients. They allow selected spaces to use a Contentful-compatible host
- * without changing how other spaces are configured.
+ * Endpoint helpers for the Payload CMS compatibility API. Environment variable
+ * names remain Contentful-shaped so existing SSM appvars can be reused during
+ * the migration, but no provider endpoint is used as a fallback.
  */
 
-const CONTENTFUL_CDN_API_HOST = 'cdn.contentful.com';
-const CONTENTFUL_PREVIEW_API_HOST = 'preview.contentful.com';
+const ALLOWED_API_HOST_SUFFIXES = [
+  '.topcoder.com',
+  '.topcoder-dev.com',
+];
+const ALLOWED_LOCAL_API_HOSTS = [
+  '127.0.0.1',
+  'localhost',
+];
 
-/**
- * Resolves the API hostname for one Contentful space environment.
- *
- * @param {Object} environmentConfig The environment's API key and optional
- *  host configuration.
- * @param {Boolean} preview Whether the caller needs the Preview API host.
- * @return {String} A hostname suitable for both the Contentful SDK and an
- *  HTTPS URL. This is used while constructing every server-side CMS client.
- * @throws {TypeError} If a configured host is not a string.
- */
-export function getContentfulApiHost(environmentConfig, preview) {
-  const property = preview ? 'PREVIEW_API_HOST' : 'CDN_API_HOST';
-  const fallback = preview ? CONTENTFUL_PREVIEW_API_HOST : CONTENTFUL_CDN_API_HOST;
-  const configuredHost = environmentConfig[property];
+function isAllowedApiHostname(hostname) {
+  const normalized = hostname.toLowerCase();
+  return ALLOWED_LOCAL_API_HOSTS.includes(normalized)
+    || ALLOWED_API_HOST_SUFFIXES.some(suffix => normalized.endsWith(suffix));
+}
 
-  if (configuredHost === undefined || configuredHost === null || configuredHost === '') {
-    return fallback;
+function normalizeApiHost(value, property) {
+  if (value === undefined || value === null || value === '') {
+    throw new Error(`${property} is required; external CMS fallbacks are disabled.`);
   }
-  if (typeof configuredHost !== 'string') {
+  if (typeof value !== 'string') {
     throw new TypeError(`${property} must be a hostname string.`);
   }
 
-  return configuredHost.replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+  let parsed;
+  try {
+    parsed = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+  } catch (error) {
+    throw new TypeError(`${property} must be a valid hostname string.`);
+  }
+
+  if (parsed.username || parsed.password || parsed.search || parsed.hash
+    || (parsed.pathname && parsed.pathname !== '/')) {
+    throw new TypeError(`${property} must not include credentials, a path, query, or fragment.`);
+  }
+  if (!isAllowedApiHostname(parsed.hostname)) {
+    throw new Error(`${property} must target an approved Topcoder Payload CMS host.`);
+  }
+
+  return parsed.host.toLowerCase();
 }
 
 /**
- * Builds a Contentful-compatible API base URL for direct HTTP requests.
+ * Resolves the compatibility API hostname for one space environment.
+ *
+ * @param {Object} environmentConfig The environment's API configuration.
+ * @param {Boolean} preview Whether the caller needs the Preview API host.
+ * @return {String} A validated hostname.
+ */
+export function getContentfulApiHost(environmentConfig = {}, preview) {
+  const property = preview ? 'PREVIEW_API_HOST' : 'CDN_API_HOST';
+  return normalizeApiHost(environmentConfig[property], property);
+}
+
+/**
+ * Builds a Payload compatibility API base URL.
  *
  * @param {String} host API hostname returned by getContentfulApiHost().
- * @param {String} spaceId Contentful space identifier.
- * @param {String} environment Contentful environment name.
- * @return {String} The HTTPS base URL used by ApiService.fetch().
- * @throws {URIError} If the space identifier or environment cannot be URL
- *  encoded.
+ * @param {String} spaceId Legacy space identifier used by the compatibility API.
+ * @param {String} environment Legacy environment name used by the compatibility API.
+ * @return {String} The HTTPS base URL used by ApiService.
  */
 export function getContentfulApiBaseUrl(host, spaceId, environment) {
-  return `https://${host}/spaces/${encodeURIComponent(spaceId)}/environments/${encodeURIComponent(environment)}`;
+  const safeHost = normalizeApiHost(host, 'CMS API host');
+  return `https://${safeHost}/spaces/${encodeURIComponent(spaceId)}/environments/${encodeURIComponent(environment)}`;
 }

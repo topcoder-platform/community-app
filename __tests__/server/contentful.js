@@ -1,51 +1,150 @@
 /* eslint-env jest */
 
-import { createClient as createDeliveryClient } from 'contentful';
+import config from 'config';
+import fetch from 'isomorphic-fetch';
 import {
+  ApiService,
   articleVote,
   getService,
 } from 'server/services/contentful';
 
-const contentfulManagement = require('contentful-management');
-
-jest.mock('contentful', () => ({
-  createClient: jest.fn(() => ({})),
+jest.mock('config', () => ({
+  CONTENTFUL: {
+    DEFAULT_ENVIRONMENT: 'master',
+    DEFAULT_SPACE_NAME: 'default',
+  },
+  SECRET: {
+    CONTENTFUL: {
+      PAYLOAD_MANAGEMENT_API_KEY: 'management-key',
+      PAYLOAD_VOTE_API_URL: 'https://cms.topcoder-dev.com/contentful-management/votes',
+      default: {
+        SPACE_ID: 'default-space',
+        master: {
+          CDN_API_HOST: 'cms.topcoder-dev.com',
+          CDN_API_KEY: 'delivery-key',
+          PREVIEW_API_HOST: 'cms.topcoder-dev.com',
+          PREVIEW_API_KEY: 'preview-key',
+        },
+      },
+      EDU: {
+        SPACE_ID: 'edu-space',
+        master: {
+          CDN_API_HOST: 'cms.topcoder-dev.com',
+          CDN_API_KEY: 'edu-key',
+          PREVIEW_API_HOST: 'cms.topcoder-dev.com',
+          PREVIEW_API_KEY: 'edu-preview-key',
+        },
+      },
+      unsupported: {
+        SPACE_ID: 'unsupported-space',
+        master: {
+          CDN_API_HOST: '',
+          CDN_API_KEY: 'legacy-key',
+          PREVIEW_API_HOST: '',
+          PREVIEW_API_KEY: 'legacy-preview-key',
+        },
+      },
+    },
+  },
 }));
 
-jest.mock('contentful-management', () => ({
-  createClient: jest.fn(() => ({
-    getSpace: jest.fn(() => Promise.resolve({
-      getEnvironment: jest.fn(() => Promise.resolve({
-        getEntry: jest.fn(() => Promise.resolve({
-          fields: {},
-          update: jest.fn(() => Promise.resolve({
-            publish: jest.fn(() => Promise.resolve({ published: true })),
-          })),
-        })),
-      })),
-    })),
-  })),
-}));
+jest.mock('isomorphic-fetch', () => jest.fn());
 
-describe('server/services/contentful HTTPS connections', () => {
-  test('shares one keep-alive agent across Delivery, Preview, and Management clients', async () => {
-    getService('default', 'master', false);
+function response(data, status = 200) {
+  return {
+    json: jest.fn(() => Promise.resolve(data)),
+    ok: status >= 200 && status < 300,
+    status,
+  };
+}
 
-    const deliveryAgents = createDeliveryClient.mock.calls
-      .map(call => call[0].httpsAgent);
+describe('server/services/contentful Payload compatibility client', () => {
+  beforeEach(() => {
+    fetch.mockReset();
+  });
 
-    expect(deliveryAgents.length).toBeGreaterThan(1);
-    deliveryAgents.forEach((agent) => {
-      expect(agent).toBe(deliveryAgents[0]);
-      expect(agent.options.keepAlive).toBe(true);
+  test('uses an explicit host, a shared keep-alive agent, and no redirects', async () => {
+    fetch.mockResolvedValue(response({ fields: { title: 'Asset' }, sys: { id: 'asset-id' } }));
+
+    await getService('default', 'master', false).getAsset('asset-id');
+
+    expect(fetch.mock.calls[0][0])
+      .toBe('https://cms.topcoder-dev.com/spaces/default-space/environments/master/assets/asset-id');
+    const options = fetch.mock.calls[0][1];
+    expect(options.redirect).toBe('manual');
+    expect(options.agent.options.keepAlive).toBe(true);
+    expect(options.headers.Authorization).toBe('Bearer delivery-key');
+  });
+
+  test('fails closed for an unsupported space before making a request', () => {
+    expect(() => getService('unsupported', 'master', false))
+      .toThrow('CDN_API_HOST is required; external CMS fallbacks are disabled.');
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  test('resolves linked compatibility entries without the provider SDK', async () => {
+    fetch.mockResolvedValue(response({
+      items: [{
+        fields: { author: { sys: { id: 'author-id', linkType: 'Entry', type: 'Link' } } },
+        sys: { id: 'article-id', type: 'Entry' },
+      }],
+      includes: {
+        Entry: [{
+          fields: { name: 'Payload Author' },
+          sys: { id: 'author-id', type: 'Entry' },
+        }],
+      },
+      limit: 100,
+      skip: 0,
+      total: 1,
+    }));
+
+    const result = await getService('default', 'master', false).queryEntries({
+      'fields.slug': 'payload%20article',
     });
 
-    await articleVote({
+    expect(result.items[0].fields.author.fields.name).toBe('Payload Author');
+    expect(fetch.mock.calls[0][0]).toContain('/entries?fields.slug=payload%20article');
+  });
+
+  test('rejects compatibility responses containing retired asset URLs', async () => {
+    fetch.mockResolvedValue(response({
+      fields: { file: { url: '//images.ctfassets.net/space/asset/file.png' } },
+      sys: { id: 'asset-id', type: 'Asset' },
+    }));
+
+    await expect(new ApiService('https://cms.topcoder-dev.com/spaces/a/environments/master', 'key')
+      .getAsset('asset-id')).rejects.toThrow('retired provider URL');
+  });
+
+  test('writes votes only through the configured Payload endpoint', async () => {
+    fetch.mockResolvedValue(response({ updated: true }));
+
+    await expect(articleVote({
       id: 'article-id',
       votes: { downvotes: 1, upvotes: 2 },
-    });
+    }, 'EDU', 'master')).resolves.toEqual({ updated: true });
 
-    const managementConfig = contentfulManagement.createClient.mock.calls[0][0];
-    expect(managementConfig.httpsAgent).toBe(deliveryAgents[0]);
+    expect(fetch.mock.calls[0][0])
+      .toBe('https://cms.topcoder-dev.com/contentful-management/votes');
+    expect(fetch.mock.calls[0][1]).toMatchObject({
+      method: 'POST',
+      redirect: 'manual',
+      body: JSON.stringify({
+        spaceId: 'edu-space',
+        environment: 'master',
+        entryId: 'article-id',
+        votes: { downvotes: 1, upvotes: 2 },
+      }),
+    });
+  });
+
+  test('does not fall back when vote write-through is unconfigured', async () => {
+    const originalUrl = config.SECRET.CONTENTFUL.PAYLOAD_VOTE_API_URL;
+    config.SECRET.CONTENTFUL.PAYLOAD_VOTE_API_URL = '';
+    await expect(articleVote({ id: 'article-id', votes: {} }, 'EDU', 'master'))
+      .rejects.toThrow('external CMS fallbacks are disabled');
+    config.SECRET.CONTENTFUL.PAYLOAD_VOTE_API_URL = originalUrl;
+    expect(fetch).not.toHaveBeenCalled();
   });
 });

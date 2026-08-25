@@ -47,9 +47,53 @@ export default function Topcoder() {
           path="/community/hall-of-fame/:type/:eventId?"
         />
 
-        {/* Keep Thrive routes ahead of the generic root Contentful route. The
-          * root route otherwise loads the default CMS route before falling
-          * through to its error404 switch. */}
+        {/* Application-owned routes must not wait for the root CMS lookup. */}
+        <Route
+          component={TermsDetail}
+          exact
+          path="/challenges/terms/detail/:termId"
+        />
+        <Route
+          component={ChallengeDetails}
+          exact
+          path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})"
+        />
+        <Route component={ChallengeListing} exact path="/challenges" />
+        <Route component={EngagementListing} exact path="/engagements" />
+        <Route component={Notifications} exact path="/notifications" />
+        <Redirect exact from="/my-dashboard" to="/home" />
+        <Route component={Dashboard} exact path="/home" />
+        <Route
+          component={ReviewOpportunityDetails}
+          exact
+          path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/review-opportunities"
+        />
+        <Route component={Scoreboard} exact path="/scoreboard/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})" />
+        <Route
+          component={SubmissionManagement}
+          exact
+          path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/my-submissions"
+        />
+        <Route
+          component={Submission}
+          exact
+          path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/submit"
+        />
+        {
+          config.GAMIFICATION.ENABLE_BADGE_UI && (
+            <Route
+              component={ProfileBadges}
+              exact
+              path="/members/:handle([^/]{2,})/badges"
+            />
+          )
+        }
+        <Route
+          path="/changelog/"
+          component={() => <Viewport preview id={`${config.CONTENTFUL.CHANGELOG_ID}`} />}
+        />
+
+        {/* Keep Thrive routes ahead of the generic root CMS route as well. */}
         <Route
           component={EDUHome}
           exact
@@ -140,60 +184,7 @@ export default function Topcoder() {
         />
         <ContentfulRoute
           baseUrl="/"
-          error404={(
-            <Switch>
-              <Route
-                component={TermsDetail}
-                exact
-                path="/challenges/terms/detail/:termId"
-              />
-              <Route
-                component={ChallengeDetails}
-                exact
-                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})"
-              />
-              <Route component={ChallengeListing} exact path="/challenges" />
-              <Route component={EngagementListing} exact path="/engagements" />
-              <Route component={Notifications} exact path="/notifications" />
-              <Redirect
-                exact
-                from="/my-dashboard"
-                to="/home"
-              />
-              <Route component={Dashboard} exact path="/home" />
-              <Route
-                component={ReviewOpportunityDetails}
-                exact
-                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/review-opportunities"
-              />
-              <Route component={Scoreboard} exact path="/scoreboard/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})" />
-              <Route
-                component={SubmissionManagement}
-                exact
-                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/my-submissions"
-              />
-              <Route
-                component={Submission}
-                exact
-                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/submit"
-              />
-              {
-                config.GAMIFICATION.ENABLE_BADGE_UI && (
-                  <Route
-                    component={ProfileBadges}
-                    exact
-                    path="/members/:handle([^/]{2,})/badges"
-                  />
-                )
-              }
-              <Route
-                path="/changelog/"
-                component={() => <Viewport preview id={`${config.CONTENTFUL.CHANGELOG_ID}`} />}
-              />
-
-              <Error404 />
-            </Switch>
-          )}
+          error404={<Error404 />}
           id="2z6DvIzyhKQ0YusYGsaQc6"
         />
       </Switch>

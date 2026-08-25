@@ -217,6 +217,7 @@ class Service {
      * used above. */
     let url = this.private.baseUrl;
     url += this.private.preview ? '/preview' : '/published';
+    url += '/assets';
     if (query) url += `?${_.isString(query) ? query : qs.stringify(query)}`;
     const res = await fetch(url);
     if (!res.ok) {
