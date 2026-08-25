@@ -483,7 +483,6 @@ export class SubmissionManagementPageContainer extends React.Component {
       challengesUrl,
       deleting,
       loadingSubmissionsForChallengeId,
-      submissionPhaseStartDate,
       isLoadingChallenge,
       onCancelSubmissionDelete,
       onShowDetails,
@@ -562,7 +561,6 @@ export class SubmissionManagementPageContainer extends React.Component {
               submissionLimitCheckPending={submissionLimitCheckPending}
               showDetails={showDetails}
               submissionWorkflowRuns={submissionWorkflowRuns}
-              submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}
             />
             )}
@@ -672,7 +670,6 @@ SubmissionManagementPageContainer.propTypes = {
   toBeDeletedId: PT.string,
   deletionSucceed: PT.bool,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
-  submissionPhaseStartDate: PT.string.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -681,9 +678,6 @@ function mapStateToProps(state, props) {
   let { mySubmissions } = state.challenge;
   mySubmissions = challengeId === mySubmissions.challengeId
     ? mySubmissions.v2 : null;
-
-  const allPhases = state.challenge.details.phases || [];
-  const submissionPhase = allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.name) && phase.isOpen) || {};
 
   return {
     challengeId: String(challengeId),
@@ -697,8 +691,6 @@ function mapStateToProps(state, props) {
     loadingSubmissionsForChallengeId:
       state.challenge.loadingSubmissionsForChallengeId || '',
     mySubmissions,
-
-    submissionPhaseStartDate: submissionPhase.actualStartDate || submissionPhase.scheduledStartDate || '',
 
     showDetails: state.page.submissionManagement.showDetails,
 

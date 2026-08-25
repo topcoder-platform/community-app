@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import {
+  belongsToActiveSubmissionPhase,
   getActiveSubmissionCount,
   getActiveSubmissionType,
   getSubmissionLimit,
@@ -129,6 +130,63 @@ describe('active submission phase limits', () => {
       submissions,
       phases,
     )).toBe(false);
+  });
+});
+
+describe('belongsToActiveSubmissionPhase', () => {
+  test('allows deleting a checkpoint submission while the checkpoint phase is open', () => {
+    const phases = [
+      { isOpen: true, name: 'Checkpoint Submission' },
+      { isOpen: false, name: 'Submission' },
+    ];
+
+    expect(belongsToActiveSubmissionPhase(
+      { id: 'checkpoint-submission', type: 'CHECKPOINT_SUBMISSION' },
+      phases,
+    )).toBe(true);
+    expect(belongsToActiveSubmissionPhase(
+      { id: 'legacy-checkpoint', submissionType: 'checkpoint' },
+      phases,
+    )).toBe(true);
+  });
+
+  test('blocks deleting a checkpoint submission once the submission phase opens', () => {
+    const phases = [
+      { isOpen: false, name: 'Checkpoint Submission' },
+      { isOpen: true, name: 'Submission' },
+    ];
+
+    expect(belongsToActiveSubmissionPhase(
+      { id: 'checkpoint-submission', type: 'CHECKPOINT_SUBMISSION' },
+      phases,
+    )).toBe(false);
+    expect(belongsToActiveSubmissionPhase(
+      { id: 'contest-submission', type: 'CONTEST_SUBMISSION' },
+      phases,
+    )).toBe(true);
+  });
+
+  test('blocks deleting anything once every submission phase is closed', () => {
+    const phases = [
+      { isOpen: false, name: 'Checkpoint Submission' },
+      { isOpen: false, name: 'Submission' },
+      { isOpen: true, name: 'Checkpoint Review' },
+      { isOpen: true, name: 'Review' },
+    ];
+
+    expect(belongsToActiveSubmissionPhase(
+      { id: 'checkpoint-submission', type: 'CHECKPOINT_SUBMISSION' },
+      phases,
+    )).toBe(false);
+    expect(belongsToActiveSubmissionPhase(
+      { id: 'contest-submission', type: 'CONTEST_SUBMISSION' },
+      phases,
+    )).toBe(false);
+  });
+
+  test('resolves to false for missing submissions or phases', () => {
+    expect(belongsToActiveSubmissionPhase(null, [{ isOpen: true, name: 'Submission' }])).toBe(false);
+    expect(belongsToActiveSubmissionPhase({ type: 'CONTEST_SUBMISSION' }, undefined)).toBe(false);
   });
 });
 

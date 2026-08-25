@@ -25,6 +25,7 @@ exports[`Matches shallow shapshot 1`] = `
     </thead>
     <tbody>
       <Submission
+        allowDelete={false}
         challenge={
           Object {
             "id": "test-challenge",

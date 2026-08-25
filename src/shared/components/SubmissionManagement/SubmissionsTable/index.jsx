@@ -18,8 +18,8 @@ import _ from 'lodash';
 import React, { useCallback, useState } from 'react';
 import PT from 'prop-types';
 import shortid from 'shortid';
-import moment from 'moment';
 import { COMPETITION_TRACKS } from 'utils/tc';
+import { belongsToActiveSubmissionPhase } from 'utils/challenge-detail/submission-limit';
 import ScreeningDetails from '../ScreeningDetails';
 import DownloadArtifactsModal from '../DownloadArtifactsModal';
 import Submission from '../Submission';
@@ -45,7 +45,6 @@ export default function SubmissionsTable(props) {
     onDownload,
     onShowDetails,
     status,
-    submissionPhaseStartDate,
     onDownloadArtifacts,
     getSubmissionArtifacts,
     getSubmissionScores,
@@ -72,9 +71,6 @@ export default function SubmissionsTable(props) {
     ));
   } else {
     submissionObjects.forEach((subObject) => {
-      // submissionPhaseStartDate will be the start date of
-      // the current submission/checkpoint or empty string if any other phase
-
       const TERMINAL_STATUSES = [
         'COMPLETED',
         'FAILURE',
@@ -93,8 +89,8 @@ export default function SubmissionsTable(props) {
         ? true
         : workflowRunsForSubmission.every(run => TERMINAL_STATUSES.includes(run.status));
 
-      const allowDelete = submissionPhaseStartDate
-        && moment(subObject.submissionDate).isAfter(submissionPhaseStartDate);
+      // Submissions can only be removed while the phase that created them is still open.
+      const allowDelete = belongsToActiveSubmissionPhase(subObject, challenge.phases);
 
 
       const submission = (
@@ -233,6 +229,5 @@ SubmissionsTable.propTypes = {
   onDownloadArtifacts: PT.func,
   getSubmissionArtifacts: PT.func,
   status: PT.string.isRequired,
-  submissionPhaseStartDate: PT.string.isRequired,
   getSubmissionScores: PT.func,
 };
