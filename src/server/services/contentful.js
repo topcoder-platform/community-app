@@ -6,17 +6,26 @@
 import _ from 'lodash';
 import config from 'config';
 import { createClient } from 'contentful';
+import https from 'https';
+import fetch from 'isomorphic-fetch';
 import { logger } from 'topcoder-react-lib';
 import { isomorphy } from 'topcoder-react-utils';
 import { qs } from 'qs';
+import {
+  getContentfulApiBaseUrl,
+  getContentfulApiHost,
+} from './contentful-endpoints';
 
 const contentful = require('contentful-management');
 
-/* Holds Contentful CDN URL. */
-const CDN_URL = 'https://cdn.contentful.com/spaces';
-
-/* Holds Contentful Preview URL. */
-const PREVIEW_URL = 'https://preview.contentful.com/spaces';
+/**
+ * Process-wide HTTPS connection pool shared by every server-side Contentful
+ * Delivery, Preview, and Management SDK client. Node 10 does not enable
+ * keep-alive on its default agent, so reusing this agent avoids a new TCP/TLS
+ * connection for each CMS request while leaving browser requests unchanged.
+ * @type {https.Agent}
+ */
+const contentfulHttpsAgent = new https.Agent({ keepAlive: true });
 
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
@@ -55,18 +64,20 @@ class ApiService {
    * @param {String} key API key.
    * @param {String} spaceId The space id.
    * @param {Boolean} preview Use the preview API?
+   * @param {String} host Contentful-compatible API hostname.
    */
-  constructor(baseUrl, key, spaceId, preview) {
+  constructor(baseUrl, key, spaceId, preview, host) {
     this.private = {
-      baseUrl, key, spaceId, preview,
+      baseUrl, key, spaceId, preview, host,
     };
     // client config
     const clientConf = {
       accessToken: key,
+      httpsAgent: contentfulHttpsAgent,
       space: spaceId,
       logHandler,
+      host,
     };
-    if (preview) clientConf.host = 'preview.contentful.com';
     // create the client to work with
     this.client = createClient(clientConf);
   }
@@ -144,13 +155,45 @@ class ApiService {
 
 /**
  * Updates votes count in Contentful articles
- * @param {Object} body
- * @param {String} body.id
- * @param {Object} body.votes
+ * @param {Object} body Vote update submitted by Community App.
+ * @param {String} body.id EDU article entry identifier.
+ * @param {Object} body.votes Updated upvote and downvote totals.
+ * @return {Promise<Object>} The updated Contentful entry when using Contentful,
+ *  or the Payload endpoint's JSON response when write-through is configured.
+ *  This is used by the authenticated article vote proxy route.
+ * @throws {Error} If Payload write-through is enabled without an API key, the
+ *  Payload endpoint rejects the request, or the Contentful update fails.
  */
 export function articleVote(body) {
+  const payloadUrl = config.SECRET.CONTENTFUL.PAYLOAD_VOTE_API_URL;
+  if (payloadUrl) {
+    const apiKey = config.SECRET.CONTENTFUL.PAYLOAD_MANAGEMENT_API_KEY;
+    if (!apiKey) {
+      return Promise.reject(new Error('CONTENTFUL_PAYLOAD_MANAGEMENT_API_KEY is required when Payload article voting is enabled.'));
+    }
+    return fetch(payloadUrl, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        spaceId: config.SECRET.CONTENTFUL.EDU.SPACE_ID,
+        environment: 'master',
+        entryId: body.id,
+        votes: body.votes,
+      }),
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Payload article vote update failed with status ${response.status}.`);
+      }
+      return response.json();
+    });
+  }
+
   const client = contentful.createClient({
     accessToken: config.SECRET.CONTENTFUL.MANAGEMENT_TOKEN,
+    httpsAgent: contentfulHttpsAgent,
   });
   return client.getSpace(config.SECRET.CONTENTFUL.EDU.SPACE_ID)
     .then(space => space.getEnvironment('master'))
@@ -184,6 +227,7 @@ let services;
 function initServiceInstances() {
   const contentfulConfig = _.omit(config.SECRET.CONTENTFUL, [
     'DEFAULT_SPACE_NAME', 'DEFAULT_ENVIRONMENT', 'MANAGEMENT_TOKEN',
+    'PAYLOAD_VOTE_API_URL', 'PAYLOAD_MANAGEMENT_API_KEY',
   ]);
   services = {};
   _.map(contentfulConfig, (spaceConfig, spaceName) => {
@@ -192,14 +236,18 @@ function initServiceInstances() {
       if (name !== 'SPACE_ID') {
         const environment = name;
         const spaceId = spaceConfig.SPACE_ID;
-        const previewBaseUrl = `${PREVIEW_URL}/${spaceId}/environments/${environment}`;
-        const cdnBaseUrl = `${CDN_URL}/${spaceId}/environments/${environment}`;
+        const previewHost = getContentfulApiHost(env, true);
+        const cdnHost = getContentfulApiHost(env, false);
+        const previewBaseUrl = getContentfulApiBaseUrl(previewHost, spaceId, environment);
+        const cdnBaseUrl = getContentfulApiBaseUrl(cdnHost, spaceId, environment);
         const svcs = {};
 
         svcs.previewService = new ApiService(
-          previewBaseUrl.toString(), env.PREVIEW_API_KEY, spaceId, true,
+          previewBaseUrl, env.PREVIEW_API_KEY, spaceId, true, previewHost,
         );
-        svcs.cdnService = new ApiService(cdnBaseUrl.toString(), env.CDN_API_KEY, spaceId);
+        svcs.cdnService = new ApiService(
+          cdnBaseUrl, env.CDN_API_KEY, spaceId, false, cdnHost,
+        );
         services[spaceName][environment] = svcs;
       }
     });

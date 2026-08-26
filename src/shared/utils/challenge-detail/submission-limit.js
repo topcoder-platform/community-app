@@ -1,4 +1,8 @@
 const SUBMISSION_LIMIT_METADATA_NAME = 'submissionLimit';
+const CHECKPOINT_SUBMISSION_TYPE = 'CHECKPOINT_SUBMISSION';
+const CONTEST_SUBMISSION_TYPE = 'CONTEST_SUBMISSION';
+const FINAL_FIX_SUBMISSION_TYPE = 'STUDIO_FINAL_FIX_SUBMISSION';
+const SUBMISSION_PHASE_NAMES = ['Checkpoint Submission', 'Submission'];
 
 /**
  * Converts a metadata value to a positive integer submission limit.
@@ -94,6 +98,158 @@ export function getSubmissionLimit(metadata) {
   } catch (error) {
     return toPositiveInteger(normalizedValue);
   }
+}
+
+/**
+ * Resolves the submission type created by the currently open design phase.
+ *
+ * This mirrors the submission form's phase precedence so submission-limit checks and the
+ * eventual submission request cannot classify the same upload differently.
+ *
+ * @param {Array<Object>} phases Challenge phases.
+ * @return {String} V6 submission type for the active submission phase.
+ * @throws Does not throw; challenges without an open submission phase use contest submissions.
+ */
+export function getActiveSubmissionType(phases) {
+  const challengePhases = Array.isArray(phases) ? phases : [];
+  const checkpoint = challengePhases.find(phase => (
+    phase && phase.name === 'Checkpoint Submission'
+  ));
+  const submission = challengePhases.find(phase => (
+    phase && phase.name === 'Submission'
+  ));
+  const finalFix = challengePhases.find(phase => (
+    phase && phase.name === 'Final Fix'
+  ));
+
+  if (checkpoint && checkpoint.isOpen) {
+    return CHECKPOINT_SUBMISSION_TYPE;
+  }
+
+  if (checkpoint && !checkpoint.isOpen && submission && submission.isOpen) {
+    return CONTEST_SUBMISSION_TYPE;
+  }
+
+  if (finalFix && finalFix.isOpen) {
+    return FINAL_FIX_SUBMISSION_TYPE;
+  }
+
+  return CONTEST_SUBMISSION_TYPE;
+}
+
+/**
+ * Converts current and legacy submission type values to the V6 API representation.
+ *
+ * @param {*} value Raw `type` or legacy `submissionType` value.
+ * @return {String} Normalized submission type, or an empty string when unavailable.
+ * @throws Does not throw.
+ */
+function normalizeSubmissionType(value) {
+  const normalizedValue = String(value || '')
+    .trim()
+    .toUpperCase()
+    .replace(/[\s-]+/g, '_');
+
+  if (normalizedValue === 'CHECKPOINT') {
+    return CHECKPOINT_SUBMISSION_TYPE;
+  }
+
+  if (normalizedValue === 'CONTEST' || normalizedValue === 'SUBMISSION') {
+    return CONTEST_SUBMISSION_TYPE;
+  }
+
+  if (normalizedValue === 'FINAL_FIX' || normalizedValue === 'STUDIO_FINAL_FIX') {
+    return FINAL_FIX_SUBMISSION_TYPE;
+  }
+
+  return normalizedValue;
+}
+
+/**
+ * Checks whether a submission was created by the currently open submission phase.
+ *
+ * Submitters may only remove a submission while the phase that produced it is still open. A
+ * checkpoint submission therefore stops being deletable as soon as the Checkpoint Submission
+ * phase ends, even though the Submission phase opens right after it, and nothing is deletable
+ * once every submission phase is closed (screening, review, appeals, ...).
+ *
+ * @param {Object} submission Member submission, using the V6 `type` or legacy `submissionType`.
+ * @param {Array<Object>} phases Challenge phases.
+ * @return {Boolean} Whether the submission belongs to the currently open submission phase.
+ * @throws Does not throw; missing submissions or phases resolve to false.
+ */
+export function belongsToActiveSubmissionPhase(submission, phases) {
+  const challengePhases = Array.isArray(phases) ? phases : [];
+  const hasOpenSubmissionPhase = challengePhases.some(phase => (
+    phase && phase.isOpen && SUBMISSION_PHASE_NAMES.includes(phase.name)
+  ));
+
+  if (!submission || !hasOpenSubmissionPhase) {
+    return false;
+  }
+
+  return normalizeSubmissionType(submission.type || submission.submissionType)
+    === getActiveSubmissionType(challengePhases);
+}
+
+/**
+ * Checks whether concept submission limits apply to a V6 submission type.
+ *
+ * Checkpoint and contest submissions are limited independently. Final-fix submissions belong to
+ * winning-submission fulfillment and must remain available regardless of the concept limit.
+ *
+ * @param {String} submissionType V6 submission type.
+ * @return {Boolean} Whether submission-limit metadata applies to the type.
+ * @throws Does not throw.
+ */
+export function isSubmissionLimitType(submissionType) {
+  return submissionType === CHECKPOINT_SUBMISSION_TYPE
+    || submissionType === CONTEST_SUBMISSION_TYPE;
+}
+
+/**
+ * Counts submissions belonging to the currently active submission phase.
+ *
+ * Checkpoint and contest submissions have independent limits. Final fixes are excluded. Both the
+ * current V6 `type` property and the legacy `submissionType` property are supported.
+ *
+ * @param {Array<Object>} submissions Member submissions for the challenge.
+ * @param {Array<Object>} phases Challenge phases.
+ * @return {Number} Number of submissions matching the active phase type.
+ * @throws Does not throw; invalid submission collections count as empty.
+ */
+export function getActiveSubmissionCount(submissions, phases) {
+  if (!Array.isArray(submissions)) {
+    return 0;
+  }
+
+  const activeSubmissionType = getActiveSubmissionType(phases);
+
+  if (!isSubmissionLimitType(activeSubmissionType)) {
+    return 0;
+  }
+
+  return submissions.filter(submission => (
+    submission
+    && normalizeSubmissionType(submission.type || submission.submissionType)
+      === activeSubmissionType
+  )).length;
+}
+
+/**
+ * Checks whether the member has reached the configured limit for the active submission phase.
+ *
+ * @param {Array<Object>} metadata Challenge metadata entries.
+ * @param {Array<Object>} submissions Member submissions for the challenge.
+ * @param {Array<Object>} phases Challenge phases.
+ * @return {Boolean} Whether the active phase has no submission slots remaining.
+ * @throws Does not throw; missing or invalid limits are treated as unlimited.
+ */
+export function hasReachedSubmissionLimit(metadata, submissions, phases) {
+  const submissionLimit = getSubmissionLimit(metadata);
+
+  return submissionLimit !== null
+    && getActiveSubmissionCount(submissions, phases) >= submissionLimit;
 }
 
 /**

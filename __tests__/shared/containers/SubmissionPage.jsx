@@ -46,7 +46,9 @@ function createContainerProps(overrides = {}) {
   return {
     challenge: {},
     challengeId: 'challenge-id',
+    isSubmitting: false,
     metadata: [],
+    phases: [{ isOpen: true, name: 'Submission' }],
     submit: jest.fn(),
     tokenV2: 'token-v2',
     tokenV3: 'token-v3',
@@ -63,6 +65,60 @@ describe('SubmissionsPageContainer submission limits', () => {
 
   test('skips the limit lookup for unlimited challenges', async () => {
     const props = createContainerProps();
+    const container = new SubmissionsPageContainer(props);
+    const body = {};
+
+    await container.handleSubmit(body);
+
+    expect(mockedGetChallengeSubmissions).not.toHaveBeenCalled();
+    expect(props.submit).toHaveBeenCalledWith(
+      'token-v3',
+      'token-v2',
+      'challenge-id',
+      body,
+      'Design',
+    );
+  });
+
+  test('does not apply Design submission-limit metadata to Development uploads', async () => {
+    const props = createContainerProps({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '1',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+      track: 'Development',
+    });
+    const container = new SubmissionsPageContainer(props);
+    const body = {};
+
+    await container.handleSubmit(body);
+
+    expect(mockedGetChallengeSubmissions).not.toHaveBeenCalled();
+    expect(props.submit).toHaveBeenCalledWith(
+      'token-v3',
+      'token-v2',
+      'challenge-id',
+      body,
+      'Development',
+    );
+  });
+
+  test('skips the concept limit lookup during final fix', async () => {
+    const props = createContainerProps({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '1',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+      phases: [{ isOpen: true, name: 'Final Fix' }],
+    });
     const container = new SubmissionsPageContainer(props);
     const body = {};
 
@@ -100,7 +156,10 @@ describe('SubmissionsPageContainer submission limits', () => {
     expect(mockedGetChallengeSubmissions).toHaveBeenCalledWith(
       'token-v3',
       'challenge-id',
-      { memberId: 'member-id' },
+      {
+        memberId: 'member-id',
+        type: 'CONTEST_SUBMISSION',
+      },
     );
     expect(props.submit).toHaveBeenCalled();
     expect(mockedErrors.fireErrorMessage).not.toHaveBeenCalled();
@@ -153,5 +212,64 @@ describe('SubmissionsPageContainer submission limits', () => {
       'Unable to Verify Submission Limit',
       'We could not verify your existing submissions. Please try again.',
     );
+  });
+
+  test('checks checkpoint submissions separately from contest submissions', async () => {
+    mockedGetChallengeSubmissions.mockResolvedValue({ data: [] });
+    const props = createContainerProps({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '1',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+      phases: [
+        { isOpen: true, name: 'Checkpoint Submission' },
+        { isOpen: false, name: 'Submission' },
+      ],
+    });
+    const container = new SubmissionsPageContainer(props);
+
+    await container.handleSubmit({});
+
+    expect(mockedGetChallengeSubmissions).toHaveBeenCalledWith(
+      'token-v3',
+      'challenge-id',
+      {
+        memberId: 'member-id',
+        type: 'CHECKPOINT_SUBMISSION',
+      },
+    );
+    expect(props.submit).toHaveBeenCalledTimes(1);
+  });
+
+  test('ignores a concurrent submission while the limit check is pending', async () => {
+    let resolveSubmissions;
+    mockedGetChallengeSubmissions.mockReturnValue(new Promise((resolve) => {
+      resolveSubmissions = resolve;
+    }));
+    const props = createContainerProps({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '2',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+    });
+    const container = new SubmissionsPageContainer(props);
+
+    const firstSubmission = container.handleSubmit({ id: 'first' });
+    const concurrentSubmission = container.handleSubmit({ id: 'second' });
+
+    expect(mockedGetChallengeSubmissions).toHaveBeenCalledTimes(1);
+    resolveSubmissions({ data: [{ id: 'existing-submission' }] });
+    await Promise.all([firstSubmission, concurrentSubmission]);
+
+    expect(props.submit).toHaveBeenCalledTimes(1);
+    expect(props.submit.mock.calls[0][3]).toEqual({ id: 'first' });
   });
 });

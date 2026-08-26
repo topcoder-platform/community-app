@@ -30,7 +30,7 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import tc from 'components/buttons/themed/tc.scss';
 import defaultStyles from './style.scss';
 
-const DEFAULT_AVATAR_URL = 'https://images.ctfassets.net/b5f1djy59z3a/4PTwZVSf3W7qgs9WssqbVa/4c51312671a4b9acbdfd7f5e22320b62/default_avatar.svg';
+const DEFAULT_AVATAR_URL = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/56/5628bff4d68faeeebce6cfcf14c8182774fa53fc6762e5429ca42d532d9ecb0d/default_avatar-5628bff4d68faeeebce6cfcf14c8182774fa53fc6762e5429ca42d532d9ecb0d.svg`;
 
 export default class MMLeaderboard extends Component {
   constructor(props) {

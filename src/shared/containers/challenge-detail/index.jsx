@@ -61,6 +61,13 @@ import {
 import getReviewSummationsService from 'services/reviewSummations';
 import { buildMmSubmissionData, buildStatisticsData } from 'utils/mm-review-summations';
 import { appendUtmParamsToUrl } from 'utils/utm';
+import {
+  getActiveSubmissionType,
+  getSubmissionLimit,
+  getSubmissionLimitReachedMessage,
+  hasReachedSubmissionLimit,
+  isSubmissionLimitType,
+} from 'utils/challenge-detail/submission-limit';
 // import {
 // getDisplayRecommendedChallenges,
 // getRecommendedTags,
@@ -291,7 +298,7 @@ function getOgImage(challenge) {
 }
 
 // The container component
-class ChallengeDetailPageContainer extends React.Component {
+export class ChallengeDetailPageContainer extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -315,11 +322,15 @@ class ChallengeDetailPageContainer extends React.Component {
       notFoundCountryFlagUrl: {},
       viewAsTable: false,
       showSecurityReminder: false,
+      submissionLimitCheckPending: false,
     };
+
+    this.submissionLimitCheckPending = false;
 
     this.instanceId = shortId();
 
     this.onToggleDeadlines = this.onToggleDeadlines.bind(this);
+    this.onSubmitChallenge = this.onSubmitChallenge.bind(this);
     this.registerForChallenge = this.registerForChallenge.bind(this);
   }
 
@@ -491,6 +502,97 @@ class ChallengeDetailPageContainer extends React.Component {
     });
   }
 
+  /**
+   * Verifies the complete active-phase submission history before opening the upload page.
+   *
+   * Unlimited, non-Design, and final-fix uploads retain the link's normal navigation. For finite
+   * Design checkpoint or contest limits, this prevents link navigation, queries every matching
+   * submission page for the member, and navigates only while a slot remains. Repeated clicks are
+   * ignored until the current check completes.
+   *
+   * @param {Object} event Submit-link click event.
+   * @return {Promise<void>} Resolves after navigation starts or an explanatory modal is shown.
+   * @throws Does not throw; lookup failures are reported to the member.
+   */
+  async onSubmitChallenge(event) {
+    const {
+      auth,
+      challenge,
+      challengeId,
+      challengesUrl,
+      history,
+      mySubmissions,
+    } = this.props;
+    const submissionLimit = getSubmissionLimit(challenge.metadata);
+    const submissionType = getActiveSubmissionType(challenge.phases);
+    const isDesign = _.toLower(getTrackName(challenge)) === 'design';
+
+    if (!isDesign || submissionLimit === null || !isSubmissionLimitType(submissionType)) {
+      return;
+    }
+
+    if (event && event.preventDefault) {
+      event.preventDefault();
+    }
+
+    if (this.submissionLimitCheckPending) {
+      return;
+    }
+
+    if (hasReachedSubmissionLimit(challenge.metadata, mySubmissions, challenge.phases)) {
+      fireErrorMessage(
+        'Submission Limit Reached',
+        getSubmissionLimitReachedMessage(submissionLimit),
+      );
+      return;
+    }
+
+    const memberId = _.get(auth, 'user.userId');
+    if (!auth.tokenV3 || _.isNil(memberId)) {
+      fireErrorMessage(
+        'Unable to Verify Submission Limit',
+        'We could not verify your existing submissions. Please try again.',
+      );
+      return;
+    }
+
+    this.submissionLimitCheckPending = true;
+    this.setState({ submissionLimitCheckPending: true });
+
+    let shouldNavigate = false;
+    try {
+      const existingSubmissions = await getChallengeSubmissionsService(
+        auth.tokenV3,
+        challengeId,
+        {
+          memberId,
+          type: submissionType,
+        },
+      );
+
+      if (existingSubmissions.data.length >= submissionLimit) {
+        fireErrorMessage(
+          'Submission Limit Reached',
+          getSubmissionLimitReachedMessage(submissionLimit),
+        );
+      } else {
+        shouldNavigate = true;
+      }
+    } catch (error) {
+      fireErrorMessage(
+        'Unable to Verify Submission Limit',
+        'We could not verify your existing submissions. Please try again.',
+      );
+    }
+
+    this.submissionLimitCheckPending = false;
+    this.setState({ submissionLimitCheckPending: false }, () => {
+      if (shouldNavigate) {
+        history.push(`${challengesUrl}/${challengeId}/submit`);
+      }
+    });
+  }
+
   registerForChallenge() {
     const {
       auth,
@@ -588,6 +690,7 @@ class ChallengeDetailPageContainer extends React.Component {
       mySubmissionsSort,
       viewAsTable,
       showSecurityReminder,
+      submissionLimitCheckPending,
     } = this.state;
 
     const {
@@ -712,7 +815,9 @@ class ChallengeDetailPageContainer extends React.Component {
                 submissionEnded={submissionEnded}
                 mySubmissions={challenge.isRegistered ? mySubmissions : []}
                 mySubmissionsCount={challenge.isRegistered ? mySubmissionsCount : 0}
+                onSubmitChallenge={this.onSubmitChallenge}
                 openForRegistrationChallenges={openForRegistrationChallenges}
+                submissionLimitCheckPending={submissionLimitCheckPending}
                 viewAsTable={viewAsTable && isMM}
                 onSort={(currenctSelected, sort) => {
                   if (currenctSelected === 'submissions') {

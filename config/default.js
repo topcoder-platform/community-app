@@ -111,6 +111,7 @@ module.exports = {
     /* This is the same value as above, but it is used by topcoder-react-lib,
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
+    CMS_ASSETS: 'https://assets.topcoder-dev.com',
     CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
     COPILOTS_URL: 'https://copilots.topcoder-dev.com',
     ENGAGEMENTS_APP: 'https://engagements.topcoder-dev.com',
@@ -132,8 +133,6 @@ module.exports = {
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
       COGNITIVE: 'https://cognitive.topcoder-dev.com',
-      ZURICH: 'https://community-app.topcoder-dev.com/__community__/zurich',
-      COMCAST: 'https://community-app.topcoder-dev.com/__community__/comcast',
       CS: 'https://community-app.topcoder-dev.com/__community__/cs',
     },
 
@@ -211,11 +210,17 @@ module.exports = {
       DEFAULT_SPACE_NAME: 'default',
       DEFAULT_ENVIRONMENT: 'master',
       MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
+      /* Optional Payload write-through endpoint. When unset, article votes
+       * continue to use the Contentful Management API. */
+      PAYLOAD_VOTE_API_URL: '',
+      PAYLOAD_MANAGEMENT_API_KEY: '',
       default: { // Human-readable name of space
         SPACE_ID: '',
         master: { // Name of an environment
           CDN_API_KEY: '',
           PREVIEW_API_KEY: '',
+          CDN_API_HOST: '',
+          PREVIEW_API_HOST: '',
         },
       },
       EDU: {
@@ -223,14 +228,8 @@ module.exports = {
         master: {
           CDN_API_KEY: '',
           PREVIEW_API_KEY: '',
-        },
-      },
-      /* Space for expert communities. */
-      zurich: {
-        SPACE_ID: '',
-        master: {
-          CDN_API_KEY: '',
-          PREVIEW_API_KEY: '',
+          CDN_API_HOST: '',
+          PREVIEW_API_HOST: '',
         },
       },
       /* Contentful Space for TopGear community content. */
@@ -239,13 +238,8 @@ module.exports = {
         master: {
           CDN_API_KEY: '',
           PREVIEW_API_KEY: '',
-        },
-      },
-      comcast: {
-        SPACE_ID: '',
-        master: {
-          CDN_API_KEY: '',
-          PREVIEW_API_KEY: '',
+          CDN_API_HOST: '',
+          PREVIEW_API_HOST: '',
         },
       },
     },

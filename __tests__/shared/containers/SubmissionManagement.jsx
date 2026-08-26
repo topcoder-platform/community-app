@@ -4,7 +4,176 @@
  * modification of SubmissionManagement component, that required to wrap
  * it into <StaticRouter> element. No time to properly fix it now, thus
  * just commented out. */
+import { SubmissionManagementPageContainer } from 'containers/SubmissionManagement';
+import { getChallengeSubmissions as mockedGetChallengeSubmissions } from 'services/submissions';
+
+jest.mock('services/submissions', () => ({
+  downloadSubmissions: jest.fn(),
+  getChallengeSubmissions: jest.fn(),
+  getSubmissionArtifacts: jest.fn(),
+  getSubmissionDownloadUrl: jest.fn(),
+}));
+
 test.skip('Placeholder', () => {});
+
+/**
+ * Creates a mounted Submission Management container with Design limit defaults.
+ *
+ * @param {Object} propOverrides Optional container prop replacements.
+ * @return {{container: SubmissionManagementPageContainer, props: Object}} Test container and props.
+ * @throws Does not throw.
+ */
+function createSubmissionManagementContainer(propOverrides = {}) {
+  const props = {
+    authTokens: {
+      tokenV3: 'token-v3',
+      user: { userId: 'member-id' },
+    },
+    challenge: {
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '1',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+      phases: [{ isOpen: true, name: 'Submission' }],
+      track: 'Design',
+    },
+    challengeId: 'challenge-id',
+    challengesUrl: '/challenges',
+    history: { push: jest.fn() },
+    mySubmissions: [],
+    ...propOverrides,
+  };
+  const container = new SubmissionManagementPageContainer(props);
+  container.isComponentMounted = true;
+  container.setState = jest.fn((state, callback) => {
+    container.state = { ...container.state, ...state };
+    if (callback) callback();
+  });
+
+  return { container, props };
+}
+
+describe('Submission Management Add Submission limit', () => {
+  beforeEach(() => {
+    mockedGetChallengeSubmissions.mockReset();
+  });
+
+  test('blocks the regular Design route when service history reaches the contest limit', async () => {
+    mockedGetChallengeSubmissions.mockResolvedValue({
+      data: [{ id: 'contest-submission' }],
+    });
+    const { container, props } = createSubmissionManagementContainer();
+    const event = { preventDefault: jest.fn() };
+
+    await container.onAddSubmission(event);
+
+    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    expect(mockedGetChallengeSubmissions).toHaveBeenCalledWith(
+      'token-v3',
+      'challenge-id',
+      {
+        memberId: 'member-id',
+        type: 'CONTEST_SUBMISSION',
+      },
+    );
+    expect(props.history.push).not.toHaveBeenCalled();
+  });
+
+  test('routes when complete checkpoint history confirms a slot remains', async () => {
+    mockedGetChallengeSubmissions.mockResolvedValue({ data: [] });
+    const { container, props } = createSubmissionManagementContainer({
+      challenge: {
+        metadata: [{
+          name: 'submissionLimit',
+          value: JSON.stringify({
+            count: '1',
+            limit: 'true',
+            unlimited: 'false',
+          }),
+        }],
+        phases: [{ isOpen: true, name: 'Checkpoint Submission' }],
+        track: 'Design',
+      },
+    });
+
+    await container.onAddSubmission({ preventDefault: jest.fn() });
+
+    expect(mockedGetChallengeSubmissions).toHaveBeenCalledWith(
+      'token-v3',
+      'challenge-id',
+      {
+        memberId: 'member-id',
+        type: 'CHECKPOINT_SUBMISSION',
+      },
+    );
+    expect(props.history.push).toHaveBeenCalledWith('/challenges/challenge-id/submit');
+  });
+
+  test('fails closed and releases the pending guard when history lookup fails', async () => {
+    mockedGetChallengeSubmissions.mockRejectedValue(new Error('network error'));
+    const { container, props } = createSubmissionManagementContainer();
+
+    await container.onAddSubmission({ preventDefault: jest.fn() });
+
+    expect(props.history.push).not.toHaveBeenCalled();
+    expect(container.submissionLimitCheckPending).toBe(false);
+    expect(container.state.submissionLimitCheckPending).toBe(false);
+  });
+
+  test('leaves unlimited, non-Design, and final-fix links to normal navigation', async () => {
+    const { container: unlimitedContainer } = createSubmissionManagementContainer({
+      challenge: {
+        metadata: [],
+        phases: [{ isOpen: true, name: 'Submission' }],
+        track: 'Design',
+      },
+    });
+    const { container: finalFixContainer } = createSubmissionManagementContainer({
+      challenge: {
+        metadata: [{
+          name: 'submissionLimit',
+          value: JSON.stringify({
+            count: '1',
+            limit: 'true',
+            unlimited: 'false',
+          }),
+        }],
+        phases: [{ isOpen: true, name: 'Final Fix' }],
+        track: 'Design',
+      },
+    });
+    const { container: developmentContainer } = createSubmissionManagementContainer({
+      challenge: {
+        metadata: [{
+          name: 'submissionLimit',
+          value: JSON.stringify({
+            count: '1',
+            limit: 'true',
+            unlimited: 'false',
+          }),
+        }],
+        phases: [{ isOpen: true, name: 'Submission' }],
+        track: 'Development',
+      },
+    });
+    const unlimitedEvent = { preventDefault: jest.fn() };
+    const finalFixEvent = { preventDefault: jest.fn() };
+    const developmentEvent = { preventDefault: jest.fn() };
+
+    await unlimitedContainer.onAddSubmission(unlimitedEvent);
+    await finalFixContainer.onAddSubmission(finalFixEvent);
+    await developmentContainer.onAddSubmission(developmentEvent);
+
+    expect(unlimitedEvent.preventDefault).not.toHaveBeenCalled();
+    expect(finalFixEvent.preventDefault).not.toHaveBeenCalled();
+    expect(developmentEvent.preventDefault).not.toHaveBeenCalled();
+    expect(mockedGetChallengeSubmissions).not.toHaveBeenCalled();
+  });
+});
 
 /*
 import _ from 'lodash';

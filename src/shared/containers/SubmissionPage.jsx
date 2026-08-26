@@ -9,10 +9,12 @@
 import actions from 'actions/page/submission';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import { actions as api, errors } from 'topcoder-react-lib';
-import { isMM } from 'utils/challenge';
+import { getTrackName, isMM } from 'utils/challenge';
 import {
+  getActiveSubmissionType,
   getSubmissionLimit,
   getSubmissionLimitReachedMessage,
+  isSubmissionLimitType,
 } from 'utils/challenge-detail/submission-limit';
 import communityActions from 'actions/tc-communities';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
@@ -33,6 +35,7 @@ const { fireErrorMessage } = errors;
 export class SubmissionsPageContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.submissionRequestPending = false;
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -48,7 +51,14 @@ export class SubmissionsPageContainer extends React.Component {
     getCommunitiesList(auth);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { isSubmitting } = this.props;
+    const { isSubmitting: nextIsSubmitting } = nextProps;
+
+    if (isSubmitting && !nextIsSubmitting) {
+      this.submissionRequestPending = false;
+    }
+
     const {
       challenge,
       history,
@@ -64,14 +74,20 @@ export class SubmissionsPageContainer extends React.Component {
   /**
    * Verifies the member has an available slot before creating a submission.
    *
-   * Unlimited challenges submit immediately. Limited challenges load the member's complete
-   * submission history so direct navigation to this page cannot bypass the header guard.
+   * Unlimited and non-Design challenges submit immediately. Limited Design challenges load the
+   * member's complete submission history so direct navigation cannot bypass the entry guards.
    *
    * @param {FormData} body Prepared submission form data.
    * @return {Promise<void>} Resolves after submission starts or the member is shown an error.
    * @throws Does not throw; limit-check failures are reported to the member.
    */
   async handleSubmit(body) {
+    if (this.submissionRequestPending) {
+      return;
+    }
+
+    this.submissionRequestPending = true;
+
     const {
       tokenV2,
       tokenV3,
@@ -80,19 +96,26 @@ export class SubmissionsPageContainer extends React.Component {
       challenge,
       track,
       metadata,
+      phases,
       userId,
     } = this.props;
 
     const submissionLimit = getSubmissionLimit(metadata);
-    if (submissionLimit !== null) {
+    const submissionType = getActiveSubmissionType(phases);
+    const isDesign = getTrackName(track).toLowerCase() === 'design';
+    if (isDesign && submissionLimit !== null && isSubmissionLimitType(submissionType)) {
       try {
         const existingSubmissions = await getChallengeSubmissions(
           tokenV3,
           challengeId,
-          { memberId: userId },
+          {
+            memberId: userId,
+            type: submissionType,
+          },
         );
 
         if (existingSubmissions.data.length >= submissionLimit) {
+          this.submissionRequestPending = false;
           fireErrorMessage(
             'Submission Limit Reached',
             getSubmissionLimitReachedMessage(submissionLimit),
@@ -100,6 +123,7 @@ export class SubmissionsPageContainer extends React.Component {
           return;
         }
       } catch (error) {
+        this.submissionRequestPending = false;
         fireErrorMessage(
           'Unable to Verify Submission Limit',
           'We could not verify your existing submissions. Please try again.',

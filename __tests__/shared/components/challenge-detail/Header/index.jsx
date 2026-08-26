@@ -116,6 +116,7 @@ function renderHeader(challengeOverrides = {}, propOverrides = {}) {
       numWinners={1}
       onSelectorClicked={jest.fn()}
       onSort={jest.fn()}
+      onSubmitChallenge={jest.fn()}
       onToggleDeadlines={jest.fn()}
       openForRegistrationChallenges={{}}
       registerForChallenge={jest.fn()}
@@ -190,9 +191,10 @@ describe('Challenge detail header actions', () => {
           unlimited: 'false',
         }),
       }],
+      track: 'Design',
     }, {
       hasRegistered: true,
-      mySubmissions: [{ id: 'submission-id' }],
+      mySubmissions: [{ id: 'submission-id', type: 'CONTEST_SUBMISSION' }],
     });
     const submitAction = findSubmitAction(output);
 
@@ -207,6 +209,7 @@ describe('Challenge detail header actions', () => {
   });
 
   test('keeps the submission page available while slots remain', () => {
+    const onSubmitChallenge = jest.fn();
     const output = renderHeader({
       metadata: [{
         name: 'submissionLimit',
@@ -216,15 +219,80 @@ describe('Challenge detail header actions', () => {
           unlimited: 'false',
         }),
       }],
+      track: 'Design',
     }, {
       hasRegistered: true,
-      mySubmissions: [{ id: 'submission-id' }],
+      mySubmissions: [{ id: 'submission-id', type: 'CONTEST_SUBMISSION' }],
+      onSubmitChallenge,
     });
     const submitAction = findSubmitAction(output);
 
     expect(submitAction.props.to).toBe('/challenges/challenge-id/submit');
-    expect(submitAction.props.onClick).toBeUndefined();
+    expect(submitAction.props.onClick).toBe(onSubmitChallenge);
     expect(mockedErrors.fireErrorMessage).not.toHaveBeenCalled();
+  });
+
+  test('does not count a checkpoint submission against the contest limit', () => {
+    const onSubmitChallenge = jest.fn();
+    const output = renderHeader({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '1',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+      phases: [
+        { isOpen: false, name: 'Checkpoint Submission' },
+        { isOpen: true, name: 'Submission' },
+      ],
+      track: 'Design',
+    }, {
+      hasRegistered: true,
+      mySubmissions: [{ id: 'submission-id', type: 'CHECKPOINT_SUBMISSION' }],
+      onSubmitChallenge,
+    });
+    const submitAction = findSubmitAction(output);
+
+    expect(submitAction.props.to).toBe('/challenges/challenge-id/submit');
+    expect(submitAction.props.onClick).toBe(onSubmitChallenge);
+    expect(mockedErrors.fireErrorMessage).not.toHaveBeenCalled();
+  });
+
+  test('does not apply Design submission-limit metadata to Development challenges', () => {
+    const onSubmitChallenge = jest.fn();
+    const output = renderHeader({
+      metadata: [{
+        name: 'submissionLimit',
+        value: JSON.stringify({
+          count: '1',
+          limit: 'true',
+          unlimited: 'false',
+        }),
+      }],
+      track: 'Development',
+    }, {
+      hasRegistered: true,
+      mySubmissions: [{ id: 'submission-id', type: 'CONTEST_SUBMISSION' }],
+      onSubmitChallenge,
+    });
+    const submitAction = findSubmitAction(output);
+
+    expect(submitAction.props.to).toBe('/challenges/challenge-id/submit');
+    expect(submitAction.props.onClick).toBe(onSubmitChallenge);
+    expect(mockedErrors.fireErrorMessage).not.toHaveBeenCalled();
+  });
+
+  test('disables submit navigation while the authoritative limit check is pending', () => {
+    const output = renderHeader({}, {
+      hasRegistered: true,
+      submissionLimitCheckPending: true,
+    });
+    const submitAction = findSubmitAction(output);
+
+    expect(submitAction.props.disabled).toBe(true);
+    expect(submitAction.props.to).toBeUndefined();
   });
 });
 

@@ -238,6 +238,7 @@ async function onExpressJsSetup(server) {
           + ' https://d1of0acg2orgco.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
           + ' https://d2nl5eqipnb33q.cloudfront.net'
+          + ` ${config.URL.CMS_ASSETS}`
           + ' https://images.ctfassets.net'
           + ' https://heapanalytics.com'
           + ' https://q.quora.com'
@@ -254,7 +255,8 @@ async function onExpressJsSetup(server) {
           + ' https://track.hubspot.com'
           + ' https://d0.awsstatic.com/logos/;'
         + " manifest-src 'self';"
-        + " media-src 'self';"
+        + " media-src 'self'"
+          + ` ${config.URL.CMS_ASSETS};`
         + " worker-src 'self';",
       );
     }

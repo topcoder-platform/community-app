@@ -16,6 +16,7 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { COMPETITION_TRACKS } from 'utils/tc';
+import { getActiveSubmissionType } from 'utils/challenge-detail/submission-limit';
 
 import FilestackFilePicker from '../FilestackFilePicker';
 
@@ -97,10 +98,11 @@ class Submit extends React.Component {
     const {
       submissionFilestackData: sub,
       challengeId,
+      phases,
       userId,
     } = this.props;
 
-    const subType = this.getSubDetails();
+    const subType = getActiveSubmissionType(phases);
 
     const formData = new FormData();
     formData.append('url', sub.fileUrl);
@@ -111,36 +113,6 @@ class Submit extends React.Component {
       formData.append('fileType', sub.fileType);
     }
     return formData;
-  }
-
-  // returns both submission type and phase id
-  getSubDetails() {
-    const {
-      phases,
-    } = this.props;
-    const checkpoint = _.find(phases, {
-      name: 'Checkpoint Submission',
-    });
-    const submission = _.find(phases, {
-      name: 'Submission',
-    });
-    const finalFix = _.find(phases, {
-      name: 'Final Fix',
-    });
-    let subType;
-
-    // Submission type logic
-    if (checkpoint && checkpoint.isOpen) {
-      subType = 'CHECKPOINT_SUBMISSION';
-    } else if (checkpoint && !checkpoint.isOpen && submission && submission.isOpen) {
-      subType = 'CONTEST_SUBMISSION';
-    } else if (finalFix && finalFix.isOpen) {
-      subType = 'STUDIO_FINAL_FIX_SUBMISSION';
-    } else {
-      subType = 'CONTEST_SUBMISSION';
-    }
-
-    return subType;
   }
 
   reset() {

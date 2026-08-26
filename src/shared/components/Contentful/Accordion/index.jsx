@@ -11,11 +11,9 @@ import React from 'react';
 import Accordion from './Accordion';
 import AccordionItem from './AccordionItem';
 import defaultTheme from './Accordion/style.scss';
-import zurichTheme from './Accordion/zurich.scss';
 
 const THEMES = {
   Default: defaultTheme,
-  Zurich: zurichTheme,
 };
 
 function AccordionItemsLoader(props) {

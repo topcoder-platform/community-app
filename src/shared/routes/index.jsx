@@ -5,6 +5,7 @@
 import CommunityLoader from 'containers/tc-communities/Loader';
 import ContentfulRoute from 'components/Contentful/Route';
 import Content from 'components/Content';
+import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
 import React from 'react';
@@ -22,6 +23,7 @@ import { connect } from 'react-redux';
 import socialImage from 'assets/images/social.png';
 
 import Communities from './Communities';
+import isSupportedCommunityId from './Communities/community-ids';
 import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
@@ -56,21 +58,23 @@ function Routes({ communityId }) {
         <Route
           component={ProfileRedirect}
           exact
-          path="/members/:handle([\w\-\[\].{} ]{2,15})"
+          path="/members/:handle([^/]{2,})"
         />
-        <div>
-          {metaTags}
-          <CommunityLoader
-            communityComponent={({ member, meta }) => (
-              <Communities
-                communityId={communityId}
-                member={member}
-                meta={meta}
-              />
-            )}
-            communityId={communityId}
-          />
-        </div>
+        {isSupportedCommunityId(communityId) ? (
+          <div>
+            {metaTags}
+            <CommunityLoader
+              communityComponent={({ member, meta }) => (
+                <Communities
+                  communityId={communityId}
+                  member={member}
+                  meta={meta}
+                />
+              )}
+              communityId={communityId}
+            />
+          </div>
+        ) : <Error404 />}
       </Switch>
     );
   }
@@ -82,21 +86,23 @@ function Routes({ communityId }) {
         {Examples()}
         <Route
           render={({ match }) => (
-            <CommunityLoader
-              communityComponent={({ member, meta }) => {
-                let base = match.url;
-                while (base.endsWith('/')) base = base.slice(0, -1);
-                return (
-                  <Communities
-                    base={base}
-                    communityId={match.params.communityId}
-                    member={member}
-                    meta={meta}
-                  />
-                );
-              }}
-              communityId={match.params.communityId}
-            />
+            isSupportedCommunityId(match.params.communityId) ? (
+              <CommunityLoader
+                communityComponent={({ member, meta }) => {
+                  let base = match.url;
+                  while (base.endsWith('/')) base = base.slice(0, -1);
+                  return (
+                    <Communities
+                      base={base}
+                      communityId={match.params.communityId}
+                      member={member}
+                      meta={meta}
+                    />
+                  );
+                }}
+                communityId={match.params.communityId}
+              />
+            ) : <Error404 />
           )}
           path="/__community__/:communityId"
         />
@@ -185,7 +191,7 @@ function Routes({ communityId }) {
         <Route
           component={ProfileRedirect}
           exact
-          path="/members/:handle([\w\-\[\].{} ]{2,15})"
+          path="/members/:handle([^/]{2,})"
         />
         <Route
           component={RedirectMemberSearch}

@@ -30,6 +30,7 @@ module.exports = {
   SERVER_API_KEY: 'SERVER_API_KEY',
 
   URL: {
+    CMS_ASSETS: 'PAYLOAD_CMS_ASSET_URL',
     COMMUNITY_APP: 'COMMUNITY_APP_URL',
     EMAIL_VERIFY_URL: 'EMAIL_VERIFY_URL',
   },
@@ -37,18 +38,15 @@ module.exports = {
   SECRET: {
     CONTENTFUL: {
       MANAGEMENT_TOKEN: 'CONTENTFUL_MANAGEMENT_TOKEN',
+      PAYLOAD_VOTE_API_URL: 'CONTENTFUL_PAYLOAD_VOTE_API_URL',
+      PAYLOAD_MANAGEMENT_API_KEY: 'CONTENTFUL_PAYLOAD_MANAGEMENT_API_KEY',
       default: {
         SPACE_ID: 'CONTENTFUL_SPACE_ID',
         master: {
           CDN_API_KEY: 'CONTENTFUL_CDN_API_KEY',
           PREVIEW_API_KEY: 'CONTENTFUL_PREVIEW_API_KEY',
-        },
-      },
-      zurich: {
-        SPACE_ID: 'CONTENTFUL_ZURICH_SPACE_ID',
-        master: {
-          CDN_API_KEY: 'CONTENTFUL_ZURICH_CDN_API_KEY',
-          PREVIEW_API_KEY: 'CONTENTFUL_ZURICH_PREVIEW_API_KEY',
+          CDN_API_HOST: 'CONTENTFUL_CDN_API_HOST',
+          PREVIEW_API_HOST: 'CONTENTFUL_PREVIEW_API_HOST',
         },
       },
       topgear: {
@@ -56,6 +54,8 @@ module.exports = {
         master: {
           CDN_API_KEY: 'CONTENTFUL_TOPGEAR_CDN_API_KEY',
           PREVIEW_API_KEY: 'CONTENTFUL_TOPGEAR_PREVIEW_API_KEY',
+          CDN_API_HOST: 'CONTENTFUL_TOPGEAR_CDN_API_HOST',
+          PREVIEW_API_HOST: 'CONTENTFUL_TOPGEAR_PREVIEW_API_HOST',
         },
       },
       EDU: {
@@ -63,13 +63,8 @@ module.exports = {
         master: {
           CDN_API_KEY: 'CONTENTFUL_EDU_CDN_API_KEY',
           PREVIEW_API_KEY: 'CONTENTFUL_EDU_PREVIEW_API_KEY',
-        },
-      },
-      comcast: {
-        SPACE_ID: 'CONTENTFUL_COMCAST_SPACE_ID',
-        master: {
-          CDN_API_KEY: 'CONTENTFUL_COMCAST_CDN_API_KEY',
-          PREVIEW_API_KEY: 'CONTENTFUL_COMCAST_PREVIEW_API_KEY',
+          CDN_API_HOST: 'CONTENTFUL_EDU_CDN_API_HOST',
+          PREVIEW_API_HOST: 'CONTENTFUL_EDU_PREVIEW_API_HOST',
         },
       },
     },

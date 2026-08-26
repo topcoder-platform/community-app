@@ -329,7 +329,7 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
       status: 'ACTIVE',
-      currentPhaseName: 'Submission',
+      startDateEnd: new Date().toISOString(),
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sortObj.field ? sortObj.field : sorts[BUCKETS.ALL],
@@ -384,7 +384,7 @@ function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
       ...frontFilter,
       ...extractSearchFilter(frontFilter),
       status: 'ACTIVE',
-      currentPhaseName: 'Submission',
+      startDateEnd: new Date().toISOString(),
       isLightweight: true,
       perPage: 1,
     },
@@ -488,11 +488,12 @@ function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter =
  * Action to get a list of currently open Review Opportunities using V3 API
  * @param {String} uuid Unique identifier for init/donen instance from shortid module
  * @param {Number} page Page of review opportunities to fetch.
- * @param {String} tokenV3 Optional. Topcoder auth token v3.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3. Required for the
+ *  API to return opportunities of group restricted (private) challenges.
  * @return {Object} Action object
  */
-function getReviewOpportunitiesDone(uuid, page) {
-  return getReviewOpportunities(page, REVIEW_OPPORTUNITY_PAGE_SIZE)
+function getReviewOpportunitiesDone(uuid, page, tokenV3) {
+  return getReviewOpportunities(page, REVIEW_OPPORTUNITY_PAGE_SIZE, tokenV3)
     .then(loaded => ({ uuid, loaded }))
     .catch((error) => {
       fireErrorMessage('Error Getting Review Opportunities', error.content || error);
@@ -589,6 +590,7 @@ export default createActions({
     DROP_PAST_CHALLENGES: _.noop,
     DROP_MY_PAST_CHALLENGES: _.noop,
     DROP_RECOMMENDED_CHALLENGES: _.noop,
+    DROP_REVIEW_OPPORTUNITIES: _.noop,
 
     // GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     // GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,

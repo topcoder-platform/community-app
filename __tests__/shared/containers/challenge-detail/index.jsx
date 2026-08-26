@@ -1,5 +1,6 @@
 import {
   buildChallengeLoginUrl,
+  ChallengeDetailPageContainer,
   getDisplayWinners,
   isGroupedChallenge,
   isGroupedChallengeAccessError,
@@ -8,6 +9,53 @@ import {
   shouldLoginForGroupedChallenge,
   shouldLoginForGroupedChallengeError,
 } from 'containers/challenge-detail';
+import { getChallengeSubmissions as mockedGetChallengeSubmissions } from 'services/submissions';
+
+jest.mock('services/submissions', () => ({
+  getChallengeSubmissions: jest.fn(),
+  getSubmissionArtifacts: jest.fn(),
+}));
+
+/**
+ * Creates the minimal challenge-detail context needed to exercise submit navigation.
+ *
+ * @param {Object} propOverrides Optional container prop replacements.
+ * @return {Object} Method context with mocked state updates and navigation.
+ * @throws Does not throw.
+ */
+function createSubmitNavigationContext(propOverrides = {}) {
+  const context = {
+    props: {
+      auth: {
+        tokenV3: 'token-v3',
+        user: { userId: 'member-id' },
+      },
+      challenge: {
+        metadata: [{
+          name: 'submissionLimit',
+          value: JSON.stringify({
+            count: '1',
+            limit: 'true',
+            unlimited: 'false',
+          }),
+        }],
+        phases: [{ isOpen: true, name: 'Submission' }],
+        track: 'Design',
+      },
+      challengeId: 'challenge-id',
+      challengesUrl: '/challenges',
+      history: { push: jest.fn() },
+      mySubmissions: [],
+      ...propOverrides,
+    },
+    setState: jest.fn((state, callback) => {
+      if (callback) callback();
+    }),
+    submissionLimitCheckPending: false,
+  };
+
+  return context;
+}
 
 describe('Challenge detail Wipro registration guard', () => {
   test('blocks Wipro members when challenge disallows Wipro participation', () => {
@@ -132,6 +180,126 @@ describe('Challenge detail My Submissions count', () => {
 
     expect(props.mySubmissions).toHaveLength(1);
     expect(props.mySubmissionsCount).toBe(3);
+  });
+});
+
+describe('Challenge detail submit navigation limit', () => {
+  beforeEach(() => {
+    mockedGetChallengeSubmissions.mockReset();
+  });
+
+  test('blocks navigation when complete history reaches the limit but local history is empty', async () => {
+    mockedGetChallengeSubmissions.mockResolvedValue({
+      data: [{ id: 'contest-submission' }],
+    });
+    const context = createSubmitNavigationContext();
+    const event = { preventDefault: jest.fn() };
+
+    await ChallengeDetailPageContainer.prototype.onSubmitChallenge.call(context, event);
+
+    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    expect(mockedGetChallengeSubmissions).toHaveBeenCalledWith(
+      'token-v3',
+      'challenge-id',
+      {
+        memberId: 'member-id',
+        type: 'CONTEST_SUBMISSION',
+      },
+    );
+    expect(context.props.history.push).not.toHaveBeenCalled();
+    expect(context.submissionLimitCheckPending).toBe(false);
+  });
+
+  test('navigates after complete history confirms a submission slot remains', async () => {
+    mockedGetChallengeSubmissions.mockResolvedValue({ data: [] });
+    const context = createSubmitNavigationContext();
+    const event = { preventDefault: jest.fn() };
+
+    await ChallengeDetailPageContainer.prototype.onSubmitChallenge.call(context, event);
+
+    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    expect(context.props.history.push)
+      .toHaveBeenCalledWith('/challenges/challenge-id/submit');
+    expect(context.submissionLimitCheckPending).toBe(false);
+  });
+
+  test('leaves unlimited and final-fix links to their normal navigation', async () => {
+    const unlimitedContext = createSubmitNavigationContext({
+      challenge: {
+        metadata: [],
+        phases: [{ isOpen: true, name: 'Submission' }],
+        track: 'Design',
+      },
+    });
+    const finalFixContext = createSubmitNavigationContext({
+      challenge: {
+        metadata: [{
+          name: 'submissionLimit',
+          value: JSON.stringify({
+            count: '1',
+            limit: 'true',
+            unlimited: 'false',
+          }),
+        }],
+        phases: [{ isOpen: true, name: 'Final Fix' }],
+        track: 'Design',
+      },
+    });
+    const unlimitedEvent = { preventDefault: jest.fn() };
+    const finalFixEvent = { preventDefault: jest.fn() };
+
+    await ChallengeDetailPageContainer.prototype.onSubmitChallenge.call(
+      unlimitedContext,
+      unlimitedEvent,
+    );
+    await ChallengeDetailPageContainer.prototype.onSubmitChallenge.call(
+      finalFixContext,
+      finalFixEvent,
+    );
+
+    expect(unlimitedEvent.preventDefault).not.toHaveBeenCalled();
+    expect(finalFixEvent.preventDefault).not.toHaveBeenCalled();
+    expect(mockedGetChallengeSubmissions).not.toHaveBeenCalled();
+  });
+
+  test('fails closed and releases the click guard when complete-history lookup fails', async () => {
+    mockedGetChallengeSubmissions.mockRejectedValue(new Error('network error'));
+    const context = createSubmitNavigationContext();
+
+    await ChallengeDetailPageContainer.prototype.onSubmitChallenge.call(
+      context,
+      { preventDefault: jest.fn() },
+    );
+
+    expect(context.props.history.push).not.toHaveBeenCalled();
+    expect(context.submissionLimitCheckPending).toBe(false);
+    expect(context.setState).toHaveBeenLastCalledWith(
+      { submissionLimitCheckPending: false },
+      expect.any(Function),
+    );
+  });
+
+  test('ignores repeated clicks while the complete-history lookup is pending', async () => {
+    let resolveSubmissions;
+    mockedGetChallengeSubmissions.mockReturnValue(new Promise((resolve) => {
+      resolveSubmissions = resolve;
+    }));
+    const context = createSubmitNavigationContext();
+
+    const firstClick = ChallengeDetailPageContainer.prototype.onSubmitChallenge.call(
+      context,
+      { preventDefault: jest.fn() },
+    );
+    const repeatedClick = ChallengeDetailPageContainer.prototype.onSubmitChallenge.call(
+      context,
+      { preventDefault: jest.fn() },
+    );
+
+    expect(mockedGetChallengeSubmissions).toHaveBeenCalledTimes(1);
+    resolveSubmissions({ data: [] });
+    await Promise.all([firstClick, repeatedClick]);
+
+    expect(context.props.history.push).toHaveBeenCalledTimes(1);
   });
 });
 
