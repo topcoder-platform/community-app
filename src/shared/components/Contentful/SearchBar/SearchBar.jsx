@@ -19,7 +19,7 @@ import IconSearch from 'assets/images/tc-edu/icon-search.svg';
 import IconPlay from 'assets/images/tc-edu/icon-play-video.svg';
 import defaultTheme from './themes/default.scss';
 
-const RESULT_IMAGE_PLACEHOLDER = 'https://images.ctfassets.net/piwi0eufbb2g/838SkGfa1WgtwLY9NK03c/8501550a85be07f220b09ad903a5e575/image-placeholder.png';
+const RESULT_IMAGE_PLACEHOLDER = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/8c/8c5161ec748a5d2c6ab00ebc52396844eb9d735aaf1978a76270f1f12cd12120/image-placeholder-8c5161ec748a5d2c6ab00ebc52396844eb9d735aaf1978a76270f1f12cd12120.png`;
 
 const filterOptions = [
   {

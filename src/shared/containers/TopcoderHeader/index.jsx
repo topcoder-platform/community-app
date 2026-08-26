@@ -8,7 +8,7 @@ import { MarketingNavigation, ToolNavigation } from 'uninav-react';
 import { getSubPageConfiguration } from '../../utils/url';
 import './styles.scss';
 
-const TopcoderHeader = ({ auth, location }) => {
+export const TopcoderHeader = ({ auth, location }) => {
   const user = _.get(auth, 'profile') || {};
   const authToken = _.get(auth, 'tokenV3');
   const isAuthenticated = !!authToken;
@@ -60,6 +60,7 @@ const TopcoderHeader = ({ auth, location }) => {
   return (
     <div styleName="header-container">
       <NavComponent
+        uniNavUrl={config.UNIVERSAL_NAV_URL}
         toolName={pageCfg.toolName}
         toolRoot={pageCfg.toolRoot}
         user={isAuthenticated ? 'auto' : undefined}

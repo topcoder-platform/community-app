@@ -23,7 +23,7 @@ const optimizelyClient = createInstance({
 });
 const cookies = require('browser-cookies');
 
-const GIGS_SOCIAL_SHARE_IMAGE = 'https://images.ctfassets.net/b5f1djy59z3a/4XlYNZgq5Kfa4XdwQ6pDfV/769ea7be756a88145b88ce685f050ebc/10_Freelance_Gig.png';
+const GIGS_SOCIAL_SHARE_IMAGE = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/84/8416e431ed91f5e8234156c784e902c1723db1b4a24e3f6b62661f9b84811143/10_Freelance_Gig-8416e431ed91f5e8234156c784e902c1723db1b4a24e3f6b62661f9b84811143.png`;
 
 function GigsPagesContainer(props) {
   const {

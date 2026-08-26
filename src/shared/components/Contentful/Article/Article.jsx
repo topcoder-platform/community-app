@@ -43,7 +43,7 @@ const CONTENT_PREVIEW_LENGTH = 110;
 // Votes local storage key
 const LOCAL_STORAGE_KEY = 'VENBcnRpY2xlVm90ZXM=';
 // def banner image
-const DEFAULT_BANNER_IMAGE = 'https://images.ctfassets.net/piwi0eufbb2g/7v2hlDsVep7FWufHw0lXpQ/2505e61a880e68fab4e80cd0e8ec1814/0C37CB5E-B253-4804-8935-78E64E67589E.png?w=1200&h=630';
+const DEFAULT_BANNER_IMAGE = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/97/970c80d628d90c49e1a8817954d5ef8ddcffdf1b0a0e2cdb74a2decd7cabe8ee/0C37CB5E-B253-4804-8935-78E64E67589E-970c80d628d90c49e1a8817954d5ef8ddcffdf1b0a0e2cdb74a2decd7cabe8ee.png?w=1200&h=630`;
 // random ads banner - left sidebar
 const RANDOM_BANNERS = ['6G8mjiTC1mzeSQ2YoUG1gB', '1DnDD02xX1liHfSTf5Vsn8', 'HQZ3mN0rR92CbNTkKTHJ5', '1OLoX8ZsvjAnn4TdGbZESD', '77jn01UGoQe2gqA7x0coQD'];
 const RANDOM_BANNER = RANDOM_BANNERS[getSecureRandomIndex(RANDOM_BANNERS.length)];
@@ -202,7 +202,7 @@ class Article extends React.Component {
               }
               </div>
             </div>
-            <img src="https://images.ctfassets.net/piwi0eufbb2g/3StLyQh5ne1Lk9H7C1oVxv/52f17a02122212052e44585d3e79fcf7/29320408-E820-48E1-B0FD-539EAC296910.svg" alt="Thrive banner shape" className={theme.bannerBottShape} />
+            <img src={`${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/30/3054ad351ece87599253eb97b86fe856860f8e4b4176643c4391fb8ce2a01f10/29320408-E820-48E1-B0FD-539EAC296910-3054ad351ece87599253eb97b86fe856860f8e4b4176643c4391fb8ce2a01f10.svg`} alt="Thrive banner shape" className={theme.bannerBottShape} />
           </div>
           <div
             className={fields.featuredImage

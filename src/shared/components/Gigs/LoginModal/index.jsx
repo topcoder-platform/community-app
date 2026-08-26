@@ -24,11 +24,11 @@ const buttonThemes = {
   tc,
 };
 
-const blobYellow = 'https://images.ctfassets.net/b5f1djy59z3a/3wYRUnrUj3v765abrGRwlM/b0f9b49b4f49dc163e6913559a19b9e3/blob-yellow.svg';
-const progressBar = 'https://images.ctfassets.net/b5f1djy59z3a/2BX7LOrvVzKEarIJ8boCFm/bba0dd3e0180d2dc355809e6c1954631/progress-bar.svg';
-const progressBarMid = 'https://images.ctfassets.net/b5f1djy59z3a/517ZRt9geweW3QTtzlUqJu/11e33e876426f97e0725ba5fff9755f8/progress-bar-mid.svg';
-const progressBarXS = 'https://images.ctfassets.net/b5f1djy59z3a/6QxH7uVKCngtzBaXDn3Od1/3e0222a1ce773cead3f3a45f291f43a6/progress-bar-mobile.svg';
-const blobPurple = 'https://images.ctfassets.net/b5f1djy59z3a/1ZRCwp1uoShcES16lQmeu/ba084734120ffedebcb92b4e3fa2d667/blob-purple.svg';
+const blobYellow = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/45/45dbf3e0e08511e3f8e40ef6d63ea80b35b5f53b6e0dd5c0486c466dfc0c6b9b/blob-yellow-45dbf3e0e08511e3f8e40ef6d63ea80b35b5f53b6e0dd5c0486c466dfc0c6b9b.svg`;
+const progressBar = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/db/db97ea47aab5b090aad54abb6f4d221b6b4ff165d18096fff1bf9038032219e6/progress-bar-db97ea47aab5b090aad54abb6f4d221b6b4ff165d18096fff1bf9038032219e6.svg`;
+const progressBarMid = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/f8/f8c3a9883da7f94d8c602283f82a1b7fa3181e8b0b37487a2061ea73ba566e9e/progress-bar-mid-f8c3a9883da7f94d8c602283f82a1b7fa3181e8b0b37487a2061ea73ba566e9e.svg`;
+const progressBarXS = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/88/8897cb2cc7986602e2293cf23f9f6b381c6618ec3264f6e6876362715e36a8f3/progress-bar-mobile-8897cb2cc7986602e2293cf23f9f6b381c6618ec3264f6e6876362715e36a8f3.svg`;
+const blobPurple = `${config.URL.CMS_ASSETS}/media/contentful/images.ctfassets.net/8b/8b6773784c375be832e3515de713427cc0bd02690eb5451c6813d9feb731871a/blob-purple-8b6773784c375be832e3515de713427cc0bd02690eb5451c6813d9feb731871a.svg`;
 
 function LoginModal({ retUrl, onCancel, utmSource }) {
   return (

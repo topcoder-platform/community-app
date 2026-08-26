@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import Container from 'containers/TopcoderHeader';
+import Container, { TopcoderHeader } from 'containers/TopcoderHeader';
 import React from 'react';
 import R from 'react-test-renderer/shallow';
+import { config } from 'topcoder-react-utils';
 
 const mockState = {
   auth: {
@@ -26,4 +27,20 @@ test('Matches shallow snapshot', () => {
     />
   ));
   expect(r.getRenderOutput()).toMatchSnapshot();
+});
+
+test('Passes the configured universal navigation URL to the navigation loader', () => {
+  const r = new R();
+  r.render((
+    <TopcoderHeader
+      location={{
+        href: 'https://www.topcoder-dev.com/challenges/challenge-id/submit',
+        pathname: '/challenges/challenge-id/submit',
+        search: '',
+      }}
+    />
+  ));
+
+  expect(r.getRenderOutput().props.children.props.uniNavUrl)
+    .toBe(config.UNIVERSAL_NAV_URL);
 });
