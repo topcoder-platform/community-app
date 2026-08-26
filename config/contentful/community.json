@@ -2631,7 +2631,6 @@
           "validations": [
             {
               "in": [
-                "Zurich",
                 "Default"
               ]
             }
@@ -5398,8 +5397,7 @@
           "validations": [
             {
               "in": [
-                "Default",
-                "Zurich"
+                "Default"
               ]
             }
           ],

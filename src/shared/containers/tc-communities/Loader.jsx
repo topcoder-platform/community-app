@@ -48,11 +48,6 @@ class Loader extends React.Component {
       !meta /* || (Date.now() - meta.timestamp) > MAXAGE */
     )) nextProps.loadMetaData(communityId, tokenV3);
 
-    /* TODO: This is a hacky way to handle SSO authentication for TopGear */
-    if (communityId === 'comcast' && !visitorGroups) {
-      window.location = `${config.URL.AUTH}/member?retUrl=${returnUrl}&utm_source=${communityId}`;
-    }
-
     /* Redirect old TopGear home to new TopGear App and login redirect */
     if (communityId === 'wipro') {
       if (!visitorGroups) {
@@ -96,12 +91,7 @@ class Loader extends React.Component {
        * while that redirection is handled we want to show page loading
        * placeholder rather than access denied message. In future a more
        * generic implementation of this should be put here. */
-      if (communityId === 'wipro' || communityId === 'comcast') return <LoadingPagePlaceholder />;
-      // Only fo Zurich community we implement special auth system described
-      // here: https://github.com/topcoder-platform/community-app/issues/1878
-      // at this check specially we allow not authenticated visitos
-      // to see the "Public Site" on Zurich
-      if (communityId === 'zurich') return Community({ member, meta });
+      if (communityId === 'wipro') return <LoadingPagePlaceholder />;
       // All other get the not authorized page
       return (
         <AccessDenied
@@ -117,12 +107,6 @@ class Loader extends React.Component {
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
     if (_.intersection(meta.authorizedGroupIds, visitorGroupIds).length) {
-      return Community({ member, meta });
-    }
-    if (communityId === 'zurich') {
-      // Again only for Zurich we have a special error page
-      // handled via Contentful. We allow to pass here and return in for visitors that do not belong
-      // to any groups authorized to access this community
       return Community({ member, meta });
     }
     /* Visitor is not authorized to access this community. */

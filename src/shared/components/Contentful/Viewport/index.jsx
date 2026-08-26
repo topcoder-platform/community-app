@@ -42,7 +42,6 @@ import Viewport from './Viewport';
 import columnTheme from './themes/column.scss';
 import rowTheme from './themes/row.scss';
 import gridTheme from './themes/grid.scss';
-import zurichTheme from './themes/zurich.scss';
 import masonryTheme from './themes/masonry.scss';
 
 const { fireErrorMessage } = errors;
@@ -76,7 +75,6 @@ const THEMES = {
   Column: columnTheme,
   'Row with Max-Width': rowTheme,
   Grid: gridTheme,
-  Zurich: zurichTheme,
   Masonry: masonryTheme,
 };
 

@@ -63,10 +63,6 @@ function Header(props) {
   const BASE_URL = config.URL.BASE;
   const AUTH_URL = config.URL.AUTH;
   const normalizedProfile = profile && _.clone(profile);
-  const isZurichCompetitor = (profile && profile.groups) ? _.intersection(
-    _.map(profile.groups, 'oldId'),
-    meta.competitorsGroupIds,
-  ) : [];
 
   if (_.isEmpty(logoutRedirect) && isomorphy.isClientSide()) {
     logoutRedirect = window.location.href;
@@ -169,31 +165,15 @@ function Header(props) {
     </div>
   ) : (
     <div className={theme.authorize}>
-      {
-        communityId === 'zurich' ? (
-          <PrimaryButton
-            onClick={() => {
-              const returnUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
-              window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
-            }}
-            size="sm"
-            title="Lorem Ipsum"
-          >
-            Log In
-            <div className={theme.loginHint}>Lorem ipsum bla bla</div>
-          </PrimaryButton>
-        ) : (
-          <Button
-            onClick={() => {
-              const url = encodeURIComponent(`${window.location.origin}${window.location.pathname}?join=${groupIds[0]}`);
-              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
-            }}
-            size="sm"
-          >
-            Log In
-          </Button>
-        )
-      }
+      <Button
+        onClick={() => {
+          const url = encodeURIComponent(`${window.location.origin}${window.location.pathname}?join=${groupIds[0]}`);
+          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+        }}
+        size="sm"
+      >
+        Log In
+      </Button>
       { hideJoinNow ? null : (
         <PrimaryButton
           onClick={() => {
@@ -211,29 +191,22 @@ function Header(props) {
   );
 
   const currentPage = pageId === 'home' ? '' : pageId;
-  const menuIterator = (item) => {
-    if (communityId === 'zurich' && item.url === '/challenges?communityId=zurich' && !isZurichCompetitor.length) {
-      return null;
-    }
-    return (
-      <li
-        className={theme.menuItem}
-        key={item.url}
+  const menuIterator = item => (
+    <li
+      className={theme.menuItem}
+      key={item.url}
+    >
+      <NavLink
+        activeClassName={theme.menuLinkActive}
+        className={theme.menuLink}
+        openNewTab={item.openNewTab}
+        isActive={() => `/${currentPage}` === item.url}
+        to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
       >
-        <NavLink
-          activeClassName={theme.menuLinkActive}
-          className={theme.menuLink}
-          openNewTab={item.openNewTab}
-          isActive={() => `/${currentPage}` === item.url}
-          to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
-        >
-          {item.title}
-        </NavLink>
-      </li>
-    );
-  };
-
-  const isDev = process.env.NODE_ENV !== 'production';
+        {item.title}
+      </NavLink>
+    </li>
+  );
 
   return (
     <div>
@@ -286,37 +259,12 @@ function Header(props) {
             ) : (
               <ul className={theme.menu}>
                 {_.map(menuItems, menuIterator)}
-                {
-                  profile && communityId === 'zurich' ? (
-                    <li
-                      className={theme.extraMenuItem}
-                      key="myProjects"
-                    >
-                      <NavLink
-                        to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
-                        className={theme.menuLink}
-                      >
-                        My Projects
-                      </NavLink>
-                    </li>
-                  ) : null
-                }
               </ul>
             )
           }
         </div>
         <div className={theme.userWrap}>
           {loginState}
-          {
-            profile && communityId === 'zurich' ? (
-              <NavLink
-                to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
-                className={theme.extraUserLink}
-              >
-                My Projects
-              </NavLink>
-            ) : null
-          }
           { !hideSearch && (
           <div className={theme.search}>
             <IconSearch />

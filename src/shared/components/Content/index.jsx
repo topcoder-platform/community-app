@@ -419,11 +419,6 @@ export default function Content() {
           </Link>
         </li>
         <li>
-          <Link to="/__community__/zurich">
-            Zurich Community
-          </Link>
-        </li>
-        <li>
           <Link
             replace={false}
             to="/__community__/tco20"
@@ -431,15 +426,6 @@ export default function Content() {
             TCO20
           </Link>
         </li>
-        <li>
-          <Link
-            replace={false}
-            to="/__community__/comcast"
-          >
-            Comcast Community
-          </Link>
-        </li>
-
       </ul>
 
       <h3>

@@ -1260,7 +1260,6 @@
           "validations": [
             {
               "in": [
-                "Zurich",
                 "Default"
               ]
             }
@@ -1874,7 +1873,6 @@
             {
               "in": [
                 "Default",
-                "Zurich",
                 "Underline",
                 "Pills",
                 "Vertical"
