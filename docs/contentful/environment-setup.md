@@ -45,8 +45,8 @@ export PAYLOAD_CMS_URL="https://cms.topcoder-dev.com"
 export PAYLOAD_CMS_ASSET_URL="https://assets.topcoder-dev.com"
 export CONTENTFUL_PAYLOAD_VOTE_API_URL="https://cms.topcoder-dev.com/contentful-management/votes"
 export CONTENTFUL_PAYLOAD_MANAGEMENT_API_KEY="<PAYLOAD_SERVICE_CREDENTIAL>"
-# Optional; defaults to 10000 and is clamped to the 1000-30000 ms range.
-export CONTENTFUL_PAYLOAD_REQUEST_TIMEOUT_MS="10000"
+# Optional; defaults to 30000 and is clamped to the 1000-30000 ms range.
+export CONTENTFUL_PAYLOAD_REQUEST_TIMEOUT_MS="30000"
 ```
 
 The vote URL and credential are required for article voting. There is no

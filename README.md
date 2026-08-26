@@ -64,7 +64,7 @@ If you need any operations related to currency conversions, pay attention to the
     -   `CONTENTFUL_PREVIEW_API_KEY`
     -   `CONTENTFUL_CDN_API_HOST`
     -   `CONTENTFUL_PREVIEW_API_HOST`
-    -   `CONTENTFUL_PAYLOAD_REQUEST_TIMEOUT_MS` (optional; defaults to 10000)
+    -   `CONTENTFUL_PAYLOAD_REQUEST_TIMEOUT_MS` (optional; defaults to 30000)
 
     See [Payload CMS compatibility environment setup](docs/contentful/environment-setup.md)
     for supported spaces, S3 asset configuration, and article-vote write-through.

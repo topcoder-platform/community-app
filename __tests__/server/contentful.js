@@ -145,7 +145,7 @@ describe('server/services/contentful Payload compatibility client', () => {
   test.each([
     [500, 1000],
     [60000, 30000],
-    ['invalid', 10000],
+    ['invalid', 30000],
   ])('keeps configured request timeout %p within safe bounds', async (configured, expected) => {
     const originalTimeout = config.CONTENTFUL.PAYLOAD_REQUEST_TIMEOUT_MS;
     config.CONTENTFUL.PAYLOAD_REQUEST_TIMEOUT_MS = configured;
