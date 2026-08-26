@@ -21,7 +21,7 @@ import { assertNoRetiredCmsUrls } from './cms-urls';
 
 const cmsHttpsAgent = new https.Agent({ keepAlive: true });
 const MAX_FETCH_RETRIES = 5;
-const DEFAULT_REQUEST_TIMEOUT_MS = 10 * 1000;
+const DEFAULT_REQUEST_TIMEOUT_MS = 30 * 1000;
 const MIN_REQUEST_TIMEOUT_MS = 1000;
 const MAX_REQUEST_TIMEOUT_MS = 30 * 1000;
 
