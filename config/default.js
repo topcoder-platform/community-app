@@ -55,6 +55,8 @@ module.exports = {
     DEFAULT_SPACE_NAME: 'default',
     DEFAULT_ENVIRONMENT: 'master',
     CHANGELOG_ID: '5ULnHeUIuYAyLhNO97zAqy',
+    /* Per-request timeout for Payload compatibility reads and writes. */
+    PAYLOAD_REQUEST_TIMEOUT_MS: 10 * 1000,
   },
 
   /**

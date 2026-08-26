@@ -15,6 +15,7 @@ jest.mock('config', () => ({
   CONTENTFUL: {
     DEFAULT_ENVIRONMENT: 'master',
     DEFAULT_SPACE_NAME: 'default',
+    PAYLOAD_REQUEST_TIMEOUT_MS: 4321,
   },
   SECRET: {
     CONTENTFUL: {
@@ -77,6 +78,7 @@ describe('server/services/contentful Payload compatibility client', () => {
     expect(options.redirect).toBe('manual');
     expect(options.agent.options.keepAlive).toBe(true);
     expect(options.headers.Authorization).toBe('Bearer delivery-key');
+    expect(options.timeout).toBe(4321);
   });
 
   test('fails closed for an unsupported space before making a request', () => {
@@ -108,6 +110,67 @@ describe('server/services/contentful Payload compatibility client', () => {
 
     expect(result.items[0].fields.author.fields.name).toBe('Payload Author');
     expect(fetch.mock.calls[0][0]).toContain('/entries?fields.slug=payload%20article');
+  });
+
+  test('preserves getEntry link resolution through the compatibility collection', async () => {
+    fetch.mockResolvedValue(response({
+      items: [{
+        fields: {
+          avatar: { sys: { id: 'avatar-id', linkType: 'Asset', type: 'Link' } },
+        },
+        sys: { id: 'member-id', type: 'Entry' },
+      }],
+      includes: {
+        Asset: [{
+          fields: { file: { url: 'https://assets.topcoder-dev.com/member.png' } },
+          sys: { id: 'avatar-id', type: 'Asset' },
+        }],
+      },
+      limit: 100,
+      skip: 0,
+      total: 1,
+    }));
+
+    const entry = await new ApiService(
+      'https://cms.topcoder-dev.com/spaces/a/environments/master',
+      'key',
+    ).getEntry('member-id');
+
+    expect(entry.fields.avatar.fields.file.url)
+      .toBe('https://assets.topcoder-dev.com/member.png');
+    expect(fetch.mock.calls[0][0])
+      .toBe('https://cms.topcoder-dev.com/spaces/a/environments/master/entries?sys.id=member-id&limit=1');
+  });
+
+  test.each([
+    [500, 1000],
+    [60000, 30000],
+    ['invalid', 10000],
+  ])('keeps configured request timeout %p within safe bounds', async (configured, expected) => {
+    const originalTimeout = config.CONTENTFUL.PAYLOAD_REQUEST_TIMEOUT_MS;
+    config.CONTENTFUL.PAYLOAD_REQUEST_TIMEOUT_MS = configured;
+    fetch.mockResolvedValue(response({ fields: {}, sys: { id: 'asset-id' } }));
+    try {
+      await new ApiService(
+        'https://cms.topcoder-dev.com/spaces/a/environments/master',
+        'key',
+      ).getAsset('asset-id');
+      expect(fetch.mock.calls[0][1].timeout).toBe(expected);
+    } finally {
+      config.CONTENTFUL.PAYLOAD_REQUEST_TIMEOUT_MS = originalTimeout;
+    }
+  });
+
+  test('propagates a Payload request timeout without retrying it', async () => {
+    const timeoutError = new Error('network timeout');
+    fetch.mockRejectedValue(timeoutError);
+
+    await expect(new ApiService(
+      'https://cms.topcoder-dev.com/spaces/a/environments/master',
+      'key',
+    ).getAsset('asset-id')).rejects.toBe(timeoutError);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch.mock.calls[0][1].timeout).toBe(4321);
   });
 
   test('rejects compatibility responses containing retired asset URLs', async () => {
@@ -145,6 +208,7 @@ describe('server/services/contentful Payload compatibility client', () => {
     expect(fetch.mock.calls[0][1]).toMatchObject({
       method: 'POST',
       redirect: 'manual',
+      timeout: 4321,
       body: JSON.stringify({
         spaceId: 'edu-space',
         environment: 'master',
@@ -152,6 +216,15 @@ describe('server/services/contentful Payload compatibility client', () => {
         votes: { downvotes: 1, upvotes: 2 },
       }),
     });
+  });
+
+  test('rejects retired provider URLs in vote responses', async () => {
+    fetch.mockResolvedValue(response({ redirect: RETIRED_ASSET_URL }));
+
+    await expect(articleVote({
+      id: 'article-id',
+      votes: { downvotes: 1, upvotes: 2 },
+    }, 'EDU', 'master')).rejects.toThrow('retired provider URL');
   });
 
   test('does not fall back when vote write-through is unconfigured', async () => {

@@ -21,6 +21,9 @@ import { assertNoRetiredCmsUrls } from './cms-urls';
 
 const cmsHttpsAgent = new https.Agent({ keepAlive: true });
 const MAX_FETCH_RETRIES = 5;
+const DEFAULT_REQUEST_TIMEOUT_MS = 10 * 1000;
+const MIN_REQUEST_TIMEOUT_MS = 1000;
+const MAX_REQUEST_TIMEOUT_MS = 30 * 1000;
 
 function threeSecondDelay() {
   return new Promise(resolve => setTimeout(resolve, 3000));
@@ -30,6 +33,22 @@ function decodeQuery(value) {
   if (_.isArray(value)) return value.map(decodeQuery);
   if (_.isPlainObject(value)) return _.mapValues(value, decodeQuery);
   return typeof value === 'string' ? decodeURIComponent(value) : value;
+}
+
+/** Returns a finite timeout accepted by the Node 10/node-fetch 1.x client. */
+function getRequestTimeout() {
+  const value = _.get(config, 'CONTENTFUL.PAYLOAD_REQUEST_TIMEOUT_MS');
+  if (value === undefined || value === null || value === '') {
+    return DEFAULT_REQUEST_TIMEOUT_MS;
+  }
+  const milliseconds = Number(value);
+  if (!Number.isFinite(milliseconds) || milliseconds <= 0) {
+    return DEFAULT_REQUEST_TIMEOUT_MS;
+  }
+  return Math.min(
+    MAX_REQUEST_TIMEOUT_MS,
+    Math.max(MIN_REQUEST_TIMEOUT_MS, Math.floor(milliseconds)),
+  );
 }
 
 function toSerializableEntryCollection(data) {
@@ -63,6 +82,7 @@ export class ApiService {
         agent: cmsHttpsAgent,
         headers: { Authorization: `Bearer ${this.private.key}` },
         redirect: 'manual',
+        timeout: getRequestTimeout(),
       });
       if (res.status !== 429) break;
       await threeSecondDelay();
@@ -80,7 +100,10 @@ export class ApiService {
   }
 
   async getEntry(id) {
-    return this.fetch(`/entries/${encodeURIComponent(id)}`);
+    if (!id) throw new Error('Payload CMS entry ID is required.');
+    const collection = await this.queryEntries({ 'sys.id': id, limit: 1 });
+    if (collection.items.length) return collection.items[0];
+    throw new Error(`Payload CMS entry '${id}' was not found.`);
   }
 
   async queryAssets(query) {
@@ -137,6 +160,7 @@ export function articleVote(body, spaceName = 'EDU', environment = 'master') {
       'Content-Type': 'application/json',
     },
     redirect: 'manual',
+    timeout: getRequestTimeout(),
     body: JSON.stringify({
       spaceId,
       environment,
@@ -147,7 +171,7 @@ export function articleVote(body, spaceName = 'EDU', environment = 'master') {
     if (!response.ok) {
       throw new Error(`Payload article vote update failed with status ${response.status}.`);
     }
-    return response.json();
+    return response.json().then(data => assertNoRetiredCmsUrls(data));
   });
 }
 
