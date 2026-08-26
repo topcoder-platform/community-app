@@ -4,9 +4,11 @@ import {
 } from 'server/services/contentful-endpoints';
 
 describe('server/services/contentful-endpoints', () => {
-  test('retains Contentful Delivery and Preview hosts by default', () => {
-    expect(getContentfulApiHost({}, false)).toBe('cdn.contentful.com');
-    expect(getContentfulApiHost({}, true)).toBe('preview.contentful.com');
+  test('fails closed when a compatibility host is not configured', () => {
+    expect(() => getContentfulApiHost({}, false))
+      .toThrow('CDN_API_HOST is required; external CMS fallbacks are disabled.');
+    expect(() => getContentfulApiHost({}, true))
+      .toThrow('PREVIEW_API_HOST is required; external CMS fallbacks are disabled.');
   });
 
   test('uses configured compatibility hosts and normalizes URL syntax', () => {
@@ -19,9 +21,18 @@ describe('server/services/contentful-endpoints', () => {
     expect(getContentfulApiHost(environment, true)).toBe('cms.topcoder-dev.com');
   });
 
-  test('builds the Contentful-compatible spaces and environments path', () => {
+  test('builds the compatibility spaces and environments path', () => {
     expect(getContentfulApiBaseUrl('cms.topcoder-dev.com', 'space id', 'feature/test'))
       .toBe('https://cms.topcoder-dev.com/spaces/space%20id/environments/feature%2Ftest');
+  });
+
+  test('rejects provider, arbitrary, and path-bearing hosts', () => {
+    expect(() => getContentfulApiHost({ CDN_API_HOST: 'cdn.contentful.com' }, false))
+      .toThrow('approved Topcoder Payload CMS host');
+    expect(() => getContentfulApiHost({ CDN_API_HOST: 'cms.example.com' }, false))
+      .toThrow('approved Topcoder Payload CMS host');
+    expect(() => getContentfulApiHost({ CDN_API_HOST: 'cms.topcoder.com/path' }, false))
+      .toThrow('must not include credentials, a path, query, or fragment');
   });
 
   test('rejects non-string configured hosts', () => {

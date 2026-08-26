@@ -1,9 +1,15 @@
 import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
-import { Route, Switch, matchPath } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  Switch,
+  matchPath,
+} from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 
 import ContentfulRoute from 'components/Contentful/Route';
+import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
 import EDUHome from 'routes/EDUHome';
@@ -11,7 +17,7 @@ import EDUSearch from 'routes/EDUSearch';
 import EDUTracks from 'routes/EDUTracks';
 import Topcoder from 'routes/Topcoder/Routes';
 
-test('matches exact Thrive routes before the generic root Contentful route', () => {
+test('matches app-owned and Thrive routes before the generic root CMS route', () => {
   const renderer = new Renderer();
   renderer.render(<Topcoder />);
 
@@ -61,4 +67,26 @@ test('matches exact Thrive routes before the generic root Contentful route', () 
       expect(route.props.component).toBe(expectedRoute.component);
     }
   });
+
+  [
+    '/challenges/terms/detail/:termId',
+    '/challenges',
+    '/engagements',
+    '/notifications',
+    '/home',
+    '/changelog/',
+  ].forEach((path) => {
+    const routeIndex = routes.findIndex(route => (
+      route.type === Route && route.props.path === path
+    ));
+    expect(routeIndex).toBeGreaterThan(-1);
+    expect(routeIndex).toBeLessThan(contentfulRouteIndex);
+  });
+
+  const dashboardRedirectIndex = routes.findIndex(route => (
+    route.type === Redirect && route.props.from === '/my-dashboard'
+  ));
+  expect(dashboardRedirectIndex).toBeGreaterThan(-1);
+  expect(dashboardRedirectIndex).toBeLessThan(contentfulRouteIndex);
+  expect(routes[contentfulRouteIndex].props.error404.type).toBe(Error404);
 });

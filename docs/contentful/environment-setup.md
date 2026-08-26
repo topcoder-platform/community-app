@@ -1,81 +1,61 @@
-# Environment Setup
+# Payload CMS compatibility environment setup
 
-It is not feasible to have a common Contentful environment for development. You
-should register your own free Contentful account, and use it for development and
-testing. To facilitate review of your solution, provide reviewers with access to
-your Contentful space.
+Community App retains Contentful-shaped route, schema, and environment-variable
+names while content models are migrated. These names are compatibility
+contracts only: the running application does not fall back to Contentful APIs
+or asset hosts.
 
-To sync with the current config of Topcoder's Contentful account, install
-[Contentful CLI](https://www.npmjs.com/package/contentful-cli):
-```bash
-$ npm install -g contentful-cli contentful-migration-cli
-$ contentful login
-```
-
-Then download and import
-[the TC core](https://github.com/topcoder-platform/community-app/blob/develop/config/contentful/tc-core.json) file which will create all core content types used by Topcoder integration:
-```bash
-$ contentful space import --space-id <DESTINATION_SPACE_ID> --content-file <JSON_FILE_TO_IMPORT> --content-model-only
-```
-
-To run Community App locally against your Contentful account:
-1.  In Contentful web-interface, generate API keys for
-    [content delivery](https://www.contentful.com/developers/docs/references/content-delivery-api/)
-    and [preview](https://www.contentful.com/developers/docs/references/content-preview-api/) APIs.
-2.  On your system you should provide them to Community App via environment
-    variables. The most convenient way is to create a setup file like this:
-    ```bash
-    #!/bin/bash
-    export CONTENTFUL_CDN_API_KEY="<GENERATED CONTENT DELIVERY KEY>"
-    export CONTENTFUL_LOCAL_MODE=1
-    export CONTENTFUL_PREVIEW_API_KEY="<GENERATED CONTENT PREVIEW KEY>"
-    export CONTENTFUL_SPACE_ID="<YOUR_CONTENTFUL_SPACE_ID>"
-    ```
-    Then, before running Community App from a new console, source it (provided
-    you have named it `set-contentful-env.sh`), and then run the app:
-    ```bash
-    $ source ./set-contentful-env.sh
-    $ NODE_CONFIG_ENV=development npm run dev
-    ```
-    We have prepared a demo env file you could use to start. You can find it
-    [here](https://gist.github.com/kkartunov/594dc65f76bac6aa800b4764cae72d2e).
-
-### Using the Payload CMS compatibility API
-
-Community App can migrate spaces independently while retaining Contentful for
-spaces that have not been exported. Set the Delivery and Preview host variables
-only for the migrated spaces; values are hostnames without a path. Existing API
-keys remain the bearer credentials for the compatibility API.
+For each supported space, configure its legacy space identifier, Delivery and
+Preview bearer keys, and the Payload compatibility host. Hosts must be Topcoder
+Payload hostnames without a path. Missing hosts fail closed before an outbound
+request is made.
 
 ```bash
 # Default space
+export CONTENTFUL_SPACE_ID="<DEFAULT_COMPATIBILITY_SPACE_ID>"
+export CONTENTFUL_CDN_API_KEY="<PAYLOAD_DELIVERY_KEY>"
+export CONTENTFUL_PREVIEW_API_KEY="<PAYLOAD_PREVIEW_KEY>"
 export CONTENTFUL_CDN_API_HOST="cms.topcoder-dev.com"
 export CONTENTFUL_PREVIEW_API_HOST="cms.topcoder-dev.com"
 
 # EDU space
+export CONTENTFUL_EDU_SPACE_ID="<EDU_COMPATIBILITY_SPACE_ID>"
+export CONTENTFUL_EDU_CDN_API_KEY="<PAYLOAD_DELIVERY_KEY>"
+export CONTENTFUL_EDU_PREVIEW_API_KEY="<PAYLOAD_PREVIEW_KEY>"
 export CONTENTFUL_EDU_CDN_API_HOST="cms.topcoder-dev.com"
 export CONTENTFUL_EDU_PREVIEW_API_HOST="cms.topcoder-dev.com"
 
 # TopGear space
+export CONTENTFUL_TOPGEAR_SPACE_ID="<TOPGEAR_COMPATIBILITY_SPACE_ID>"
+export CONTENTFUL_TOPGEAR_CDN_API_KEY="<PAYLOAD_DELIVERY_KEY>"
+export CONTENTFUL_TOPGEAR_PREVIEW_API_KEY="<PAYLOAD_PREVIEW_KEY>"
 export CONTENTFUL_TOPGEAR_CDN_API_HOST="cms.topcoder-dev.com"
 export CONTENTFUL_TOPGEAR_PREVIEW_API_HOST="cms.topcoder-dev.com"
-
-# Public S3/CloudFront origin returned for migrated asset bytes
-export PAYLOAD_CMS_ASSET_URL="https://assets.topcoder-dev.com"
 ```
 
-Zurich and Comcast continue to use Contentful unless host variables are added
-for those spaces in a later migration. To store EDU article votes in Payload,
-also set the full write endpoint and its service credential:
+Zurich and Comcast have no compatibility host variables in the application
+configuration. Requests for those unsupported spaces fail closed; they must be
+migrated and explicitly configured before they can serve live content again.
+
+Configure the Payload application, its S3-backed public asset origin, and the
+article-vote write-through endpoint separately:
 
 ```bash
+export PAYLOAD_CMS_URL="https://cms.topcoder-dev.com"
+export PAYLOAD_CMS_ASSET_URL="https://assets.topcoder-dev.com"
 export CONTENTFUL_PAYLOAD_VOTE_API_URL="https://cms.topcoder-dev.com/contentful-management/votes"
 export CONTENTFUL_PAYLOAD_MANAGEMENT_API_KEY="<PAYLOAD_SERVICE_CREDENTIAL>"
+# Optional; defaults to 10000 and is clamped to the 1000-30000 ms range.
+export CONTENTFUL_PAYLOAD_REQUEST_TIMEOUT_MS="10000"
 ```
 
-When the Payload vote URL is unset, Community App retains the existing
-Contentful Management API update-and-publish behavior.
+The vote URL and credential are required for article voting. There is no
+management-API fallback. Compatibility API and vote requests do not follow HTTP
+redirects, and every request uses the bounded timeout above. Asset redirects are
+accepted only when their destination matches `PAYLOAD_CMS_ASSET_URL`;
+compatibility responses containing retired provider URLs are rejected.
 
-`PAYLOAD_CMS_ASSET_URL` is added to the server's image and media Content
-Security Policy directives. Set it to the environment-specific Payload asset
-origin; do not include a path.
+Use production equivalents (`cms.topcoder.com` and `assets.topcoder.com`) in
+production. Run `npm run verify:no-retired-cms-targets` after building to scan
+runtime sources, deployment inputs, and generated assets for retired CMS API or
+CDN URL targets.

@@ -1,4 +1,9 @@
-# Integrate Hall of Fame with Contentful
+# Historical Contentful model setup (migration reference only)
+
+> This document describes the retired provider-side model bootstrap workflow.
+> It is retained only as migration history and must not be used for live runtime
+> configuration. See [Payload CMS compatibility environment setup](contentful/environment-setup.md)
+> for the supported application configuration.
 
 ## Contentful
 

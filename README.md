@@ -55,18 +55,19 @@ If you need any operations related to currency conversions, pay attention to the
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
     -   `NODE_CONFIG_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
 
-    Many app segments depend on [Contentful CMS](https://www.contentful.com/)
-    for routing information. Thus, even if the page/component you are working
-    with does not require CMS directly, you may see CMS-related error messages.
-    To interact with CMS you must setup the following environment variables:
+    CMS-backed segments use Payload's Contentful-compatible API. Application-
+    owned routes do not wait for CMS routing data. To use CMS content locally,
+    configure the legacy compatibility identifiers/keys and an explicit Payload
+    host; there is no external provider fallback:
     -   `CONTENTFUL_SPACE_ID`
     -   `CONTENTFUL_CDN_API_KEY`
     -   `CONTENTFUL_PREVIEW_API_KEY`
+    -   `CONTENTFUL_CDN_API_HOST`
+    -   `CONTENTFUL_PREVIEW_API_HOST`
+    -   `CONTENTFUL_PAYLOAD_REQUEST_TIMEOUT_MS` (optional; defaults to 10000)
 
-    If you have access to Topcoder CMS space (or you use your own CMS space for
-    development), you'll find them under _Space settings_ > _API keys_. Otherwise,
-    look for these credentials in the challenge forum, or reach a copilot to get
-    them.
+    See [Payload CMS compatibility environment setup](docs/contentful/environment-setup.md)
+    for supported spaces, S3 asset configuration, and article-vote write-through.
 
 5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;
