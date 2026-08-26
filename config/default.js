@@ -132,8 +132,6 @@ module.exports = {
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
       COGNITIVE: 'https://cognitive.topcoder-dev.com',
-      ZURICH: 'https://community-app.topcoder-dev.com/__community__/zurich',
-      COMCAST: 'https://community-app.topcoder-dev.com/__community__/comcast',
       CS: 'https://community-app.topcoder-dev.com/__community__/cs',
     },
 
@@ -225,23 +223,8 @@ module.exports = {
           PREVIEW_API_KEY: '',
         },
       },
-      /* Space for expert communities. */
-      zurich: {
-        SPACE_ID: '',
-        master: {
-          CDN_API_KEY: '',
-          PREVIEW_API_KEY: '',
-        },
-      },
       /* Contentful Space for TopGear community content. */
       topgear: {
-        SPACE_ID: '',
-        master: {
-          CDN_API_KEY: '',
-          PREVIEW_API_KEY: '',
-        },
-      },
-      comcast: {
         SPACE_ID: '',
         master: {
           CDN_API_KEY: '',

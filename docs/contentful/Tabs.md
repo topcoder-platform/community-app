@@ -23,10 +23,6 @@ Tabs theme.
 
 ![default](./pics/Tabs/default.png)
 
-### Zurich
-
-![zurich](./pics/Tabs/zurich.png)
-
 ### Underline
 
 ![underline](./pics/Tabs/underline.png)

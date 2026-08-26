@@ -60,8 +60,6 @@ module.exports = {
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder.com',
       COGNITIVE: 'https://cognitive.topcoder.com',
-      ZURICH: 'https://zurich.topcoder.com',
-      COMCAST: 'https://comcast.topcoder.com',
       CS: 'https://cs.topcoder.com',
     },
     EMAIL_VERIFY_URL: 'http://www.topcoder.com/settings/account/changeEmail',

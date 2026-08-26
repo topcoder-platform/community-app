@@ -19,7 +19,6 @@ import {
 import { fixStyle } from 'utils/contentful';
 import { getQuery, updateQuery } from 'utils/url';
 import defaultTheme from './themes/style.scss';
-import zurichTheme from './themes/zurich.scss';
 import tabsGroup from './themes/tabsGroup.scss';
 import tabsGroupChildren from './themes/tabsGroupChildren.scss';
 import underlineTheme from './themes/underline.scss';
@@ -31,7 +30,6 @@ import bracketsTheme from './themes/brackets.scss';
 
 export const TAB_THEMES = {
   Default: defaultTheme,
-  Zurich: zurichTheme,
   'Tabs Group': tabsGroup,
   'Tabs Group Children': tabsGroupChildren,
   Underline: underlineTheme,
