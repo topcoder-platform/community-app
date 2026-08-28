@@ -21,6 +21,17 @@ module.exports = {
     tls: 'empty',
     net: 'empty',
   },
+  resolve: {
+    alias: {
+      /* The isomorphic service loads this module only during Node SSR. Replace
+       * it in browser bundles so server credentials and HTTP clients cannot
+       * become client assets. */
+      'server/services/contentful$': path.resolve(
+        __dirname,
+        '../../src/client/shims/contentful-service.js',
+      ),
+    },
+  },
   module: {
     noParse: [
 

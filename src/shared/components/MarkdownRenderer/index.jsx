@@ -1,16 +1,17 @@
 /**
  * Renders the passed markdown into native React components.
  * Supports inlining a subset of JSX Components which can be found in
- * utils/markdown.js
+ * utils/markdown.js. Legacy profile placeholders are interpolated from an
+ * explicit allowlist without evaluating the markdown as JavaScript.
  *
  * Support for additional components can be added to the above file.
  */
-import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import md from 'utils/markdown';
+import interpolateProfilePlaceholders from 'utils/profile-template';
 
 class MarkdownRenderer extends React.Component {
   constructor(props) {
@@ -40,8 +41,7 @@ class MarkdownRenderer extends React.Component {
       profile,
     } = this.props;
     if (markdown) {
-      const compiled = _.template(markdown, { variable: 'profile' });
-      const interpolated = compiled(profile);
+      const interpolated = interpolateProfilePlaceholders(markdown, profile);
       this.setState({
         elements: md(interpolated, { preview, spaceName, environment }),
       });

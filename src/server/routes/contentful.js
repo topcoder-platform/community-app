@@ -7,13 +7,10 @@ import { middleware } from 'tc-core-library-js';
 import config from 'config';
 import _ from 'lodash';
 import {
-  ASSETS_DOMAIN,
-  IMAGES_DOMAIN,
   getService,
-  getSpaceId,
   articleVote,
-  ALLOWED_DOMAINS,
 } from '../services/contentful';
+import { getPayloadAssetUrl } from '../services/cms-urls';
 
 const cors = require('cors');
 
@@ -26,53 +23,22 @@ const routes = express.Router();
 routes.use(cors());
 routes.options('*', cors());
 
-/* Gets non-image asset file. */
-routes.use(
-  '/:spaceName/:environment/assets/:id/:version/:name',
-  (req, res, next) => {
-    try {
-      const {
-        environment,
-        id,
-        name,
-        spaceName,
-        version,
-      } = req.params;
-      const spaceId = getSpaceId(spaceName);
-      if (!ALLOWED_DOMAINS.includes(ASSETS_DOMAIN)) {
-        throw new Error('Invalid domain detected!');
-      }
-      const url = new URL(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
-      res.redirect(url.href);
-    } catch (e) {
-      next(e);
-    }
-  },
-);
+async function redirectPayloadAsset(req, res, next) {
+  try {
+    const { environment, id, spaceName } = req.params;
+    const asset = await getService(spaceName, environment, false).getAsset(id);
+    const url = getPayloadAssetUrl(_.get(asset, 'fields.file.url'));
+    res.redirect(url);
+  } catch (error) {
+    next(error);
+  }
+}
 
-/* Gets image file. */
-routes.use(
-  '/:spaceName/:environment/images/:id/:version/:name',
-  (req, res, next) => {
-    try {
-      const {
-        environment,
-        id,
-        name,
-        spaceName,
-        version,
-      } = req.params;
-      if (!ALLOWED_DOMAINS.includes(IMAGES_DOMAIN)) {
-        throw new Error('Invalid domain detected!');
-      }
-      const spaceId = getSpaceId(spaceName);
-      const url = new URL(`https://${IMAGES_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
-      res.redirect(url.href);
-    } catch (e) {
-      next(e);
-    }
-  },
-);
+/* Legacy asset URLs resolve through Payload and may redirect only to the
+ * configured S3-backed asset origin. Version and name remain for old links but
+ * are never trusted as a destination. */
+routes.use('/:spaceName/:environment/assets/:id/:version/:name', redirectPayloadAsset);
+routes.use('/:spaceName/:environment/images/:id/:version/:name', redirectPayloadAsset);
 
 /* Gets preview of the specified space_name, environment & asset. */
 routes.use('/:spaceName/:environment/preview/assets/:id', (req, res, next) => {
@@ -122,7 +88,7 @@ routes.use(
 );
 
 /* Queries published assets of a given space name & environment. */
-routes.use(':spaceName/:environment/published/assets', (req, res, next) => {
+routes.use('/:spaceName/:environment/published/assets', (req, res, next) => {
   try {
     const { environment, spaceName } = req.params;
     getService(spaceName, environment, false)
@@ -163,7 +129,7 @@ routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
 /* Update votes on article. */
 routes.use('/:spaceName/:environment/votes', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => {
   try {
-    articleVote(req.body)
+    articleVote(req.body, req.params.spaceName, req.params.environment)
       .then(res.send.bind(res), next);
   } catch (e) {
     next(e);

@@ -29,6 +29,7 @@ import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 import recruitCRMRouter from './routes/recruitCRM';
 import mmLeaderboardRouter from './routes/mmLeaderboard';
 import feedsRouter from './routes/feeds';
+import { getPayloadAppUrl } from './services/cms-urls';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
@@ -38,7 +39,7 @@ import webpackConfigFactory from '../../webpack.config';
 
 global.atob = atob;
 
-const CMS_BASE_URL = `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
+const CMS_BASE_URL = getPayloadAppUrl();
 
 const getTimestamp = async () => {
   let timestamp;
@@ -239,7 +240,6 @@ async function onExpressJsSetup(server) {
           + ' https://d24oibycet9bsb.cloudfront.net'
           + ' https://d2nl5eqipnb33q.cloudfront.net'
           + ` ${config.URL.CMS_ASSETS}`
-          + ' https://images.ctfassets.net'
           + ' https://heapanalytics.com'
           + ' https://q.quora.com'
           + ' https://topcoder-prod-media.s3.amazonaws.com'
@@ -249,7 +249,6 @@ async function onExpressJsSetup(server) {
           + ' https://www.google.com'
           + ' https://www.googletagmanager.com'
           + ' https://i.ytimg.com'
-          + ' https://images.contentful.com'
           + ' https://member-media.topcoder-dev.com'
           + ' https://member-media.topcoder.com'
           + ' https://track.hubspot.com'
@@ -263,7 +262,7 @@ async function onExpressJsSetup(server) {
 
     if (req.url.startsWith('/examples')) {
       // eslint-disable-next-line quotes
-      res.header('Content-Security-Policy', `frame-ancestors 'self' https://app.contentful.com`);
+      res.header('Content-Security-Policy', `frame-ancestors 'self' ${CMS_BASE_URL}`);
       res.removeHeader('X-Frame-Options');
     }
 
@@ -298,7 +297,7 @@ async function onExpressJsSetup(server) {
 
   server.use(
     '/community-app-assets/api/edit-contentful-entry/:id',
-    (req, res) => res.redirect(`${CMS_BASE_URL}/entries/${req.params.id}`),
+    (req, res) => res.redirect(`${CMS_BASE_URL}/admin?legacyEntryId=${encodeURIComponent(req.params.id)}`),
   );
 
   /**
