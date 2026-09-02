@@ -5,7 +5,6 @@
  * content of the route, or the HTTP 404 page.
  */
 
-import _ from 'lodash';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ContentfulRoute from 'components/Contentful/Route';
 import TermsDetail from 'routes/TermsDetail';
@@ -17,10 +16,7 @@ import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { config, isomorphy } from 'topcoder-react-utils';
-import ContentfulLoader from 'containers/ContentfulLoader';
-import LoadingIndicator from 'components/LoadingIndicator';
-import Article from 'components/Contentful/Article';
+import { config } from 'topcoder-react-utils';
 import Viewport from 'components/Contentful/Viewport';
 
 import EDUHome from '../EDUHome';
@@ -33,6 +29,7 @@ import Notifications from './Notifications';
 import HallOfFame from '../HallOfFame';
 import ProfileBadges from '../ProfileBadges';
 import Scoreboard from '../tco/scoreboard';
+import ThriveArticleRoute from './ThriveArticleRoute';
 
 import './styles.scss';
 
@@ -110,75 +107,7 @@ export default function Topcoder() {
           path={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}`}
         />
         <Route
-          component={(p) => {
-            const { articleTitle } = p.match.params;
-            return (
-              <ContentfulLoader
-                entryQueries={{
-                  content_type: 'article',
-                  'fields.slug': articleTitle,
-                }}
-                spaceName="EDU"
-                render={(data) => {
-                  if (_.isEmpty(data.entries.items)) {
-                    // try search by title match
-                    // this legacy support should be deprecated when all
-                    // Thrive links switched to hypens, someday
-                    return (
-                      <ContentfulLoader
-                        entryQueries={{
-                          content_type: 'article',
-                          'fields.title[match]': articleTitle,
-                        }}
-                        spaceName="EDU"
-                        render={(dataTitle) => {
-                          if (_.isEmpty(dataTitle.entries.items)) return <Error404 />;
-                          let id = dataTitle.entries.matches[0].items[0];
-                          if (dataTitle.entries.matches[0].total !== 1) {
-                            // more than 1 match. we need to try find best
-                            const mId = _.findKey(
-                              dataTitle.entries.items,
-                              // eslint-disable-next-line max-len
-                              o => o.fields.title.toLocaleLowerCase() === articleTitle.toLocaleLowerCase(),
-                            );
-                            id = mId || id;
-                          }
-                          const {
-                            externalArticle,
-                            contentUrl,
-                          } = dataTitle.entries.items[id].fields;
-                          if (externalArticle && contentUrl && isomorphy.isClientSide()) {
-                            window.location.href = contentUrl;
-                            return null;
-                          }
-                          return (
-                            <Article
-                              id={id}
-                              spaceName="EDU"
-                            />
-                          );
-                        }}
-                        renderPlaceholder={LoadingIndicator}
-                      />
-                    );
-                  }
-                  const id = data.entries.matches[0].items[0];
-                  const { externalArticle, contentUrl } = data.entries.items[id].fields;
-                  if (externalArticle && contentUrl && isomorphy.isClientSide()) {
-                    window.location.href = contentUrl;
-                    return null;
-                  }
-                  return (
-                    <Article
-                      id={id}
-                      spaceName="EDU"
-                    />
-                  );
-                }}
-                renderPlaceholder={LoadingIndicator}
-              />
-            );
-          }}
+          component={ThriveArticleRoute}
           exact
           path={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/:articleTitle`}
         />
