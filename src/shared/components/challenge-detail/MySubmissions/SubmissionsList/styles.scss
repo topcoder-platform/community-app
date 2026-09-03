@@ -61,6 +61,16 @@
   line-height: 22px;
 }
 
+.cancelled {
+  color: #767676;
+
+  @include roboto-medium;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+
 .h2 {
   @include roboto-bold;
 
@@ -393,6 +403,10 @@ button.column-1-1,
 
 .test-status-failed {
   color: #ef476f;
+}
+
+.test-status-cancelled {
+  color: #767676;
 }
 
 .icon-search {
