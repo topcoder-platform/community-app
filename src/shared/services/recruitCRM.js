@@ -72,10 +72,12 @@ export default class Service {
   }
 
   /**
-   * applyForJob for candidate
-   * @param {string} id The job id to apply to
-   * @param {object} payload The apply payload
-   * @param {string} tokenV3 User token
+   * Submits a candidate's application and optional resume through the RecruitCRM proxy.
+   * @param {string} id The job ID to apply to.
+   * @param {object} payload The normalized application payload.
+   * @param {string} tokenV3 The user's v3 authentication token.
+   * @returns {Promise<object>} The parsed application response.
+   * @throws {Error} When the proxy rejects the request or returns a non-JSON or malformed response.
    */
   async applyForJob(id, payload, tokenV3) {
     const { resume } = payload;
@@ -90,11 +92,24 @@ export default class Service {
       }),
       credentials: 'omit',
     });
-    if (!res.ok) {
-      const error = new Error('Failed to apply for job');
+    const contentType = res.headers && res.headers.get
+      ? res.headers.get('content-type') : '';
+    const isJson = typeof contentType === 'string'
+      && /^application\/(?:[a-z0-9.+-]+\+)?json(?:\s*;|$)/i.test(contentType.trim());
+    if (!res.ok || !isJson) {
+      const error = new Error("We couldn't submit your application. Please try again.");
+      error.status = res.status;
       logger.error(error, res);
+      throw error;
     }
-    return res.json();
+    try {
+      return await res.json();
+    } catch (parseError) {
+      const error = new Error("We couldn't submit your application. Please try again.");
+      error.status = res.status;
+      logger.error(error, parseError);
+      throw error;
+    }
   }
 
   /**
