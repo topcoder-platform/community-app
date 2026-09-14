@@ -127,6 +127,24 @@ describe('getSubmissionTestProgress', () => {
       status: 'FAILED',
     });
   });
+
+  it('surfaces cancelled scoring runs superseded by a newer submission', () => {
+    expect(getSubmissionTestProgress({
+      reviewSummations: [
+        {
+          metadata: {
+            testProcess: 'provisional',
+            testProgress: 1,
+            testStatus: 'CANCELLED',
+          },
+        },
+      ],
+    })).toEqual({
+      process: 'provisional',
+      progressPercent: '100%',
+      status: 'CANCELLED',
+    });
+  });
 });
 
 describe('isActiveTestStatus', () => {

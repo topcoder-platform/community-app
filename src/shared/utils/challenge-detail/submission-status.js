@@ -50,6 +50,19 @@ function hasFailedSubmissionStatus(submission) {
   return status === 'failed' || status === 'failure';
 }
 
+/**
+ * Returns whether a review summation reports a cancelled Marathon Match test run.
+ * Marathon Match scoring is cancelled when the member submits a newer solution
+ * while an earlier scorer is still running.
+ *
+ * @param {Object} summation review summation attached to a submission attempt.
+ * @returns {Boolean} true when the summation test status is cancelled.
+ */
+function hasCancelledTestStatus(summation) {
+  const status = _.toUpper(_.toString(_.get(summation, 'metadata.testStatus', '')).trim());
+  return status === 'CANCELLED';
+}
+
 export function getSubmissionReviewSummations(submission) {
   return collectReviewSummations(submission);
 }
@@ -58,10 +71,12 @@ export function getSubmissionReviewSummations(submission) {
  * Builds display status flags for a challenge submission attempt.
  * Review summations indicate accepted scoring; when no accepted summation is
  * present, failed scan or submission states should display as failed instead of
- * staying in the generic preparing state.
+ * staying in the generic preparing state. Cancelled scoring runs take precedence
+ * so a superseded Marathon Match submission is never shown as still preparing.
  *
  * @param {Object} submission submission attempt shown in challenge details.
- * @returns {{hasReviewSummation: Boolean, isAccepted: Boolean, isFailed: Boolean}} status flags.
+ * @returns {{hasReviewSummation: Boolean, isAccepted: Boolean, isCancelled: Boolean,
+ * isFailed: Boolean}} status flags.
  */
 export function getSubmissionStatus(submission) {
   const targetIdRaw = _.get(submission, 'submissionId', _.get(submission, 'id', null));
@@ -93,12 +108,15 @@ export function getSubmissionStatus(submission) {
     return hasFlag || type === 'provisional' || type === 'final';
   });
 
+  const isCancelled = reviewSummations.some(hasCancelledTestStatus);
+
   const isFailed = !isAccepted
     && (hasVirusScanFailure(submission) || hasFailedSubmissionStatus(submission));
 
   return {
     hasReviewSummation,
     isAccepted,
+    isCancelled,
     isFailed,
   };
 }
