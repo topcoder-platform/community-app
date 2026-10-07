@@ -27,7 +27,7 @@ test('selects only fields required by EDU track cards and their assets', () => {
     content_type: 'article',
     'fields.trackCategory': 'Development',
     limit: 3,
-    order: '-sys.createdAt',
+    order: '-fields.creationDate,-sys.createdAt',
     select: EXPECTED_SELECT,
   });
 });

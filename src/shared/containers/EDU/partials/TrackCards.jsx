@@ -24,6 +24,10 @@ const TRACK_CARD_SELECT = [
   'fields.file',
 ].join(',');
 
+// Show the latest articles by their editor-set publication date, so a backdated
+// article sits in calendar order. CMS creation time only breaks same-day ties.
+const TRACK_CARD_ORDER = '-fields.creationDate,-sys.createdAt';
+
 export default function TrackCards(props) {
   const { track, theme } = props;
   return (
@@ -32,7 +36,7 @@ export default function TrackCards(props) {
         content_type: 'article',
         'fields.trackCategory': track,
         limit: 3,
-        order: '-sys.createdAt',
+        order: TRACK_CARD_ORDER,
         select: TRACK_CARD_SELECT,
       }}
       spaceName="EDU"
