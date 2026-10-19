@@ -21,6 +21,7 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import 'styles/awesome.css';
 
 import 'styles/global.scss';
+import 'utils/modal-theme';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

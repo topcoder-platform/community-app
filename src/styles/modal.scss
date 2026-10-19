@@ -1,0 +1,9 @@
+/* Applied to the shared Modal defaults, including per-screen themed modals. */
+.container {
+  box-shadow: none !important;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+  opacity: 1 !important;
+}
