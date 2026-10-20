@@ -3,19 +3,40 @@ import { config } from 'topcoder-react-utils';
 const v6ApiUrl = config.API.V6;
 const DEFAULT_PER_PAGE = 500;
 
+/**
+ * Fetches an authorized artifact blob for individual or bulk downloads.
+ * @param {String} tokenV3 Member authorization token.
+ * @param {String} submissionId Submission identifier.
+ * @param {String} artifactId Artifact identifier returned by the listing endpoint.
+ * @returns {Promise<Blob>} Artifact contents.
+ * @throws {Error} Rejects on HTTP failure rather than downloading an error response.
+ */
 export const downloadSubmissions = (tokenV3, submissionId, artifactId) => fetch(`${v6ApiUrl}/submissions/${submissionId}/artifacts/${artifactId}/download`, {
   method: 'GET',
   headers: new Headers({
     Authorization: `Bearer ${tokenV3}`,
   }),
-}).then(res => res.blob());
+}).then((res) => {
+  if (!res.ok) throw new Error(`Unable to download artifact: ${res.status}`);
+  return res.blob();
+});
 
+/**
+ * Lists artifacts authorized by the API for a submission.
+ * @param {String} tokenV3 Member authorization token.
+ * @param {String} submissionId Submission identifier.
+ * @returns {Promise<{artifacts: String[]}>} Available artifact IDs.
+ * @throws {Error} Rejects on HTTP failure so the modal can show an error state.
+ */
 export const getSubmissionArtifacts = (tokenV3, submissionId) => fetch(`${v6ApiUrl}/submissions/${submissionId}/artifacts`, {
   method: 'GET',
   headers: new Headers({
     Authorization: `Bearer ${tokenV3}`,
   }),
-}).then(res => res.json());
+}).then((res) => {
+  if (!res.ok) throw new Error(`Unable to load artifacts: ${res.status}`);
+  return res.json();
+});
 
 function getHeaders(tokenV3) {
   const headers = new Headers();

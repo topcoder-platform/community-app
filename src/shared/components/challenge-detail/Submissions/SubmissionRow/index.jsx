@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
 /**
- * SubmissionRow component.
+ * SubmissionRow component. MM history uses SubmissionHistoryModal; other
+ * challenge types retain their existing history layout.
  */
 
 import React from 'react';
@@ -21,6 +22,7 @@ import FailedSubmissionTooltip from '../FailedSubmissionTooltip';
 import InReview from '../../icons/in-review.svg';
 import Queued from '../../icons/queued.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
+import SubmissionHistoryModal from '../SubmissionHistoryModal';
 
 import style from './style.scss';
 
@@ -264,7 +266,20 @@ export default function SubmissionRow({
           )
         }
       </div>
-      { openHistory && (
+      { openHistory && isMM && (
+        <SubmissionHistoryModal
+          member={memberForHistory}
+          rating={rating}
+          submissions={submissionList}
+          challengeStatus={challengeStatus}
+          auth={auth}
+          isLoggedIn={isLoggedIn}
+          loadingHistory={loadingHistory}
+          showFinalResults={showFinalResults}
+          onCancel={toggleHistory}
+        />
+      )}
+      { openHistory && !isMM && (
         <Modal
           onCancel={toggleHistory}
           theme={{ container: `${style.modal} ${isMM && (numWinners > 0 || challengeStatus === CHALLENGE_STATUS.COMPLETED) ? style.download : ''}` }}

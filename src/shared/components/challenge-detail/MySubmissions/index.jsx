@@ -9,8 +9,7 @@ import { goToLogin } from 'utils/tc';
 import LoadingIndicator from 'components/LoadingIndicator';
 import tc from 'components/buttons/themed/tc.scss';
 import DownloadArtifactsModal from 'components/SubmissionManagement/DownloadArtifactsModal';
-import { downloadSubmissions } from 'services/submissions';
-import { getExtensionFromMime } from 'utils/files';
+import downloadArtifacts from 'utils/challenge-detail/artifacts';
 
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
@@ -69,20 +68,15 @@ class MySubmissionsView extends React.Component {
     });
   }
 
+  /**
+   * Downloads an artifact or a ZIP of the selected submission's visible artifacts.
+   * @param {String} submissionId Submission identifier.
+   * @param {String|String[]} artifactId Individual artifact ID or IDs for Download all.
+   * @returns {Promise<void>} Resolves when the download starts; rejects on request failure.
+   */
   onDownloadArtifacts(submissionId, artifactId) {
     const { auth } = this.props;
-    downloadSubmissions(auth.tokenV3, submissionId, artifactId)
-      .then((blob) => {
-        const fileBlob = new Blob([blob]);
-        const url = window.URL.createObjectURL(fileBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        const extension = getExtensionFromMime(fileBlob);
-        link.setAttribute('download', `submission-artifact-${submissionId}.${extension}`);
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-      });
+    return downloadArtifacts(auth.tokenV3, submissionId, artifactId);
   }
 
   onShowDetailsModal(submission) {
@@ -160,6 +154,10 @@ class MySubmissionsView extends React.Component {
               }
               submissionId={selectedSubmission.submissionId}
               onDownloadArtifacts={this.onDownloadArtifacts}
+              onDownloadAllArtifacts={this.onDownloadArtifacts}
+              isMM={isMM}
+              challengeStatus={challenge.status}
+              handle={_.get(auth, 'user.handle', '')}
             />
           )}
           <SubmissionsList
