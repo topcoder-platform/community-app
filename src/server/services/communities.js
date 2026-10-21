@@ -11,8 +11,9 @@ import { logger, services } from 'topcoder-react-lib';
 import path from 'path';
 import { isomorphy } from 'topcoder-react-utils';
 import { promisify } from 'util';
+import { getMachineToken } from './keycloak';
 
-const { api, groups } = services;
+const { groups } = services;
 
 /* Holds the mapping between subdomains and communities. It is automatically
  * generated at startup, using "subdomains" property from community configs */
@@ -23,7 +24,7 @@ const SUBDOMAIN_COMMUNITY = {};
  * if possible.
  */
 async function getGroupsService() {
-  const m2mToken = await api.getTcM2mToken();
+  const m2mToken = await getMachineToken();
   const cached = getGroupsService.cachedService;
   if (cached && m2mToken === cached.getTokenV3()) return cached;
   const res = groups.getService(m2mToken);

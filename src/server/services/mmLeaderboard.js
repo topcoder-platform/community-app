@@ -4,6 +4,7 @@
  */
 import { services } from 'topcoder-react-lib';
 import xss from 'xss';
+import { getMachineToken } from './keycloak';
 
 const { api } = services;
 
@@ -19,7 +20,7 @@ export default class MMLService {
   async getLeaderboard(req, res, next) {
     try {
       const sanitizedId = xss(req.params.id);
-      const m2mToken = await api.getTcM2mToken();
+      const m2mToken = await getMachineToken();
       const v6api = api.getApi('V6', m2mToken);
       const subsRes = await v6api.get(`/submissions?challengeId=${sanitizedId}&page=1&perPage=500`);
       const json = await subsRes.json();

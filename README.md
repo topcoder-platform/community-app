@@ -181,17 +181,7 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * PROD_SERVER_API_KEY
 * PROD_AUTH0_CLIENT_ID
 
-Folowing environment variables should be set to configure M2M communication
-between Community App server and TC APIs. At the moment of writing, it is
-expected that these credentials give full access to the TC Groups API.
-**XXX** is a placeholder for one of `DEV`, `PROD`, `PRODBETA` - API environment
-given credentials relate to.
-
-* **XXX**_TC_M2M_CLIENT_ID
-* **XXX**_TC_M2M_CLIENT_SECRET
-* **XXX**_TC_M2M_AUDIENCE
-* **XXX**_TC_M2M_GRANT_TYPE
-
+M2M runtime configuration for this branch is documented under Keycloak M2M below.
 
 ### Changelog
 
@@ -200,3 +190,39 @@ given credentials relate to.
 ### Submitting Changes 
 
 Please check the [https://github.com/topcoder-platform/community-app/blob/master/CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on rules to be followed.
+
+
+## Keycloak M2M branch
+
+`keycloak_m2M` pins shared core `4.0.0-keycloak.0` (including nested consumers)
+at `c262f4aca971904f308085bdeaaed35cdf3cfa7d`. Node 22.23.2 is required; the
+legacy node-sass dependency uses the compatible Dart Sass API through an npm alias.
+Set runtime `M2M_PROVIDER=keycloak`, `KEYCLOAK_ISSUER`, `KEYCLOAK_AUDIENCE`,
+`KEYCLOAK_TOKEN_URL`, `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET`, and
+`KEYCLOAK_SCOPE`. Nonsecret provider/issuer/audience/token URL settings are also
+needed when the legacy server-aware build imports the React library. Client
+credentials are runtime-only and must never be build arguments or browser config.
+
+Server Community/Marathon/Recruit API calls use a persistent common provider.
+The unused shared/browser token helper is removed. Browser bundles substitute a
+rejecting facade for the legacy React library's server-only M2M factory, excluding
+core validation code and credentials. Legacy Auth0 M2M environment mappings are
+removed; existing member sign-in settings remain separate.
+
+Protected Contentful/Recruit routes use shared member validation and reject all
+service principals. Configure `VALID_ISSUERS`, `AUTH_SECRET`, and JSON-array
+`AUTH_USER_AUDIENCES` or explicit `ALLOW_LEGACY_USER_AUDIENCE=true`; default member
+trust is empty. Run `nvm use`, `npm run lint`, `npm run build`, and
+`npm run test:keycloak`. This branch is excluded from application deployment.
+
+The Webpack 4 build scripts explicitly enable the OpenSSL legacy provider for
+compilation on Node 22. Runtime validation uses normal Node cryptography. Run
+`npm ci && npm run setup:runtime` before building.
+
+The project `.npmrc` retains the legacy React peer dependency graph under npm 10
+and disables old Git dependency prepare hooks that attempt Node 10/Sass builds.
+The required `setup:runtime` command performs deduplication and rebuilds the native
+XML parser; Docker and CI invoke it explicitly.
+The validation-only CI job supplies synthetic trust settings and no credentials.
+The native XML parser keeps its existing API; its NAN compatibility layer is pinned
+to 2.22.2 for Node 22.

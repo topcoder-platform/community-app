@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { logger, services } from 'topcoder-react-lib';
 import Joi from 'joi';
 import xss from 'xss';
+import { getMachineToken } from './keycloak';
 import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
 
@@ -131,7 +132,7 @@ export default class RecruitCRMService {
   // eslint-disable-next-line class-methods-use-this
   async getJobsFromTaas(req, res, next) {
     try {
-      const m2mToken = await api.getTcM2mToken();
+      const m2mToken = await getMachineToken();
       const v5api = api.getApiV5(m2mToken);
       const jobs = await v5api.get(`/jobs?${qs.stringify(req.query)}`);
       return res.send({

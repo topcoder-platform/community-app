@@ -3,10 +3,15 @@ import 'topcoder-react-utils/config/jest/setup';
 /* global Event, jest */
 
 import _ from 'lodash';
+import { TextEncoder, TextDecoder } from 'util';
 
 /* eslint-disable import/no-extraneous-dependencies */
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme from 'enzyme';
+
+// Jest's legacy jsdom realm omits these Node globals required by shared JWKS validation.
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 /* eslint-enable import/no-extraneous-dependencies */
 
 Enzyme.configure({ adapter: new Adapter() });

@@ -3,13 +3,9 @@
  */
 
 import express from 'express';
-import { middleware } from 'tc-core-library-js';
-import config from 'config';
-import _ from 'lodash';
+import { authenticateMember } from '../services/keycloak';
 import RecruitCRMService from '../services/recruitCRM';
 
-const authenticator = middleware.jwtAuthenticator;
-const authenticatorOptions = _.pick(config.SECRET.JWT_AUTH, ['AUTH_SECRET', 'VALID_ISSUERS']);
 const cors = require('cors');
 const multer = require('multer');
 
@@ -34,7 +30,7 @@ routes.options('/jobs/cache', cors());
 routes.get('/jobs/cache', cors(), (req, res, next) => new RecruitCRMService().getJobsCacheStats(req, res, next));
 
 routes.options('/jobs/cache/flush', cors());
-routes.get('/jobs/cache/flush', cors(), (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => new RecruitCRMService().getJobsCacheFlush(req, res, next));
+routes.get('/jobs/cache/flush', cors(), authenticateMember, (req, res, next) => new RecruitCRMService().getJobsCacheFlush(req, res, next));
 
 routes.options('/jobs/search', cors());
 routes.get('/jobs/search', cors(), (req, res, next) => new RecruitCRMService().getJobs(req, res, next));
@@ -50,14 +46,14 @@ const applyOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 routes.options('/jobs/:id/apply', cors(applyOptions));
-routes.post('/jobs/:id/apply', cors(applyOptions), (req, res, next) => authenticator(authenticatorOptions)(req, res, next), upload.single('resume'), (req, res, next) => new RecruitCRMService().applyForJob(req, res, next));
+routes.post('/jobs/:id/apply', cors(applyOptions), authenticateMember, upload.single('resume'), (req, res, next) => new RecruitCRMService().applyForJob(req, res, next));
 
 routes.options('/candidates/search', cors());
 routes.get('/candidates/search', cors(), (req, res, next) => new RecruitCRMService().searchCandidates(req, res, next));
 // new router added
 routes.options('/profile', cors());
-routes.get('/profile', cors(), (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => new RecruitCRMService().getProfile(req, res, next));
-routes.post('/profile', cors(), (req, res, next) => authenticator(authenticatorOptions)(req, res, next), upload.single('resume'), (req, res, next) => new RecruitCRMService().updateProfile(req, res, next));
+routes.get('/profile', cors(), authenticateMember, (req, res, next) => new RecruitCRMService().getProfile(req, res, next));
+routes.post('/profile', cors(), authenticateMember, upload.single('resume'), (req, res, next) => new RecruitCRMService().updateProfile(req, res, next));
 
 routes.options('/taasjobs', cors());
 routes.get('/taasjobs', cors(), (req, res, next) => new RecruitCRMService().getJobsFromTaas(req, res, next));

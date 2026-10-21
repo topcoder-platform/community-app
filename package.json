@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "conventional-changelog": "conventional-changelog",
-    "build": "npm run clean && ./node_modules/.bin/webpack --env=production --progress --profile --colors --display-optimization-bailout && npm run verify:no-retired-cms-targets",
-    "build:dev": "npm run clean && ./node_modules/.bin/webpack --env=development --progress --profile --colors --display-optimization-bailout",
-    "build:qa": "npm run clean && ./node_modules/.bin/webpack --env=qa --progress --profile --colors --display-optimization-bailout",
+    "build": "npm run clean && node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --env=production --progress --profile --colors --display-optimization-bailout && npm run verify:no-retired-cms-targets",
+    "build:dev": "npm run clean && node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --env=development --progress --profile --colors --display-optimization-bailout",
+    "build:qa": "npm run clean && node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --env=qa --progress --profile --colors --display-optimization-bailout",
     "clean": "rimraf build",
     "dev": "cross-env BABEL_ENV=development NODE_ENV=development node ./bin/www",
     "jest": "cross-env NODE_CONFIG_ENV=test BABEL_ENV=test jest --no-cache --maxWorkers=4 --config config/jest/default.js",
@@ -20,7 +20,9 @@
     "verify:no-retired-cms-targets": "node scripts/verify-no-retired-cms-targets.js",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"
+    "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils",
+    "test:keycloak": "node --test test/keycloak.test.cjs",
+    "setup:runtime": "npm run postinstall && npm rebuild node-expat --ignore-scripts=false"
   },
   "repository": {
     "type": "git",
@@ -34,8 +36,8 @@
   },
   "homepage": "https://github.com/topcoder-platform/community-app#readme",
   "engines": {
-    "node": "^10.24.1",
-    "npm": "^6.14.12"
+    "node": ">=22.23.2 <23",
+    "npm": ">=10 <11"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",
@@ -163,7 +165,7 @@
     "showdown": "^1.8.6",
     "slick-carousel": "^1.8.1",
     "supertest": "^3.1.0",
-    "tc-core-library-js": "github:topcoder-platform/tc-core-library-js#master",
+    "tc-core-library-js": "https://codeload.github.com/topcoder-platform/tc-core-library-js/tar.gz/c262f4aca971904f308085bdeaaed35cdf3cfa7d",
     "tc-ui": "^1.0.12",
     "topcoder-react-lib": "github:topcoder-platform/topcoder-react-lib#v6",
     "topcoder-react-ui-kit": "2.0.1",
@@ -219,7 +221,7 @@
     "mini-css-extract-plugin": "^0.4.1",
     "mkpath": "^1.0.0",
     "mockdate": "^2.0.2",
-    "node-sass": "^4.9.0",
+    "node-sass": "npm:sass@1.102.0",
     "nodelist-foreach-polyfill": "^1.2.0",
     "optimize-css-assets-webpack-plugin": "^4.0.3",
     "postcss-loader": "^2.1.5",
@@ -244,9 +246,15 @@
     "webpack-merge": "^4.1.3",
     "webpack-pwa-manifest": "^3.7.1",
     "webpack-stats-plugin": "^0.2.1",
-    "workbox-webpack-plugin": "^3.6.2"
+    "workbox-webpack-plugin": "^3.6.2",
+    "nock": "^14.0.10"
   },
   "volta": {
     "node": "8.11.2"
+  },
+  "overrides": {
+    "tc-core-library-js": "$tc-core-library-js",
+    "node-sass": "$node-sass",
+    "nan": "2.22.2"
   }
 }

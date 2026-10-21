@@ -3,9 +3,8 @@
  */
 
 import express from 'express';
-import { middleware } from 'tc-core-library-js';
-import config from 'config';
 import _ from 'lodash';
+import { authenticateMember } from '../services/keycloak';
 import {
   getService,
   articleVote,
@@ -14,8 +13,6 @@ import { getPayloadAssetUrl } from '../services/cms-urls';
 
 const cors = require('cors');
 
-const authenticator = middleware.jwtAuthenticator;
-const authenticatorOptions = _.pick(config.SECRET.JWT_AUTH, ['AUTH_SECRET', 'VALID_ISSUERS']);
 const routes = express.Router();
 
 // Enables CORS on those routes according config above
@@ -127,7 +124,7 @@ routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
 });
 
 /* Update votes on article. */
-routes.use('/:spaceName/:environment/votes', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => {
+routes.use('/:spaceName/:environment/votes', authenticateMember, (req, res, next) => {
   try {
     articleVote(req.body, req.params.spaceName, req.params.environment)
       .then(res.send.bind(res), next);

@@ -23,6 +23,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      'tc-core-library-js$': path.resolve(__dirname, '../../src/client/shims/core-auth.js'),
       /* The isomorphic service loads this module only during Node SSR. Replace
        * it in browser bundles so server credentials and HTTP clients cannot
        * become client assets. */

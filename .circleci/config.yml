@@ -110,8 +110,14 @@ jobs:
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
   test:
+    environment:
+      M2M_PROVIDER: keycloak
+      KEYCLOAK_ISSUER: https://community-keycloak.test/realms/m2m
+      KEYCLOAK_AUDIENCE: https://api.test
+      KEYCLOAK_TOKEN_URL: https://community-keycloak.test/m2m/token
+      VALID_ISSUERS: '[]'
     docker:
-      - image: circleci/node:10.24.1
+      - image: cimg/node:22.23.2
     steps:
       - checkout
       - restore_cache:
@@ -121,13 +127,14 @@ jobs:
           command: git config --global url."https://git@".insteadOf git://
       - run:
           name: App npm install
-          command: npm ci
+          command: npm ci && npm run setup:runtime
           no_output_timeout: 20m
       - save_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
       - run: npm test
+      - run: npm run test:keycloak
 
   Performance-Testing:
     docker:
