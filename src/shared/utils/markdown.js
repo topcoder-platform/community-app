@@ -184,10 +184,13 @@ function sanitizeContent(content) {
 }
 
 /**
- * Renders tokens with zero nesting.
- * @param {Object} tokens
- * @param {Number} index
- * @return {Object}
+ * Renders zero-nesting tokens for renderTokens. Parsed text stays a string so
+ * React escapes it exactly once, including entities in HTML code elements.
+ * @param {Array} tokens Parsed Markdown tokens.
+ * @param {Number} index Position of the token to render.
+ * @param {Object} md Markdown renderer and custom-component properties.
+ * @return {Object|String} React content for the token.
+ * @throws Propagates rendering errors other than handled highlighting errors.
  */
 function renderToken(tokens, index, md) {
   const token = tokens[index];
@@ -202,7 +205,7 @@ function renderToken(tokens, index, md) {
       return renderTokens(token.children, 0, md);
       /* eslint-enable no-use-before-define */
     case 'text':
-      return sanitizeContent(token.content);
+      return token.content;
     case 'fence':
       return Highlighter({
         codeString: token.content,

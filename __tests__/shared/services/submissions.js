@@ -1,6 +1,8 @@
 /* eslint-env jest */
 import { config } from 'topcoder-react-utils';
 import {
+  downloadSubmissions,
+  getSubmissionArtifacts,
   getChallengeSubmissions,
   getSubmissionDownloadUrl,
 } from '../../../src/shared/services/submissions';
@@ -36,6 +38,24 @@ describe('submissions service', () => {
 
   beforeEach(() => {
     global.fetch = jest.fn();
+  });
+
+  it('rejects forbidden artifact lists and downloads instead of saving error payloads', async () => {
+    global.fetch.mockResolvedValue({ ok: false, status: 403 });
+    await expect(getSubmissionArtifacts('token', 'submission-id'))
+      .rejects.toThrow('Unable to load artifacts: 403');
+    await expect(downloadSubmissions('token', 'submission-id', 'example'))
+      .rejects.toThrow('Unable to download artifact: 403');
+  });
+
+  it('returns authorized artifact IDs and file contents', async () => {
+    const blob = new Blob(['artifact']);
+    global.fetch.mockResolvedValueOnce({
+      ok: true, json: () => Promise.resolve({ artifacts: ['example'] }),
+    }).mockResolvedValueOnce({ ok: true, blob: () => Promise.resolve(blob) });
+    await expect(getSubmissionArtifacts('token', 'submission-id'))
+      .resolves.toEqual({ artifacts: ['example'] });
+    await expect(downloadSubmissions('token', 'submission-id', 'example')).resolves.toBe(blob);
   });
 
   it('returns a signed submission URL without following the storage redirect', async () => {

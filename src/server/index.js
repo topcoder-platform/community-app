@@ -152,8 +152,12 @@ async function beforeRender(req, suggestedConfig) {
 }
 
 /**
- * Custom tuning of ExpressJS server.
- * @param {Object} server
+ * Registers application routes and response headers, including the community CSP
+ * that permits CDN assets redirected to the application's static-asset endpoint.
+ * Used by serverFactory through its onExpressJsSetup hook.
+ * @param {Object} server Express application to configure.
+ * @returns {Promise<undefined>} Resolves after the middleware is registered.
+ * @throws {Error} Rejects if Express middleware registration fails.
  */
 async function onExpressJsSetup(server) {
   /* tc-accounts App was designed for browser environment, and its decodeToken()
@@ -161,6 +165,8 @@ async function onExpressJsSetup(server) {
    * atob() method, which is present in browser, but not in NodeJS. This is the
    * fix. */
   global.atob = atob;
+
+  const staticAssetSource = `${config.URL.COMMUNITY_APP}/api/cdn/public/static-assets/`;
 
   const checkAuthorizationHeader = (req, res, next) => {
     if (req.headers.authorization !== `ApiKey ${config.SERVER_API_KEY}`) {
@@ -179,6 +185,7 @@ async function onExpressJsSetup(server) {
         "default-src 'self';"
         + " script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'"
           + ` ${config.CDN.PUBLIC}`
+          + ` ${staticAssetSource}`
           + ' http://www.google-analytics.com'
           + ' https://www.google-analytics.com'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
@@ -201,6 +208,7 @@ async function onExpressJsSetup(server) {
           + ' https://www.googletagmanager.com;'
         + " style-src 'report-sample' 'self' 'unsafe-inline'"
           + ` ${config.CDN.PUBLIC}`
+          + ` ${staticAssetSource}`
           + ' https://d1of0acg2orgco.cloudfront.net'
           + ' https://d1mwkvp2xbqfs9.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
@@ -225,6 +233,7 @@ async function onExpressJsSetup(server) {
         + " font-src 'self'"
           + ' data:'
           + ` ${config.CDN.PUBLIC}`
+          + ` ${staticAssetSource}`
           + ' https://d1of0acg2orgco.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
           + ' https://d1mwkvp2xbqfs9.cloudfront.net'
@@ -235,6 +244,7 @@ async function onExpressJsSetup(server) {
         + " img-src 'self'"
           + ' data:'
           + ` ${config.CDN.PUBLIC}`
+          + ` ${staticAssetSource}`
           + ' https://cdn.segment.com'
           + ' https://d1of0acg2orgco.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'

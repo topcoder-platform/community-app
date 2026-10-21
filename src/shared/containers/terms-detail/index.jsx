@@ -16,11 +16,16 @@ import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { themr } from 'react-css-super-themr';
 import { getDocuSignTemplateIdForTerm } from 'utils/terms';
+import { goToLogin } from 'utils/tc';
 import styles from './styles.scss';
 
 const ACCEPTANCE_LABEL = 'I understand and agree';
 
-class TermsDetailPageContainer extends React.Component {
+/**
+ * Loads a direct-linked agreement for public reading. Electronic acceptance and
+ * DocuSign signing are available only while the visitor has an auth token.
+ */
+export class TermsDetailPageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,6 +93,7 @@ class TermsDetailPageContainer extends React.Component {
       theme,
     } = this.props;
     const { termsAccepted, showModal } = this.state;
+    const isLoggedIn = !_.isEmpty(authTokens.tokenV3);
     const isDocuSignTerm = Boolean(getDocuSignTemplateIdForTerm(details));
 
     return (
@@ -107,7 +113,7 @@ class TermsDetailPageContainer extends React.Component {
           ) : null
         }
         {
-          (details && details.text)
+          (details && details.text && (isLoggedIn || !isDocuSignTerm))
             ? (
               <div className={theme['terms-detail-container']}>
                 <MetaTags title={details.title} description={details.title} />
@@ -131,7 +137,16 @@ class TermsDetailPageContainer extends React.Component {
             : null
         }
         {
-          agreeingTerm !== termId && details && !details.agreed
+          details && !isLoggedIn ? (
+            <div className={theme['terms-acceptance-handler']}>
+              <PrimaryButton onClick={() => goToLogin()}>
+                Log in to accept these terms
+              </PrimaryButton>
+            </div>
+          ) : null
+        }
+        {
+          isLoggedIn && agreeingTerm !== termId && details && !details.agreed
           && agreeTermFailure === undefined
           && !isDocuSignTerm
             ? (
@@ -159,7 +174,7 @@ class TermsDetailPageContainer extends React.Component {
           agreeingTerm === termId ? <LoadingIndicator /> : null
         }
         {
-          agreeingTerm !== termId && agreeTermFailure !== undefined && showModal
+          isLoggedIn && agreeingTerm !== termId && agreeTermFailure === false && showModal
             ? (
               <Modal
                 onCancel={() => this.resetModal()}
