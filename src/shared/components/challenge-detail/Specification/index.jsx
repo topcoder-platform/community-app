@@ -12,6 +12,7 @@ import React from 'react';
 import Sticky from 'react-stickynode';
 import { config } from 'topcoder-react-utils';
 import { isMM, getTrackName } from 'utils/challenge';
+import { getManualReviewScorecardUrl } from 'utils/challenge-detail/manual-review-scorecard';
 
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
@@ -66,6 +67,7 @@ export default function ChallengeDetailsView(props) {
 
   const reviewScorecardId = getScoreCardByPhase('Review');
   const screeningScorecardId = getScoreCardByPhase('Screening');
+  const manualReviewScorecardUrl = getManualReviewScorecardUrl(challenge);
 
   let stockArtValue = '';
   const allowStockArt = _.find(metadata, { name: 'allowStockArt' });
@@ -362,6 +364,7 @@ export default function ChallengeDetailsView(props) {
             metadata={metadata}
             reviewScorecardId={reviewScorecardId}
             screeningScorecardId={screeningScorecardId}
+            manualReviewScorecardUrl={manualReviewScorecardUrl}
             isWipro={isWipro}
           />
         ) : null }

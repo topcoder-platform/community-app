@@ -33,6 +33,7 @@ export default function SideBar({
   metadata,
   reviewScorecardId,
   screeningScorecardId,
+  manualReviewScorecardUrl,
   isWipro,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
@@ -144,7 +145,19 @@ export default function SideBar({
                 Final Review
               </h3>
               <span styleName="link-like-paragraph tooltip-container">
-                {reviewTypeTitle}
+                {manualReviewScorecardUrl ? (
+                  <span>
+                    Manual:
+                    {' '}
+                    <a
+                      href={manualReviewScorecardUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Scorecard Link
+                    </a>
+                  </span>
+                ) : reviewTypeTitle}
                 <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
                   <div styleName="tctooltip">
                     <TooltipIcon />
@@ -503,6 +516,7 @@ SideBar.defaultProps = {
   metadata: [],
   reviewScorecardId: '',
   screeningScorecardId: '',
+  manualReviewScorecardUrl: '',
   legacyId: '',
   isWipro: false,
 };
@@ -527,5 +541,6 @@ SideBar.propTypes = {
   metadata: PT.array,
   reviewScorecardId: PT.oneOfType([PT.string, PT.number]),
   screeningScorecardId: PT.string,
+  manualReviewScorecardUrl: PT.string,
   isWipro: PT.bool,
 };
