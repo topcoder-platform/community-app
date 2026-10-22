@@ -6,6 +6,26 @@ import tActions from 'actions/tc-communities';
 import JoinCommunity from 'components/tc-communities/JoinCommunity';
 import ConnectedJoinCommunity from 'containers/tc-communities/JoinCommunity';
 
+/* Both stubs keep this suite from leaving rejected promises behind: the Terms
+ * container loads community metadata on every mount, and joinDone posts to the
+ * live Groups API through the library's own fetch. redux-mock-store does not
+ * settle action payloads, so those rejections would fail whichever test runs
+ * next in the Jest worker. */
+jest.mock('containers/Terms', () => () => null);
+jest.mock('topcoder-react-lib', () => {
+  const lib = jest.requireActual('topcoder-react-lib');
+  return {
+    ...lib,
+    services: {
+      ...lib.services,
+      groups: {
+        ...lib.services.groups,
+        getService: jest.fn(() => ({ addMember: jest.fn(() => Promise.resolve()) })),
+      },
+    },
+  };
+});
+
 describe('full render connnected component and dispatch actions', () => {
   let originalFetch;
   let instance;
