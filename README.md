@@ -217,3 +217,15 @@ Small adapters under `tools/` preserve the legacy minimatch function, core `auth
 Credentials are supplied at runtime, never as Docker build arguments. The CircleCI ECS deployment now references the existing SSM `buildvar` and `appvar` paths, with `appvar` taking precedence for duplicate names. Its task execution role needs `ssm:GetParameters` and the applicable KMS decrypt permission for both paths. CI-generated credential files are excluded from the Docker context. For local runs, provide configuration through the process environment or a private `docker --env-file` file.
 
 The optional performance-test project uses Maven 3.9+, Java 21 and JMeter 5.6.3. Configuration and dependency validation do not execute the load plans; only run the load-test profiles against an explicitly approved target.
+
+The shared Maven configuration includes only the HTTP suite's required protocols and explicit patched libraries. To validate without running the load plan:
+
+```sh
+mvn jmeter:configure
+# Set this to the jmeter directory printed by the configure goal.
+JMETER_DIR='target/<configuration-id>/jmeter'
+java -Djava.awt.headless=true -cp "$JMETER_DIR/lib/*:$JMETER_DIR/lib/ext/*:$JMETER_DIR/bin/*" \
+  tests/performance/ValidatePlan.java "$JMETER_DIR" src/test/jmeter/Community-25UV.jmx
+```
+
+This parses the existing plan and makes one HTTP request to a fixture bound to `127.0.0.1`; it does not execute the plan's samplers.
