@@ -28,11 +28,14 @@ import {
   BUCKETS, filterChanged, sortChangedBucket,
 } from 'utils/challenge-listing/buckets';
 import MetaTags from 'components/MetaTags';
-import { USER_GROUP_MAXAGE } from 'config';
+import { config as clientConfig } from 'topcoder-react-utils';
+
 import { updateChallengeType } from 'utils/challenge';
 
 import ogImage from '../../../../assets/images/social.png';
 import style from './styles.scss';
+
+const { USER_GROUP_MAXAGE } = clientConfig;
 
 // const { combine, mapToBackend } = challengeUtils.filter;
 const { mapToBackend } = challengeUtils.filter;

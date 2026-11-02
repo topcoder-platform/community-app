@@ -2,7 +2,6 @@
  * Footer component for communities
  */
 
-/* global window */
 
 import _ from 'lodash';
 import React from 'react';

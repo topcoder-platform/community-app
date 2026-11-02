@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`matches snapshots 1`] = `
 <div>
@@ -21,29 +21,44 @@ exports[`matches snapshots 1`] = `
   </p>
   <svg
     height="200px"
-    viewBox="0 0 283.46455 85.039373"
+    viewBox="0 0 283.465 85.039"
     width="640px"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M12.906 12.034h260.215v60.327H12.907z"
-      fill="none"
-      stroke="green"
-      strokeWidth=".49"
-    />
-    <text
-      fontFamily="sans-serif"
-      fontSize="20"
-      fontWeight="400"
-      letterSpacing="0"
+      d="M177.185 128.931H437.4v60.327H177.185z"
       style={
         Object {
-          "lineHeight": "125%",
+          "fill": "none",
+          "fillOpacity": "1",
+          "stroke": "green",
+          "strokeWidth": ".49034357",
         }
       }
       transform="translate(-164.279 -116.897)"
-      wordSpacing="0"
+    />
+    <text
+      style={
+        Object {
+          "fill": "#000",
+          "fillOpacity": "1",
+          "fontFamily": "sans-serif",
+          "fontSize": "20px",
+          "fontStyle": "normal",
+          "fontWeight": "400",
+          "letterSpacing": "0",
+          "lineHeight": "125%",
+          "stroke": "none",
+          "strokeLinecap": "butt",
+          "strokeLinejoin": "miter",
+          "strokeOpacity": "1",
+          "strokeWidth": "1px",
+          "wordSpacing": "0",
+        }
+      }
+      transform="translate(-164.279 -116.897)"
       x="196.071"
+      xmlSpace="preserve"
       y="141.291"
     >
       <tspan

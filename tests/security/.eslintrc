@@ -1,0 +1,15 @@
+{
+  "env": {
+    "jest": true,
+    "node": true
+  },
+  "rules": {
+    "global-require": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ]
+  }
+}

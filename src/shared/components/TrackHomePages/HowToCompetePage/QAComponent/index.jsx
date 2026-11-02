@@ -4,11 +4,11 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import PT from 'prop-types';
-import showdown from 'showdown';
+import MarkdownIt from 'markdown-it';
 
 import './styles.scss';
 
-const converter = new showdown.Converter();
+const converter = new MarkdownIt({ html: false, linkify: true });
 
 class QAComponent extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class QAComponent extends React.Component {
         <div
           styleName={isActive ? 'answer active' : 'answer'}
           dangerouslySetInnerHTML={
-            { __html: converter.makeHtml(data.text) }
+            { __html: converter.render(data.text) }
           }
         />
       </div>

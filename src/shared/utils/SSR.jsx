@@ -31,8 +31,9 @@ export async function DoSSR(request, store, App) {
   ));
   let i = 0;
   while (i < ssrPromises.length) {
-    await context.ssrPromises[i]; // eslint-disable-line no-await-in-loop
-    i += 1;
+    const pending = ssrPromises.slice(i);
+    i = ssrPromises.length;
+    await Promise.all(pending); // eslint-disable-line no-await-in-loop
   }
 }
 
@@ -55,11 +56,7 @@ export default function SSR(checkStore, updateStore) {
     const Wrapper = withRouter(({ location, staticContext }) => {
       const { request, ssrPromises, store } = staticContext;
       if (checkStore(store, props, request)) return <Component {...props} />;
-      const promise = updateStore(store, props, request);
-      if (ssrPromises) {
-        ssrPromises.push(promise);
-      }
-      promise.then(() => {
+      const promise = Promise.resolve().then(() => updateStore(store, props, request)).then(() => {
         ReactDOM.renderToString((
           <Provider store={store}>
             <StaticRouter context={staticContext} location={location}>
@@ -68,6 +65,10 @@ export default function SSR(checkStore, updateStore) {
           </Provider>
         ));
       });
+      // Mark rejections handled immediately while DoSSR awaits this same promise.
+      // Otherwise another concurrent load can reject before its turn is awaited.
+      promise.catch(() => undefined);
+      if (ssrPromises) ssrPromises.push(promise);
       return null;
     });
     return <Wrapper />;

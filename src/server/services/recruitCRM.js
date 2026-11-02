@@ -1,7 +1,7 @@
 /**
  * Server-side functions necessary for effective integration with recruitCRM
  */
-import fetch from 'isomorphic-fetch';
+import upstreamFetch from 'isomorphic-fetch';
 import config from 'config';
 import qs from 'qs';
 import _ from 'lodash';
@@ -11,6 +11,17 @@ import xss from 'xss';
 import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
 
+
+// Credentials must never follow a redirect or leave the recruiting API origin.
+function fetch(input, options) {
+  const url = new URL(input);
+  if (url.origin !== 'https://api.recruitcrm.io' || url.username || url.password) {
+    throw new Error('Invalid recruiting API origin');
+  }
+  return upstreamFetch(url.href, {
+    ...options, redirect: 'error', timeout: 15000, size: 8 * 1024 * 1024,
+  });
+}
 
 const { api } = services;
 
@@ -353,9 +364,7 @@ export default class RecruitCRMService {
             gigsCache.set(CACHE_KEY, toSend);
             return res.send(toSend);
           })
-          .catch(e => res.send({
-            error: e,
-          }));
+          .catch(() => res.status(502).send({ error: true, message: 'Recruiting service request failed' }));
       }
 
       // Filter by Job Application active
@@ -413,7 +422,15 @@ export default class RecruitCRMService {
   async applyForJob(req, res, next) {
     const { id } = req.params;
     const { body, file } = req;
-    const form = JSON.parse(body.form);
+    let form;
+    try {
+      form = JSON.parse(body.form);
+    } catch (err) {
+      return res.status(400).send({ error: true, message: 'Invalid candidate form' });
+    }
+    if (!form || !Array.isArray(form.custom_fields) || form.custom_fields.length > 100) {
+      return res.status(400).send({ error: true, message: 'Invalid candidate fields' });
+    }
     const fileData = new FormData();
     if (file) {
       fileData.append('resume', file.buffer, file.originalname);
@@ -424,7 +441,7 @@ export default class RecruitCRMService {
     let growRes;
     try {
       // Check if candidate exists in the system?
-      const candidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/search?email=${form.email}`, {
+      const candidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/search?email=${encodeURIComponent(form.email)}`, {
         method: 'GET',
         headers: {
           'Content-Type': req.headers['content-type'],
@@ -435,7 +452,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: candidateResponse.status,
-          url: `${this.private.baseUrl}/v1/candidates/search?email=${form.email}`,
+          url: `${this.private.baseUrl}/v1/candidates/search?email=${encodeURIComponent(form.email)}`,
           errorObj: await candidateResponse.json(),
         };
         notifyKirilAndNick(error);
@@ -464,7 +481,9 @@ export default class RecruitCRMService {
         const fieldIndexProfile = _.findIndex(
           candidateData.data[0].custom_fields, { field_id: 14 },
         );
-        const fieldIndexForm = _.findIndex(form.custom_fields, { field_id: 14 });
+        const fieldIndexForm = form.custom_fields.findIndex(
+          field => field && field.field_id === 14,
+        );
         if (fieldIndexProfile !== -1 && fieldIndexForm !== -1) {
           form.custom_fields[fieldIndexForm].value += `;${candidateData.data[0].custom_fields[fieldIndexProfile].value}`;
           if (form.custom_fields[fieldIndexForm].value.length > 2000) {
@@ -474,7 +493,7 @@ export default class RecruitCRMService {
         }
       }
       // Create/update candidate profile
-      const workCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${candidateSlug}` : ''}`, {
+      const workCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${encodeURIComponent(candidateSlug)}` : ''}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -486,7 +505,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: workCandidateResponse.status,
-          url: `${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${candidateSlug}` : ''}`,
+          url: `${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${encodeURIComponent(candidateSlug)}` : ''}`,
           form,
           errorObj: await workCandidateResponse.json(),
         };
@@ -497,7 +516,7 @@ export default class RecruitCRMService {
       // Attach resume to candidate if uploaded
       if (file) {
         const formHeaders = fileData.getHeaders();
-        const fileCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}`, {
+        const fileCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateData.slug)}`, {
           method: 'POST',
           headers: {
             Authorization: this.private.authorization,
@@ -509,7 +528,7 @@ export default class RecruitCRMService {
           const error = {
             error: true,
             status: fileCandidateResponse.status,
-            url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}`,
+            url: `${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateData.slug)}`,
             form,
             fileData,
             file,
@@ -522,7 +541,7 @@ export default class RecruitCRMService {
         candidateData = await fileCandidateResponse.json();
       }
       // Candidate ready to apply for job
-      const applyResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}/assign?job_slug=${id}`, {
+      const applyResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateData.slug)}/assign?job_slug=${encodeURIComponent(id)}`, {
         method: 'POST',
         headers: {
           'Content-Type': req.headers['content-type'],
@@ -539,7 +558,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: applyResponse.status,
-          url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}/assign?job_slug=${id}`,
+          url: `${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateData.slug)}/assign?job_slug=${encodeURIComponent(id)}`,
           form,
           candidateData,
           errorObj: errObj,
@@ -548,7 +567,7 @@ export default class RecruitCRMService {
         return res.send(error);
       }
       // Set hired-stage
-      const hireStageResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`, {
+      const hireStageResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateData.slug)}/hiring-stages/${encodeURIComponent(id)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -564,7 +583,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: hireStageResponse.status,
-          url: `$${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`,
+          url: `$${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateData.slug)}/hiring-stages/${encodeURIComponent(id)}`,
           form,
           errorObj: await hireStageResponse.json(),
         };
@@ -580,12 +599,12 @@ export default class RecruitCRMService {
         // await gs.addToSheet(config.GIG_REFERRALS_SHEET, [[
         //   `${form.first_name} ${form.last_name}`,
         //   form.email,
-        //   `https://app.recruitcrm.io/candidate/${candidateData.slug}`,
+        //   `https://app.recruitcrm.io/candidate/${encodeURIComponent(candidateData.slug)}`,
         //   `https://topcoder.com/members/${form.custom_fields[tcHandle].value}`,
         //   `${growRes.referrer.firstName} ${growRes.referrer.lastName}`,
         //   growRes.referrer.email,
         //   `https://topcoder.com/members/${growRes.referrer.metadata.tcHandle}`,
-        //   `https://app.recruitcrm.io/job/${id}`,
+        //   `https://app.recruitcrm.io/job/${encodeURIComponent(id)}`,
         // ]]);
         // Notify the person who referred
         sendEmailDirect({
@@ -676,7 +695,7 @@ export default class RecruitCRMService {
         available_from: body.availability === 'true' ? new Date().toISOString() : new Date('2100-01-01').toISOString(),
       };
       // update candidate profile
-      const response = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateSlug}`, {
+      const response = await fetch(`${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateSlug)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -688,7 +707,7 @@ export default class RecruitCRMService {
         const error = {
           error: true,
           status: response.status,
-          url: `${this.private.baseUrl}/v1/candidates${candidateSlug}`,
+          url: `${this.private.baseUrl}/v1/candidates${encodeURIComponent(candidateSlug)}`,
           form,
           errorObj: await response.json(),
         };
@@ -698,7 +717,7 @@ export default class RecruitCRMService {
       // Attach resume to candidate if uploaded
       if (file) {
         const formHeaders = fileData.getHeaders();
-        const fileResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateSlug}`, {
+        const fileResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateSlug)}`, {
           method: 'POST',
           headers: {
             Authorization: this.private.authorization,
@@ -710,7 +729,7 @@ export default class RecruitCRMService {
           const error = {
             error: true,
             status: fileResponse.status,
-            url: `${this.private.baseUrl}/v1/candidates/${candidateSlug}`,
+            url: `${this.private.baseUrl}/v1/candidates/${encodeURIComponent(candidateSlug)}`,
             file,
             formHeaders,
             errorObj: await fileResponse.json(),

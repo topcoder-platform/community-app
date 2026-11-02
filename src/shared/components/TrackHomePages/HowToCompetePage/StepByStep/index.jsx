@@ -5,7 +5,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import showdown from 'showdown';
+import MarkdownIt from 'markdown-it';
 import Sticky from 'react-stickynode';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import StepButton from './StepButton';
@@ -13,7 +13,7 @@ import StepButton from './StepButton';
 
 import './styles.scss';
 
-const converter = new showdown.Converter();
+const converter = new MarkdownIt({ html: false, linkify: true });
 
 class StepByStep extends React.Component {
   constructor(props) {
@@ -75,7 +75,7 @@ class StepByStep extends React.Component {
                         <div
                           styleName="text"
                           dangerouslySetInnerHTML={
-                            { __html: converter.makeHtml(menu.fields.text) }
+                            { __html: converter.render(menu.fields.text) }
                           }
                         />
                       </div>

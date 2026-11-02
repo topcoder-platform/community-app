@@ -1,7 +1,7 @@
 /**
  * Collection of small Topcoder-related functions.
  */
-/* global window */
+
 
 import _ from 'lodash';
 import moment from 'moment-timezone';

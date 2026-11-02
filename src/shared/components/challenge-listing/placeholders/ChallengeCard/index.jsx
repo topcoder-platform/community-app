@@ -1,6 +1,4 @@
-/* global
-  Math
-*/
+
 
 /**
  *  The component displays a challenge card without any data.

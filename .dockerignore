@@ -1,3 +1,24 @@
 __coverage__/
 .git/
 node_modules/
+build/
+**/node_modules/
+.env*
+*.log
+automated-smoke-test/temp/
+automated-smoke-test/test-results/
+
+# CI-generated credentials and deployment-only scripts must never enter layers.
+*_env
+awsenvconf
+fetched_parameters.json
+paramnames.json
+paramwithvalue.json
+master_deploy.sh
+awsconfiguration.sh
+psvar-processor.sh
+buildenv.sh
+target/
+
+__pycache__/
+*.pyc

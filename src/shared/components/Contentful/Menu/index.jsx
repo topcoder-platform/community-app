@@ -1,7 +1,7 @@
 /**
  * Renders an Navigation/Menu with data from Contentful
  */
-/* global window */
+
 import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import ContentfulMenuLoader from 'containers/Contentful/MenuLoader';

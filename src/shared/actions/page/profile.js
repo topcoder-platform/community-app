@@ -1,7 +1,7 @@
 /**
  * Actions for member profile page.
  */
-/* global fetch */
+
 import { redux, config } from 'topcoder-react-utils';
 
 /**

@@ -7,7 +7,6 @@
  * happen automatically.
  */
 
-/* global window */
 
 import PT from 'prop-types';
 import qs from 'qs';

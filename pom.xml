@@ -6,30 +6,140 @@
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jmeter-maven-plugin.version>2.9.0</jmeter-maven-plugin.version>
+        <jmeter-maven-plugin.version>3.8.0</jmeter-maven-plugin.version>
+        <jmeter.version>5.6.3</jmeter.version>
+        <hostname>${env.HOSTNAME}</hostname>
 		<jmeterScript>Community-25UV.jmx</jmeterScript>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.22.3</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.22.3</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.22</version></dependency>
+            <dependency><groupId>com.thoughtworks.xstream</groupId><artifactId>xstream</artifactId><version>1.4.21</version></dependency>
+            <dependency><groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>3.18.0</version></dependency>
+            <dependency><groupId>org.apache.httpcomponents.client5</groupId><artifactId>httpclient5</artifactId><version>5.6.3</version></dependency>
+            <dependency><groupId>org.apache.httpcomponents.core5</groupId><artifactId>httpcore5</artifactId><version>5.4.3</version></dependency>
+            <dependency><groupId>org.apache.httpcomponents.core5</groupId><artifactId>httpcore5-h2</artifactId><version>5.4.3</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-slf4j2-impl</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.xmlgraphics</groupId><artifactId>batik-codec</artifactId><version>1.19</version></dependency>
+            <dependency><groupId>org.freemarker</groupId><artifactId>freemarker</artifactId><version>2.3.35</version></dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.11</version>
+            <version>1.23.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>2.0.20</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jmeter</groupId>
             <artifactId>ApacheJMeter_core</artifactId>
-            <version>5.1</version>
+            <version>${jmeter.version}</version>
+            <!-- The existing load plans already exclude Tika at plugin runtime. -->
+            <exclusions>
+                <exclusion><groupId>org.apache.tika</groupId><artifactId>*</artifactId></exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <build>
-        <plugins>
-            
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.lazerycode.jmeter</groupId>
+                    <artifactId>jmeter-maven-plugin</artifactId>
+                    <version>${jmeter-maven-plugin.version}</version>
+                    <configuration>
+                        <!-- Keep only the HTTP suite's required protocols. Extension and
+                             patched-library dependencies are explicit: their POMs also
+                             include old JMeter releases and unrelated test frameworks. -->
+                        <jmeterVersion>${jmeter.version}</jmeterVersion>
+                        <jmeterArtifacts>
+                            <artifact>org.apache.jmeter:ApacheJMeter:${jmeter.version}</artifact>
+                            <artifact>org.apache.jmeter:ApacheJMeter_config:${jmeter.version}</artifact>
+                            <artifact>org.apache.jmeter:jorphan:${jmeter.version}</artifact>
+                            <artifact>org.apache.jmeter:ApacheJMeter_core:${jmeter.version}</artifact>
+                            <artifact>org.apache.jmeter:ApacheJMeter_components:${jmeter.version}</artifact>
+                            <artifact>org.apache.jmeter:ApacheJMeter_functions:${jmeter.version}</artifact>
+                            <artifact>org.apache.jmeter:ApacheJMeter_http:${jmeter.version}</artifact>
+                        </jmeterArtifacts>
+                        <downloadExtensionDependencies>false</downloadExtensionDependencies>
+                        <downloadLibraryDependencies>false</downloadLibraryDependencies>
+                        <jmeterExtensions>
+                            <artifact>kg.apc:jmeter-plugins-casutg:3.1.1</artifact>
+                            <artifact>kg.apc:jmeter-plugins-cmn-jmeter:0.6</artifact>
+                            <artifact>kg.apc:jmeter-plugins-charts:0.1</artifact>
+                        </jmeterExtensions>
+                        <testPlanLibraries>
+                            <artifact>org.apache.xmlgraphics:batik-i18n:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-shared-resources:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-xml:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-util:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-ext:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-awt-util:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-css:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-svg-dom:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-constants:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-dom:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-script:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-svggen:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-gvt:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-anim:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-parser:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-bridge:1.19</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-transcoder:1.19</artifact>
+                            <artifact>net.minidev:accessors-smart:2.6.0</artifact>
+                            <artifact>org.ow2.asm:asm:9.8</artifact>
+                            <artifact>org.slf4j:slf4j-api:2.0.20</artifact>
+                            <artifact>net.minidev:json-smart:2.6.0</artifact>
+                            <artifact>com.jayway.jsonpath:json-path:2.10.0</artifact>
+                            <artifact>dnsjava:dnsjava:3.6.4</artifact>
+                            <artifact>org.jsoup:jsoup:1.23.2</artifact>
+                            <artifact>com.fasterxml.jackson.core:jackson-core:2.22.3</artifact>
+                            <artifact>com.fasterxml.jackson.core:jackson-databind:2.22.3</artifact>
+                            <artifact>com.fasterxml.jackson.core:jackson-annotations:2.22</artifact>
+                            <artifact>com.thoughtworks.xstream:xstream:1.4.21</artifact>
+                            <artifact>org.apache.commons:commons-lang3:3.18.0</artifact>
+                            <artifact>org.apache.httpcomponents.client5:httpclient5:5.6.3</artifact>
+                            <artifact>org.apache.httpcomponents.core5:httpcore5:5.4.3</artifact>
+                            <artifact>org.apache.httpcomponents.core5:httpcore5-h2:5.4.3</artifact>
+                            <artifact>org.apache.logging.log4j:log4j-api:2.26.1</artifact>
+                            <artifact>org.apache.logging.log4j:log4j-core:2.26.1</artifact>
+                            <artifact>org.apache.logging.log4j:log4j-1.2-api:2.26.1</artifact>
+                            <artifact>org.apache.logging.log4j:log4j-slf4j2-impl:2.26.1</artifact>
+                            <artifact>org.apache.xmlgraphics:batik-codec:1.19</artifact>
+                            <artifact>org.freemarker:freemarker:2.3.35</artifact>
+                        </testPlanLibraries>
+                        <excludedArtifacts>
+                            <exclusion>org.apache.logging.log4j:log4j-slf4j-impl</exclusion>
+                            <exclusion>org.slf4j:slf4j-nop</exclusion>
+                            <exclusion>avalon-framework:*</exclusion>
+                            <exclusion>org.apache.tika:*</exclusion>
+                            <exclusion>excalibur-datasource:excalibur-datasource</exclusion>
+                            <exclusion>excalibur-instrument:excalibur-instrument</exclusion>
+                            <exclusion>excalibur-logger:excalibur-logger</exclusion>
+                            <exclusion>excalibur-pool:*</exclusion>
+                            <exclusion>org.beanshell:bsh:jar:2.0b5</exclusion>
+                        </excludedArtifacts>
+                        <jMeterProcessJVMSettings>
+                            <arguments>
+                                <argument>-XX:MaxMetaspaceSize=256m</argument>
+                                <argument>-Xmx1024m</argument>
+                                <argument>-Xms1024m</argument>
+                            </arguments>
+                        </jMeterProcessJVMSettings>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
     <profiles>
         <profile>
@@ -52,34 +162,15 @@
                                 <threads>7</threads>
                                 <duration>30</duration>
                             </propertiesJMeter>
-                            <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
-                            </jmeterExtensions>
-                            <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
-                            </testPlanLibraries>
-                            <excludedArtifacts>
-                               <exclusion>org.slf4j:slf4j-nop</exclusion>
-                               <exclusion>avalon-framework:*</exclusion>
-                               <exclusion>org.apache.tika:*</exclusion>
-                               <exclusion>excalibur-datasource:excalibur-datasource</exclusion>
-                               <exclusion>excalibur-instrument:excalibur-instrument</exclusion>
-                               <exclusion>excalibur-logger:excalibur-logger</exclusion>
-                               <exclusion>excalibur-pool:*</exclusion>
-                               <exclusion>org.beanshell:bsh:jar:2.0b5</exclusion>
-                            </excludedArtifacts>
-                            <jMeterProcessJVMSettings>
-                                <arguments>
-                                    <argument>-XX:MaxMetaspaceSize=256m</argument>
-                                    <argument>-Xmx1024m</argument>
-                                    <argument>-Xms1024m</argument>
-                                </arguments>
-                            </jMeterProcessJVMSettings>
 							<testFilesIncluded>
 								<jMeterTestFile>${jmeterScript}</jMeterTestFile>
 							</testFilesIncluded>
                         </configuration>
                         <executions>
+                            <execution>
+                                <id>configure-jmeter</id>
+                                <goals><goal>configure</goal></goals>
+                            </execution>
                             <execution>
                                 <id>jmeter-tests</id>
                                 <phase>verify</phase>
@@ -98,24 +189,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.groovy.maven</groupId>
-                        <artifactId>gmaven-plugin</artifactId>
-                        <version>1.0</version>
-                        <executions>
-                            <execution>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <source>
-                                        project.properties["hostname"] = InetAddress.getLocalHost().getHostName()
-                                    </source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>com.lazerycode.jmeter</groupId>
                         <artifactId>jmeter-maven-plugin</artifactId>
                         <version>${jmeter-maven-plugin.version}</version>
@@ -123,33 +196,14 @@
                             <propertiesJMeter>
                                 <server.rmi.ssl.disable>true</server.rmi.ssl.disable>
                             </propertiesJMeter>
-                            <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
-                            </jmeterExtensions>
-                            <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
-                            </testPlanLibraries>
-                            <excludedArtifacts>
-                               <exclusion>org.slf4j:slf4j-nop</exclusion>
-                               <exclusion>avalon-framework:*</exclusion>
-                               <exclusion>org.apache.tika:*</exclusion>
-                               <exclusion>excalibur-datasource:excalibur-datasource</exclusion>
-                               <exclusion>excalibur-instrument:excalibur-instrument</exclusion>
-                               <exclusion>excalibur-logger:excalibur-logger</exclusion>
-                               <exclusion>excalibur-pool:*</exclusion>
-                               <exclusion>org.beanshell:bsh:jar:2.0b5</exclusion>
-                            </excludedArtifacts>
-                            <jMeterProcessJVMSettings>
-                                <arguments>
-                                    <argument>-XX:MaxMetaspaceSize=256m</argument>
-                                    <argument>-Xmx1024m</argument>
-                                    <argument>-Xms1024m</argument>
-                                </arguments>
-                            </jMeterProcessJVMSettings>
                             <exportedRmiHostname>${hostname}</exportedRmiHostname>
                             <serverPort>3010</serverPort>
                         </configuration>
                         <executions>
+                            <execution>
+                                <id>configure-jmeter</id>
+                                <goals><goal>configure</goal></goals>
+                            </execution>
                             <execution>
                                 <id>start-jmeter-server</id>
                                 <goals>
@@ -183,35 +237,16 @@
                                 <duration>30</duration>
                             </propertiesGlobal>
                             <generateReports>true</generateReports>
-                            <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
-                            </jmeterExtensions>
-                            <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
-                            </testPlanLibraries>
-                            <excludedArtifacts>
-                               <exclusion>org.slf4j:slf4j-nop</exclusion>
-                               <exclusion>avalon-framework:*</exclusion>
-                               <exclusion>org.apache.tika:*</exclusion>
-                               <exclusion>excalibur-datasource:excalibur-datasource</exclusion>
-                               <exclusion>excalibur-instrument:excalibur-instrument</exclusion>
-                               <exclusion>excalibur-logger:excalibur-logger</exclusion>
-                               <exclusion>excalibur-pool:*</exclusion>
-                               <exclusion>org.beanshell:bsh:jar:2.0b5</exclusion>
-                            </excludedArtifacts>
-                            <jMeterProcessJVMSettings>
-                                <arguments>
-                                    <argument>-XX:MaxMetaspaceSize=256m</argument>
-                                    <argument>-Xmx1024m</argument>
-                                    <argument>-Xms1024m</argument>
-                                </arguments>
-                            </jMeterProcessJVMSettings>
                             <remoteConfig>
                                 <serverList>${serverList}</serverList>
                                 <startAndStopServersForEachTest>true</startAndStopServersForEachTest>
                             </remoteConfig>
 	                        </configuration>
                         <executions>
+                            <execution>
+                                <id>configure-jmeter</id>
+                                <goals><goal>configure</goal></goals>
+                            </execution>
                             <execution>
                                 <id>performance-test</id>
                                 <goals>

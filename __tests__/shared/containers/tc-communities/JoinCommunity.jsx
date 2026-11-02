@@ -6,6 +6,19 @@ import tActions from 'actions/tc-communities';
 import JoinCommunity from 'components/tc-communities/JoinCommunity';
 import ConnectedJoinCommunity from 'containers/tc-communities/JoinCommunity';
 
+// This container test exercises dispatching; isolate the nested Terms container.
+jest.mock('containers/Terms', () => () => null);
+jest.mock('topcoder-react-lib', () => {
+  const actual = jest.requireActual('topcoder-react-lib');
+  return {
+    ...actual,
+    services: {
+      ...actual.services,
+      groups: { getService: () => ({ addMember: () => Promise.resolve({}) }) },
+    },
+  };
+});
+
 describe('full render connnected component and dispatch actions', () => {
   let originalFetch;
   let instance;
@@ -97,12 +110,13 @@ describe('full render connnected component and dispatch actions', () => {
     expect(actions[0].type).toEqual(tActions.tcCommunity.hideJoinButton.toString());
   });
 
-  test('join', () => {
+  test('join', async () => {
     joinCommunity.prop('join')();
     const actions = store.getActions();
     expect(actions).toHaveLength(2);
     expect(actions[0].type).toEqual(tActions.tcCommunity.joinInit.toString());
     expect(actions[1].type).toEqual(tActions.tcCommunity.joinDone.toString());
+    await actions[1].payload;
   });
 
   test('resetJoinButton', () => {

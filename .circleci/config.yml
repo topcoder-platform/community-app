@@ -22,7 +22,7 @@ install_dependency: &install_dependency
     apk update
     apk add --no-cache bash openssl curl
     apk upgrade
-    apk add --no-cache jq py-pip sudo
+    apk add --no-cache jq python3 py3-pip sudo
     sudo pip install awscli --upgrade
 
 install_deploysuite: &install_deploysuite
@@ -33,6 +33,8 @@ install_deploysuite: &install_deploysuite
     cp ./../buildscript/buildenv.sh .
     cp ./../buildscript/awsconfiguration.sh .
     cp ./../buildscript/psvar-processor.sh .
+    python3 -m unittest discover -s tests/deployment -p 'test_*.py'
+    python3 scripts/prepare-deploy-script.py master_deploy.sh
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-node-modules-v4-{{ checksum "package-lock.json" }}
 
@@ -75,7 +77,7 @@ build_steps: &build_steps # Initialization.
         # source buildenvvar
         ./psvar-processor.sh -t appenv -p /config/${APPNAME}/deployvar
         source deployvar_env
-        ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -j /config/${APPNAME}/appvar -i ${APPNAME} -p FARGATE
+        ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -j /config/${APPNAME}/buildvar,/config/${APPNAME}/appvar -i ${APPNAME} -p FARGATE
         # ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
         if [ "${DEPLOY_ENV}" = "PROD" ]; 
         then
@@ -111,11 +113,11 @@ jobs:
   # Jest unit-tests).
   test:
     docker:
-      - image: circleci/node:10.24.1
+      - image: cimg/node:24.22.2
     steps:
       - checkout
       - restore_cache:
-          key: test-node-modules-{{ checksum "package-lock.json" }}
+          key: test-node24-modules-{{ checksum "package-lock.json" }}
       - run:
           name: Config Git
           command: git config --global url."https://git@".insteadOf git://
@@ -124,15 +126,16 @@ jobs:
           command: npm ci
           no_output_timeout: 20m
       - save_cache:
-          key: test-node-modules-{{ checksum "package-lock.json" }}
+          key: test-node24-modules-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
+      - run: npm run test:security
       - run: npm test
 
   Performance-Testing:
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+      - image: maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
