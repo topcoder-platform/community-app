@@ -29,8 +29,10 @@ afterAll(() => {
   mockDate.reset();
 });
 
-function testReducer(r) {
+function testReducer(createReducer) {
   let state;
+  let r;
+  beforeAll(async () => { r = await createReducer(); });
 
   function check(action) {
     state = r(state, action);
@@ -53,15 +55,15 @@ function testReducer(r) {
 }
 
 describe('Default reducer', () => {
-  testReducer(reducer.default);
+  testReducer(() => reducer.default);
 });
 
-describe('Factory without http request', () => reducer.factory().then(testReducer));
+describe('Factory without http request', () => testReducer(() => reducer.factory()));
 
-describe('Factory with server-side rendering', () => reducer.factory({
+describe('Factory with server-side rendering', () => testReducer(() => reducer.factory({
   url: '/community/communityId/header',
-}).then(testReducer));
+})));
 
-describe('Factory without server-side rendering', () => reducer.factory({
+describe('Factory without server-side rendering', () => testReducer(() => reducer.factory({
   url: '/some-random-url',
-}).then(testReducer));
+})));

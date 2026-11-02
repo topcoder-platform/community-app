@@ -3,7 +3,7 @@
  * Terms component which displays modal window with term details
  */
 /* eslint jsx-a11y/no-static-element-interactions:0 */
-/* global window */
+
 
 import _ from 'lodash';
 import React from 'react';

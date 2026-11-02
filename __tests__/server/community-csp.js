@@ -1,12 +1,13 @@
 import config from 'config';
 import express from 'express';
 import request from 'supertest';
-import { server as serverFactory } from 'topcoder-react-utils';
+import serverFactory from '../../src/server/server-launch';
 
 jest.mock('dd-trace', () => ({ init: jest.fn() }));
 jest.mock('shared', () => ({}));
 jest.mock('topcoder-react-lib', () => ({}));
-jest.mock('topcoder-react-utils', () => ({ server: jest.fn() }));
+jest.mock('topcoder-react-utils', () => ({}));
+jest.mock('../../src/server/server-launch', () => jest.fn());
 jest.mock('utils/SSR', () => ({}));
 jest.mock('reducers', () => ({}));
 jest.mock('services/money', () => ({}));

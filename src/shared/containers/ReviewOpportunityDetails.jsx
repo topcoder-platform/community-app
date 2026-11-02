@@ -8,14 +8,13 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import { actions, errors } from 'topcoder-react-lib';
+import { actions, errors, logger } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
 import FailedToLoad from 'components/ReviewOpportunityDetailsPage/FailedToLoad';
 import termsActions from 'actions/terms';
 import { goToLogin } from 'utils/tc';
-import { logger } from 'tc-core-library-js';
 
 const { fireErrorMessage } = errors;
 

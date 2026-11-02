@@ -6,12 +6,12 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { getStories } from 'utils/hall-of-fame';
-import showdown from 'showdown';
+import MarkdownIt from 'markdown-it';
 import ContentfulLoader from 'containers/ContentfulLoader';
 
 import './styles.scss';
 
-const converter = new showdown.Converter();
+const converter = new MarkdownIt({ html: false, linkify: true });
 
 // The HTML is from Contentful and is not dangerous.  It is
 // also required for the flexible dynamic styling needed for Fun Facts.
@@ -90,7 +90,7 @@ class FunFacts extends React.Component {
                           <div
                             styleName="text"
                             dangerouslySetInnerHTML={{
-                              __html: converter.makeHtml(fact.fields.text),
+                              __html: converter.render(fact.fields.text),
                             }}
                           />
                         </div>

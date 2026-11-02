@@ -1,10 +1,10 @@
-const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
+const webpackMerge = require('webpack-merge').merge; // eslint-disable-line import/no-extraneous-dependencies
 
 const path = require('path');
 
-const configFactory = require('topcoder-react-utils/config/webpack/app-production');
-
 const webpack = require('webpack');
+const configFactory = require('./app-base');
+
 
 const defaultConfig = require('./default');
 
@@ -14,6 +14,7 @@ else publicPath = '/api/cdn/public/static-assets';
 
 const standardDevelopmentConfig = configFactory({
   context: path.resolve(__dirname, '../..'),
+  mode: 'production',
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
@@ -37,4 +38,4 @@ standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
 // Ensure production bundles emit debuggable source maps that can be hosted alongside the assets
 standardDevelopmentConfig.devtool = 'source-map';
 
-module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);
+module.exports = webpackMerge(standardDevelopmentConfig, defaultConfig);

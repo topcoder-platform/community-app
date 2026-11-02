@@ -2,7 +2,6 @@
  * Actions for the Data Fetch example.
  */
 
-/* global fetch */
 
 import _ from 'lodash';
 import { createActions } from 'redux-actions';

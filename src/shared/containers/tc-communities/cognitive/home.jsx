@@ -7,11 +7,14 @@ import PT from 'prop-types';
 import React from 'react';
 import resourcesActions from 'actions/page/communities/cognitive/resources';
 import shortId from 'shortid';
-import { USER_GROUP_MAXAGE } from 'config';
+import { config as clientConfig } from 'topcoder-react-utils';
+
 import { updateChallengeType } from 'utils/challenge';
 
 import { connect } from 'react-redux';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
+
+const { USER_GROUP_MAXAGE } = clientConfig;
 
 /* Holds cache time [ms] for the data demanded by this container. */
 const MAXAGE = 30 * 60 * 1000;

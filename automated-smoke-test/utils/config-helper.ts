@@ -1,4 +1,5 @@
-import * as config from '../config/config.json';
+// Deployment/test setup supplies this private file at runtime.
+const config = require('../config/config.json');
 import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
 
 export interface ChallengeLinks {

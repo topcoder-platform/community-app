@@ -45,7 +45,7 @@ describe('Topcoder Login Page Tests: ', () => {
    */
   it('[TC_003] should Verify User cannot login using invalid password', async () => {
     const username = ConfigHelper.getUserName();
-    const { invalidPassword } = testData.login;
+    const invalidPassword = 'deliberately-invalid-fixture-password';
     await LoginPageHelper.verifyLoginWithInvalidPassword(
       username,
       invalidPassword,

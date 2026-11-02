@@ -8,6 +8,7 @@ on:
     branches:
       - main
       - dev
+      - develop
   pull_request:
 jobs:
   trivy-scan:
@@ -21,10 +22,11 @@ jobs:
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: "fs"
-          ignore-unfixed: true
+          ignore-unfixed: false
           format: "sarif"
           output: "trivy-results.sarif"
-          severity: "CRITICAL,HIGH,UNKNOWN"
+          severity: "CRITICAL,HIGH,MEDIUM"
+          exit-code: "1"
           scanners: vuln,secret,misconfig,license
           github-pat: ${{ secrets.GITHUB_TOKEN }}
 

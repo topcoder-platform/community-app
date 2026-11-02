@@ -5,7 +5,6 @@
  * so the whole design can be overridden by an additional css file
  */
 
-/* global window */
 
 import _ from 'lodash';
 import DesktopSubMenu from 'components/SubMenu';

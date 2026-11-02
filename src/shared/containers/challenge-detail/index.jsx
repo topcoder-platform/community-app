@@ -4,7 +4,7 @@
  * (thus allowing to show/hide detail panels for different submissions),
  * and it should define all necessary handlers to pass to the children.
  */
-/* global window */
+
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';

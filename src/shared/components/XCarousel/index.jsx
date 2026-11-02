@@ -1,4 +1,4 @@
-/* global cancelAnimationFrame, document, requestAnimationFrame, window */
+
 
 import _ from 'lodash';
 import PT from 'prop-types';

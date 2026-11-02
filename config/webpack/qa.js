@@ -1,10 +1,10 @@
-const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
+const webpackMerge = require('webpack-merge').merge; // eslint-disable-line import/no-extraneous-dependencies
 
 const path = require('path');
 
-const configFactory = require('topcoder-react-utils/config/webpack/app-production');
-
 const webpack = require('webpack');
+const configFactory = require('./app-base');
+
 
 const defaultConfig = require('./default');
 
@@ -14,6 +14,7 @@ else publicPath = '/api/cdn/public/static-assets';
 
 const standardDevelopmentConfig = configFactory({
   context: path.resolve(__dirname, '../..'),
+  mode: 'production',
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('qa'),
@@ -42,4 +43,4 @@ standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
 // Align QA bundles with production by emitting source maps for debugging in browsers
 standardDevelopmentConfig.devtool = 'source-map';
 
-module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);
+module.exports = webpackMerge(standardDevelopmentConfig, defaultConfig);

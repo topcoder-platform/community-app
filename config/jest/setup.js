@@ -1,6 +1,6 @@
 import 'topcoder-react-utils/config/jest/setup';
 
-/* global Event, jest */
+/* global jest */
 
 import _ from 'lodash';
 

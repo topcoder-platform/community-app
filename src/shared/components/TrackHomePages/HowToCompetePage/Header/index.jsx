@@ -4,12 +4,12 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import PT from 'prop-types';
-import showdown from 'showdown';
+import MarkdownIt from 'markdown-it';
 import YouTubeVideo from 'components/YouTubeVideo';
 
 import './styles.scss';
 
-const converter = new showdown.Converter();
+const converter = new MarkdownIt({ html: false, linkify: true });
 
 const Header = ({ data }) => (
   <div styleName="container">
@@ -19,7 +19,7 @@ const Header = ({ data }) => (
       </h1>
       <p
         dangerouslySetInnerHTML={
-          { __html: converter.makeHtml(data.text) }
+          { __html: converter.render(data.text) }
         }
       />
       {
@@ -60,7 +60,7 @@ const Header = ({ data }) => (
     <div
       styleName="text-mobile"
       dangerouslySetInnerHTML={
-        { __html: converter.makeHtml(data.text) }
+        { __html: converter.render(data.text) }
       }
     />
     {

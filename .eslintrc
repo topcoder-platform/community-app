@@ -1,12 +1,83 @@
 {
-  "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
+  "extends": "airbnb",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": [
+        "@babel/preset-react"
+      ],
+      "babelrc": false,
+      "configFile": false,
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from"
+      ]
+    }
+  },
   "rules": {
-    "jsx-a11y/anchor-is-valid": false,
-    "import/no-cycle": [2, { "maxDepth": 1 }],
-    "react/forbid-prop-types": false,
-    "react/no-unknown-property": ["error", { "ignore": ["styleName"] }]
+    "jsx-a11y/anchor-is-valid": "off",
+    "import/no-cycle": [
+      2,
+      {
+        "maxDepth": 1
+      }
+    ],
+    "react/forbid-prop-types": "off",
+    "react/no-unknown-property": [
+      "error",
+      {
+        "ignore": [
+          "styleName"
+        ]
+      }
+    ],
+    "react/jsx-one-expression-per-line": "off",
+    "class-methods-use-this": [
+      "error",
+      {
+        "enforceForClassFields": false,
+        "exceptMethods": [
+          "render",
+          "getInitialState",
+          "getDefaultProps",
+          "getChildContext",
+          "componentWillMount",
+          "UNSAFE_componentWillMount",
+          "componentDidMount",
+          "componentWillReceiveProps",
+          "UNSAFE_componentWillReceiveProps",
+          "shouldComponentUpdate",
+          "componentWillUpdate",
+          "UNSAFE_componentWillUpdate",
+          "componentDidUpdate",
+          "componentWillUnmount",
+          "componentDidCatch",
+          "getSnapshotBeforeUpdate"
+        ]
+      }
+    ]
   },
   "env": {
     "browser": true
-  }
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/server/sw.js"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": true
+          }
+        ]
+      }
+    }
+  ]
 }

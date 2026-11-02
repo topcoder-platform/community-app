@@ -1,3 +1,9 @@
 __coverage__/
 .git/
 node_modules/
+build/
+**/node_modules/
+.env*
+*.log
+automated-smoke-test/temp/
+automated-smoke-test/test-results/

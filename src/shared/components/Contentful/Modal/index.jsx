@@ -21,11 +21,14 @@ import defaultStyle from './style.scss';
 
 const { fireErrorMessage } = errors;
 
-const COMPONENTS = {
-  banner: Banner,
-  contentBlock: ContentBlock,
-  viewport: Viewport,
-};
+// Resolve nested CMS components at render time: their imports form a cycle.
+function getComponents() {
+  return {
+    banner: Banner,
+    contentBlock: ContentBlock,
+    viewport: Viewport,
+  };
+}
 
 class ContentfulModal extends React.Component {
   constructor(props) {
@@ -131,7 +134,7 @@ class ContentfulModal extends React.Component {
                   {...contentfulConfig}
                   render={(contentData) => {
                     const contentType = _.get(contentData, `entries.items.${contentId}.sys.contentType.sys.id`);
-                    const Component = COMPONENTS[contentType];
+                    const Component = getComponents()[contentType];
                     if (Component) {
                       return (
                         <Component

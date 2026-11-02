@@ -1,0 +1,9 @@
+{
+  "name": "@topcoder/core-compat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Legacy M2M factory name backed by the patched Topcoder core library",
+  "main": "index.cjs",
+  "browser": "browser.cjs",
+  "dependencies": { "tc-core-engine": "https://codeload.github.com/topcoder-platform/tc-core-library-js/tar.gz/a25576b8b038211d1ba910eca2d900271ba6659d" }
+}

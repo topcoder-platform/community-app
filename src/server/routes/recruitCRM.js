@@ -3,12 +3,13 @@
  */
 
 import express from 'express';
-import { middleware } from 'tc-core-library-js';
+import { createJwtAuthenticator } from 'tc-core-library-js';
+import { rateLimit } from 'express-rate-limit';
 import config from 'config';
 import _ from 'lodash';
 import RecruitCRMService from '../services/recruitCRM';
 
-const authenticator = middleware.jwtAuthenticator;
+const authenticator = createJwtAuthenticator;
 const authenticatorOptions = _.pick(config.SECRET.JWT_AUTH, ['AUTH_SECRET', 'VALID_ISSUERS']);
 const cors = require('cors');
 const multer = require('multer');
@@ -21,6 +22,9 @@ const upload = multer({
   },
 });
 const routes = express.Router();
+routes.use(rateLimit({
+  windowMs: 60 * 1000, limit: 120, standardHeaders: true, legacyHeaders: false,
+}));
 
 // Enables CORS on those routes according config above
 // ToDo configure CORS for set of our trusted domains
@@ -42,8 +46,9 @@ routes.get('/jobs/search', cors(), (req, res, next) => new RecruitCRMService().g
 routes.options('/jobs/:id', cors());
 routes.get('/jobs/:id', cors(), (req, res, next) => new RecruitCRMService().getJob(req, res, next));
 
+const allowedOrigins = new Set([config.URL.BASE, ...(process.env.CORS_ALLOWED_ORIGINS || '').split(',')].map(origin => origin.trim()).filter(Boolean));
 const applyOptions = {
-  origin: true,
+  origin: (origin, callback) => callback(null, !origin || allowedOrigins.has(origin)),
   methods: ['POST'],
   credentials: true,
   maxAge: 3600,
