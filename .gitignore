@@ -74,3 +74,5 @@ buildenv.sh
 
 __pycache__/
 *.pyc
+
+target/
