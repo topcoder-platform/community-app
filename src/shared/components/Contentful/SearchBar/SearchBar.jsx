@@ -90,7 +90,7 @@ export class SearchBarInner extends Component {
       if (selectedFilter.name !== 'Author') {
         window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify(searchQuery)}`;
       } else {
-        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: _.trim(inputlVal) })}`;
+        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?author=${encodeURIComponent(_.trim(inputlVal))}`;
       }
     }
   }

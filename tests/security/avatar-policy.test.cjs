@@ -6,7 +6,7 @@ const allowed = new Set([base, 'https://topcoder-media.s3.amazonaws.com']);
 
 test('allows existing relative and S3 avatars with bounded sizes', () => {
   assert.deepEqual(avatarRequest('/i/m/user.jpg', 32, base, allowed), {
-    url: `${base}/i/m/user.jpg`, dimension: 32,
+    origin: base, path: '/i/m/user.jpg', dimension: 32,
   });
   assert.equal(avatarRequest('https://topcoder-media.s3.amazonaws.com/member/a.png', undefined, base, allowed).dimension, 100);
 });
@@ -20,7 +20,7 @@ test('blocks metadata, localhost, alternate origins, credentials and scheme tric
     'https://www.topcoder.com\\@evil.example/../../..',
   ]) {
     // A backslash is normalized by WHATWG URL; it can only remain on the approved origin.
-    if (url.includes('\\')) assert.equal(new URL(avatarRequest(url, 32, base, allowed).url).origin, base);
+    if (url.includes('\\')) assert.equal(avatarRequest(url, 32, base, allowed).origin, base);
     else assert.throws(() => avatarRequest(url, 32, base, allowed), undefined, url);
   }
 });

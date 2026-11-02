@@ -71,3 +71,6 @@ automated-smoke-test/config/config.json
 
 qa_communityapp*.json
 buildenv.sh
+
+__pycache__/
+*.pyc

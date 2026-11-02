@@ -14,7 +14,7 @@ const allowedOrigins = new Set([
 
 export default async function getAvatar(url, size) {
   const request = avatarRequest(url, size, config.URL.BASE, allowedOrigins);
-  const img = await fetch(request.url, {
+  const img = await fetch(`${request.origin}${request.path}`, {
     redirect: 'error',
     timeout: 10000,
     size: MAX_IMAGE_BYTES,

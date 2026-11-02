@@ -6,24 +6,48 @@
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jmeter-maven-plugin.version>2.9.0</jmeter-maven-plugin.version>
+        <jmeter-maven-plugin.version>3.8.0</jmeter-maven-plugin.version>
+        <jmeter.version>5.6.3</jmeter.version>
+        <hostname>${env.HOSTNAME}</hostname>
 		<jmeterScript>Community-25UV.jmx</jmeterScript>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.22.3</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.22.3</version></dependency>
+            <dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.22</version></dependency>
+            <dependency><groupId>com.thoughtworks.xstream</groupId><artifactId>xstream</artifactId><version>1.4.21</version></dependency>
+            <dependency><groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>3.18.0</version></dependency>
+            <dependency><groupId>org.apache.httpcomponents.client5</groupId><artifactId>httpclient5</artifactId><version>5.6.3</version></dependency>
+            <dependency><groupId>org.apache.httpcomponents.core5</groupId><artifactId>httpcore5</artifactId><version>5.4.3</version></dependency>
+            <dependency><groupId>org.apache.httpcomponents.core5</groupId><artifactId>httpcore5-h2</artifactId><version>5.4.3</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-1.2-api</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-slf4j-impl</artifactId><version>2.26.1</version></dependency>
+            <dependency><groupId>org.apache.xmlgraphics</groupId><artifactId>batik-codec</artifactId><version>1.19</version></dependency>
+            <dependency><groupId>org.freemarker</groupId><artifactId>freemarker</artifactId><version>2.3.35</version></dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.11</version>
+            <version>1.23.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>1.7.36</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jmeter</groupId>
             <artifactId>ApacheJMeter_core</artifactId>
-            <version>5.1</version>
+            <version>${jmeter.version}</version>
+            <!-- The existing load plans already exclude Tika at plugin runtime. -->
+            <exclusions>
+                <exclusion><groupId>org.apache.tika</groupId><artifactId>*</artifactId></exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <build>
@@ -44,6 +68,7 @@
                         <artifactId>jmeter-maven-plugin</artifactId>
                         <version>${jmeter-maven-plugin.version}</version>
                         <configuration>
+                            <jmeterVersion>${jmeter.version}</jmeterVersion>
                             <generateReports>true</generateReports>
                             <errorRateThresholdInPercent>60</errorRateThresholdInPercent>
                             <testResultsTimestamp>true</testResultsTimestamp>
@@ -53,10 +78,23 @@
                                 <duration>30</duration>
                             </propertiesJMeter>
                             <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
+                                <artifact>kg.apc:jmeter-plugins-casutg:3.1.1</artifact>
                             </jmeterExtensions>
                             <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-core:2.22.3</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-databind:2.22.3</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-annotations:2.22</artifact>
+                                <artifact>com.thoughtworks.xstream:xstream:1.4.21</artifact>
+                                <artifact>org.apache.commons:commons-lang3:3.18.0</artifact>
+                                <artifact>org.apache.httpcomponents.client5:httpclient5:5.6.3</artifact>
+                                <artifact>org.apache.httpcomponents.core5:httpcore5:5.4.3</artifact>
+                                <artifact>org.apache.httpcomponents.core5:httpcore5-h2:5.4.3</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-api:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-core:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-1.2-api:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-slf4j-impl:2.26.1</artifact>
+                                <artifact>org.apache.xmlgraphics:batik-codec:1.19</artifact>
+                                <artifact>org.freemarker:freemarker:2.3.35</artifact>
                             </testPlanLibraries>
                             <excludedArtifacts>
                                <exclusion>org.slf4j:slf4j-nop</exclusion>
@@ -81,6 +119,10 @@
                         </configuration>
                         <executions>
                             <execution>
+                                <id>configure-jmeter</id>
+                                <goals><goal>configure</goal></goals>
+                            </execution>
+                            <execution>
                                 <id>jmeter-tests</id>
                                 <phase>verify</phase>
                                 <goals>
@@ -98,36 +140,32 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.groovy.maven</groupId>
-                        <artifactId>gmaven-plugin</artifactId>
-                        <version>1.0</version>
-                        <executions>
-                            <execution>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <source>
-                                        project.properties["hostname"] = InetAddress.getLocalHost().getHostName()
-                                    </source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>com.lazerycode.jmeter</groupId>
                         <artifactId>jmeter-maven-plugin</artifactId>
                         <version>${jmeter-maven-plugin.version}</version>
                         <configuration>
+                            <jmeterVersion>${jmeter.version}</jmeterVersion>
                             <propertiesJMeter>
                                 <server.rmi.ssl.disable>true</server.rmi.ssl.disable>
                             </propertiesJMeter>
                             <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
+                                <artifact>kg.apc:jmeter-plugins-casutg:3.1.1</artifact>
                             </jmeterExtensions>
                             <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-core:2.22.3</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-databind:2.22.3</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-annotations:2.22</artifact>
+                                <artifact>com.thoughtworks.xstream:xstream:1.4.21</artifact>
+                                <artifact>org.apache.commons:commons-lang3:3.18.0</artifact>
+                                <artifact>org.apache.httpcomponents.client5:httpclient5:5.6.3</artifact>
+                                <artifact>org.apache.httpcomponents.core5:httpcore5:5.4.3</artifact>
+                                <artifact>org.apache.httpcomponents.core5:httpcore5-h2:5.4.3</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-api:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-core:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-1.2-api:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-slf4j-impl:2.26.1</artifact>
+                                <artifact>org.apache.xmlgraphics:batik-codec:1.19</artifact>
+                                <artifact>org.freemarker:freemarker:2.3.35</artifact>
                             </testPlanLibraries>
                             <excludedArtifacts>
                                <exclusion>org.slf4j:slf4j-nop</exclusion>
@@ -150,6 +188,10 @@
                             <serverPort>3010</serverPort>
                         </configuration>
                         <executions>
+                            <execution>
+                                <id>configure-jmeter</id>
+                                <goals><goal>configure</goal></goals>
+                            </execution>
                             <execution>
                                 <id>start-jmeter-server</id>
                                 <goals>
@@ -174,6 +216,7 @@
                         <artifactId>jmeter-maven-plugin</artifactId>
                         <version>${jmeter-maven-plugin.version}</version>
                         <configuration>
+                            <jmeterVersion>${jmeter.version}</jmeterVersion>
                             <propertiesUser>
                                 <server.rmi.ssl.disable>true</server.rmi.ssl.disable>
                             </propertiesUser>
@@ -184,10 +227,23 @@
                             </propertiesGlobal>
                             <generateReports>true</generateReports>
                             <jmeterExtensions>
-                                <artifact>kg.apc:jmeter-plugins-casutg:2.8</artifact>
+                                <artifact>kg.apc:jmeter-plugins-casutg:3.1.1</artifact>
                             </jmeterExtensions>
                             <testPlanLibraries>
-                                <artifact>com.ubikingenierie.ubikloadpack:jmeter-maven-plugin-demo:${project.version}</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-core:2.22.3</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-databind:2.22.3</artifact>
+                                <artifact>com.fasterxml.jackson.core:jackson-annotations:2.22</artifact>
+                                <artifact>com.thoughtworks.xstream:xstream:1.4.21</artifact>
+                                <artifact>org.apache.commons:commons-lang3:3.18.0</artifact>
+                                <artifact>org.apache.httpcomponents.client5:httpclient5:5.6.3</artifact>
+                                <artifact>org.apache.httpcomponents.core5:httpcore5:5.4.3</artifact>
+                                <artifact>org.apache.httpcomponents.core5:httpcore5-h2:5.4.3</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-api:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-core:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-1.2-api:2.26.1</artifact>
+                                <artifact>org.apache.logging.log4j:log4j-slf4j-impl:2.26.1</artifact>
+                                <artifact>org.apache.xmlgraphics:batik-codec:1.19</artifact>
+                                <artifact>org.freemarker:freemarker:2.3.35</artifact>
                             </testPlanLibraries>
                             <excludedArtifacts>
                                <exclusion>org.slf4j:slf4j-nop</exclusion>
@@ -212,6 +268,10 @@
                             </remoteConfig>
 	                        </configuration>
                         <executions>
+                            <execution>
+                                <id>configure-jmeter</id>
+                                <goals><goal>configure</goal></goals>
+                            </execution>
                             <execution>
                                 <id>performance-test</id>
                                 <goals>
