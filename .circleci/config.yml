@@ -14,11 +14,11 @@ commands:
 
           git -C /tmp/tc-deploy-scripts remote add origin https://github.com/topcoder-platform/tc-deploy-scripts.git
 
-          git -C /tmp/tc-deploy-scripts fetch --quiet --depth 1 origin b900d58e38787e3397743412597c6563fe6e08dd
+          git -C /tmp/tc-deploy-scripts fetch --quiet --depth 1 origin bbc9b3d0c702947d26b6d9686d7b29104ebe461a
 
           git -C /tmp/tc-deploy-scripts checkout --quiet --detach FETCH_HEAD
 
-          test "$(git -C /tmp/tc-deploy-scripts rev-parse HEAD)" = b900d58e38787e3397743412597c6563fe6e08dd
+          test "$(git -C /tmp/tc-deploy-scripts rev-parse HEAD)" = bbc9b3d0c702947d26b6d9686d7b29104ebe461a
 
           '
 jobs:
