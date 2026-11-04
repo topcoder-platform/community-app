@@ -6,21 +6,17 @@ This change replaces the Auth0 credential broker and SSM-to-shell deployment pat
 
 The read-only inventory on 2026-11-03 verified account `409275337247`, cluster `community-app-serverless`, service `community-app-svc`, family `community-app-task`, and container `community-app`. `prod.json` preserves the observed task/execution roles and names the proposed service-specific deployment role. [prod-baseline.json](https://github.com/topcoder-platform/v6-services-iac/blob/main/services/community-app/deploy/prod-baseline.json) records references only; it contains no parameter values. Do not recreate the service or replace its complete task definition from this baseline.
 
-## Infrastructure prerequisites, applied separately by an administrator
+## Installed infrastructure and production cutover
 
-1. In each account, register the CircleCI OIDC issuer `https://oidc.circleci.com/org/947bef5e-1669-415d-b83c-4fc85155b7df` with client ID `947bef5e-1669-415d-b83c-4fc85155b7df`. The current production account has only the legacy Auth0 provider. Do not remove that provider until all its consumers have migrated.
-2. Review and install [iam/prod-role.cloudformation.json](https://github.com/topcoder-platform/v6-services-iac/blob/main/services/community-app/deploy/iam/prod-role.cloudformation.json) with an administrator/IaC identity. It creates the proposed deployment role and applies the same least-privilege policy as a permissions boundary. The trust binds this CircleCI project, repository, checkout branch and configuration branch. It does not grant infrastructure creation to CircleCI. The role and matching boundary include `inspector2:ListFindings` and `inspector2:ListCoverage` restricted to the deployment region; these scan-metadata APIs require `Resource: "*"`. Secret-access denies remain explicit.
-3. Configure ECR repository `community-app` with unconditional `IMMUTABLE` tags and supported scanning. Preserve existing enhanced scanning where enabled. Existing tags are not retagged. The release fails for MEDIUM/HIGH/CRITICAL/UNDEFINED findings, failed scans, or a mismatched digest.
-4. In the infrastructure that owns the task definition, add the reviewed container check from `prod-healthcheck.json`, keeping all roles, runtime secret references, resources, mounts and sidecars. Verify the health endpoint against the running container in dev first. Preserve circuit-breaker rollback and positive desired capacity. Remove any `RESET_DB` secret binding and plaintext secret environment entries before adoption. Keep the execution role's runtime read permissions scoped to the references that service needs.
-5. Create restricted `community-app-dev-deploy` and `community-app-prod-deploy` CircleCI contexts without Auth0/static AWS credentials. Restrict production to the reviewed `master` checkout and configuration ref, authorized operators, and approval job. Remove legacy credentials from project settings too: removing `org-global` alone does not remove project-level variables. Confirm `CIRCLE_OIDC_TOKEN_V3` is issued. Disable secret access for forks and SSH debugging in deployment jobs.
+The dev deployment role/boundary, restricted empty CircleCI context, and immutable ECR tags are installed. Existing enhanced scanning is preserved. The production OIDC provider, deployment role/boundary and restricted context are also installed; production runtime and ECR changes remain gated on dev validation. Installation evidence and remaining service-specific steps are private in [PROVISIONING.txt](https://github.com/topcoder-platform/v6-services-iac/blob/main/services/community-app/deploy/PROVISIONING.txt). Deploy roles have explicit secret-store and KMS-decryption denies. Runtime values are retrieved only by ECS using the execution role.
 
-## Development acceptance before merge/release
+At production cutover, stop legacy publishers, enable unconditional tag immutability, adopt missing task health checks with the reviewed image, and use the approval-gated `master` workflow. Preserve capacity, roles, secret references and rollback. Do not run production before dev validation.
 
-Read-only inventory on 2026-11-04 verified `dev.json` against the actual development service, task/execution roles and image repositories. This PR targets `develop`. Matching IAM templates and detailed baselines remain private. **Keep this PR in draft until the service-specific prerequisites below are complete.** No AWS or CircleCI resources were provisioned by this refresh.
+## Development acceptance
 
-- Install the service deployment role and matching permissions boundary.
-- Create the restricted empty CircleCI deployment context.
-- Review and install the dev container health-check proposal; preserve all other task configuration.
+This PR targets `develop`. Administrator-installed dev prerequisites are recorded in the private IaC repository. The reviewed task health check was submitted only after confirming the existing image serves the identical healthy load-balancer endpoint.
+
+- Dev infrastructure prerequisites are installed; merge to run the application deployment, then validate functionality.
 
 Run the shared offline suite, validate the CircleCI config and IAM policies, and test a dev release plus an unhealthy-image rollback. Verify CloudTrail contains no SSM/Secrets Manager calls from the deployment principal. Remove its old broker grants only after migration. Check the runtime secret references and roles stayed unchanged. Production requires the manual approval job and a passing digest/scan/health verification.
 
@@ -42,6 +38,6 @@ IAM templates and detailed AWS baselines are maintained in the private [v6-servi
 
 ## Dev branch refresh
 
-This PR targets `develop` and preserves its current application/dependency fixes. The shared suite is v2.0.5 (82 offline tests); service-specific adapters and their tests remain part of review. Keep this PR in draft until its documented infrastructure and integration prerequisites are met. Updating these files does not provision AWS or CircleCI resources.
+This PR targets `develop` and preserves its current application/dependency fixes. The shared suite is v2.0.5 (82 offline tests); service-specific adapters and their tests remain part of review. Use the current readiness record above for the remaining merge/deployment gates. Updating these files does not provision AWS or CircleCI resources.
 
 Source checkout uses the public HTTPS repository and verifies the exact CircleCI commit, avoiding dependency on failing SSH checkout keys. No GitHub token is added to build or deployment contexts.
