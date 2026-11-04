@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 2,
+  "environment": "dev",
+  "accountId": "811668436784",
+  "region": "us-east-1",
+  "deployRoleArn": "arn:aws:iam::811668436784:role/community-app-dev-deploy",
+  "taskRoleArn": null,
+  "executionRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
+  "cluster": "community-app-serverless",
+  "service": "community-app-svc",
+  "taskFamily": "community-app-task",
+  "circleciOrgId": "947bef5e-1669-415d-b83c-4fc85155b7df",
+  "circleciProjectId": "7e05149e-540d-4ab0-9f6f-3ed27d719669",
+  "repository": "github.com/topcoder-platform/community-app",
+  "branch": "develop",
+  "images": {
+    "community-app": "community-app"
+  }
+}
