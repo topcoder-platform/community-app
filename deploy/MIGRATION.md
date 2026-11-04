@@ -1,6 +1,6 @@
 # OIDC deployment migration
 
-This change replaces the Auth0 credential broker and SSM-to-shell deployment path with [tc-deploy-scripts v2.0.5](https://github.com/topcoder-platform/tc-deploy-scripts/releases/tag/v2.0.5), fetched by tag and verified against commit `bff574ab5c0b46773e25d2af1eff76675fba2ba5`. Build and deployment run in separate jobs. The deployer cannot read Parameter Store, Secrets Manager or decrypt KMS data, including through another assumed role. ECS continues resolving the existing runtime secret references using the execution role.
+This change replaces the Auth0 credential broker and SSM-to-shell deployment path with [tc-deploy-scripts v2.0.6](https://github.com/topcoder-platform/tc-deploy-scripts/releases/tag/v2.0.6), fetched by tag and verified against commit `26aaf607463d4a271c0099854c1731214215a9c5`. Build and deployment run in separate jobs. The deployer cannot read Parameter Store, Secrets Manager or decrypt KMS data, including through another assumed role. ECS continues resolving the existing runtime secret references using the execution role.
 
 ## Production target
 
@@ -38,6 +38,10 @@ IAM templates and detailed AWS baselines are maintained in the private [v6-servi
 
 ## Dev branch refresh
 
-This PR targets `develop` and preserves its current application/dependency fixes. The shared suite is v2.0.5 (82 offline tests); service-specific adapters and their tests remain part of review. Use the current readiness record above for the remaining merge/deployment gates. Updating these files does not provision AWS or CircleCI resources.
+This PR targets `develop` and preserves its current application/dependency fixes. The shared suite is v2.0.6 (92 offline tests); service-specific adapters and their tests remain part of review. Use the current readiness record above for the remaining merge/deployment gates. Updating these files does not provision AWS or CircleCI resources.
 
 Source checkout uses the public HTTPS repository and verifies the exact CircleCI commit, avoiding dependency on failing SSH checkout keys. No GitHub token is added to build or deployment contexts.
+
+## Reviewed health-check bootstrap
+
+The release wrapper passes the environment-specific health-check JSON to v2.0.6. A missing check is added with the new scanned image; the old image is not restarted with a new probe. An identical existing check is preserved, and a different existing check stops the release. Role, runtime-secret reference, scan, concurrency and healthy-digest checks remain enforced.
