@@ -4,28 +4,41 @@ executors:
     docker:
     - image: cimg/aws@sha256:4cf3768db00ddf9bc439b8c84e8a60c11a14edf81c8baf76f74132144f8340d5
 commands:
+  checkout-source:
+    steps:
+    - run:
+        name: Check out the exact public source commit over HTTPS
+        command: |
+          set -euo pipefail
+          [[ "$CIRCLE_SHA1" =~ ^[0-9a-f]{40}$ ]]
+          export GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_TERMINAL_PROMPT=0
+          git init --quiet .
+          git remote add origin https://github.com/topcoder-platform/community-app.git
+          git -c credential.helper= fetch --quiet --depth 1 origin "$CIRCLE_SHA1"
+          git checkout --quiet --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
   checkout-suite:
     steps:
     - run:
-        name: Verify the reviewed deployment suite
+        name: Verify deployment suite v2.0.5
         command: 'set -euo pipefail
 
           git init --quiet /tmp/tc-deploy-scripts
 
           git -C /tmp/tc-deploy-scripts remote add origin https://github.com/topcoder-platform/tc-deploy-scripts.git
 
-          git -C /tmp/tc-deploy-scripts fetch --quiet --depth 1 origin bbc9b3d0c702947d26b6d9686d7b29104ebe461a
+          git -C /tmp/tc-deploy-scripts fetch --quiet --depth 1 origin refs/tags/v2.0.5
 
           git -C /tmp/tc-deploy-scripts checkout --quiet --detach FETCH_HEAD
 
-          test "$(git -C /tmp/tc-deploy-scripts rev-parse HEAD)" = bbc9b3d0c702947d26b6d9686d7b29104ebe461a
+          test "$(git -C /tmp/tc-deploy-scripts rev-parse HEAD)" = bff574ab5c0b46773e25d2af1eff76675fba2ba5
 
           '
 jobs:
   build:
     executor: reviewed
     steps:
-    - checkout
+    - checkout-source
     - setup_remote_docker
     - checkout-suite
     - run:
@@ -59,7 +72,7 @@ jobs:
     environment:
       DEPLOY_ENV: << parameters.environment >>
     steps:
-    - checkout
+    - checkout-source
     - setup_remote_docker
     - checkout-suite
     - attach_workspace:
@@ -85,7 +98,7 @@ jobs:
     environment:
       MAVEN_OPTS: -Xmx3200m
     steps:
-    - checkout
+    - checkout-source
     - restore_cache:
         keys:
         - v1-dependencies-{{ checksum "pom.xml" }}
