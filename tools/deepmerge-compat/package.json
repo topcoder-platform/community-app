@@ -1,0 +1,15 @@
+{
+  "name": "@topcoder/deepmerge-compat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "deepmerge 4 API with prototype-poisoning guards on both inputs",
+  "license": "MIT",
+  "main": "index.cjs",
+  "types": "index.d.ts",
+  "files": [
+    "index.cjs",
+    "index.d.ts",
+    "LICENSE",
+    "README.md"
+  ]
+}

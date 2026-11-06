@@ -21,7 +21,7 @@
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils",
-    "test:security": "node --test tests/security/*.test.cjs && jest --config config/jest/security.js --runInBand"
+    "test:security": "node --test tools/deepmerge-compat/index.test.cjs && node --test tests/security/*.test.cjs && jest --config config/jest/security.js --runInBand"
   },
   "repository": {
     "type": "git",
@@ -255,7 +255,6 @@
     "generic-names": "2.0.1",
     "browserify-zlib": "0.2.0",
     "buffer": "6.0.3",
-    "crypto-browserify": "3.12.1",
     "stream-browserify": "3.0.0",
     "util": "0.12.5",
     "process": "0.11.10",
@@ -266,7 +265,12 @@
     "vm-browserify": "1.1.2",
     "postcss-value-parser": "4.2.0",
     "stylelint-config-recommended": "2.2.0",
-    "@stylistic/stylelint-plugin": "4.0.1"
+    "@stylistic/stylelint-plugin": "4.0.1",
+    "create-hash": "1.2.0",
+    "create-hmac": "1.1.7",
+    "randombytes": "2.1.0",
+    "randomfill": "1.0.4",
+    "deepmerge": "file:tools/deepmerge-compat"
   },
   "volta": {
     "node": "24.22.2"
@@ -318,6 +322,7 @@
     },
     "highlight.js@<11": "10.7.3",
     "highlight.js@>=11": "$highlight.js",
-    "config": "$config"
+    "config": "$config",
+    "deepmerge@>=4": "$deepmerge"
   }
 }

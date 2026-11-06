@@ -58,7 +58,7 @@ module.exports = (options) => {
       extensions: ['.js', '.json', '.jsx', '.scss'],
       symlinks: false,
       fallback: {
-        path: require.resolve('path-browserify'), url: require.resolve('url/'), os: require.resolve('os-browserify/browser'), vm: require.resolve('vm-browserify'), fs: false, tls: false, net: false, crypto: require.resolve('crypto-browserify'), stream: require.resolve('stream-browserify'), zlib: require.resolve('browserify-zlib'), util: require.resolve('util/'), buffer: require.resolve('buffer/'),
+        path: require.resolve('path-browserify'), url: require.resolve('url/'), os: require.resolve('os-browserify/browser'), vm: require.resolve('vm-browserify'), fs: false, tls: false, net: false, crypto: require.resolve('./browser-crypto.cjs'), stream: require.resolve('stream-browserify'), zlib: require.resolve('browserify-zlib'), util: require.resolve('util/'), buffer: require.resolve('buffer/'),
       },
     },
     module: {
