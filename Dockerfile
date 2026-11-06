@@ -24,6 +24,8 @@ RUN npm test
 FROM tested-source AS development
 ENV NODE_CONFIG_ENV=development CDN_URL=""
 RUN npm run build
+# Remove dependency-local development locks; retain installed package metadata.
+RUN node scripts/prune-runtime-metadata.cjs
 
 # The server loads its build configuration at runtime, so keep application
 # dependencies, but exclude package managers and native build tools.
@@ -42,6 +44,8 @@ CMD ["node", "--max-old-space-size=8192", "./bin/www"]
 FROM tested-source AS production
 ENV NODE_CONFIG_ENV=production CDN_URL=""
 RUN npm run build
+# Remove dependency-local development locks; retain installed package metadata.
+RUN node scripts/prune-runtime-metadata.cjs
 
 # The server loads its build configuration at runtime, so keep application
 # dependencies, but exclude package managers and native build tools.
