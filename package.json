@@ -62,8 +62,6 @@
     "draft-js-plugins-editor": "^2.0.3",
     "express": "4.22.3",
     "fflate": "0.7.5",
-    "filestack-js": "4.3.9",
-    "filestack-react": "6.2.0",
     "flag-icon-css": "^3.3.0",
     "focus-trap-react": "^6.0.0",
     "form-data": "4.0.6",
@@ -179,7 +177,9 @@
     "regenerator-runtime": "0.14.1",
     "auth0-js": "file:tools/auth0-compat",
     "compression": "1.8.2",
-    "setimmediate": "1.0.5"
+    "setimmediate": "1.0.5",
+    "@uppy/core": "6.0.2",
+    "@uppy/aws-s3": "6.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.4",

@@ -18,7 +18,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { getActiveSubmissionType } from 'utils/challenge-detail/submission-limit';
 
-import FilestackFilePicker from '../FilestackFilePicker';
+import SubmissionFilePicker from '../SubmissionFilePicker';
 
 import Uploading from '../Uploading';
 import style from './styles.scss';
@@ -96,7 +96,7 @@ class Submit extends React.Component {
 
   getFormData() {
     const {
-      submissionFilestackData: sub,
+      submissionUploadData: sub,
       challengeId,
       phases,
       userId,
@@ -160,8 +160,9 @@ class Submit extends React.Component {
       setFilePickerFileName,
       setFilePickerUploadProgress,
       setFilePickerDragged,
-      setSubmissionFilestackData,
+      setSubmissionUploadData,
       submitForm,
+      tokenV3,
       groups,
       metadata,
       selectChallengeDetailsTab,
@@ -296,8 +297,9 @@ class Submit extends React.Component {
               <div styleName="right">
                 <div styleName="file-picker-container">
                   { isLoadingCommunitiesList ? (<LoadingIndicator />) : (
-                    <FilestackFilePicker
+                    <SubmissionFilePicker
                       mandatory
+                      tokenV3={tokenV3}
                       fileExtensions={['.zip']}
                       id={id}
                       challengeId={challengeId}
@@ -310,7 +312,7 @@ class Submit extends React.Component {
                       setUploadProgress={_.partial(setFilePickerUploadProgress, id)}
                       dragged={fpState.dragged}
                       setDragged={_.partial(setFilePickerDragged, id)}
-                      setFilestackData={setSubmissionFilestackData}
+                      setUploadData={setSubmissionUploadData}
                       userId={userId}
                       submitForm={submitForm}
                       isChallengeBelongToTopgearGroup={isChallengeBelongToTopgearGroup}
@@ -410,8 +412,8 @@ Submit.defaultProps = {
   errorMsg: '',
 };
 
-/* Reusable prop validation for Filestack data objects */
-const filestackDataProp = PT.shape({
+/* Reusable prop validation for upload data objects */
+const uploadDataProp = PT.shape({
   filename: PT.string.isRequired,
   mimetype: PT.string.isRequired,
   size: PT.number.isRequired,
@@ -452,6 +454,7 @@ Submit.propTypes = {
   uploadProgress: PT.number.isRequired,
   setAgreed: PT.func.isRequired,
   agreed: PT.bool.isRequired,
+  tokenV3: PT.string.isRequired,
   filePickers: PT.arrayOf(PT.shape({
     id: PT.string.isRequired,
     error: PT.string.isRequired,
@@ -461,8 +464,8 @@ Submit.propTypes = {
   setFilePickerFileName: PT.func.isRequired,
   setFilePickerUploadProgress: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
-  setSubmissionFilestackData: PT.func.isRequired,
-  submissionFilestackData: filestackDataProp.isRequired,
+  setSubmissionUploadData: PT.func.isRequired,
+  submissionUploadData: uploadDataProp.isRequired,
 };
 
 export default Submit;

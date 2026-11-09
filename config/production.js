@@ -73,11 +73,8 @@ module.exports = {
 
   REVIEW_APP_URL: 'https://review.topcoder.com',
 
-  /* Filestack configuration for uploading Submissions
-   * These are for the production back end */
-  FILESTACK: {
-    SUBMISSION_CONTAINER: 'topcoder-submissions-dmz',
-  },
+  /* Authenticated Uppy S3 signing API; defaults to API.V6/reviews/uploads. */
+  UPLOADS_API_URL: '',
 
   ACCOUNT_MENU_SWITCH_TEXT: {
     title: 'Switch to BUSINESS',
