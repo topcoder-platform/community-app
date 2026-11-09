@@ -3,7 +3,6 @@
  * The core image rendering.
  */
 
-/* global document */
 
 import PT from 'prop-types';
 import React from 'react';

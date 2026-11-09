@@ -3,6 +3,7 @@
  * well with Chameleon). */
 /* global analytics */
 
+import 'setimmediate';
 import _ from 'lodash';
 import cookies from 'browser-cookies';
 import { Route } from 'react-router-dom';

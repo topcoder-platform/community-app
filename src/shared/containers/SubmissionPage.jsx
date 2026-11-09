@@ -173,8 +173,8 @@ SubmissionsPageContainer.defaultProps = {
   uploadProgress: 0,
 };
 
-/* Reusable prop validation for Filestack data objects */
-const filestackDataProp = PT.shape({
+/* Reusable prop validation for upload data objects */
+const uploadDataProp = PT.shape({
   filename: PT.string.isRequired,
   mimetype: PT.string.isRequired,
   size: PT.number.isRequired,
@@ -229,8 +229,8 @@ SubmissionsPageContainer.propTypes = {
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
-  setSubmissionFilestackData: PT.func.isRequired,
-  submissionFilestackData: filestackDataProp.isRequired,
+  setSubmissionUploadData: PT.func.isRequired,
+  submissionUploadData: uploadDataProp.isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
   loadChallengeDetails: PT.func.isRequired,
   history: PT.shape().isRequired,
@@ -272,7 +272,7 @@ const mapStateToProps = (state, ownProps) => {
     agreed: submission.agreed,
     filePickers: submission.filePickers,
     notesLength: submission.notesLength,
-    submissionFilestackData: submission.submissionFilestackData,
+    submissionUploadData: submission.submissionUploadData,
     winners: details.winners,
   };
 };
@@ -312,7 +312,7 @@ function mapDispatchToProps(dispatch) {
     setFilePickerDragged: (id, dragged) => dispatch(a.setFilePickerDragged(id, dragged)),
     setFilePickerUploadProgress: (id, p) => dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
-    setSubmissionFilestackData: (id, data) => dispatch(a.setSubmissionFilestackData(id, data)),
+    setSubmissionUploadData: (id, data) => dispatch(a.setSubmissionUploadData(id, data)),
     loadChallengeDetails: (tokens, challengeId) => {
       const challengeAction = api.challenge;
       dispatch(challengeAction.getDetailsInit(challengeId));

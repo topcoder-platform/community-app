@@ -117,12 +117,13 @@ describe('full render connnected component and dispatch actions', () => {
     expect(actions[0].type).toEqual(tActions.tcCommunity.hideJoinButton.toString());
   });
 
-  test('join', () => {
+  test('join', async () => {
     joinCommunity.prop('join')();
     const actions = store.getActions();
     expect(actions).toHaveLength(2);
     expect(actions[0].type).toEqual(tActions.tcCommunity.joinInit.toString());
     expect(actions[1].type).toEqual(tActions.tcCommunity.joinDone.toString());
+    await actions[1].payload;
   });
 
   test('resetJoinButton', () => {

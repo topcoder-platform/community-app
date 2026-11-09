@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Matches shallow shapshot shapshot 1 1`] = `
 <div
@@ -26,7 +26,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
           mapThemrProps={[Function]}
           theme={
             Object {
-              "avatar": "src-shared-components-challenge-detail-Winners-Winner-style___avatar___18tFlU",
+              "avatar": undefined,
             }
           }
           themePriority="adhoc-context-default"

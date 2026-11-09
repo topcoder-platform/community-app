@@ -4,7 +4,6 @@
  * It's styled for tc communities
  */
 
-/* global window */
 
 import React from 'react';
 import PT from 'prop-types';

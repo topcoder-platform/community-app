@@ -7,7 +7,6 @@
  * - Aligns the content in center when all cards can be shown at once.
  */
 
-/* global window */
 
 import Nuka from 'nuka-carousel';
 import PT from 'prop-types';

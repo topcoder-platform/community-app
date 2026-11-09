@@ -1,3 +1,12 @@
 {
-  "extends": "../node_modules/topcoder-react-utils/config/eslint/jest.json"
+  "env": {
+    "jest": true
+  },
+  "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "global-require": 0,
+    "import/no-dynamic-require": 0
+  }
 }

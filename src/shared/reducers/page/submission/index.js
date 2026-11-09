@@ -168,8 +168,8 @@ function create(initialState) {
     [a.setFilePickerDragged]:
       (state, { payload }) => fpSet(state, payload.id, { dragged: payload.dragged }),
     [a.updateNotesLength]: (state, action) => ({ ...state, notesLength: action.payload }),
-    [a.setSubmissionFilestackData]:
-      (state, { payload }) => ({ ...state, submissionFilestackData: payload }),
+    [a.setSubmissionUploadData]:
+      (state, { payload }) => ({ ...state, submissionUploadData: payload }),
   }, _.defaults(_.clone(initialState) || {}, {
     isSubmitting: false,
     submitDone: false,
@@ -178,7 +178,7 @@ function create(initialState) {
     notesLength: 0,
     uploadProgress: 0,
     filePickers: [],
-    submissionFilestackData: {
+    submissionUploadData: {
       challengeId: '',
       fileUrl: '',
       filename: '',

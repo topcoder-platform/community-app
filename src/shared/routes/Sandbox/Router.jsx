@@ -2,7 +2,6 @@
  * Sandbox router.
  */
 
-/* global window */
 
 import CmsDasbhoardAnnouncements from
   'containers/sandbox/cms/dashboard/Announcements';

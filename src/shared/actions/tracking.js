@@ -1,4 +1,4 @@
-/* global window */
+
 
 import ReactGA from 'react-ga';
 import { config } from 'topcoder-react-utils';

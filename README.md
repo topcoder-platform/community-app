@@ -200,3 +200,38 @@ given credentials relate to.
 ### Submitting Changes 
 
 Please check the [https://github.com/topcoder-platform/community-app/blob/master/CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on rules to be followed.
+
+
+### Security update runtime and build requirements
+
+Use Node 24.22.2 or newer and `npm ci`. The application now builds with Webpack 5, Babel 7, Dart Sass and PostCSS 8. React 16 and the existing server-rendering architecture are retained. `npm run test:security` exercises avatar URL and size limits, recruiting request validation, XML parsing limits, and the legacy Auth0 callback adapter. Browser bundles are syntax-checked after compilation. The separate `automated-smoke-test` package has its own lockfile and TypeScript build.
+
+The avatar proxy accepts HTTPS URLs only from the configured Topcoder site/CDN and the Topcoder media S3 origins. Add any other required image origins as exact comma-separated `AVATAR_ALLOWED_ORIGINS`; redirects are rejected. Images are limited to 8 MiB and 16 megapixels, and requested dimensions must be integers from 16 to 1024.
+
+Recruiting and Contentful routes have a per-process limit of 120 requests per minute per client IP. The server trusts private/loopback proxy addresses by default; set `TRUST_PROXY` to the actual proxy CIDRs when using public proxy hops such as CloudFront. Recruiting application CORS allows `config.URL.BASE` and exact origins in `CORS_ALLOWED_ORIGINS`. Configure the existing `AUTH_SECRET` with at least 32 bytes and valid issuers for the patched core JWT verifier.
+
+The patched Auth0 SDK requires RS256 for social account linking. Register `https://<community-host>/community-app-assets/auth0-popup` as an allowed callback URL in the corresponding Auth0 application, and include the community origin in Allowed Web Origins. The callback page uses the SDK to verify the transaction before returning the profile; the adapter preserves the old React library's `signin` callback shape. Verify social linking against the configured Auth0 tenant in staging.
+
+Small adapters under `tools/` preserve the legacy minimatch function, core `auth.m2m` factory and Auth0 `signin` interfaces while using patched implementations. The browser core adapter rejects machine-token requests and excludes server credentials/signing code from client bundles. Topcoder Git dependencies are pinned to immutable commits.
+
+Credentials are supplied at runtime, never as Docker build arguments. The CircleCI ECS deployment now references the existing SSM `buildvar` and `appvar` paths, with `appvar` taking precedence for duplicate names. Its task execution role needs `ssm:GetParameters` and the applicable KMS decrypt permission for both paths. CI-generated credential files are excluded from the Docker context. For local runs, provide configuration through the process environment or a private `docker --env-file` file.
+
+The optional performance-test project uses Maven 3.9+, Java 21 and JMeter 5.6.3. Configuration and dependency validation do not execute the load plans; only run the load-test profiles against an explicitly approved target.
+
+The shared Maven configuration includes only the HTTP suite's required protocols and explicit patched libraries. To validate without running the load plan:
+
+```sh
+mvn jmeter:configure
+# Set this to the jmeter directory printed by the configure goal.
+JMETER_DIR='target/<configuration-id>/jmeter'
+java -Djava.awt.headless=true -cp "$JMETER_DIR/lib/*:$JMETER_DIR/lib/ext/*:$JMETER_DIR/bin/*" \
+  tests/performance/ValidatePlan.java "$JMETER_DIR" src/test/jmeter/Community-25UV.jmx
+```
+
+This parses the existing plan and makes one HTTP request to a fixture bound to `127.0.0.1`; it does not execute the plan's samplers.
+
+### Submission uploads
+
+ZIP submissions use Uppy 6.0 (`@uppy/core` 6.0.2 and `@uppy/aws-s3` 6.0.0) with a local file input, progress and cancellation. ZIPs are limited to 500 MiB. Topgear URL submissions remain available. Filestack credentials and packages are no longer used.
+
+`UPLOADS_API_URL` optionally overrides `${API.V6}/reviews/uploads`. Deploy the Review API upload endpoints and configure their S3 buckets, persistent signing secret and CORS before deploying this frontend. The API chooses the existing submission DMZ bucket; the browser never supplies AWS credentials or chooses arbitrary destinations. Submission creation, virus scanning and authorization still use the existing Review API flow.

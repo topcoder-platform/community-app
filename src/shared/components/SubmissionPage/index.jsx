@@ -61,8 +61,8 @@ function SubmissionsPage(props) {
   );
 }
 
-/* Reusable prop validation for Filestack data objects */
-const filestackDataProp = PT.shape({
+/* Reusable prop validation for upload data objects */
+const uploadDataProp = PT.shape({
   filename: PT.string.isRequired,
   mimetype: PT.string.isRequired,
   size: PT.number.isRequired,
@@ -107,9 +107,9 @@ SubmissionsPage.propTypes = {
   setFilePickerError: PT.func.isRequired,
   setFilePickerFileName: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
-  setSubmissionFilestackData: PT.func.isRequired,
+  setSubmissionUploadData: PT.func.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
-  submissionFilestackData: filestackDataProp.isRequired,
+  submissionUploadData: uploadDataProp.isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
   phases: PT.arrayOf(PT.object).isRequired,

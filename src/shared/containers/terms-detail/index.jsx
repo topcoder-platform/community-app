@@ -2,7 +2,7 @@
  * This container component load data into its state, and pass them to children via props.
  * Also it defines all necessary handlers to pass to the children.
  */
-/* global window */
+
 
 import React from 'react';
 import PT from 'prop-types';

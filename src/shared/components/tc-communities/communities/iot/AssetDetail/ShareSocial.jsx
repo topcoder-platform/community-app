@@ -1,6 +1,6 @@
 
-/* global document window */
-/* eslint-disable jsx-a11y/href-no-hash */
+
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React from 'react';
 

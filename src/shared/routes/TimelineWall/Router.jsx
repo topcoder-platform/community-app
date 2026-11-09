@@ -1,4 +1,4 @@
-/* global document window */
+
 
 import React from 'react';
 

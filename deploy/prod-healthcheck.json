@@ -1,0 +1,14 @@
+{
+  "community-app": {
+    "command": [
+      "CMD",
+      "node",
+      "-e",
+      "const r=require('node:http').get('http://127.0.0.1:3000/',r=>{r.resume();process.exit(r.statusCode>=200&&r.statusCode<300?0:1)});r.setTimeout(4000,()=>{r.destroy();process.exit(1)});r.on('error',()=>process.exit(1))"
+    ],
+    "interval": 30,
+    "timeout": 5,
+    "retries": 3,
+    "startPeriod": 120
+  }
+}

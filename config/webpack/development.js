@@ -1,13 +1,14 @@
 const path = require('path');
-const configFactory = require('topcoder-react-utils/config/webpack/app-development');
 
 const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
+const webpackMerge = require('webpack-merge').merge;
 
+const configFactory = require('./app-base');
 const defaultConfig = require('./default');
 
 const standardDevelopmentConfig = configFactory({
   context: path.resolve(__dirname, '../..'),
+  mode: 'development',
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
@@ -27,4 +28,4 @@ standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
   PUBLIC_PATH: JSON.stringify('/api/cdn/public/static-assets'),
 }));
 
-module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);
+module.exports = webpackMerge(standardDevelopmentConfig, defaultConfig);

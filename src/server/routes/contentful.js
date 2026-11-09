@@ -3,7 +3,8 @@
  */
 
 import express from 'express';
-import { middleware } from 'tc-core-library-js';
+import { createJwtAuthenticator } from 'tc-core-library-js';
+import { rateLimit } from 'express-rate-limit';
 import config from 'config';
 import _ from 'lodash';
 import {
@@ -14,9 +15,12 @@ import { getPayloadAssetUrl } from '../services/cms-urls';
 
 const cors = require('cors');
 
-const authenticator = middleware.jwtAuthenticator;
+const authenticator = createJwtAuthenticator;
 const authenticatorOptions = _.pick(config.SECRET.JWT_AUTH, ['AUTH_SECRET', 'VALID_ISSUERS']);
 const routes = express.Router();
+routes.use(rateLimit({
+  windowMs: 60 * 1000, limit: 120, standardHeaders: true, legacyHeaders: false,
+}));
 
 // Enables CORS on those routes according config above
 // ToDo configure CORS for set of our trusted domains

@@ -2,7 +2,6 @@
  * This module contains a reducer for tc-communities related state
  */
 
-/* global alert */
 
 import _ from 'lodash';
 import actions from 'actions/tc-communities';

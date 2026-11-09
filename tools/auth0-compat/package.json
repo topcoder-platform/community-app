@@ -1,0 +1,8 @@
+{
+  "name": "@topcoder/auth0-compat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Legacy Topcoder social-signin callback backed by the patched Auth0 WebAuth SDK",
+  "main": "index.cjs",
+  "dependencies": { "auth0-engine": "npm:auth0-js@10.3.0" }
+}

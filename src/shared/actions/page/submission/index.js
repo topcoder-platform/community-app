@@ -53,7 +53,7 @@ export default createActions({
       SET_FILE_PICKER_UPLOAD_PROGRESS: (id, progress) => ({ id, progress }),
       SET_FILE_PICKER_DRAGGED: (id, dragged) => ({ id, dragged }),
       UPDATE_NOTES_LENGTH: length => length,
-      SET_SUBMISSION_FILESTACK_DATA: data => data,
+      SET_SUBMISSION_UPLOAD_DATA: data => data,
     },
   },
 });

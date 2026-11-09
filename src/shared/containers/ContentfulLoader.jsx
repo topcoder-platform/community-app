@@ -452,16 +452,14 @@ function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(a.getContentInit(uuid, contentId, target, preview, spaceName, environment));
       const action = a.getContentDone(uuid, contentId, target, preview, spaceName, environment);
-      dispatch(action);
-      return action.payload;
+      return Promise.resolve(dispatch(action)).then(() => action.payload);
     },
     queryContent: (queryId, query, target, preview, spaceName, environment) => {
       const uuid = shortId();
       const q = _.isObject(query) ? query : null;
       dispatch(a.queryContentInit(uuid, queryId, target, preview, spaceName, environment));
       const action = a.queryContentDone(uuid, queryId, target, q, preview, spaceName, environment);
-      dispatch(action);
-      return action.payload;
+      return Promise.resolve(dispatch(action)).then(() => action.payload);
     },
   };
 }

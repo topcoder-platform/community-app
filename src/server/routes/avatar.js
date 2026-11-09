@@ -11,8 +11,8 @@ router.use((req, res, next) => {
 
 router.use('/:path', async (req, res, next) => {
   try {
-    const path = decodeURIComponent(req.params.path);
-    const size = Number(req.query.size);
+    const { path } = req.params;
+    const { size } = req.query;
     res.send(await getAvatar(path, size));
   } catch (err) { next(err); }
 });

@@ -216,7 +216,7 @@ function renderToken(tokens, index, md) {
     case 'code_inline':
       if (token.info && hljs.getLanguage(token.info)) {
         try {
-          return ReactHtmlParser(`<code>${hljs.highlight(token.info, token.content, true).value}</code>`);
+          return ReactHtmlParser(`<code>${hljs.highlight(token.content, { language: token.info, ignoreIllegals: true }).value}</code>`);
         } catch (__) { return _.noop(); }
       } else {
         try {
