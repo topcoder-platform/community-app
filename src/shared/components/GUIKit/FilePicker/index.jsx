@@ -1,5 +1,5 @@
 /**
- * GUIKit FilePicker based on filestack-react
+ * GUIKit FilePicker local file input
  */
 
 import React from 'react';
@@ -9,9 +9,9 @@ import Dropzone from 'react-dropzone';
 import './styles.scss';
 
 /**
- * FilestackFilePicker component
+ * LocalFilePicker component
  */
-function FilestackFilePicker({
+function LocalFilePicker({
   onFilePick,
   btnText,
   infoText,
@@ -52,7 +52,7 @@ function FilestackFilePicker({
   );
 }
 
-FilestackFilePicker.defaultProps = {
+LocalFilePicker.defaultProps = {
   infoText: '',
   btnText: 'SELECT A FILE',
   options: {},
@@ -64,7 +64,7 @@ FilestackFilePicker.defaultProps = {
 /**
  * Prop Validation
  */
-FilestackFilePicker.propTypes = {
+LocalFilePicker.propTypes = {
   infoText: PT.string,
   btnText: PT.string,
   onFilePick: PT.func.isRequired,
@@ -74,4 +74,4 @@ FilestackFilePicker.propTypes = {
   file: PT.shape(),
 };
 
-export default FilestackFilePicker;
+export default LocalFilePicker;

@@ -199,13 +199,8 @@ module.exports = {
    */
   SEARCH_TIMEOUT: 30 * 1000,
 
-  /* Filestack configuration for uploading Submissions
-   * These are for the development back end */
-  FILESTACK: {
-    API_KEY: 'AzFINuQoqTmqw0QEoaw9az',
-    REGION: 'us-east-1',
-    SUBMISSION_CONTAINER: 'topcoder-dev-submissions-dmz',
-  },
+  /* Authenticated Uppy S3 signing API; defaults to API.V6/reviews/uploads. */
+  UPLOADS_API_URL: '',
 
   /* Secret part of the configuration. Nest into this section any sensitive
    * parameters that should never be send to the client side. */

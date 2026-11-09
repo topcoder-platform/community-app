@@ -229,3 +229,9 @@ java -Djava.awt.headless=true -cp "$JMETER_DIR/lib/*:$JMETER_DIR/lib/ext/*:$JMET
 ```
 
 This parses the existing plan and makes one HTTP request to a fixture bound to `127.0.0.1`; it does not execute the plan's samplers.
+
+### Submission uploads
+
+ZIP submissions use Uppy 6.0 (`@uppy/core` 6.0.2 and `@uppy/aws-s3` 6.0.0) with a local file input, progress and cancellation. ZIPs are limited to 500 MiB. Topgear URL submissions remain available. Filestack credentials and packages are no longer used.
+
+`UPLOADS_API_URL` optionally overrides `${API.V6}/reviews/uploads`. Deploy the Review API upload endpoints and configure their S3 buckets, persistent signing secret and CORS before deploying this frontend. The API chooses the existing submission DMZ bucket; the browser never supplies AWS credentials or chooses arbitrary destinations. Submission creation, virus scanning and authorization still use the existing Review API flow.
