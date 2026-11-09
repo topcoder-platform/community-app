@@ -7,7 +7,7 @@ export default async function uploadSubmission(file, token, challengeId, onProgr
   if (!file.size || file.size > 500 * 1024 * 1024) throw new Error('Choose a ZIP between 1 byte and 500 MB.');
   const cancelled = () => new DOMException('Upload cancelled.', 'AbortError');
   if (signal.aborted) throw cancelled();
-  const apiUrl = config.UPLOADS_API_URL || `${config.API.V6}/reviews/uploads`;
+  const apiUrl = config.UPLOADS_API_URL || `${config.API.V6}/uploads/files`;
   const post = async (path, body, requestSignal) => {
     const response = await fetch(`${apiUrl}/${path}`, {
       method: 'POST',
