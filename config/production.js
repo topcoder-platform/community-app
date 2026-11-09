@@ -73,7 +73,7 @@ module.exports = {
 
   REVIEW_APP_URL: 'https://review.topcoder.com',
 
-  /* Authenticated Uppy S3 signing API; defaults to API.V6/reviews/uploads. */
+  /* Authenticated Uppy S3 signing API; defaults to API.V6/uploads/files. */
   UPLOADS_API_URL: '',
 
   ACCOUNT_MENU_SWITCH_TEXT: {
