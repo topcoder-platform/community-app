@@ -190,7 +190,7 @@ module.exports = {
    */
   SEARCH_TIMEOUT: 30 * 1000,
 
-  /* Authenticated Uppy S3 signing API; defaults to API.V6/reviews/uploads. */
+  /* Authenticated Uppy S3 signing API; defaults to API.V6/uploads/files. */
   UPLOADS_API_URL: '',
 
   /* Secret part of the configuration. Nest into this section any sensitive
