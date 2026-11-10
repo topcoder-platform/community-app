@@ -19,7 +19,8 @@ import serializeJs from 'serialize-javascript';
 import { DoSSR } from 'utils/SSR';
 
 import { factory as reducerFactory } from 'reducers';
-import { redux, server as serverFactory } from 'topcoder-react-utils';
+import { redux } from 'topcoder-react-utils';
+import serverFactory from './server-launch';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 import { promisify } from 'util';
@@ -315,7 +316,8 @@ async function onExpressJsSetup(server) {
    * for such conversion works only in the node :(
    */
   server.use('/community-app-assets/api/xml2json', checkAuthorizationHeader, (req, res) => {
-    xmlToJson(req.body.xml).then(json => res.json(json));
+    xmlToJson(req.body.xml).then(json => res.json(json))
+      .catch(() => res.status(400).json({ message: 'Invalid XML document' }));
   });
 
   /* Proxy endpoint for GET requests (to fetch data from resources prohibiting
@@ -362,6 +364,13 @@ async function onExpressJsSetup(server) {
    * path on the server. The easiest solution for now is to keep this route
    * for static assets. */
   const url = path.resolve(__dirname, '../../build');
+  server.get('/community-app-assets/auth0-popup', (req, res) => {
+    const authConfig = serializeJs({
+      domain: config.AUTH0.DOMAIN, clientID: config.AUTH0.CLIENT_ID,
+    }, { isJSON: true });
+    res.set('Cache-Control', 'no-store');
+    res.type('html').send(`<!doctype html><html><head><title>Complete sign in</title></head><body><script type="application/json" id="auth0-popup-config">${authConfig}</script><script src="/community-app-assets/auth0-popup.js"></script></body></html>`);
+  });
   server.use('/community-app-assets', express.static(url));
 
   /* Serve sw.js */

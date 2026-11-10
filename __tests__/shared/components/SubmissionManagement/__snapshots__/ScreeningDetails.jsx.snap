@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Snapshot match 1`] = `
 <div
@@ -9,9 +9,7 @@ exports[`Snapshot match 1`] = `
   >
     <p
       className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG"
-    >
-      
-    </p>
+    />
   </div>
   <p>
     Your submission has been received and may undergo AI-assisted review during Submission phase. Results will be available for inspection in the review app and final evaluation occurs during Review phase.

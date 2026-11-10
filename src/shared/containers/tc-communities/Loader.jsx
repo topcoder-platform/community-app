@@ -5,7 +5,6 @@
  * - Either renders community content, or the access denied page.
  */
 
-/* global window */
 
 import _ from 'lodash';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';

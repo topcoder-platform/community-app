@@ -1,9 +1,9 @@
 /**
- * components.page.challenge-details.FilestackFilePicker
+ * components.page.challenge-details.SubmissionFilePicker
  * <FilePicker> Component
  *
  * Description:
- *   Component for uploading a file using Filestack Picker
+ *   Component for uploading a file using Uppy S3
  *   and Drag + Drop, or accepting a URL for Topgear submissions.
  *   Does not store the file contents in form.  Instead,
  *   uploads file to S3 storage container and sets the
@@ -14,21 +14,17 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { client as filestack } from 'filestack-react';
+import uploadSubmission from 'services/s3Upload';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import { errors } from 'topcoder-react-lib';
 
 import style from './styles.scss';
 
-const { fireErrorMessage } = errors;
-
-const SUBMISSION_PICKER_SOURCES = ['local_file_system'];
 
 /**
- * FilestackFilePicker component
+ * SubmissionFilePicker component
  */
-class FilestackFilePicker extends React.Component {
+class SubmissionFilePicker extends React.Component {
   constructor(props) {
     super(props);
     this.onSuccess = this.onSuccess.bind(this);
@@ -36,6 +32,7 @@ class FilestackFilePicker extends React.Component {
     this.onUpdateInputUrl = this.onUpdateInputUrl.bind(this);
 
     this.state = {
+      uploading: false,
       inputUrl: '',
       invalidUrl: false,
       invalidDomain: false,
@@ -49,15 +46,19 @@ class FilestackFilePicker extends React.Component {
       setDragged,
     } = this.props;
 
-    this.filestack = filestack.init(config.FILESTACK.API_KEY);
 
     setFileName('');
     setError('');
     setDragged(false);
   }
 
+  componentWillUnmount() {
+    this.unmounted = true;
+    if (this.uploadAbort) this.uploadAbort.abort();
+  }
+
   /* Called when a file is successfully stored in the S3 container */
-  onSuccess(file, filePath) {
+  onSuccess(file) {
     const {
       filename,
       mimetype,
@@ -66,21 +67,22 @@ class FilestackFilePicker extends React.Component {
       container,
       source,
       originalPath,
+      url,
     } = file;
     const {
       setFileName,
-      setFilestackData,
+      setUploadData,
       challengeId,
       isChallengeBelongToTopgearGroup,
     } = this.props;
     // container doesn't seem to get echoed from Drag and Drop
-    const cont = container || config.FILESTACK.SUBMISSION_CONTAINER;
+    const cont = container || '';
     // In case of url we need to submit the original url not the S3
-    const fileUrl = source === 'url' ? originalPath : `https://s3.amazonaws.com/${cont}/${filePath}`;
+    const fileUrl = source === 'url' ? originalPath : url;
 
     setFileName(filename);
 
-    const fileStackData = {
+    const uploadData = {
       filename,
       challengeId,
       fileUrl,
@@ -91,10 +93,10 @@ class FilestackFilePicker extends React.Component {
     };
 
     if (isChallengeBelongToTopgearGroup) {
-      fileStackData.fileType = 'url';
+      uploadData.fileType = 'url';
     }
 
-    setFilestackData(fileStackData);
+    setUploadData(uploadData);
   }
 
   onClickPick() {
@@ -107,13 +109,13 @@ class FilestackFilePicker extends React.Component {
     } = this.state;
 
     if (!isChallengeBelongToTopgearGroup) {
+      if (this.fileInput) this.fileInput.click();
       return;
     }
     const validUrl = this.isValidUrl(inputUrl);
     const validDomain = this.isDomainAllowed(inputUrl);
     if (validUrl && validDomain) {
       this.setState({ invalidUrl: false, invalidDomain: false });
-      const path = this.generateFilePath();
       const filename = inputUrl.substring(inputUrl.lastIndexOf('/') + 1);
       setDragged(false);
       this.onSuccess({
@@ -123,7 +125,7 @@ class FilestackFilePicker extends React.Component {
         size: 0,
         key: '',
         originalPath: inputUrl,
-      }, path);
+      });
     } else {
       this.setState({ invalidUrl: true, invalidDomain: !validDomain });
     }
@@ -133,23 +135,54 @@ class FilestackFilePicker extends React.Component {
     this.setState({ inputUrl: e.target.value });
   }
 
+  async uploadFile(file) {
+    if (!file) return;
+    if (this.uploadAbort) this.uploadAbort.abort();
+    const uploadAbort = new AbortController();
+    this.uploadAbort = uploadAbort;
+    const {
+      setError, setUploadProgress, setUploadData, setFileName, tokenV3, challengeId,
+    } = this.props;
+    setError('');
+    setUploadData({
+      filename: '', mimetype: '', size: 0, key: '', container: '',
+    });
+    setFileName(file.name);
+    setUploadProgress(0);
+    this.setState({ uploading: true });
+    try {
+      const result = await uploadSubmission(file, tokenV3, challengeId, (percent) => {
+        if (!this.unmounted && !uploadAbort.signal.aborted) setUploadProgress(percent);
+      }, uploadAbort.signal);
+      if (!this.unmounted && !uploadAbort.signal.aborted) this.onSuccess(result);
+    } catch (error) {
+      if (!this.unmounted && error.name !== 'AbortError') {
+        setError(error.message || 'File upload failed. Please try again.');
+        setFileName('');
+        setUploadProgress(null);
+      }
+    } finally {
+      if (!this.unmounted && this.uploadAbort === uploadAbort) this.setState({ uploading: false });
+    }
+  }
+
   /* eslint-disable class-methods-use-this */
   isValidUrl(url) {
-    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url); /* eslint-disable-line no-useless-escape */
+    if (typeof url !== 'string' || url.length > 4096) return false;
+    try {
+      const parsed = new URL(url);
+      return ['https:', 'http:'].includes(parsed.protocol)
+        && !parsed.username && !parsed.password && parsed.hostname.includes('.');
+    } catch (error) { return false; }
   }
 
   isDomainAllowed(url) {
-    const domainReg = new RegExp(`^https?://(${config.TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS})/.+`);
-    return !!url.match(domainReg);
-  }
-
-  /**
-   * Returns the path where the picked up file should be stored.
-   * @return {String}
-   */
-  generateFilePath() {
-    const { userId, challengeId } = this.props;
-    return `${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
+    try {
+      const parsed = new URL(url);
+      const domains = config.TOPGEAR_ALLOWED_SUBMISSIONS_DOMAINS.split('|');
+      return parsed.protocol === 'https:' && !parsed.username && !parsed.password
+        && domains.includes(parsed.hostname) && parsed.pathname.length > 1;
+    } catch (error) { return false; }
   }
 
   render() {
@@ -160,9 +193,10 @@ class FilestackFilePicker extends React.Component {
       error,
       dragged,
       setDragged,
+      uploadProgress,
+      setError,
       setFileName,
       setUploadProgress,
-      uploadProgress,
       isChallengeBelongToTopgearGroup,
     } = this.props;
 
@@ -170,6 +204,7 @@ class FilestackFilePicker extends React.Component {
       invalidUrl,
       invalidDomain,
       inputUrl,
+      uploading,
     } = this.state;
 
     return (
@@ -235,77 +270,54 @@ class FilestackFilePicker extends React.Component {
             {isChallengeBelongToTopgearGroup ? 'Set URL' : 'SELECT A FILE'}
           </PrimaryButton>
           {!isChallengeBelongToTopgearGroup && (
-            <div
-              onClick={() => {
-                const path = this.generateFilePath();
-                this.filestack.picker({
-                  accept: fileExtensions,
-                  fromSources: SUBMISSION_PICKER_SOURCES,
-                  maxSize: 500 * 1024 * 1024,
-                  onFileUploadFailed: () => setDragged(false),
-                  onFileUploadFinished: (file) => {
-                    setDragged(false);
-                    this.onSuccess(file, path);
-                  },
-                  startUploadingWhenMaxFilesReached: true,
-                  storeTo: {
-                    container: config.FILESTACK.SUBMISSION_CONTAINER,
-                    path,
-                    region: config.FILESTACK.REGION,
-                  },
-                }).open();
-              }}
-              onKeyPress={() => {
-                const path = this.generateFilePath();
-                this.filestack.picker({
-                  accept: fileExtensions,
-                  fromSources: SUBMISSION_PICKER_SOURCES,
-                  maxSize: 500 * 1024 * 1024,
-                  onFileUploadFailed: () => setDragged(false),
-                  onFileUploadFinished: (file) => {
-                    setDragged(false);
-                    this.onSuccess(file, path);
-                  },
-                  startUploadingWhenMaxFilesReached: true,
-                  storeTo: {
-                    container: config.FILESTACK.SUBMISSION_CONTAINER,
-                    path,
-                    region: config.FILESTACK.REGION,
-                  },
-                }).open();
-              }}
-              onDragEnter={() => setDragged(true)}
-              onDragLeave={() => setDragged(false)}
-              onDragOver={e => e.preventDefault()}
-              onDrop={(e) => {
-                setDragged(false);
-                e.preventDefault();
-                const path = this.generateFilePath();
-                const filename = e.dataTransfer.files[0].name;
-                if (!fileExtensions.some(ext => filename.endsWith(ext))) {
-                  return fireErrorMessage('Wrong file type!', '');
-                }
-                setFileName(e.dataTransfer.files[0].name);
-                setUploadProgress(0);
-                this.filestack.upload(e.dataTransfer.files[0], {
-                  onProgress: ({ totalPercent }) => {
-                    setUploadProgress(totalPercent);
-                  },
-                  progressInterval: 1000,
-                }, {
-                  container: config.FILESTACK.SUBMISSION_CONTAINER,
-                  path,
-                  region: config.FILESTACK.REGION,
-                }).then(file => this.onSuccess(file, path));
-                return undefined;
-              }}
-              role="tab"
-              styleName="drop-zone-mask"
-              tabIndex={0}
-              aria-label="Select file to upload"
-            />
+            <React.Fragment>
+              <input
+                type="file"
+                accept=".zip"
+                hidden
+                aria-label="Choose ZIP submission"
+                ref={(input) => { this.fileInput = input; }}
+                onChange={(event) => {
+                  const file = event.target.files[0];
+                  const input = event.target;
+                  input.value = '';
+                  this.uploadFile(file);
+                }}
+              />
+              <div
+                onClick={() => this.fileInput.click()}
+                onKeyPress={() => this.fileInput.click()}
+                onDragEnter={() => setDragged(true)}
+                onDragLeave={() => setDragged(false)}
+                onDragOver={event => event.preventDefault()}
+                onDrop={(event) => {
+                  event.preventDefault();
+                  setDragged(false);
+                  if (event.dataTransfer.files.length !== 1) {
+                    setError('Choose one ZIP file.');
+                    return;
+                  }
+                  this.uploadFile(event.dataTransfer.files[0]);
+                }}
+                role="button"
+                styleName="drop-zone-mask"
+                tabIndex={0}
+                aria-label="Select file to upload"
+              />
+            </React.Fragment>
           )}
         </div>
+        {uploading && (
+          <button
+            type="button"
+            onClick={() => {
+              if (this.uploadAbort) this.uploadAbort.abort();
+              setFileName('');
+              setUploadProgress(null);
+            }}
+          >Cancel upload
+          </button>
+        )}
         {
           error
           && (
@@ -319,7 +331,7 @@ class FilestackFilePicker extends React.Component {
   }
 }
 
-FilestackFilePicker.defaultProps = {
+SubmissionFilePicker.defaultProps = {
   error: '',
   fileName: '',
   uploadProgress: null,
@@ -329,9 +341,9 @@ FilestackFilePicker.defaultProps = {
 /**
  * Prop Validation
  */
-FilestackFilePicker.propTypes = {
+SubmissionFilePicker.propTypes = {
+  tokenV3: PT.string.isRequired,
   error: PT.string,
-  userId: PT.string.isRequired,
   challengeId: PT.string.isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
@@ -341,9 +353,9 @@ FilestackFilePicker.propTypes = {
   setUploadProgress: PT.func.isRequired,
   dragged: PT.bool.isRequired,
   setDragged: PT.func.isRequired,
-  setFilestackData: PT.func.isRequired,
+  setUploadData: PT.func.isRequired,
   uploadProgress: PT.number,
   isChallengeBelongToTopgearGroup: PT.bool,
 };
 
-export default FilestackFilePicker;
+export default SubmissionFilePicker;

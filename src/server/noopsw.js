@@ -1,4 +1,4 @@
-/* global self */
+
 /* eslint-disable no-restricted-globals */
 
 // A simple, no-op service worker that takes immediate control.

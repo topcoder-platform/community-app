@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Matches shallow shapshot 1`] = `
 <div>
@@ -84,9 +84,7 @@ exports[`Matches shallow shapshot 2`] = `
 exports[`Matches shallow shapshot 3`] = `
 <div
   className="src-shared-components-tc-communities-JoinCommunity-___style__placeholder___1XfW2"
->
-  
-</div>
+/>
 `;
 
 exports[`Matches shallow shapshot 4`] = `

@@ -2,7 +2,6 @@
  * Various URL-related functions.
  */
 
-/* global window */
 
 import _ from 'lodash';
 import qs from 'qs';

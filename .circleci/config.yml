@@ -1,225 +1,169 @@
 version: 2.1
-parameters:
-  run_basedeployment:
-    default: true
-    type: boolean
-  run_smoketesting:
-    default: false
-    type: boolean
-  run_performancetesting:
-    default: false
-    type: boolean
-
-defaults: &defaults
-  docker:
-    - image: docker:20.10.21-git
-      environment:
-        ENV: $BASH_ENV
-
-install_dependency: &install_dependency
-  name: Installation of build and deployment dependencies.
-  command: |
-    apk update
-    apk add --no-cache bash openssl curl
-    apk upgrade
-    apk add --no-cache jq py-pip sudo
-    sudo pip install awscli --upgrade
-
-install_deploysuite: &install_deploysuite
-  name: Installation of install_deploysuite.
-  command: |
-    git clone --branch v1.4.17 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-    cp ./../buildscript/master_deploy.sh .
-    cp ./../buildscript/buildenv.sh .
-    cp ./../buildscript/awsconfiguration.sh .
-    cp ./../buildscript/psvar-processor.sh .
-restore_cache_settings_for_build: &restore_cache_settings_for_build
-  key: docker-node-modules-v4-{{ checksum "package-lock.json" }}
-
-save_cache_settings: &save_cache_settings
-  key: docker-node-modules-v4-{{ checksum "package-lock.json" }}
-  paths:
-    - node_modules
-
-build_docker_image: &build_docker_image
-  name: Build of Docker image
-  command: |
-    source buildvar_env
-    ./build.sh
-  no_output_timeout: 20m
-
-build_steps: &build_steps # Initialization.
-  - checkout
-  - setup_remote_docker
-  - run: *install_dependency
-  - run: *install_deploysuite
-  # Restoration of node_modules from cache.
-  # - restore_cache: *restore_cache_settings_for_build
-  # Build of Docker image.
-  - run:
-      name: "configuring environment"
-      command: |
-        ./awsconfiguration.sh ${DEPLOY_ENV}
-        source awsenvconf
-        ./psvar-processor.sh -t appenv -p /config/${APPNAME}/buildvar
-        source buildvar_env
-        # ./buildenv.sh -e ${DEPLOY_ENV} -b dev_communityapp_buildvar,dev_communityapp_deployvar -l dev_communityapp_buildvar_ps
-  - run: *build_docker_image
-  # Caching node modules.
-  # - save_cache: *save_cache_settings
-  # Deployment.
-  - deploy:
-      name: Running MasterScript
-      command: |
-        source awsenvconf
-        # source buildenvvar
-        ./psvar-processor.sh -t appenv -p /config/${APPNAME}/deployvar
-        source deployvar_env
-        ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -j /config/${APPNAME}/appvar -i ${APPNAME} -p FARGATE
-        # ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp -p FARGATE
-        if [ "${DEPLOY_ENV}" = "PROD" ]; 
-        then
-            # Executing plan
-            curl --request POST \
-            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-            --header "Circle-Token: ${CIRCLE_TOKEN}" \
-            --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
-        fi
-
-jobs:
-  # Build & Deploy against development backend
-  "build-dev":
-    <<: *defaults
-    environment:
-      DEPLOY_ENV: "DEV"
-      LOGICAL_ENV: "dev"
-      APPNAME: "community-app"
-    steps: *build_steps
-
-  # Build & Deploy against production backend
-  "build-prod":
-    <<: *defaults
-    environment:
-      DEPLOY_ENV: "PROD"
-      LOGICAL_ENV: "prod"
-      APPNAME: "community-app"
-    steps: *build_steps
-
-  # Test job for the cases when we do not need deployment. It just rapidly
-  # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
-  # Jest unit-tests).
-  test:
+executors:
+  reviewed:
     docker:
-      - image: circleci/node:10.24.1
+    - image: cimg/aws@sha256:4cf3768db00ddf9bc439b8c84e8a60c11a14edf81c8baf76f74132144f8340d5
+commands:
+  checkout-source:
     steps:
-      - checkout
-      - restore_cache:
-          key: test-node-modules-{{ checksum "package-lock.json" }}
-      - run:
-          name: Config Git
-          command: git config --global url."https://git@".insteadOf git://
-      - run:
-          name: App npm install
-          command: npm ci
-          no_output_timeout: 20m
-      - save_cache:
-          key: test-node-modules-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-      - run: npm test
+    - run:
+        name: Check out the exact public source commit over HTTPS
+        command: |
+          set -euo pipefail
+          [[ "$CIRCLE_SHA1" =~ ^[0-9a-f]{40}$ ]]
+          export GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_TERMINAL_PROMPT=0
+          git init --quiet .
+          git remote add origin https://github.com/topcoder-platform/community-app.git
+          git -c credential.helper= fetch --quiet --depth 1 origin "$CIRCLE_SHA1"
+          git checkout --quiet --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
+  checkout-suite:
+    steps:
+    - run:
+        name: Verify deployment suite v2.0.10
+        command: 'set -euo pipefail
 
+          git init --quiet /tmp/tc-deploy-scripts
+
+          git -C /tmp/tc-deploy-scripts remote add origin https://github.com/topcoder-platform/tc-deploy-scripts.git
+
+          git -C /tmp/tc-deploy-scripts fetch --quiet --depth 1 origin refs/tags/v2.0.10
+
+          git -C /tmp/tc-deploy-scripts checkout --quiet --detach FETCH_HEAD
+
+          test "$(git -C /tmp/tc-deploy-scripts rev-parse HEAD)" = e81a6772a33819c1b57c88a95d04494e59c559b8
+
+          '
+jobs:
+  build:
+    executor: reviewed
+    steps:
+    - checkout-source
+    - setup_remote_docker
+    - checkout-suite
+    - run:
+        name: Build committed source without AWS or broker credentials
+        command: 'set -euo pipefail
+
+          target=development
+
+          if [ "${CIRCLE_BRANCH}" = master ]; then target=production; fi
+
+          python3 -I /tmp/tc-deploy-scripts/build_image.py --target "$target" --dockerfile Dockerfile --image community-app:candidate
+
+          mkdir -p /tmp/release
+
+          docker save --output /tmp/release/image.tar community-app:candidate
+
+          '
+        no_output_timeout: 30m
+    - persist_to_workspace:
+        root: /tmp/release
+        paths:
+        - image.tar
+  deploy:
+    executor: reviewed
+    parameters:
+      environment:
+        type: enum
+        enum:
+        - dev
+        - prod
+    environment:
+      DEPLOY_ENV: << parameters.environment >>
+    steps:
+    - checkout-source
+    - setup_remote_docker
+    - checkout-suite
+    - attach_workspace:
+        at: /tmp/release
+    - run:
+        name: Promote a scanned digest with repository-bound OIDC
+        command: 'set +x
+
+          set -euo pipefail
+
+          test -f "deploy/${DEPLOY_ENV}.json"
+
+          docker load --input /tmp/release/image.tar
+
+          python3 -I deploy/release.py "deploy/${DEPLOY_ENV}.json"
+
+          '
+        no_output_timeout: 45m
   Performance-Testing:
     docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+    - image: maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
     working_directory: ~/repo
-
     environment:
-      # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
-
     steps:
-      - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn verify
-
-      - store_artifacts:
-          path: target/jmeter/reports
-
+    - checkout-source
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "pom.xml" }}
+        - v1-dependencies-
+    - run: mvn dependency:go-offline
+    - save_cache:
+        paths:
+        - ~/.m2
+        key: v1-dependencies-{{ checksum "pom.xml" }}
+    - run: mvn verify
+    - store_artifacts:
+        path: target/jmeter/reports
 workflows:
-  version: 2
-  Build:
-    when: << pipeline.parameters.run_basedeployment >>
+  release:
     jobs:
-      # Development builds are executed on "new-develop" branch only.
-      - "build-dev":
-          context: org-global
-          filters:
-            branches:
-              only:
-                - develop
-                - PM-3686_group-submissions-in-challenge-details
-                - payload-cms
-
-      - "build-prod":
-          context: org-global
-          filters: &filters-prod
-            branches:
-              only:
-                - master
-      # Simple testing is executed for any branch other than "develop" and
-      # "master".
-      - test:
-          filters:
-            branches:
-              ignore:
-                - develop
-                - submission_delete_button
-                - v6
-
-  Smoke Testing:
-    when: << pipeline.parameters.run_smoketesting >>
-    jobs:
-      - Hold [Smoke-Testing]:
-          type: approval
-      - Smoke-Testing-On-Production:
-          context: org-global
-          requires:
-            - Hold [Smoke-Testing]
-          filters:
-            <<: *filters-prod
-
-  Performance Testing:
+    - build
+    - deploy:
+        name: deploy-dev
+        environment: dev
+        requires:
+        - build
+        context: community-app-dev-deploy
+        serial-group: << pipeline.project.slug >>/deploy-dev
+        filters:
+          branches:
+            only: develop
+          tags:
+            ignore: /.*/
+    - approve-prod:
+        type: approval
+        requires:
+        - build
+        filters:
+          branches:
+            only: master
+          tags:
+            ignore: /.*/
+    - deploy:
+        name: deploy-prod
+        environment: prod
+        requires:
+        - approve-prod
+        context: community-app-prod-deploy
+        serial-group: << pipeline.project.slug >>/deploy-prod
+        filters:
+          branches:
+            only: master
+          tags:
+            ignore: /.*/
+  performance:
     when: << pipeline.parameters.run_performancetesting >>
     jobs:
-      - Hold [Performance-Testing]:
-          type: approval
-      - Performance-Testing:
-          requires:
-            - Hold [Performance-Testing]
-          filters:
-            branches:
-              only:
-                - master
-                - develop
+    - approve-performance:
+        type: approval
+    - Performance-Testing:
+        requires:
+        - approve-performance
+        filters:
+          branches:
+            only:
+            - develop
+            - master
+          tags:
+            ignore: /.*/
+parameters:
+  run_performancetesting:
+    type: boolean
+    default: false

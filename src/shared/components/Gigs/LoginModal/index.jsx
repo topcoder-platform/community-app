@@ -3,7 +3,6 @@
  * The modal used for login enforcing
  */
 
-/* global window */
 
 import PT from 'prop-types';
 import React from 'react';

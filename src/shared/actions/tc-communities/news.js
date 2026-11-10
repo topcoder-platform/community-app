@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { toJson } from 'utils/xml2json';
 import { createActions } from 'redux-actions';
 
-/* global fetch */
+
 import 'isomorphic-fetch';
 
 /**

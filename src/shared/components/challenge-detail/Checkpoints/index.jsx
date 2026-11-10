@@ -1,4 +1,4 @@
-/* global document */
+
 import React from 'react';
 import PT from 'prop-types';
 

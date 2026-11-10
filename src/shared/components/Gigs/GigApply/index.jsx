@@ -14,7 +14,7 @@ import Checkbox from 'components/GUIKit/Checkbox';
 import { getCustomField } from 'utils/gigs';
 import { getMemberProfileUrl } from 'utils/url';
 import Modal from 'components/Contentful/Modal';
-import FilestackFilePicker from 'components/GUIKit/FilePicker';
+import LocalFilePicker from 'components/GUIKit/FilePicker';
 import Dropdown from 'components/GUIKit/Dropdown';
 import LoadingIndicator from 'components/LoadingIndicator';
 import './style.scss';
@@ -271,7 +271,7 @@ export default function GigApply(props) {
                     )
                   }
                   <div styleName="form-section">
-                    <FilestackFilePicker
+                    <LocalFilePicker
                       file={formData.fileCV}
                       onFilePick={files => onFormInputChange('fileCV', files[0])}
                       inputOptions={{

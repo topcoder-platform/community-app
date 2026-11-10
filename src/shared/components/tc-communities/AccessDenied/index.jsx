@@ -1,4 +1,4 @@
-/* global window */
+
 
 import _ from 'lodash';
 import { PrimaryButton } from 'topcoder-react-ui-kit';

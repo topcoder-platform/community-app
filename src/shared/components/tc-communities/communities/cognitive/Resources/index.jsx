@@ -121,16 +121,14 @@ export default function Resources({
             >
               It’s easy!
               &zwnj;
-              {
-                <a
-                  href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  styleName="style.link"
-                >
-                  Click here
-                </a>
-              }
+              <a
+                href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
+                target="_blank"
+                rel="noopener noreferrer"
+                styleName="style.link"
+              >
+                Click here
+              </a>
               {' '}
               to get an IBM Cloud account.
             </FaqItem>

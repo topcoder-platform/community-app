@@ -44,7 +44,7 @@ const BadgesModal = ({
             </span>
             <span styleName="styles.divider">
               {' '}
-              {'//'}
+              {'//'}{/* eslint-disable-line react/jsx-curly-brace-presence */}
               {' '}
             </span>
             <span styleName="styles.title">

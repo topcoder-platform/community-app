@@ -1,7 +1,7 @@
 /**
  * Generic Login Modal Dialog
  */
-/* global window */
+
 
 import PT from 'prop-types';
 import React from 'react';

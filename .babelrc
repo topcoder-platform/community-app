@@ -1,7 +1,3 @@
 {
-  "presets": [
-    ["topcoder-react-utils/config/babel/node-ssr", {
-      "baseAssetsOutputPath": "/community-app-assets"
-    }]
-  ]
+  "presets": [["./config/babel/webpack.js", { "server": true }]]
 }
